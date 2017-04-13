@@ -1151,14 +1151,16 @@ struct Block
 enum GPUShaderType
 {
 	GPUSHADER_VERTEX,
-	GPUSHADER_FRAGMENT
+	GPUSHADER_FRAGMENT,
+	GPUSHADER_GEOMETRY,
+	GPUSHADER_TYPE_COUNT
 };
 
 struct GPUShaderDesc
 {
 	GPUShaderType type;
 	const char *source;
-	int firstLine;
+	int firstLineNumber;
 };
 
 struct GPUProgramDesc
@@ -1261,6 +1263,7 @@ typedef enum
 	UNIFORM_ALPHA_TEST_VALUE,
 
 	UNIFORM_FX_VOLUMETRIC_BASE,
+	UNIFORM_MAPZEXTENTS,
 
 	UNIFORM_COUNT
 } uniform_t;
@@ -1281,8 +1284,6 @@ typedef struct shaderProgram_s
 	char *name;
 
 	GLuint     program;
-	GLuint     vertexShader;
-	GLuint     fragmentShader;
 	uint32_t        attribs;	// vertex array attributes
 
 	// uniform parameters
@@ -1299,6 +1300,16 @@ struct technique_t
 	shaderProgram_t *depthPrepass;
 	shaderProgram_t *shadow;
 	shaderProgram_t *forward;
+};
+
+struct EntityCullInfo
+{
+	uint32_t frustumMask;
+};
+
+struct WorkingScene
+{
+	EntityCullInfo entityCullInfo[MAX_REFENTITIES];
 };
 
 // trRefdef_t holds everything that comes in refdef_t,
@@ -1432,7 +1443,7 @@ SURFACES
 typedef byte color4ub_t[4];
 
 // any changes in surfaceType must be mirrored in rb_surfaceTable[]
-typedef enum {
+typedef enum surfaceType_e{
 	SF_BAD,
 	SF_SKIP,				// ignore
 	SF_FACE,
@@ -1448,6 +1459,7 @@ typedef enum {
 	SF_VBO_MESH,
 	SF_VBO_MDVMESH,
 	SF_SPRITES,
+	SF_WEATHER,
 	SF_REFRACTIVE,
 
 	SF_NUM_SURFACE_TYPES,
@@ -1491,6 +1503,7 @@ typedef struct drawSurf_s {
 // as soon as it is called
 typedef struct srfPoly_s {
 	surfaceType_t	surfaceType;
+	struct srfPoly_s *next;
 	qhandle_t		hShader;
 	int				fogIndex;
 	int				numVerts;
@@ -1517,6 +1530,11 @@ struct srfSprites_t
 
 	int numAttributes;
 	vertexAttribute_t *attributes;
+};
+
+struct srfWeather_t
+{
+	surfaceType_t surfaceType;
 };
 
 typedef struct
@@ -1740,6 +1758,7 @@ typedef struct mnode_s {
 
 typedef struct {
 	vec3_t		bounds[2];		// for culling
+	int			worldIndex;
 	int	        firstSurface;
 	int			numSurfaces;
 } bmodel_t;
@@ -2169,6 +2188,7 @@ typedef struct {
 ** but may read fields that aren't dynamically modified
 ** by the frontend.
 */
+struct weatherSystem_t;
 typedef struct trGlobals_s {
 	qboolean				registered;		// cleared at shutdown, set at beginRegistration
 
@@ -2253,6 +2273,7 @@ typedef struct trGlobals_s {
 	shader_t				*shadowShader;
 	shader_t				*distortionShader;
 	shader_t				*projectionShadowShader;
+	shader_t				*weatherInternalShader;
 
 	shader_t				*flareShader;
 	shader_t				*sunShader;
@@ -2273,6 +2294,8 @@ typedef struct trGlobals_s {
 	trRefEntity_t			*currentEntity;
 	trRefEntity_t			worldEntity;		// point currentEntity at this when rendering world
 	model_t					*currentModel;
+
+	weatherSystem_t			*weatherSystem;
 
 	//
 	// GPU shader programs
@@ -2300,6 +2323,7 @@ typedef struct trGlobals_s {
 	shaderProgram_t dglowDownsample;
 	shaderProgram_t dglowUpsample;
 	shaderProgram_t spriteShader[SSDEF_COUNT];
+	shaderProgram_t weatherShader;
 
 	// -----------------------------------------
 
@@ -2333,6 +2357,9 @@ typedef struct trGlobals_s {
 	//
 	model_t					*models[MAX_MOD_KNOWN];
 	int						numModels;
+
+	world_t					*bspModels[MAX_SUB_BSP];
+	int						numBspModels;
 
 	int						numImages;
 	image_t					*images[MAX_DRAWIMAGES];
@@ -2519,7 +2546,6 @@ extern  cvar_t  *r_baseNormalY;
 extern  cvar_t  *r_baseParallax;
 extern  cvar_t  *r_baseSpecular;
 extern  cvar_t  *r_baseGloss;
-extern  cvar_t  *r_glossType;
 extern  cvar_t  *r_dlightMode;
 extern  cvar_t  *r_pshadowDist;
 extern  cvar_t  *r_recalcMD3Normals;
@@ -2584,7 +2610,7 @@ void R_AddBeamSurfaces( trRefEntity_t *e, int entityNum );
 void R_AddRailSurfaces( trRefEntity_t *e, qboolean isUnderwater );
 void R_AddLightningBoltSurfaces( trRefEntity_t *e );
 
-void R_AddPolygonSurfaces( void );
+void R_AddPolygonSurfaces(const trRefdef_t *refdef);
 
 void R_DecomposeSort( uint32_t sort, shader_t **shader, int *cubemap, int *postRender );
 uint32_t R_CreateSortKey(int sortedShaderIndex, int cubemapIndex, int postRender);
@@ -2635,6 +2661,7 @@ void	GL_DrawIndexed(GLenum primitiveType, int numIndices, int offset,
 						int numInstances, int baseVertex);
 void	GL_MultiDrawIndexed(GLenum primitiveType, int *numIndices,
 							glIndex_t **offsets, int numDraws);
+void	GL_Draw(GLenum primitiveType, int firstVertex, int numVertices, int numInstances);
 
 #define LERP( a, b, w ) ( ( a ) * ( 1.0f - ( w ) ) + ( b ) * ( w ) )
 #define LUMA( red, green, blue ) ( 0.2126f * ( red ) + 0.7152f * ( green ) + 0.0722f * ( blue ) )
@@ -2658,6 +2685,7 @@ qhandle_t	RE_RegisterModel( const char *name );
 qhandle_t	RE_RegisterSkin( const char *name );
 int			RE_GetAnimationCFG(const char *psCFGFilename, char *psDest, int iDestSize);
 void		RE_Shutdown( qboolean destroyWindow );
+world_t		*R_LoadBSP(const char *name, int *bspIndex = nullptr);
 
 qboolean	R_GetEntityToken( char *buffer, int size );
 
@@ -2825,7 +2853,7 @@ WORLD MAP
 */
 
 void R_AddBrushModelSurfaces( trRefEntity_t *e, int entityNum );
-void R_AddWorldSurfaces( void );
+void R_AddWorldSurfaces( viewParms_t *viewParms, trRefdef_t *refdef );
 qboolean R_inPVS(const vec3_t p1, const vec3_t p2, byte *mask);
 
 
@@ -2967,8 +2995,7 @@ GLSL
 */
 
 void GLSL_InitSplashScreenShader();
-int GLSL_BeginLoadGPUShaders(void);
-void GLSL_EndLoadGPUShaders( int startTime );
+void GLSL_LoadGPUShaders();
 void GLSL_ShutdownGPUShaders(void);
 void GLSL_VertexAttribsState(uint32_t stateBits, VertexArraysProperties *vertexArrays);
 void GLSL_VertexAttribPointers(const VertexArraysProperties *vertexArrays);
@@ -3479,6 +3506,12 @@ struct DrawCommand
 			GLsizei numIndices;
 			glIndex_t firstIndex;
 		} indexed;
+
+		struct DrawArrays
+		{
+			glIndex_t firstVertex;
+			GLsizei numVertices;
+		} arrays;
 	} params;
 };
 

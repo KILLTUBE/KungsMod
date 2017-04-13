@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 // tr_main.c -- main control flow for each frame
 
 #include "tr_local.h"
+#include "tr_weather.h"
 
 #include <string.h> // memcpy
 
@@ -814,14 +815,14 @@ static void R_RotateForViewer(viewParms_t *viewParms)
 /*
 ** SetFarClip
 */
-static void R_SetFarClip( void )
+static void R_SetFarClip( viewParms_t *viewParms, const trRefdef_t *refdef )
 {
 	float	farthestCornerDistance = 0;
 	int		i;
 
 	// if not rendering the world (icons, menus, etc)
 	// set a 2k far clip plane
-	if ( tr.refdef.rdflags & RDF_NOWORLDMODEL ) {
+	if ( refdef->rdflags & RDF_NOWORLDMODEL ) {
 		tr.viewParms.zFar = 2048.0f;
 		return;
 	}
@@ -836,32 +837,32 @@ static void R_SetFarClip( void )
 
 		if ( i & 1 )
 		{
-			v[0] = tr.viewParms.visBounds[0][0];
+			v[0] = viewParms->visBounds[0][0];
 		}
 		else
 		{
-			v[0] = tr.viewParms.visBounds[1][0];
+			v[0] = viewParms->visBounds[1][0];
 		}
 
 		if ( i & 2 )
 		{
-			v[1] = tr.viewParms.visBounds[0][1];
+			v[1] = viewParms->visBounds[0][1];
 		}
 		else
 		{
-			v[1] = tr.viewParms.visBounds[1][1];
+			v[1] = viewParms->visBounds[1][1];
 		}
 
 		if ( i & 4 )
 		{
-			v[2] = tr.viewParms.visBounds[0][2];
+			v[2] = viewParms->visBounds[0][2];
 		}
 		else
 		{
-			v[2] = tr.viewParms.visBounds[1][2];
+			v[2] = viewParms->visBounds[1][2];
 		}
 
-		distance = DistanceSquared( tr.viewParms.ori.origin, v );
+		distance = DistanceSquared(viewParms->ori.origin, v );
 
 		if ( distance > farthestCornerDistance )
 		{
@@ -871,7 +872,7 @@ static void R_SetFarClip( void )
 	// Bring in the zFar to the distanceCull distance
 	// The sky renders at zFar so need to move it out a little
 	// ...and make sure there is a minimum zfar to prevent problems
-	tr.viewParms.zFar = Com_Clamp(2048.0f, tr.distanceCull * (1.732), sqrtf( farthestCornerDistance ));
+	viewParms->zFar = Com_Clamp(2048.0f, tr.distanceCull * (1.732), sqrtf( farthestCornerDistance ));
 }
 
 /*
@@ -1865,12 +1866,12 @@ void R_SortAndSubmitDrawSurfs( drawSurf_t *drawSurfs, int numDrawSurfs ) {
 	R_AddDrawSurfCmd( drawSurfs, numDrawSurfs );
 }
 
-static void R_AddEntitySurface (int entityNum)
+static void R_AddEntitySurface (const trRefdef_t *refdef, int entityNum)
 {
 	trRefEntity_t	*ent;
 	shader_t		*shader;
 
-	ent = tr.currentEntity = &tr.refdef.entities[entityNum];
+	ent = tr.currentEntity = &refdef->entities[entityNum];
 
 	ent->needDlights = qfalse;
 
@@ -1963,15 +1964,15 @@ static void R_AddEntitySurface (int entityNum)
 R_AddEntitySurfaces
 =============
 */
-void R_AddEntitySurfaces (void) {
+void R_AddEntitySurfaces (const trRefdef_t *refdef) {
 	int i;
 
 	if ( !r_drawentities->integer ) {
 		return;
 	}
 
-	for ( i = 0; i < tr.refdef.num_entities; i++)
-		R_AddEntitySurface(i);
+	for (int i = 0; i < tr.refdef.num_entities; i++)
+		R_AddEntitySurface(refdef, i);
 }
 
 
@@ -1980,10 +1981,10 @@ void R_AddEntitySurfaces (void) {
 R_GenerateDrawSurfs
 ====================
 */
-void R_GenerateDrawSurfs( void ) {
-	R_AddWorldSurfaces ();
+static void R_GenerateDrawSurfs(viewParms_t *viewParms, trRefdef_t *refdef) {
+	R_AddWorldSurfaces (viewParms, refdef);
 
-	R_AddPolygonSurfaces();
+	R_AddPolygonSurfaces(refdef);
 
 	// set the projection matrix with the minimum zfar
 	// now that we have the world bounded
@@ -1994,13 +1995,17 @@ void R_GenerateDrawSurfs( void ) {
 	// dynamically compute far clip plane distance
 	if (!(tr.viewParms.flags & VPF_SHADOWMAP))
 	{
-		R_SetFarClip();
+		R_SetFarClip(viewParms, refdef);
 	}
 
 	// we know the size of the clipping volume. Now set the rest of the projection matrix.
-	R_SetupProjectionZ (&tr.viewParms);
+	R_SetupProjectionZ (viewParms);
 
-	R_AddEntitySurfaces ();
+	R_AddEntitySurfaces (refdef);
+
+	// activate again when weather code is more complete
+	/*if (!(tr.viewParms.flags & VPF_SHADOWMAP))
+		R_AddWeatherSurfaces();*/
 }
 
 /*
@@ -2136,7 +2141,7 @@ void R_RenderView (viewParms_t *parms) {
 
 	R_SetupProjection(&tr.viewParms, r_zproj->value, tr.viewParms.zFar, qtrue);
 
-	R_GenerateDrawSurfs();
+	R_GenerateDrawSurfs(&tr.viewParms, &tr.refdef);
 
 	R_SortAndSubmitDrawSurfs( tr.refdef.drawSurfs + firstDrawSurf, tr.refdef.numDrawSurfs - firstDrawSurf );
 
@@ -2543,7 +2548,7 @@ void R_RenderPshadowMaps(const refdef_t *fd)
 
 			for (j = 0; j < shadow->numEntities; j++)
 			{
-				R_AddEntitySurface(shadow->entityNums[j]);
+				R_AddEntitySurface(&tr.refdef, shadow->entityNums[j]);
 			}
 
 			R_SortAndSubmitDrawSurfs( tr.refdef.drawSurfs + firstDrawSurf, tr.refdef.numDrawSurfs - firstDrawSurf );
@@ -2813,11 +2818,11 @@ void R_RenderSunShadowMaps(const refdef_t *fd, int level)
 
 			R_SetupProjectionOrtho(&tr.viewParms, lightviewBounds);
 
-			R_AddWorldSurfaces ();
+			R_AddWorldSurfaces (&tr.viewParms, &tr.refdef);
 
-			R_AddPolygonSurfaces();
+			R_AddPolygonSurfaces(&tr.refdef);
 
-			R_AddEntitySurfaces ();
+			R_AddEntitySurfaces (&tr.refdef);
 
 			R_SortAndSubmitDrawSurfs( tr.refdef.drawSurfs + firstDrawSurf, tr.refdef.numDrawSurfs - firstDrawSurf );
 		}
