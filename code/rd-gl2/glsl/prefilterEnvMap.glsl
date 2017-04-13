@@ -67,7 +67,6 @@ vec3 PrefilterEnvMap( float Roughness, vec3 R )
 		float NoL = clamp((dot( N, L )),0.0,1.0);
 		if ( NoL > 0 )
 		{
-			//PrefilteredColor += EnvMap.SampleLevel( EnvMapSampler, L, 0 ).rgb * NoL;
 			PrefilteredColor += textureLod(u_CubeMap, L, 0.0).rgb * NoL;
 			TotalWeight += NoL;
 		}

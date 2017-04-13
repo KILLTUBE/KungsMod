@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // tr_surf.c
 #include "tr_local.h"
+#include "tr_weather.h"
 
 /*
 
@@ -2224,7 +2225,9 @@ void RB_Refractive(srfVBOMDVMesh_t * surface)
 	float r = backEnd.currentEntity->e.shaderRGBA[0];
 	float g = backEnd.currentEntity->e.shaderRGBA[1];
 	float b = backEnd.currentEntity->e.shaderRGBA[2];
-	float alpha = (backEnd.currentEntity->e.shaderRGBA[3]-10)/255.0f;
+	float alpha = 0;
+	if (backEnd.currentEntity->e.shaderRGBA[3] > 10)
+		alpha = (backEnd.currentEntity->e.shaderRGBA[3]) / 255.0f;
 	float x = tr.refractiveImage->width;
 	float y = tr.refractiveImage->height;
 	VectorSet4(shaderRGBA, r, g, b, alpha);
@@ -2263,5 +2266,6 @@ void (*rb_surfaceTable[SF_NUM_SURFACE_TYPES])( void *) = {
 	(void(*)(void*))RB_SurfaceVBOMesh,	    // SF_VBO_MESH,
 	(void(*)(void*))RB_SurfaceVBOMDVMesh,   // SF_VBO_MDVMESH
 	(void(*)(void*))RB_SurfaceSprites,      // SF_SPRITES
+	(void(*)(void*))RB_SurfaceWeather,      // SF_WEATHER
 	(void(*)(void*))RB_Refractive,			// SF_REFRACTIVE
 };
