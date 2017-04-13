@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //#include "ghoul2/g2_local.h"
 #include "tr_cache.h"
 #include "tr_allocator.h"
+#include "tr_weather.h"
 #include <algorithm>
 
 static size_t FRAME_UNIFORM_BUFFER_SIZE = 8 * 1024 * 1024;
@@ -1167,6 +1168,7 @@ void GL_SetDefaultState(void)
 	qglDepthMask(GL_TRUE);
 	qglDisable(GL_DEPTH_TEST);
 	qglEnable(GL_SCISSOR_TEST);
+	qglEnable(GL_PROGRAM_POINT_SIZE);
 	qglDisable(GL_CULL_FACE);
 	qglDisable(GL_BLEND);
 
@@ -1484,9 +1486,9 @@ void R_Register(void)
 	r_sunShadows = ri.Cvar_Get("r_sunShadows", "1", CVAR_ARCHIVE | CVAR_LATCH);
 	r_shadowFilter = ri.Cvar_Get("r_shadowFilter", "1", CVAR_ARCHIVE | CVAR_LATCH);
 	r_shadowMapSize = ri.Cvar_Get("r_shadowMapSize", "1024", CVAR_ARCHIVE | CVAR_LATCH);
-	r_shadowCascadeZNear = ri.Cvar_Get("r_shadowCascadeZNear", "8", CVAR_ARCHIVE | CVAR_LATCH);
-	r_shadowCascadeZFar = ri.Cvar_Get("r_shadowCascadeZFar", "1024", CVAR_ARCHIVE | CVAR_LATCH);
-	r_shadowCascadeZBias = ri.Cvar_Get("r_shadowCascadeZBias", "0", CVAR_ARCHIVE | CVAR_LATCH);
+	r_shadowCascadeZNear = ri.Cvar_Get("r_shadowCascadeZNear", "4", CVAR_ARCHIVE | CVAR_LATCH);
+	r_shadowCascadeZFar = ri.Cvar_Get("r_shadowCascadeZFar", "3072", CVAR_ARCHIVE | CVAR_LATCH);
+	r_shadowCascadeZBias = ri.Cvar_Get("r_shadowCascadeZBias", "-320", CVAR_ARCHIVE | CVAR_LATCH);
 	r_ignoreDstAlpha = ri.Cvar_Get("r_ignoreDstAlpha", "1", CVAR_ARCHIVE | CVAR_LATCH);
 
 	//
@@ -1818,8 +1820,7 @@ void R_Init(void) {
 	
 	FBO_Init();
 
-	int shadersStartTime = GLSL_BeginLoadGPUShaders();
-
+	GLSL_LoadGPUShaders();
 
 	R_InitShaders();
 
@@ -1833,7 +1834,7 @@ void R_Init(void) {
 
 	R_InitQueries();
 
-	GLSL_EndLoadGPUShaders(shadersStartTime);
+	R_InitWeatherSystem();
 
 #if defined(_DEBUG)
 	GLenum err = qglGetError();
@@ -1861,6 +1862,8 @@ void RE_Shutdown(qboolean destroyWindow, qboolean restarting) {
 		ri.Cmd_RemoveCommand(commands[i].cmd);
 
 	R_ShutdownBackEndFrameData();
+
+	R_ShutdownWeatherSystem();
 
 	R_ShutdownFonts();
 	if (tr.registered) {

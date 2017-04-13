@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 // tr_main.c -- main control flow for each frame
 
 #include "tr_local.h"
+#include "tr_weather.h"
 
 #include <string.h> // memcpy
 
@@ -814,14 +815,14 @@ static void R_RotateForViewer(viewParms_t *viewParms)
 /*
 ** SetFarClip
 */
-static void R_SetFarClip( void )
+static void R_SetFarClip( viewParms_t *viewParms, const trRefdef_t *refdef )
 {
 	float	farthestCornerDistance = 0;
 	int		i;
 
 	// if not rendering the world (icons, menus, etc)
 	// set a 2k far clip plane
-	if ( tr.refdef.rdflags & RDF_NOWORLDMODEL ) {
+	if ( refdef->rdflags & RDF_NOWORLDMODEL ) {
 		tr.viewParms.zFar = 2048.0f;
 		return;
 	}
@@ -836,32 +837,32 @@ static void R_SetFarClip( void )
 
 		if ( i & 1 )
 		{
-			v[0] = tr.viewParms.visBounds[0][0];
+			v[0] = viewParms->visBounds[0][0];
 		}
 		else
 		{
-			v[0] = tr.viewParms.visBounds[1][0];
+			v[0] = viewParms->visBounds[1][0];
 		}
 
 		if ( i & 2 )
 		{
-			v[1] = tr.viewParms.visBounds[0][1];
+			v[1] = viewParms->visBounds[0][1];
 		}
 		else
 		{
-			v[1] = tr.viewParms.visBounds[1][1];
+			v[1] = viewParms->visBounds[1][1];
 		}
 
 		if ( i & 4 )
 		{
-			v[2] = tr.viewParms.visBounds[0][2];
+			v[2] = viewParms->visBounds[0][2];
 		}
 		else
 		{
-			v[2] = tr.viewParms.visBounds[1][2];
+			v[2] = viewParms->visBounds[1][2];
 		}
 
-		distance = DistanceSquared( tr.viewParms.ori.origin, v );
+		distance = DistanceSquared(viewParms->ori.origin, v );
 
 		if ( distance > farthestCornerDistance )
 		{
@@ -871,7 +872,7 @@ static void R_SetFarClip( void )
 	// Bring in the zFar to the distanceCull distance
 	// The sky renders at zFar so need to move it out a little
 	// ...and make sure there is a minimum zfar to prevent problems
-	tr.viewParms.zFar = Com_Clamp(2048.0f, tr.distanceCull * (1.732), sqrtf( farthestCornerDistance ));
+	viewParms->zFar = Com_Clamp(2048.0f, tr.distanceCull * (1.732), sqrtf( farthestCornerDistance ));
 }
 
 /*
@@ -1865,12 +1866,12 @@ void R_SortAndSubmitDrawSurfs( drawSurf_t *drawSurfs, int numDrawSurfs ) {
 	R_AddDrawSurfCmd( drawSurfs, numDrawSurfs );
 }
 
-static void R_AddEntitySurface (int entityNum)
+static void R_AddEntitySurface (const trRefdef_t *refdef, int entityNum)
 {
 	trRefEntity_t	*ent;
 	shader_t		*shader;
 
-	ent = tr.currentEntity = &tr.refdef.entities[entityNum];
+	ent = tr.currentEntity = &refdef->entities[entityNum];
 
 	ent->needDlights = qfalse;
 
@@ -1963,15 +1964,15 @@ static void R_AddEntitySurface (int entityNum)
 R_AddEntitySurfaces
 =============
 */
-void R_AddEntitySurfaces (void) {
+void R_AddEntitySurfaces (const trRefdef_t *refdef) {
 	int i;
 
 	if ( !r_drawentities->integer ) {
 		return;
 	}
 
-	for ( i = 0; i < tr.refdef.num_entities; i++)
-		R_AddEntitySurface(i);
+	for (int i = 0; i < tr.refdef.num_entities; i++)
+		R_AddEntitySurface(refdef, i);
 }
 
 
@@ -1980,10 +1981,10 @@ void R_AddEntitySurfaces (void) {
 R_GenerateDrawSurfs
 ====================
 */
-void R_GenerateDrawSurfs( void ) {
-	R_AddWorldSurfaces ();
+static void R_GenerateDrawSurfs(viewParms_t *viewParms, trRefdef_t *refdef) {
+	R_AddWorldSurfaces (viewParms, refdef);
 
-	R_AddPolygonSurfaces();
+	R_AddPolygonSurfaces(refdef);
 
 	// set the projection matrix with the minimum zfar
 	// now that we have the world bounded
@@ -1994,13 +1995,17 @@ void R_GenerateDrawSurfs( void ) {
 	// dynamically compute far clip plane distance
 	if (!(tr.viewParms.flags & VPF_SHADOWMAP))
 	{
-		R_SetFarClip();
+		R_SetFarClip(viewParms, refdef);
 	}
 
 	// we know the size of the clipping volume. Now set the rest of the projection matrix.
-	R_SetupProjectionZ (&tr.viewParms);
+	R_SetupProjectionZ (viewParms);
 
-	R_AddEntitySurfaces ();
+	R_AddEntitySurfaces (refdef);
+
+	// activate again when weather code is more complete
+	/*if (!(tr.viewParms.flags & VPF_SHADOWMAP))
+		R_AddWeatherSurfaces();*/
 }
 
 /*
@@ -2136,7 +2141,7 @@ void R_RenderView (viewParms_t *parms) {
 
 	R_SetupProjection(&tr.viewParms, r_zproj->value, tr.viewParms.zFar, qtrue);
 
-	R_GenerateDrawSurfs();
+	R_GenerateDrawSurfs(&tr.viewParms, &tr.refdef);
 
 	R_SortAndSubmitDrawSurfs( tr.refdef.drawSurfs + firstDrawSurf, tr.refdef.numDrawSurfs - firstDrawSurf );
 
@@ -2543,7 +2548,7 @@ void R_RenderPshadowMaps(const refdef_t *fd)
 
 			for (j = 0; j < shadow->numEntities; j++)
 			{
-				R_AddEntitySurface(shadow->entityNums[j]);
+				R_AddEntitySurface(&tr.refdef, shadow->entityNums[j]);
 			}
 
 			R_SortAndSubmitDrawSurfs( tr.refdef.drawSurfs + firstDrawSurf, tr.refdef.numDrawSurfs - firstDrawSurf );
@@ -2627,17 +2632,14 @@ void R_RenderSunShadowMaps(const refdef_t *fd, int level)
 			//splitZFar  = 3072;
 			break;
 	}
-	
-	if (level != 3)
-		VectorCopy(fd->vieworg, lightOrigin);
-	else
-		VectorCopy(tr.world->lightGridOrigin, lightOrigin);
+			
+	VectorCopy(fd->vieworg, lightOrigin);
 
 
 	// Make up a projection
 	VectorScale(lightDir, -1.0f, lightViewAxis[0]);
 
-	if (level == 3 || lightViewIndependentOfCameraView)
+	if (lightViewIndependentOfCameraView)
 	{
 		// Use world up as light view up
 		VectorSet(lightViewAxis[2], 0, 0, 1);
@@ -2657,7 +2659,7 @@ void R_RenderSunShadowMaps(const refdef_t *fd, int level)
 	// Check if too close to parallel to light direction
 	if (fabs(DotProduct(lightViewAxis[2], lightViewAxis[0])) > 0.9f)
 	{
-		if (level == 3 || lightViewIndependentOfCameraView)
+		if (lightViewIndependentOfCameraView)
 		{
 			// Use world left as light view up
 			VectorSet(lightViewAxis[2], 0, 1, 0);
@@ -2694,116 +2696,56 @@ void R_RenderSunShadowMaps(const refdef_t *fd, int level)
 
 		ClearBounds(lightviewBounds[0], lightviewBounds[1]);
 
-		if (level != 3)
-		{
-			// add view near plane
-			lx = splitZNear * tan(fd->fov_x * M_PI / 360.0f);
-			ly = splitZNear * tan(fd->fov_y * M_PI / 360.0f);
-			VectorMA(fd->vieworg, splitZNear, fd->viewaxis[0], base);
+		// add view near plane
+		lx = splitZNear * tan(fd->fov_x * M_PI / 360.0f);
+		ly = splitZNear * tan(fd->fov_y * M_PI / 360.0f);
+		VectorMA(fd->vieworg, splitZNear, fd->viewaxis[0], base);
 
-			VectorMA(base, lx, fd->viewaxis[1], point);
-			VectorMA(point, ly, fd->viewaxis[2], point);
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
+		VectorMA(base,   lx, fd->viewaxis[1], point);
+		VectorMA(point,  ly, fd->viewaxis[2], point);
+		Matrix16Transform(lightViewMatrix, point, lightViewPoint);
+		AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
 
-			VectorMA(base, -lx, fd->viewaxis[1], point);
-			VectorMA(point, ly, fd->viewaxis[2], point);
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
+		VectorMA(base,  -lx, fd->viewaxis[1], point);
+		VectorMA(point,  ly, fd->viewaxis[2], point);
+		Matrix16Transform(lightViewMatrix, point, lightViewPoint);
+		AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
 
-			VectorMA(base, lx, fd->viewaxis[1], point);
-			VectorMA(point, -ly, fd->viewaxis[2], point);
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
+		VectorMA(base,   lx, fd->viewaxis[1], point);
+		VectorMA(point, -ly, fd->viewaxis[2], point);
+		Matrix16Transform(lightViewMatrix, point, lightViewPoint);
+		AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
 
-			VectorMA(base, -lx, fd->viewaxis[1], point);
-			VectorMA(point, -ly, fd->viewaxis[2], point);
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
+		VectorMA(base,  -lx, fd->viewaxis[1], point);
+		VectorMA(point, -ly, fd->viewaxis[2], point);
+		Matrix16Transform(lightViewMatrix, point, lightViewPoint);
+		AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
+		
 
+		// add view far plane
+		lx = splitZFar * tan(fd->fov_x * M_PI / 360.0f);
+		ly = splitZFar * tan(fd->fov_y * M_PI / 360.0f);
+		VectorMA(fd->vieworg, splitZFar, fd->viewaxis[0], base);
 
-			// add view far plane
-			lx = splitZFar * tan(fd->fov_x * M_PI / 360.0f);
-			ly = splitZFar * tan(fd->fov_y * M_PI / 360.0f);
-			VectorMA(fd->vieworg, splitZFar, fd->viewaxis[0], base);
+		VectorMA(base,   lx, fd->viewaxis[1], point);
+		VectorMA(point,  ly, fd->viewaxis[2], point);
+		Matrix16Transform(lightViewMatrix, point, lightViewPoint);
+		AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
 
-			VectorMA(base, lx, fd->viewaxis[1], point);
-			VectorMA(point, ly, fd->viewaxis[2], point);
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
+		VectorMA(base,  -lx, fd->viewaxis[1], point);
+		VectorMA(point,  ly, fd->viewaxis[2], point);
+		Matrix16Transform(lightViewMatrix, point, lightViewPoint);
+		AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
 
-			VectorMA(base, -lx, fd->viewaxis[1], point);
-			VectorMA(point, ly, fd->viewaxis[2], point);
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
+		VectorMA(base,   lx, fd->viewaxis[1], point);
+		VectorMA(point, -ly, fd->viewaxis[2], point);
+		Matrix16Transform(lightViewMatrix, point, lightViewPoint);
+		AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
 
-			VectorMA(base, lx, fd->viewaxis[1], point);
-			VectorMA(point, -ly, fd->viewaxis[2], point);
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
-
-			VectorMA(base, -lx, fd->viewaxis[1], point);
-			VectorMA(point, -ly, fd->viewaxis[2], point);
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
-		}
-		else
-		{
-			// use light grid size as level size
-			// FIXME: could be tighter
-			vec3_t bounds;
-			
-			bounds[0] = tr.world->lightGridSize[0] * tr.world->lightGridBounds[0];
-			bounds[1] = tr.world->lightGridSize[1] * tr.world->lightGridBounds[1];
-			bounds[2] = tr.world->lightGridSize[2] * tr.world->lightGridBounds[2];
-			point[0] = tr.world->lightGridOrigin[0];
-			point[1] = tr.world->lightGridOrigin[1];
-			point[2] = tr.world->lightGridOrigin[2];
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
-			
-			point[0] = tr.world->lightGridOrigin[0] + bounds[0];
-			point[1] = tr.world->lightGridOrigin[1];
-			point[2] = tr.world->lightGridOrigin[2];
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
-			
-			point[0] = tr.world->lightGridOrigin[0];
-			point[1] = tr.world->lightGridOrigin[1] + bounds[1];
-			point[2] = tr.world->lightGridOrigin[2];
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
-			
-			point[0] = tr.world->lightGridOrigin[0] + bounds[0];
-			point[1] = tr.world->lightGridOrigin[1] + bounds[1];
-			point[2] = tr.world->lightGridOrigin[2];
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
-			
-			point[0] = tr.world->lightGridOrigin[0];
-			point[1] = tr.world->lightGridOrigin[1];
-			point[2] = tr.world->lightGridOrigin[2] + bounds[2];
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
-			
-			point[0] = tr.world->lightGridOrigin[0] + bounds[0];
-			point[1] = tr.world->lightGridOrigin[1];
-			point[2] = tr.world->lightGridOrigin[2] + bounds[2];
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
-			
-			point[0] = tr.world->lightGridOrigin[0];
-			point[1] = tr.world->lightGridOrigin[1] + bounds[1];
-			point[2] = tr.world->lightGridOrigin[2] + bounds[2];
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
-			
-			point[0] = tr.world->lightGridOrigin[0] + bounds[0];
-			point[1] = tr.world->lightGridOrigin[1] + bounds[1];
-			point[2] = tr.world->lightGridOrigin[2] + bounds[2];
-			Matrix16Transform(lightViewMatrix, point, lightViewPoint);
-			AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
-		}
+		VectorMA(base,  -lx, fd->viewaxis[1], point);
+		VectorMA(point, -ly, fd->viewaxis[2], point);
+		Matrix16Transform(lightViewMatrix, point, lightViewPoint);
+		AddPointToBounds(lightViewPoint, lightviewBounds[0], lightviewBounds[1]);
 
 		// Moving the Light in Texel-Sized Increments
 		// from http://msdn.microsoft.com/en-us/library/windows/desktop/ee416324%28v=vs.85%29.aspx
@@ -2876,11 +2818,11 @@ void R_RenderSunShadowMaps(const refdef_t *fd, int level)
 
 			R_SetupProjectionOrtho(&tr.viewParms, lightviewBounds);
 
-			R_AddWorldSurfaces ();
+			R_AddWorldSurfaces (&tr.viewParms, &tr.refdef);
 
-			R_AddPolygonSurfaces();
+			R_AddPolygonSurfaces(&tr.refdef);
 
-			R_AddEntitySurfaces ();
+			R_AddEntitySurfaces (&tr.refdef);
 
 			R_SortAndSubmitDrawSurfs( tr.refdef.drawSurfs + firstDrawSurf, tr.refdef.numDrawSurfs - firstDrawSurf );
 		}
@@ -2960,7 +2902,6 @@ void R_RenderCubemapSide( int cubemapIndex, int cubemapSide, qboolean subscene )
 			R_RenderSunShadowMaps(&refdef, 0);
 			R_RenderSunShadowMaps(&refdef, 1);
 			R_RenderSunShadowMaps(&refdef, 2);
-			R_RenderSunShadowMaps(&refdef, 3);
 		}
 	}
 
