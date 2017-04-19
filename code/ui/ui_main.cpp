@@ -2957,7 +2957,6 @@ UI_Load
 void UI_Load(void)
 {
 	const char *menuSet;
-	const char *menuSetWide;
 	char lastName[1024];
 	menuDef_t *menu = Menu_GetFocused();
 

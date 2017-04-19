@@ -119,7 +119,7 @@ void CG_RegisterWeapon(int weaponNum) {
 		{//in case the weaponmodel isn't _w, precache the _w.glm
 			char weaponModel[64];
 
-			Q_strncpyz(weaponModel, weaponData[weaponNum].G2_worldModel, sizeof(weaponModel));
+			Q_strncpyz(weaponModel, weaponData[weaponNum].worldModel, sizeof(weaponModel));
 			gi.G2API_PrecacheGhoul2Model(weaponModel); // correct way is item->world_model
 		}
 
@@ -187,12 +187,12 @@ void CG_RegisterWeapon(int weaponNum) {
 	Q_strncpyz(path, weaponData[weaponNum].weaponMdl, sizeof(path));
 	if (weaponInfo->bUsesGhoul2) {
 		// Init the ghoul2 model
-		weaponInfo->g2_skin = gi.RE_RegisterSkin(weaponData[weaponNum].G2_skinPath);
+		weaponInfo->g2_skin = gi.RE_RegisterSkin(weaponData[weaponNum].skinPath);
 		weaponInfo->g2_index = gi.G2API_InitGhoul2Model(weaponInfo->ghoul2, path,
-			G_ModelIndex(path), G_SkinIndex(weaponData[weaponNum].G2_skinPath), NULL, 0, 0);
+			G_ModelIndex(path), G_SkinIndex(weaponData[weaponNum].skinPath), NULL, 0, 0);
 		// Add flash bolt
 		weaponInfo->g2_flashbolt = gi.G2API_AddBolt(&weaponInfo->ghoul2[weaponInfo->g2_index], "*flash");
-		if (!weaponData[weaponNum].bNoMD3Model)
+		if (!weaponData[weaponNum].bNoHandModel)
 			weaponInfo->handsModel = cgi_R_RegisterModel("models/weapons2/briar_pistol/briar_pistol_hand.md3");
 
 		// Load the animation.cfg
@@ -200,7 +200,7 @@ void CG_RegisterWeapon(int weaponNum) {
 	}
 	else {
 		// Normal -- MD3 viewmodels
-		if (!weaponData[weaponNum].bNoMD3Model) {
+		if (!weaponData[weaponNum].bNoHandModel) {
 			COM_StripExtension(path, path, sizeof(path));
 			Q_strcat(path, sizeof(path), "_hand.md3");
 			weaponInfo->handsModel = cgi_R_RegisterModel(path);
@@ -679,7 +679,7 @@ void CG_RegisterWeapon(int weaponNum) {
 	}
 }
 
-//DT EDIT: Ghoul2 viewmodels - START
+//DT EDIT: Ghoul2 viewmodel - START
 /*
 =================
 CG_DeregisterWeapon
@@ -722,7 +722,7 @@ void CG_LoadViewmodelAnimations(CGhoul2Info* ghl2, const char *modelName, viewMo
 	char	animName[MAX_QPATH];
 	char	*slash = NULL;
 
-	Q_strncpyz(animName, GLAname, sizeof(animName));
+	Q_strncpyz(animName, GLAname, sizeof(animName)/*, qtrue*/);
 	slash = strrchr(animName, '/');
 	if (slash)
 	{
@@ -811,7 +811,7 @@ void CG_LoadViewmodelAnimations(CGhoul2Info* ghl2, const char *modelName, viewMo
 	}
 	COM_EndParseSession();
 }
-//DT EDIT: Ghoul2 viewmodels - END
+//DT EDIT: Ghoul2 viewmodel - END
 
 /*
 =================
@@ -1560,7 +1560,7 @@ void CG_AddViewWeapon( playerState_t *ps )
 			gun.radius = 60;
 			gun.customSkin = weapon->g2_skin;
 		}
-		if (!wData->bNoMD3Model)
+		if (!wData->bNoHandModel)
 			CG_PositionEntityOnTag(&gun, &hand, weapon->handsModel, "tag_weapon");
 		else
 			VectorCopy(hand.origin, gun.origin);
@@ -1627,7 +1627,7 @@ void CG_AddViewWeapon( playerState_t *ps )
 		}
 	*/
 	//DT EDIT: Ghoul2 viewmodels - START
-	// add the spinning barrel[s]
+			// add the spinning barrel[s]
 			if (!weapon->bUsesGhoul2) {
 				for (i = 0; (i < wData->numBarrels); i++)
 				{
