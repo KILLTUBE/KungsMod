@@ -154,9 +154,9 @@ void WPN_AltMissileHitSound(const char **holdBuf);
 void WPN_MuzzleEffect(const char **holdBuf);
 void WPN_AltMuzzleEffect(const char **holdBuf);
 //DT EDIT: Ghoul2 viewmodels - START
-void WPN_G2_SkinFile(const char **holdBuf);
-void WPN_G2_WorldModel(const char **holdBuf);
-void WPN_G2_NoMD3Model(const char **holdBuf);
+void WPN_SkinFile(const char **holdBuf);
+void WPN_WorldModel(const char **holdBuf);
+void WPN_NoHandModel(const char **holdBuf);
 //DT EDIT: Ghoul2 viewmodels - END
 
 // OPENJK ADD
@@ -420,71 +420,71 @@ const float defaultAltSplashRadius[] = {
 
 wpnParms_t WpnParms[] =
 {
-	{ "ammo",				WPN_Ammo },	//ammo
-	{ "ammoicon",			WPN_AmmoIcon },
-	{ "ammomax",			WPN_AmmoMax },
-	{ "ammolowcount",		WPN_AmmoLowCnt }, //weapons
-	{ "ammotype",			WPN_AmmoType },
-	{ "energypershot",	WPN_EnergyPerShot },
-	{ "fireTime",			WPN_FireTime },
-	{ "firingsound",		WPN_FiringSnd },
-	{ "altfiringsound",	WPN_AltFiringSnd },
-//	{ "flashsound",		WPN_FlashSnd },
-//	{ "altflashsound",	WPN_AltFlashSnd },
-	{ "stopsound",		WPN_StopSnd },
-	{ "chargesound",		WPN_ChargeSnd },
-	{ "altchargesound",	WPN_AltChargeSnd },
-	{ "selectsound",		WPN_SelectSnd },
-	{ "range",			WPN_Range },
-	{ "weaponclass",		WPN_WeaponClass },
-	{ "weaponicon",		WPN_WeaponIcon },
-	{ "dp_weaponicon",		WPN_DP_WeaponIcon },
-	{ "weaponmodel",		WPN_WeaponModel },
-	{ "weapontype",		WPN_WeaponType },
-	{ "altenergypershot",	WPN_AltEnergyPerShot },
-	{ "altfireTime",		WPN_AltFireTime },
-	{ "altrange",			WPN_AltRange },
-	{ "barrelcount",		WPN_BarrelCount },
-	{ "missileModel",		WPN_MissileName },
-	{ "altmissileModel", 	WPN_AltMissileName },
-	{ "missileSound",		WPN_MissileSound },
-	{ "altmissileSound", 	WPN_AltMissileSound },
-	{ "missileLight",		WPN_MissileLight },
-	{ "altmissileLight", 	WPN_AltMissileLight },
-	{ "missileLightColor",WPN_MissileLightColor },
+	{ "ammo",					WPN_Ammo },	//ammo
+	{ "ammoicon",				WPN_AmmoIcon },
+	{ "ammomax",				WPN_AmmoMax },
+	{ "ammolowcount",			WPN_AmmoLowCnt }, //weapons
+	{ "ammotype",				WPN_AmmoType },
+	{ "energypershot",			WPN_EnergyPerShot },
+	{ "fireTime",				WPN_FireTime },
+	{ "firingsound",			WPN_FiringSnd },
+	{ "altfiringsound",			WPN_AltFiringSnd },
+//	{ "flashsound",				WPN_FlashSnd },
+//	{ "altflashsound",			WPN_AltFlashSnd },
+	{ "stopsound",				WPN_StopSnd },
+	{ "chargesound",			WPN_ChargeSnd },
+	{ "altchargesound",			WPN_AltChargeSnd },
+	{ "selectsound",			WPN_SelectSnd },
+	{ "range",					WPN_Range },
+	{ "weaponclass",			WPN_WeaponClass },
+	{ "weaponicon",				WPN_WeaponIcon },
+	{ "dp_weaponicon",			WPN_DP_WeaponIcon },
+	{ "weaponmodel",			WPN_WeaponModel },
+	{ "weapontype",				WPN_WeaponType },
+	{ "altenergypershot",		WPN_AltEnergyPerShot },
+	{ "altfireTime",			WPN_AltFireTime },
+	{ "altrange",				WPN_AltRange },
+	{ "barrelcount",			WPN_BarrelCount },
+	{ "missileModel",			WPN_MissileName },
+	{ "altmissileModel", 		WPN_AltMissileName },
+	{ "missileSound",			WPN_MissileSound },
+	{ "altmissileSound", 		WPN_AltMissileSound },
+	{ "missileLight",			WPN_MissileLight },
+	{ "altmissileLight", 		WPN_AltMissileLight },
+	{ "missileLightColor",		WPN_MissileLightColor },
 	{ "altmissileLightColor",	WPN_AltMissileLightColor },
 	{ "missileFuncName",		WPN_FuncName },
-	{ "altmissileFuncName",	WPN_AltFuncName },
+	{ "altmissileFuncName",		WPN_AltFuncName },
 	{ "missileHitSound",		WPN_MissileHitSound },
-	{ "altmissileHitSound",	WPN_AltMissileHitSound },
+	{ "altmissileHitSound",		WPN_AltMissileHitSound },
 	{ "muzzleEffect",			WPN_MuzzleEffect },
 	{ "altmuzzleEffect",		WPN_AltMuzzleEffect },
 	// OPENJK NEW FIELDS
-	{ "damage",			WPN_Damage },
-	{ "altdamage",		WPN_AltDamage },
-	{ "splashDamage",		WPN_SplashDamage },
-	{ "splashRadius",		WPN_SplashRadius },
-	{ "altSplashDamage",	WPN_AltSplashDamage },
-	{ "altSplashRadius",	WPN_AltSplashRadius },
+	{ "damage",					WPN_Damage },
+	{ "altdamage",				WPN_AltDamage },
+	{ "splashDamage",			WPN_SplashDamage },
+	{ "splashRadius",			WPN_SplashRadius },
+	{ "altSplashDamage",		WPN_AltSplashDamage },
+	{ "altSplashRadius",		WPN_AltSplashRadius },
 
 	// Old legacy files contain these, so we skip them to shut up warnings
-	{ "firingforce",		WPN_FuncSkip },
-	{ "chargeforce",		WPN_FuncSkip },
-	{ "altchargeforce",	WPN_FuncSkip },
-	{ "selectforce",		WPN_FuncSkip },
+	{ "firingforce",			WPN_FuncSkip },
+	{ "chargeforce",			WPN_FuncSkip },
+	{ "altchargeforce",			WPN_FuncSkip },
+	{ "selectforce",			WPN_FuncSkip },
 
 	//DT EDIT: Ghoul2 viewmodels - START
 	// Ghoul2 viewmodels
-	{ "G2_skinfile",		WPN_G2_SkinFile },
-	{ "G2_worldmodel",		WPN_G2_WorldModel },
-	{ "G2_nomd3model",		WPN_G2_NoMD3Model },
+	{ "vm_skinfile",			WPN_SkinFile },
+	{ "worldmodel",				WPN_WorldModel },
+	{ "isghoul2model",			WPN_NoHandModel },
 	//DT EDIT: Ghoul2 viewmodels - END
 };
 
 static const size_t numWpnParms = ARRAY_LEN(WpnParms);
 
 //DT EDIT: Ghoul2 viewmodels - START
-void WPN_G2_SkinFile(const char **holdBuf)
+void WPN_SkinFile(const char **holdBuf)
 {
 	int len;
 	const char	*tokenStr;
@@ -499,13 +499,13 @@ void WPN_G2_SkinFile(const char **holdBuf)
 	if (len > 64)
 	{
 		len = 64;
-		gi.Printf(S_COLOR_YELLOW"WARNING: G2_VM_skinfile path too long in ext_data/weapons.dat '%s'\n", tokenStr);
+		gi.Printf(S_COLOR_YELLOW"WARNING: vm_skinfile too long in external WEAPONS.DAT '%s'\n", tokenStr);
 	}
 
-	Q_strncpyz(weaponData[wpnParms.weaponNum].G2_skinPath, tokenStr, len);
+	Q_strncpyz(weaponData[wpnParms.weaponNum].skinPath, tokenStr, len);
 }
 
-void WPN_G2_WorldModel(const char **holdBuf)
+void WPN_WorldModel(const char **holdBuf)
 {
 	int len;
 	const char	*tokenStr;
@@ -520,13 +520,13 @@ void WPN_G2_WorldModel(const char **holdBuf)
 	if (len > 64)
 	{
 		len = 64;
-		gi.Printf(S_COLOR_YELLOW"WARNING: G2_VM_worldmodel path too long in ext_data/weapons.dat '%s'\n", tokenStr);
+		gi.Printf(S_COLOR_YELLOW"WARNING: worldModel too long in external WEAPONS.DAT '%s'\n", tokenStr);
 	}
 
-	Q_strncpyz(weaponData[wpnParms.weaponNum].G2_worldModel, tokenStr, len);
+	Q_strncpyz(weaponData[wpnParms.weaponNum].worldModel, tokenStr, len);
 }
 
-void WPN_G2_NoMD3Model(const char **holdBuf)
+void WPN_NoHandModel(const char **holdBuf)
 {
 	int		tokenInt;
 
@@ -536,7 +536,7 @@ void WPN_G2_NoMD3Model(const char **holdBuf)
 		return;
 	}
 
-	weaponData[wpnParms.weaponNum].bNoMD3Model = tokenInt;
+	weaponData[wpnParms.weaponNum].bNoHandModel = tokenInt ? true : false;
 }
 //DT EDIT: Ghoul2 viewmodels - END
 

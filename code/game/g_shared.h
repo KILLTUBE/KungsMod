@@ -1719,6 +1719,7 @@ typedef struct weaponInfo_s {
 	bool			bUsesGhoul2;
 	CGhoul2Info_v	ghoul2;
 	qhandle_t		g2_flashbolt;
+	qhandle_t		g2_effectsbolt;
 	short			g2_index;
 	int				g2_skin;
 	viewModelAnimSet_t g2_anims;
