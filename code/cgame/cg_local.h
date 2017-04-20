@@ -590,11 +590,8 @@ extern	vmCvar_t		cg_draw2D;
 extern	vmCvar_t		cg_debugAnim;
 #ifndef FINAL_BUILD
 extern	vmCvar_t		cg_debugAnimTarget;
-//DT EDIT: Ghoul2 viewmodels - START
-//extern	vmCvar_t		cg_gun_frame;
-#endif
 extern	vmCvar_t		cg_gun_frame;
-//DT EDIT: Ghoul2 viewmodels - END
+#endif
 extern	vmCvar_t		cg_gun_x;
 extern	vmCvar_t		cg_gun_y;
 extern	vmCvar_t		cg_gun_z;

@@ -475,9 +475,9 @@ wpnParms_t WpnParms[] =
 
 	//DT EDIT: Ghoul2 viewmodels - START
 	// Ghoul2 viewmodels
-	{ "skinfile",				WPN_SkinFile },
+	{ "vm_skinfile",			WPN_SkinFile },
 	{ "worldmodel",				WPN_WorldModel },
-	{ "nohandmodel",			WPN_NoHandModel },
+	{ "isghoul2model",			WPN_NoHandModel },
 	//DT EDIT: Ghoul2 viewmodels - END
 };
 
@@ -499,7 +499,7 @@ void WPN_SkinFile(const char **holdBuf)
 	if (len > 64)
 	{
 		len = 64;
-		gi.Printf(S_COLOR_YELLOW"WARNING: SkinPath too long in external WEAPONS.DAT '%s'\n", tokenStr);
+		gi.Printf(S_COLOR_YELLOW"WARNING: vm_skinfile too long in external WEAPONS.DAT '%s'\n", tokenStr);
 	}
 
 	Q_strncpyz(weaponData[wpnParms.weaponNum].skinPath, tokenStr, len);
@@ -536,7 +536,7 @@ void WPN_NoHandModel(const char **holdBuf)
 		return;
 	}
 
-	weaponData[wpnParms.weaponNum].bNoHandModel = tokenInt;
+	weaponData[wpnParms.weaponNum].bNoHandModel = tokenInt ? true : false;
 }
 //DT EDIT: Ghoul2 viewmodels - END
 

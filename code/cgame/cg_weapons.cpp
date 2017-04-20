@@ -40,6 +40,7 @@ const char *CG_DisplayBoxedText(int iBoxX, int iBoxY, int iBoxWidth, int iBoxHei
 
 //DT EDIT: Ghoul2 viewmodels - START
 void CG_LoadViewmodelAnimations(CGhoul2Info* ghl2, const char *modelName, viewModelAnimSet_t* ptAnims);
+//DT EDIT: Ghoul2 viewmodels - END
 
 /*
 =================
@@ -87,49 +88,21 @@ void CG_RegisterWeapon(int weaponNum) {
 	}
 	CG_RegisterItemVisuals(item - bg_itemlist);
 	Q_strncpyz(path, weaponData[weaponNum].weaponMdl, sizeof(path));
-	// Detect model type
-	const char* test = &path[strlen(path) - 4];
-	if (!Q_stricmp(test, ".glm")) {
+
+	//DT EDIT: Ghoul2 viewmodels - START
+	// set up in view weapon model
+	if (Q_stristr(path, ".glm")) {
 		weaponInfo->bUsesGhoul2 = true;
 	}
 
-	// set up in view weapon model
 	if (!weaponInfo->bUsesGhoul2) {
 		weaponInfo->weaponModel = cgi_R_RegisterModel(weaponData[weaponNum].weaponMdl);
-		{//in case the weaponmodel isn't _w, precache the _w.glm
-			char weaponModel[64];
-
-			Q_strncpyz(weaponModel, weaponData[weaponNum].weaponMdl, sizeof(weaponModel));
-			if (char *spot = strstr(weaponModel, ".md3"))
-			{
-				*spot = 0;
-				spot = strstr(weaponModel, "_w");//i'm using the in view weapon array instead of scanning the item list, so put the _w back on
-				if (!spot)
-				{
-					Q_strcat(weaponModel, sizeof(weaponModel), "_w");
-				}
-				Q_strcat(weaponModel, sizeof(weaponModel), ".glm");	//and change to ghoul2
-			}
-			gi.G2API_PrecacheGhoul2Model(weaponModel); // correct way is item->world_model
-		}
 	}
 
-	else {
-		weaponInfo->weaponModel = cgi_R_RegisterModel(weaponData[weaponNum].weaponMdl);
-		{//in case the weaponmodel isn't _w, precache the _w.glm
-			char weaponModel[64];
-
-			Q_strncpyz(weaponModel, weaponData[weaponNum].worldModel, sizeof(weaponModel));
-			gi.G2API_PrecacheGhoul2Model(weaponModel); // correct way is item->world_model
-		}
-
-		if (weaponInfo->weaponModel == NULL)
-		{
-			CG_Error("Couldn't find weapon model %s\n", weaponData[weaponNum].classname);
-			return;
-		}
+	{//precache the _w.glm 
+		gi.G2API_PrecacheGhoul2Model(weaponData[weaponNum].worldModel); // correct way is item->world_model 
 	}
-//DT EDIT: Ghoul2 viewmodels - END
+	//DT EDIT: Ghoul2 viewmodels - END
 
 	// calc midpoint for rotation
 	cgi_R_ModelBounds( weaponInfo->weaponModel, mins, maxs );
@@ -190,8 +163,13 @@ void CG_RegisterWeapon(int weaponNum) {
 		weaponInfo->g2_skin = gi.RE_RegisterSkin(weaponData[weaponNum].skinPath);
 		weaponInfo->g2_index = gi.G2API_InitGhoul2Model(weaponInfo->ghoul2, path,
 			G_ModelIndex(path), G_SkinIndex(weaponData[weaponNum].skinPath), NULL, 0, 0);
+
+		gi.G2API_SetSkin(&weaponInfo->ghoul2[weaponInfo->g2_index], 0, weaponInfo->g2_skin);
+
 		// Add flash bolt
 		weaponInfo->g2_flashbolt = gi.G2API_AddBolt(&weaponInfo->ghoul2[weaponInfo->g2_index], "*flash");
+		weaponInfo->g2_effectsbolt = gi.G2API_AddBolt(&weaponInfo->ghoul2[weaponInfo->g2_index], "*l_hand");
+
 		if (!weaponData[weaponNum].bNoHandModel)
 			weaponInfo->handsModel = cgi_R_RegisterModel("models/weapons2/briar_pistol/briar_pistol_hand.md3");
 
@@ -694,6 +672,7 @@ void CG_DeregisterWeapon(int weaponNum) {
 	if (weaponInfo->g2_flashbolt < 0)
 		return;
 	gi.G2API_RemoveBolt(&weaponInfo->ghoul2[weaponInfo->g2_index], weaponInfo->g2_flashbolt);
+	gi.G2API_RemoveBolt(&weaponInfo->ghoul2[weaponInfo->g2_index], weaponInfo->g2_effectsbolt);
 	gi.G2API_CleanGhoul2Models(weaponInfo->ghoul2);
 }
 
@@ -1274,6 +1253,7 @@ int CG_MapTorsoToG2VMAnimation(playerState_t *ps) {
 	}
 }
 
+extern void CG_ForcePushBlur(const vec3_t org, qboolean darkSide = qfalse);
 void CG_AnimateViewmodel(centity_t* cent, playerState_t *ps) {
 	CG_RegisterWeapon(ps->weapon);
 	weaponInfo_t* weapon = &cg_weapons[ps->weapon];
@@ -1325,11 +1305,6 @@ void CG_AddViewWeapon( playerState_t *ps )
 	weaponData_t  *wData;
 	centity_t	*cent;
 	float		fovOffset, leanOffset;
-
-	//DT EDIT: Ghoul2 viewmodels - START
-	refEntity_t	gun;
-	int i;
-	//DT EDIT: Ghoul2 viewmodels - END
 
 	// no gun if in third person view
 	if ( cg.renderingThirdPerson )
@@ -1500,12 +1475,7 @@ void CG_AddViewWeapon( playerState_t *ps )
 #endif
 	//DT EDIT: Ghoul2 viewmodels - START
 	// map torso animations to weapon animations
-	if (cg_gun_frame.integer)	{
-		// development tool
-		hand.frame = hand.oldframe = cg_gun_frame.integer;
-		hand.backlerp = 0;
-	}
-	else if (!weapon->bUsesGhoul2) {
+	if (!weapon->bUsesGhoul2) {
 		// get clientinfo for animation map
 		const clientInfo_t	*ci = &cent->gent->client->clientInfo;
 		int torsoAnim = cent->gent->client->ps.torsoAnim;//pe.torso.animationNumber;
@@ -1545,6 +1515,7 @@ void CG_AddViewWeapon( playerState_t *ps )
 	for ( int saberNum = 0; saberNum < numSabers; saberNum++ )
 	{
 		//DT EDIT: Ghoul2 viewmodels - START
+		refEntity_t		gun;
 		memset(&gun, 0, sizeof(gun));
 		AnglesToAxis(angles, gun.axis);
 
@@ -1555,28 +1526,18 @@ void CG_AddViewWeapon( playerState_t *ps )
 				return;
 			}
 		}
-		else {
+		else 
+		{
 			gun.ghoul2 = const_cast<CGhoul2Info_v*>(&weapon->ghoul2);
 			gun.radius = 60;
 			gun.customSkin = weapon->g2_skin;
+			VectorCopy(hand.axis[0], gun.axis[0]);
 		}
 		if (!wData->bNoHandModel)
 			CG_PositionEntityOnTag(&gun, &hand, weapon->handsModel, "tag_weapon");
 		else
 			VectorCopy(hand.origin, gun.origin);
 		//DT EDIT: Ghoul2 viewmodels - END
-
-		refEntity_t	gun;
-		memset (&gun, 0, sizeof(gun));
-
-		gun.hModel = weapon->weaponModel;
-		if (!gun.hModel)
-		{
-			return;
-		}
-
-		AnglesToAxis( angles, gun.axis );
-		CG_PositionEntityOnTag( &gun, &hand, weapon->handsModel, "tag_weapon");
 
 		gun.renderfx = RF_DEPTHHACK | RF_FIRST_PERSON;
 
@@ -1629,7 +1590,7 @@ void CG_AddViewWeapon( playerState_t *ps )
 	//DT EDIT: Ghoul2 viewmodels - START
 			// add the spinning barrel[s]
 			if (!weapon->bUsesGhoul2) {
-				for (i = 0; (i < wData->numBarrels); i++)
+				for (int i = 0; (i < wData->numBarrels); i++)
 				{
 					refEntity_t	barrel;
 					memset(&barrel, 0, sizeof(barrel));
@@ -1659,7 +1620,8 @@ void CG_AddViewWeapon( playerState_t *ps )
 			memset(&flash, 0, sizeof(flash));
 
 			// Seems like we should always do this in case we have an animating muzzle flash....that way we can always store the correct muzzle dir, etc.
-			if (!weapon->bUsesGhoul2) {
+			if (!weapon->bUsesGhoul2) 
+			{
 				CG_PositionEntityOnTag(&flash, &gun, gun.hModel, "tag_flash");
 				CG_DoMuzzleFlash(cent, flash.origin, flash.axis[0], wData);
 			}
@@ -1679,6 +1641,24 @@ void CG_AddViewWeapon( playerState_t *ps )
 				gi.G2API_GiveMeVectorFromMatrix(boltMatrix, POSITIVE_X, flash.axis[0]);
 				gi.G2API_GiveMeVectorFromMatrix(boltMatrix, POSITIVE_Y, flash.axis[1]);
 				gi.G2API_GiveMeVectorFromMatrix(boltMatrix, POSITIVE_Z, flash.axis[2]);
+
+				// Play effects if requested 
+				if (ps->powerups[PW_FORCE_PUSH] > cg.time ||
+					ps->forcePowersActive & (1 << FP_GRIP)) {
+						vec3_t effectOrigin;
+						VectorSet(setAngles, cent->lerpAngles[PITCH], cent->lerpAngles[YAW], 0);
+						gi.G2API_GetBoltMatrix(s, weapon->g2_index, weapon->g2_effectsbolt, &boltMatrix, setAngles, gun.origin,
+																	(cg.time ? cg.time : level.time), NULL, gun.modelScale);
+						gi.G2API_GiveMeVectorFromMatrix(boltMatrix, ORIGIN, effectOrigin);
+						CG_ForcePushBlur(effectOrigin);
+				}
+					
+				// The effect position gets broken with differences in FOV. This should (hopefully) fix that. 
+				if (cg_fovViewmodel.integer) {
+						float fracDistFOV = tanf(cg.refdef.fov_x * (M_PI / 180) * 0.5f);
+						float fracWeapFOV = (1.0f / fracDistFOV) * tanf(actualFOV * (M_PI / 180) * 0.5f);
+						VectorScale(flash.axis[0], fracWeapFOV, flash.axis[0]);
+				}
 
 				CG_DoMuzzleFlash(cent, flash.origin, flash.angles, wData);
 				//cgi_R_AddRefEntityToScene(&flash);
