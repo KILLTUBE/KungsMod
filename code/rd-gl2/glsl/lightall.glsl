@@ -301,7 +301,7 @@ void main()
 }
 
 /*[Fragment]*/
-#if defined(USE_LIGHT) && !defined(USE_VERTEX_LIGHTING)
+#if defined(USE_LIGHT) && !defined(USE_FAST_LIGHT)
 #define PER_PIXEL_LIGHTING
 #endif
 
@@ -336,7 +336,7 @@ uniform samplerCube u_CubeMap;
 uniform vec4      u_EnableTextures; 
 #endif
 
-#if defined(USE_LIGHT_VECTOR) && !defined(USE_VERTEX_LIGHTING)
+#if defined(USE_LIGHT_VECTOR) && !defined(USE_FAST_LIGHT)
 uniform vec3 u_DirectedLight;
 uniform vec3 u_AmbientLight;
 #endif
@@ -346,12 +346,12 @@ uniform vec3  u_PrimaryLightColor;
 uniform vec3  u_PrimaryLightAmbient;
 #endif
 
-#if defined(USE_LIGHT) && !defined(USE_FAST_LIGHT)
+#if defined(PER_PIXEL_LIGHTING)
 uniform vec4      u_NormalScale;
 uniform vec4      u_SpecularScale;
 #endif
 
-#if defined(USE_LIGHT) && !defined(USE_FAST_LIGHT)
+#if defined(PER_PIXEL_LIGHTING)
 #if defined(USE_CUBEMAP)
 uniform vec4      u_CubeMapInfo;
 uniform sampler2D u_EnvBrdfMap;
