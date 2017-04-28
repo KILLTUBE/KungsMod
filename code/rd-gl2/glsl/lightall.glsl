@@ -688,11 +688,16 @@ void main()
     H  = normalize(L + E);
     EH = max(1e-8, dot(E, H));
 	NH = max(1e-8, dot(N, H));
+	NL = clamp(dot(N, L), 1e-8, 1.0);
 	reflectance  = CalcDiffuse(diffuse.rgb, NH, EH, roughness, ao);
 
-  #if defined(USE_LIGHT_VECTOR) || defined(USE_DELUXEMAP)
-    
-    NL = clamp(dot(N, L), 1e-8, 1.0);
+  #if defined(USE_DELUXEMAP)
+	#if defined(USE_LIGHTMAP)
+	NE = abs(dot(N, E)) + 1e-5;
+	reflectance += lightmapColor.rgb * CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness);
+	#endif
+  #endif
+  #if defined(USE_LIGHT_VECTOR)
 	NE = abs(dot(N, E)) + 1e-5;
 	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness);
   #endif
