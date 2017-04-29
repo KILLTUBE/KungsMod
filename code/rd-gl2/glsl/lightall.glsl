@@ -619,7 +619,15 @@ void main()
   #elif defined(USE_LIGHT_VECTOR)
 	lightColor	= u_DirectedLight * var_Color.rgb;
 	ambientColor = u_AmbientLight * var_Color.rgb;
+	float factor = 1.0;
+	#if defined(USE_PBR)
+		// smooth out distance attenuation for dynamic lights
+		factor = sqrLightDist * (1.0 / var_LightDir.w);
+		factor = clamp(1.0 - (factor*factor), 0.0, 1.0);
+		factor *= factor;
+	#endif
 	attenuation  = CalcLightAttenuation(float(var_LightDir.w > 0.0), var_LightDir.w / sqrLightDist);
+	attenuation *= factor;
   #elif defined(USE_LIGHT_VERTEX)
 	lightColor	= var_Color.rgb;
 	ambientColor = vec3 (0.0);
