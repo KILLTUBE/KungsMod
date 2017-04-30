@@ -1831,10 +1831,13 @@ Viewmodel Animations
 
 typedef enum {
 	VM_READY,						// Weapon 1-frame idle. Usually first frame of VM_FIRE.
-	VM_IDLE,						// Weapon idle animation
+	VM_IDLE,						// Weapon idling animation
 	VM_RAISE,						// Draw weapon
 	VM_LOWER,						// Put weapon away
 	VM_FIRE,						// Fire weapon
+
+	VM_THERMAL_PULLBACK,			// Thermal detonator pull back
+	VM_THERMAL_THROW,				// Thermal detonator throw
 
 	VM_MELEE1,						// Melee 1. WP_MELEE only!
 	VM_MELEE2,						// Melee 2. WP_MELEE only!
@@ -1844,7 +1847,8 @@ typedef enum {
 	VM_FGRIP,						// Force Grip
 	VM_FGRIP_HOLD,					// Force Grip hold
 	VM_FGRIP_RELEASE,				// Force Grip release
-	VM_FGRIP_THROW,					// Force Grip throw
+	VM_TOSS_LEFT,					// Throwing to left after force gripping
+	VM_TOSS_RIGHT,					// Throwing to right after force gripping
 	VM_FHEAL_QUICK,					// Force Heal quick
 	VM_FHEAL_START,					// Force Heal start
 	VM_FHEAL_STOP,					// Force Heal stop
@@ -1871,10 +1875,9 @@ typedef enum {
 	VM_FORCE_ABSORB_START,			// Force Absorb start
 	VM_FORCE_ABSORB_END,			// Force Absorb end
 	VM_FORCE_PROTECT,				// Force Protect
-	VM_FORCE_PROTECT_FAST,			// Force Protect fast
 
 	MAX_VIEWMODEL_ANIMATIONS
-};
+} viewModelAnimNumber_t;
 
 typedef struct {
 	char			filename[MAX_QPATH];
