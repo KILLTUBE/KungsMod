@@ -1641,7 +1641,8 @@ void CG_AddViewWeapon( playerState_t *ps )
 				gi.G2API_GetBoltMatrix(s, weapon->g2_index, weapon->g2_flashbolt, &boltMatrix, setAngles, gun.origin,
 					(cg.time ? cg.time : level.time), NULL, gun.modelScale);
 				gi.G2API_GiveMeVectorFromMatrix(boltMatrix, ORIGIN, flash.origin);
-				VectorMA(flash.origin, 20, cg.refdef.viewaxis[0], flash.origin);
+				// this seems to screw the position a bit
+				//VectorMA(flash.origin, 20, cg.refdef.viewaxis[0], flash.origin);
 				VectorCopy(cg.snap->ps.viewangles, flash.angles);
 
 				gi.G2API_GiveMeVectorFromMatrix(boltMatrix, POSITIVE_X, flash.axis[0]);
