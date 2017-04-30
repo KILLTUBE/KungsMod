@@ -1485,6 +1485,8 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArrays
 		sp = SelectShaderProgram(stage, pStage, pStage->glslShaderGroup, useAlphaTestGE192);
 		assert(sp);
 
+		bool renderToCubemap = tr.renderCubeFbo && glState.currentFBO == tr.renderCubeFbo;
+
 		uniformDataWriter.Start(sp);
 		uniformDataWriter.SetUniformMatrix4x4( UNIFORM_MODELVIEWPROJECTIONMATRIX, glState.modelviewProjection);
 		uniformDataWriter.SetUniformVec3(UNIFORM_VIEWORIGIN, backEnd.viewParms.ori.origin);
@@ -1592,7 +1594,18 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArrays
 		uniformDataWriter.SetUniformMatrix4x4(UNIFORM_MODELMATRIX, backEnd.ori.modelMatrix);
 
 		uniformDataWriter.SetUniformVec4(UNIFORM_NORMALSCALE, pStage->normalScale);
-		uniformDataWriter.SetUniformVec4(UNIFORM_SPECULARSCALE, pStage->specularScale);
+		{
+			vec4_t specularScale;
+			VectorCopy4(pStage->specularScale, specularScale);
+
+			if (renderToCubemap)
+			{
+				// force specular to nonmetal if rendering cubemaps
+				if (r_pbr->integer)
+					specularScale[1] = 0.0f;
+			}
+			uniformDataWriter.SetUniformVec4(UNIFORM_SPECULARSCALE, specularScale);
+		}
 
 		float alphaTestValue = useAlphaTestGE192 ? 0.75f : pStage->alphaTestValue;
 		uniformDataWriter.SetUniformFloat(UNIFORM_ALPHA_TEST_VALUE, alphaTestValue);

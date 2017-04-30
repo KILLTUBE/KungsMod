@@ -301,7 +301,7 @@ void main()
 }
 
 /*[Fragment]*/
-#if defined(USE_LIGHT) && !defined(USE_VERTEX_LIGHTING)
+#if defined(USE_LIGHT) && !defined(USE_FAST_LIGHT)
 #define PER_PIXEL_LIGHTING
 #endif
 
@@ -336,7 +336,7 @@ uniform samplerCube u_CubeMap;
 uniform vec4      u_EnableTextures; 
 #endif
 
-#if defined(USE_LIGHT_VECTOR) && !defined(USE_VERTEX_LIGHTING)
+#if defined(USE_LIGHT_VECTOR) && !defined(USE_FAST_LIGHT)
 uniform vec3 u_DirectedLight;
 uniform vec3 u_AmbientLight;
 #endif
@@ -346,12 +346,12 @@ uniform vec3  u_PrimaryLightColor;
 uniform vec3  u_PrimaryLightAmbient;
 #endif
 
-#if defined(USE_LIGHT) && !defined(USE_FAST_LIGHT)
+#if defined(PER_PIXEL_LIGHTING)
 uniform vec4      u_NormalScale;
 uniform vec4      u_SpecularScale;
 #endif
 
-#if defined(USE_LIGHT) && !defined(USE_FAST_LIGHT)
+#if defined(PER_PIXEL_LIGHTING)
 #if defined(USE_CUBEMAP)
 uniform vec4      u_CubeMapInfo;
 uniform sampler2D u_EnvBrdfMap;
@@ -619,7 +619,15 @@ void main()
   #elif defined(USE_LIGHT_VECTOR)
 	lightColor	= u_DirectedLight * var_Color.rgb;
 	ambientColor = u_AmbientLight * var_Color.rgb;
+	float factor = 1.0;
+	#if defined(USE_PBR)
+		// smooth out distance attenuation for dynamic lights
+		factor = sqrLightDist * (1.0 / var_LightDir.w);
+		factor = clamp(1.0 - (factor*factor), 0.0, 1.0);
+		factor *= factor;
+	#endif
 	attenuation  = CalcLightAttenuation(float(var_LightDir.w > 0.0), var_LightDir.w / sqrLightDist);
+	attenuation *= factor;
   #elif defined(USE_LIGHT_VERTEX)
 	lightColor	= var_Color.rgb;
 	ambientColor = vec3 (0.0);
@@ -688,11 +696,16 @@ void main()
     H  = normalize(L + E);
     EH = max(1e-8, dot(E, H));
 	NH = max(1e-8, dot(N, H));
+	NL = clamp(dot(N, L), 1e-8, 1.0);
 	reflectance  = CalcDiffuse(diffuse.rgb, NH, EH, roughness, ao);
 
-  #if defined(USE_LIGHT_VECTOR) || defined(USE_DELUXEMAP)
-    
-    NL = clamp(dot(N, L), 1e-8, 1.0);
+  #if defined(USE_DELUXEMAP)
+	#if defined(USE_LIGHTMAP)
+	NE = abs(dot(N, E)) + 1e-5;
+	reflectance += lightmapColor.rgb * CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness);
+	#endif
+  #endif
+  #if defined(USE_LIGHT_VECTOR)
 	NE = abs(dot(N, E)) + 1e-5;
 	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness);
   #endif

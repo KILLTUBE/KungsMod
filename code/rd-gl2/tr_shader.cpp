@@ -318,7 +318,7 @@ static int NameToSrcBlendMode( const char *name )
 	{
 		if ( r_ignoreDstAlpha->integer )
 		{
-			return GLS_DSTBLEND_ONE;
+			return GLS_SRCBLEND_ONE;
 		}
 
 		return GLS_SRCBLEND_DST_ALPHA;
@@ -327,7 +327,7 @@ static int NameToSrcBlendMode( const char *name )
 	{
 		if ( r_ignoreDstAlpha->integer )
 		{
-			return GLS_DSTBLEND_ZERO;
+			return GLS_SRCBLEND_ZERO;
 		}
 
 		return GLS_SRCBLEND_ONE_MINUS_DST_ALPHA;
@@ -3097,11 +3097,32 @@ static void CollapseStagesToLightall(shaderStage_t *diffuse,
 
 	if (r_specularMapping->integer)
 	{
+		image_t *diffuseImg;
 		if (specular)
 		{
 			//ri.Printf(PRINT_ALL, ", specularmap %s", specular->bundle[0].image[0]->imgName);
 			diffuse->bundle[TB_SPECULARMAP] = specular->bundle[0];
 			VectorCopy4(specular->specularScale, diffuse->specularScale);
+		}
+		else if ((lightmap || useLightVector || useLightVertex) && (diffuseImg = diffuse->bundle[TB_DIFFUSEMAP].image[0]) && r_pbr->integer)
+		{
+			char specularName[MAX_QPATH];
+			image_t *specularImg;
+			int specularFlags = (diffuseImg->flags & ~(IMGFLAG_GENNORMALMAP | IMGFLAG_SRGB)) | IMGFLAG_NOLIGHTSCALE;
+
+			COM_StripExtension(diffuseImg->imgName, specularName, MAX_QPATH);
+			Q_strcat(specularName, MAX_QPATH, "_rmo");
+
+			specularImg = R_FindImageFile(specularName, IMGTYPE_COLORALPHA, specularFlags);
+
+			if (specularImg)
+			{
+				diffuse->bundle[TB_SPECULARMAP] = diffuse->bundle[0];
+				diffuse->bundle[TB_SPECULARMAP].numImageAnimations = 0;
+				diffuse->bundle[TB_SPECULARMAP].image[0] = specularImg;
+
+				VectorSet4(diffuse->specularScale, 1.0f, 1.0f, 1.0f, 1.0f);
+			}
 		}
 	}
 
