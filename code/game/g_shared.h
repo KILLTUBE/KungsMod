@@ -1028,6 +1028,8 @@ Ghoul2 Insert End
 	char		*model;				// Normal model, or legs model on tri-models
 	char		*model2;			// Torso model
 
+	char		*skin;				// Skin to use
+
 	int			freetime;			// sv.time when the object was freed
 
 	int			eventTime;			// events will be cleared EVENT_VALID_MSEC after set

@@ -412,7 +412,6 @@ static cvarTable_t cvarTable[] = {
 	{ &cg_gun_frame, "gun_frame", "0", CVAR_CHEAT },
 	{ &cg_debugAnimTarget, "cg_debugAnimTarget", "0", CVAR_CHEAT },
 #endif
-	//DT EDIT: Ghoul2 viewmodels - END
 	{ &cg_gun_x, "cg_gunX", "0", CVAR_ARCHIVE },
 	{ &cg_gun_y, "cg_gunY", "0", CVAR_ARCHIVE },
 	{ &cg_gun_z, "cg_gunZ", "0", CVAR_ARCHIVE },

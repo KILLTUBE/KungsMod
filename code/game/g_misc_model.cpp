@@ -255,15 +255,11 @@ void SP_misc_model_ghoul( gentity_t *ent )
 	gi.G2API_SetBoneAnim(&ent->ghoul2[0], root_boneName, ent->startFrame, ent->endFrame, BONE_ANIM_OVERRIDE_LOOP, 1.0f + Q_flrand(-1.0f, 1.0f) * 0.1f, 0, -1, -1);
 	ent->endFrame = 0; // don't allow it to do anything with the animation function in G_main
 
-	char *skinName;
-	int skin = gi.RE_RegisterSkin(skinName);
+	int skin = gi.RE_RegisterSkin(ent->skin);
+	G_SpawnString("skin", "models/players/kyle/model_default.skin", &ent->skin);
+	gi.G2API_SetSkin(&ent->ghoul2[ent->playerModel], G_SkinIndex(ent->skin), skin);
 
-	G_SpawnString("skin", "models/players/kyle/model_default.skin", &skinName);
-	gi.G2API_SetSkin(&ent->ghoul2[ent->playerModel], G_SkinIndex(skinName), skin);
-
-	char Model[MAX_QPATH];
-
-	gi.G2API_PrecacheGhoul2Model(Model);
+	gi.G2API_PrecacheGhoul2Model(ent->model);
 	//DT EDIT: misc_model_ghoul edits - END
 
 	gi.linkentity (ent);
