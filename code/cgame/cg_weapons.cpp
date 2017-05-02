@@ -1218,7 +1218,8 @@ int CG_MapTorsoToG2VMAnimation(playerState_t *ps)
 		case BOTH_MINDTRICK1:
 		case BOTH_MINDTRICK2:
 			return 	VM_FMINDTRICK;
-		case BOTH_FORCE_RAGE:
+		// Not sure about these yet. commented out for now.
+		/*case BOTH_FORCE_RAGE:
 			return 	VM_FRAGE;
 		case BOTH_FORCE_2HANDEDLIGHTNING:
 			return 	VM_F2HANDEDLIGHTNING;
@@ -1252,7 +1253,7 @@ int CG_MapTorsoToG2VMAnimation(playerState_t *ps)
 			return 	VM_FORCE_ABSORB_END;
 		case BOTH_FORCE_PROTECT:
 		case BOTH_FORCE_PROTECT_FAST:
-			return 	VM_FORCE_PROTECT;
+			return 	VM_FORCE_PROTECT;*/
 
 		default:
 			return VM_READY;
