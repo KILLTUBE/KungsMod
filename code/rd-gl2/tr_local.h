@@ -851,7 +851,9 @@ typedef struct shader_s {
 
 	int			numUnfoggedPasses;
 	int			numSurfaceSpriteStages;
-	shaderStage_t	*stages[MAX_SHADER_STAGES];		
+	shaderStage_t	*stages[MAX_SHADER_STAGES];
+
+	int			lightingStage;
 
 	void		(*optimalStageIteratorFunc)( void );
 

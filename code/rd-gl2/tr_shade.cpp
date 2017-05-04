@@ -884,7 +884,7 @@ static void ForwardDlight( const shaderCommands_t *input,  VertexArraysPropertie
 	UniformDataWriter uniformDataWriter;
 	SamplerBindingsWriter samplerBindingsWriter;
 
-	shaderStage_t *pStage = tess.xstages[0];
+	shaderStage_t *pStage = tess.xstages[tess.shader->lightingStage];
 	int index;
 	shaderProgram_t *shaderGroup;
 	uint32_t stateBits = 0;
@@ -1917,8 +1917,8 @@ void RB_StageIteratorGeneric( void )
 		// now do any dynamic lighting needed
 		//
 		if ( tess.dlightBits &&
-				tess.shader->sort <= SS_OPAQUE &&
-				!(tess.shader->surfaceFlags & (SURF_NODLIGHT | SURF_SKY) ) )
+			 tess.shader->lightingStage >= 0 &&
+			 r_dlightMode->integer)
 		{
 			ForwardDlight(input, &vertexArrays);
 		}
