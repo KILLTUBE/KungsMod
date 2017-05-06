@@ -702,7 +702,7 @@ void main()
   #if defined(USE_DELUXEMAP)
 	#if defined(USE_LIGHTMAP)
 	NE = abs(dot(N, E)) + 1e-5;
-	reflectance += lightmapColor.rgb * CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness);
+	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness);// *lightmapColor.rgb;
 	#endif
   #endif
   #if defined(USE_LIGHT_VECTOR)
