@@ -4176,6 +4176,7 @@ void UI_UpdateVideoSetup ( void )
 	Cvar_Set ( "r_mode", Cvar_VariableString ( "ui_r_mode" ) );
 	Cvar_Set ( "r_ratioFix", Cvar_VariableString ( "ui_r_ratioFix" ) );
 	Cvar_Set ( "r_fullscreen", Cvar_VariableString ( "ui_r_fullscreen" ) );
+	Cvar_Set ( "r_parallaxmapping", Cvar_VariableString ( "ui_r_parallaxmapping" ) );
 	Cvar_Set ( "r_colorbits", Cvar_VariableString ( "ui_r_colorbits" ) );
 	Cvar_Set ( "r_lodbias", Cvar_VariableString ( "ui_r_lodbias" ) );
 	Cvar_Set ( "r_picmip", Cvar_VariableString ( "ui_r_picmip" ) );
@@ -4210,6 +4211,7 @@ void UI_GetVideoSetup ( void )
 	Cvar_Register ( NULL, "ui_r_mode",					"0", CVAR_ROM );
 	Cvar_Register ( NULL, "ui_r_ratioFix",				"0", CVAR_ROM );
 	Cvar_Register ( NULL, "ui_r_fullscreen",			"0", CVAR_ROM );
+	Cvar_Register ( NULL, "ui_r_parallaxmapping",		"1", CVAR_ROM );
 	Cvar_Register ( NULL, "ui_r_colorbits",				"0", CVAR_ROM );
 	Cvar_Register ( NULL, "ui_r_lodbias",				"0", CVAR_ROM );
 	Cvar_Register ( NULL, "ui_r_picmip",				"0", CVAR_ROM );
@@ -4230,6 +4232,7 @@ void UI_GetVideoSetup ( void )
 	Cvar_Set ( "ui_r_ratioFix", Cvar_VariableString ( "r_ratioFix" ) );
 	Cvar_Set ( "ui_r_colorbits", Cvar_VariableString ( "r_colorbits" ) );
 	Cvar_Set ( "ui_r_fullscreen", Cvar_VariableString ( "r_fullscreen" ) );
+	Cvar_Set ( "ui_r_parallaxmapping", Cvar_VariableString ( "r_parallaxmapping" ) );
 	Cvar_Set ( "ui_r_lodbias", Cvar_VariableString ( "r_lodbias" ) );
 	Cvar_Set ( "ui_r_picmip", Cvar_VariableString ( "r_picmip" ) );
 	Cvar_Set ( "ui_r_texturebits", Cvar_VariableString ( "r_texturebits" ) );
