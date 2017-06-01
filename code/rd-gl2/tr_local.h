@@ -367,7 +367,6 @@ typedef struct cubemap_s {
 	vec3_t origin;
 	float parallaxRadius;
 	image_t *image;
-	int mipmapped;
 } cubemap_t;
 
 typedef struct dlight_s {
@@ -1995,7 +1994,7 @@ void		R_Modellist_f (void);
 
 //====================================================
 
-#define	MAX_DRAWIMAGES			2048
+#define	MAX_DRAWIMAGES			4096
 #define	MAX_SKINS				1024
 
 
@@ -3301,6 +3300,11 @@ typedef struct capShadowmapCommand_s {
 	int cubeSide;
 } capShadowmapCommand_t;
 
+typedef struct convolveCubemapCommand_s {
+	int commandId;
+	int cubemap;
+} convolveCubemapCommand_t;
+
 typedef struct postProcessCommand_s {
 	int		commandId;
 	trRefdef_t	refdef;
@@ -3338,6 +3342,7 @@ typedef enum {
 	RC_COLORMASK,
 	RC_CLEARDEPTH,
 	RC_CAPSHADOWMAP,
+	RC_CONVOLVECUBEMAP,
 	RC_POSTPROCESS,
 	RC_EXPORT_CUBEMAPS,
 	RC_BEGIN_TIMED_BLOCK,
@@ -3415,6 +3420,7 @@ void RB_ExecuteRenderCommands( const void *data );
 void R_IssuePendingRenderCommands( void );
 
 void R_AddDrawSurfCmd( drawSurf_t *drawSurfs, int numDrawSurfs );
+void R_AddConvolveCubemapCmd(int cubemap);
 void R_AddCapShadowmapCmd( int dlight, int cubeSide );
 void R_AddPostProcessCmd (void);
 qhandle_t R_BeginTimedBlockCmd( const char *name );

@@ -1851,25 +1851,23 @@ RB_PrefilterEnvMap
 =============
 */
 
-void RB_PrefilterEnvMap(int numCubeMap) {
+static const void *RB_PrefilterEnvMap(const void *data) {
 
-	cubemap_t *cubemap = &tr.cubemaps[backEnd.viewParms.targetFboCubemapIndex];
+	const convolveCubemapCommand_t *cmd = (const convolveCubemapCommand_t *)data;
 
 	// finish any 2D drawing if needed
 	if (tess.numIndexes)
 		RB_EndSurface();
 
-	if (!tr.world || tr.numCubemaps == 0)
-	{
-		// do nothing
-		return;
-	}
+	RB_SetGL2D();
 
-	int cubeMipSize = r_cubemapSize->integer;
+	cubemap_t *cubemap = &tr.cubemaps[cmd->cubemap];
+
+	int cubeMipSize = cubemap->image->width;
 	int numMips = 0;
-
-	int width = r_cubemapSize->integer;
-	int height = r_cubemapSize->integer;
+	
+	int width = cubemap->image->width;
+	int height = cubemap->image->height;
 
 	vec4_t quadVerts[4];
 	vec2_t texCoords[4];
@@ -1890,33 +1888,31 @@ void RB_PrefilterEnvMap(int numCubeMap) {
 		numMips++;
 	}
 	numMips = MAX(1, numMips - 4);
+
 	FBO_Bind(tr.preFilterEnvMapFbo);
 	GL_BindToTMU(cubemap->image, TB_CUBEMAP);
-	GL_State(GLS_DEPTHTEST_DISABLE);
 	
 	GLSL_BindProgram(&tr.prefilterEnvMapShader);
 
-	for (int level = 1; level <= numMips; level++) {
+	for (int level = 1; level <= numMips; level++) 
+	{
 		width = width / 2.0;
 		height = height / 2.0;
 		qglViewport(0, 0, width, height);
 		qglScissor(0, 0, width, height);
-		for (int j = 0; j < 6; j++) {
-			//////////////////////////////////////////////////////////////////////////////////////////////
-			{
-				vec4_t viewInfo;
-				VectorSet4(viewInfo, j, level, numMips, 0.0);
-				GLSL_SetUniformVec4(&tr.prefilterEnvMapShader, UNIFORM_VIEWINFO, viewInfo);
-			}
-			RB_InstantQuad2(quadVerts, texCoords); //, color, shaderProgram, invTexRes);
-			//////////////////////////////////////////////////////////////////////////////////////////////
-			qglCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + j, level, 0, 0, 0, 0, width, height);
+		for (int cubemapSide = 0; cubemapSide < 6; cubemapSide++) 
+		{
+			vec4_t viewInfo;
+			VectorSet4(viewInfo, cubemapSide, level, numMips, 0.0);
+			GLSL_SetUniformVec4(&tr.prefilterEnvMapShader, UNIFORM_VIEWINFO, viewInfo);
+			RB_InstantQuad2(quadVerts, texCoords);
+			qglCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + cubemapSide, level, 0, 0, 0, 0, width, height);
 		}
 	}
 
-	//cubemap->mipmapped++;
 	GL_SelectTexture(0);
-	return;
+
+	return (const void *)(cmd + 1);
 }
 
 static void RB_RenderSunShadows()
@@ -2140,7 +2136,7 @@ static void RB_RenderMainPass(drawSurf_t *drawSurfs, int numDrawSurfs)
 
 static void RB_GenerateMipmapsForCubemapFaceRender()
 {
-	if (tr.renderCubeFbo == NULL || backEnd.viewParms.targetFbo != tr.renderCubeFbo)
+	if (tr.renderCubeFbo == NULL || backEnd.viewParms.targetFbo != tr.renderCubeFbo || r_pbr->integer)
 	{
 		return;
 	}
@@ -2243,22 +2239,13 @@ static const void	*RB_DrawSurfs( const void *data ) {
 	// clear the z buffer, set the modelview, etc
 	RB_BeginDrawingView();
 
-	//RB_TransformAllAnimations(cmd->drawSurfs, cmd->numDrawSurfs);
+	RB_TransformAllAnimations(cmd->drawSurfs, cmd->numDrawSurfs);
 
 	RB_RenderAllDepthRelatedPasses(cmd->drawSurfs, cmd->numDrawSurfs);
 
 	RB_RenderMainPass(cmd->drawSurfs, cmd->numDrawSurfs);
 
 	RB_GenerateMipmapsForCubemapFaceRender();
-
-	if (r_pbr->integer && r_pbrIBL->integer) {
-		cubemap_t *cubemap = &tr.cubemaps[backEnd.viewParms.targetFboCubemapIndex];
-		// UGLY find a better way!
-		if (cubemap && cubemap->mipmapped < 10) {
-			RB_PrefilterEnvMap(0);
-			cubemap->mipmapped++;
-		}
-	}
 
 	return (const void *)(cmd + 1);
 }
@@ -2873,6 +2860,9 @@ void RB_ExecuteRenderCommands( const void *data ) {
 			break;
 		case RC_CAPSHADOWMAP:
 			data = RB_CaptureShadowMap(data);
+			break;
+		case RC_CONVOLVECUBEMAP:
+			data = RB_PrefilterEnvMap(data);
 			break;
 		case RC_POSTPROCESS:
 			data = RB_PostProcess(data);

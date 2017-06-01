@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "tr_cache.h"
 #include <vector>
+#include <cmath>
 
 /*
 
@@ -3103,11 +3104,10 @@ void R_LoadCubemaps(world_t *world)
 		Com_sprintf(filename, MAX_QPATH, "cubemaps/%s/%03d.dds", world->baseName, i);
 
 		cubemap->image = R_FindImageFile(filename, IMGTYPE_COLORALPHA, IMGFLAG_CLAMPTOEDGE | IMGFLAG_MIPMAP | IMGFLAG_NOLIGHTSCALE | IMGFLAG_CUBEMAP);
-		cubemap->mipmapped = 0;
 	}
 }
 
-void R_RenderMissingCubemaps(world_t *world)
+void R_RenderMissingCubemaps()
 {
 	int i, j;
 	GLenum cubemapFormat = GL_RGBA8;
@@ -3122,7 +3122,6 @@ void R_RenderMissingCubemaps(world_t *world)
 		if (!tr.cubemaps[i].image)
 		{
 			tr.cubemaps[i].image = R_CreateImage(va("*cubeMap%d", i), NULL, r_cubemapSize->integer, r_cubemapSize->integer, IMGTYPE_COLORALPHA, IMGFLAG_NO_COMPRESSION | IMGFLAG_CLAMPTOEDGE | IMGFLAG_MIPMAP | IMGFLAG_CUBEMAP, cubemapFormat);
-			tr.cubemaps[i].mipmapped = 0;
 			for (j = 0; j < 6; j++)
 			{
 				RE_ClearScene();
@@ -3130,6 +3129,7 @@ void R_RenderMissingCubemaps(world_t *world)
 				R_IssuePendingRenderCommands();
 				R_InitNextFrame();
 			}
+			R_AddConvolveCubemapCmd(i);
 		}
 	}
 }
@@ -3550,7 +3550,7 @@ static void R_GenerateSurfaceSprites(
 		const vec2_t p01 = {p1[0] - p0[0], p1[1] - p0[1]};
 		const vec2_t p02 = {p2[0] - p0[0], p2[1] - p0[1]};
 
-		const float zarea = std::fabsf(p02[0]*p01[1] - p02[1]*p01[0]);
+		const float zarea = std::fabs(p02[0]*p01[1] - p02[1]*p01[0]);
 		if ( zarea <= 1.0 )
 		{
 			// Triangle's area is too small to consider.
@@ -3585,7 +3585,7 @@ static void R_GenerateSurfaceSprites(
 				// => y*y = 1.0 - x*x
 				// => y = -/+sqrt(1.0 - x*x)
 				float nx = flrand(-1.0f, 1.0f);
-				float ny = std::sqrtf(1.0f - nx*nx);
+				float ny = std::sqrt(1.0f - nx*nx);
 				ny *= irand(0, 1) ? -1 : 1;
 
 				VectorSet(sprite.normal, nx, ny, 0.0f);
@@ -3852,7 +3852,7 @@ void RE_LoadWorldMap( const char *name ) {
 	if (r_cubeMapping->integer && tr.numCubemaps)
 	{
 		R_LoadCubemaps(tr.world);
-		R_RenderMissingCubemaps(tr.world);
+		R_RenderMissingCubemaps();
 	}
 
 	// set default map light scale
