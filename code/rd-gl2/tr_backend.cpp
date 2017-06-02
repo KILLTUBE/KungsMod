@@ -1863,6 +1863,9 @@ static const void *RB_PrefilterEnvMap(const void *data) {
 
 	cubemap_t *cubemap = &tr.cubemaps[cmd->cubemap];
 
+	if (!cubemap)
+		return (const void *)(cmd + 1);
+
 	int cubeMipSize = cubemap->image->width;
 	int numMips = 0;
 	
