@@ -49,7 +49,9 @@ extern const GPUProgramDesc fallback_weatherProgram;
 
 
 const uniformBlockInfo_t uniformBlocksInfo[UNIFORM_BLOCK_COUNT] = {
-	{ 10, "SurfaceSprite", sizeof(SurfaceSpriteBlock) }
+	{ 0, "SurfaceSprite", sizeof(SurfaceSpriteBlock) },
+	{ 1, "Liquid", sizeof(LiquidBlock) },
+	{ 2, "Liquid2", sizeof(LiquidBlock2) }
 };
 
 typedef struct uniformInfo_s
@@ -2038,6 +2040,8 @@ static int GLSL_LoadGPUProgramRefraction(
 	GLSL_InitUniforms(&tr.refractionShader);
 
 	qglUseProgram(tr.refractionShader.program);
+	GLSL_SetUniformInt(&tr.refractionShader, UNIFORM_CUBEMAP, TB_CUBEMAP);
+	GLSL_SetUniformInt(&tr.refractionShader, UNIFORM_SHADOWMAP, TB_SHADOWMAP);
 	qglUseProgram(0);
 
 	GLSL_FinishGPUShader(&tr.refractionShader);

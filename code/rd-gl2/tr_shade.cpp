@@ -404,9 +404,9 @@ static void ComputeDeformValues(deform_t *type, genFunc_t *waveFunc, float defor
 				deformParams[1] = backEnd.ori.axis[1][2];
 				deformParams[2] = backEnd.ori.axis[2][2];
 				deformParams[3] = backEnd.ori.origin[2] - backEnd.currentEntity->e.shadowPlane;
-				deformParams[4] = backEnd.currentEntity->lightDir[0];
-				deformParams[5] = backEnd.currentEntity->lightDir[1];
-				deformParams[6] = backEnd.currentEntity->lightDir[2];
+				deformParams[4] = backEnd.currentEntity->modelLightDir[0];
+				deformParams[5] = backEnd.currentEntity->modelLightDir[1];
+				deformParams[6] = backEnd.currentEntity->modelLightDir[2];
 				break;
 
 			default:
@@ -1400,6 +1400,148 @@ static shaderProgram_t *SelectShaderProgram( int stageIndex, shaderStage_t *stag
 	return result;
 }
 
+void RB_StageIteratorLiquid( void ) 
+{
+	deform_t deformType;
+	genFunc_t deformGen;
+	float deformParams[7];
+	int stateBits;
+
+	ComputeDeformValues(&deformType, &deformGen, deformParams);
+
+	cullType_t cullType = CT_FRONT_SIDED;
+
+	shaderCommands_t *input = &tess;
+	if (!input->numVertexes || !input->numIndexes || (tr.renderCubeFbo && glState.currentFBO == tr.renderCubeFbo))
+	{
+		return;
+	}
+	//
+	// log this call
+	//
+	if (r_logFile->integer)
+	{
+		// don't just call LogComment, or we will get
+		// a call to va() every frame!
+		GLimp_LogComment(va("--- RB_StageIteratorLiquid( %s ) ---\n", tess.shader->name));
+	}
+
+	//
+	// update vertex buffer data
+	// 
+	uint32_t vertexAttribs = RB_CalcShaderVertexAttribs(input->shader);
+	if (tess.useInternalVBO)
+	{
+		RB_DeformTessGeometry();
+		RB_UpdateVBOs(vertexAttribs);
+	}
+	else
+	{
+		backEnd.pc.c_staticVboDraws++;
+	}
+
+	//
+	// vertex arrays
+	//
+	VertexArraysProperties vertexArrays;
+	if (tess.useInternalVBO)
+	{
+		CalculateVertexArraysProperties(vertexAttribs, &vertexArrays);
+		for (int i = 0; i < vertexArrays.numVertexArrays; i++)
+		{
+			int attributeIndex = vertexArrays.enabledAttributes[i];
+			vertexArrays.offsets[attributeIndex] += backEndData->currentFrame->dynamicVboCommitOffset;
+		}
+	}
+	else
+	{
+		CalculateVertexArraysFromVBO(vertexAttribs, glState.currentVBO, &vertexArrays);
+	}
+
+	vertexAttribute_t attribs[ATTR_INDEX_MAX] = {};
+	GL_VertexArraysToAttribs(attribs, ARRAY_LEN(attribs), &vertexArrays);
+
+	UniformDataWriter uniformDataWriter;
+	SamplerBindingsWriter samplerBindingsWriter;
+
+	uniformDataWriter.Start(&tr.refractionShader);
+	uniformDataWriter.SetUniformMatrix4x4(UNIFORM_MODELVIEWPROJECTIONMATRIX, glState.modelviewProjection);
+	uniformDataWriter.SetUniformVec3(UNIFORM_VIEWORIGIN, backEnd.viewParms.ori.origin);
+	uniformDataWriter.SetUniformVec3(UNIFORM_LOCALVIEWORIGIN, backEnd.ori.viewOrigin);
+	uniformDataWriter.SetUniformMatrix4x4(UNIFORM_MODELMATRIX, backEnd.ori.modelMatrix);
+
+	if (r_cubeMapping->integer)
+	{
+		vec4_t vec;
+		cubemap_t *cubemap = &tr.cubemaps[input->cubemapIndex - 1];
+
+		samplerBindingsWriter.AddStaticImage(cubemap->image, TB_CUBEMAP);
+
+		VectorSubtract(cubemap->origin, backEnd.viewParms.ori.origin, vec);
+		vec[3] = 1.0f;
+
+		VectorScale4(vec, 1.0f / cubemap->parallaxRadius, vec);
+
+		uniformDataWriter.SetUniformVec4(UNIFORM_CUBEMAPINFO, vec);
+	}
+
+	if (r_sunlightMode->integer)
+	{
+		samplerBindingsWriter.AddStaticImage(tr.screenShadowImage, TB_SHADOWMAP);
+		uniformDataWriter.SetUniformVec3(UNIFORM_PRIMARYLIGHTAMBIENT, backEnd.refdef.sunAmbCol);
+		uniformDataWriter.SetUniformVec3(UNIFORM_PRIMARYLIGHTCOLOR, backEnd.refdef.sunCol);
+		uniformDataWriter.SetUniformVec4(UNIFORM_PRIMARYLIGHTORIGIN, backEnd.refdef.sunDir);
+	}
+
+	LiquidBlock data = {};
+
+	data.isLiquid = 1.0;
+	data.height = tess.shader->liquid.height;
+	data.choppy = tess.shader->liquid.choppy;
+	data.speed = tess.shader->liquid.speed;
+	data.freq = tess.shader->liquid.freq;
+	data.depth = tess.shader->liquid.depth;
+	data.time = tess.shaderTime;
+	
+	RB_UpdateUniformBlock(UNIFORM_BLOCK_LIQUID, &data);
+
+	LiquidBlock2 data2 = {};
+
+	data2.water_color_r = tess.shader->liquid.water_color[0];
+	data2.water_color_g = tess.shader->liquid.water_color[1];
+	data2.water_color_b = tess.shader->liquid.water_color[2];
+	data2.fog_color_r = tess.shader->liquid.fog_color[0];
+	data2.fog_color_g = tess.shader->liquid.fog_color[1];
+	data2.fog_color_b = tess.shader->liquid.fog_color[2];
+	//ri.Printf(PRINT_ALL, "water_color should be: %f %f %f\n", tess.shader->liquid.water_color[0], tess.shader->liquid.water_color[1], tess.shader->liquid.water_color[2]);
+	//ri.Printf(PRINT_ALL, "water_color is: %f %f %f\n", data2.water_color_r, data2.water_color_g, data2.water_color_b);
+
+	RB_UpdateUniformBlock(UNIFORM_BLOCK_LIQUID2, &data2);
+
+
+	DrawItem item = {};
+	item.stateBits = GLS_SRCBLEND_SRC_ALPHA | GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA;
+	item.cullType = cullType;
+	item.program = &tr.refractionShader;
+	item.depthRange = RB_GetDepthRange(backEnd.currentEntity, input->shader);
+	item.ibo = input->externalIBO ? input->externalIBO : backEndData->currentFrame->dynamicIbo;
+
+	item.numAttributes = vertexArrays.numVertexArrays;
+	item.attributes = ojkAllocArray<vertexAttribute_t>(
+		*backEndData->perFrameMemory, vertexArrays.numVertexArrays);
+	memcpy(item.attributes, attribs, sizeof(*item.attributes)*vertexArrays.numVertexArrays);
+
+	item.uniformData = uniformDataWriter.Finish(*backEndData->perFrameMemory);
+	// FIXME: This is a bit ugly with the casting
+	item.samplerBindings = samplerBindingsWriter.Finish(
+		*backEndData->perFrameMemory, (int *)&item.numSamplerBindings);
+
+	RB_FillDrawCommand(item.draw, GL_TRIANGLES, 1, input);
+
+	uint32_t key = RB_CreateSortKey(item, 1, input->shader->sort);
+	RB_AddDrawItem(backEndData->currentPass, key, item);
+}
+
 static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArraysProperties *vertexArrays )
 {
 	deform_t deformType;
@@ -1900,7 +2042,6 @@ void RB_StageIteratorGeneric( void )
 	{
 		RB_IterateStagesGeneric( input, &vertexArrays );
 
-#if 0 // don't do this for now while I get draw sorting working :)
 		//
 		// pshadows!
 		//
@@ -1911,7 +2052,6 @@ void RB_StageIteratorGeneric( void )
 		{
 			ProjectPshadowVBOGLSL();
 		}
-#endif
 
 		// 
 		// now do any dynamic lighting needed

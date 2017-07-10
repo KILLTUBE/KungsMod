@@ -502,7 +502,7 @@ int R_CubemapForPoint( vec3_t point )
 			VectorSubtract(point, tr.cubemaps[i].origin, diff);
 			length = DotProduct(diff, diff);
 
-			if (shortest > length && length < (tr.cubemaps[i].parallaxRadius * 550))
+			if (shortest > length)
 			{
 				shortest = length;
 				cubemapIndex = i;
