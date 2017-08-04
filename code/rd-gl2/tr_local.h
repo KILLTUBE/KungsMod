@@ -660,6 +660,27 @@ struct SurfaceSpriteBlock
 	float heightVariance;
 };
 
+struct LiquidBlock
+{
+	float		isLiquid;
+	float		height;
+	float		choppy;
+	float		speed;
+	float		freq;
+	float		depth;
+	float		time;
+};
+
+struct LiquidBlock2
+{
+	float		water_color_r;
+	float		water_color_g;
+	float		water_color_b;
+	float		fog_color_r;
+	float		fog_color_g;
+	float		fog_color_b;
+};
+
 struct surfaceSprite_t
 {
 	surfaceSpriteType_t type;
@@ -800,6 +821,19 @@ typedef struct {
 } skyParms_t;
 
 typedef struct {
+	int			isLiquid;
+	float		height;
+	float		choppy;
+	float		speed;
+	float		freq;
+	float		depth;
+	vec2_t		direction;
+	vec3_t		water_color;
+	vec3_t		fog_color;
+} liquidParms_t;
+
+
+typedef struct {
 	vec3_t	color;
 	float	depthForOpaque;
 } fogParms_t;
@@ -830,6 +864,9 @@ typedef struct shader_s {
 
 	qboolean	isSky;
 	skyParms_t	sky;
+	qboolean	isLiquid;
+	liquidParms_t liquid;
+
 	fogParms_t	fogParms;
 
 	float		portalRange;			// distance to fog out at
@@ -1123,6 +1160,8 @@ enum
 enum uniformBlock_t
 {
 	UNIFORM_BLOCK_SURFACESPRITE,
+	UNIFORM_BLOCK_LIQUID,
+	UNIFORM_BLOCK_LIQUID2,
 	UNIFORM_BLOCK_COUNT
 };
 
@@ -2834,6 +2873,7 @@ void RB_CheckOverflow( int verts, int indexes );
 
 void R_DrawElementsVBO( int numIndexes, glIndex_t firstIndex, glIndex_t minIndex, glIndex_t maxIndex );
 void RB_StageIteratorGeneric( void );
+void RB_StageIteratorLiquid( void );
 void RB_StageIteratorSky( void );
 
 void RB_AddQuadStamp( vec3_t origin, vec3_t left, vec3_t up, float color[4] );

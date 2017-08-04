@@ -1598,7 +1598,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 			if (r_pbr->integer)
 				{
 					// interpret specularReflectance < 0.5 as nonmetal
-					stage->specularScale[1] = (atof(token) < 0.5f) ? 0.0f : 1.0f;
+					stage->specularScale[1] = atof(token);// < 0.5f) ? 0.0f : 1.0f;
 				}
 			else
 				{
@@ -1650,15 +1650,15 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 
 			gloss = atof(token);
 			if (r_pbr->integer)
-				stage->specularScale[0] = 1.0f - exp2f(-3.0f * gloss);
+				stage->specularScale[0] = 1.0 - gloss;
 			else
 				stage->specularScale[3] = gloss;
 		}
-				//
-				// roughness <value>
-				//
-			else if (!Q_stricmp(token, "roughness"))
-			{
+		//
+		// roughness <value>
+		//
+		else if (!Q_stricmp(token, "roughness"))
+		{
 			float roughness;
 			token = COM_ParseExt(text, qfalse);
 			if (token[0] == 0)
@@ -1668,14 +1668,14 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 			}
 			roughness = atof(token);
 			if (r_pbr->integer)
-				stage->specularScale[0] = 1.0 - roughness;
+				stage->specularScale[0] = roughness;
 			else
-				{
+			{
 				if (roughness >= 0.125)
 				stage->specularScale[3] = log2f(1.0f / roughness) / 3.0f;
 				else
 				stage->specularScale[3] = 1.0f;
-				}
+			}
 		}
 		//
 		// parallaxDepth <value>
@@ -2641,6 +2641,42 @@ static qboolean ParseShader( const char **text )
 			SkipRestOfLine( text );
 			continue;
 		}
+		// tonemap parms
+		else if (!Q_stricmp(token, "liquid")) {
+			shader.isLiquid = qtrue;
+
+			token = COM_ParseExt(text, qfalse);
+			shader.liquid.water_color[0] = atof(token);
+			token = COM_ParseExt(text, qfalse);
+			shader.liquid.water_color[1] = atof(token);
+			token = COM_ParseExt(text, qfalse);
+			shader.liquid.water_color[2] = atof(token);
+
+			token = COM_ParseExt(text, qfalse);
+			shader.liquid.fog_color[0] = atof(token);
+			token = COM_ParseExt(text, qfalse);
+			shader.liquid.fog_color[1] = atof(token);
+			token = COM_ParseExt(text, qfalse);
+			shader.liquid.fog_color[2] = atof(token);
+
+			token = COM_ParseExt(text, qfalse);
+			shader.liquid.height = atof(token);
+
+			token = COM_ParseExt(text, qfalse);
+			shader.liquid.choppy = atof(token);
+
+			token = COM_ParseExt(text, qfalse);
+			shader.liquid.speed = atof(token);
+
+			token = COM_ParseExt(text, qfalse);
+			shader.liquid.freq = atof(token) * .001;
+
+			token = COM_ParseExt(text, qfalse);
+			shader.liquid.depth = atof(token);
+
+			SkipRestOfLine(text);
+			continue;
+		}
 		// q3map_surfacelight deprecated as of 16 Jul 01
 		else if ( !Q_stricmp( token, "surfacelight" ) || !Q_stricmp( token, "q3map_surfacelight" ) )
 		{
@@ -2794,7 +2830,7 @@ static qboolean ParseShader( const char **text )
 	//
 	// ignore shaders that don't have any stages, unless it is a sky or fog
 	//
-	if ( s == 0 && !shader.isSky && !(shader.contentFlags & CONTENTS_FOG ) ) {
+	if ( s == 0 && !shader.isSky && !shader.isLiquid && !(shader.contentFlags & CONTENTS_FOG ) ) {
 		COM_EndParseSession();
 		return qfalse;
 	}
@@ -2847,6 +2883,12 @@ static void ComputeStageIteratorFunc( void )
 	if ( shader.isSky )
 	{
 		shader.optimalStageIteratorFunc = RB_StageIteratorSky;
+		return;
+	}
+
+	if (shader.isLiquid)
+	{
+		shader.optimalStageIteratorFunc = RB_StageIteratorLiquid;
 		return;
 	}
 }
@@ -4721,6 +4763,8 @@ void	R_ShaderList_f (void) {
 			ri.Printf( PRINT_ALL, "gen " );
 		} else if ( shader->optimalStageIteratorFunc == RB_StageIteratorSky ) {
 			ri.Printf( PRINT_ALL, "sky " );
+		} else if (shader->optimalStageIteratorFunc == RB_StageIteratorLiquid) {
+			ri.Printf(PRINT_ALL, "liquid ");
 		} else {
 			ri.Printf( PRINT_ALL, "    " );
 		}
@@ -4920,7 +4964,7 @@ static void CreateInternalShaders( void ) {
 
 	// shadow shader is just a marker
 	Q_strncpyz( shader.name, "<stencil shadow>", sizeof( shader.name ) );
-	shader.sort = SS_BANNER; //SS_STENCIL_SHADOW;
+	shader.sort = SS_STENCIL_SHADOW;
 	tr.shadowShader = FinishShader();
 
 	// distortion shader is just a marker
