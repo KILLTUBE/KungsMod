@@ -3565,7 +3565,6 @@ static qboolean CollapseStagesToGLSL(void)
 	return (qboolean)numStages;
 }
 
-#if 0 // This does not work in SP for some reason, don't remove
 /*
 =============
 
@@ -3577,79 +3576,89 @@ to be rendered with bad shaders. To fix this, need to go through all render comm
 sortedIndex.
 ==============
 */
-extern bool gServerSkinHack;
-static void FixRenderCommandList( int newShader ) {
-	if( !gServerSkinHack ) {
-		renderCommandList_t	*cmdList = &backEndData->commands;
 
-		if( cmdList ) {
-			const void *curCmd = cmdList->cmds;
+static void FixRenderCommandList(int newShader) {
 
-			while ( 1 ) {
-				curCmd = PADP(curCmd, sizeof(void *));
+	renderCommandList_t	*cmdList = &backEndData->commands;
 
-				switch ( *(const int *)curCmd ) {
-				case RC_SET_COLOR:
-					{
-					const setColorCommand_t *sc_cmd = (const setColorCommand_t *)curCmd;
-					curCmd = (const void *)(sc_cmd + 1);
-					break;
-					}
-				case RC_STRETCH_PIC:
-					{
-					const stretchPicCommand_t *sp_cmd = (const stretchPicCommand_t *)curCmd;
-					curCmd = (const void *)(sp_cmd + 1);
-					break;
-					}
-				case RC_ROTATE_PIC:
-				case RC_ROTATE_PIC2:
-					{
-						const rotatePicCommand_t *sp_cmd = (const rotatePicCommand_t *)curCmd;
-						curCmd = (const void *)(sp_cmd + 1);
-						break;
-					}
-				case RC_DRAW_SURFS:
-					{
-					int i;
-					drawSurf_t	*drawSurf;
-					shader_t	*shader;
-					int         postRender;
-					int			sortedIndex;
-					int			cubemap;
-					const drawSurfsCommand_t *ds_cmd =  (const drawSurfsCommand_t *)curCmd;
+	if (cmdList) {
+		const void *curCmd = cmdList->cmds;
 
-					for( i = 0, drawSurf = ds_cmd->drawSurfs; i < ds_cmd->numDrawSurfs; i++, drawSurf++ ) {
-						R_DecomposeSort( drawSurf->sort, &shader, &cubemap, &postRender );
-						sortedIndex = (( drawSurf->sort >> QSORT_SHADERNUM_SHIFT ) & (MAX_SHADERS-1));
-						if( sortedIndex >= newShader ) {
-							sortedIndex++;
-							drawSurf->sort = R_CreateSortKey(sortedIndex, cubemap, postRender);
-						}
+		while (1) {
+			curCmd = PADP(curCmd, sizeof(void *));
+
+			switch (*(const int *)curCmd) {
+			case RC_SET_COLOR:
+			{
+				const setColorCommand_t *sc_cmd = (const setColorCommand_t *)curCmd;
+				curCmd = (const void *)(sc_cmd + 1);
+				break;
+			}
+			case RC_STRETCH_PIC:
+			{
+				const stretchPicCommand_t *sp_cmd = (const stretchPicCommand_t *)curCmd;
+				curCmd = (const void *)(sp_cmd + 1);
+				break;
+			}
+			case RC_ROTATE_PIC:
+			case RC_ROTATE_PIC2:
+			{
+				const rotatePicCommand_t *sp_cmd = (const rotatePicCommand_t *)curCmd;
+				curCmd = (const void *)(sp_cmd + 1);
+				break;
+			}
+			case RC_ROTATE_PIC2_RATIOFIX:
+			{
+				const rotatePicRatioFixCommand_t *sp_cmd = (const rotatePicRatioFixCommand_t *)curCmd;
+				curCmd = (const void *)(sp_cmd + 1);
+				break;
+			}
+			case RC_CONVOLVECUBEMAP:
+			{
+				const convolveCubemapCommand_t *sp_cmd = (const convolveCubemapCommand_t *)curCmd;
+				curCmd = (const void *)(sp_cmd + 1);
+				break;
+			}
+			case RC_DRAW_SURFS:
+			{
+				int i;
+				drawSurf_t	*drawSurf;
+				shader_t	*shader;
+				int         postRender;
+				int			sortedIndex;
+				int			cubemap;
+				const drawSurfsCommand_t *ds_cmd = (const drawSurfsCommand_t *)curCmd;
+
+				for (i = 0, drawSurf = ds_cmd->drawSurfs; i < ds_cmd->numDrawSurfs; i++, drawSurf++) {
+					R_DecomposeSort(drawSurf->sort, &shader, &cubemap, &postRender);
+					sortedIndex = ((drawSurf->sort >> QSORT_SHADERNUM_SHIFT) & (MAX_SHADERS - 1));
+					if (sortedIndex >= newShader) {
+						sortedIndex++;
+						drawSurf->sort = R_CreateSortKey(sortedIndex, cubemap, postRender);
 					}
-					curCmd = (const void *)(ds_cmd + 1);
-					break;
-					}
-				case RC_DRAW_BUFFER:
-					{
-					const drawBufferCommand_t *db_cmd = (const drawBufferCommand_t *)curCmd;
-					curCmd = (const void *)(db_cmd + 1);
-					break;
-					}
-				case RC_SWAP_BUFFERS:
-					{
-					const swapBuffersCommand_t *sb_cmd = (const swapBuffersCommand_t *)curCmd;
-					curCmd = (const void *)(sb_cmd + 1);
-					break;
-					}
-				case RC_END_OF_LIST:
-				default:
-					return;
 				}
+				curCmd = (const void *)(ds_cmd + 1);
+				break;
+			}
+			case RC_DRAW_BUFFER:
+			{
+				const drawBufferCommand_t *db_cmd = (const drawBufferCommand_t *)curCmd;
+				curCmd = (const void *)(db_cmd + 1);
+				break;
+			}
+			case RC_SWAP_BUFFERS:
+			{
+				const swapBuffersCommand_t *sb_cmd = (const swapBuffersCommand_t *)curCmd;
+				curCmd = (const void *)(sb_cmd + 1);
+				break;
+			}
+			case RC_END_OF_LIST:
+			default:
+				return;
 			}
 		}
 	}
 }
-#endif
 
 /*
 ==============
@@ -3695,7 +3704,7 @@ static void SortNewShader( void ) {
 
 	// Arnout: fix rendercommandlist
 	// https://zerowing.idsoftware.com/bugzilla/show_bug.cgi?id=493
-	//FixRenderCommandList( i+1 );
+	FixRenderCommandList(i + 1);
 
 	newShader->sortedIndex = i+1;
 	tr.sortedShaders[i+1] = newShader;
