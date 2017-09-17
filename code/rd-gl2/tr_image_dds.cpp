@@ -334,7 +334,7 @@ void R_LoadDDS ( const char *filename, byte **pic, int *width, int *height, GLen
 
 		if ((*width & (*width - 1)) || (*height & (*height - 1)))
 		{
-			ri.Printf(PRINT_ALL, "R_LoadDDSImage: 2D texture images must be power of two \"%s\"\n", filename);
+			ri.Printf(PRINT_ALL, "R_LoadDDS: 2D texture images must be power of two \"%s\"\n", filename);
 			ri.FS_FreeFile(buffer.v);
 			return;
 		}
