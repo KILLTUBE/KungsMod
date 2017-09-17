@@ -9,12 +9,12 @@ Star Wars Dark Forces II: Jedi Knight Mod for Jedi Academy source code. This pro
 ### Maintainers
 
 * DT85
+* SomaZ
 
 =
 
 ### Contributors
 
-* SomaZ
 * UniqueOne
 
 =
