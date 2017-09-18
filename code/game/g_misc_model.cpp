@@ -144,32 +144,12 @@ void CrystalAmmoSettings(gentity_t *ent)
 
 //------------------------------------------------------------
 
-//------------------------------------------------------------
-/*QUAKED misc_model_ghoul (1 0 0) (-16 -16 -24) (16 16 32) SOLID
-SOLID - Movement is blocked by it with the MASK_NPCSOLID & CONTENTS_BODY.
-
-"model" - Ghoul2 .glm file to load
-"modelscale" - "x" uniform scale
-"modelscale_vec" - "x y z" scale model in each axis
-"renderRadius" - Default "120" model render radius
-"rootbone" - Default "model_root" animation root bone
-"startframe" - Default "0". animation start frame
-"endframe" - Default "0". animation end frame
-"skin" - Default "models/players/kyle/model_default.skin". Skin file to load.
-
-- Use "endframe" when you have an animation that's more than 1 frame to play.
-- Use "renderRadius" for models larger than a player model if you notice the misc_model_ghoul disappearing when moving the camera.
-- Use "rootbone" to change the bone that the animation will play from, instead of animating the entire GLA. Use wisely.
-
-
-loaded as a model in the renderer - does not take up precious bsp space!
-*/
-//------------------------------------------------------------
 #include "anims.h"
 extern int G_ParseAnimFileSet( const char *skeletonName, const char *modelName=0);
-int temp_animFileIndex;
 void set_MiscAnim( gentity_t *ent)
 {
+	int temp_animFileIndex;
+
 	animation_t *animations = level.knownAnimFileSets[temp_animFileIndex].animations;
 	if (ent->playerModel & 1)
 	{
@@ -194,20 +174,36 @@ void set_MiscAnim( gentity_t *ent)
 
 }
 
+//------------------------------------------------------------
+/*QUAKED misc_model_ghoul (1 0 0) (-16 -16 -24) (16 16 32) SOLID LOOP USE_SKIN
+SOLID - Movement is blocked by it with the MASK_NPCSOLID & CONTENTS_BODY.
+LOOP - Loop animation.
+USE_SKIN - Use skin file, instead of internal texture name(s).
+
+"model" - Ghoul2 .glm file to load
+"modelscale" - "x" uniform scale
+"modelscale_vec" - "x y z" scale model in each axis
+"renderRadius" - Default "120" model render radius
+"rootbone" - Default "model_root" animation root bone
+"animation" - Default "0". animation number to play
+"skin" - Default "models/players/kyle/model_default.skin". Skin file to load when USE_SKIN is enabled
+
+- Use "animation" to play an animation other than the first animation present in the animation.cfg.
+- Use "renderRadius" for models larger than a player model if you notice the model disappearing when moving the camera near it.
+- Use "rootbone" to change the bone that the animation will play from, instead of animating the entire GLA. Use wisely.
+*/
+//------------------------------------------------------------
 void SP_misc_model_ghoul( gentity_t *ent )
 {
-#if 1
 	ent->s.modelindex = G_ModelIndex( ent->model );
-	gi.G2API_InitGhoul2Model(ent->ghoul2, ent->model, ent->s.modelindex, NULL_HANDLE, NULL_HANDLE, 0, 0);
+	gi.G2API_InitGhoul2Model( ent->ghoul2, ent->model, ent->s.modelindex, NULL_HANDLE, NULL_HANDLE, 0, 0 );
 
-	//DT EDIT: misc_model_ghoul edits - START
-	if (ent->playerModel >= 0)
+	if ( ent->playerModel >= 0 )
 	{
-		ent->rootBone = gi.G2API_GetBoneIndex(&ent->ghoul2[ent->playerModel], "model_root", qtrue);
+		ent->rootBone = gi.G2API_GetBoneIndex( &ent->ghoul2[ent->playerModel], "model_root", qtrue );
 	}
 
-	G_SpawnInt("renderRadius", "120", &ent->s.radius);
-	//DT EDIT: misc_model_ghoul edits - END
+	G_SpawnInt( "renderRadius", "120", &ent->s.radius );
 
 	G_SetOrigin( ent, ent->s.origin );
 	G_SetAngles( ent, ent->s.angles );
@@ -236,96 +232,103 @@ void SP_misc_model_ghoul( gentity_t *ent )
 
 		ent->maxs[2] *= ent->s.modelScale[2];
 		ent->mins[2] *= ent->s.modelScale[2];
-		ent->s.origin[2] += (oldMins2 - ent->mins[2]);
+		ent->s.origin[2] += ( oldMins2 - ent->mins[2] );
 	}
 
-	//DT EDIT: misc_model_ghoul edits - START
-	if (ent->spawnflags & 1) //SOLID
+	if ( ent->spawnflags & 1 ) //SOLID
 	{
 		ent->contents = CONTENTS_BODY;
 		ent->clipmask = MASK_NPCSOLID;
 	}
 
-	G_SpawnInt("startframe", "0", &ent->startFrame);
-	G_SpawnInt("endframe", "0", &ent->endFrame);
-
+	// Animation
 	char *root_boneName;
+	int animNumber;
+	int animFileIndex = 0;
+	animation_t *animations = level.knownAnimFileSets[animFileIndex].animations;
 
-	G_SpawnString("rootbone", "model_root", &root_boneName);
-	gi.G2API_SetBoneAnim(&ent->ghoul2[0], root_boneName, ent->startFrame, ent->endFrame, BONE_ANIM_OVERRIDE_LOOP, 1.0f + Q_flrand(-1.0f, 1.0f) * 0.1f, 0, -1, -1);
-	ent->endFrame = 0; // don't allow it to do anything with the animation function in G_main
+	G_SpawnString( "rootbone", "model_root", &root_boneName );
+	G_SpawnInt( "animation", "0", &animNumber );
 
-	int skin = gi.RE_RegisterSkin(ent->skin);
-	G_SpawnString("skin", "models/players/kyle/model_default.skin", &ent->skin);
-	gi.G2API_SetSkin(&ent->ghoul2[ent->playerModel], G_SkinIndex(ent->skin), skin);
+	int flags;
 
-	gi.G2API_PrecacheGhoul2Model(ent->model);
-	//DT EDIT: misc_model_ghoul edits - END
+	if ( ent->spawnflags & 2 ) //LOOP
+	{
+		flags = BONE_ANIM_OVERRIDE_LOOP;
+	}
+	else
+	{
+		flags = BONE_ANIM_OVERRIDE_FREEZE;
+	}
 
-	gi.linkentity (ent);
-#else
-	char name1[200] = "models/players/kyle/model.glm";
-	ent->s.modelindex = G_ModelIndex( name1 );
+	float animSpeed = 50.0f / animations[animNumber].frameLerp;
+	gi.G2API_SetBoneAnim( &ent->ghoul2[0], root_boneName, animations[animNumber].firstFrame, ( animations[animNumber].numFrames - 1 ) + animations[animNumber].firstFrame, flags, animSpeed, cg.time, -1, -1 );
 
-	gi.G2API_InitGhoul2Model(ent->ghoul2, name1, ent->s.modelindex);
-	ent->s.radius = 150;
+	// Bolt-ons
+	/*
+	if ( ent->model2 )
+	{
+		//ent->s.modelindex = G_ModelIndex( "models/weapons2/blaster_r/blaster_w.glm" );
+		ent->s.modelindex2 = G_ModelIndex( ent->model2 );
+		//gi.G2API_InitGhoul2Model( ent->ghoul2, "models/weapons2/blaster_r/blaster_w.glm", ent->s.modelindex, NULL_HANDLE, NULL_HANDLE, 0, 0 );
+		gi.G2API_InitGhoul2Model( ent->ghoul2, ent->model2, ent->s.modelindex2, NULL_HANDLE, NULL_HANDLE, 0, 0 );
+		//gi.G2API_AddBolt( &ent->ghoul2[0], "*weapon" );
+		gi.G2API_AttachG2Model( &ent->ghoul2[1], &ent->ghoul2[0], 0, 0 );
 
-			// we found the model ok - load it's animation config
-	temp_animFileIndex = G_ParseAnimFileSet("_humanoid", "kyle");
- 	if ( temp_animFileIndex<0 )
- 	{
- 		Com_Printf( S_COLOR_RED"Failed to load animation file set models/players/jedi/animation.cfg\n");
- 	}
+		// Animation - not working!
+		char *root_boneName2;
+		int animNumber2;
 
+		G_SpawnString( "rootbone2", "model_root", &root_boneName2 );
+		G_SpawnInt( "animation2", "0", &animNumber2 );
 
-	ent->s.angles[0] = 0;
-	ent->s.angles[1] = 90;
-	ent->s.angles[2] = 0;
+		gi.G2API_SetBoneAnim( &ent->ghoul2[1], root_boneName2, animations[animNumber2].firstFrame, ( animations[animNumber2].numFrames - 1 ) + animations[animNumber2].firstFrame, flags, animSpeed, cg.time, -1, -1 );
 
-	ent->s.origin[2] = 20;
-	ent->s.origin[1] = 80;
-//	ent->s.modelScale[0] = ent->s.modelScale[1] = ent->s.modelScale[2] = 0.8f;
+		// Skin - not working
+		if ( ent->spawnflags & 4 ) //USE_SKIN
+		{
+			int skin2 = gi.RE_RegisterSkin( ent->skin2 );
 
-	VectorSet (ent->mins, -16, -16, -37);
-	VectorSet (ent->maxs, 16, 16, 32);
-//#if _DEBUG
-//loadsavecrash
-//	VectorCopy(ent->mins, ent->s.mins);
-//	VectorCopy(ent->maxs, ent->s.maxs);
-//#endif
-	ent->contents = CONTENTS_BODY;
-	ent->clipmask = MASK_NPCSOLID;
+			G_SpawnString( "skin2", "models/players/kyle/model_default.skin", &ent->skin2 );
 
-	G_SetOrigin( ent, ent->s.origin );
-	VectorCopy( ent->s.angles, ent->s.apos.trBase );
-	ent->health = 1000;
+			gi.G2API_SetSkin( &ent->ghoul2[1], G_SkinIndex( ent->skin2 ), skin2 );
+			cgi_R_RegisterSkin( ent->skin2 );
+		}
 
-//	ent->s.modelindex = G_ModelIndex( "models/weapons2/blaster_r/g2blaster_w.glm" );
-//	gi.G2API_InitGhoul2Model(ent->ghoul2, "models/weapons2/blaster_r/g2blaster_w.glm", ent->s.modelindex);
-//	gi.G2API_AddBolt(&ent->ghoul2[0], "*weapon");
-//	gi.G2API_AttachG2Model(&ent->ghoul2[1],&ent->ghoul2[0], 0, 0);
+		cgi_R_RegisterModel( ent->model2 );
+		gi.G2API_PrecacheGhoul2Model( ent->model2 );
+	}
+	*/
 
-	gi.linkentity (ent);
+	// Start off. - not working!
+	/*
+	if ( ent->spawnflags & 8 ) //START_OFF
+	{
+		ent->spawnContents = ent->contents;	// It Navs can temporarly turn it "on"
+		ent->s.solid = 0;
+		ent->contents = 0;
+		ent->clipmask = 0;
+		ent->svFlags |= SVF_NOCLIENT;
+		ent->s.eFlags |= EF_NODRAW;
+		ent->count = 0;
+	}
+	*/
 
-	animation_t *animations = level.knownAnimFileSets[temp_animFileIndex].animations;
-	int anim = BOTH_STAND3;
-	float animSpeed = 50.0f / animations[anim].frameLerp;
-	gi.G2API_SetBoneAnim(&ent->ghoul2[0], "model_root", animations[anim].firstFrame,
-					(animations[anim].numFrames -1 )+ animations[anim].firstFrame,
-					BONE_ANIM_OVERRIDE_FREEZE , animSpeed, cg.time);
+	// Skin
+	if ( ent->spawnflags & 4 ) //USE_SKIN
+	{
+		int skin = gi.RE_RegisterSkin( ent->skin );
 
-//	int test = gi.G2API_GetSurfaceRenderStatus(&ent->ghoul2[0], "l_hand");
-//	gi.G2API_SetSurfaceOnOff(&ent->ghoul2[0], "l_arm",0x00000100);
-//	test = gi.G2API_GetSurfaceRenderStatus(&ent->ghoul2[0], "l_hand");
+		G_SpawnString( "skin", "models/players/kyle/model_default.skin", &ent->skin );
 
-//	gi.G2API_SetNewOrigin(&ent->ghoul2[0], gi.G2API_AddBolt(&ent->ghoul2[0], "rhang_tag_bone"));
-//	ent->s.apos.trDelta[1] = 10;
-//	ent->s.apos.trType = TR_LINEAR;
+		gi.G2API_SetSkin( &ent->ghoul2[0], G_SkinIndex( ent->skin ), skin );
+		cgi_R_RegisterSkin( ent->skin );
+	}
 
+	cgi_R_RegisterModel( ent->model );
+	gi.G2API_PrecacheGhoul2Model( ent->model );
 
-	ent->nextthink = level.time + 1000;
-	ent->e_ThinkFunc = thinkF_set_MiscAnim;
-#endif
+	gi.linkentity( ent );
 }
 
 
