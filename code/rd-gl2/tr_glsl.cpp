@@ -405,6 +405,11 @@ static size_t GLSL_GetShaderHeader(
 		Q_strcat(dest, size, va("#define HORIZON_FADE float(%f)\n", fade));
 	}
 
+	if (r_bloom_threshold->value)
+	{
+		Q_strcat(dest, size, va("#define GLOW_THRESHOLD float(%f)\n", r_bloom_threshold->value));
+	}
+
 	if (extra)
 	{
 		Q_strcat(dest, size, extra);

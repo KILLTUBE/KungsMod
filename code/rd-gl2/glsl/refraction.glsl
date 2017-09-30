@@ -87,7 +87,7 @@ in vec4 var_PrimaryLightDir;
 out vec4 out_Color;
 out vec4 out_Glow;
 
-#define EPSILON_NRM (0.9 / 1920)
+#define EPSILON_NRM (.2 / 1920)
 const int NUM_STEPS = 8;
 const float EPSILON = 1e-3;
 const int ITER_GEOMETRY = 3;
@@ -264,7 +264,7 @@ void main()
 		heightMapTracing(ori, eye, p);
 		vec3 dist = p - ori;
 
-		n = getNormal(p, dot(dist, dist) * EPSILON_NRM);
+		n = getNormal(p, dot(viewDir, viewDir) * EPSILON_NRM);
 		vec3 color = getSeaColor(p, -n, var_PrimaryLightDir.xyz, eye, dist);
 		
 		refractColor = vec3(pow(color, vec3(0.75)));

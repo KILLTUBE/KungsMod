@@ -159,8 +159,8 @@ vec3 DeformPosition(const vec3 pos, const vec3 normal, const vec2 st)
 
 			float d = dot( lightDir, ground );
 
-			//if (d < 0.5)
-				//lightDir = lightDir + (max( 0.5 - d, 0.0 ) * ground);
+			if (d < 0.5)
+				lightDir = lightDir + (max( 0.5 - d, 0.0 ) * ground);
 
 			d = 1.0 / dot( lightDir, ground );
 

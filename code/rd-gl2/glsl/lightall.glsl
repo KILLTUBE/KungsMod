@@ -784,6 +784,10 @@ void main()
 
 #if defined(USE_GLOW_BUFFER)
 	out_Glow = out_Color;
+#elif defined(GLOW_THRESHOLD)
+	out_Glow.r = max(0.0, (out_Color.r - GLOW_THRESHOLD));
+	out_Glow.g = max(0.0, (out_Color.g - GLOW_THRESHOLD));
+	out_Glow.b = max(0.0, (out_Color.b - GLOW_THRESHOLD));
 #else
 	out_Glow = vec4(0.0);
 #endif

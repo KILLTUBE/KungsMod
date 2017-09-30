@@ -884,7 +884,7 @@ static void ForwardDlight( const shaderCommands_t *input,  VertexArraysPropertie
 	UniformDataWriter uniformDataWriter;
 	SamplerBindingsWriter samplerBindingsWriter;
 
-	shaderStage_t *pStage = tess.xstages[tess.shader->lightingStage];
+	shaderStage_t *pStage = tess.xstages[0];
 	int index;
 	shaderProgram_t *shaderGroup;
 	uint32_t stateBits = 0;
