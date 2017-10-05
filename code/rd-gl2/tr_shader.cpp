@@ -3056,7 +3056,7 @@ static void ComputeVertexAttribs(void)
 
 static void CollapseStagesToLightall(shaderStage_t *diffuse, 
 	shaderStage_t *normal, shaderStage_t *specular, shaderStage_t *lightmap, 
-	qboolean useLightVector, qboolean useLightVertex, qboolean parallax, qboolean tcgen)
+	qboolean useLightVector, qboolean useLightVertex, qboolean forceShader, qboolean parallax, qboolean tcgen)
 {
 	int defs = 0;
 
@@ -3079,6 +3079,10 @@ static void CollapseStagesToLightall(shaderStage_t *diffuse,
 	{
 		defs |= LIGHTDEF_USE_LIGHT_VERTEX;
 	}
+	else if (forceShader)
+	{
+		defs |= LIGHTDEF_LIGHTTYPE_MASK;
+	}
 
 	if (r_deluxeMapping->integer && tr.worldDeluxeMapping && lightmap)
 	{
@@ -3100,7 +3104,7 @@ static void CollapseStagesToLightall(shaderStage_t *diffuse,
 			VectorCopy4(normal->normalScale, diffuse->normalScale);
 		}
 		
-		else if ((lightmap || useLightVector || useLightVertex) && (diffuseImg = diffuse->bundle[TB_DIFFUSEMAP].image[0]))
+		else if ((lightmap || useLightVector || useLightVertex || forceShader) && (diffuseImg = diffuse->bundle[TB_DIFFUSEMAP].image[0]))
 		{
 			char normalName[MAX_QPATH];
 			image_t *normalImg;
@@ -3146,7 +3150,7 @@ static void CollapseStagesToLightall(shaderStage_t *diffuse,
 			diffuse->bundle[TB_SPECULARMAP] = specular->bundle[0];
 			VectorCopy4(specular->specularScale, diffuse->specularScale);
 		}
-		else if ((lightmap || useLightVector || useLightVertex) && (diffuseImg = diffuse->bundle[TB_DIFFUSEMAP].image[0]) && r_pbr->integer)
+		else if ((lightmap || useLightVector || useLightVertex || forceShader) && (diffuseImg = diffuse->bundle[TB_DIFFUSEMAP].image[0]) && r_pbr->integer)
 		{
 			char specularName[MAX_QPATH];
 			image_t *specularImg;
@@ -3335,7 +3339,7 @@ static qboolean CollapseStagesToGLSL(void)
 		{
 			shaderStage_t *pStage = &stages[i];
 			shaderStage_t *diffuse, *normal, *specular, *lightmap;
-			qboolean parallax, tcgen, diffuselit, vertexlit;
+			qboolean parallax, tcgen, diffuselit, vertexlit, forceShader;
 
 			if (!pStage->active)
 				continue;
@@ -3353,7 +3357,6 @@ static qboolean CollapseStagesToGLSL(void)
 			parallax = qfalse;
 			specular = NULL;
 			lightmap = NULL;
-
 
 			// we have a diffuse map, find matching normal, specular, and lightmap
 			for (j = i + 1; j < MAX_SHADER_STAGES; j++)
@@ -3427,7 +3430,13 @@ static qboolean CollapseStagesToGLSL(void)
 				vertexlit = qtrue;
 			}
 
-			CollapseStagesToLightall(diffuse, normal, specular, lightmap, diffuselit, vertexlit, parallax, tcgen);
+			forceShader = qfalse;
+			if (diffuse->rgbGen == CGEN_EXACT_VERTEX || diffuse->rgbGen == CGEN_VERTEX)
+			{
+				forceShader = qtrue;
+			}
+
+			CollapseStagesToLightall(diffuse, normal, specular, lightmap, diffuselit, vertexlit, forceShader, parallax, tcgen);
 		}
 
 		// deactivate lightmap stages
