@@ -268,6 +268,7 @@ cvar_t	*r_dynamicGlowIntensity;
 cvar_t	*r_dynamicGlowSoft;
 cvar_t	*r_dynamicGlowWidth;
 cvar_t	*r_dynamicGlowHeight;
+cvar_t	*r_bloom_threshold;
 
 cvar_t *r_debugContext;
 
@@ -1410,6 +1411,7 @@ void R_Register(void)
 	r_dynamicGlowSoft = ri.Cvar_Get("r_dynamicGlowSoft", "1", CVAR_ARCHIVE);
 	r_dynamicGlowWidth = ri.Cvar_Get("r_dynamicGlowWidth", "320", CVAR_ARCHIVE | CVAR_LATCH);
 	r_dynamicGlowHeight = ri.Cvar_Get("r_dynamicGlowHeight", "240", CVAR_ARCHIVE | CVAR_LATCH);
+	r_bloom_threshold = ri.Cvar_Get("r_bloom_threshold", "0.85", CVAR_ARCHIVE);
 
 	r_debugContext = ri.Cvar_Get("r_debugContext", "0", CVAR_LATCH);
 
@@ -1458,7 +1460,7 @@ void R_Register(void)
 	r_deluxeMapping = ri.Cvar_Get("r_deluxeMapping", "1", CVAR_ARCHIVE | CVAR_LATCH);
 	r_parallaxMapping = ri.Cvar_Get("r_parallaxMapping", "1", CVAR_ARCHIVE | CVAR_LATCH);
 	r_cubeMapping = ri.Cvar_Get("r_cubeMapping", "1", CVAR_ARCHIVE | CVAR_LATCH);
-	r_horizonFade = ri.Cvar_Get("r_horizonFade", "3", CVAR_ARCHIVE | CVAR_LATCH);
+	r_horizonFade = ri.Cvar_Get("r_horizonFade", "0", CVAR_ARCHIVE | CVAR_LATCH);
 	r_cubemapSize = ri.Cvar_Get("r_cubemapSize", "128", CVAR_ARCHIVE | CVAR_LATCH);
 	r_pbr = ri.Cvar_Get("r_pbr", "1", CVAR_ARCHIVE | CVAR_LATCH);
 	r_pbrIBL = ri.Cvar_Get("r_pbrIBL", "0", CVAR_ARCHIVE | CVAR_LATCH);

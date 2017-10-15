@@ -2464,7 +2464,7 @@ void R_RenderPshadowMaps(const refdef_t *fd)
 
 		shadowParms.targetFbo = tr.pshadowFbos[i];
 
-		shadowParms.flags = (viewParmFlags_t)( VPF_SHADOWMAP | VPF_DEPTHSHADOW | VPF_NOVIEWMODEL );
+		shadowParms.flags = (viewParmFlags_t)( VPF_DEPTHSHADOW | VPF_NOVIEWMODEL );
 		shadowParms.zFar = shadow->lightRadius;
 
 		VectorCopy(shadow->lightOrigin, shadowParms.ori.origin);

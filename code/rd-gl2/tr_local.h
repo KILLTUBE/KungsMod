@@ -2631,6 +2631,7 @@ extern cvar_t	*r_dynamicGlowIntensity;
 extern cvar_t	*r_dynamicGlowSoft;
 extern cvar_t	*r_dynamicGlowWidth;
 extern cvar_t	*r_dynamicGlowHeight;
+extern cvar_t	*r_bloom_threshold;
 
 extern cvar_t	*r_debugContext;
 

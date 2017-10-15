@@ -3128,13 +3128,10 @@ void R_RenderMissingCubemaps()
 				R_IssuePendingRenderCommands();
 				R_InitNextFrame();
 			}
-			for (int j = 0; j < 2; j++)
-			{
-				RE_ClearScene();
-				R_AddConvolveCubemapCmd(i);
-				R_IssuePendingRenderCommands();
-				R_InitNextFrame();
-			}
+			RE_ClearScene();
+			R_AddConvolveCubemapCmd(i);
+			R_IssuePendingRenderCommands();
+			R_InitNextFrame();
 		}
 	}
 }
