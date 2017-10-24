@@ -3723,8 +3723,6 @@ world_t *R_LoadBSP(const char *name, int *bspIndex)
 		++tr.numBspModels;
 	}
 
-	tr.worldDir[0] = '\0';
-
 	// load it
 	ri.FS_ReadFile(name, &buffer.v);
 	if (!buffer.b)
@@ -3739,11 +3737,9 @@ world_t *R_LoadBSP(const char *name, int *bspIndex)
 
 	Com_Memset(worldData, 0, sizeof(*worldData));
 	Q_strncpyz(worldData->name, name, sizeof(worldData->name));
-	Q_strncpyz(tr.worldDir, name, sizeof(tr.worldDir));
 	Q_strncpyz(worldData->baseName, COM_SkipPath(worldData->name), sizeof(worldData->name));
 
 	COM_StripExtension(worldData->baseName, worldData->baseName, sizeof(worldData->baseName));
-	COM_StripExtension(tr.worldDir, tr.worldDir, sizeof(tr.worldDir));
 
 	byte *startMarker = (byte *)R_Hunk_Alloc(0, qtrue);
 	dheader_t *header = (dheader_t *)buffer.b;
