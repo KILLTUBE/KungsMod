@@ -2148,8 +2148,15 @@ static void RB_SurfaceSprites( srfSprites_t *surf )
 	if ( firstStage->alphaTestCmp != ATEST_CMP_NONE )
 		shaderFlags |= SSDEF_ALPHA_TEST;
 
-	if ( ss->type == SURFSPRITE_ORIENTED )
+	if (ss->type == SURFSPRITE_ORIENTED)
+	{
 		shaderFlags |= SSDEF_FACE_CAMERA;
+	}
+	
+	if (ss->type == SURFSPRITE_VERTICAL)
+	{
+		shaderFlags |= SSDEF_FACE_UP;
+	}
 
 	shaderProgram_t *program = programGroup + shaderFlags;
 	assert(program->uniformBlocks & (1 << UNIFORM_BLOCK_SURFACESPRITE));

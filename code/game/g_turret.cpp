@@ -2260,7 +2260,14 @@ void SP_misc_spotlight( gentity_t *base )
 	G_SetAngles( base, base->s.angles );
 	G_SetOrigin( base, base->s.origin );
 
-	base->s.modelindex = G_ModelIndex( "models/map_objects/imp_mine/spotlight.md3" );
+	if (base->model)
+	{
+		base->s.modelindex = G_ModelIndex(base->model);
+	}
+	else
+	{
+		base->s.modelindex = G_ModelIndex("models/map_objects/imp_mine/spotlight.md3");
+	}
 
 	G_SpawnInt( "health", "300", &base->health );
 

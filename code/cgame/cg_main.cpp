@@ -2050,6 +2050,73 @@ void CG_CreateMiscEnts(void)
 	}
 }
 
+#define	SHADOW_DISTANCE		128
+static qboolean _EntShadow(const vec3_t origin, const float orientation, float *const shadowPlane, const float radius, qhandle_t markShader) {
+	vec3_t		end, mins = { -7, -7, 0 }, maxs = { 7, 7, 2 };
+	trace_t		trace;
+	float		alpha;
+
+	// send a trace down from the player to the ground
+	VectorCopy(origin, end);
+	end[2] -= SHADOW_DISTANCE;
+
+	cgi_CM_BoxTrace(&trace, origin, end, mins, maxs, 0, MASK_PLAYERSOLID);
+
+	// no shadow if too high
+	if (trace.fraction == 1.0 || (trace.startsolid && trace.allsolid)) {
+		return qfalse;
+	}
+
+	*shadowPlane = trace.endpos[2] + 1;
+
+	// no mark for stencil or projection shadows
+	if (cg_shadows.integer == 1
+		|| (in_camera && cg_shadows.integer == 2))//don't want stencil shadows during a cinematic
+	{
+		// fade the shadow out with height
+		alpha = 1.0 - trace.fraction;
+
+		// add the mark as a temporary, so it goes directly to the renderer
+		// without taking a spot in the cg_marks array
+		CG_ImpactMark(markShader, trace.endpos, trace.plane.normal,
+			orientation, 1, 1, 1, alpha, qfalse, radius, qtrue);
+	}
+	return qtrue;
+}
+
+/*
+===============
+CG_EntShadow
+
+Returns the Z component of the surface being shadowed
+
+should it return a full plane instead of a Z?
+===============
+*/
+static qboolean CG_EntShadow(centity_t *const cent, float *const shadowPlane) {
+	*shadowPlane = 0;
+
+	if (cg_shadows.integer == 0) {
+		return qfalse;
+	}
+
+	vec3_t rootOrigin;
+	vec3_t tempAngles;
+	tempAngles[PITCH] = 0;
+	tempAngles[YAW] = cent->pe.legs.yawAngle;
+	tempAngles[ROLL] = 0;
+
+	VectorCopy(cent->lerpOrigin, rootOrigin);
+
+	if (DistanceSquared(cg.refdef.vieworg, rootOrigin) > cg_shadowCullDistance.value * cg_shadowCullDistance.value)
+	{
+		// Shadow is too far away, don't do any traces, don't do any marks...blah
+		return qfalse;
+	}
+
+	return _EntShadow(rootOrigin, cent->pe.legs.yawAngle, shadowPlane, 16, cgs.media.shadowMarkShader);
+}
+
 void CG_DrawMiscEnts(void)
 {
 	int			i;
@@ -2058,10 +2125,26 @@ void CG_DrawMiscEnts(void)
 	vec3_t		difference;
 	vec3_t		cullOrigin;
 
+	centity_t	*cent;
+	float		shadowPlane;
+	qboolean	shadow;
+
 	memset (&refEnt, 0, sizeof(refEnt));
 	refEnt.reType = RT_MODEL;
 	refEnt.frame = 0;
+
+	// add the shadow
+	cent = &cg_entities[cg.snap->ps.clientNum];
+
+	shadow = CG_EntShadow(cent, &shadowPlane);
+
+	if (cg_shadows.integer == 3 && shadow)
+	{
+		refEnt.renderfx |= RF_SHADOW_PLANE;
+	}
+	refEnt.shadowPlane = shadowPlane;
 	refEnt.renderfx = RF_LIGHTING_ORIGIN;
+
 	for(i=0;i<NumMiscEnts;i++)
 	{
 		VectorCopy(MiscEnt->origin, cullOrigin);

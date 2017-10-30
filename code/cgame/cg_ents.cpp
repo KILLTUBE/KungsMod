@@ -817,7 +817,8 @@ Ghoul2 Insert End
 
 		VectorMA( cent->lerpOrigin, cent->gent->radius - 5, dir, org ); // stay a bit back from the impact point...this may not be enough?
 
-		cgi_R_AddLightToScene( org, 225, 1.0f, 1.0f, 1.0f );
+		//cgi_R_AddLightToScene( org, 225, 1.0f, 1.0f, 1.0f );
+		cgi_R_AddLightToScene(org, cent->gent->startRGBA[3], cent->gent->startRGBA[0], cent->gent->startRGBA[1], cent->gent->startRGBA[2]);
 	}
 
 	//-----------------------------------------------------------
@@ -2030,7 +2031,8 @@ void CG_DLightThink ( centity_t *cent )
 			VectorCopy( owner->currentOrigin, org );
 		}
 
-		cgi_R_AddLightToScene(org, currentRGBA[3]*10, currentRGBA[0], currentRGBA[1], currentRGBA[2] );
+		//cgi_R_AddLightToScene(org, currentRGBA[3]*10, currentRGBA[0], currentRGBA[1], currentRGBA[2] );
+		cgi_R_AddLightToScene(org, currentRGBA[3], currentRGBA[0], currentRGBA[1], currentRGBA[2]);
 	}
 }
 

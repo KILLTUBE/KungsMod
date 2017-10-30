@@ -3738,6 +3738,7 @@ world_t *R_LoadBSP(const char *name, int *bspIndex)
 	Com_Memset(worldData, 0, sizeof(*worldData));
 	Q_strncpyz(worldData->name, name, sizeof(worldData->name));
 	Q_strncpyz(worldData->baseName, COM_SkipPath(worldData->name), sizeof(worldData->name));
+
 	COM_StripExtension(worldData->baseName, worldData->baseName, sizeof(worldData->baseName));
 
 	byte *startMarker = (byte *)R_Hunk_Alloc(0, qtrue);
