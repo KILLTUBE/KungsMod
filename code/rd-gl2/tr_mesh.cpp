@@ -383,6 +383,7 @@ void R_AddMD3Surfaces(trRefEntity_t *ent, int entityNum) {
 			else if (shader->defaultShader) {
 				ri.Printf(PRINT_DEVELOPER, "WARNING: shader %s in skin %s not found\n", shader->name, skin->name);
 			}
+		} 
 		else if (surface->numShaderIndexes <= 0) {
 			shader = tr.defaultShader;
 		}
