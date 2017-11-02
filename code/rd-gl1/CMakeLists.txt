@@ -196,4 +196,4 @@ if(BuildSPRdGL1)
 		add_sp_renderer_project(${SPRDGL1Renderer} "SP GL1 Renderer" ${SPEngine} ${JKAInstallDir} ${JKASPClientComponent})
 	endif(BuildSPRdGL1)
 
-endif(BuildSPRdGL1 OR BuildJK2SPRdGL1)
+endif(BuildSPRdGL1)
