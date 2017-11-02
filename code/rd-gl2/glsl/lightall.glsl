@@ -649,16 +649,8 @@ void main()
   #endif
 
   #if defined(USE_LIGHTMAP) || defined(USE_LIGHT_VERTEX)
-	ambientColor = lightColor;
 	float surfNL = clamp(dot(N, L), 0.0, 1.0);
-
-	// Scale the incoming light to compensate for the baked-in light angle
-	// attenuation.
-	lightColor /= max(surfNL, 0.25);
-
-	// Recover any unused light as ambient, in case attenuation is over 4x or
-	// light is below the surface
-	ambientColor = max(ambientColor - lightColor * surfNL, vec3(0.0));
+	ambientColor = max((lightColor * .25) - lightColor * surfNL, vec3(0.0));
   #endif
 
   #if defined(USE_SPECULARMAP)
