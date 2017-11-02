@@ -2294,7 +2294,40 @@ void R_RenderPshadowMaps(const refdef_t *fd)
 					radius = 0.5f * VectorLength( diag );
 				}
 				break;
-
+				case MOD_MDXM:
+				{
+					if (ent->e.ghoul2)
+					{
+						// scale the radius if needed
+						float largestScale = ent->e.modelScale[0];
+						if (ent->e.modelScale[1] > largestScale)
+							largestScale = ent->e.modelScale[1];
+						if (ent->e.modelScale[2] > largestScale)
+							largestScale = ent->e.modelScale[2];
+						if (!largestScale)
+							largestScale = 1;
+						ent->e.radius * largestScale;
+						radius = ent->e.radius * largestScale;
+					}
+				}
+				break;
+				case MOD_BAD:
+				{
+					if (ent->e.ghoul2 && G2API_HaveWeGhoul2Models(*((CGhoul2Info_v *)ent->e.ghoul2)))
+					{
+						// scale the radius if needed
+						float largestScale = ent->e.modelScale[0];
+						if (ent->e.modelScale[1] > largestScale)
+							largestScale = ent->e.modelScale[1];
+						if (ent->e.modelScale[2] > largestScale)
+							largestScale = ent->e.modelScale[2];
+						if (!largestScale)
+							largestScale = 1;
+						ent->e.radius * largestScale;
+						radius = ent->e.radius * largestScale;
+					}
+				}
+				break;
 				default:
 					break;
 			}
@@ -2342,7 +2375,7 @@ void R_RenderPshadowMaps(const refdef_t *fd)
 	}
 
 	// next, merge touching pshadows
-	for ( i = 0; i < tr.refdef.num_pshadows; i++)
+	if (0) //for ( i = 0; i < tr.refdef.num_pshadows; i++)
 	{
 		pshadow_t *ps1 = &tr.refdef.pshadows[i];
 		int j;

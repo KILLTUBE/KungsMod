@@ -75,12 +75,12 @@ void main()
 
 	float part;
 #if defined(USE_PCF)
-	part = float(texture2D(u_ShadowMap, st + vec2(-1.0 / 512.0, -1.0 / 512.0)).r != 1.0);
-	part += float(texture2D(u_ShadowMap, st + vec2(1.0 / 512.0, -1.0 / 512.0)).r != 1.0);
-	part += float(texture2D(u_ShadowMap, st + vec2(-1.0 / 512.0, 1.0 / 512.0)).r != 1.0);
-	part += float(texture2D(u_ShadowMap, st + vec2(1.0 / 512.0, 1.0 / 512.0)).r != 1.0);
+	part = float(texture(u_ShadowMap, st + vec2(-1.0 / 512.0, -1.0 / 512.0)).r != 1.0);
+	part += float(texture(u_ShadowMap, st + vec2(1.0 / 512.0, -1.0 / 512.0)).r != 1.0);
+	part += float(texture(u_ShadowMap, st + vec2(-1.0 / 512.0, 1.0 / 512.0)).r != 1.0);
+	part += float(texture(u_ShadowMap, st + vec2(1.0 / 512.0, 1.0 / 512.0)).r != 1.0);
 #else
-	part = float(texture2D(u_ShadowMap, st).r != 1.0);
+	part = float(texture(u_ShadowMap, st).r != 1.0);
 #endif
 
 	if (part <= 0.0)
@@ -94,6 +94,6 @@ void main()
 	intensity *= part;
 #endif
 
-	gl_FragColor.rgb = vec3(0);
-	gl_FragColor.a = clamp(intensity, 0.0, 0.75);
+	out_Color.rgb = vec3(.0,.0,.0);
+	out_Color.a = clamp(intensity, 0.0, 0.75);
 }
