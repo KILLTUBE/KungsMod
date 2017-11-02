@@ -2667,7 +2667,7 @@ const void *RB_PostProcess(const void *data)
 		}
 	}
 #endif
-	if (1 && r_shadows->integer == 4)
+	if (0 && r_shadows->integer == 4)
 	{
 		ivec4_t dstBox;
 		VectorSet4(dstBox, 512 + 0, glConfig.vidHeight - 128, 128, 128);
