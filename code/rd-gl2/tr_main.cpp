@@ -2307,7 +2307,7 @@ void R_RenderPshadowMaps(const refdef_t *fd)
 						if (!largestScale)
 							largestScale = 1;
 						ent->e.radius * largestScale;
-						radius = ent->e.radius * largestScale;
+						radius = ent->e.radius * largestScale * 1.2;
 					}
 				}
 				break;
@@ -2324,7 +2324,7 @@ void R_RenderPshadowMaps(const refdef_t *fd)
 						if (!largestScale)
 							largestScale = 1;
 						ent->e.radius * largestScale;
-						radius = ent->e.radius * largestScale;
+						radius = ent->e.radius * largestScale * 1.2;
 					}
 				}
 				break;
