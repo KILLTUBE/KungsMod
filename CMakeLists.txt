@@ -24,7 +24,7 @@ set(InOpenJK TRUE)
 
 
 # Project name
-set(ProjectName "OpenJK" CACHE STRING "Project Name")
+set(ProjectName "OpenDF2" CACHE STRING "Project Name")
 project(${ProjectName})
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
@@ -42,7 +42,7 @@ option(BuildMPCGame "Whether to create projects for the MP clientside gamecode (
 option(BuildMPUI "Whether to create projects for the MP UI code (uix86.dll)" OFF)
 option(BuildSPEngine "Whether to create projects for the SP engine (opendf2_sp.exe)" ON)
 option(BuildSPGame "Whether to create projects for the SP gamecode (df2gamex86.dll)" ON)
-option(BuildSPRdGL1 "Whether to create projects for the SP default OpenGL 1 renderer (rdsp-GL1_x86.dll)" ON)
+option(BuildSPRdGL1 "Whether to create projects for the SP OpenGL 1 renderer (rdsp-GL1_x86.dll)" ON)
 option(BuildSPRdGL2 "Whether to create projects for the SP OpenGL 2 renderer (rdsp-GL2_x86.dll)" ON)
 
 option(BuildTests "Whether to build automatic unit tests (requires Boost)" OFF)
