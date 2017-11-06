@@ -2268,7 +2268,7 @@ void R_RenderPshadowMaps(const refdef_t *fd)
 				{
 					mdvFrame_t *frame = &model->data.mdv[0]->frames[ent->e.frame];
 
-					radius = frame->radius * scale;
+					//radius = frame->radius * scale;
 				}
 				break;
 
@@ -2279,7 +2279,7 @@ void R_RenderPshadowMaps(const refdef_t *fd)
 					int frameSize = (size_t)( &((mdrFrame_t *)0)->bones[ header->numBones ] );
 					mdrFrame_t *frame = ( mdrFrame_t * ) ( ( byte * ) header + header->ofsFrames + frameSize * ent->e.frame);
 
-					radius = frame->radius;
+					//radius = frame->radius;
 				}
 				break;
 				case MOD_IQM:
@@ -2291,7 +2291,7 @@ void R_RenderPshadowMaps(const refdef_t *fd)
 
 					framebounds = data->bounds + 6*ent->e.frame;
 					VectorSubtract( framebounds+3, framebounds, diag );
-					radius = 0.5f * VectorLength( diag );
+					//radius = 0.5f * VectorLength( diag );
 				}
 				break;
 				case MOD_MDXM:
@@ -2307,7 +2307,7 @@ void R_RenderPshadowMaps(const refdef_t *fd)
 						if (!largestScale)
 							largestScale = 1;
 						ent->e.radius * largestScale;
-						radius = ent->e.radius * largestScale;
+						radius = ent->e.radius * largestScale * 1.2;
 					}
 				}
 				break;
@@ -2324,7 +2324,7 @@ void R_RenderPshadowMaps(const refdef_t *fd)
 						if (!largestScale)
 							largestScale = 1;
 						ent->e.radius * largestScale;
-						radius = ent->e.radius * largestScale;
+						radius = ent->e.radius * largestScale * 1.2;
 					}
 				}
 				break;

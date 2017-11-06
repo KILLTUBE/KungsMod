@@ -153,12 +153,25 @@ vec2 ModTexCoords(vec2 st, vec3 position, vec4 texMatrix, vec4 offTurb)
 #endif
 
 
-float CalcLightAttenuation(in bool isPoint, float normDist)
+float CalcLightAttenuation(float distance, float radius)
 {
-	// zero light at 1.0, approximating q3 style
-	// also don't attenuate directional light
-	float attenuation = 1.0 + mix(0.0, 0.5 * normDist - 1.5, isPoint);
-	return clamp(attenuation, 0.0, 1.0);
+#if defined(USE_PBR)
+	float d = distance / radius;
+	d *= d;
+	d *= d;
+	float attenuation = clamp(1.0 - d, 0.0, 1.0);
+	attenuation *= attenuation;
+	attenuation /= (distance * distance) + 1.0;
+	// power (tries to fake old style lighting size)
+	attenuation *= 2 * M_PI * radius;
+	attenuation = clamp(attenuation, 0.0, 1.0);
+	// don't attenuate directional light
+	attenuation = attenuation + float(radius == 0.0);
+#else
+	float attenuation = (0.5 * radius / distance - 1.5) * float(radius > 0.0) + 1.0;
+	attenuation = clamp(attenuation, 0.0, 1.0);
+#endif
+	return attenuation;
 }
 
 
@@ -267,7 +280,7 @@ void main()
 
 #if defined(USE_LIGHT_VECTOR) && defined(USE_FAST_LIGHT)
 		float sqrLightDist = dot(L, L);
-		float attenuation = CalcLightAttenuation(u_LightOrigin.w, u_LightRadius * u_LightRadius / sqrLightDist);
+		float attenuation = CalcLightAttenuation(sqrLightDist, u_LightRadius * u_LightRadius);
 		float NL = clamp(dot(normalize(normal), L) / sqrt(sqrLightDist), 0.0, 1.0);
 
 		var_Color.rgb *= u_DirectedLight * (attenuation * NL) + u_AmbientLight;
@@ -532,12 +545,25 @@ vec3 CalcSpecular(
 	return (distrib * fresnel * vis);
 }
 
-float CalcLightAttenuation(float point, float normDist)
+float CalcLightAttenuation(float distance, float radius)
 {
-	// zero light at 1.0, approximating q3 style
-	// also don't attenuate directional light
-	float attenuation = (0.5 * normDist - 1.5) * point + 1.0;
-	return clamp(attenuation, 0.0, 1.0);
+#if defined(USE_PBR)
+	float d = distance / radius;
+	d *= d;
+	d *= d;
+	float attenuation = clamp(1.0 - d, 0.0, 1.0);
+	attenuation *= attenuation;
+	attenuation /= (distance * distance) + 1.0;
+	// power (tries to fake old style lighting size)
+	attenuation *= 2 * M_PI * radius;
+	attenuation = clamp(attenuation, 0.0, 1.0);
+	// don't attenuate directional light
+	attenuation = attenuation + float(radius == 0.0);
+#else
+	float attenuation = (0.5 * radius / distance - 1.5) * float(radius > 0.0) + 1.0;
+	attenuation = clamp(attenuation, 0.0, 1.0);
+#endif
+	return attenuation;
 }
 
 vec3 CalcNormal( in vec3 vertexNormal, in vec2 texCoords, in mat3 tangentToWorld )
@@ -562,7 +588,7 @@ vec3 CalcNormal( in vec3 vertexNormal, in vec2 texCoords, in mat3 tangentToWorld
 
 void main()
 {
-	vec3 viewDir, lightColor, ambientColor, reflectance;
+	vec3 viewDir, lightColor, ambientColor, reflectance, vertexColor;
 	vec3 L, N, E, H;
 	float NL, NH, NE, EH, attenuation;
 
@@ -611,25 +637,29 @@ void main()
   #endif
 	float sqrLightDist = dot(L, L);
 	L /= sqrt(sqrLightDist);
-
+  #if defined(USE_PBR)
+	vertexColor = var_Color.rgb * var_Color.rgb;
+    #if defined(USE_LIGHT_VECTOR)
+	  vec3 directedLight = u_DirectedLight * u_DirectedLight;
+	  vec3 ambientLight = u_AmbientLight * u_AmbientLight;
+    #endif
+  #else
+	vertexColor = var_Color.rgb;
+    #if defined(USE_LIGHT_VECTOR)
+	  vec3 directedLight = u_DirectedLight;
+	  vec3 ambientLight = u_AmbientLight;
+    #endif
+  #endif
   #if defined(USE_LIGHTMAP)
-	lightColor	= lightmapColor.rgb * var_Color.rgb;
+	lightColor	= lightmapColor.rgb * vertexColor;
 	ambientColor = vec3 (0.0);
 	attenuation = 1.0;
   #elif defined(USE_LIGHT_VECTOR)
-	lightColor	= u_DirectedLight * var_Color.rgb;
-	ambientColor = u_AmbientLight * var_Color.rgb;
-	float factor = 1.0;
-	#if (0)//defined(USE_PBR)
-		// smooth out distance attenuation for dynamic lights
-		factor = sqrLightDist * (1.0 / var_LightDir.w);
-		factor = clamp(1.0 - (factor*factor), 0.0, 1.0);
-		factor *= factor;
-	#endif
-	attenuation  = CalcLightAttenuation(float(var_LightDir.w > 0.0), var_LightDir.w / sqrLightDist);
-	attenuation *= factor;
+	lightColor	= directedLight * vertexColor;
+	ambientColor = ambientLight * vertexColor;
+	attenuation = CalcLightAttenuation(sqrLightDist, var_LightDir.w);
   #elif defined(USE_LIGHT_VERTEX)
-	lightColor	= var_Color.rgb;
+	lightColor	= vertexColor;
 	ambientColor = vec3 (0.0);
 	attenuation  = 1.0;
   #endif
@@ -649,16 +679,8 @@ void main()
   #endif
 
   #if defined(USE_LIGHTMAP) || defined(USE_LIGHT_VERTEX)
-	ambientColor = lightColor;
 	float surfNL = clamp(dot(N, L), 0.0, 1.0);
-
-	// Scale the incoming light to compensate for the baked-in light angle
-	// attenuation.
-	lightColor /= max(surfNL, 0.25);
-
-	// Recover any unused light as ambient, in case attenuation is over 4x or
-	// light is below the surface
-	ambientColor = max(ambientColor - lightColor * surfNL, vec3(0.0));
+	ambientColor = max((lightColor * .25) - lightColor * surfNL, vec3(0.0));
   #endif
 
   #if defined(USE_SPECULARMAP)
