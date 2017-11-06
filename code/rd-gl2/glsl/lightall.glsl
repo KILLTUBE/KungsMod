@@ -153,12 +153,19 @@ vec2 ModTexCoords(vec2 st, vec3 position, vec4 texMatrix, vec4 offTurb)
 #endif
 
 
-float CalcLightAttenuation(in bool isPoint, float normDist)
+float CalcLightAttenuation(float distance, float radius)
 {
 	// zero light at 1.0, approximating q3 style
 	// also don't attenuate directional light
-	float attenuation = 1.0 + mix(0.0, 0.5 * normDist - 1.5, isPoint);
-	return clamp(attenuation, 0.0, 1.0);
+#if defined(USE_PBR)
+	float attenuation = clamp(1.0 - distance / radius, 0.0, 1.0);
+	attenuation *= attenuation;
+	attenuation = attenuation + float(radius == 0.0);
+#else
+	float attenuation = (0.5 * radius / distance - 1.5) * float(radius > 0.0) + 1.0;
+	attenuation = clamp(attenuation, 0.0, 1.0);
+#endif
+	return attenuation;
 }
 
 
@@ -267,7 +274,7 @@ void main()
 
 #if defined(USE_LIGHT_VECTOR) && defined(USE_FAST_LIGHT)
 		float sqrLightDist = dot(L, L);
-		float attenuation = CalcLightAttenuation(u_LightOrigin.w, u_LightRadius * u_LightRadius / sqrLightDist);
+		float attenuation = CalcLightAttenuation(sqrLightDist, u_LightRadius * u_LightRadius);
 		float NL = clamp(dot(normalize(normal), L) / sqrt(sqrLightDist), 0.0, 1.0);
 
 		var_Color.rgb *= u_DirectedLight * (attenuation * NL) + u_AmbientLight;
@@ -532,12 +539,19 @@ vec3 CalcSpecular(
 	return (distrib * fresnel * vis);
 }
 
-float CalcLightAttenuation(float point, float normDist)
+float CalcLightAttenuation(float distance, float radius)
 {
 	// zero light at 1.0, approximating q3 style
 	// also don't attenuate directional light
-	float attenuation = (0.5 * normDist - 1.5) * point + 1.0;
-	return clamp(attenuation, 0.0, 1.0);
+#if defined(USE_PBR)
+	float attenuation = clamp(1.0 - distance / radius, 0.0, 1.0);
+	attenuation *= attenuation;
+	attenuation = attenuation + float(radius == 0.0);
+#else
+	float attenuation = (0.5 * radius / distance - 1.5) * float(radius > 0.0) + 1.0;
+	attenuation = clamp(attenuation, 0.0, 1.0);
+#endif
+	return attenuation;
 }
 
 vec3 CalcNormal( in vec3 vertexNormal, in vec2 texCoords, in mat3 tangentToWorld )
@@ -631,15 +645,7 @@ void main()
   #elif defined(USE_LIGHT_VECTOR)
 	lightColor	= directedLight * vertexColor;
 	ambientColor = ambientLight * vertexColor;
-	float factor = 1.0;
-	#if (0)//defined(USE_PBR)
-		// smooth out distance attenuation for dynamic lights
-		factor = sqrLightDist * (1.0 / var_LightDir.w);
-		factor = clamp(1.0 - (factor*factor), 0.0, 1.0);
-		factor *= factor;
-	#endif
-	attenuation  = CalcLightAttenuation(float(var_LightDir.w > 0.0), var_LightDir.w / sqrLightDist);
-	attenuation *= factor;
+	attenuation = CalcLightAttenuation(sqrLightDist, var_LightDir.w);
   #elif defined(USE_LIGHT_VERTEX)
 	lightColor	= vertexColor;
 	ambientColor = vec3 (0.0);
