@@ -479,9 +479,9 @@ static cvarTable_t cvarTable[] =
 	{ &ui_char_color_green,		"ui_char_color_green",	"", NULL, 0},
 	{ &ui_char_color_blue,		"ui_char_color_blue",	"", NULL, 0},
 
-	{ &ui_PrecacheModels,		"ui_PrecacheModels",	"1", CVAR_ARCHIVE},
+	{ &ui_PrecacheModels,		"ui_PrecacheModels",	"1", NULL, CVAR_ARCHIVE},
 
-	{ &r_ratioFix,			"r_ratioFix",			"1", CVAR_ARCHIVE},
+	{ &r_ratioFix,				"r_ratioFix",			"1", NULL, CVAR_ARCHIVE},
 
 	{ &ui_screenshotType,		"ui_screenshotType",	"jpg", UI_UpdateScreenshot, CVAR_ARCHIVE }
 };
@@ -2808,11 +2808,11 @@ static void UI_RegisterCvars( void )
 
 	for ( i=0, cv=cvarTable; i<cvarTableSize; i++, cv++ ) {
 		Cvar_Register( cv->vmCvar, cv->cvarName, cv->defaultString, cv->cvarFlags );
-		/*if (!Q_stricmp(cv->cvarName, "r_ratioFix")) 
+		if (!Q_stricmp(cv->cvarName, "r_ratioFix")) 
 		{
 			Cvar_Update(cv->vmCvar);
 			CG_Set2DRatio();
-		}*/
+		}
 
 		if ( cv->update )
 			cv->update();
@@ -3712,6 +3712,9 @@ void UI_UpdateCvars( void )
 		if ( cv->vmCvar ) {
 			int modCount = cv->vmCvar->modificationCount;
 			Cvar_Update( cv->vmCvar );
+			if (!Q_stricmp(cv->cvarName, "r_ratioFix")) {
+				CG_Set2DRatio();
+			}
 			if ( cv->vmCvar->modificationCount != modCount ) {
 				if ( cv->update )
 					cv->update();
