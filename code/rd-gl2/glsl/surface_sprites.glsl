@@ -19,12 +19,17 @@ layout(std140) uniform SurfaceSprite
 out vec2 var_TexCoords;
 out float var_Alpha;
 
+float random(vec2 n)
+{
+	return fract(sin(dot(n.xy, vec2(12.9898,78.233))) * 43758.5453);
+}
+
 void main()
 {
 	vec3 V = u_ViewOrigin - attr_Position;
 
-	float width = u_Width * (1.0 + u_WidthVariance*0.5);
-	float height = u_Height * (1.0 + u_HeightVariance*0.5);
+	float width = u_Width * (1.0 + u_WidthVariance*random(attr_Position.xz));
+	float height = u_Height * (1.0 + u_HeightVariance*random(attr_Position.xz));
 
 	float distanceToCamera = length(V);
 	float fadeScale = smoothstep(u_FadeStartDistance, u_FadeEndDistance,

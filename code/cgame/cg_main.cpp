@@ -596,7 +596,7 @@ void CG_Printf( const char *msg, ... ) {
 	cgi_Printf( text );
 }
 
-void CG_Error( const char *msg, ... ) {
+NORETURN void CG_Error( const char *msg, ... ) {
 	va_list		argptr;
 	char		text[1024];
 
@@ -1026,7 +1026,7 @@ void CG_RegisterClientRenderInfo(clientInfo_t *ci, renderInfo_t *ri)
 	char			torsoSkinName[MAX_QPATH];
 	char			legsSkinName[MAX_QPATH];
 
-	if(!ri->legsModelName || !ri->legsModelName[0])
+	if(!ri->legsModelName[0])
 	{//Must have at LEAST a legs model
 		return;
 	}
@@ -1046,7 +1046,7 @@ void CG_RegisterClientRenderInfo(clientInfo_t *ci, renderInfo_t *ri)
 		*slash = 0;
 	}
 
-	if(ri->torsoModelName && ri->torsoModelName[0])
+	if(ri->torsoModelName[0])
 	{
 		Q_strncpyz( torsoModelName, ri->torsoModelName, sizeof( torsoModelName ) );
 		//Torso skin
