@@ -417,6 +417,14 @@ if(BuildSPEngine)
 			endif()
 		endif(MakeApplicationBundles)
 
+		# add DPI awareness manifest
+		if(MSVC)
+			add_custom_command(TARGET ${ProjectName} POST_BUILD
+				COMMAND "mt.exe" -manifest \"${SharedDir}\\sys\\win_manifest.xml\" -inputresource:\"$<TARGET_FILE:${ProjectName}>\"\;\#1 -outputresource:\"$<TARGET_FILE:${ProjectName}>\"\;\#1
+				COMMENT "Adding manifest..." 
+			)
+		endif()
+
 		set_target_properties(${ProjectName} PROPERTIES COMPILE_DEFINITIONS "${SPEngineDefines}")
 
 		# Hide symbols not explicitly marked public.
