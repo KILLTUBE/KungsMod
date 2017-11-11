@@ -156,22 +156,16 @@ vec2 ModTexCoords(vec2 st, vec3 position, vec4 texMatrix, vec4 offTurb)
 float CalcLightAttenuation(float distance, float radius)
 {
 #if defined(USE_PBR)
-	float d = distance / radius;
-	d *= d;
-	d *= d;
+	float d = (distance*distance) / (radius*radius);
 	float attenuation = clamp(1.0 - d, 0.0, 1.0);
 	attenuation *= attenuation;
-	attenuation /= (distance * distance) + 1.0;
-	// power (tries to fake old style lighting size)
-	attenuation *= 2 * M_PI * radius;
-	attenuation = clamp(attenuation, 0.0, 1.0);
+	attenuation /= max(distance, 0.0001);
 	// don't attenuate directional light
-	attenuation = attenuation + float(radius == 0.0);
+	attenuation = attenuation + float(radius < 1.0);
 #else
 	float attenuation = (0.5 * radius / distance - 1.5) * float(radius > 0.0) + 1.0;
-	attenuation = clamp(attenuation, 0.0, 1.0);
 #endif
-	return attenuation;
+	return clamp(attenuation, 0.0, 1.0);
 }
 
 
@@ -548,22 +542,17 @@ vec3 CalcSpecular(
 float CalcLightAttenuation(float distance, float radius)
 {
 #if defined(USE_PBR)
-	float d = distance / radius;
-	d *= d;
-	d *= d;
+	float d = (distance*distance) / (radius*radius);
 	float attenuation = clamp(1.0 - d, 0.0, 1.0);
 	attenuation *= attenuation;
-	attenuation /= (distance * distance) + 1.0;
-	// power (tries to fake old style lighting size)
-	attenuation *= 2 * M_PI * radius;
-	attenuation = clamp(attenuation, 0.0, 1.0);
+	attenuation /= max(distance , 0.0001);
+	attenuation *= sqrt(radius);
 	// don't attenuate directional light
-	attenuation = attenuation + float(radius == 0.0);
+	attenuation = attenuation + float(radius < 1.0);
 #else
 	float attenuation = (0.5 * radius / distance - 1.5) * float(radius > 0.0) + 1.0;
-	attenuation = clamp(attenuation, 0.0, 1.0);
 #endif
-	return attenuation;
+	return clamp(attenuation, 0.0, 1.0);
 }
 
 vec3 CalcNormal( in vec3 vertexNormal, in vec2 texCoords, in mat3 tangentToWorld )
