@@ -511,16 +511,16 @@ float spec_G(float NL, float NE, float roughness )
   return G1(NL,k)*G1(NE,k);
 }
 
-vec3 CalcDiffuse(vec3 diffuseAlbedo, float NH, float EH, float roughness, float ao)
+vec3 CalcDiffuse(vec3 diffuseAlbedo, float NH, float EH, float roughness)
 {
 #if defined(USE_BURLEY)
 	// modified from https://disney-animation.s3.amazonaws.com/library/s2012_pbs_disney_brdf_notes_v2.pdf
 	float fd90 = -0.5 + EH * EH * roughness;
 	float burley = 1.0 + fd90 * 0.04 / NH;
 	burley *= burley;
-	return diffuseAlbedo * burley * ao;
+	return diffuseAlbedo * burley;
 #else
-	return diffuseAlbedo * ao;
+	return diffuseAlbedo;
 #endif
 }
 
@@ -710,7 +710,8 @@ void main()
     EH = max(1e-8, dot(E, H));
 	NH = max(1e-8, dot(N, H));
 	NL = clamp(dot(N, L), 1e-8, 1.0);
-	reflectance  = CalcDiffuse(diffuse.rgb, NH, EH, roughness, ao);
+	
+	reflectance = CalcDiffuse(diffuse.rgb, NH, EH, roughness);
 
   #if defined(USE_DELUXEMAP)
 	#if defined(USE_LIGHTMAP)
@@ -724,7 +725,7 @@ void main()
   #endif
 
 	out_Color.rgb  = lightColor   * reflectance * (attenuation * NL);
-	out_Color.rgb += ambientColor * diffuse.rgb;
+	out_Color.rgb += ambientColor * ao * diffuse.rgb;
 
 
   #if defined(USE_CUBEMAP)
@@ -771,7 +772,7 @@ void main()
 
 	// bit of a hack, with modulated shadowmaps, ignore diffuse
     #if !defined(SHADOWMAP_MODULATE)
-	reflectance += CalcDiffuse(diffuse.rgb, NH2, EH2, roughness, 1.0);
+	reflectance += CalcDiffuse(diffuse.rgb, NH2, EH2, roughness);
     #endif
 
 	lightColor = u_PrimaryLightColor * var_Color.rgb;
@@ -786,6 +787,7 @@ void main()
   #if defined(USE_PBR)
 	out_Color.rgb = sqrt(out_Color.rgb);
   #endif
+	//out_Color.rgb = N.xyz;
 
 #else
 	lightColor = var_Color.rgb;
