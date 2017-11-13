@@ -70,6 +70,8 @@ PFNGLISBUFFERPROC qglIsBuffer;
 
 // Texturing
 PFNGLACTIVETEXTUREPROC qglActiveTexture;
+PFNGLTEXIMAGE3DPROC qglTexImage3D;
+PFNGLTEXSUBIMAGE3DPROC qglTexSubImage3D;
 
 // Shader objects
 PFNGLCREATESHADERPROC qglCreateShader;
@@ -342,7 +344,8 @@ void GLimp_InitCoreFunctions()
 
 	// Texturing
 	GetGLFunction (qglActiveTexture, "glActiveTexture", qtrue);
-
+	GetGLFunction(qglTexImage3D, "glTexImage3D", qtrue);
+	GetGLFunction(qglTexSubImage3D, "glTexSubImage3D", qtrue);
 
 	// Shader objects
 	GetGLFunction (qglCreateShader, "glCreateShader", qtrue);

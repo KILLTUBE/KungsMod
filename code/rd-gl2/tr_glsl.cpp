@@ -79,6 +79,14 @@ static uniformInfo_t uniformsInfo[] =
 	{ "u_ScreenImageMap", GLSL_INT, 1 },
 	{ "u_ScreenDepthMap", GLSL_INT, 1 },
 
+	{ "u_LightGridDirectionMap", GLSL_INT, 1 },
+	{ "u_LightGridDirectionalLightMap", GLSL_INT, 1 },
+	{ "u_LightGridAmbientLightMap", GLSL_INT, 1 },
+	{ "u_LightGridOrigin", GLSL_VEC3, 1 },
+	{ "u_LightGridCellInverseSize", GLSL_VEC3, 1 },
+	{ "u_StyleColor", GLSL_VEC3, 1 },
+	{ "u_LightGridLightScale", GLSL_VEC2, 1 },
+
 	{ "u_ShadowMap",  GLSL_INT, 1 },
 	{ "u_ShadowMap2", GLSL_INT, 1 },
 	{ "u_ShadowMap3", GLSL_INT, 1 },
@@ -1696,6 +1704,9 @@ static int GLSL_LoadGPUProgramLightAll(
 		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_SHADOWMAP, TB_SHADOWMAP);
 		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_CUBEMAP, TB_CUBEMAP);
 		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_ENVBRDFMAP, TB_ENVBRDFMAP);
+		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_LIGHTGRIDDIRECTIONMAP, TB_LGDIRECTION);
+		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_LIGHTGRIDDIRECTIONALLIGHTMAP, TB_LGLIGHTCOLOR);
+		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_LIGHTGRIDAMBIENTLIGHTMAP, TB_LGAMBIENT);
 		qglUseProgram(0);
 
 		GLSL_FinishGPUShader(&tr.lightallShader[i]);

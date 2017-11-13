@@ -2392,6 +2392,55 @@ image_t *R_CreateImage(const char *name, byte *pic, int width, int height, imgTy
 	return image;
 }
 
+image_t *R_CreateImage3D(const char *name, byte *data, int width, int height, int depth, int internalFormat)
+{
+	image_t *image;
+	long hash;
+
+	if (strlen(name) >= MAX_QPATH) {
+		ri.Error(ERR_DROP, "R_CreateImage3D: \"%s\" is too long", name);
+
+	}
+
+	image = (image_t *)R_Hunk_Alloc(sizeof(image_t), qtrue);
+	qglGenTextures(1, &image->texnum);
+
+	image->type = IMGTYPE_COLORALPHA;
+	image->flags = IMGFLAG_3D;
+
+	Q_strncpyz(image->imgName, name, sizeof(image->imgName));
+
+	image->width = width;
+	image->height = height;
+	image->depth = depth;
+
+	GL_Bind(image);
+	if (ShouldUseImmutableTextures(image->flags, internalFormat))
+	{
+		qglTexStorage3D(GL_TEXTURE_3D, 1, internalFormat, width, height, depth);
+		if (data)
+		{
+			qglTexSubImage3D(GL_TEXTURE_3D, 0, 0, 0, 0, width, height, depth, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		}
+	}
+	else
+	{
+		qglTexImage3D(GL_TEXTURE_3D, 0, internalFormat, width, height, depth, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	}
+
+	qglTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	qglTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	qglTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	qglTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	qglTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+	hash = generateHashValue(name);
+	image->next = hashTable[hash];
+	hashTable[hash] = image;
+
+	return image;
+}
+
 void R_UpdateSubImage(image_t *image, byte *pic, int x, int y, int width, int height)
 {
 	byte *scaledBuffer = NULL;
@@ -2804,9 +2853,7 @@ static void R_CreateEnvBrdfLUT(void) {
 	if (!r_cubeMapping->integer)
 		return;
 
-	int		x, y;
 	uint16_t	data[LUT_WIDTH][LUT_HEIGHT][4];
-	int		b;
 
 	float const MATH_PI = 3.14159f;
 	unsigned const sampleNum = 1024;

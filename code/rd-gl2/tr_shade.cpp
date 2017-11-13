@@ -1429,7 +1429,6 @@ void RB_StageIteratorLiquid( void )
 	deform_t deformType;
 	genFunc_t deformGen;
 	float deformParams[7];
-	int stateBits;
 
 	ComputeDeformValues(&deformType, &deformGen, deformParams);
 
@@ -1847,6 +1846,18 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArrays
 				//
 				if (light && !allowVertexLighting)
 				{
+					vec2_t lightScales;
+					lightScales[0] = r_ambientScale->value;
+					lightScales[1] = r_directedScale->value;
+
+					uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDORIGIN, tr.world->lightGridOrigin);
+					uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDCELLINVERSESIZE, tr.world->lightGridInverseSize);
+					uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDLIGHTSCALE, lightScales);
+
+					samplerBindingsWriter.AddStaticImage(tr.world->ambientLightImages[0], TB_LGAMBIENT);
+					samplerBindingsWriter.AddStaticImage(tr.world->directionImages, TB_LGDIRECTION);
+					samplerBindingsWriter.AddStaticImage(tr.world->directionalLightImages[0], TB_LGLIGHTCOLOR);
+
 					if (pStage->bundle[TB_NORMALMAP].image[0])
 					{
 						samplerBindingsWriter.AddAnimatedImage(&pStage->bundle[TB_NORMALMAP], TB_NORMALMAP);

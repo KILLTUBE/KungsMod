@@ -55,15 +55,22 @@ void GL_Bind( image_t *image ) {
 		texnum = tr.dlightImage->texnum;
 	}
 
-	if ( glState.currenttextures[glState.currenttmu] != texnum ) {
-		if ( image ) {
+	if (glState.currenttextures[glState.currenttmu] != texnum) {
+		if (image) {
 			image->frameUsed = tr.frameCount;
 		}
 		glState.currenttextures[glState.currenttmu] = texnum;
-		if (image && image->flags & IMGFLAG_CUBEMAP)
-			qglBindTexture( GL_TEXTURE_CUBE_MAP, texnum );
+		if (image)
+		{
+			if (image->flags & IMGFLAG_CUBEMAP)
+				qglBindTexture(GL_TEXTURE_CUBE_MAP, texnum);
+			else if (image->flags & IMGFLAG_3D)
+				qglBindTexture(GL_TEXTURE_3D, texnum);
+			else
+				qglBindTexture(GL_TEXTURE_2D, texnum);
+		}
 		else
-			qglBindTexture( GL_TEXTURE_2D, texnum );
+			qglBindTexture(GL_TEXTURE_2D, texnum);
 	}
 }
 
@@ -104,8 +111,15 @@ void GL_BindToTMU( image_t *image, int tmu )
 			image->frameUsed = tr.frameCount;
 		glState.currenttextures[tmu] = texnum;
 
-		if (image && (image->flags & IMGFLAG_CUBEMAP))
-			qglBindTexture( GL_TEXTURE_CUBE_MAP, texnum );
+		if (image) 
+		{
+			if (image->flags & IMGFLAG_CUBEMAP)
+				qglBindTexture(GL_TEXTURE_CUBE_MAP, texnum);
+			else if (image->flags & IMGFLAG_3D)
+				qglBindTexture(GL_TEXTURE_3D, texnum);
+			else
+				qglBindTexture(GL_TEXTURE_2D, texnum);
+		}
 		else
 			qglBindTexture( GL_TEXTURE_2D, texnum );
 		GL_SelectTexture( oldtmu );
@@ -2109,7 +2123,7 @@ static void RB_RenderMainPass(drawSurf_t *drawSurfs, int numDrawSurfs)
 
 	if (r_drawSun->integer)
 	{
-		RB_DrawSun(0.1, tr.sunShader);
+		RB_DrawSun(0.1f, tr.sunShader);
 	}
 
 	if (r_drawSunRays->integer)
@@ -2123,7 +2137,7 @@ static void RB_RenderMainPass(drawSurf_t *drawSurfs, int numDrawSurfs)
 		tr.sunFlareQueryActive[tr.sunFlareQueryIndex] = qtrue;
 		qglBeginQuery(GL_SAMPLES_PASSED, tr.sunFlareQuery[tr.sunFlareQueryIndex]);
 
-		RB_DrawSun(0.3, tr.sunFlareShader);
+		RB_DrawSun(0.3f, tr.sunFlareShader);
 
 		qglEndQuery(GL_SAMPLES_PASSED);
 

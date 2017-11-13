@@ -312,6 +312,7 @@ typedef enum
 	IMGFLAG_SRGB           = 0x0080,
 	IMGFLAG_GENNORMALMAP   = 0x0100,
 	IMGFLAG_MUTABLE        = 0x0200,
+	IMGFLAG_3D             = 0x0400,
 } imgFlags_t;
 
 typedef enum
@@ -347,7 +348,7 @@ enum
 
 typedef struct image_s {
 	char		imgName[MAX_QPATH];		// game path, including extension
-	int			width, height;				// source image
+	int			width, height, depth;				// source image
 	int			uploadWidth, uploadHeight;	// after power of two and picmip but not including clamp to MAX_TEXTURE_SIZE
 	GLuint		texnum;					// gl texture binding
 
@@ -737,7 +738,10 @@ enum
 	TB_SHADOWMAP   = 5,
 	TB_CUBEMAP     = 6,
 	TB_ENVBRDFMAP  = 7,
-	NUM_TEXTURE_BUNDLES = 8
+	TB_LGDIRECTION = 8,
+	TB_LGLIGHTCOLOR= 9,
+	TB_LGAMBIENT   =10,
+	NUM_TEXTURE_BUNDLES = 11,
 };
 
 typedef enum
@@ -1224,6 +1228,14 @@ typedef enum
 
 	UNIFORM_SCREENIMAGEMAP,
 	UNIFORM_SCREENDEPTHMAP,
+
+	UNIFORM_LIGHTGRIDDIRECTIONMAP,
+	UNIFORM_LIGHTGRIDDIRECTIONALLIGHTMAP,
+	UNIFORM_LIGHTGRIDAMBIENTLIGHTMAP,
+	UNIFORM_LIGHTGRIDORIGIN,
+	UNIFORM_LIGHTGRIDCELLINVERSESIZE,
+	UNIFORM_LIGHTSTYLECOLOR,
+	UNIFORM_LIGHTGRIDLIGHTSCALE,
 
 	UNIFORM_SHADOWMAP,
 	UNIFORM_SHADOWMAP2,
@@ -1874,6 +1886,10 @@ typedef struct {
 
 	char		*entityString;
 	char		*entityParsePoint;
+
+	image_t		*ambientLightImages[MAXLIGHTMAPS];
+	image_t		*directionalLightImages[MAXLIGHTMAPS];
+	image_t		*directionImages;
 } world_t;
 
 
@@ -3504,6 +3520,7 @@ image_t	*R_FindImageFile( const char *name, imgType_t type, int flags );
 qhandle_t RE_RegisterShader( const char *name );
 qhandle_t RE_RegisterShaderNoMip( const char *name );
 image_t *R_CreateImage( const char *name, byte *pic, int width, int height, imgType_t type, int flags, int internalFormat );
+image_t *R_CreateImage3D(const char *name, byte *data, int width, int height, int depth, int internalFormat);
 
 float ProjectRadius( float r, vec3_t location );
 void RE_RegisterModels_StoreShaderRequest(const char *psModelFileName, const char *psShaderName, int *piShaderIndexPoke);

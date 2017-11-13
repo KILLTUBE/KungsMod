@@ -2724,7 +2724,7 @@ R_LoadEntities
 */
 void R_LoadEntities( world_t *worldData, lump_t *l ) {
 	const char *p;
-	char *token, *s;
+	char *token;
 	char vertexRemapShaderText[] = "vertexremapshader";
 	char remapShaderText[] = "remapshader";
 	char keyname[MAX_TOKEN_CHARS];
@@ -3128,10 +3128,12 @@ void R_RenderMissingCubemaps()
 				R_IssuePendingRenderCommands();
 				R_InitNextFrame();
 			}
+
 			RE_ClearScene();
 			R_AddConvolveCubemapCmd(i);
 			R_IssuePendingRenderCommands();
 			R_InitNextFrame();
+
 		}
 	}
 }
@@ -3697,6 +3699,79 @@ static void R_GenerateSurfaceSprites( const world_t *world )
 	}
 }
 
+static void R_BuildLightGridTextures(world_t *world)
+{
+	// Upload light grid as 3D textures
+	byte *ambientBase = (byte *)R_Malloc(world->numGridArrayElements * sizeof(byte) * 4, TAG_TEMP_WORKSPACE, qtrue);
+	byte *directionalBase = (byte *)R_Malloc(world->numGridArrayElements * sizeof(byte) * 4, TAG_TEMP_WORKSPACE, qtrue);
+	byte *directionBase = (byte *)R_Malloc(world->numGridArrayElements * sizeof(byte) * 4, TAG_TEMP_WORKSPACE, qtrue);
+
+	byte *ambient = ambientBase;
+	byte *directional = directionalBase;
+	byte *direction = directionBase;
+	for (int i = 0; i < world->numGridArrayElements; i++)
+	{
+		
+		float lat, lng;
+		float clat, slong, slat, clong;
+		mgrid_t *data = world->lightGridData + world->lightGridArray[i];
+
+		ambient[0] = data->ambientLight[0][0];
+		ambient[1] = data->ambientLight[0][1];
+		ambient[2] = data->ambientLight[0][2];
+		ambient[3] = 0;
+
+		directional[0] = data->directLight[0][0];
+		directional[1] = data->directLight[0][1];
+		directional[2] = data->directLight[0][2];
+		directional[3] = 0;
+
+		lat = (data->latLong[1] / 255.0f) * 2.0f * M_PI;
+		lng = (data->latLong[0] / 255.0f) * 2.0f * M_PI;
+
+		// decode X as cos( lat ) * sin( long )
+		// decode Y as sin( lat ) * sin( long )
+		// decode Z as cos( long )
+
+		slat = sinf(lat);
+		clat = cosf(lat);
+		slong = sinf(lng);
+		clong = cosf(lng);
+
+		direction[0] = (byte)floorf(clat * slong);
+		direction[1] = (byte)floorf(slat * slong);
+		direction[2] = (byte)floorf(clong);
+		direction[3] = 0;
+
+		ambient += 4;
+		directional += 4;
+		direction += 4;
+	}
+
+	world->ambientLightImages[0] = R_CreateImage3D(
+		"*bsp_ambientLightGrid", ambientBase,
+		world->lightGridBounds[0],
+		world->lightGridBounds[1],
+		world->lightGridBounds[2],
+		GL_RGB8);
+
+	world->directionalLightImages[0] = R_CreateImage3D(
+		"*bsp_directionalLightGrid", directionalBase,
+		world->lightGridBounds[0],
+		world->lightGridBounds[1],
+		world->lightGridBounds[2],
+		GL_RGB8);
+
+	world->directionImages = R_CreateImage3D(
+		"*bsp_directionsGrid", directionBase,
+		world->lightGridBounds[0],
+		world->lightGridBounds[1],
+		world->lightGridBounds[2],
+		GL_RGB8);
+
+	return;
+}
+
 world_t *R_LoadBSP(const char *name, int *bspIndex)
 {
 	union {
@@ -3786,6 +3861,8 @@ world_t *R_LoadBSP(const char *name, int *bspIndex)
 	R_LoadVisibility(worldData, &header->lumps[LUMP_VISIBILITY]);
 	R_LoadLightGrid(worldData, &header->lumps[LUMP_LIGHTGRID]);
 	R_LoadLightGridArray(worldData, &header->lumps[LUMP_LIGHTARRAY]);
+
+	R_BuildLightGridTextures(worldData);
 
 	R_GenerateSurfaceSprites(worldData);
 

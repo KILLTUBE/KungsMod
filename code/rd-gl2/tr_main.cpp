@@ -1965,7 +1965,6 @@ R_AddEntitySurfaces
 =============
 */
 void R_AddEntitySurfaces (const trRefdef_t *refdef) {
-	int i;
 
 	if ( !r_drawentities->integer ) {
 		return;
