@@ -552,14 +552,48 @@ void RB_BeginDrawingView (void) {
 		clearBits |= GL_STENCIL_BUFFER_BIT;
 	}
 
-	if ( r_fastsky->integer && !( backEnd.refdef.rdflags & RDF_NOWORLDMODEL ) )
+	if (skyboxportal)
 	{
-		clearBits |= GL_COLOR_BUFFER_BIT;	// FIXME: only if sky shaders have been used
-#ifdef _DEBUG
-		qglClearColor( 0.8f, 0.7f, 0.4f, 1.0f );	// FIXME: get color of sky
-#else
-		qglClearColor( 0.0f, 0.0f, 0.0f, 1.0f );	// FIXME: get color of sky
-#endif
+		if (backEnd.refdef.rdflags & RDF_SKYBOXPORTAL)
+		{
+			if (r_fastsky->integer || (backEnd.refdef.rdflags & RDF_NOWORLDMODEL))
+			{
+				clearBits |= GL_COLOR_BUFFER_BIT;
+				if (tr.world && tr.world->globalFog)
+				{
+					const fog_t		*fog = tr.world->globalFog;
+					qglClearColor(fog->parms.color[0], fog->parms.color[1], fog->parms.color[2], 1.0f);
+				}
+				else
+				{
+					qglClearColor(0.3f, 0.3f, 0.3f, 1.0);
+				}
+			}
+		}
+	}
+	else if ( r_fastsky->integer && !( backEnd.refdef.rdflags & RDF_NOWORLDMODEL ) )
+	{
+		if (tr.world && tr.world->globalFog)
+		{
+			const fog_t		*fog = tr.world->globalFog;
+			qglClearColor(fog->parms.color[0], fog->parms.color[1], fog->parms.color[2], 1.0f);
+		}
+		else
+		{
+			qglClearColor(0.3f, 0.3f, 0.3f, 1);	// FIXME: get color of sky
+		}
+		clearBits |= GL_COLOR_BUFFER_BIT; // FIXME: only if sky shaders have been used
+	}
+	
+	if (!(backEnd.refdef.rdflags & RDF_NOWORLDMODEL) && (r_dynamicGlow->integer))
+	{
+		if (tr.world && tr.world->globalFog )
+		{ //this is because of a bug in multiple scenes I think, it needs to clear for the second scene but it doesn't normally.
+			const fog_t		*fog = tr.world->globalFog;
+
+			qglClearColor(fog->parms.color[0], fog->parms.color[1], fog->parms.color[2], 1.0f);
+			clearBits |= GL_COLOR_BUFFER_BIT;
+		}
 	}
 
 	// clear to white for shadow maps

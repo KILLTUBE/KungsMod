@@ -417,7 +417,10 @@ static size_t GLSL_GetShaderHeader(
 
 	if (r_bloom_threshold->value)
 	{
-		Q_strcat(dest, size, va("#define GLOW_THRESHOLD float(%f)\n", r_bloom_threshold->value));
+		if (r_hdr)
+			Q_strcat(dest, size, va("#define GLOW_THRESHOLD float(%f)\n", r_bloom_threshold->value * 2.0f));
+		else
+			Q_strcat(dest, size, va("#define GLOW_THRESHOLD float(%f)\n", r_bloom_threshold->value));
 	}
 
 	if (extra)

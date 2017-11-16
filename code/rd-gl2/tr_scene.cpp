@@ -35,6 +35,8 @@ int			r_firstScenePoly;
 
 int			r_numpolyverts;
 
+qboolean	skyboxportal;
+qboolean	drawskyboxportal;
 
 /*
 ====================
@@ -297,6 +299,24 @@ void RE_BeginScene(const refdef_t *fd)
 
 	tr.refdef.time = fd->time;
 	tr.refdef.rdflags = fd->rdflags;
+
+	if (fd->rdflags & RDF_SKYBOXPORTAL)
+	{
+		skyboxportal = qtrue;
+	}
+	else
+	{
+		skyboxportal = qfalse;
+	}
+
+	if (fd->rdflags & RDF_DRAWSKYBOX)
+	{
+		drawskyboxportal = qtrue;
+	}
+	else
+	{
+		drawskyboxportal = qfalse;
+	}
 
 	// copy the areamask data over and note if it has changed, which
 	// will force a reset of the visible leafs even if the view hasn't moved

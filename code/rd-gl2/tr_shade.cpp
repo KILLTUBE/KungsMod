@@ -2174,6 +2174,29 @@ void RB_EndSurface( void ) {
 		return;
 	}
 
+	if (skyboxportal)
+	{
+		// world
+		if (!(backEnd.refdef.rdflags & RDF_SKYBOXPORTAL))
+		{
+			if (tess.currentStageIteratorFunc == RB_StageIteratorSky)
+			{	// don't process these tris at all
+				return;
+			}
+		}
+		// portal sky
+		else
+		{
+			if (!drawskyboxportal)
+			{
+				if (!(tess.currentStageIteratorFunc == RB_StageIteratorSky))
+				{	// /only/ process sky tris
+					return;
+				}
+			}
+		}
+	}
+
 	//
 	// update performance counters
 	//
