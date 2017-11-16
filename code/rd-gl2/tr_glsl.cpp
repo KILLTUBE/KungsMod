@@ -90,10 +90,12 @@ static uniformInfo_t uniformsInfo[] =
 	{ "u_ShadowMap",  GLSL_INT, 1 },
 	{ "u_ShadowMap2", GLSL_INT, 1 },
 	{ "u_ShadowMap3", GLSL_INT, 1 },
+	{ "u_ShadowMap4", GLSL_INT, 1 },
 
 	{ "u_ShadowMvp",  GLSL_MAT4x4, 1 },
 	{ "u_ShadowMvp2", GLSL_MAT4x4, 1 },
 	{ "u_ShadowMvp3", GLSL_MAT4x4, 1 },
+	{ "u_ShadowMvp4", GLSL_MAT4x4, 1 },
 
 	{ "u_EnableTextures", GLSL_VEC4, 1 },
 	{ "u_DiffuseTexMatrix",  GLSL_VEC4, 1 },
@@ -1984,6 +1986,7 @@ static int GLSL_LoadGPUProgramShadowMask(
 	GLSL_SetUniformInt(&tr.shadowmaskShader, UNIFORM_SHADOWMAP, TB_SHADOWMAP);
 	GLSL_SetUniformInt(&tr.shadowmaskShader, UNIFORM_SHADOWMAP2, TB_SHADOWMAP2);
 	GLSL_SetUniformInt(&tr.shadowmaskShader, UNIFORM_SHADOWMAP3, TB_SHADOWMAP3);
+	GLSL_SetUniformInt(&tr.shadowmaskShader, UNIFORM_SHADOWMAP4, TB_SHADOWMAP4);
 	qglUseProgram(0);
 
 	GLSL_FinishGPUShader(&tr.shadowmaskShader);

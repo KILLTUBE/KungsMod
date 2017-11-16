@@ -260,7 +260,10 @@ RE_AddLightToScene
 =====================
 */
 void RE_AddLightToScene( const vec3_t org, float intensity, float r, float g, float b ) {
-	RE_AddDynamicLightToScene( org, intensity, r, g, b, qfalse );
+	if (r_pbr->integer)
+		RE_AddDynamicLightToScene( org, intensity * 2.0f, r, g, b, qfalse );
+	else
+		RE_AddDynamicLightToScene(org, intensity, r, g, b, qfalse);
 }
 
 /*
@@ -270,7 +273,10 @@ RE_AddAdditiveLightToScene
 =====================
 */
 void RE_AddAdditiveLightToScene( const vec3_t org, float intensity, float r, float g, float b ) {
-	RE_AddDynamicLightToScene( org, intensity, r, g, b, qtrue );
+	if (r_pbr->integer)
+		RE_AddDynamicLightToScene( org, intensity * 2.0f, r, g, b, qtrue );
+	else
+		RE_AddDynamicLightToScene(org, intensity, r, g, b, qtrue);
 }
 
 void RE_BeginScene(const refdef_t *fd)
@@ -498,6 +504,7 @@ void RE_RenderScene( const refdef_t *fd ) {
 		R_RenderSunShadowMaps(fd, 0);
 		R_RenderSunShadowMaps(fd, 1);
 		R_RenderSunShadowMaps(fd, 2);
+		R_RenderSunShadowMaps(fd, 3);
 		R_EndTimedBlockCmd( timer );
 	}
 

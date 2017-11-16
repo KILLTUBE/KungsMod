@@ -412,7 +412,7 @@ void R_SetupEntityLighting( const trRefdef_t *refdef, trRefEntity_t *ent ) {
 			factor *= factor;
 
 			d = factor / d;
-			d *= 4.0f * dl->radius;
+			d *= DLIGHT_AT_RADIUS * dl->radius;
 		}
 		else 
 		{

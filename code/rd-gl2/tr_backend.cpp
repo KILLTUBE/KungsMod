@@ -1979,7 +1979,8 @@ static void RB_RenderSunShadows()
 	GL_BindToTMU(tr.renderDepthImage, TB_COLORMAP);
 	GL_BindToTMU(tr.sunShadowDepthImage[0], TB_SHADOWMAP);
 	GL_BindToTMU(tr.sunShadowDepthImage[1], TB_SHADOWMAP2);
-	GL_BindToTMU(tr.sunShadowDepthImage[2], TB_SHADOWMAP3);
+	GL_BindToTMU(tr.sunShadowDepthImage[2], TB_SHADOWMAP3); 
+	GL_BindToTMU(tr.sunShadowDepthImage[3], TB_SHADOWMAP4);
 
 	GLSL_SetUniformMatrix4x4(
 		&tr.shadowmaskShader,
@@ -2091,7 +2092,21 @@ static void RB_RenderDepthOnly(drawSurf_t *drawSurfs, int numDrawSurfs)
 		!backEnd.colorMask[3]);
 	backEnd.depthFill = qfalse;
 
-	if (tr.msaaResolveFbo)
+	if (backEnd.viewParms.targetFbo == tr.renderCubeFbo && tr.msaaResolveFbo)
+	{
+		// If we're using multisampling and rendering a cubemap, resolve the depth to correct size first
+		vec4i_t frameBox;
+		frameBox[0] = backEnd.viewParms.viewportX;
+		frameBox[1] = backEnd.viewParms.viewportY;
+		frameBox[2] = backEnd.viewParms.viewportWidth;
+		frameBox[3] = backEnd.viewParms.viewportHeight;
+		FBO_FastBlit(
+			tr.renderCubeFbo, frameBox,
+			tr.msaaResolveFbo, frameBox,
+			GL_DEPTH_BUFFER_BIT,
+			GL_NEAREST);
+	}
+	else if (tr.msaaResolveFbo)
 	{
 		// If we're using multisampling, resolve the depth first
 		FBO_FastBlit(

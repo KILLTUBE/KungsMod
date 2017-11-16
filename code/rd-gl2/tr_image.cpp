@@ -2864,8 +2864,7 @@ static void R_CreateEnvBrdfLUT(void) {
 
 		for (unsigned x = 0; x < LUT_WIDTH; ++x)
 		{
-			float const gloss = (x + 0.5f) / LUT_WIDTH;
-			float const roughness = powf(1.0f - gloss, 2.0f);
+			float const roughness = (x + 0.5f) / LUT_WIDTH;
 
 			float const vx = sqrtf(1.0f - ndotv * ndotv);
 			float const vy = 0.0f;
@@ -2882,7 +2881,7 @@ static void R_CreateEnvBrdfLUT(void) {
 				float const phi = 2.0f * MATH_PI * e1;
 				float const cosPhi = cosf(phi);
 				float const sinPhi = sinf(phi);
-				float const cosTheta = sqrtf((1.0f - e2) / (1.0f + (roughness * roughness - 1.0f) * e2));
+				float const cosTheta = sqrtf((1.0f - e2) / (1.0f + (roughness * roughness * roughness * roughness - 1.0f) * e2));
 				float const sinTheta = sqrtf(1.0f - cosTheta * cosTheta);
 
 				float const hx = sinTheta * cosf(phi);
@@ -3092,9 +3091,14 @@ void R_CreateBuiltinImages(void) {
 
 	if (r_sunlightMode->integer)
 	{
-		for (x = 0; x < 3; x++)
+		for (x = 0; x < 4; x++)
 		{
 			tr.sunShadowDepthImage[x] = R_CreateImage(va("*sunshadowdepth%i", x), NULL, r_shadowMapSize->integer, r_shadowMapSize->integer, IMGTYPE_COLORALPHA, IMGFLAG_NO_COMPRESSION | IMGFLAG_CLAMPTOEDGE, GL_DEPTH_COMPONENT24);
+			GL_Bind(tr.sunShadowDepthImage[x]);
+			qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
+			qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 		}
 
 		tr.screenShadowImage = R_CreateImage("*screenShadow", NULL, width, height, IMGTYPE_COLORALPHA, IMGFLAG_NO_COMPRESSION | IMGFLAG_CLAMPTOEDGE, GL_RGBA8);

@@ -640,8 +640,7 @@ void main()
 
 #if defined(PER_PIXEL_LIGHTING)
 	float isLightgrid = float(var_LightDir.w < 1.0);
-	L = texture(u_LightGridDirectionMap, gridCell).rgb * isLightgrid;
-	L += var_LightDir.xyz;
+	L = var_LightDir.xyz;
   #if defined(USE_DELUXEMAP)
 	L = (texture(u_DeluxeMap, var_TexCoords.zw).xyz - vec3(0.5)) * u_EnableTextures.y;
   #endif
@@ -653,6 +652,7 @@ void main()
 	vertexColor = var_Color.rgb * var_Color.rgb;
 	ambientLight *= ambientLight;
 	#if defined(USE_LIGHT_VECTOR)
+	  L += -normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * isLightgrid;
 	  vec3 directedLight = texture(u_LightGridDirectionalLightMap, gridCell).rgb * isLightgrid;
 	  directedLight *= directedLight;
 	  directedLight += u_DirectedLight * u_DirectedLight;
@@ -660,6 +660,9 @@ void main()
   #else
 	vertexColor = var_Color.rgb
 	#if defined(USE_LIGHT_VECTOR)
+	  float isLightgrid = float(var_LightDir.w < 1.0);
+	  L += -normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * isLightgrid;
+	  vec3 directedLight = texture(u_LightGridDirectionalLightMap, gridCell).rgb * isLightgrid;
 	  directedLight += u_DirectedLight;
 	#endif
   #endif
@@ -690,14 +693,14 @@ void main()
   #endif
 
   #if defined(USE_LIGHTMAP) || defined(USE_LIGHT_VERTEX)
-	float surfNL = 1.0 - clamp(dot(N, L), 0.0, 1.0);
-	ambientColor = min(ambientColor + lightColor * surfNL, vec3(1.0));
+	float surfNL = clamp(dot(N, L), 0.0, 1.0);
+	ambientColor = mix(ambientColor, lightColor, surfNL);
   #endif
 
   #if defined(USE_SPECULARMAP)
 	vec4 specular = texture(u_SpecularMap, texCoords);
   #else
-	vec4 specular = vec4(1.0);
+	vec4 specular = vec4(0.5);
   #endif
 	specular *= u_SpecularScale;
 
@@ -748,7 +751,7 @@ void main()
 
   #if defined(USE_CUBEMAP)
 	NE = clamp(dot(N, E), 0.0, 1.0);
-	vec3 EnvBRDF = texture(u_EnvBrdfMap, vec2(1.0 - roughness, NE)).rgb;
+	vec3 EnvBRDF = texture(u_EnvBrdfMap, vec2(roughness, NE)).rgb;
 
 	vec3 R = reflect(E, N);
 
@@ -762,8 +765,7 @@ void main()
 	// from http://marmosetco.tumblr.com/post/81245981087
 	#if defined(HORIZON_FADE)
 		const float horizonFade = HORIZON_FADE;
-		horiz = clamp( 1.0 + horizonFade * dot(R,var_Normal.xyz), 0.0, 1.0 );
-		horiz = 1.0 - horiz;
+		horiz = clamp( 1.0 + horizonFade * dot(-(R + parallax),var_Normal.xyz), 0.0, 1.0 );
 		horiz *= horiz;
 	#endif
 

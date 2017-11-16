@@ -497,7 +497,6 @@ void FBO_Init(void)
 		R_CheckFBO(tr.sunRaysFbo);
 	}
 
-	// FIXME: Don't use separate color/depth buffers for a shadow buffer
 #if MAX_DRAWN_PSHADOWS > 0
 	if (tr.pshadowMaps[0] != NULL)
 	{
@@ -519,7 +518,7 @@ void FBO_Init(void)
 
 	if (tr.sunShadowDepthImage[0] != NULL)
 	{
-		for ( i = 0; i < 3; i++)
+		for ( i = 0; i < 4; i++)
 		{
 			tr.sunShadowFbo[i] = FBO_Create("_sunshadowmap", tr.sunShadowDepthImage[i]->width, tr.sunShadowDepthImage[i]->height);
 			FBO_Bind(tr.sunShadowFbo[i]);
@@ -634,12 +633,12 @@ void FBO_Init(void)
 	{
 		tr.renderCubeFbo = FBO_Create("_renderCubeFbo", tr.renderCubeImage->width, tr.renderCubeImage->height);
 		FBO_Bind(tr.renderCubeFbo);
-		
+
 		R_AttachFBOTexture2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, tr.renderCubeImage->texnum, 0);
 		glState.currentFBO->colorImage[0] = tr.renderCubeImage;
 		glState.currentFBO->colorBuffers[0] = tr.renderCubeImage->texnum;
 
-		FBO_CreateBuffer(tr.renderCubeFbo, GL_DEPTH_COMPONENT24, 0, 0);
+		R_AttachFBOTextureDepth(tr.renderDepthImage->texnum);
 
 		FBO_SetupDrawBuffers();
 

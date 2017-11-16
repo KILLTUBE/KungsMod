@@ -1573,7 +1573,13 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArrays
 
 	ComputeDeformValues(&deformType, &deformGen, deformParams);
 
+	bool renderToCubemap = tr.renderCubeFbo && glState.currentFBO == tr.renderCubeFbo;
+	
 	cullType_t cullType = RB_GetCullType(&backEnd.viewParms, backEnd.currentEntity, input->shader->cullType);
+
+	// HACK: Not sure why this is needed
+	if (renderToCubemap)
+		cullType = CT_TWO_SIDED;
 
 	vertexAttribute_t attribs[ATTR_INDEX_MAX] = {};
 	GL_VertexArraysToAttribs(attribs, ARRAY_LEN(attribs), vertexArrays);
@@ -1649,8 +1655,6 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArrays
 
 		sp = SelectShaderProgram(stage, pStage, pStage->glslShaderGroup, useAlphaTestGE192);
 		assert(sp);
-
-		bool renderToCubemap = tr.renderCubeFbo && glState.currentFBO == tr.renderCubeFbo;
 
 		uniformDataWriter.Start(sp);
 		uniformDataWriter.SetUniformMatrix4x4( UNIFORM_MODELVIEWPROJECTIONMATRIX, glState.modelviewProjection);
