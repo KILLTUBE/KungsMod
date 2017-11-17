@@ -157,87 +157,6 @@ static int R_CullModel(mdvModel_t *model, trRefEntity_t *ent) {
 	}
 }
 
-
-/*
-=================
-R_ComputeLOD
-
-=================
-*/
-int R_ComputeLOD(trRefEntity_t *ent) {
-	float radius;
-	float flod, lodscale;
-	float projectedRadius;
-	mdvFrame_t *frame;
-	mdrHeader_t *mdr;
-	mdrFrame_t *mdrframe;
-	int lod;
-
-	if (tr.currentModel->numLods < 2)
-	{
-		// model has only 1 LOD level, skip computations and bias
-		lod = 0;
-	}
-	else
-	{
-		// multiple LODs exist, so compute projected bounding sphere
-		// and use that as a criteria for selecting LOD
-
-		if (tr.currentModel->type == MOD_MDR)
-		{
-			int frameSize;
-			mdr = tr.currentModel->data.mdr;
-			frameSize = (size_t)(&((mdrFrame_t *)0)->bones[mdr->numBones]);
-
-			mdrframe = (mdrFrame_t *)((byte *)mdr + mdr->ofsFrames + frameSize * ent->e.frame);
-
-			radius = RadiusFromBounds(mdrframe->bounds[0], mdrframe->bounds[1]);
-		}
-		else
-		{
-			//frame = ( md3Frame_t * ) ( ( ( unsigned char * ) tr.currentModel->md3[0] ) + tr.currentModel->md3[0]->ofsFrames );
-			frame = tr.currentModel->data.mdv[0]->frames;
-
-			frame += ent->e.frame;
-
-			radius = RadiusFromBounds(frame->bounds[0], frame->bounds[1]);
-		}
-
-		if ((projectedRadius = ProjectRadius(radius, ent->e.origin)) != 0)
-		{
-			lodscale = (r_lodscale->value + r_autolodscalevalue->integer);
-			if (lodscale > 20) lodscale = 20;
-			flod = 1.0f - projectedRadius * lodscale;
-		}
-		else
-		{
-			// object intersects near view plane, e.g. view weapon
-			flod = 0;
-		}
-
-		flod *= tr.currentModel->numLods;
-		lod = Q_ftol(flod);
-
-		if (lod < 0)
-		{
-			lod = 0;
-		}
-		else if (lod >= tr.currentModel->numLods)
-		{
-			lod = tr.currentModel->numLods - 1;
-		}
-	}
-
-	lod += r_lodbias->integer;
-
-	if (lod >= tr.currentModel->numLods)
-		lod = tr.currentModel->numLods - 1;
-	if (lod < 0)
-		lod = 0;
-
-	return lod;
-}
-
 /*
 =================
 R_ComputeFogNum
@@ -301,7 +220,13 @@ void R_AddMD3Surfaces(trRefEntity_t *ent, int entityNum) {
 	personalModel = (qboolean)((ent->e.renderfx & RF_THIRD_PERSON) && !(tr.viewParms.isPortal
 		|| (tr.viewParms.flags & (VPF_SHADOWMAP | VPF_DEPTHSHADOW))));
 
-	if (ent->e.renderfx & RF_WRAP_FRAMES) {
+	if (ent->e.renderfx & RF_CAP_FRAMES) {
+		if (ent->e.frame > tr.currentModel->data.mdv[0]->numFrames - 1)
+			ent->e.frame = tr.currentModel->data.mdv[0]->numFrames - 1;
+		if (ent->e.oldframe > tr.currentModel->data.mdv[0]->numFrames - 1)
+			ent->e.oldframe = tr.currentModel->data.mdv[0]->numFrames - 1;
+	}
+	else if (ent->e.renderfx & RF_WRAP_FRAMES) {
 		ent->e.frame %= tr.currentModel->data.mdv[0]->numFrames;
 		ent->e.oldframe %= tr.currentModel->data.mdv[0]->numFrames;
 	}
