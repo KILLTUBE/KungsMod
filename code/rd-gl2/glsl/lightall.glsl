@@ -642,7 +642,8 @@ void main()
 	float isLightgrid = float(var_LightDir.w < 1.0);
 	L = var_LightDir.xyz;
   #if defined(USE_DELUXEMAP)
-	L = (texture(u_DeluxeMap, var_TexCoords.zw).xyz - vec3(0.5)) * u_EnableTextures.y;
+	L = -normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * (1.0 - u_EnableTextures.y);
+	L += (texture(u_DeluxeMap, var_TexCoords.zw).xyz - vec3(0.5)) * u_EnableTextures.y;
   #endif
 	float sqrLightDist = dot(L, L);
 	L /= sqrt(sqrLightDist);
@@ -658,9 +659,8 @@ void main()
 	  directedLight += u_DirectedLight * u_DirectedLight;
 	#endif
   #else
-	vertexColor = var_Color.rgb
+	vertexColor = var_Color.rgb;
 	#if defined(USE_LIGHT_VECTOR)
-	  float isLightgrid = float(var_LightDir.w < 1.0);
 	  L += -normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * isLightgrid;
 	  vec3 directedLight = texture(u_LightGridDirectionalLightMap, gridCell).rgb * isLightgrid;
 	  directedLight += u_DirectedLight;
@@ -723,7 +723,7 @@ void main()
 	// diffuse rgb is diffuse
 	// specular rgb is specular reflectance at normal incidence
 	// specular alpha is gloss
-	float roughness = = max(specular.a, 0.04);
+	float roughness = max(specular.a, 0.04);
 
 	// adjust diffuse by specular reflectance, to maintain energy conservation
 	diffuse.rgb *= vec3(1.0) - specular.rgb;

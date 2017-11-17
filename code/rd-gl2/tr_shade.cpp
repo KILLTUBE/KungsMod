@@ -1858,10 +1858,6 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArrays
 					uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDCELLINVERSESIZE, tr.world->lightGridInverseSize);
 					uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDLIGHTSCALE, lightScales);
 
-					samplerBindingsWriter.AddStaticImage(tr.world->ambientLightImages[0], TB_LGAMBIENT);
-					samplerBindingsWriter.AddStaticImage(tr.world->directionImages, TB_LGDIRECTION);
-					samplerBindingsWriter.AddStaticImage(tr.world->directionalLightImages[0], TB_LGLIGHTCOLOR);
-
 					if (pStage->bundle[TB_NORMALMAP].image[0])
 					{
 						samplerBindingsWriter.AddAnimatedImage(&pStage->bundle[TB_NORMALMAP], TB_NORMALMAP);
@@ -1931,7 +1927,6 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArrays
 
 			uniformDataWriter.SetUniformVec4(UNIFORM_CUBEMAPINFO, vec);
 		}
-		samplerBindingsWriter.AddStaticImage(tr.envBrdfImage, TB_ENVBRDFMAP);
 
 		CaptureDrawData(input, pStage, index, stage);
 

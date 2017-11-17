@@ -2168,6 +2168,13 @@ static void RB_RenderMainPass(drawSurf_t *drawSurfs, int numDrawSurfs)
 		return;
 	}
 
+	{
+		GL_BindToTMU(tr.envBrdfImage, TB_ENVBRDFMAP);
+		GL_BindToTMU(tr.world->ambientLightImages[0], TB_LGAMBIENT);
+		GL_BindToTMU(tr.world->directionImages, TB_LGDIRECTION);
+		GL_BindToTMU(tr.world->directionalLightImages[0], TB_LGLIGHTCOLOR);
+	}
+
 	RB_RenderDrawSurfList(drawSurfs, numDrawSurfs);
 
 	if (r_drawSun->integer)
