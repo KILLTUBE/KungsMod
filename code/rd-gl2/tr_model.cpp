@@ -670,6 +670,7 @@ static qboolean R_LoadMD3(model_t * mod, int lod, void *buffer, const char *modN
 			{
 				*shaderIndex = sh->index;
 			}
+			CModelCache->StoreShaderRequest(modName, &md3Shader->name[0], &md3Shader->shaderIndex);
 		}
 
 		// swap all the triangles
