@@ -55,15 +55,22 @@ void GL_Bind( image_t *image ) {
 		texnum = tr.dlightImage->texnum;
 	}
 
-	if ( glState.currenttextures[glState.currenttmu] != texnum ) {
-		if ( image ) {
+	if (glState.currenttextures[glState.currenttmu] != texnum) {
+		if (image) {
 			image->frameUsed = tr.frameCount;
 		}
 		glState.currenttextures[glState.currenttmu] = texnum;
-		if (image && image->flags & IMGFLAG_CUBEMAP)
-			qglBindTexture( GL_TEXTURE_CUBE_MAP, texnum );
+		if (image)
+		{
+			if (image->flags & IMGFLAG_CUBEMAP)
+				qglBindTexture(GL_TEXTURE_CUBE_MAP, texnum);
+			else if (image->flags & IMGFLAG_3D)
+				qglBindTexture(GL_TEXTURE_3D, texnum);
+			else
+				qglBindTexture(GL_TEXTURE_2D, texnum);
+		}
 		else
-			qglBindTexture( GL_TEXTURE_2D, texnum );
+			qglBindTexture(GL_TEXTURE_2D, texnum);
 	}
 }
 
@@ -104,8 +111,15 @@ void GL_BindToTMU( image_t *image, int tmu )
 			image->frameUsed = tr.frameCount;
 		glState.currenttextures[tmu] = texnum;
 
-		if (image && (image->flags & IMGFLAG_CUBEMAP))
-			qglBindTexture( GL_TEXTURE_CUBE_MAP, texnum );
+		if (image) 
+		{
+			if (image->flags & IMGFLAG_CUBEMAP)
+				qglBindTexture(GL_TEXTURE_CUBE_MAP, texnum);
+			else if (image->flags & IMGFLAG_3D)
+				qglBindTexture(GL_TEXTURE_3D, texnum);
+			else
+				qglBindTexture(GL_TEXTURE_2D, texnum);
+		}
 		else
 			qglBindTexture( GL_TEXTURE_2D, texnum );
 		GL_SelectTexture( oldtmu );
@@ -538,14 +552,48 @@ void RB_BeginDrawingView (void) {
 		clearBits |= GL_STENCIL_BUFFER_BIT;
 	}
 
-	if ( r_fastsky->integer && !( backEnd.refdef.rdflags & RDF_NOWORLDMODEL ) )
+	if (skyboxportal)
 	{
-		clearBits |= GL_COLOR_BUFFER_BIT;	// FIXME: only if sky shaders have been used
-#ifdef _DEBUG
-		qglClearColor( 0.8f, 0.7f, 0.4f, 1.0f );	// FIXME: get color of sky
-#else
-		qglClearColor( 0.0f, 0.0f, 0.0f, 1.0f );	// FIXME: get color of sky
-#endif
+		if (backEnd.refdef.rdflags & RDF_SKYBOXPORTAL)
+		{
+			if (r_fastsky->integer || (backEnd.refdef.rdflags & RDF_NOWORLDMODEL))
+			{
+				clearBits |= GL_COLOR_BUFFER_BIT;
+				if (tr.world && tr.world->globalFog)
+				{
+					const fog_t		*fog = tr.world->globalFog;
+					qglClearColor(fog->parms.color[0], fog->parms.color[1], fog->parms.color[2], 1.0f);
+				}
+				else
+				{
+					qglClearColor(0.3f, 0.3f, 0.3f, 1.0);
+				}
+			}
+		}
+	}
+	else if ( r_fastsky->integer && !( backEnd.refdef.rdflags & RDF_NOWORLDMODEL ) )
+	{
+		if (tr.world && tr.world->globalFog)
+		{
+			const fog_t		*fog = tr.world->globalFog;
+			qglClearColor(fog->parms.color[0], fog->parms.color[1], fog->parms.color[2], 1.0f);
+		}
+		else
+		{
+			qglClearColor(0.3f, 0.3f, 0.3f, 1);	// FIXME: get color of sky
+		}
+		clearBits |= GL_COLOR_BUFFER_BIT; // FIXME: only if sky shaders have been used
+	}
+	
+	if (!(backEnd.refdef.rdflags & RDF_NOWORLDMODEL) && (r_dynamicGlow->integer))
+	{
+		if (tr.world && tr.world->globalFog )
+		{ //this is because of a bug in multiple scenes I think, it needs to clear for the second scene but it doesn't normally.
+			const fog_t		*fog = tr.world->globalFog;
+
+			qglClearColor(fog->parms.color[0], fog->parms.color[1], fog->parms.color[2], 1.0f);
+			clearBits |= GL_COLOR_BUFFER_BIT;
+		}
 	}
 
 	// clear to white for shadow maps
@@ -1965,7 +2013,8 @@ static void RB_RenderSunShadows()
 	GL_BindToTMU(tr.renderDepthImage, TB_COLORMAP);
 	GL_BindToTMU(tr.sunShadowDepthImage[0], TB_SHADOWMAP);
 	GL_BindToTMU(tr.sunShadowDepthImage[1], TB_SHADOWMAP2);
-	GL_BindToTMU(tr.sunShadowDepthImage[2], TB_SHADOWMAP3);
+	GL_BindToTMU(tr.sunShadowDepthImage[2], TB_SHADOWMAP3); 
+	GL_BindToTMU(tr.sunShadowDepthImage[3], TB_SHADOWMAP4);
 
 	GLSL_SetUniformMatrix4x4(
 		&tr.shadowmaskShader,
@@ -2077,7 +2126,21 @@ static void RB_RenderDepthOnly(drawSurf_t *drawSurfs, int numDrawSurfs)
 		!backEnd.colorMask[3]);
 	backEnd.depthFill = qfalse;
 
-	if (tr.msaaResolveFbo)
+	if (backEnd.viewParms.targetFbo == tr.renderCubeFbo && tr.msaaResolveFbo)
+	{
+		// If we're using multisampling and rendering a cubemap, resolve the depth to correct size first
+		vec4i_t frameBox;
+		frameBox[0] = backEnd.viewParms.viewportX;
+		frameBox[1] = backEnd.viewParms.viewportY;
+		frameBox[2] = backEnd.viewParms.viewportWidth;
+		frameBox[3] = backEnd.viewParms.viewportHeight;
+		FBO_FastBlit(
+			tr.renderCubeFbo, frameBox,
+			tr.msaaResolveFbo, frameBox,
+			GL_DEPTH_BUFFER_BIT,
+			GL_NEAREST);
+	}
+	else if (tr.msaaResolveFbo)
 	{
 		// If we're using multisampling, resolve the depth first
 		FBO_FastBlit(
@@ -2109,7 +2172,7 @@ static void RB_RenderMainPass(drawSurf_t *drawSurfs, int numDrawSurfs)
 
 	if (r_drawSun->integer)
 	{
-		RB_DrawSun(0.1, tr.sunShader);
+		RB_DrawSun(0.1f, tr.sunShader);
 	}
 
 	if (r_drawSunRays->integer)
@@ -2123,7 +2186,7 @@ static void RB_RenderMainPass(drawSurf_t *drawSurfs, int numDrawSurfs)
 		tr.sunFlareQueryActive[tr.sunFlareQueryIndex] = qtrue;
 		qglBeginQuery(GL_SAMPLES_PASSED, tr.sunFlareQuery[tr.sunFlareQueryIndex]);
 
-		RB_DrawSun(0.3, tr.sunFlareShader);
+		RB_DrawSun(0.3f, tr.sunFlareShader);
 
 		qglEndQuery(GL_SAMPLES_PASSED);
 

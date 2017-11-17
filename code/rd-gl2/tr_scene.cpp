@@ -35,6 +35,8 @@ int			r_firstScenePoly;
 
 int			r_numpolyverts;
 
+qboolean	skyboxportal;
+qboolean	drawskyboxportal;
 
 /*
 ====================
@@ -260,7 +262,10 @@ RE_AddLightToScene
 =====================
 */
 void RE_AddLightToScene( const vec3_t org, float intensity, float r, float g, float b ) {
-	RE_AddDynamicLightToScene( org, intensity, r, g, b, qfalse );
+	if (r_pbr->integer)
+		RE_AddDynamicLightToScene( org, intensity * 2.0f, r, g, b, qfalse );
+	else
+		RE_AddDynamicLightToScene(org, intensity, r, g, b, qfalse);
 }
 
 /*
@@ -270,7 +275,10 @@ RE_AddAdditiveLightToScene
 =====================
 */
 void RE_AddAdditiveLightToScene( const vec3_t org, float intensity, float r, float g, float b ) {
-	RE_AddDynamicLightToScene( org, intensity, r, g, b, qtrue );
+	if (r_pbr->integer)
+		RE_AddDynamicLightToScene( org, intensity * 2.0f, r, g, b, qtrue );
+	else
+		RE_AddDynamicLightToScene(org, intensity, r, g, b, qtrue);
 }
 
 void RE_BeginScene(const refdef_t *fd)
@@ -291,6 +299,24 @@ void RE_BeginScene(const refdef_t *fd)
 
 	tr.refdef.time = fd->time;
 	tr.refdef.rdflags = fd->rdflags;
+
+	if (fd->rdflags & RDF_SKYBOXPORTAL)
+	{
+		skyboxportal = qtrue;
+	}
+	else
+	{
+		skyboxportal = qfalse;
+	}
+
+	if (fd->rdflags & RDF_DRAWSKYBOX)
+	{
+		drawskyboxportal = qtrue;
+	}
+	else
+	{
+		drawskyboxportal = qfalse;
+	}
 
 	// copy the areamask data over and note if it has changed, which
 	// will force a reset of the visible leafs even if the view hasn't moved
@@ -498,6 +524,7 @@ void RE_RenderScene( const refdef_t *fd ) {
 		R_RenderSunShadowMaps(fd, 0);
 		R_RenderSunShadowMaps(fd, 1);
 		R_RenderSunShadowMaps(fd, 2);
+		R_RenderSunShadowMaps(fd, 3);
 		R_EndTimedBlockCmd( timer );
 	}
 

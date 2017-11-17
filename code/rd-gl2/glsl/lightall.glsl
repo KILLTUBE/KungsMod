@@ -79,6 +79,7 @@ out vec4 var_TexCoords;
 out vec4 var_Color;
 
 #if defined(PER_PIXEL_LIGHTING)
+out vec3 var_Position;
 out vec4 var_Normal;
 out vec4 var_Tangent;
 out vec4 var_Bitangent;
@@ -299,7 +300,7 @@ void main()
 
 #if defined(PER_PIXEL_LIGHTING)
 	vec3 viewDir = u_ViewOrigin - position;
-
+	var_Position = position;
 	// store view direction in tangent space to save on outs
 	var_Normal    = vec4(normal,    viewDir.x);
 	var_Tangent   = vec4(tangent,   viewDir.y);
@@ -376,7 +377,20 @@ in vec4      var_Color;
 in vec4   var_Normal;
 in vec4   var_Tangent;
 in vec4   var_Bitangent;
-in vec4      var_LightDir;
+in vec4   var_LightDir;
+
+in vec3	  var_Position;
+
+uniform sampler3D u_LightGridDirectionMap;
+uniform sampler3D u_LightGridDirectionalLightMap;
+uniform sampler3D u_LightGridAmbientLightMap;
+uniform vec3 u_LightGridOrigin;
+uniform vec3 u_LightGridCellInverseSize;
+uniform vec3 u_StyleColor;
+uniform vec2 u_LightGridLightScale;
+
+#define u_LightGridAmbientScale u_LightGridLightScale.x
+#define u_LightGridDirectionalScale u_LightGridLightScale.y
 #endif
 
 #if defined(USE_PRIMARY_LIGHT) || defined(USE_SHADOWMAP)
@@ -511,16 +525,16 @@ float spec_G(float NL, float NE, float roughness )
   return G1(NL,k)*G1(NE,k);
 }
 
-vec3 CalcDiffuse(vec3 diffuseAlbedo, float NH, float EH, float roughness, float ao)
+vec3 CalcDiffuse(vec3 diffuseAlbedo, float NH, float EH, float roughness)
 {
 #if defined(USE_BURLEY)
 	// modified from https://disney-animation.s3.amazonaws.com/library/s2012_pbs_disney_brdf_notes_v2.pdf
 	float fd90 = -0.5 + EH * EH * roughness;
 	float burley = 1.0 + fd90 * 0.04 / NH;
 	burley *= burley;
-	return diffuseAlbedo * burley * ao;
+	return diffuseAlbedo * burley;
 #else
-	return diffuseAlbedo * ao;
+	return diffuseAlbedo;
 #endif
 }
 
@@ -577,7 +591,7 @@ vec3 CalcNormal( in vec3 vertexNormal, in vec2 texCoords, in mat3 tangentToWorld
 
 void main()
 {
-	vec3 viewDir, lightColor, ambientColor, reflectance, vertexColor;
+	vec3 viewDir, lightColor, ambientColor, reflectance, vertexColor, position;
 	vec3 L, N, E, H;
 	float NL, NH, NE, EH, attenuation;
 
@@ -585,6 +599,11 @@ void main()
 	mat3 tangentToWorld = mat3(var_Tangent.xyz, var_Bitangent.xyz, var_Normal.xyz);
 	viewDir = vec3(var_Normal.w, var_Tangent.w, var_Bitangent.w);
 	E = normalize(viewDir);
+
+	position = var_Position;
+	ivec3 gridSize = textureSize(u_LightGridDirectionalLightMap, 0);
+	vec3 invGridSize = vec3(1.0) / vec3(gridSize);
+	vec3 gridCell = (position - u_LightGridOrigin) * u_LightGridCellInverseSize * invGridSize;
 #endif
 
 #if defined(USE_LIGHTMAP)
@@ -620,36 +639,42 @@ void main()
 #endif
 
 #if defined(PER_PIXEL_LIGHTING)
+	float isLightgrid = float(var_LightDir.w < 1.0);
 	L = var_LightDir.xyz;
   #if defined(USE_DELUXEMAP)
 	L = (texture(u_DeluxeMap, var_TexCoords.zw).xyz - vec3(0.5)) * u_EnableTextures.y;
   #endif
 	float sqrLightDist = dot(L, L);
 	L /= sqrt(sqrLightDist);
+
+	vec3 ambientLight = texture(u_LightGridAmbientLightMap, gridCell).rgb * isLightgrid;
   #if defined(USE_PBR)
 	vertexColor = var_Color.rgb * var_Color.rgb;
-    #if defined(USE_LIGHT_VECTOR)
-	  vec3 directedLight = u_DirectedLight * u_DirectedLight;
-	  vec3 ambientLight = u_AmbientLight * u_AmbientLight;
-    #endif
+	ambientLight *= ambientLight;
+	#if defined(USE_LIGHT_VECTOR)
+	  L += -normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * isLightgrid;
+	  vec3 directedLight = texture(u_LightGridDirectionalLightMap, gridCell).rgb * isLightgrid;
+	  directedLight *= directedLight;
+	  directedLight += u_DirectedLight * u_DirectedLight;
+	#endif
   #else
-	vertexColor = var_Color.rgb;
-    #if defined(USE_LIGHT_VECTOR)
-	  vec3 directedLight = u_DirectedLight;
-	  vec3 ambientLight = u_AmbientLight;
-    #endif
+	vertexColor = var_Color.rgb
+	#if defined(USE_LIGHT_VECTOR)
+	  float isLightgrid = float(var_LightDir.w < 1.0);
+	  L += -normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * isLightgrid;
+	  vec3 directedLight = texture(u_LightGridDirectionalLightMap, gridCell).rgb * isLightgrid;
+	  directedLight += u_DirectedLight;
+	#endif
   #endif
-  #if defined(USE_LIGHTMAP)
-	lightColor	= lightmapColor.rgb * vertexColor;
-	ambientColor = vec3 (0.0);
-	attenuation = 1.0;
-  #elif defined(USE_LIGHT_VECTOR)
-	lightColor	= directedLight * vertexColor;
 	ambientColor = ambientLight * vertexColor;
-	attenuation = CalcLightAttenuation(sqrLightDist, var_LightDir.w);
+  #if defined(USE_LIGHTMAP)
+	lightColor	 = lightmapColor.rgb * vertexColor;
+	attenuation  = 1.0;
+  #elif defined(USE_LIGHT_VECTOR)
+	lightColor	 = directedLight * vertexColor;
+	attenuation  = CalcLightAttenuation(sqrLightDist, var_LightDir.w);
   #elif defined(USE_LIGHT_VERTEX)
-	lightColor	= vertexColor;
-	ambientColor = vec3 (0.0);
+	lightColor	 = vertexColor;
 	attenuation  = 1.0;
   #endif
 
@@ -669,13 +694,13 @@ void main()
 
   #if defined(USE_LIGHTMAP) || defined(USE_LIGHT_VERTEX)
 	float surfNL = clamp(dot(N, L), 0.0, 1.0);
-	ambientColor = max((lightColor * .25) - lightColor * surfNL, vec3(0.0));
+	ambientColor = mix(ambientColor, lightColor, surfNL);
   #endif
 
   #if defined(USE_SPECULARMAP)
 	vec4 specular = texture(u_SpecularMap, texCoords);
   #else
-	vec4 specular = vec4(1.0);
+	vec4 specular = vec4(0.5);
   #endif
 	specular *= u_SpecularScale;
 
@@ -708,13 +733,12 @@ void main()
     EH = max(1e-8, dot(E, H));
 	NH = max(1e-8, dot(N, H));
 	NL = clamp(dot(N, L), 1e-8, 1.0);
-	reflectance  = CalcDiffuse(diffuse.rgb, NH, EH, roughness, ao);
+	
+	reflectance = CalcDiffuse(diffuse.rgb, NH, EH, roughness);
 
-  #if defined(USE_DELUXEMAP)
-	#if defined(USE_LIGHTMAP)
+  #if defined(USE_LIGHTMAP) || defined(USE_LIGHT_VERTEX)
 	NE = abs(dot(N, E)) + 1e-5;
-	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness);// *lightmapColor.rgb;
-	#endif
+	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness) * 0.25;
   #endif
   #if defined(USE_LIGHT_VECTOR)
 	NE = abs(dot(N, E)) + 1e-5;
@@ -722,12 +746,12 @@ void main()
   #endif
 
 	out_Color.rgb  = lightColor   * reflectance * (attenuation * NL);
-	out_Color.rgb += ambientColor * diffuse.rgb;
+	out_Color.rgb += ambientColor * ao * diffuse.rgb;
 
 
   #if defined(USE_CUBEMAP)
 	NE = clamp(dot(N, E), 0.0, 1.0);
-	vec3 EnvBRDF = texture(u_EnvBrdfMap, vec2(1.0 - roughness, NE)).rgb;
+	vec3 EnvBRDF = texture(u_EnvBrdfMap, vec2(roughness, NE)).rgb;
 
 	vec3 R = reflect(E, N);
 
@@ -741,8 +765,7 @@ void main()
 	// from http://marmosetco.tumblr.com/post/81245981087
 	#if defined(HORIZON_FADE)
 		const float horizonFade = HORIZON_FADE;
-		horiz = clamp( 1.0 + horizonFade * dot(R,var_Normal.xyz), 0.0, 1.0 );
-		horiz = 1.0 - horiz;
+		horiz = clamp( 1.0 + horizonFade * dot(-(R + parallax),var_Normal.xyz), 0.0, 1.0 );
 		horiz *= horiz;
 	#endif
 
@@ -769,7 +792,7 @@ void main()
 
 	// bit of a hack, with modulated shadowmaps, ignore diffuse
     #if !defined(SHADOWMAP_MODULATE)
-	reflectance += CalcDiffuse(diffuse.rgb, NH2, EH2, roughness, 1.0);
+	reflectance += CalcDiffuse(diffuse.rgb, NH2, EH2, roughness);
     #endif
 
 	lightColor = u_PrimaryLightColor * var_Color.rgb;
@@ -788,7 +811,6 @@ void main()
 #else
 	lightColor = var_Color.rgb;
 	out_Color.rgb = diffuse.rgb * lightColor;
-
 #endif
 
 	out_Color.a = diffuse.a * var_Color.a;

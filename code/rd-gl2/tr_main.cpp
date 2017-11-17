@@ -1965,7 +1965,6 @@ R_AddEntitySurfaces
 =============
 */
 void R_AddEntitySurfaces (const trRefdef_t *refdef) {
-	int i;
 
 	if ( !r_drawentities->integer ) {
 		return;
@@ -2660,7 +2659,13 @@ void R_RenderSunShadowMaps(const refdef_t *fd, int level)
 			break;
 		case 2:
 			splitZNear = CalcSplit(viewZNear, viewZFar, 2, 3) + splitBias;
-			splitZFar = viewZFar;
+			splitZFar = viewZFar + splitBias;
+			//splitZNear = 896;
+			//splitZFar  = 3072;
+			break;
+		case 3:
+			splitZNear = viewZFar + splitBias;
+			splitZFar = viewZFar * 2.0;
 			//splitZNear = 896;
 			//splitZFar  = 3072;
 			break;
@@ -2930,11 +2935,12 @@ void R_RenderCubemapSide( int cubemapIndex, int cubemapSide, qboolean subscene )
 
 		// FIXME: sun shadows aren't rendered correctly in cubemaps
 		// fix involves changing r_FBufScale to fit smaller cubemap image size, or rendering cubemap to framebuffer first
-		if(0) //(glRefConfig.framebufferObject && r_sunlightMode->integer && (r_forceSun->integer || tr.sunShadows))
+		if (r_sunlightMode->integer && r_depthPrepass->value && ((r_forceSun->integer) || tr.sunShadows))
 		{
 			R_RenderSunShadowMaps(&refdef, 0);
 			R_RenderSunShadowMaps(&refdef, 1);
 			R_RenderSunShadowMaps(&refdef, 2);
+			R_RenderSunShadowMaps(&refdef, 3);
 		}
 	}
 
@@ -2962,9 +2968,9 @@ void R_RenderCubemapSide( int cubemapIndex, int cubemapSide, qboolean subscene )
 
 	// FIXME: sun shadows aren't rendered correctly in cubemaps
 	// fix involves changing r_FBufScale to fit smaller cubemap image size, or rendering cubemap to framebuffer first
-	if (0) //(r_depthPrepass->value && ((r_forceSun->integer) || tr.sunShadows))
+	if (r_sunlightMode->integer && r_depthPrepass->value && ((r_forceSun->integer) || tr.sunShadows))
 	{
-		parms.flags = VPF_USESUNLIGHT;
+		parms.flags |= VPF_USESUNLIGHT;
 	}
 
 	parms.targetFbo = tr.renderCubeFbo;

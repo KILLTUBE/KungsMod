@@ -318,22 +318,14 @@ void RB_SunRays(FBO_t *srcFbo, vec4i_t srcBox, FBO_t *dstFbo, vec4i_t dstBox)
 	if (!RB_UpdateSunFlareVis())
 		return;
 
-	// From RB_DrawSun()
-	{
-		float dist;
-		matrix_t trans, model, mvp;
+	float dist;
 
-		Matrix16Translation( backEnd.viewParms.ori.origin, trans );
-		Matrix16Multiply( backEnd.viewParms.world.modelViewMatrix, trans, model );
-		Matrix16Multiply(backEnd.viewParms.projectionMatrix, model, mvp);
+	dist = backEnd.viewParms.zFar / 1.75;		// div sqrt(3)
 
-		dist = backEnd.viewParms.zFar / 1.75;		// div sqrt(3)
-
-		VectorScale( tr.sunDirection, dist, pos );
-	}
+	VectorScale( tr.sunDirection, dist, pos );
 
 	// project sun point
-	//Matrix16Multiply(backEnd.viewParms.projectionMatrix, backEnd.viewParms.world.modelViewMatrix, mvp);
+	Matrix16Multiply(backEnd.viewParms.projectionMatrix, backEnd.viewParms.world.modelViewMatrix, mvp);
 	Matrix16Transform(mvp, pos, hpos);
 
 	// transform to UV coords

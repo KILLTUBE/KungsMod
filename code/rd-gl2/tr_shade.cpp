@@ -1429,7 +1429,6 @@ void RB_StageIteratorLiquid( void )
 	deform_t deformType;
 	genFunc_t deformGen;
 	float deformParams[7];
-	int stateBits;
 
 	ComputeDeformValues(&deformType, &deformGen, deformParams);
 
@@ -1574,7 +1573,13 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArrays
 
 	ComputeDeformValues(&deformType, &deformGen, deformParams);
 
+	bool renderToCubemap = tr.renderCubeFbo && glState.currentFBO == tr.renderCubeFbo;
+	
 	cullType_t cullType = RB_GetCullType(&backEnd.viewParms, backEnd.currentEntity, input->shader->cullType);
+
+	// HACK: Not sure why this is needed
+	if (renderToCubemap)
+		cullType = CT_TWO_SIDED;
 
 	vertexAttribute_t attribs[ATTR_INDEX_MAX] = {};
 	GL_VertexArraysToAttribs(attribs, ARRAY_LEN(attribs), vertexArrays);
@@ -1650,8 +1655,6 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArrays
 
 		sp = SelectShaderProgram(stage, pStage, pStage->glslShaderGroup, useAlphaTestGE192);
 		assert(sp);
-
-		bool renderToCubemap = tr.renderCubeFbo && glState.currentFBO == tr.renderCubeFbo;
 
 		uniformDataWriter.Start(sp);
 		uniformDataWriter.SetUniformMatrix4x4( UNIFORM_MODELVIEWPROJECTIONMATRIX, glState.modelviewProjection);
@@ -1847,6 +1850,18 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArrays
 				//
 				if (light && !allowVertexLighting)
 				{
+					vec2_t lightScales;
+					lightScales[0] = r_ambientScale->value;
+					lightScales[1] = r_directedScale->value;
+
+					uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDORIGIN, tr.world->lightGridOrigin);
+					uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDCELLINVERSESIZE, tr.world->lightGridInverseSize);
+					uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDLIGHTSCALE, lightScales);
+
+					samplerBindingsWriter.AddStaticImage(tr.world->ambientLightImages[0], TB_LGAMBIENT);
+					samplerBindingsWriter.AddStaticImage(tr.world->directionImages, TB_LGDIRECTION);
+					samplerBindingsWriter.AddStaticImage(tr.world->directionalLightImages[0], TB_LGLIGHTCOLOR);
+
 					if (pStage->bundle[TB_NORMALMAP].image[0])
 					{
 						samplerBindingsWriter.AddAnimatedImage(&pStage->bundle[TB_NORMALMAP], TB_NORMALMAP);
@@ -2157,6 +2172,29 @@ void RB_EndSurface( void ) {
 	// for debugging of sort order issues, stop rendering after a given sort value
 	if ( r_debugSort->integer && r_debugSort->integer < tess.shader->sort ) {
 		return;
+	}
+
+	if (skyboxportal)
+	{
+		// world
+		if (!(backEnd.refdef.rdflags & RDF_SKYBOXPORTAL))
+		{
+			if (tess.currentStageIteratorFunc == RB_StageIteratorSky)
+			{	// don't process these tris at all
+				return;
+			}
+		}
+		// portal sky
+		else
+		{
+			if (!drawskyboxportal)
+			{
+				if (!(tess.currentStageIteratorFunc == RB_StageIteratorSky))
+				{	// /only/ process sky tris
+					return;
+				}
+			}
+		}
 	}
 
 	//

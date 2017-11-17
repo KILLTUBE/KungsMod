@@ -79,13 +79,23 @@ static uniformInfo_t uniformsInfo[] =
 	{ "u_ScreenImageMap", GLSL_INT, 1 },
 	{ "u_ScreenDepthMap", GLSL_INT, 1 },
 
+	{ "u_LightGridDirectionMap", GLSL_INT, 1 },
+	{ "u_LightGridDirectionalLightMap", GLSL_INT, 1 },
+	{ "u_LightGridAmbientLightMap", GLSL_INT, 1 },
+	{ "u_LightGridOrigin", GLSL_VEC3, 1 },
+	{ "u_LightGridCellInverseSize", GLSL_VEC3, 1 },
+	{ "u_StyleColor", GLSL_VEC3, 1 },
+	{ "u_LightGridLightScale", GLSL_VEC2, 1 },
+
 	{ "u_ShadowMap",  GLSL_INT, 1 },
 	{ "u_ShadowMap2", GLSL_INT, 1 },
 	{ "u_ShadowMap3", GLSL_INT, 1 },
+	{ "u_ShadowMap4", GLSL_INT, 1 },
 
 	{ "u_ShadowMvp",  GLSL_MAT4x4, 1 },
 	{ "u_ShadowMvp2", GLSL_MAT4x4, 1 },
 	{ "u_ShadowMvp3", GLSL_MAT4x4, 1 },
+	{ "u_ShadowMvp4", GLSL_MAT4x4, 1 },
 
 	{ "u_EnableTextures", GLSL_VEC4, 1 },
 	{ "u_DiffuseTexMatrix",  GLSL_VEC4, 1 },
@@ -407,7 +417,10 @@ static size_t GLSL_GetShaderHeader(
 
 	if (r_bloom_threshold->value)
 	{
-		Q_strcat(dest, size, va("#define GLOW_THRESHOLD float(%f)\n", r_bloom_threshold->value));
+		if (r_hdr)
+			Q_strcat(dest, size, va("#define GLOW_THRESHOLD float(%f)\n", r_bloom_threshold->value * 2.0f));
+		else
+			Q_strcat(dest, size, va("#define GLOW_THRESHOLD float(%f)\n", r_bloom_threshold->value));
 	}
 
 	if (extra)
@@ -1696,6 +1709,9 @@ static int GLSL_LoadGPUProgramLightAll(
 		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_SHADOWMAP, TB_SHADOWMAP);
 		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_CUBEMAP, TB_CUBEMAP);
 		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_ENVBRDFMAP, TB_ENVBRDFMAP);
+		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_LIGHTGRIDDIRECTIONMAP, TB_LGDIRECTION);
+		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_LIGHTGRIDDIRECTIONALLIGHTMAP, TB_LGLIGHTCOLOR);
+		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_LIGHTGRIDAMBIENTLIGHTMAP, TB_LGAMBIENT);
 		qglUseProgram(0);
 
 		GLSL_FinishGPUShader(&tr.lightallShader[i]);
@@ -1973,6 +1989,7 @@ static int GLSL_LoadGPUProgramShadowMask(
 	GLSL_SetUniformInt(&tr.shadowmaskShader, UNIFORM_SHADOWMAP, TB_SHADOWMAP);
 	GLSL_SetUniformInt(&tr.shadowmaskShader, UNIFORM_SHADOWMAP2, TB_SHADOWMAP2);
 	GLSL_SetUniformInt(&tr.shadowmaskShader, UNIFORM_SHADOWMAP3, TB_SHADOWMAP3);
+	GLSL_SetUniformInt(&tr.shadowmaskShader, UNIFORM_SHADOWMAP4, TB_SHADOWMAP4);
 	qglUseProgram(0);
 
 	GLSL_FinishGPUShader(&tr.shadowmaskShader);
