@@ -161,14 +161,6 @@ typedef struct {
 	int(*LightForPoint)(vec3_t point, vec3_t ambientLight, vec3_t directedLight, vec3_t lightDir);
 	void(*AddAdditiveLightToScene)(const vec3_t org, float intensity, float r, float g, float b);
 	qboolean(*GetEntityToken)(char *buffer, int size);
-	//void(*SetRefractionProperties)(float distortionAlpha, float distortionStretch, qboolean distortionPrePost, qboolean distortionNegate);
-	//float(*GetDistanceCull)(void);
-	//void(*GetRealRes)(int *w, int *h);
-	//qboolean(*InitializeWireframeAutomap)(void);
-	//void(*InitSkins)(void);
-	//void(*InitShaders)(void);
-	//void(*HunkClearCrap)(void);
-	//qboolean(*inPVS)(const vec3_t p1, const vec3_t p2, byte *mask);
 	//DT EDIT: Rend2 - END
 	void	(*LoadWorld)( const char *name );
 	void	(*R_LoadImage)( const char *name, byte **pic, int *width, int *height );
