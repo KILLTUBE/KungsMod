@@ -1341,7 +1341,7 @@ void RE_LoadWorldMap_Actual( const char *name, world_t &worldData, int index ) {
 	// overridden by a shader
 	if (!index)
 	{
-		skyboxportal = 0;
+		skyboxportal = qfalse;
 
 		tr.sunDirection[0] = 0.45f;
 		tr.sunDirection[1] = 0.3f;

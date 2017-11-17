@@ -39,8 +39,8 @@ int			r_firstScenePoly;
 
 int			r_numpolyverts;
 
-int			skyboxportal;
-int			drawskyboxportal;
+qboolean	skyboxportal;
+qboolean	drawskyboxportal;
 
 /*
 ====================
@@ -310,7 +310,7 @@ void RE_RenderScene( const refdef_t *fd ) {
 
 	if (fd->rdflags & RDF_SKYBOXPORTAL)
 	{
-		skyboxportal = 1;
+		skyboxportal = qtrue;
 	}
 	else
 	{
@@ -320,11 +320,11 @@ void RE_RenderScene( const refdef_t *fd ) {
 
 	if (fd->rdflags & RDF_DRAWSKYBOX)
 	{
-		drawskyboxportal = 1;
+		drawskyboxportal = qtrue;
 	}
 	else
 	{
-		drawskyboxportal = 0;
+		drawskyboxportal = qfalse;
 	}
 
 	// copy the areamask data over and note if it has changed, which
