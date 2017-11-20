@@ -358,6 +358,7 @@ typedef enum
 	//
 	useF_funcBBrushUse,
 	useF_misc_model_use,
+	useF_misc_model_ghoul_use,
 	useF_Use_Item,
 	useF_Use_Shooter,
 	useF_GoExplodeDeath,
@@ -441,6 +442,7 @@ typedef enum
 //
 extern void funcBBrushUse			( gentity_t *self, gentity_t *other, gentity_t *activator);
 extern void misc_model_use			( gentity_t *self, gentity_t *other, gentity_t *activator);
+extern void misc_model_ghoul_use	( gentity_t *self, gentity_t *other, gentity_t *activator);
 extern void Use_Item				( gentity_t *self, gentity_t *other, gentity_t *activator);
 extern void Use_Shooter				( gentity_t *self, gentity_t *other, gentity_t *activator);
 extern void GoExplodeDeath			( gentity_t *self, gentity_t *other, gentity_t *activator);

@@ -255,6 +255,7 @@ void GEntity_UseFunc(gentity_t *self, gentity_t *other, gentity_t *activator)
 
 	USECASE( funcBBrushUse )
 	USECASE( misc_model_use )
+	USECASE( misc_model_ghoul_use )
 	USECASE( Use_Item )
 	USECASE( Use_Shooter )
 	USECASE( GoExplodeDeath )

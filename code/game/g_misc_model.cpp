@@ -174,23 +174,41 @@ void set_MiscAnim( gentity_t *ent)
 
 }
 
+void misc_model_ghoul_use(gentity_t *self, gentity_t *other, gentity_t *activator)
+{
+	// Become solid again.
+	if (!self->count)
+	{
+		self->count = 1;
+		self->activator = activator;
+		self->contents = CONTENTS_BODY;
+		self->clipmask = MASK_NPCSOLID;
+		self->svFlags &= ~SVF_NOCLIENT;
+		self->s.eFlags &= ~EF_NODRAW;
+	}
+
+	G_ActivateBehavior(self, BSET_USE);
+}
+
 //------------------------------------------------------------
-/*QUAKED misc_model_ghoul (1 0 0) (-16 -16 -24) (16 16 32) SOLID LOOP USE_SKIN
+/*QUAKED misc_model_ghoul (1 0 0) (-16 -16 -24) (16 16 32) SOLID LOOP USE_SKIN START_OFF
 SOLID - Movement is blocked by it with the MASK_NPCSOLID & CONTENTS_BODY.
 LOOP - Loop animation.
-USE_SKIN - Use skin file, instead of internal texture name(s).
+USE_SKIN - Use skin file.
+START_OFF - Starts off until used.
 
 "model" - Ghoul2 .glm file to load
 "modelscale" - "x" uniform scale
 "modelscale_vec" - "x y z" scale model in each axis
 "renderRadius" - Default "120" model render radius
 "rootbone" - Default "model_root" animation root bone
-"animation" - Default "0". animation number to play
-"skin" - Default "models/players/kyle/model_default.skin". Skin file to load when USE_SKIN is enabled
+"animation" - Default "0". animation enum
+"skin" - Default "<model_dir>/model_default.skin". Skin file to load when USE_SKIN is enabled.
 
 - Use "animation" to play an animation other than the first animation present in the animation.cfg.
-- Use "renderRadius" for models larger than a player model if you notice the model disappearing when moving the camera near it.
+- Use "renderRadius" for models larger than a player model if you notice the misc_model_ghoul disappearing when moving the camera.
 - Use "rootbone" to change the bone that the animation will play from, instead of animating the entire GLA. Use wisely.
+- Use "skin" to choose a skin. "models/players/kyle/model_red.skin is an example. Only need to specify if using skin other than model_default.skin.
 */
 //------------------------------------------------------------
 void SP_misc_model_ghoul( gentity_t *ent )
@@ -240,8 +258,10 @@ void SP_misc_model_ghoul( gentity_t *ent )
 		ent->contents = CONTENTS_BODY;
 		ent->clipmask = MASK_NPCSOLID;
 	}
+	
+	ent->e_UseFunc = useF_misc_model_ghoul_use;
 
-	// Animation
+	// Animation FIXME - currently only animates player models, not custom models.
 	char *root_boneName;
 	int animNumber;
 	int animFileIndex = 0;
@@ -300,8 +320,7 @@ void SP_misc_model_ghoul( gentity_t *ent )
 	}
 	*/
 
-	// Start off. - not working!
-	/*
+	// Start off
 	if ( ent->spawnflags & 8 ) //START_OFF
 	{
 		ent->spawnContents = ent->contents;	// It Navs can temporarly turn it "on"
@@ -312,14 +331,20 @@ void SP_misc_model_ghoul( gentity_t *ent )
 		ent->s.eFlags |= EF_NODRAW;
 		ent->count = 0;
 	}
-	*/
 
 	// Skin
 	if ( ent->spawnflags & 4 ) //USE_SKIN
 	{
+		char skinPath[MAX_QPATH];
+		char skinPath2[MAX_QPATH];
+
+		//output is now "models/players/kyle/model.glm"
+		COM_StripExtension(ent->model, skinPath, sizeof(skinPath)); //stripped extension out, output is now "models/players/kyle/model"
+		Com_sprintf(skinPath2, sizeof(skinPath), "%s_", skinPath); //added "_" onto the end, output is now "models/players/kyle/model_"
+
 		int skin = gi.RE_RegisterSkin( ent->skin );
 
-		G_SpawnString( "skin", "models/players/kyle/model_default.skin", &ent->skin );
+		G_SpawnString( "skin", va("%sdefault.skin", skinPath2), &ent->skin );
 
 		gi.G2API_SetSkin( &ent->ghoul2[0], G_SkinIndex( ent->skin ), skin );
 		cgi_R_RegisterSkin( ent->skin );
