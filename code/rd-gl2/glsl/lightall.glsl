@@ -642,7 +642,7 @@ void main()
 	float isLightgrid = float(var_LightDir.w < 1.0);
 	L = var_LightDir.xyz;
   #if defined(USE_DELUXEMAP)
-	L = -normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * (1.0 - u_EnableTextures.y);
+	L = normalize(texture(u_LightGridDirectionMap, gridCell).rgb) * (1.0 - u_EnableTextures.y);
 	L += (texture(u_DeluxeMap, var_TexCoords.zw).xyz - vec3(0.5)) * u_EnableTextures.y;
   #endif
 	float sqrLightDist = dot(L, L);
@@ -693,8 +693,8 @@ void main()
   #endif
 
   #if defined(USE_LIGHTMAP) || defined(USE_LIGHT_VERTEX)
-	float surfNL = clamp(dot(N, L), 0.0, 1.0);
-	ambientColor = mix(ambientColor, lightColor, surfNL);
+	float surfNL = clamp(dot(N, L), 0.0, 1.0) * 0.25;
+	ambientColor = max(lightColor - lightColor * surfNL, vec3(0.0));
   #endif
 
   #if defined(USE_SPECULARMAP)
@@ -738,7 +738,7 @@ void main()
 
   #if defined(USE_LIGHTMAP) || defined(USE_LIGHT_VERTEX)
 	NE = abs(dot(N, E)) + 1e-5;
-	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness) * 0.25;
+	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness) * 0.5;
   #endif
   #if defined(USE_LIGHT_VECTOR)
 	NE = abs(dot(N, E)) + 1e-5;
