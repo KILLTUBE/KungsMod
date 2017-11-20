@@ -2168,6 +2168,7 @@ static void RB_RenderMainPass(drawSurf_t *drawSurfs, int numDrawSurfs)
 		return;
 	}
 
+	if (tr.world)
 	{
 		GL_BindToTMU(tr.envBrdfImage, TB_ENVBRDFMAP);
 		GL_BindToTMU(tr.world->ambientLightImages[0], TB_LGAMBIENT);

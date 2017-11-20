@@ -1854,9 +1854,12 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArrays
 					lightScales[0] = r_ambientScale->value;
 					lightScales[1] = r_directedScale->value;
 
-					uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDORIGIN, tr.world->lightGridOrigin);
-					uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDCELLINVERSESIZE, tr.world->lightGridInverseSize);
-					uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDLIGHTSCALE, lightScales);
+					if (tr.world)
+					{
+						uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDORIGIN, tr.world->lightGridOrigin);
+						uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDCELLINVERSESIZE, tr.world->lightGridInverseSize);
+						uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDLIGHTSCALE, lightScales);
+					}
 
 					if (pStage->bundle[TB_NORMALMAP].image[0])
 					{
