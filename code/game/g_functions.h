@@ -105,7 +105,6 @@ typedef enum
 	thinkF_fx_runner_think,
 	thinkF_fx_rain_think,		// cdr added
 	thinkF_removeBoltSurface,
-	thinkF_set_MiscAnim,
 	thinkF_LimbThink,
 	thinkF_laserTrapThink,
 	thinkF_TieFighterThink,
@@ -211,7 +210,6 @@ extern void misc_replicator_item_finish_spawn( gentity_t *self );
 extern void fx_runner_link			( gentity_t *self );
 extern void fx_runner_think			( gentity_t *self );
 extern void fx_rain_think			( gentity_t *self );
-extern void set_MiscAnim			( gentity_t *self);
 extern void removeBoltSurface		( gentity_t *self);
 extern void LimbThink				( gentity_t *ent );
 extern void laserTrapThink			( gentity_t *self );
