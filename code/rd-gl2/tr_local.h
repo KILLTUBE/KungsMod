@@ -1499,7 +1499,9 @@ typedef enum surfaceType_e{
 	SF_VBO_MESH,
 	SF_VBO_MDVMESH,
 	SF_SPRITES,
+#ifndef __JKA_WEATHER__
 	SF_WEATHER,
+#endif //__JKA_WEATHER__
 	SF_REFRACTIVE,
 
 	SF_NUM_SURFACE_TYPES,
