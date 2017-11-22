@@ -18,8 +18,10 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "tr_weather.h"
 #include "tr_local.h"
+
+#ifndef __JKA_WEATHER__
+#include "tr_weather.h"
 
 struct weatherSystem_t
 {
@@ -161,3 +163,4 @@ void RB_SurfaceWeather( srfWeather_t *surf )
 	uint32_t key = RB_CreateSortKey(item, 15, SS_SEE_THROUGH);
 	RB_AddDrawItem(backEndData->currentPass, key, item);
 }
+#endif //__JKA_WEATHER__

@@ -472,7 +472,7 @@ static void RB_Hyperspace( void ) {
 }
 
 
-static void SetViewportAndScissor( void ) {
+void SetViewportAndScissor( void ) {
 	GL_SetProjectionMatrix( backEnd.viewParms.projectionMatrix );
 
 	// set the window clipping
@@ -2540,6 +2540,31 @@ static const void	*RB_SwapBuffers( const void *data ) {
 	return (const void *)(cmd + 1);
 }
 
+#ifdef __JKA_WEATHER__
+extern void RB_RenderWorldEffects(void);
+const void	*RB_WorldEffects(const void *data)
+{
+	const drawBufferCommand_t	*cmd;
+
+	cmd = (const drawBufferCommand_t *)data;
+
+	// Always flush the tess buffer
+	if (tess.numIndexes)
+	{
+		RB_EndSurface();
+	}
+
+	RB_RenderWorldEffects();
+
+	/*if (tess.shader)
+	{
+	RB_BeginSurface( tess.shader, tess.fogNum, tess.cubemapIndex );
+	}*/
+
+	return (const void *)(cmd + 1);
+}
+#endif //__JKA_WEATHER__
+
 /*
 =============
 RB_CapShadowMap
@@ -2578,6 +2603,10 @@ static const void *RB_CaptureShadowMap(const void *data)
 	return (const void *)(cmd + 1);
 }
 
+
+#ifdef __JKA_WEATHER__
+extern void RB_RenderWorldEffects(void);
+#endif //__JKA_WEATHER__
 
 /*
 =============
@@ -2937,6 +2966,11 @@ void RB_ExecuteRenderCommands( const void *data ) {
 		case RC_CAPSHADOWMAP:
 			data = RB_CaptureShadowMap(data);
 			break;
+#ifdef __JKA_WEATHER__
+		case RC_WORLD_EFFECTS:
+			data = RB_WorldEffects(data);
+			break;
+#endif //__JKA_WEATHER__
 		case RC_CONVOLVECUBEMAP:
 			data = RB_PrefilterEnvMap(data);
 			break;

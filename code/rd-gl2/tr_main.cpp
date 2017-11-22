@@ -2002,9 +2002,11 @@ static void R_GenerateDrawSurfs(viewParms_t *viewParms, trRefdef_t *refdef) {
 
 	R_AddEntitySurfaces (refdef);
 
+#ifndef __JKA_WEATHER__
 	// activate again when weather code is more complete
 	/*if (!(tr.viewParms.flags & VPF_SHADOWMAP))
 		R_AddWeatherSurfaces();*/
+#endif //__JKA_WEATHER__
 }
 
 /*

@@ -45,7 +45,11 @@ extern const GPUProgramDesc fallback_tonemapProgram;
 extern const GPUProgramDesc fallback_dglow_downsampleProgram;
 extern const GPUProgramDesc fallback_dglow_upsampleProgram;
 extern const GPUProgramDesc fallback_surface_spritesProgram;
+#ifdef __JKA_WEATHER__
+extern const GPUProgramDesc fallback_jkaweatherProgram;
+#else
 extern const GPUProgramDesc fallback_weatherProgram;
+#endif //__JKA_WEATHER__
 
 
 const uniformBlockInfo_t uniformBlocksInfo[UNIFORM_BLOCK_COUNT] = {
@@ -2228,6 +2232,25 @@ static int GLSL_LoadGPUProgramSurfaceSprites(
 	return numPrograms;
 }
 
+#ifdef __JKA_WEATHER__
+static int GLSL_LoadGPUProgramJKAWeather(
+	ShaderProgramBuilder& builder,
+	Allocator& scratchAlloc)
+{
+	GLSL_LoadGPUProgramBasic(
+		builder,
+		scratchAlloc,
+		&tr.jkaweatherShader,
+		"jkaweather", 
+		fallback_jkaweatherProgram,
+		ATTR_POSITION | ATTR_TEXCOORD0 | ATTR_COLOR);
+
+	GLSL_InitUniforms(&tr.jkaweatherShader);
+	GLSL_FinishGPUShader(&tr.jkaweatherShader);
+
+	return 1;
+}
+#else
 static int GLSL_LoadGPUProgramWeather(
 	ShaderProgramBuilder& builder,
 	Allocator& scratchAlloc)
@@ -2245,6 +2268,7 @@ static int GLSL_LoadGPUProgramWeather(
 
 	return 1;
 }
+#endif //__JKA_WEATHER__
 
 void GLSL_LoadGPUShaders()
 {
@@ -2333,7 +2357,11 @@ void GLSL_LoadGPUShaders()
 	numEtcShaders += GLSL_LoadGPUProgramDynamicGlowUpsample(builder, allocator);
 	numEtcShaders += GLSL_LoadGPUProgramDynamicGlowDownsample(builder, allocator);
 	numEtcShaders += GLSL_LoadGPUProgramSurfaceSprites(builder, allocator);
+#ifdef __JKA_WEATHER__
+	numEtcShaders += GLSL_LoadGPUProgramJKAWeather(builder, allocator);
+#else
 	numEtcShaders += GLSL_LoadGPUProgramWeather(builder, allocator);
+#endif //__JKA_WEATHER__
 
 	ri.Printf(PRINT_ALL, "loaded %i GLSL shaders (%i gen %i light %i etc) in %5.2f seconds\n",
 		numGenShaders + numLightShaders + numEtcShaders, numGenShaders, numLightShaders,

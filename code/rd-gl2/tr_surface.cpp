@@ -2273,6 +2273,8 @@ void (*rb_surfaceTable[SF_NUM_SURFACE_TYPES])( void *) = {
 	(void(*)(void*))RB_SurfaceVBOMesh,	    // SF_VBO_MESH,
 	(void(*)(void*))RB_SurfaceVBOMDVMesh,   // SF_VBO_MDVMESH
 	(void(*)(void*))RB_SurfaceSprites,      // SF_SPRITES
+#ifndef __JKA_WEATHER__
 	(void(*)(void*))RB_SurfaceWeather,      // SF_WEATHER
+#endif //__JKA_WEATHER__
 	(void(*)(void*))RB_Refractive,			// SF_REFRACTIVE
 };

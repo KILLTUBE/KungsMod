@@ -41,6 +41,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include <unordered_map>
 #include <string>
 
+#define __JKA_WEATHER__
+
 #define GL_INDEX_TYPE GL_UNSIGNED_INT
 typedef unsigned int glIndex_t;
 
@@ -2360,7 +2362,11 @@ typedef struct trGlobals_s {
 	shaderProgram_t dglowDownsample;
 	shaderProgram_t dglowUpsample;
 	shaderProgram_t spriteShader[SSDEF_COUNT];
+#ifdef __JKA_WEATHER__
+	shaderProgram_t jkaweatherShader;
+#else
 	shaderProgram_t weatherShader;
+#endif //__JKA_WEATHER__
 
 	// -----------------------------------------
 
@@ -3129,6 +3135,9 @@ typedef enum {
 	RC_COLORMASK,
 	RC_CLEARDEPTH,
 	RC_CAPSHADOWMAP,
+#ifdef __JKA_WEATHER__
+	RC_WORLD_EFFECTS,
+#endif //__JKA_WEATHER__
 	RC_CONVOLVECUBEMAP,
 	RC_POSTPROCESS,
 	RC_EXPORT_CUBEMAPS,
