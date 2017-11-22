@@ -1,3 +1,25 @@
+/*
+===========================================================================
+Copyright (C) 2000 - 2013, Raven Software, Inc.
+Copyright (C) 2001 - 2013, Activision, Inc.
+Copyright (C) 2013 - 2015, OpenJK contributors
+
+This file is part of the OpenJK source code.
+
+OpenJK is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License version 2 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, see <http://www.gnu.org/licenses/>.
+===========================================================================
+*/
+
 ////////////////////////////////////////////////////////////////////////////////////////
 // RAVEN SOFTWARE - STAR WARS: JK II
 //  (c) 2002 Activision
@@ -6,6 +28,7 @@
 //
 //
 ////////////////////////////////////////////////////////////////////////////////////////
+#include "../server/exe_headers.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // Includes
@@ -13,7 +36,6 @@
 #include "tr_local.h"
 #ifdef __JKA_WEATHER__
 #include "tr_WorldEffects.h"
-
 #include "Ravl/CVec.h"
 #include "Ratl/vector_vs.h"
 #include "Ratl/bits_vs.h"
@@ -22,7 +44,10 @@
 #include "glext.h"
 #endif
 
-
+////////////////////////////////////////////////////////////////////////////////////////
+// Externs & Fwd Decl.
+////////////////////////////////////////////////////////////////////////////////////////
+extern void			SetViewportAndScissor(void);
 //extern qboolean	JKA_WEATHER_ENABLED;
 //extern qboolean	WZ_WEATHER_ENABLED;
 //extern qboolean	WZ_WEATHER_SOUND_ONLY;
@@ -37,9 +62,7 @@
 #define MAX_WEATHER_ZONES		10
 #define	MAX_PUFF_SYSTEMS		2
 #define	MAX_PARTICLE_CLOUDS		5
-
 #define POINTCACHE_CELL_SIZE	96.0f
-
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // Globals
@@ -66,11 +89,6 @@ int			mParticlesRendered;
 inline float WE_flrand(float min, float max) {
 	return ((rand() * (max - min)) / (RAND_MAX)) + min;
 }
-
-////////////////////////////////////////////////////////////////////////////////////////
-// Externs & Fwd Decl.
-////////////////////////////////////////////////////////////////////////////////////////
-extern void			SetViewportAndScissor( void );
 
 inline void VectorFloor(vec3_t in)
 {
@@ -1216,9 +1234,6 @@ public:
 		CWeatherParticle*	part=0;
 		int			particleNum;
 
-		// Set The GL State And Image Binding
-		//------------------------------------
-
 		// Enable And Disable Things
 		//---------------------------
 
@@ -2134,7 +2149,7 @@ bool R_IsRaining()
 }
 
 bool R_IsPuffing()
-{ //Eh? Don't want surfacesprites to know this?
+{
 	return false;
 }
 

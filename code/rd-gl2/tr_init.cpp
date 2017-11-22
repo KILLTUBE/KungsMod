@@ -1998,22 +1998,27 @@ extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *ri
 	REX(SetLightStyle);
 	re.GetBModelVerts = stub_RE_GetBModelVerts;
 #ifdef __JKA_WEATHER__
-	re.AddWeatherZone = R_AddWeatherZone;
 	re.WorldEffectCommand = R_WorldEffectCommand;
 	re.R_InitWorldEffects = R_InitWorldEffects;
+	re.GetWindVector = stub_R_GetWindVector;
+	re.GetWindGusting = stub_R_GetWindGusting;
 	re.IsOutside = R_IsOutside;
 	re.IsOutsideCausingPain = R_IsOutsideCausingPain;
 	re.GetChanceOfSaberFizz = R_GetChanceOfSaberFizz;
 	re.IsShaking = R_IsShaking;
+	re.AddWeatherZone = R_AddWeatherZone;
+	re.SetTempGlobalFogColor = stub_R_SetTempGlobalFogColor;
 #else //!__JKA_WEATHER__
-	re.AddWeatherZone = stub_RE_AddWeatherZone;
 	re.WorldEffectCommand = stub_RE_WorldEffectCommand;
 	re.R_InitWorldEffects = stub_R_InitWorldEffects;
+	re.GetWindVector = stub_R_GetWindVector;
+	re.GetWindGusting = stub_R_GetWindGusting;
 	re.IsOutside = stub_R_IsOutside;
 	re.IsOutsideCausingPain = stub_R_IsOutsideCausingPain;
 	re.GetChanceOfSaberFizz = stub_R_GetChanceOfSaberFizz;
 	re.IsShaking = stub_R_IsShaking;
 	re.AddWeatherZone = stub_RE_AddWeatherZone;
+	re.SetTempGlobalFogColor = stub_R_SetTempGlobalFogColor;
 #endif //__JKA_WEATHER__
 	//REX(GetModelBounds);  //Not used by game code, do we really need it?
 
@@ -2031,10 +2036,6 @@ extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *ri
 		
 	re.R_ClearStuffToStopGhoul2CrashingThings = R_ClearStuffToStopGhoul2CrashingThings;
 	re.R_inPVS = R_inPVS;
-
-	re.GetWindVector = stub_R_GetWindVector;
-	re.GetWindGusting = stub_R_GetWindGusting;
-	re.SetTempGlobalFogColor = stub_R_SetTempGlobalFogColor;
 
 	REX(SetRangedFog);
 
