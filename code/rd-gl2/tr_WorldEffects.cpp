@@ -1237,34 +1237,16 @@ public:
 		// Enable And Disable Things
 		//---------------------------
 
-		//shaderProgram_t *shader = &tr.weatherShader;
-		//GLSL_BindProgram(shader);
-		//GLSL_SetUniformMatrix16(shader, UNIFORM_MODELVIEWPROJECTIONMATRIX, glState.modelviewProjection);
-		//GLSL_SetUniformVec4(shader, UNIFORM_COLOR, colorWhite);
+		shaderProgram_t *shader = &tr.jkaweatherShader;
+		GLSL_BindProgram(shader);
+		GLSL_SetUniformMatrix4x4(shader, UNIFORM_MODELVIEWPROJECTIONMATRIX, glState.modelviewProjection);
+		GLSL_SetUniformVec4(shader, UNIFORM_COLOR, colorWhite);
 
-		DrawItem item = {};
-
-		SamplerBindingsWriter samplerBindingsWriter;
-		// FIXME: This is a bit ugly with the casting
-		item.samplerBindings = samplerBindingsWriter.Finish(
-			*backEndData->perFrameMemory, (int *)&item.numSamplerBindings);
-
-		UniformDataWriter uniformDataWriter;
-		uniformDataWriter.Start(&tr.jkaweatherShader);
-		uniformDataWriter.SetUniformMatrix4x4(
-				UNIFORM_MODELVIEWPROJECTIONMATRIX, 
-			glState.modelviewProjection);
-		uniformDataWriter.SetUniformVec4(UNIFORM_COLOR, colorWhite);
-
-		//GLSL_SetUniformInt(shader, UNIFORM_DIFFUSEMAP, TB_DIFFUSEMAP);
-		uniformDataWriter.SetUniformInt(UNIFORM_DIFFUSEMAP, TB_DIFFUSEMAP);
+		GLSL_SetUniformInt(shader, UNIFORM_DIFFUSEMAP, TB_DIFFUSEMAP);
 		GL_BindToTMU(mImage, TB_DIFFUSEMAP);
 
-		//GL_Cull(CT_TWO_SIDED);
-		//GL_State((mBlendMode == 0) ? (GLS_ALPHA | GLS_DEPTHFUNC_LESS | GLS_ATEST_GT_0) : (GLS_SRCBLEND_ONE | GLS_DSTBLEND_ONE | GLS_DEPTHFUNC_LESS | GLS_ATEST_GT_0));
-		item.stateBits =
-			GLS_DEPTHFUNC_LESS | GLS_SRCBLEND_SRC_ALPHA | GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA;
-		item.cullType = CT_FRONT_SIDED;
+		GL_Cull(CT_TWO_SIDED);
+		GL_State((mBlendMode == 0) ? (GLS_ALPHA | GLS_DEPTHFUNC_LESS/* | ATEST_CMP_GT*/) : (GLS_SRCBLEND_ONE | GLS_DSTBLEND_ONE | GLS_DEPTHFUNC_LESS/* | ATEST_CMP_GT*/));
 
 		qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (mFilterMode == 0) ? (GL_LINEAR) : (GL_NEAREST));
 		qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (mFilterMode == 0) ? (GL_LINEAR) : (GL_NEAREST));
@@ -1274,7 +1256,6 @@ public:
 		tess.firstIndex = 0;
 
 		tess.minIndex = 0;
-		tess.useInternalVBO = qtrue;
 
 		// Begin
 		//-------
