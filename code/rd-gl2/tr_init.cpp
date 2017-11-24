@@ -2000,8 +2000,8 @@ extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *ri
 #ifdef __JKA_WEATHER__
 	re.WorldEffectCommand = R_WorldEffectCommand;
 	re.R_InitWorldEffects = R_InitWorldEffects;
-	re.GetWindVector = stub_R_GetWindVector;
-	re.GetWindGusting = stub_R_GetWindGusting;
+	re.GetWindVector = R_GetWindVector;
+	re.GetWindGusting = R_GetWindGusting;
 	re.IsOutside = R_IsOutside;
 	re.IsOutsideCausingPain = R_IsOutsideCausingPain;
 	re.GetChanceOfSaberFizz = R_GetChanceOfSaberFizz;

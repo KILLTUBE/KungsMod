@@ -58,11 +58,11 @@ extern void			SetViewportAndScissor(void);
 // Defines
 ////////////////////////////////////////////////////////////////////////////////////////
 #define GLS_ALPHA				(GLS_SRCBLEND_SRC_ALPHA | GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA)
-#define	MAX_WIND_ZONES			10
-#define MAX_WEATHER_ZONES		10
+#define	MAX_WIND_ZONES			12
+#define MAX_WEATHER_ZONES		50	// so we can more zones that are smaller
 #define	MAX_PUFF_SYSTEMS		2
 #define	MAX_PARTICLE_CLOUDS		5
-#define POINTCACHE_CELL_SIZE	96.0f
+#define POINTCACHE_CELL_SIZE	32.0f
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // Globals
@@ -365,22 +365,46 @@ public:
 	}
 };
 ratl::vector_vs<CWindZone, MAX_WIND_ZONES>		mWindZones;
+ratl::vector_vs<CWindZone*, MAX_WIND_ZONES>		mLocalWindZones;
 
-bool R_GetWindVector(vec3_t windVector)
+bool R_GetWindVector(vec3_t windVector, vec3_t atpoint)
 {
 	VectorCopy(mGlobalWindDirection.v, windVector);
+	if (atpoint && mLocalWindZones.size())
+	{
+		for (int curLocalWindZone = 0; curLocalWindZone<mLocalWindZones.size(); curLocalWindZone++)
+		{
+			if (mLocalWindZones[curLocalWindZone]->mRBounds.In(atpoint))
+			{
+				VectorAdd(windVector, mLocalWindZones[curLocalWindZone]->mCurrentVelocity.v, windVector);
+			}
+		}
+		VectorNormalize(windVector);
+	}
 	return true;
 }
 
-bool R_GetWindSpeed(float &windSpeed)
+bool R_GetWindSpeed(float &windSpeed, vec3_t atpoint)
 {
 	windSpeed = mGlobalWindSpeed;
+	if (atpoint && mLocalWindZones.size())
+	{
+		for (int curLocalWindZone = 0; curLocalWindZone<mLocalWindZones.size(); curLocalWindZone++)
+		{
+			if (mLocalWindZones[curLocalWindZone]->mRBounds.In(atpoint))
+			{
+				windSpeed += VectorLength(mLocalWindZones[curLocalWindZone]->mCurrentVelocity.v);
+			}
+		}
+	}
 	return true;
 }
 
-bool R_GetWindGusting()
+bool R_GetWindGusting(vec3_t atpoint)
 {
-	return (mGlobalWindSpeed>1000.0f);
+	float windSpeed;
+	R_GetWindSpeed(windSpeed, atpoint);
+	return (windSpeed>1000.0f);
 }
 
 
@@ -971,12 +995,9 @@ public:
 		bool		partInView;
 		int			particleNum;
 		float		particleFade = (mFade * mSecondsElapsed);
+		int			numLocalWindZones = mLocalWindZones.size();
+		int			curLocalWindZone;
 
-/* TODO: Non Global Wind Zones
-		CWindZone*	wind=0;
-		int			windNum;
-		int			windCount = mWindZones.size();
-*/
 
 		// Compute Camera
 		//----------------
@@ -1108,6 +1129,18 @@ public:
 			// Grab The Force And Apply Non Global Wind
 			//------------------------------------------
 			partForce = force;
+
+			if (numLocalWindZones)
+			{
+				for (curLocalWindZone = 0; curLocalWindZone<numLocalWindZones; curLocalWindZone++)
+				{
+					if (mLocalWindZones[curLocalWindZone]->mRBounds.In(part->mPosition))
+					{
+						partForce += mLocalWindZones[curLocalWindZone]->mCurrentVelocity;
+					}
+				}
+			}
+
 			partForce /= part->mMass;
 
 
@@ -1512,7 +1545,12 @@ void R_InitWorldEffects(void)
 	}
 	mParticleClouds.clear();
 	mWindZones.clear();
+	mLocalWindZones.clear();
 	mOutside.Reset();
+	mGlobalWindSpeed = 0.0f;
+	mGlobalWindDirection[0] = 1.0f;
+	mGlobalWindDirection[1] = 0.0f;
+	mGlobalWindDirection[2] = 0.0f;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -1703,6 +1741,7 @@ void R_WorldEffectCommand(const char *command)
 		}
 		mParticleClouds.clear();
 		mWindZones.clear();
+		mLocalWindZones.clear();
 	}
 
 	// Freeze / UnFreeze - Stops All Particle Motion Updates
@@ -1781,6 +1820,50 @@ void R_WorldEffectCommand(const char *command)
 		nWind.mRDeadTime.mMin				=  2000;
 		nWind.mRDeadTime.mMax				=  4000;
 	}
+
+	// Local Wind Zone
+	//-----------------
+	else if (Q_stricmp(token, "windzone") == 0)
+	{
+		if (mWindZones.full())
+		{
+			COM_EndParseSession();
+			return;
+		}
+		CWindZone& nWind = mWindZones.push_back();
+		nWind.Initialize();
+
+		nWind.mGlobal = false;
+
+		// Read Mins
+		if (!WE_ParseVector(&command, 3, nWind.mRBounds.mMins.v))
+		{
+			assert("Wind Zone: Unable To Parse Mins Vector!" == 0);
+			mWindZones.pop_back();
+			COM_EndParseSession();
+			return;
+		}
+
+		// Read Maxs
+		if (!WE_ParseVector(&command, 3, nWind.mRBounds.mMaxs.v))
+		{
+			assert("Wind Zone: Unable To Parse Maxs Vector!" == 0);
+			mWindZones.pop_back();
+			COM_EndParseSession();
+			return;
+		}
+
+		// Read Velocity
+		if (!WE_ParseVector(&command, 3, nWind.mCurrentVelocity.v))
+		{
+			nWind.mCurrentVelocity.Clear();
+			nWind.mCurrentVelocity[1] = 800.0f;
+		}
+		nWind.mTargetVelocityTimeRemaining = -1;
+
+		mLocalWindZones.push_back(&nWind);
+	}
+
 
 	// Create A Rain Storm
 	//---------------------
