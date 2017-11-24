@@ -480,9 +480,6 @@ Rendering a scene may require multiple views to be rendered
 to handle mirrors,
 @@@@@@@@@@@@@@@@@@@@@
 */
-#ifdef __JKA_WEATHER__
-extern void RE_RenderWorldEffects(void);
-#endif //__JKA_WEATHER__
 void RE_RenderScene( const refdef_t *fd ) {
 	viewParms_t		parms;
 	int				startTime;
@@ -588,7 +585,7 @@ void RE_RenderScene( const refdef_t *fd ) {
 	}
 
 #ifdef __JKA_WEATHER__
-		RE_RenderWorldEffects();
+	RE_RenderWorldEffects();
 #endif //__JKA_WEATHER__
 
 	RE_EndScene();

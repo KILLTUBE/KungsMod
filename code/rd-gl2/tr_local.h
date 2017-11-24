@@ -1573,10 +1573,12 @@ struct srfSprites_t
 	vertexAttribute_t *attributes;
 };
 
+#ifndef __JKA_WEATHER__
 struct srfWeather_t
 {
 	surfaceType_t surfaceType;
 };
+#endif //__JKA_WEATHER__
 
 typedef struct
 {
@@ -2231,7 +2233,9 @@ typedef struct {
 ** but may read fields that aren't dynamically modified
 ** by the frontend.
 */
+#ifndef __JKA_WEATHER__
 struct weatherSystem_t;
+#endif //__JKA_WEATHER__
 typedef struct trGlobals_s {
 	qboolean				registered;		// cleared at shutdown, set at beginRegistration
 
@@ -2295,9 +2299,6 @@ typedef struct trGlobals_s {
 	image_t					*textureDepthImage;
 
 	FBO_t					*renderFbo;
-#ifdef __JKA_WEATHER__
-	FBO_t					*renderNoDepthFbo;
-#endif //__JKA_WEATHER_
 	FBO_t					*refractiveFbo;
 	FBO_t					*glowFboScaled[6];
 	FBO_t					*msaaResolveFbo;
@@ -2319,7 +2320,9 @@ typedef struct trGlobals_s {
 	shader_t				*shadowShader;
 	shader_t				*distortionShader;
 	shader_t				*projectionShadowShader;
+#ifndef __JKA_WEATHER__
 	shader_t				*weatherInternalShader;
+#endif //__JKA_WEATHER__
 
 	shader_t				*flareShader;
 	shader_t				*sunShader;
@@ -2341,7 +2344,9 @@ typedef struct trGlobals_s {
 	trRefEntity_t			worldEntity;		// point currentEntity at this when rendering world
 	model_t					*currentModel;
 
+#ifndef __JKA_WEATHER__
 	weatherSystem_t			*weatherSystem;
+#endif //__JKA_WEATHER__
 
 	//
 	// GPU shader programs
@@ -3137,14 +3142,14 @@ typedef enum {
 	RC_DRAW_SURFS,
 	RC_DRAW_BUFFER,
 	RC_SWAP_BUFFERS,
+#ifdef __JKA_WEATHER__
+	RC_WORLD_EFFECTS,
+#endif //__JKA_WEATHER__
 	RC_SCREENSHOT,
 	RC_VIDEOFRAME,
 	RC_COLORMASK,
 	RC_CLEARDEPTH,
 	RC_CAPSHADOWMAP,
-#ifdef __JKA_WEATHER__
-	RC_WORLD_EFFECTS,
-#endif //__JKA_WEATHER__
 	RC_CONVOLVECUBEMAP,
 	RC_POSTPROCESS,
 	RC_EXPORT_CUBEMAPS,
@@ -3231,6 +3236,9 @@ void RE_StretchPic ( float x, float y, float w, float h, float s1, float t1, flo
 void RE_RotatePic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, float a, qhandle_t hShader );
 void RE_RotatePic2 ( float x, float y, float w, float h, float s1, float t1, float s2, float t2,float a, qhandle_t hShader );
 void RE_RotatePic2RatioFix ( float ratio );
+#ifdef __JKA_WEATHER__
+void RE_RenderWorldEffects(void);
+#endif //__JKA_WEATHER__
 void RE_LAGoggles(void);
 void RE_Scissor(float x, float y, float w, float h);
 void RE_BeginFrame( stereoFrame_t stereoFrame );

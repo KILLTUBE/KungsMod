@@ -1608,7 +1608,7 @@ R_Init
 ===============
 */
 #ifdef __JKA_WEATHER__
-extern void R_InitWorldEffects(void);
+extern void R_InitWorldEffects();
 #endif //__JKA_WEATHER__
 void R_Init(void) {
 	byte *ptr;
@@ -1701,19 +1701,19 @@ void R_Init(void) {
 
 	R_InitSkins();
 
-	R_InitFonts();
-
 	R_ModelInit();
-
-	R_InitDecals();
-
-	R_InitQueries();
 
 #ifdef __JKA_WEATHER__
 	R_InitWorldEffects();
 #else
 	R_InitWeatherSystem();
 #endif //__JKA_WEATHER__
+
+	R_InitFonts();
+
+	R_InitDecals();
+
+	R_InitQueries();
 
 #if defined(_DEBUG)
 	GLenum err = qglGetError();
@@ -1999,26 +1999,8 @@ extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *ri
 	re.GetBModelVerts = stub_RE_GetBModelVerts;
 #ifdef __JKA_WEATHER__
 	re.WorldEffectCommand = R_WorldEffectCommand;
-	re.R_InitWorldEffects = R_InitWorldEffects;
-	re.GetWindVector = R_GetWindVector;
-	re.GetWindGusting = R_GetWindGusting;
-	re.IsOutside = R_IsOutside;
-	re.IsOutsideCausingPain = R_IsOutsideCausingPain;
-	re.GetChanceOfSaberFizz = R_GetChanceOfSaberFizz;
-	re.IsShaking = R_IsShaking;
-	re.AddWeatherZone = R_AddWeatherZone;
-	re.SetTempGlobalFogColor = stub_R_SetTempGlobalFogColor;
-#else //!__JKA_WEATHER__
+#else
 	re.WorldEffectCommand = stub_RE_WorldEffectCommand;
-	re.R_InitWorldEffects = stub_R_InitWorldEffects;
-	re.GetWindVector = stub_R_GetWindVector;
-	re.GetWindGusting = stub_R_GetWindGusting;
-	re.IsOutside = stub_R_IsOutside;
-	re.IsOutsideCausingPain = stub_R_IsOutsideCausingPain;
-	re.GetChanceOfSaberFizz = stub_R_GetChanceOfSaberFizz;
-	re.IsShaking = stub_R_IsShaking;
-	re.AddWeatherZone = stub_RE_AddWeatherZone;
-	re.SetTempGlobalFogColor = stub_R_SetTempGlobalFogColor;
 #endif //__JKA_WEATHER__
 	//REX(GetModelBounds);  //Not used by game code, do we really need it?
 
@@ -2034,8 +2016,33 @@ extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *ri
 	re.Language_UsesSpaces = Language_UsesSpaces;
 	re.AnyLanguage_ReadCharFromString = AnyLanguage_ReadCharFromString;
 		
+#ifdef __JKA_WEATHER__
+	re.R_InitWorldEffects = R_InitWorldEffects;
+#else //!__JKA_WEATHER__
+	re.R_InitWorldEffects = stub_R_InitWorldEffects;
+#endif //__JKA_WEATHER__
 	re.R_ClearStuffToStopGhoul2CrashingThings = R_ClearStuffToStopGhoul2CrashingThings;
 	re.R_inPVS = R_inPVS;
+
+#ifdef __JKA_WEATHER__
+	re.GetWindVector = R_GetWindVector;
+	re.GetWindGusting = R_GetWindGusting;
+	re.IsOutside = R_IsOutside;
+	re.IsOutsideCausingPain = R_IsOutsideCausingPain;
+	re.GetChanceOfSaberFizz = R_GetChanceOfSaberFizz;
+	re.IsShaking = R_IsShaking;
+	re.AddWeatherZone = R_AddWeatherZone;
+	re.SetTempGlobalFogColor = stub_R_SetTempGlobalFogColor;
+#else //!__JKA_WEATHER__
+	re.GetWindVector = stub_R_GetWindVector;
+	re.GetWindGusting = stub_R_GetWindGusting;
+	re.IsOutside = stub_R_IsOutside;
+	re.IsOutsideCausingPain = stub_R_IsOutsideCausingPain;
+	re.GetChanceOfSaberFizz = stub_R_GetChanceOfSaberFizz;
+	re.IsShaking = stub_R_IsShaking;
+	re.AddWeatherZone = stub_RE_AddWeatherZone;
+	re.SetTempGlobalFogColor = stub_R_SetTempGlobalFogColor;
+#endif //__JKA_WEATHER__
 
 	REX(SetRangedFog);
 
