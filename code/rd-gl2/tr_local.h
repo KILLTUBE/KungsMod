@@ -2101,6 +2101,8 @@ typedef struct glstate_s {
 	matrix_t        modelview;
 	matrix_t        projection;
 	matrix_t		modelviewProjection;
+	matrix_t        previousProjection;
+	matrix_t		previousModelviewProjection;
 } glstate_t;
 
 typedef enum {
@@ -2293,6 +2295,9 @@ typedef struct trGlobals_s {
 	image_t					*textureDepthImage;
 
 	FBO_t					*renderFbo;
+#ifdef __JKA_WEATHER__
+	FBO_t					*renderNoDepthFbo;
+#endif //__JKA_WEATHER_
 	FBO_t					*refractiveFbo;
 	FBO_t					*glowFboScaled[6];
 	FBO_t					*msaaResolveFbo;

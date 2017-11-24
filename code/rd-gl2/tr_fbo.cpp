@@ -455,6 +455,16 @@ void FBO_Init(void)
 		FBO_SetupDrawBuffers();
 
 		R_CheckFBO(tr.renderFbo);
+
+#ifdef __JKA_WEATHER__
+		tr.renderNoDepthFbo = FBO_Create("_renderNoDepth", tr.renderDepthImage->width, tr.renderDepthImage->height);
+		FBO_Bind(tr.renderNoDepthFbo);
+		//qglDrawBuffer(GL_NONE);
+		//qglReadBuffer(GL_NONE);
+		FBO_AttachTextureImage(tr.renderImage, 0);
+		R_AttachFBOTextureDepth(tr.renderDepthImage->texnum);
+		R_CheckFBO(tr.renderNoDepthFbo);
+#endif //__JKA_WEATHER_
 	}
 
 	// clear render buffer

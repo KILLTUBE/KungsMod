@@ -2241,11 +2241,15 @@ static int GLSL_LoadGPUProgramJKAWeather(
 		builder,
 		scratchAlloc,
 		&tr.jkaweatherShader,
-		"jkaweather", 
-		fallback_jkaweatherProgram,
-		ATTR_POSITION | ATTR_TEXCOORD0 | ATTR_COLOR);
+		"jkaweather",
+		fallback_jkaweatherProgram);
 
 	GLSL_InitUniforms(&tr.jkaweatherShader);
+
+	qglUseProgram(tr.jkaweatherShader.program);
+	GLSL_SetUniformInt(&tr.jkaweatherShader, UNIFORM_TEXTUREMAP, TB_DIFFUSEMAP);
+	qglUseProgram(0);
+
 	GLSL_FinishGPUShader(&tr.jkaweatherShader);
 
 	return 1;

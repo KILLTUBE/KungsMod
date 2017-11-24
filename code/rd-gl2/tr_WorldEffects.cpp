@@ -1241,12 +1241,11 @@ public:
 		GLSL_BindProgram(shader);
 		GLSL_SetUniformMatrix4x4(shader, UNIFORM_MODELVIEWPROJECTIONMATRIX, glState.modelviewProjection);
 		GLSL_SetUniformVec4(shader, UNIFORM_COLOR, colorWhite);
-
 		GLSL_SetUniformInt(shader, UNIFORM_DIFFUSEMAP, TB_DIFFUSEMAP);
+		
+		GL_Cull(CT_FRONT_SIDED);
+		GL_State((mBlendMode == 0) ? (GLS_ALPHA/* | GLS_DEPTHFUNC_LESS | ATEST_CMP_GT*/) : (GLS_SRCBLEND_ONE | GLS_DSTBLEND_ONE/* | GLS_DEPTHFUNC_LESS | ATEST_CMP_GT*/));
 		GL_BindToTMU(mImage, TB_DIFFUSEMAP);
-
-		GL_Cull(CT_TWO_SIDED);
-		GL_State((mBlendMode == 0) ? (GLS_ALPHA | GLS_DEPTHFUNC_LESS/* | ATEST_CMP_GT*/) : (GLS_SRCBLEND_ONE | GLS_DSTBLEND_ONE | GLS_DEPTHFUNC_LESS/* | ATEST_CMP_GT*/));
 
 		qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (mFilterMode == 0) ? (GL_LINEAR) : (GL_NEAREST));
 		qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (mFilterMode == 0) ? (GL_LINEAR) : (GL_NEAREST));
@@ -1284,18 +1283,14 @@ public:
 				VectorSet4(particleColor, mColor[0] * part->mAlpha, mColor[1] * part->mAlpha, mColor[2] * part->mAlpha, mColor[3] * part->mAlpha);
 			}
 
+			//-------------------
+			// Render A Triangle
+			//-------------------
 			if (mVertexCount == 3)
 			{
-				//-------------------
-				// Render A Triangle
-				//-------------------
-
 				if (tess.numVertexes + 3 >= SHADER_MAX_VERTEXES || tess.numIndexes + 3 >= SHADER_MAX_INDEXES)
 				{// Would go over the limit, render current queue and continue...
-					//GLSL_VertexAttribPointers(ATTR_POSITION | ATTR_TEXCOORD0 | ATTR_COLOR | ATTR_NORMAL);
 					RB_UpdateVBOs(ATTR_POSITION | ATTR_TEXCOORD0 | ATTR_COLOR | ATTR_NORMAL);
-					//GLSL_VertexAttribsState(ATTR_POSITION | ATTR_TEXCOORD0 | ATTR_COLOR | ATTR_NORMAL);
-					//R_DrawElementsVBO(tess.numIndexes, tess.firstIndex, tess.minIndex, tess.maxIndex, tess.numVertexes, qfalse);
 					GLSL_VertexAttribsState(ATTR_POSITION | ATTR_TEXCOORD0 | ATTR_COLOR | ATTR_NORMAL, NULL);
 					R_DrawElementsVBO(tess.numIndexes, tess.firstIndex, tess.minIndex, tess.maxIndex);
 
@@ -1311,20 +1306,50 @@ public:
 
 				int ndx = tess.numVertexes;
 				int idx = tess.numIndexes;
+				vec2_t texCoords[3];
+				vec4_t triVerts[3];
+				vec3_t normal;
 
-				// triangle indexes for a simple quad
-				tess.indexes[idx + 0] = ndx + 0;
+				// triangle indexes for a simple tri
+				tess.indexes[idx] = ndx;
 				tess.indexes[idx + 1] = ndx + 1;
 				tess.indexes[idx + 2] = ndx + 2;
 
-				vec2_t texCoords[3];
-
 				VectorSet2(texCoords[0], 1.0f, 0.0f);
-				VectorSet2(texCoords[1], 0.0f, 1.0f);
-				VectorSet2(texCoords[2], 0.0f, 0.0f);
+				VectorSet4(triVerts[0],
+					part->mPosition[0],
+					part->mPosition[1],
+					part->mPosition[2],
+					1.0);
 
-				VectorCopy2(texCoords[0], tess.texCoords[ndx + 0][0]);
-				VectorCopy2(texCoords[0], tess.texCoords[ndx + 0][1]);
+				VectorSet2(texCoords[1], 0.0f, 1.0f);
+				VectorSet4(triVerts[1],
+					part->mPosition[0] + mCameraLeft[0],
+					part->mPosition[1] + mCameraLeft[1],
+					part->mPosition[2] + mCameraLeft[2],
+					1.0);
+
+				VectorSet2(texCoords[2], 0.0f, 0.0f);
+				VectorSet4(triVerts[2],
+					part->mPosition[0] + mCameraLeftPlusUp[0],
+					part->mPosition[1] + mCameraLeftPlusUp[1],
+					part->mPosition[2] + mCameraLeftPlusUp[2],
+					1.0);
+
+				// constant normal all the way around
+				VectorSubtract(vec3_origin, backEnd.viewParms.ori.axis[0], normal);
+
+				tess.normal[ndx] =
+					tess.normal[ndx + 1] =
+					tess.normal[ndx + 2] = R_VboPackNormal(normal);
+
+				VectorCopy4(triVerts[0], tess.xyz[ndx]);
+				VectorCopy4(triVerts[1], tess.xyz[ndx + 1]);
+				VectorCopy4(triVerts[2], tess.xyz[ndx + 2]);
+				
+				// standard square texture coordinates
+				VectorCopy2(texCoords[0], tess.texCoords[ndx][0]);
+				VectorCopy2(texCoords[0], tess.texCoords[ndx][1]);
 
 				VectorCopy2(texCoords[1], tess.texCoords[ndx + 1][0]);
 				VectorCopy2(texCoords[1], tess.texCoords[ndx + 1][1]);
@@ -1332,38 +1357,16 @@ public:
 				VectorCopy2(texCoords[2], tess.texCoords[ndx + 2][0]);
 				VectorCopy2(texCoords[2], tess.texCoords[ndx + 2][1]);
 
-				VectorCopy4(particleColor, tess.vertexColors[ndx + 0]);
+				// constant particleColor all the way around
+				VectorCopy4(particleColor, tess.vertexColors[ndx]);
 				VectorCopy4(particleColor, tess.vertexColors[ndx + 1]);
 				VectorCopy4(particleColor, tess.vertexColors[ndx + 2]);
-
-				vec4_t triVerts[3];
-				VectorSet4(triVerts[0], part->mPosition[0], part->mPosition[1], part->mPosition[2], 1.0);
-				VectorSet4(triVerts[1], part->mPosition[0] + mCameraLeft[0], part->mPosition[1] + mCameraLeft[1], part->mPosition[2] + mCameraLeft[2], 1.0);
-				VectorSet4(triVerts[2], part->mPosition[0] + mCameraLeftPlusUp[0], part->mPosition[1] + mCameraLeftPlusUp[1], part->mPosition[2] + mCameraLeftPlusUp[2], 1.0);
-
-				vec3_t		normal;
-
-				// constant normal all the way around
-				VectorSubtract(vec3_origin, backEnd.viewParms.ori.axis[0], normal);
-
-				tess.normal[ndx + 0] =
-					tess.normal[ndx + 1] =
-					tess.normal[ndx + 2] = R_VboPackNormal(normal);
-
-
-				VectorCopy4(triVerts[0], tess.xyz[ndx + 0]);
-				//tess.normal[ndx + 0] = R_TessXYZtoPackedNormals(tess.xyz[ndx + 0]);
-
-				VectorCopy4(triVerts[1], tess.xyz[ndx + 1]);
-				//tess.normal[ndx + 1] = R_TessXYZtoPackedNormals(tess.xyz[ndx + 1]);
-
-				VectorCopy4(triVerts[2], tess.xyz[ndx + 2]);
-				//tess.normal[ndx + 2] = R_TessXYZtoPackedNormals(tess.xyz[ndx + 2]);
 
 				tess.maxIndex = ndx + 3;
 
 				tess.numVertexes += 3;
 				tess.numIndexes += 3;
+				tess.useInternalVBO = qtrue;
 			}
 			else
 			{
@@ -1373,10 +1376,7 @@ public:
 
 				if (tess.numVertexes + 4 >= SHADER_MAX_VERTEXES || tess.numIndexes + 6 >= SHADER_MAX_INDEXES)
 				{// Would go over the limit, render current queue and continue...
-					//GLSL_VertexAttribPointers(ATTR_POSITION | ATTR_TEXCOORD0 | ATTR_COLOR | ATTR_NORMAL);
 					RB_UpdateVBOs(ATTR_POSITION | ATTR_TEXCOORD0 | ATTR_COLOR | ATTR_NORMAL);
-					//GLSL_VertexAttribsState(ATTR_POSITION | ATTR_TEXCOORD0 | ATTR_COLOR | ATTR_NORMAL);
-					//R_DrawElementsVBO(tess.numIndexes, tess.firstIndex, tess.minIndex, tess.maxIndex, tess.numVertexes, qfalse);
 					GLSL_VertexAttribsState(ATTR_POSITION | ATTR_TEXCOORD0 | ATTR_COLOR | ATTR_NORMAL, NULL);
 					R_DrawElementsVBO(tess.numIndexes, tess.firstIndex, tess.minIndex, tess.maxIndex);
 
@@ -1392,24 +1392,66 @@ public:
 
 				int ndx = tess.numVertexes;
 				int idx = tess.numIndexes;
+				vec2_t texCoords[4];
+				vec4_t quadVerts[4];
+				vec3_t normal;
 
 				// triangle indexes for a simple quad
-				tess.indexes[idx + 0] = ndx + 0;
+				tess.indexes[idx] = ndx;
 				tess.indexes[idx + 1] = ndx + 1;
-				tess.indexes[idx + 2] = ndx + 2;
-				tess.indexes[idx + 3] = ndx + 0;
-				tess.indexes[idx + 4] = ndx + 2;
-				tess.indexes[idx + 5] = ndx + 3;
+				tess.indexes[idx + 2] = ndx + 3;
+				tess.indexes[idx + 3] = ndx + 3;
+				tess.indexes[idx + 4] = ndx + 1;
+				tess.indexes[idx + 5] = ndx + 2;
+				
+				// Left bottom.
+				VectorSet2(texCoords[3], 0.0f, 0.0f);
+				VectorSet4(quadVerts[1],
+							part->mPosition[0] - mCameraLeftMinusUp[0],
+							part->mPosition[1] - mCameraLeftMinusUp[1],
+							part->mPosition[2] - mCameraLeftMinusUp[2],
+							1.0);
 
-				vec2_t texCoords[4];
-
+				// Right bottom.
 				VectorSet2(texCoords[0], 1.0f, 0.0f);
-				VectorSet2(texCoords[1], 0.0f, 1.0f);
-				VectorSet2(texCoords[2], 0.0f, 0.0f);
-				VectorSet2(texCoords[3], 1.0f, 1.0f);
+				VectorSet4(quadVerts[0],
+							part->mPosition[0] - mCameraLeftPlusUp[0],
+							part->mPosition[1] - mCameraLeftPlusUp[1],
+							part->mPosition[2] - mCameraLeftPlusUp[2],
+							1.0);
 
-				VectorCopy2(texCoords[0], tess.texCoords[ndx + 0][0]);
-				VectorCopy2(texCoords[0], tess.texCoords[ndx + 0][1]);
+				// Right top.
+				VectorSet2(texCoords[1], 1.0f, 1.0f);
+				VectorSet4(quadVerts[3],
+							part->mPosition[0] + mCameraLeftMinusUp[0],
+							part->mPosition[1] + mCameraLeftMinusUp[1],
+							part->mPosition[2] + mCameraLeftMinusUp[2],
+							1.0);
+
+				// Left top.
+				VectorSet2(texCoords[2], 0.0f, 1.0f);
+				VectorSet4(quadVerts[2],
+							part->mPosition[0] + mCameraLeftPlusUp[0],
+							part->mPosition[1] + mCameraLeftPlusUp[1],
+							part->mPosition[2] + mCameraLeftPlusUp[2],
+							1.0);
+
+				// constant normal all the way around
+				VectorSubtract(vec3_origin, backEnd.viewParms.ori.axis[0], normal);
+
+				tess.normal[ndx] =
+					tess.normal[ndx + 1] =
+					tess.normal[ndx + 2] =
+					tess.normal[ndx + 3] = R_VboPackNormal(normal);
+
+				VectorCopy4(quadVerts[0], tess.xyz[ndx]);
+				VectorCopy4(quadVerts[1], tess.xyz[ndx + 1]);
+				VectorCopy4(quadVerts[2], tess.xyz[ndx + 2]);
+				VectorCopy4(quadVerts[3], tess.xyz[ndx + 3]);
+
+				// standard square texture coordinates
+				VectorCopy2(texCoords[0], tess.texCoords[ndx][0]);
+				VectorCopy2(texCoords[0], tess.texCoords[ndx][1]);
 
 				VectorCopy2(texCoords[1], tess.texCoords[ndx + 1][0]);
 				VectorCopy2(texCoords[1], tess.texCoords[ndx + 1][1]);
@@ -1420,54 +1462,24 @@ public:
 				VectorCopy2(texCoords[3], tess.texCoords[ndx + 3][0]);
 				VectorCopy2(texCoords[3], tess.texCoords[ndx + 3][1]);
 
-				VectorCopy4(particleColor, tess.vertexColors[ndx + 0]);
+				// constant particleColor all the way around
+				VectorCopy4(particleColor, tess.vertexColors[ndx]);
 				VectorCopy4(particleColor, tess.vertexColors[ndx + 1]);
 				VectorCopy4(particleColor, tess.vertexColors[ndx + 2]);
 				VectorCopy4(particleColor, tess.vertexColors[ndx + 3]);
-
-				vec4_t quadVerts[4];
-				VectorSet4(quadVerts[0], part->mPosition[0] - mCameraLeftMinusUp[0], part->mPosition[1] - mCameraLeftMinusUp[1], part->mPosition[2] - mCameraLeftMinusUp[2], 1.0);
-				VectorSet4(quadVerts[1], part->mPosition[0] - mCameraLeftPlusUp[0], part->mPosition[1] - mCameraLeftPlusUp[1], part->mPosition[2] - mCameraLeftPlusUp[2], 1.0);
-				VectorSet4(quadVerts[2], part->mPosition[0] + mCameraLeftMinusUp[0], part->mPosition[1] + mCameraLeftMinusUp[1], part->mPosition[2] + mCameraLeftMinusUp[2], 1.0);
-				VectorSet4(quadVerts[3], part->mPosition[0] + mCameraLeftPlusUp[0], part->mPosition[1] + mCameraLeftPlusUp[1], part->mPosition[2] + mCameraLeftPlusUp[2], 1.0);
-
-				vec3_t		normal;
-
-				// constant normal all the way around
-				VectorSubtract(vec3_origin, backEnd.viewParms.ori.axis[0], normal);
-
-				tess.normal[ndx + 0] =
-					tess.normal[ndx + 1] =
-					tess.normal[ndx + 2] =
-					tess.normal[ndx + 3] = R_VboPackNormal(normal);
-
-				VectorCopy4(quadVerts[0], tess.xyz[ndx + 0]);
-				//tess.normal[ndx + 0] = R_TessXYZtoPackedNormals(tess.xyz[ndx + 0]);
-
-				VectorCopy4(quadVerts[1], tess.xyz[ndx + 1]);
-				//tess.normal[ndx + 1] = R_TessXYZtoPackedNormals(tess.xyz[ndx + 1]);
-
-				VectorCopy4(quadVerts[2], tess.xyz[ndx + 2]);
-				//tess.normal[ndx + 2] = R_TessXYZtoPackedNormals(tess.xyz[ndx + 2]);
-
-				VectorCopy4(quadVerts[3], tess.xyz[ndx + 3]);
-				//tess.normal[ndx + 3] = R_TessXYZtoPackedNormals(tess.xyz[ndx + 3]);
 
 				tess.maxIndex = ndx + 3;
 
 				tess.numVertexes += 4;
 				tess.numIndexes += 6;
+				tess.useInternalVBO = qtrue;
 			}
 		}
 
-		//GLSL_VertexAttribPointers(ATTR_POSITION | ATTR_TEXCOORD0 | ATTR_COLOR | ATTR_NORMAL);
 		RB_UpdateVBOs(ATTR_POSITION | ATTR_TEXCOORD0 | ATTR_COLOR | ATTR_NORMAL);
-		//GLSL_VertexAttribsState(ATTR_POSITION | ATTR_TEXCOORD0 | ATTR_COLOR | ATTR_NORMAL);
-		//R_DrawElementsVBO(tess.numIndexes, tess.firstIndex, tess.minIndex, tess.maxIndex, tess.numVertexes, qfalse);
 		GLSL_VertexAttribsState(ATTR_POSITION | ATTR_TEXCOORD0 | ATTR_COLOR | ATTR_NORMAL, NULL);
 		R_DrawElementsVBO(tess.numIndexes, tess.firstIndex, tess.minIndex, tess.maxIndex);
 
-		//
 		RB_CommitInternalBufferData();
 
 		tess.numIndexes = 0;
@@ -1527,18 +1539,6 @@ void R_ShutdownWorldEffects(void)
 ////////////////////////////////////////////////////////////////////////////////////////
 void RB_RenderWorldEffects(void)
 {
-	matrix_t previousProjection, previousModelviewProjection;
-	
-	//if (!WEATHER_KLUDGE_DONE)
-	//{
-	//	if (r_weather->integer >= 2 && !(JKA_WEATHER_ENABLED && !CONTENTS_INSIDE_OUTSIDE_FOUND))
-	//	{// Make sure we always have a weather zone covering the whole map, if mapInfo says JKA weather is enabled or in forced mode (r_weather->integer >= 2)...
-	//		RB_SetupGlobalWeatherZone();
-	//	}
-	//
-	//	WEATHER_KLUDGE_DONE = qtrue;
-	//}
-
 	if (!tr.world ||
 		(tr.refdef.rdflags & RDF_NOWORLDMODEL) ||
 		(backEnd.refdef.rdflags & RDF_SKYBOXPORTAL) ||
@@ -1547,17 +1547,13 @@ void RB_RenderWorldEffects(void)
 		return;
 	}
 
-#if defined(rd_warzone_x86_EXPORTS)
-	//FBO_Bind(tr.renderFbo);
+	/*SetViewportAndScissor();
+	qglMatrixMode(GL_MODELVIEW);
+	qglLoadMatrixf(backEnd.viewParms.world.modelMatrix);*/
 	FBO_Bind(tr.renderNoDepthFbo);
 	SetViewportAndScissor();
 	GL_SetProjectionMatrix(backEnd.viewParms.projectionMatrix);
 	GL_SetModelviewMatrix(backEnd.viewParms.world.modelViewMatrix);
-#else //!defined(rd_warzone_x86_EXPORTS)
-	SetViewportAndScissor();
-	qglMatrixMode(GL_MODELVIEW);
-	qglLoadMatrixf(backEnd.viewParms.world.modelMatrix);
-#endif //defined(rd_warzone_x86_EXPORTS)
 
 	// Calculate Elapsed Time For Scale Purposes
 	//-------------------------------------------
@@ -1615,13 +1611,8 @@ void RB_RenderWorldEffects(void)
 
 	FBO_Bind(tr.renderFbo);
 
-	//Matrix16Copy(glState.previousProjection, glState.projection);
-	//Matrix16Copy(glState.previousModelviewProjection, glState.modelviewProjection);
-	Matrix16Copy(previousProjection, glState.projection);
-	Matrix16Copy(previousModelviewProjection, glState.modelviewProjection);
-
-	GL_SetProjectionMatrix(previousProjection);
-	GL_SetModelviewMatrix(previousModelviewProjection);
+	Matrix16Copy(glState.previousProjection, glState.projection);
+	Matrix16Copy(glState.previousModelviewProjection, glState.modelviewProjection);
 }
 
 

@@ -446,6 +446,9 @@ void GL_Draw(GLenum primitiveType, int firstVertex, int numVertices, int numInst
 
 void GL_SetProjectionMatrix(matrix_t matrix)
 {
+	Matrix16Copy(glState.projection, glState.previousProjection);
+	Matrix16Copy(glState.modelviewProjection, glState.previousModelviewProjection);
+
 	Matrix16Copy(matrix, glState.projection);
 	Matrix16Multiply(glState.projection, glState.modelview, glState.modelviewProjection);	
 }
@@ -453,6 +456,9 @@ void GL_SetProjectionMatrix(matrix_t matrix)
 
 void GL_SetModelviewMatrix(matrix_t matrix)
 {
+	Matrix16Copy(glState.projection, glState.previousProjection);
+	Matrix16Copy(glState.modelviewProjection, glState.previousModelviewProjection);
+
 	Matrix16Copy(matrix, glState.modelview);
 	Matrix16Multiply(glState.projection, glState.modelview, glState.modelviewProjection);	
 }
@@ -2556,10 +2562,10 @@ const void	*RB_WorldEffects(const void *data)
 
 	RB_RenderWorldEffects();
 
-	/*if (tess.shader)
+	if (tess.shader)
 	{
-	RB_BeginSurface( tess.shader, tess.fogNum, tess.cubemapIndex );
-	}*/
+		RB_BeginSurface( tess.shader, tess.fogNum, 0 );
+	}
 
 	return (const void *)(cmd + 1);
 }
@@ -2602,11 +2608,6 @@ static const void *RB_CaptureShadowMap(const void *data)
 
 	return (const void *)(cmd + 1);
 }
-
-
-#ifdef __JKA_WEATHER__
-extern void RB_RenderWorldEffects(void);
-#endif //__JKA_WEATHER__
 
 /*
 =============
