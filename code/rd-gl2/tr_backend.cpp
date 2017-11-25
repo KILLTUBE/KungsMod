@@ -446,9 +446,6 @@ void GL_Draw(GLenum primitiveType, int firstVertex, int numVertices, int numInst
 
 void GL_SetProjectionMatrix(matrix_t matrix)
 {
-	Matrix16Copy(glState.projection, glState.previousProjection);
-	Matrix16Copy(glState.modelviewProjection, glState.previousModelviewProjection);
-
 	Matrix16Copy(matrix, glState.projection);
 	Matrix16Multiply(glState.projection, glState.modelview, glState.modelviewProjection);	
 }
@@ -456,9 +453,6 @@ void GL_SetProjectionMatrix(matrix_t matrix)
 
 void GL_SetModelviewMatrix(matrix_t matrix)
 {
-	Matrix16Copy(glState.projection, glState.previousProjection);
-	Matrix16Copy(glState.modelviewProjection, glState.previousModelviewProjection);
-
 	Matrix16Copy(matrix, glState.modelview);
 	Matrix16Multiply(glState.projection, glState.modelview, glState.modelviewProjection);	
 }
@@ -2167,6 +2161,7 @@ static void RB_RenderDepthOnly(drawSurf_t *drawSurfs, int numDrawSurfs)
 	}
 }
 
+extern void RB_RenderWorldEffects(void);
 static void RB_RenderMainPass(drawSurf_t *drawSurfs, int numDrawSurfs)
 {
 	if (backEnd.viewParms.flags & VPF_DEPTHSHADOW)
@@ -2952,6 +2947,11 @@ void RB_ExecuteRenderCommands( const void *data ) {
 		case RC_SWAP_BUFFERS:
 			data = RB_SwapBuffers( data );
 			break;
+#ifdef __JKA_WEATHER__
+		case RC_WORLD_EFFECTS:
+			data = RB_WorldEffects(data);
+			break;
+#endif //__JKA_WEATHER__
 		case RC_SCREENSHOT:
 			data = RB_TakeScreenshotCmd( data );
 			break;
@@ -2967,11 +2967,6 @@ void RB_ExecuteRenderCommands( const void *data ) {
 		case RC_CAPSHADOWMAP:
 			data = RB_CaptureShadowMap(data);
 			break;
-#ifdef __JKA_WEATHER__
-		case RC_WORLD_EFFECTS:
-			data = RB_WorldEffects(data);
-			break;
-#endif //__JKA_WEATHER__
 		case RC_CONVOLVECUBEMAP:
 			data = RB_PrefilterEnvMap(data);
 			break;

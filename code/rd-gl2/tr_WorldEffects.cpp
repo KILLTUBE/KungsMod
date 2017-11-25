@@ -1533,6 +1533,8 @@ void R_ShutdownWorldEffects(void)
 ////////////////////////////////////////////////////////////////////////////////////////
 void RB_RenderWorldEffects(void)
 {
+	//matrix_t    previousModelviewProjection, previousProjection;
+
 	if (!tr.world ||
 		(tr.refdef.rdflags & RDF_NOWORLDMODEL) ||
 		(backEnd.refdef.rdflags & RDF_SKYBOXPORTAL) ||
@@ -1541,9 +1543,6 @@ void RB_RenderWorldEffects(void)
 		return;
 	}
 
-	/*SetViewportAndScissor();
-	qglMatrixMode(GL_MODELVIEW);
-	qglLoadMatrixf(backEnd.viewParms.world.modelMatrix);*/
 	FBO_Bind(tr.renderFbo);
 	SetViewportAndScissor();
 	GL_SetProjectionMatrix(backEnd.viewParms.projectionMatrix);
@@ -1604,8 +1603,11 @@ void RB_RenderWorldEffects(void)
 
 	FBO_Bind(tr.renderFbo);
 
-	Matrix16Copy(glState.previousProjection, glState.projection);
-	Matrix16Copy(glState.previousModelviewProjection, glState.modelviewProjection);
+	//Matrix16Copy(glState.projection, previousProjection);
+	//Matrix16Copy(glState.modelview, previousModelviewProjection);
+
+	//GL_SetProjectionMatrix(previousProjection);
+	//GL_SetModelviewMatrix(previousModelviewProjection);
 }
 
 void R_WorldEffect_f(void)

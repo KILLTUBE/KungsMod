@@ -577,16 +577,16 @@ void RE_RenderScene( const refdef_t *fd ) {
 	R_RenderView( &parms );
 	R_EndTimedBlockCmd( timer );
 
+#ifdef __JKA_WEATHER__
+	RE_RenderWorldEffects();
+#endif //__JKA_WEATHER__
+
 	if(!( fd->rdflags & RDF_NOWORLDMODEL ))
 	{
 		qhandle_t timer = R_BeginTimedBlockCmd( "Post processing" );
 		R_AddPostProcessCmd();
 		R_EndTimedBlockCmd( timer );
 	}
-
-#ifdef __JKA_WEATHER__
-	RE_RenderWorldEffects();
-#endif //__JKA_WEATHER__
 
 	RE_EndScene();
 
