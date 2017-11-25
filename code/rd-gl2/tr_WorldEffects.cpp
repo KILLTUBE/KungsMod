@@ -1864,7 +1864,7 @@ void R_WorldEffectCommand(const char *command)
 			return;
 		}
 		CWeatherParticleCloud& nCloud = mParticleClouds.push_back();
-		nCloud.Initialize(1000, "gfx/world/rain.jpg", 3);
+		nCloud.Initialize(1000, "gfx/world/acidrain.jpg", 3);
 		nCloud.mHeight				= 80.0f;
 		nCloud.mWidth				= 2.0f;
 		nCloud.mGravity				= 2000.0f;
