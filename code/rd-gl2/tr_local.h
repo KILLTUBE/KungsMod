@@ -1365,6 +1365,7 @@ typedef struct {
 	stereoFrame_t	stereoFrame;
 
 	int			time;				// time in milliseconds for shader effects and other time dependent rendering issues
+	int			frametime;
 	int			rdflags;			// RDF_NOWORLDMODEL, etc
 
 	// 1 bits will prevent the associated area from rendering at all

@@ -28,24 +28,25 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ////////////////////////////////////////////////////////////////////////////////////////
 #include "../server/exe_headers.h"
 
+
+////////////////////////////////////////////////////////////////////////////////////////
+// Externs & Fwd Decl.
+////////////////////////////////////////////////////////////////////////////////////////
+extern void			SetViewportAndScissor( void );
+
 ////////////////////////////////////////////////////////////////////////////////////////
 // Includes
 ////////////////////////////////////////////////////////////////////////////////////////
 #include "tr_local.h"
 #ifdef __JKA_WEATHER__
 #include "tr_WorldEffects.h"
-#include "Ravl/CVec.h"
-#include "Ratl/vector_vs.h"
-#include "Ratl/bits_vs.h"
+#include "../Ravl/CVec.h"
+#include "../Ratl/vector_vs.h"
+#include "../Ratl/bits_vs.h"
 
 #ifdef _WIN32
 #include "glext.h"
 #endif
-
-////////////////////////////////////////////////////////////////////////////////////////
-// Externs & Fwd Decl.
-////////////////////////////////////////////////////////////////////////////////////////
-extern void			SetViewportAndScissor(void);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -75,13 +76,11 @@ int			mParticlesRendered;
 ////////////////////////////////////////////////////////////////////////////////////////
 // Handy Functions
 ////////////////////////////////////////////////////////////////////////////////////////
-#ifdef _MSC_VER
-#pragma warning( disable : 4512 )
-#endif
-
-// Returns a float min <= x < max (exclusive; will get max - 0.00001; but never max)
-inline float WE_flrand(float min, float max) {
-	return ((rand() * (max - min)) / (RAND_MAX)) + min;
+inline void		VectorMA( vec3_t vecAdd, const float scale, const vec3_t vecScale)
+{
+	vecAdd[0] += (scale * vecScale[0]);
+	vecAdd[1] += (scale * vecScale[1]);
+	vecAdd[2] += (scale * vecScale[2]);
 }
 
 inline void VectorFloor(vec3_t in)
@@ -103,6 +102,11 @@ inline float	FloatRand(void)
 	return ((float)rand() / (float)RAND_MAX);
 }
 
+inline float	fast_flrand(float min, float max)
+{
+	//return min + (max - min) * flrand;
+	return Q_flrand(min, max); //fixme?
+}
 inline	void	SnapFloatToGrid(float& f, int GridSize)
 {
 	f = (int)(f);
@@ -156,43 +160,67 @@ struct	SVecRange
 
 	inline void Pick(CVec3& V)
 	{
-		V[0] = WE_flrand(mMins[0], mMaxs[0]);
-		V[1] = WE_flrand(mMins[1], mMaxs[1]);
-		V[2] = WE_flrand(mMins[2], mMaxs[2]);
+		V[0] = Q_flrand(mMins[0], mMaxs[0]);
+		V[1] = Q_flrand(mMins[1], mMaxs[1]);
+		V[2] = Q_flrand(mMins[2], mMaxs[2]);
 	}
-	inline void Wrap(CVec3& V, SVecRange &spawnRange)
+	inline void Wrap(CVec3& V)
 	{
-		if (V[0]<mMins[0])
+		if (V[0]<=mMins[0])
 		{
-			const float d = mMins[0]-V[0];
-			V[0] = mMaxs[0]-fmod(d, mMaxs[0]-mMins[0]);
+			if ((mMins[0]-V[0])>500)
+			{
+				Pick(V);
+				return;
+			}
+			V[0] = mMaxs[0] - 10.0f;
 		}
-		if (V[0]>mMaxs[0])
+		if (V[0]>=mMaxs[0])
 		{
-			const float d = V[0]-mMaxs[0];
-			V[0] = mMins[0]+fmod(d, mMaxs[0]-mMins[0]);
-		}
-
-		if (V[1]<mMins[1])
-		{
-			const float d = mMins[1]-V[1];
-			V[1] = mMaxs[1]-fmod(d, mMaxs[1]-mMins[1]);
-		}
-		if (V[1]>mMaxs[1])
-		{
-			const float d = V[1]-mMaxs[1];
-			V[1] = mMins[1]+fmod(d, mMaxs[1]-mMins[1]);
+			if ((V[0]-mMaxs[0])>500)
+			{
+				Pick(V);
+				return;
+			}
+			V[0] = mMins[0] + 10.0f;
 		}
 
-		if (V[2]<mMins[2])
+		if (V[1]<=mMins[1])
 		{
-			const float d = mMins[2]-V[2];
-			V[2] = mMaxs[2]-fmod(d, mMaxs[2]-mMins[2]);
+			if ((mMins[1]-V[1])>500)
+			{
+				Pick(V);
+				return;
+			}
+			V[1] = mMaxs[1] - 10.0f;
 		}
-		if (V[2]>mMaxs[2])
+		if (V[1]>=mMaxs[1])
 		{
-			const float d = V[2]-mMaxs[2];
-			V[2] = mMins[2]+fmod(d, mMaxs[2]-mMins[2]);
+			if ((V[1]-mMaxs[1])>500)
+			{
+				Pick(V);
+				return;
+			}
+			V[1] = mMins[1] + 10.0f;
+		}
+
+		if (V[2]<=mMins[2])
+		{
+			if ((mMins[2]-V[2])>500)
+			{
+				Pick(V);
+				return;
+			}
+			V[2] = mMaxs[2] - 10.0f;
+		}
+		if (V[2]>=mMaxs[2])
+		{
+			if ((V[2]-mMaxs[2])>500)
+			{
+				Pick(V);
+				return;
+			}
+			V[2] = mMins[2] + 10.0f;
 		}
 	}
 
@@ -214,7 +242,7 @@ struct	SFloatRange
 	}
 	inline void Pick(float& V)
 	{
-		V = WE_flrand(mMin, mMax);
+		V = Q_flrand(mMin, mMax);
 	}
 	inline bool In(const float& V)
 	{
@@ -246,7 +274,7 @@ struct	SIntRange
 ////////////////////////////////////////////////////////////////////////////////////////
 // The Particle Class
 ////////////////////////////////////////////////////////////////////////////////////////
-class	CWeatherParticle
+class	WFXParticle
 {
 public:
 	enum
@@ -357,7 +385,7 @@ bool R_GetWindVector(vec3_t windVector, vec3_t atpoint)
 	VectorCopy(mGlobalWindDirection.v, windVector);
 	if (atpoint && mLocalWindZones.size())
 	{
-		for (int curLocalWindZone = 0; curLocalWindZone<mLocalWindZones.size(); curLocalWindZone++)
+		for (int curLocalWindZone=0; curLocalWindZone<mLocalWindZones.size(); curLocalWindZone++)
 		{
 			if (mLocalWindZones[curLocalWindZone]->mRBounds.In(atpoint))
 			{
@@ -374,7 +402,7 @@ bool R_GetWindSpeed(float &windSpeed, vec3_t atpoint)
 	windSpeed = mGlobalWindSpeed;
 	if (atpoint && mLocalWindZones.size())
 	{
-		for (int curLocalWindZone = 0; curLocalWindZone<mLocalWindZones.size(); curLocalWindZone++)
+		for (int curLocalWindZone=0; curLocalWindZone<mLocalWindZones.size(); curLocalWindZone++)
 		{
 			if (mLocalWindZones[curLocalWindZone]->mRBounds.In(atpoint))
 			{
@@ -398,6 +426,7 @@ bool R_GetWindGusting(vec3_t atpoint)
 ////////////////////////////////////////////////////////////////////////////////////////
 class COutside
 {
+#define COUTSIDE_STRUCT_VERSION 1	// you MUST increase this any time you change any binary (fields) inside this class, or cahced files will fuck up
 public:
 	////////////////////////////////////////////////////////////////////////////////////
 	//Global Public Outside Variables
@@ -405,6 +434,9 @@ public:
 	bool			mOutsideShake;
 	float			mOutsidePain;
 
+	CVec3			mFogColor;
+	int				mFogColorInt;
+	bool			mFogColorTempActive;
 private:
 	////////////////////////////////////////////////////////////////////////////////////
 	// The Outside Cache
@@ -414,7 +446,7 @@ private:
 	struct SWeatherZone
 	{
 		static bool	mMarkedOutside;
-		uint32_t*	mPointCache;
+		uint32_t	*mPointCache;			// malloc block ptr
 
 		int			miPointCacheByteSize;	// size of block
 		SVecRange	mExtents;
@@ -441,8 +473,6 @@ private:
 		////////////////////////////////////////////////////////////////////////////////////
 		inline	bool	CellOutside(int x, int y, int z, int bit)
 		{
-			//if (r_weather->integer >= 2 || (JKA_WEATHER_ENABLED && !CONTENTS_INSIDE_OUTSIDE_FOUND)) return true;
-
 			if ((x < 0 || x >= mWidth) || (y < 0 || y >= mHeight) || (z < 0 || z >= mDepth) || (bit < 0 || bit >= 32))
 			{
 				return !(mMarkedOutside);
@@ -477,8 +507,6 @@ private:
 	////////////////////////////////////////////////////////////////////////////////////
 	inline	bool	ContentsOutside(int contents)
 	{
-		//if (r_weather->integer >= 2 || (JKA_WEATHER_ENABLED && !CONTENTS_INSIDE_OUTSIDE_FOUND)) return true;
-
 		if (contents&CONTENTS_WATER || contents&CONTENTS_SOLID)
 		{
 			return false;
@@ -507,10 +535,15 @@ public:
 		mOutsidePain = 0.0;
 		mCacheInit = false;
 		SWeatherZone::mMarkedOutside = false;
+
+		mFogColor.Clear();
+		mFogColorInt = 0;
+		mFogColorTempActive = false;
 		for (int wz=0; wz<mWeatherZones.size(); wz++)
 		{
 			R_Free(mWeatherZones[wz].mPointCache);
 			mWeatherZones[wz].mPointCache = 0;
+			mWeatherZones[wz].miPointCacheByteSize = 0;	// not really necessary because of .clear() below, but keeps things together in case stuff changes
 		}
 		mWeatherZones.clear();
 	}
@@ -558,10 +591,12 @@ public:
 			Wz.mHeight		=  (int)(Wz.mSize.mMaxs[1] - Wz.mSize.mMins[1]);
 			Wz.mDepth		= ((int)(Wz.mSize.mMaxs[2] - Wz.mSize.mMins[2]) + 31) >> 5;
 
-			//int arraySize	= (Wz.mWidth * Wz.mHeight * Wz.mDepth);
-			//Wz.mPointCache  = (uint32_t *)R_Malloc(arraySize*sizeof(uint32_t), TAG_POINTCACHE, qtrue);
 			Wz.miPointCacheByteSize = (Wz.mWidth * Wz.mHeight * Wz.mDepth) * sizeof(uint32_t);
-			Wz.mPointCache = (uint32_t *)R_Malloc(Wz.miPointCacheByteSize, TAG_POINTCACHE, qtrue);
+			Wz.mPointCache  = (uint32_t *)R_Malloc( Wz.miPointCacheByteSize, TAG_POINTCACHE, qtrue );
+		}
+		else
+		{
+			assert("MaxWeatherZones Hit!"==0);
 		}
 	}
 
@@ -576,80 +611,82 @@ public:
 			return;
 		}
 
-		CVec3		CurPos;
-		CVec3		Size;
-		CVec3		Mins;
-		int			x, y, z, q, zbase;
-		bool		curPosOutside;
-		uint32_t	contents;
-		uint32_t	bit;
-
-
-		// Record The Extents Of The World Incase No Other Weather Zones Exist
-		//---------------------------------------------------------------------
-		if (!mWeatherZones.size())
 		{
-			ri.Printf( PRINT_ALL, "WARNING: No Weather Zones Encountered\n");
-			AddWeatherZone(tr.world->bmodels[0].bounds[0], tr.world->bmodels[0].bounds[1]);
-		}
+			CVec3		CurPos;
+			CVec3		Size;
+			CVec3		Mins;
+			int			x, y, z, q, zbase;
+			bool		curPosOutside;
+			uint32_t		contents;
+			uint32_t		bit;
 
-		// Iterate Over All Weather Zones
-		//--------------------------------
-		for (int zone=0; zone<mWeatherZones.size(); zone++)
-		{
-			SWeatherZone	wz = mWeatherZones[zone];
 
-			// Make Sure Point Contents Checks Occur At The CENTER Of The Cell
-			//-----------------------------------------------------------------
-			Mins = wz.mExtents.mMins;
-			for (x=0; x<3; x++)
+			// Record The Extents Of The World Incase No Other Weather Zones Exist
+			//---------------------------------------------------------------------
+			if (!mWeatherZones.size())
 			{
-				Mins[x] += (POINTCACHE_CELL_SIZE/2);
+				Com_Printf("WARNING: No Weather Zones Encountered\n");
+				AddWeatherZone(tr.world->bmodels[0].bounds[0], tr.world->bmodels[0].bounds[1]);
 			}
 
-			// Start Scanning
-			//----------------
-			for(z = 0; z < wz.mDepth; z++)
+			// Iterate Over All Weather Zones
+			//--------------------------------
+			for (int zone=0; zone<mWeatherZones.size(); zone++)
 			{
-				for(q = 0; q < 32; q++)
+				SWeatherZone	wz = mWeatherZones[zone];
+
+				// Make Sure Point Contents Checks Occur At The CENTER Of The Cell
+				//-----------------------------------------------------------------
+				Mins = wz.mExtents.mMins;
+				for (x=0; x<3; x++)
 				{
-					bit = (1 << q);
-					zbase = (z << 5);
+					Mins[x] += (POINTCACHE_CELL_SIZE/2);
+				}
 
-					for(x = 0; x < wz.mWidth; x++)
+				// Start Scanning
+				//----------------
+				for(z = 0; z < wz.mDepth; z++)
+				{
+					for(q = 0; q < 32; q++)
 					{
-						for(y = 0; y < wz.mHeight; y++)
+						bit = (1 << q);
+						zbase = (z << 5);
+
+						for(x = 0; x < wz.mWidth; x++)
 						{
-							CurPos[0] = x			* POINTCACHE_CELL_SIZE;
-							CurPos[1] = y			* POINTCACHE_CELL_SIZE;
-							CurPos[2] = (zbase + q)	* POINTCACHE_CELL_SIZE;
-							CurPos	  += Mins;
-
-							contents = ri.CM_PointContents(CurPos.v, 0);
-
-							if (contents&CONTENTS_INSIDE || contents&CONTENTS_OUTSIDE)
+							for(y = 0; y < wz.mHeight; y++)
 							{
-								curPosOutside = ((contents&CONTENTS_OUTSIDE)!=0);
-								if (!mCacheInit)
-								{
-									mCacheInit = true;
-									SWeatherZone::mMarkedOutside = curPosOutside;
-								}
-								else if (SWeatherZone::mMarkedOutside!=curPosOutside)
-								{
-									assert(0);
-									Com_Error (ERR_DROP, "Weather Effect: Both Indoor and Outdoor brushs encountered in map.\n" );
-									return;
-								}
+								CurPos[0] = x			* POINTCACHE_CELL_SIZE;
+								CurPos[1] = y			* POINTCACHE_CELL_SIZE;
+								CurPos[2] = (zbase + q)	* POINTCACHE_CELL_SIZE;
+								CurPos	  += Mins;
 
-								// Mark The Point
-								//----------------
-								wz.mPointCache[((z * wz.mWidth * wz.mHeight) + (y * wz.mWidth) + x)] |= bit;
-							}
-						}// for (y)
-					}// for (x)
-				}// for (q)
-			}// for (z)
+								contents = ri.CM_PointContents(CurPos.v, 0);
+
+								if (contents&CONTENTS_INSIDE || contents&CONTENTS_OUTSIDE)
+								{
+									curPosOutside = ((contents&CONTENTS_OUTSIDE)!=0);
+									if (!mCacheInit)
+									{
+										mCacheInit = true;
+										SWeatherZone::mMarkedOutside = curPosOutside;
+									}
+									else if (SWeatherZone::mMarkedOutside!=curPosOutside)
+									{
+										assert(0);
+										Com_Error (ERR_DROP, "Weather Effect: Both Indoor and Outdoor brushs encountered in map.\n" );
+										return;
+									}
+
+									// Mark The Point
+									//----------------
+									wz.mPointCache[((z * wz.mWidth * wz.mHeight) + (y * wz.mWidth) + x)] |= bit;
+								}
+							}// for (y)
+						}// for (x)
+					}// for (q)
+				}// for (z)
+			}
 		}
 
 
@@ -757,18 +794,61 @@ float R_IsOutsideCausingPain(vec3_t pos)
 	return (mOutside.mOutsidePain && mOutside.PointOutside(pos));
 }
 
+/*bool R_SetTempGlobalFogColor(vec3_t color)
+{
+	if (tr.world && tr.world->globalFog != -1)
+	{
+		// If Non Zero, Try To Set The Color
+		//-----------------------------------
+		if (color[0] || color[1] || color[2])
+		{
+			// Remember The Normal Fog Color
+			//-------------------------------
+			if (!mOutside.mFogColorTempActive)
+			{
+				mOutside.mFogColor				= tr.world->fogs[tr.world->globalFog].parms.color;
+				mOutside.mFogColorInt			= tr.world->fogs[tr.world->globalFog].colorInt;
+				mOutside.mFogColorTempActive	= true;
+			}
+
+			// Set The New One
+			//-----------------
+			tr.world->fogs[tr.world->globalFog].parms.color[0] = color[0];
+			tr.world->fogs[tr.world->globalFog].parms.color[1] = color[1];
+			tr.world->fogs[tr.world->globalFog].parms.color[2] = color[2];
+			tr.world->fogs[tr.world->globalFog].colorInt = ColorBytes4 (
+												color[0] * tr.identityLight,
+												color[1] * tr.identityLight,
+												color[2] * tr.identityLight,
+												1.0 );
+		}
+
+		// If Unable TO Parse The Command Color Vector, Restore The Previous Fog Color
+		//-----------------------------------------------------------------------------
+		else if (mOutside.mFogColorTempActive)
+		{
+			mOutside.mFogColorTempActive = false;
+
+			tr.world->fogs[tr.world->globalFog].parms.color[0] = mOutside.mFogColor[0];
+			tr.world->fogs[tr.world->globalFog].parms.color[1] = mOutside.mFogColor[1];
+			tr.world->fogs[tr.world->globalFog].parms.color[2] = mOutside.mFogColor[2];
+			tr.world->fogs[tr.world->globalFog].colorInt	   = mOutside.mFogColorInt;
+		}
+	}
+	return true;
+}*/
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // Particle Cloud
 ////////////////////////////////////////////////////////////////////////////////////////
-class	CWeatherParticleCloud
+class	CParticleCloud
 {
 private:
 	////////////////////////////////////////////////////////////////////////////////////
 	// DYNAMIC MEMORY
 	////////////////////////////////////////////////////////////////////////////////////
 	image_t*	mImage;
-	CWeatherParticle*	mParticles;
+	WFXParticle*	mParticles;
 
 
 private:
@@ -846,17 +926,17 @@ public:
 		mImage = R_FindImageFile(texturePath, IMGTYPE_COLORALPHA, IMGFLAG_CLAMPTOEDGE);
 		if (!mImage)
 		{
-			Com_Error(ERR_DROP, "CWeatherParticleCloud: Could not texture %s", texturePath);
+			Com_Error(ERR_DROP, "CParticleCloud: Could not texture %s", texturePath);
 		}
 
-		GL_Bind(mImage);
+		GL_BindToTMU(mImage, TB_DIFFUSEMAP);
 
 		// Create The Particles
 		//----------------------
 		mParticleCount	= count;
-		mParticles		= new CWeatherParticle[mParticleCount];
+		mParticles		= new WFXParticle[mParticleCount];
 		
-		CWeatherParticle*	part=0;
+		WFXParticle*	part=0;
 
 		for (int particleNum=0; particleNum<mParticleCount; particleNum++)
 		{
@@ -895,39 +975,48 @@ public:
 
 		// These Are The Default Startup Values For Constant Data
 		//========================================================
-		mOrientWithVelocity			= false;
-		mWaterParticles				= false;
-		mSpawnPlaneDistance			= 500;
-		mSpawnPlaneSize				= 500;
-		mSpawnRange.mMins			= -(mSpawnPlaneDistance*1.25f);
-		mSpawnRange.mMaxs			=  (mSpawnPlaneDistance*1.25f);
-		mGravity					= 300.0f;	// Units Per Second
-		mColor						= 1.0f;
-		mVertexCount				= 4;
-		mWidth						= 1.0f;
-		mHeight						= 1.0f;
-		mBlendMode					= 0;
-		mFilterMode					= 0;
-		mFade						= 10.0f;
+		mOrientWithVelocity = false;
+		mWaterParticles		= false;
+
+		mSpawnPlaneDistance	= 500;
+		mSpawnPlaneSize		= 500;
+		mSpawnRange.mMins	= -(mSpawnPlaneDistance*1.25f);
+		mSpawnRange.mMaxs	=  (mSpawnPlaneDistance*1.25f);
+
+		mGravity			= 300.0f;	// Units Per Second
+
+		mColor				= 1.0f;
+
+		mVertexCount		= 4;
+		mWidth				= 1.0f;
+		mHeight				= 1.0f;
+
+		mBlendMode			= 0;
+		mFilterMode			= 0;
+
+		mFade				= 10.0f;
+
 		mRotation.Clear();
-		mRotationDelta				= 0.0f;
-		mRotationDeltaTarget		= 0.0f;
-		mRotationCurrent			= 0.0f;
-		mRotationChangeNext			= -1;
-		mRotation.mMin				= -0.7f;
-		mRotation.mMax				=  0.7f;
-		mRotationChangeTimer.mMin	= 500;
-		mRotationChangeTimer.mMin	= 2000;
-		mMass.mMin					= 5.0f;
-		mMass.mMax					= 10.0f;
-		mFrictionInverse			= 0.7f;		// No Friction?
+		mRotationDelta		= 0.0f;
+		mRotationDeltaTarget= 0.0f;
+		mRotationCurrent	= 0.0f;
+		mRotationChangeNext	= -1;
+		mRotation.mMin		= -0.7f;
+		mRotation.mMax		=  0.7f;
+		mRotationChangeTimer.mMin = 500;
+		mRotationChangeTimer.mMax = 2000;
+
+		mMass.mMin			= 5.0f;
+		mMass.mMax			= 10.0f;
+
+		mFrictionInverse	= 0.7f;		// No Friction?
 	}
 
 
 	////////////////////////////////////////////////////////////////////////////////////
 	// Constructor - Will setup default values for all data
 	////////////////////////////////////////////////////////////////////////////////////
-	CWeatherParticleCloud()
+	CParticleCloud()
 	{
 		mImage = 0;
 		mParticleCount = 0;
@@ -938,7 +1027,7 @@ public:
 	////////////////////////////////////////////////////////////////////////////////////
 	// Initialize - Will setup default values for all data
 	////////////////////////////////////////////////////////////////////////////////////
-	~CWeatherParticleCloud()
+	~CParticleCloud()
 	{
 		Reset();
 	}
@@ -958,7 +1047,7 @@ public:
 	////////////////////////////////////////////////////////////////////////////////////
 	void		Update()
 	{
-		CWeatherParticle*	part=0;
+		WFXParticle*	part=0;
 		CVec3		partForce;
 		CVec3		partMoved;
 		CVec3		partToCamera;
@@ -975,10 +1064,10 @@ public:
 		// Compute Camera
 		//----------------
 		{
-			mCameraPosition = backEnd.viewParms.ori.origin;
-			mCameraForward = backEnd.viewParms.ori.axis[0];
-			mCameraLeft = backEnd.viewParms.ori.axis[1];
-			mCameraDown = backEnd.viewParms.ori.axis[2];
+			mCameraPosition	= backEnd.viewParms.ori.origin;
+			mCameraForward	= backEnd.viewParms.ori.axis[0];
+			mCameraLeft		= backEnd.viewParms.ori.axis[1];
+			mCameraDown		= backEnd.viewParms.ori.axis[2];
 			
 			if (mRotationChangeNext!=-1)
 			{
@@ -1056,11 +1145,6 @@ public:
 				mSpawnPlaneNorm	= force;
 				mSpawnSpeed		= VectorNormalize(mSpawnPlaneNorm.v);
 				MakeNormalVectors(mSpawnPlaneNorm.v, mSpawnPlaneRight.v, mSpawnPlaneUp.v);
-				if (mOrientWithVelocity)
-				{
-					mCameraDown = mSpawnPlaneNorm;
-					mCameraDown *= (mHeight * -1);
-				}
 			}
 
 			// Optimization For Quad Position Calculation
@@ -1088,7 +1172,7 @@ public:
 		mParticleCountRender = 0;
 		for (particleNum=0; particleNum<mParticleCount; particleNum++)
 		{
-			part			= &mParticles[particleNum];
+			part			= &(mParticles[particleNum]);
 
 			if (!mPopulated)
 			{
@@ -1101,7 +1185,7 @@ public:
 
 			if (numLocalWindZones)
 			{
-				for (curLocalWindZone = 0; curLocalWindZone<numLocalWindZones; curLocalWindZone++)
+				for (curLocalWindZone=0; curLocalWindZone<numLocalWindZones; curLocalWindZone++)
 				{
 					if (mLocalWindZones[curLocalWindZone]->mRBounds.In(part->mPosition))
 					{
@@ -1120,7 +1204,7 @@ public:
 			part->mPosition.ScaleAdd(part->mVelocity, mSecondsElapsed);
 
 			partToCamera	= (part->mPosition - mCameraPosition);
-			partRendering	= part->mFlags.get_bit(CWeatherParticle::FLAG_RENDER);
+			partRendering	= part->mFlags.get_bit(WFXParticle::FLAG_RENDER);
 			partOutside		= mOutside.PointOutside(part->mPosition, mWidth, mHeight);
 			partInRange		= mRange.In(part->mPosition);
 			partInView		= (partOutside && partInRange && (partToCamera.Dot(mCameraForward)>0.0f));
@@ -1137,15 +1221,15 @@ public:
 				{
 					part->mPosition		= mCameraPosition;
 					part->mPosition		-= (mSpawnPlaneNorm* mSpawnPlaneDistance);
-					part->mPosition		+= (mSpawnPlaneRight*WE_flrand(-mSpawnPlaneSize, mSpawnPlaneSize));
-					part->mPosition		+= (mSpawnPlaneUp*   WE_flrand(-mSpawnPlaneSize, mSpawnPlaneSize));
+					part->mPosition		+= (mSpawnPlaneRight*Q_flrand(-mSpawnPlaneSize, mSpawnPlaneSize));
+					part->mPosition		+= (mSpawnPlaneUp*   Q_flrand(-mSpawnPlaneSize, mSpawnPlaneSize));
 				}
 
 				// Otherwise, Just Wrap Around To The Other End Of The Range
 				//-----------------------------------------------------------
 				else
 				{
-					mRange.Wrap(part->mPosition, mSpawnRange);
+					mRange.Wrap(part->mPosition);
 				}
 				partInRange = true;
 			}
@@ -1157,16 +1241,16 @@ public:
 				//------------------
 				if		(partRendering && !partInView)
 				{
-					part->mFlags.clear_bit(CWeatherParticle::FLAG_FADEIN);
-					part->mFlags.set_bit(CWeatherParticle::FLAG_FADEOUT);
+					part->mFlags.clear_bit(WFXParticle::FLAG_FADEIN);
+					part->mFlags.set_bit(WFXParticle::FLAG_FADEOUT);
 				}
 
 				// Switch From Fade Out To Fade In
 				//---------------------------------
-				else if (partRendering && partInView && part->mFlags.get_bit(CWeatherParticle::FLAG_FADEOUT))
+				else if (partRendering && partInView && part->mFlags.get_bit(WFXParticle::FLAG_FADEOUT))
 				{
-					part->mFlags.set_bit(CWeatherParticle::FLAG_FADEIN);
-					part->mFlags.clear_bit(CWeatherParticle::FLAG_FADEOUT);
+					part->mFlags.set_bit(WFXParticle::FLAG_FADEIN);
+					part->mFlags.clear_bit(WFXParticle::FLAG_FADEOUT);
 				}
 
 				// Start A Fade In
@@ -1175,9 +1259,9 @@ public:
 				{
 					partRendering = true;
 					part->mAlpha = 0.0f;
-					part->mFlags.set_bit(CWeatherParticle::FLAG_RENDER);
-					part->mFlags.set_bit(CWeatherParticle::FLAG_FADEIN);
-					part->mFlags.clear_bit(CWeatherParticle::FLAG_FADEOUT);
+					part->mFlags.set_bit(WFXParticle::FLAG_RENDER);
+					part->mFlags.set_bit(WFXParticle::FLAG_FADEIN);
+					part->mFlags.clear_bit(WFXParticle::FLAG_FADEOUT);
 				}
 
 				// Update Fade
@@ -1187,27 +1271,27 @@ public:
 
 					// Update Fade Out
 					//-----------------
-					if (part->mFlags.get_bit(CWeatherParticle::FLAG_FADEOUT))
+					if (part->mFlags.get_bit(WFXParticle::FLAG_FADEOUT))
 					{
 						part->mAlpha -= particleFade;
 						if (part->mAlpha<=0.0f)
 						{
 							part->mAlpha = 0.0f;
-							part->mFlags.clear_bit(CWeatherParticle::FLAG_FADEOUT);
-							part->mFlags.clear_bit(CWeatherParticle::FLAG_FADEIN);
-							part->mFlags.clear_bit(CWeatherParticle::FLAG_RENDER);
+							part->mFlags.clear_bit(WFXParticle::FLAG_FADEOUT);
+							part->mFlags.clear_bit(WFXParticle::FLAG_FADEIN);
+							part->mFlags.clear_bit(WFXParticle::FLAG_RENDER);
 							partRendering = false;
 						}
 					}
 
 					// Update Fade In
 					//----------------
-					else if (part->mFlags.get_bit(CWeatherParticle::FLAG_FADEIN))
+					else if (part->mFlags.get_bit(WFXParticle::FLAG_FADEIN))
 					{
 						part->mAlpha += particleFade;
 						if (part->mAlpha>=mColor[3])
 						{
-							part->mFlags.clear_bit(CWeatherParticle::FLAG_FADEIN);
+							part->mFlags.clear_bit(WFXParticle::FLAG_FADEIN);
 							part->mAlpha = mColor[3];
 						}
 					}
@@ -1216,7 +1300,7 @@ public:
 
 			// Keep Track Of The Number Of Particles To Render
 			//-------------------------------------------------
-			if (part->mFlags.get_bit(CWeatherParticle::FLAG_RENDER))
+			if (part->mFlags.get_bit(WFXParticle::FLAG_RENDER))
 			{
 				mParticleCountRender ++;
 			}
@@ -1230,12 +1314,13 @@ public:
 	////////////////////////////////////////////////////////////////////////////////////
 	void		Render()
 	{
-		CWeatherParticle*	part=0;
+		WFXParticle*	part=0;
 		int			particleNum;
+		CVec3		partDirection;
 
 		// Set The GL State And Image Binding
 		//------------------------------------
-		GL_State((mBlendMode == 0) ? (GLS_ALPHA/* | GLS_DEPTHFUNC_LESS | ATEST_CMP_GT*/) : (GLS_SRCBLEND_ONE | GLS_DSTBLEND_ONE/* | GLS_DEPTHFUNC_LESS | ATEST_CMP_GT*/));
+		GL_State((mBlendMode==0)?(GLS_ALPHA):(GLS_SRCBLEND_ONE | GLS_DSTBLEND_ONE));
 		GL_BindToTMU(mImage, TB_DIFFUSEMAP);
 
 		// Enable And Disable Things
@@ -1258,34 +1343,51 @@ public:
 
 		// Begin
 		//-------
-		for (particleNum = 0; particleNum < mParticleCount; particleNum++)
+		for (particleNum=0; particleNum<mParticleCount; particleNum++)
 		{
 			part = &(mParticles[particleNum]);
 
-			if (!part->mFlags.get_bit(CWeatherParticle::FLAG_RENDER))
+			if (!part->mFlags.get_bit(WFXParticle::FLAG_RENDER))
 			{
 				continue;
 			}
 
-			vec4_t particleColor;
-
+			// If Oriented With Velocity, We Want To Calculate Vertx Offsets Differently For Each Particle
+			//---------------------------------------------------------------------------------------------
+			if (mOrientWithVelocity)
+			{
+				partDirection = part->mVelocity;
+				VectorNormalize(partDirection.v);
+				mCameraDown = partDirection;
+				mCameraDown *= (mHeight * -1);
+				if (mVertexCount==4)
+				{
+		 			mCameraLeftPlusUp  = (mCameraLeft - mCameraDown);
+					mCameraLeftMinusUp = (mCameraLeft + mCameraDown);
+				}
+				else
+				{
+					mCameraLeftPlusUp  = (mCameraDown + mCameraLeft);
+				}
+			}
+			
 			// Blend Mode Zero -> Apply Alpha Just To Alpha Channel
 			//------------------------------------------------------
-			if (mBlendMode == 0)
+			if (mBlendMode==0)
 			{
-				VectorSet4(particleColor, mColor[0], mColor[1], mColor[2], part->mAlpha);
+				qglColor4f(mColor[0], mColor[1], mColor[2], part->mAlpha);
 			}
 
 			// Otherwise Apply Alpha To All Channels
 			//---------------------------------------
 			else
 			{
-				VectorSet4(particleColor, mColor[0] * part->mAlpha, mColor[1] * part->mAlpha, mColor[2] * part->mAlpha, mColor[3] * part->mAlpha);
+				qglColor4f(mColor[0]*part->mAlpha, mColor[1]*part->mAlpha, mColor[2]*part->mAlpha, mColor[3]*part->mAlpha);
 			}
 
 			// Render A Triangle
 			//-------------------
-			if (mVertexCount == 3)
+			if (mVertexCount==3)
 			{
 				if (tess.numVertexes + 3 >= SHADER_MAX_VERTEXES || tess.numIndexes + 3 >= SHADER_MAX_INDEXES)
 				{// Would go over the limit, render current queue and continue...
@@ -1357,9 +1459,9 @@ public:
 				VectorCopy2(texCoords[2], tess.texCoords[ndx + 2][1]);
 
 				// constant particleColor all the way around
-				VectorCopy4(particleColor, tess.vertexColors[ndx]);
+				/*VectorCopy4(particleColor, tess.vertexColors[ndx]);
 				VectorCopy4(particleColor, tess.vertexColors[ndx + 1]);
-				VectorCopy4(particleColor, tess.vertexColors[ndx + 2]);
+				VectorCopy4(particleColor, tess.vertexColors[ndx + 2]);*/
 
 				tess.maxIndex = ndx + 3;
 
@@ -1461,10 +1563,10 @@ public:
 				VectorCopy2(texCoords[3], tess.texCoords[ndx + 3][1]);
 
 				// constant particleColor all the way around
-				VectorCopy4(particleColor, tess.vertexColors[ndx]);
+				/*VectorCopy4(particleColor, tess.vertexColors[ndx]);
 				VectorCopy4(particleColor, tess.vertexColors[ndx + 1]);
 				VectorCopy4(particleColor, tess.vertexColors[ndx + 2]);
-				VectorCopy4(particleColor, tess.vertexColors[ndx + 3]);
+				VectorCopy4(particleColor, tess.vertexColors[ndx + 3]);*/
 
 				tess.maxIndex = ndx + 3;
 
@@ -1487,14 +1589,14 @@ public:
 		tess.maxIndex = 0;
 		tess.useInternalVBO = qfalse;
 
-		mParticlesRendered += mParticleCountRender;
-
 		GL_State(GLS_DEFAULT);
 		GL_Cull(CT_FRONT_SIDED);
+		
+		mParticlesRendered += mParticleCountRender;
 	}
 };
 
-ratl::vector_vs<CWeatherParticleCloud, MAX_PARTICLE_CLOUDS>	mParticleClouds;
+ratl::vector_vs<CParticleCloud, MAX_PARTICLE_CLOUDS>	mParticleClouds;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -1502,8 +1604,6 @@ ratl::vector_vs<CWeatherParticleCloud, MAX_PARTICLE_CLOUDS>	mParticleClouds;
 ////////////////////////////////////////////////////////////////////////////////////////
 void R_InitWorldEffects(void)
 {
-	srand(ri.Milliseconds());
-
 	for (int i=0; i<mParticleClouds.size(); i++)
 	{
 		mParticleClouds[i].Reset();
@@ -1513,9 +1613,9 @@ void R_InitWorldEffects(void)
 	mLocalWindZones.clear();
 	mOutside.Reset();
 	mGlobalWindSpeed = 0.0f;
-	mGlobalWindDirection[0] = 1.0f;
-	mGlobalWindDirection[1] = 0.0f;
-	mGlobalWindDirection[2] = 0.0f;
+	mGlobalWindDirection[0]=1.0f;
+	mGlobalWindDirection[1]=0.0f;
+	mGlobalWindDirection[2]=0.0f;
 }
 
 
@@ -1538,7 +1638,8 @@ void RB_RenderWorldEffects(void)
 	if (!tr.world ||
 		(tr.refdef.rdflags & RDF_NOWORLDMODEL) ||
 		(backEnd.refdef.rdflags & RDF_SKYBOXPORTAL) ||
-		!mParticleClouds.size())
+		!mParticleClouds.size() ||
+		ri.CL_IsRunningInGameCinematic())
 	{	//  no world rendering or no world or no particle clouds
 		return;
 	}
@@ -1550,7 +1651,7 @@ void RB_RenderWorldEffects(void)
 
 	// Calculate Elapsed Time For Scale Purposes
 	//-------------------------------------------
-	mMillisecondsElapsed = backEnd.refdef.floatTime;
+	mMillisecondsElapsed = backEnd.refdef.frametime;
 	if (mMillisecondsElapsed<1)
 	{
 		mMillisecondsElapsed = 1.0f;
@@ -1597,7 +1698,7 @@ void RB_RenderWorldEffects(void)
 		
 		if (false)
 		{
-			ri.Printf( PRINT_ALL, "Weather: %d Particles Rendered\n", mParticlesRendered);
+			Com_Printf( "Weather: %d Particles Rendered\n", mParticlesRendered);
 		}
 	}
 
@@ -1614,9 +1715,9 @@ void R_WorldEffect_f(void)
 {
 	if (ri.Cvar_VariableIntegerValue("helpUsObi"))
 	{
-		char temp[2048] = {0};
-		ri.Cmd_ArgsBuffer( temp, sizeof( temp ) );
-		R_WorldEffectCommand( temp );
+		char	temp[2048];
+		ri.Cmd_ArgsBuffer(temp, sizeof(temp));
+		R_WorldEffectCommand(temp);
 	}
 }
 
@@ -1633,7 +1734,7 @@ qboolean WE_ParseVector( const char **text, int count, float *v ) {
 	COM_BeginParseSession();
 	token = COM_ParseExt( text, qfalse );
 	if ( strcmp( token, "(" ) ) {
-		ri.Printf (PRINT_WARNING, "WARNING: missing parenthesis in weather effect\n" );
+		Com_Printf ("^3WARNING: missing parenthesis in weather effect\n" );
 		COM_EndParseSession();
 		return qfalse;
 	}
@@ -1641,7 +1742,7 @@ qboolean WE_ParseVector( const char **text, int count, float *v ) {
 	for ( i = 0 ; i < count ; i++ ) {
 		token = COM_ParseExt( text, qfalse );
 		if ( !token[0] ) {
-			ri.Printf (PRINT_WARNING, "WARNING: missing vector element in weather effect\n" );
+			Com_Printf ("^3WARNING: missing vector element in weather effect\n" );
 			COM_EndParseSession();
 			return qfalse;
 		}
@@ -1651,10 +1752,9 @@ qboolean WE_ParseVector( const char **text, int count, float *v ) {
 	token = COM_ParseExt( text, qfalse );
 	COM_EndParseSession();
 	if ( strcmp( token, ")" ) ) {
-		ri.Printf (PRINT_WARNING, "WARNING: missing parenthesis in weather effect\n" );
+		Com_Printf ("^3WARNING: missing parenthesis in weather effect\n" );
 		return qfalse;
 	}
-
 	return qtrue;
 }
 
@@ -1679,7 +1779,7 @@ void R_WorldEffectCommand(const char *command)
 
 	// Clear - Removes All Particle Clouds And Wind Zones
 	//----------------------------------------------------
-	else if (Q_stricmp(token, "clear") == 0)
+	if (Q_stricmp(token, "clear") == 0)
 	{
 		for (int p=0; p<mParticleClouds.size(); p++)
 		{
@@ -1784,7 +1884,7 @@ void R_WorldEffectCommand(const char *command)
 		// Read Mins
 		if (!WE_ParseVector(&command, 3, nWind.mRBounds.mMins.v))
 		{
-			assert("Wind Zone: Unable To Parse Mins Vector!" == 0);
+			assert("Wind Zone: Unable To Parse Mins Vector!"==0);
 			mWindZones.pop_back();
 			COM_EndParseSession();
 			return;
@@ -1793,7 +1893,7 @@ void R_WorldEffectCommand(const char *command)
 		// Read Maxs
 		if (!WE_ParseVector(&command, 3, nWind.mRBounds.mMaxs.v))
 		{
-			assert("Wind Zone: Unable To Parse Maxs Vector!" == 0);
+			assert("Wind Zone: Unable To Parse Maxs Vector!"==0);
 			mWindZones.pop_back();
 			COM_EndParseSession();
 			return;
@@ -1819,17 +1919,17 @@ void R_WorldEffectCommand(const char *command)
 			COM_EndParseSession();
 			return;
 		}
-		CWeatherParticleCloud& nCloud = mParticleClouds.push_back();
+		CParticleCloud& nCloud = mParticleClouds.push_back();
 		nCloud.Initialize(500, "gfx/world/rain.jpg", 3);
-		nCloud.mHeight				= 80.0f;
-		nCloud.mWidth				= 1.2f;
-		nCloud.mGravity				= 2000.0f;
-		nCloud.mFilterMode			= 1;
-		nCloud.mBlendMode			= 1;
-		nCloud.mFade				= 100.0f;
-		nCloud.mColor				= 0.5f;
-		nCloud.mOrientWithVelocity	= true;
-		nCloud.mWaterParticles		= true;
+		nCloud.mHeight		= 80.0f;
+		nCloud.mWidth		= 1.2f;
+		nCloud.mGravity		= 2000.0f;
+		nCloud.mFilterMode	= 1;
+		nCloud.mBlendMode	= 1;
+		nCloud.mFade		= 100.0f;
+		nCloud.mColor		= 0.5f;
+		nCloud.mOrientWithVelocity = true;
+		nCloud.mWaterParticles = true;
 	}
 
 	// Create rain
@@ -1841,17 +1941,17 @@ void R_WorldEffectCommand(const char *command)
 			COM_EndParseSession();
 			return;
 		}
-		CWeatherParticleCloud& nCloud = mParticleClouds.push_back();
+		CParticleCloud& nCloud = mParticleClouds.push_back();
 		nCloud.Initialize(1000, "gfx/world/rain.jpg", 3);
-		nCloud.mHeight				= 80.0f;
-		nCloud.mWidth				= 1.2f;
-		nCloud.mGravity				= 2000.0f;
-		nCloud.mFilterMode			= 1;
-		nCloud.mBlendMode			= 1;
-		nCloud.mFade				= 100.0f;
-		nCloud.mColor				= 0.5f;
-		nCloud.mOrientWithVelocity	= true;
-		nCloud.mWaterParticles		= true;
+		nCloud.mHeight		= 80.0f;
+		nCloud.mWidth		= 1.2f;
+		nCloud.mGravity		= 2000.0f;
+		nCloud.mFilterMode	= 1;
+		nCloud.mBlendMode	= 1;
+		nCloud.mFade		= 100.0f;
+		nCloud.mColor		= 0.5f;
+		nCloud.mOrientWithVelocity = true;
+		nCloud.mWaterParticles = true;
 	}
 
 	// Create acid rain
@@ -1863,22 +1963,24 @@ void R_WorldEffectCommand(const char *command)
 			COM_EndParseSession();
 			return;
 		}
-		CWeatherParticleCloud& nCloud = mParticleClouds.push_back();
+		CParticleCloud& nCloud = mParticleClouds.push_back();
 		nCloud.Initialize(1000, "gfx/world/acidrain.jpg", 3);
-		nCloud.mHeight				= 80.0f;
-		nCloud.mWidth				= 2.0f;
-		nCloud.mGravity				= 2000.0f;
-		nCloud.mFilterMode			= 1;
-		nCloud.mBlendMode			= 1;
-		nCloud.mFade				= 100.0f;
-		nCloud.mColor[0]			= 0.34f;
-		nCloud.mColor[1]			= 0.70f;
-		nCloud.mColor[2]			= 0.34f;
-		nCloud.mColor[3]			= 0.70f;
-		nCloud.mOrientWithVelocity	= true;
-		nCloud.mWaterParticles		= true;
+		nCloud.mHeight		= 80.0f;
+		nCloud.mWidth		= 2.0f;
+		nCloud.mGravity		= 2000.0f;
+		nCloud.mFilterMode	= 1;
+		nCloud.mBlendMode	= 1;
+		nCloud.mFade		= 100.0f;
 
-		mOutside.mOutsidePain		= 0.1f;
+		nCloud.mColor[0]	= 0.34f;
+		nCloud.mColor[1]	= 0.70f;
+		nCloud.mColor[2]	= 0.34f;
+		nCloud.mColor[3]	= 0.70f;
+
+		nCloud.mOrientWithVelocity = true;
+		nCloud.mWaterParticles = true;
+
+		mOutside.mOutsidePain = 0.1f;
 	}
 
 	// Create heavy rain
@@ -1890,17 +1992,17 @@ void R_WorldEffectCommand(const char *command)
 			COM_EndParseSession();
 			return;
 		}
-		CWeatherParticleCloud& nCloud = mParticleClouds.push_back();
+		CParticleCloud& nCloud = mParticleClouds.push_back();
 		nCloud.Initialize(1000, "gfx/world/rain.jpg", 3);
-		nCloud.mHeight				= 80.0f;
-		nCloud.mWidth				= 1.2f;
-		nCloud.mGravity				= 2800.0f;
-		nCloud.mFilterMode			= 1;
-		nCloud.mBlendMode			= 1;
-		nCloud.mFade				= 15.0f;
-		nCloud.mColor				= 0.5f;
-		nCloud.mOrientWithVelocity	= true;
-		nCloud.mWaterParticles		= true;
+		nCloud.mHeight		= 80.0f;
+		nCloud.mWidth		= 1.2f;
+		nCloud.mGravity		= 2800.0f;
+		nCloud.mFilterMode	= 1;
+		nCloud.mBlendMode	= 1;
+		nCloud.mFade		= 15.0f;
+		nCloud.mColor		= 0.5f;
+		nCloud.mOrientWithVelocity = true;
+		nCloud.mWaterParticles = true;
 	}
 
 	// Create snow
@@ -1912,12 +2014,12 @@ void R_WorldEffectCommand(const char *command)
 			COM_EndParseSession();
 			return;
 		}
-		CWeatherParticleCloud& nCloud = mParticleClouds.push_back();
+		CParticleCloud& nCloud = mParticleClouds.push_back();
 		nCloud.Initialize(1000, "gfx/effects/snowflake1.bmp");
 		nCloud.mBlendMode			= 1;
 		nCloud.mRotationChangeNext	= 0;
-		nCloud.mColor				= 0.75f;
-		nCloud.mWaterParticles		= true;
+		nCloud.mColor		= 0.75f;
+		nCloud.mWaterParticles = true;
 	}
 
 	// Create space dust
@@ -1933,23 +2035,23 @@ void R_WorldEffectCommand(const char *command)
 		token = COM_ParseExt(&command, qfalse);
 		count = atoi(token);
 
-		CWeatherParticleCloud& nCloud = mParticleClouds.push_back();
+		CParticleCloud& nCloud = mParticleClouds.push_back();
 		nCloud.Initialize(count, "gfx/effects/snowpuff1.tga");
-		nCloud.mHeight				= 1.2f;
-		nCloud.mWidth				= 1.2f;
-		nCloud.mGravity				= 0.0f;
+		nCloud.mHeight		= 1.2f;
+		nCloud.mWidth		= 1.2f;
+		nCloud.mGravity		= 0.0f;
 		nCloud.mBlendMode			= 1;
 		nCloud.mRotationChangeNext	= 0;
-		nCloud.mColor				= 0.75f;
-		nCloud.mMass.mMax			= 30.0f;
-		nCloud.mMass.mMin			= 10.0f;
+		nCloud.mColor		= 0.75f;
+		nCloud.mWaterParticles = true;
+		nCloud.mMass.mMax	= 30.0f;
+		nCloud.mMass.mMin	= 10.0f;
 		nCloud.mSpawnRange.mMins[0]	= -1500.0f;
 		nCloud.mSpawnRange.mMins[1]	= -1500.0f;
 		nCloud.mSpawnRange.mMins[2]	= -1500.0f;
 		nCloud.mSpawnRange.mMaxs[0]	= 1500.0f;
 		nCloud.mSpawnRange.mMaxs[1]	= 1500.0f;
 		nCloud.mSpawnRange.mMaxs[2]	= 1500.0f;
-		nCloud.mWaterParticles		= true;
 	}
 
 	// Create a sand storm
@@ -1961,18 +2063,18 @@ void R_WorldEffectCommand(const char *command)
 			COM_EndParseSession();
 			return;
 		}
-		CWeatherParticleCloud& nCloud = mParticleClouds.push_back();
+		CParticleCloud& nCloud = mParticleClouds.push_back();
 		nCloud.Initialize(400, "gfx/effects/alpha_smoke2b.tga");
-		nCloud.mGravity				= 0;
- 		nCloud.mWidth				= 70;
-		nCloud.mHeight				= 70;
-		nCloud.mColor[0]			= 0.9f;
-		nCloud.mColor[1]			= 0.6f;
-		nCloud.mColor[2]			= 0.0f;
-		nCloud.mColor[3]			= 0.5f;
-		nCloud.mFade				= 5.0f;
-		nCloud.mMass.mMax			= 30.0f;
-		nCloud.mMass.mMin			= 10.0f;
+		nCloud.mGravity		= 0;
+ 		nCloud.mWidth		= 70;
+		nCloud.mHeight		= 70;
+		nCloud.mColor[0]	= 0.9f;
+		nCloud.mColor[1]	= 0.6f;
+		nCloud.mColor[2]	= 0.0f;
+		nCloud.mColor[3]	= 0.5f;
+		nCloud.mFade		= 5.0f;
+		nCloud.mMass.mMax	= 30.0f;
+		nCloud.mMass.mMin	= 10.0f;
 		nCloud.mSpawnRange.mMins[2]	= -150;
 		nCloud.mSpawnRange.mMaxs[2]	= 150;
 		nCloud.mRotationChangeNext	= 0;
@@ -1987,16 +2089,16 @@ void R_WorldEffectCommand(const char *command)
 			COM_EndParseSession();
 			return;
 		}
-		CWeatherParticleCloud& nCloud = mParticleClouds.push_back();
+		CParticleCloud& nCloud = mParticleClouds.push_back();
 		nCloud.Initialize(60, "gfx/effects/alpha_smoke2b.tga");
-		nCloud.mBlendMode			= 1;
-		nCloud.mGravity				= 0;
- 		nCloud.mWidth				= 70;
-		nCloud.mHeight				= 70;
-		nCloud.mColor				= 0.2f;
-		nCloud.mFade				= 5.0f;
-		nCloud.mMass.mMax			= 30.0f;
-		nCloud.mMass.mMin			= 10.0f;
+		nCloud.mBlendMode	= 1;
+		nCloud.mGravity		= 0;
+ 		nCloud.mWidth		= 70;
+		nCloud.mHeight		= 70;
+		nCloud.mColor		= 0.2f;
+		nCloud.mFade		= 5.0f;
+		nCloud.mMass.mMax	= 30.0f;
+		nCloud.mMass.mMin	= 10.0f;
 		nCloud.mSpawnRange.mMins[2]	= -150;
 		nCloud.mSpawnRange.mMaxs[2]	= 150;
 		nCloud.mRotationChangeNext	= 0;
@@ -2011,16 +2113,16 @@ void R_WorldEffectCommand(const char *command)
 			COM_EndParseSession();
 			return;
 		}
-		CWeatherParticleCloud& nCloud = mParticleClouds.push_back();
+		CParticleCloud& nCloud = mParticleClouds.push_back();
  		nCloud.Initialize(70, "gfx/effects/alpha_smoke2b.tga");
-		nCloud.mBlendMode			= 1;
-		nCloud.mGravity				= 0;
- 		nCloud.mWidth				= 100;
-		nCloud.mHeight				= 100;
-		nCloud.mColor				= 0.3f;
-		nCloud.mFade				= 1.0f;
-		nCloud.mMass.mMax			= 10.0f;
-		nCloud.mMass.mMin			= 5.0f;
+		nCloud.mBlendMode	= 1;
+		nCloud.mGravity		= 0;
+ 		nCloud.mWidth		= 100;
+		nCloud.mHeight		= 100;
+		nCloud.mColor		= 0.3f;
+		nCloud.mFade		= 1.0f;
+		nCloud.mMass.mMax	= 10.0f;
+		nCloud.mMass.mMin	= 5.0f;
 		nCloud.mSpawnRange.mMins	= -(nCloud.mSpawnPlaneDistance*1.25f);
 		nCloud.mSpawnRange.mMaxs	=  (nCloud.mSpawnPlaneDistance*1.25f);
 		nCloud.mSpawnRange.mMins[2]	= -150;
@@ -2037,19 +2139,19 @@ void R_WorldEffectCommand(const char *command)
 			COM_EndParseSession();
 			return;
 		}
-		CWeatherParticleCloud& nCloud = mParticleClouds.push_back();
+		CParticleCloud& nCloud = mParticleClouds.push_back();
 		nCloud.Initialize(40, "gfx/effects/alpha_smoke2b.tga");
-		nCloud.mBlendMode			= 1;
-		nCloud.mGravity				= 0;
- 		nCloud.mWidth				= 100;
-		nCloud.mHeight				= 100;
-		nCloud.mColor[0]			= 0.19f;
-		nCloud.mColor[1]			= 0.6f;
-		nCloud.mColor[2]			= 0.7f;
-		nCloud.mColor[3]			= 0.12f;
-		nCloud.mFade				= 0.10f;
-		nCloud.mMass.mMax			= 30.0f;
-		nCloud.mMass.mMin			= 10.0f;
+		nCloud.mBlendMode	= 1;
+		nCloud.mGravity		= 0;
+ 		nCloud.mWidth		= 100;
+		nCloud.mHeight		= 100;
+		nCloud.mColor[0]	= 0.19f;
+		nCloud.mColor[1]	= 0.6f;
+		nCloud.mColor[2]	= 0.7f;
+		nCloud.mColor[3]	= 0.12f;
+		nCloud.mFade		= 0.10f;
+		nCloud.mMass.mMax	= 30.0f;
+		nCloud.mMass.mMin	= 10.0f;
 		nCloud.mSpawnRange.mMins[2]	= -150;
 		nCloud.mSpawnRange.mMaxs[2]	= 150;
 		nCloud.mRotationChangeNext	= 0;
@@ -2065,26 +2167,26 @@ void R_WorldEffectCommand(const char *command)
 	}
 	else
 	{
-		Com_Printf("Weather Effect: Please enter a valid command.\n");
-		Com_Printf("	clear\n");
-		Com_Printf("	freeze\n");
-		Com_Printf("	zone (mins) (maxs)\n");
-		Com_Printf("	wind\n");
-		Com_Printf("	constantwind (velocity)\n");
-		Com_Printf("	gustingwind\n");
-		Com_Printf("	windzone (mins) (maxs) (velocity)\n");
-		Com_Printf("	lightrain\n");
-		Com_Printf("	rain\n");
-		Com_Printf("	acidrain\n");
-		Com_Printf("	heavyrain\n");
-		Com_Printf("	snow\n");
-		Com_Printf("	spacedust\n");
-		Com_Printf("	sand\n");
-		Com_Printf("	fog\n");
-		Com_Printf("	heavyrainfog\n");
-		Com_Printf("	light_fog\n");
-		Com_Printf("	outsideshake\n");
-		Com_Printf("	outsidepain\n");
+		Com_Printf( "Weather Effect: Please enter a valid command.\n" );
+		Com_Printf( "	clear\n" );
+		Com_Printf( "	freeze\n" );
+		Com_Printf( "	zone (mins) (maxs)\n" );
+		Com_Printf( "	wind\n" );
+		Com_Printf( "	constantwind (velocity)\n" );
+		Com_Printf( "	gustingwind\n" );
+		Com_Printf( "	windzone (mins) (maxs) (velocity)\n" );
+		Com_Printf( "	lightrain\n" );
+		Com_Printf( "	rain\n" );
+		Com_Printf( "	acidrain\n" );
+		Com_Printf( "	heavyrain\n" );
+		Com_Printf( "	snow\n" );
+		Com_Printf( "	spacedust\n" );
+		Com_Printf( "	sand\n" );
+		Com_Printf( "	fog\n" );
+		Com_Printf( "	heavyrainfog\n" );
+		Com_Printf( "	light_fog\n" );
+		Com_Printf( "	outsideshake\n" );
+		Com_Printf( "	outsidepain\n" );
 	}
 	COM_EndParseSession();
 }
