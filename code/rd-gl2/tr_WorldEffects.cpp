@@ -794,9 +794,9 @@ float R_IsOutsideCausingPain(vec3_t pos)
 	return (mOutside.mOutsidePain && mOutside.PointOutside(pos));
 }
 
-/*bool R_SetTempGlobalFogColor(vec3_t color)
+bool R_SetTempGlobalFogColor(vec3_t color)
 {
-	if (tr.world && tr.world->globalFog != -1)
+	if (tr.world && tr.world->globalFog)
 	{
 		// If Non Zero, Try To Set The Color
 		//-----------------------------------
@@ -806,17 +806,17 @@ float R_IsOutsideCausingPain(vec3_t pos)
 			//-------------------------------
 			if (!mOutside.mFogColorTempActive)
 			{
-				mOutside.mFogColor				= tr.world->fogs[tr.world->globalFog].parms.color;
-				mOutside.mFogColorInt			= tr.world->fogs[tr.world->globalFog].colorInt;
+				mOutside.mFogColor				= tr.world->globalFog->parms.color;
+				mOutside.mFogColorInt			= tr.world->globalFog->colorInt;
 				mOutside.mFogColorTempActive	= true;
 			}
 
 			// Set The New One
 			//-----------------
-			tr.world->fogs[tr.world->globalFog].parms.color[0] = color[0];
-			tr.world->fogs[tr.world->globalFog].parms.color[1] = color[1];
-			tr.world->fogs[tr.world->globalFog].parms.color[2] = color[2];
-			tr.world->fogs[tr.world->globalFog].colorInt = ColorBytes4 (
+			tr.world->globalFog->parms.color[0] = color[0];
+			tr.world->globalFog->parms.color[1] = color[1];
+			tr.world->globalFog->parms.color[2] = color[2];
+			tr.world->globalFog->colorInt = ColorBytes4 (
 												color[0] * tr.identityLight,
 												color[1] * tr.identityLight,
 												color[2] * tr.identityLight,
@@ -829,14 +829,14 @@ float R_IsOutsideCausingPain(vec3_t pos)
 		{
 			mOutside.mFogColorTempActive = false;
 
-			tr.world->fogs[tr.world->globalFog].parms.color[0] = mOutside.mFogColor[0];
-			tr.world->fogs[tr.world->globalFog].parms.color[1] = mOutside.mFogColor[1];
-			tr.world->fogs[tr.world->globalFog].parms.color[2] = mOutside.mFogColor[2];
-			tr.world->fogs[tr.world->globalFog].colorInt	   = mOutside.mFogColorInt;
+			tr.world->globalFog->parms.color[0] = mOutside.mFogColor[0];
+			tr.world->globalFog->parms.color[1] = mOutside.mFogColor[1];
+			tr.world->globalFog->parms.color[2] = mOutside.mFogColor[2];
+			tr.world->globalFog->colorInt	   = mOutside.mFogColorInt;
 		}
 	}
 	return true;
-}*/
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // Particle Cloud
@@ -1965,17 +1965,18 @@ void R_WorldEffectCommand(const char *command)
 		}
 		CParticleCloud& nCloud = mParticleClouds.push_back();
 		nCloud.Initialize(1000, "gfx/world/acidrain.jpg", 3);
-		nCloud.mHeight		= 80.0f;
-		nCloud.mWidth		= 2.0f;
+		nCloud.mHeight		= 50.0f;
+		nCloud.mWidth		= 1.0f;
 		nCloud.mGravity		= 2000.0f;
 		nCloud.mFilterMode	= 1;
 		nCloud.mBlendMode	= 1;
 		nCloud.mFade		= 100.0f;
 
-		nCloud.mColor[0]	= 0.34f;
+		nCloud.mColor		= 0.5f;
+		/*nCloud.mColor[0]	= 0.34f;
 		nCloud.mColor[1]	= 0.70f;
 		nCloud.mColor[2]	= 0.34f;
-		nCloud.mColor[3]	= 0.70f;
+		nCloud.mColor[3]	= 0.70f;*/
 
 		nCloud.mOrientWithVelocity = true;
 		nCloud.mWaterParticles = true;
@@ -1993,7 +1994,7 @@ void R_WorldEffectCommand(const char *command)
 			return;
 		}
 		CParticleCloud& nCloud = mParticleClouds.push_back();
-		nCloud.Initialize(1000, "gfx/world/rain.jpg", 3);
+		nCloud.Initialize(2000, "gfx/world/rain.jpg", 3);
 		nCloud.mHeight		= 80.0f;
 		nCloud.mWidth		= 1.2f;
 		nCloud.mGravity		= 2800.0f;
@@ -2064,14 +2065,16 @@ void R_WorldEffectCommand(const char *command)
 			return;
 		}
 		CParticleCloud& nCloud = mParticleClouds.push_back();
-		nCloud.Initialize(400, "gfx/effects/alpha_smoke2b.tga");
+		nCloud.Initialize(400, "gfx/world/sand.tga");
 		nCloud.mGravity		= 0;
  		nCloud.mWidth		= 70;
 		nCloud.mHeight		= 70;
-		nCloud.mColor[0]	= 0.9f;
+		nCloud.mColor		= 0.5f;
+		nCloud.mBlendMode	= 1;
+		/*nCloud.mColor[0]	= 0.9f;
 		nCloud.mColor[1]	= 0.6f;
 		nCloud.mColor[2]	= 0.0f;
-		nCloud.mColor[3]	= 0.5f;
+		nCloud.mColor[3]	= 0.5f;*/
 		nCloud.mFade		= 5.0f;
 		nCloud.mMass.mMax	= 30.0f;
 		nCloud.mMass.mMin	= 10.0f;
@@ -2104,7 +2107,7 @@ void R_WorldEffectCommand(const char *command)
 		nCloud.mRotationChangeNext	= 0;
 	}
 
-	// Create heavy rain with fog
+	// Create heavy rain fog
 	//----------------------------
 	else if (Q_stricmp(token, "heavyrainfog") == 0)
 	{
@@ -2145,10 +2148,11 @@ void R_WorldEffectCommand(const char *command)
 		nCloud.mGravity		= 0;
  		nCloud.mWidth		= 100;
 		nCloud.mHeight		= 100;
-		nCloud.mColor[0]	= 0.19f;
+		nCloud.mColor		= 0.12f;
+		/*nCloud.mColor[0]	= 0.19f;
 		nCloud.mColor[1]	= 0.6f;
 		nCloud.mColor[2]	= 0.7f;
-		nCloud.mColor[3]	= 0.12f;
+		nCloud.mColor[3]	= 0.12f;*/
 		nCloud.mFade		= 0.10f;
 		nCloud.mMass.mMax	= 30.0f;
 		nCloud.mMass.mMin	= 10.0f;

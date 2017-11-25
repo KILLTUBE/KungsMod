@@ -2032,7 +2032,7 @@ extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *ri
 	re.GetChanceOfSaberFizz = R_GetChanceOfSaberFizz;
 	re.IsShaking = R_IsShaking;
 	re.AddWeatherZone = R_AddWeatherZone;
-	re.SetTempGlobalFogColor = stub_R_SetTempGlobalFogColor;
+	re.SetTempGlobalFogColor = R_SetTempGlobalFogColor;
 #else //!__JKA_WEATHER__
 	re.GetWindVector = stub_R_GetWindVector;
 	re.GetWindGusting = stub_R_GetWindGusting;

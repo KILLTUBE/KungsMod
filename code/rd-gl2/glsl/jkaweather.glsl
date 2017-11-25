@@ -19,9 +19,11 @@ uniform vec4 u_Color;
 
 in vec2 var_Tex1;
 out vec4 out_Color;
+out vec4 out_Glow;
 
 void main()
 {
 	out_Color = texture(u_DiffuseMap, var_Tex1) * u_Color;
+	out_Glow = vec4(0.0);
 }
 

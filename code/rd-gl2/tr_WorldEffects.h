@@ -57,7 +57,7 @@ bool R_IsOutside(vec3_t pos);
 float R_IsOutsideCausingPain(vec3_t pos);
 float R_GetChanceOfSaberFizz();
 bool R_IsShaking(vec3_t pos);
-//bool R_SetTempGlobalFogColor(vec3_t color);
+bool R_SetTempGlobalFogColor(vec3_t color);
 
 bool R_IsRaining();
 bool R_IsPuffing();

@@ -1851,7 +1851,7 @@ typedef struct {
 
 	int			numfogs;
 	fog_t		*fogs;
-	const fog_t	*globalFog;
+	/*const*/fog_t	*globalFog;
 
 	vec3_t		lightGridOrigin;
 	vec3_t		lightGridSize;
