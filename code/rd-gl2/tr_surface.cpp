@@ -2150,12 +2150,28 @@ static void RB_SurfaceSprites( srfSprites_t *surf )
 
 	if (ss->type == SURFSPRITE_ORIENTED)
 	{
-		shaderFlags |= SSDEF_FACE_CAMERA;
+		shaderFlags |= SSDEF_ORIENTED;
 	}
-	
-	if (ss->type == SURFSPRITE_VERTICAL)
+	else if (ss->type == SURFSPRITE_VERTICAL)
 	{
-		shaderFlags |= SSDEF_FACE_UP;
+		shaderFlags |= SSDEF_VERTICAL;
+	}
+	else if (ss->type == SURFSPRITE_FLATTENED)
+	{
+		shaderFlags |= SSDEF_FLATTENED;
+	}
+	//else if ((ss->type == SURFSPRITE_EFFECT) && (ss->type == SURFSPRITE_WEATHERFX))
+	else if (ss->type == SURFSPRITE_EFFECT)
+	{
+		shaderFlags |= SSDEF_EFFECT;
+	}
+	else if (ss->type == SURFSPRITE_WEATHERFX)
+	{
+		shaderFlags |= SSDEF_EFFECT;
+	}
+	else
+	{
+		return;
 	}
 
 	shaderProgram_t *program = programGroup + shaderFlags;

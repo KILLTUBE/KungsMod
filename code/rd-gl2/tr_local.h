@@ -1130,11 +1130,13 @@ enum
 // Surface sprite shader flags
 enum
 {
-	SSDEF_FACE_CAMERA					= 0x01,
+	SSDEF_ORIENTED						= 0x01,
 	SSDEF_ALPHA_TEST					= 0x02,
-	SSDEF_FACE_UP						= 0x04,
+	SSDEF_VERTICAL						= 0x04,
+	SSDEF_FLATTENED						= 0x08,
+	SSDEF_EFFECT						= 0x10,
 
-	SSDEF_ALL							= 0x07,
+	SSDEF_ALL							= 0x01F,
 	SSDEF_COUNT							= SSDEF_ALL + 1
 };
 

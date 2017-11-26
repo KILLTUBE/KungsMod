@@ -2203,15 +2203,24 @@ static int GLSL_LoadGPUProgramSurfaceSprites(
 	{
 		extradefines[0] = '\0';
 
-		if ((i & SSDEF_FACE_CAMERA) && (i & SSDEF_FACE_UP))
+		if ((i & SSDEF_ORIENTED) && (i & SSDEF_VERTICAL) && (i & SSDEF_FLATTENED) && (i & SSDEF_EFFECT))
 			continue;
 
-		if (i & SSDEF_FACE_CAMERA)
+		if (i & SSDEF_ORIENTED)
 			Q_strcat(extradefines, sizeof(extradefines),
-				"#define FACE_CAMERA\n");
-		else if (i & SSDEF_FACE_UP)
+				"#define ORIENTED\n");
+
+		if (i & SSDEF_VERTICAL)
 			Q_strcat(extradefines, sizeof(extradefines),
-				"#define FACE_UP\n");
+				"#define VERTICAL\n");
+
+		if (i & SSDEF_FLATTENED)
+			Q_strcat(extradefines, sizeof(extradefines),
+				"#define FLATTENED\n");
+
+		if (i & SSDEF_EFFECT)
+			Q_strcat(extradefines, sizeof(extradefines),
+				"#define EFFECT\n");
 
 		if (i & SSDEF_ALPHA_TEST)
 			Q_strcat(extradefines, sizeof(extradefines),
