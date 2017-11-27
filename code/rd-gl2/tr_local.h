@@ -646,6 +646,9 @@ struct SurfaceSpriteBlock
 	float fadeScale;
 	float widthVariance;
 	float heightVariance;
+	float widthfxGrow;
+	float heightfxGrow;
+	float fxDuration;
 };
 
 struct LiquidBlock
@@ -1577,7 +1580,7 @@ struct srfSprites_t
 };
 
 #ifndef __JKA_WEATHER__
-struct srfWeather_t
+struct srfXyc_Weather_t
 {
 	surfaceType_t surfaceType;
 };
@@ -2235,7 +2238,7 @@ typedef struct {
 ** by the frontend.
 */
 #ifndef __JKA_WEATHER__
-struct weatherSystem_t;
+struct xyc_weatherSystem_t;
 #endif //__JKA_WEATHER__
 typedef struct trGlobals_s {
 	qboolean				registered;		// cleared at shutdown, set at beginRegistration
@@ -2322,7 +2325,7 @@ typedef struct trGlobals_s {
 	shader_t				*distortionShader;
 	shader_t				*projectionShadowShader;
 #ifndef __JKA_WEATHER__
-	shader_t				*weatherInternalShader;
+	shader_t				*xyc_weatherInternalShader;
 #endif //__JKA_WEATHER__
 
 	shader_t				*flareShader;
@@ -2346,7 +2349,7 @@ typedef struct trGlobals_s {
 	model_t					*currentModel;
 
 #ifndef __JKA_WEATHER__
-	weatherSystem_t			*weatherSystem;
+	weatherSystem_t			*xyc_weatherSystem;
 #endif //__JKA_WEATHER__
 
 	//
@@ -2376,9 +2379,9 @@ typedef struct trGlobals_s {
 	shaderProgram_t dglowUpsample;
 	shaderProgram_t spriteShader[SSDEF_COUNT];
 #ifdef __JKA_WEATHER__
-	shaderProgram_t jkaweatherShader;
+	shaderProgram_t jka_weatherShader;
 #else
-	shaderProgram_t weatherShader;
+	shaderProgram_t xyc_weatherShader;
 #endif //__JKA_WEATHER__
 
 	// -----------------------------------------

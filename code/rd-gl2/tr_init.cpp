@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #ifdef __JKA_WEATHER__
 #include "tr_WorldEffects.h"
 #else
-#include "tr_weather.h"
+#include "tr_xyc_weather.h"
 #endif //__JKA_WEATHER__
 #include <algorithm>
 

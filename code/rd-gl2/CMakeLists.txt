@@ -144,8 +144,8 @@ if(BuildSPRdGL2)
 		"${SPDir}/rd-gl2/tr_surface.cpp"
 		"${SPDir}/rd-gl2/tr_vbo.cpp"
 		"${SPDir}/rd-gl2/tr_world.cpp"
-		"${SPDir}/rd-gl2/tr_weather.cpp"
-		"${SPDir}/rd-gl2/tr_weather.h"
+		"${SPDir}/rd-gl2/tr_xyc_weather.cpp"
+		"${SPDir}/rd-gl2/tr_xyc_weather.h"
 		"${SPDir}/rd-gl2/tr_worldEffects.cpp"
 		"${SPDir}/rd-gl2/tr_worldEffects.h"
 		)

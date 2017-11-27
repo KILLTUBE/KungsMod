@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // tr_surf.c
 #include "tr_local.h"
-#include "tr_weather.h"
+#include "tr_xyc_weather.h"
 
 /*
 
@@ -2186,6 +2186,9 @@ static void RB_SurfaceSprites( srfSprites_t *surf )
 	data.fadeScale = ss->fadeScale;
 	data.widthVariance = ss->variance[0];
 	data.heightVariance = ss->variance[1];
+	data.widthfxGrow = ss->fxGrow[0];
+	data.heightfxGrow = ss->fxGrow[1];
+	data.fxDuration = ss->fxDuration;
 
 	GLSL_BindProgram(program);
 	GL_State(firstStage->stateBits);

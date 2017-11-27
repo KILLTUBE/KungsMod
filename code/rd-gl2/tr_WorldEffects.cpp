@@ -1325,7 +1325,7 @@ public:
 
 		// Enable And Disable Things
 		//---------------------------
-		shaderProgram_t *shader = &tr.jkaweatherShader;
+		shaderProgram_t *shader = &tr.jka_weatherShader;
 		GLSL_BindProgram(shader);
 		GLSL_SetUniformMatrix4x4(shader, UNIFORM_MODELVIEWPROJECTIONMATRIX, glState.modelviewProjection);
 		GLSL_SetUniformVec4(shader, UNIFORM_COLOR, colorWhite);

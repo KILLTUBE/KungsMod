@@ -21,7 +21,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "tr_local.h"
 
 #ifndef __JKA_WEATHER__
-#include "tr_weather.h"
+#include "tr_xyc_weather.h"
 
 struct weatherSystem_t
 {
@@ -117,7 +117,7 @@ void RB_SurfaceWeather( srfWeather_t *surf )
 		*backEndData->perFrameMemory, (int *)&item.numSamplerBindings);
 
 	UniformDataWriter uniformDataWriter;
-	uniformDataWriter.Start(&tr.weatherShader);
+	uniformDataWriter.Start(&tr.xyc_weatherShader);
 	uniformDataWriter.SetUniformMatrix4x4(
 			UNIFORM_MODELVIEWPROJECTIONMATRIX,
 			glState.modelviewProjection);
@@ -132,7 +132,7 @@ void RB_SurfaceWeather( srfWeather_t *surf )
 	item.stateBits =
 		GLS_DEPTHFUNC_LESS | GLS_SRCBLEND_SRC_ALPHA | GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA;
 	item.cullType = CT_FRONT_SIDED;
-	item.program = &tr.weatherShader;
+	item.program = &tr.xyc_weatherShader;
 	item.depthRange = { 0.0f, 1.0f };
 
 	vertexAttribute_t attribs[2] = {};

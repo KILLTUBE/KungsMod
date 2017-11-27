@@ -46,9 +46,9 @@ extern const GPUProgramDesc fallback_dglow_downsampleProgram;
 extern const GPUProgramDesc fallback_dglow_upsampleProgram;
 extern const GPUProgramDesc fallback_surface_spritesProgram;
 #ifdef __JKA_WEATHER__
-extern const GPUProgramDesc fallback_jkaweatherProgram;
+extern const GPUProgramDesc fallback_jka_weatherProgram;
 #else
-extern const GPUProgramDesc fallback_weatherProgram;
+extern const GPUProgramDesc fallback_xyc_weatherProgram;
 #endif //__JKA_WEATHER__
 
 
@@ -2234,6 +2234,7 @@ static int GLSL_LoadGPUProgramSurfaceSprites(
 		}
 
 		GLSL_InitUniforms(program);
+		GLSL_SetUniformFloat(&tr.spriteShader[i], UNIFORM_TIME, tr.refdef.time);
 		GLSL_FinishGPUShader(program);
 		++numPrograms;
 	}
@@ -2249,35 +2250,35 @@ static int GLSL_LoadGPUProgramJKAWeather(
 	GLSL_LoadGPUProgramBasic(
 		builder,
 		scratchAlloc,
-		&tr.jkaweatherShader,
-		"jkaweather",
-		fallback_jkaweatherProgram);
+		&tr.jka_weatherShader,
+		"jka_weather",
+		fallback_jka_weatherProgram);
 
-	GLSL_InitUniforms(&tr.jkaweatherShader);
+	GLSL_InitUniforms(&tr.jka_weatherShader);
 
-	qglUseProgram(tr.jkaweatherShader.program);
-	GLSL_SetUniformInt(&tr.jkaweatherShader, UNIFORM_TEXTUREMAP, TB_DIFFUSEMAP);
+	qglUseProgram(tr.jka_weatherShader.program);
+	GLSL_SetUniformInt(&tr.jka_weatherShader, UNIFORM_TEXTUREMAP, TB_DIFFUSEMAP);
 	qglUseProgram(0);
 
-	GLSL_FinishGPUShader(&tr.jkaweatherShader);
+	GLSL_FinishGPUShader(&tr.jka_weatherShader);
 
 	return 1;
 }
 #else
-static int GLSL_LoadGPUProgramWeather(
+static int GLSL_LoadGPUProgramXYCWeather(
 	ShaderProgramBuilder& builder,
 	Allocator& scratchAlloc)
 {
 	GLSL_LoadGPUProgramBasic(
 		builder,
 		scratchAlloc,
-		&tr.weatherShader,
-		"weather",
-		fallback_weatherProgram,
+		&tr.xyc_weatherShader,
+		"xyc_weather",
+		fallback_xyc_weatherProgram,
 		ATTR_POSITION | ATTR_COLOR);
 
-	GLSL_InitUniforms(&tr.weatherShader);
-	GLSL_FinishGPUShader(&tr.weatherShader);
+	GLSL_InitUniforms(&tr.xyc_weatherShader);
+	GLSL_FinishGPUShader(&tr.xyc_weatherShader);
 
 	return 1;
 }
@@ -2373,7 +2374,7 @@ void GLSL_LoadGPUShaders()
 #ifdef __JKA_WEATHER__
 	numEtcShaders += GLSL_LoadGPUProgramJKAWeather(builder, allocator);
 #else
-	numEtcShaders += GLSL_LoadGPUProgramWeather(builder, allocator);
+	numEtcShaders += GLSL_LoadGPUProgramXYCWeather(builder, allocator);
 #endif //__JKA_WEATHER__
 
 	ri.Printf(PRINT_ALL, "loaded %i GLSL shaders (%i gen %i light %i etc) in %5.2f seconds\n",
@@ -2424,6 +2425,13 @@ void GLSL_ShutdownGPUShaders(void)
 
 	for (i = 0; i < 2; i++)
 		GLSL_DeleteGPUShader(&tr.depthBlurShader[i]);
+
+	GLSL_DeleteGPUShader(&tr.spriteShader[SSDEF_COUNT]);
+#ifdef __JKA_WEATHER__
+	GLSL_DeleteGPUShader(&tr.jka_weatherShader);
+#else
+	GLSL_DeleteGPUShader(&tr.xyc_weatherShader);
+#endif //__JKA_WEATHER__
 
 	glState.currentProgram = 0;
 	qglUseProgram(0);

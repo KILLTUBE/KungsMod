@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "tr_local.h"
 #ifndef __JKA_WEATHER__
-#include "tr_weather.h"
+#include "tr_xyc_weather.h"
 #endif //__JKA_WEATHER__
 
 #include <string.h> // memcpy
