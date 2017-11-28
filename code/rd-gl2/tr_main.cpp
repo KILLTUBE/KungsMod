@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 // tr_main.c -- main control flow for each frame
 
 #include "tr_local.h"
-#include "tr_weather.h"
+#ifndef __JKA_WEATHER__
+#include "tr_xyc_weather.h"
+#endif //__JKA_WEATHER__
 
 #include <string.h> // memcpy
 
@@ -2002,9 +2004,11 @@ static void R_GenerateDrawSurfs(viewParms_t *viewParms, trRefdef_t *refdef) {
 
 	R_AddEntitySurfaces (refdef);
 
+#ifndef __JKA_WEATHER__
 	// activate again when weather code is more complete
 	/*if (!(tr.viewParms.flags & VPF_SHADOWMAP))
 		R_AddWeatherSurfaces();*/
+#endif //__JKA_WEATHER__
 }
 
 /*

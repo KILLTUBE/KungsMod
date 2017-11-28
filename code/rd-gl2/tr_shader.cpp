@@ -4981,10 +4981,12 @@ static void CreateInternalShaders( void ) {
 	tr.distortionShader = FinishShader();
 	shader.defaultShader = qtrue;
 
+#ifndef __JKA_WEATHER__
 	// weather shader placeholder
 	Q_strncpyz(shader.name, "<weather>", sizeof(shader.name));
 	shader.sort = SS_SEE_THROUGH;
 	tr.weatherInternalShader = FinishShader();
+#endif //__JKA_WEATHER__
 }
 
 static void CreateExternalShaders( void ) {

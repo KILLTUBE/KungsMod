@@ -26,7 +26,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //#include "ghoul2/g2_local.h"
 #include "tr_cache.h"
 #include "tr_allocator.h"
-#include "tr_weather.h"
+#ifdef __JKA_WEATHER__
+#include "tr_WorldEffects.h"
+#else
+#include "tr_xyc_weather.h"
+#endif //__JKA_WEATHER__
 #include <algorithm>
 
 static size_t FRAME_UNIFORM_BUFFER_SIZE = 8 * 1024 * 1024;
@@ -1245,6 +1249,9 @@ typedef struct consoleCommand_s {
 	xcommand_t	func;
 } consoleCommand_t;
 
+#ifdef __JKA_WEATHER__
+extern void R_WorldEffect_f(void);	//TR_WORLDEFFECTS.CPP
+#endif //__JKA_WEATHER__
 static consoleCommand_t	commands[] = {
 	{ "imagelist",			R_ImageList_f },
 	{ "shaderlist",			R_ShaderList_f },
@@ -1259,6 +1266,9 @@ static consoleCommand_t	commands[] = {
 	{ "vbolist",			R_VBOList_f },
 	{ "capframes",			R_CaptureFrameData_f },
 	{ "exportCubemaps",		R_ExportCubemaps_f },
+#ifdef __JKA_WEATHER__
+	{ "r_we",				R_WorldEffect_f },
+#endif //__JKA_WEATHER__
 };
 
 static const size_t numCommands = ARRAY_LEN(commands);
@@ -1597,6 +1607,9 @@ void R_ClearStuffToStopGhoul2CrashingThings(void)
 R_Init
 ===============
 */
+#ifdef __JKA_WEATHER__
+extern void R_InitWorldEffects();
+#endif //__JKA_WEATHER__
 void R_Init(void) {
 	byte *ptr;
 	int i;
@@ -1688,15 +1701,19 @@ void R_Init(void) {
 
 	R_InitSkins();
 
-	R_InitFonts();
-
 	R_ModelInit();
+
+#ifdef __JKA_WEATHER__
+	R_InitWorldEffects();
+#else
+	R_InitWeatherSystem();
+#endif //__JKA_WEATHER__
+
+	R_InitFonts();
 
 	R_InitDecals();
 
 	R_InitQueries();
-
-	R_InitWeatherSystem();
 
 #if defined(_DEBUG)
 	GLenum err = qglGetError();
@@ -1716,6 +1733,9 @@ void R_Init(void) {
 RE_Shutdown
 ===============
 */
+#ifdef __JKA_WEATHER__
+extern void R_ShutdownWorldEffects(void);
+#endif //__JKA_WEATHER__
 void RE_Shutdown(qboolean destroyWindow, qboolean restarting) {
 
 	ri.Printf(PRINT_ALL, "RE_Shutdown( %i )\n", destroyWindow);
@@ -1725,7 +1745,11 @@ void RE_Shutdown(qboolean destroyWindow, qboolean restarting) {
 
 	R_ShutdownBackEndFrameData();
 
+#ifdef __JKA_WEATHER__
+	R_ShutdownWorldEffects();
+#else
 	R_ShutdownWeatherSystem();
+#endif //__JKA_WEATHER__
 
 	R_ShutdownFonts();
 	if (tr.registered) {
@@ -1810,18 +1834,20 @@ void RE_SetLightStyle(int style, int color)
 
 // STUBS, REPLACEME
 void stub_RE_GetBModelVerts(int bModel, vec3_t *vec, float *normal) {}
+#ifndef __JKA_WEATHER__
 void stub_RE_WorldEffectCommand(const char *cmd) {}
 void stub_RE_AddWeatherZone(vec3_t mins, vec3_t maxs) {}
+bool stub_R_IsShaking(vec3_t pos) { return qfalse; }
+void stub_R_InitWorldEffects(void) {}
+bool stub_R_IsOutside(vec3_t pos) { return qfalse; }
+float stub_R_IsOutsideCausingPain(vec3_t pos) { return qfalse; }
+float stub_R_GetChanceOfSaberFizz() { return qfalse; }
+#endif //__JKA_WEATHER__
+bool stub_R_GetWindVector(vec3_t windVector, vec3_t atpoint) { return qfalse; }
+bool stub_R_GetWindGusting(vec3_t atpoint) { return qfalse; }
 //static void RE_SetRefractionProperties(float distortionAlpha, float distortionStretch, qboolean distortionPrePost, qboolean distortionNegate) { }
 qboolean stub_RE_ProcessDissolve(void) { return qfalse; }
 qboolean stub_RE_InitDissolve(qboolean bForceCircularExtroWipe) { return qfalse; }
-bool stub_R_IsShaking(vec3_t pos) { return qfalse; }
-void stub_R_InitWorldEffects(void){}
-bool stub_R_GetWindVector(vec3_t windVector, vec3_t atpoint) { return qfalse; }
-bool stub_R_GetWindGusting(vec3_t atpoint){ return qfalse; }
-bool stub_R_IsOutside(vec3_t pos) { return qfalse; }
-float stub_R_IsOutsideCausingPain(vec3_t pos) { return qfalse; }
-float stub_R_GetChanceOfSaberFizz(){return qfalse;}
 qboolean stub_RE_GetLighting(const vec3_t origin, vec3_t ambientLight, vec3_t directedLight, vec3_t lightDir) { return qfalse; }
 bool stub_R_SetTempGlobalFogColor(vec3_t color) { return qfalse; }
 void stub_RE_GetScreenShot(byte *buffer, int w, int h){}
@@ -1877,6 +1903,9 @@ GetRefAPI
 
 @@@@@@@@@@@@@@@@@@@@@
 */
+#ifdef __JKA_WEATHER__
+extern void R_WorldEffectCommand(const char *command);
+#endif //__JKA_WEATHER__
 extern qboolean R_inPVS(vec3_t p1, vec3_t p2);
 extern void G2API_AnimateG2Models(CGhoul2Info_v &ghoul2, int AcurrentTime, CRagDollUpdateParams *params);
 extern qboolean G2API_GetRagBonePos(CGhoul2Info_v &ghoul2, const char *boneName, vec3_t pos, vec3_t entAngles, vec3_t entPos, vec3_t entScale);
@@ -1968,7 +1997,11 @@ extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *ri
 	REX(GetLightStyle);
 	REX(SetLightStyle);
 	re.GetBModelVerts = stub_RE_GetBModelVerts;
+#ifdef __JKA_WEATHER__
+	re.WorldEffectCommand = R_WorldEffectCommand;
+#else
 	re.WorldEffectCommand = stub_RE_WorldEffectCommand;
+#endif //__JKA_WEATHER__
 	//REX(GetModelBounds);  //Not used by game code, do we really need it?
 
 	re.SVModelInit = RE_SVModelInit;
@@ -1983,10 +2016,24 @@ extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *ri
 	re.Language_UsesSpaces = Language_UsesSpaces;
 	re.AnyLanguage_ReadCharFromString = AnyLanguage_ReadCharFromString;
 		
+#ifdef __JKA_WEATHER__
+	re.R_InitWorldEffects = R_InitWorldEffects;
+#else //!__JKA_WEATHER__
 	re.R_InitWorldEffects = stub_R_InitWorldEffects;
+#endif //__JKA_WEATHER__
 	re.R_ClearStuffToStopGhoul2CrashingThings = R_ClearStuffToStopGhoul2CrashingThings;
 	re.R_inPVS = R_inPVS;
 
+#ifdef __JKA_WEATHER__
+	re.GetWindVector = R_GetWindVector;
+	re.GetWindGusting = R_GetWindGusting;
+	re.IsOutside = R_IsOutside;
+	re.IsOutsideCausingPain = R_IsOutsideCausingPain;
+	re.GetChanceOfSaberFizz = R_GetChanceOfSaberFizz;
+	re.IsShaking = R_IsShaking;
+	re.AddWeatherZone = R_AddWeatherZone;
+	re.SetTempGlobalFogColor = R_SetTempGlobalFogColor;
+#else //!__JKA_WEATHER__
 	re.GetWindVector = stub_R_GetWindVector;
 	re.GetWindGusting = stub_R_GetWindGusting;
 	re.IsOutside = stub_R_IsOutside;
@@ -1995,6 +2042,7 @@ extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *ri
 	re.IsShaking = stub_R_IsShaking;
 	re.AddWeatherZone = stub_RE_AddWeatherZone;
 	re.SetTempGlobalFogColor = stub_R_SetTempGlobalFogColor;
+#endif //__JKA_WEATHER__
 
 	REX(SetRangedFog);
 

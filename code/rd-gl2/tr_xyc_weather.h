@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
+#ifndef __JKA_WEATHER__
 #pragma once
 
 #include "qcommon/qcommon.h"
@@ -29,3 +30,4 @@ void R_InitWeatherSystem();
 void R_AddWeatherSurfaces();
 void R_ShutdownWeatherSystem();
 void RB_SurfaceWeather( srfWeather_t *surfaceType );
+#endif //__JKA_WEATHER__

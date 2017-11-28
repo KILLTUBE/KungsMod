@@ -283,6 +283,8 @@ void RE_AddAdditiveLightToScene( const vec3_t org, float intensity, float r, flo
 
 void RE_BeginScene(const refdef_t *fd)
 {
+	static int		lastTime = 0;
+
 	Com_Memcpy( tr.refdef.text, fd->text, sizeof( tr.refdef.text ) );
 
 	tr.refdef.x = fd->x;
@@ -298,6 +300,7 @@ void RE_BeginScene(const refdef_t *fd)
 	VectorCopy( fd->viewaxis[2], tr.refdef.viewaxis[2] );
 
 	tr.refdef.time = fd->time;
+	tr.refdef.frametime = fd->time - lastTime;
 	tr.refdef.rdflags = fd->rdflags;
 
 	if (fd->rdflags & RDF_SKYBOXPORTAL)
@@ -307,6 +310,9 @@ void RE_BeginScene(const refdef_t *fd)
 	else
 	{
 		skyboxportal = qfalse;
+
+		// cdr - only change last time for the real render, not the portal
+		lastTime = fd->time;
 	}
 
 	if (fd->rdflags & RDF_DRAWSKYBOX)
@@ -576,6 +582,10 @@ void RE_RenderScene( const refdef_t *fd ) {
 	qhandle_t timer = R_BeginTimedBlockCmd( "Main Render" );
 	R_RenderView( &parms );
 	R_EndTimedBlockCmd( timer );
+
+#ifdef __JKA_WEATHER__
+	RE_RenderWorldEffects();
+#endif //__JKA_WEATHER__
 
 	if(!( fd->rdflags & RDF_NOWORLDMODEL ))
 	{
