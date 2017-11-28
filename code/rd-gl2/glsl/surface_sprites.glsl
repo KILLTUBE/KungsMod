@@ -38,21 +38,16 @@ void main()
 
 	float halfWidth = width * 0.5;
 	vec3 offsets[] = vec3[](
-#if defined(VERTICAL)
+#if defined(FACE_UP)
 		vec3( halfWidth, -halfWidth, 0.0),
 		vec3( halfWidth,  halfWidth, height),
 		vec3(-halfWidth,  halfWidth, height),
 		vec3(-halfWidth, -halfWidth, 0.0)
-#elif defined(ORIENTED)
+#else
 		vec3( halfWidth, 0.0, 0.0),
 		vec3( halfWidth, 0.0, height),
 		vec3(-halfWidth, 0.0, height),
 		vec3(-halfWidth, 0.0, 0.0)
-#else //FLATTENED & EFFECT
-		vec3( halfWidth, -halfWidth, 0.0),
-		vec3( halfWidth,  halfWidth, height),
-		vec3(-halfWidth,  halfWidth, height),
-		vec3(-halfWidth, -halfWidth, 0.0)
 #endif
 	);
 
@@ -65,16 +60,16 @@ void main()
 
 	vec3 offset = offsets[gl_VertexID];
 
-#if defined(ORIENTED)
+#if defined(FACE_CAMERA)
 	//TODO: Allow facing the camera on the z axis as well to match GL1.
 	vec2 toCamera = normalize(V.xy);
 	offset.xy = offset.x*vec2(toCamera.y, -toCamera.x);
-#elif defined(VERTICAL)
+#elif defined(FACE_UP)
+	// Incorrect. Copied the FACE_CAMERA code (orients sprite only on X & Y axis) for FACE_UP instead. Now matches GL1.
+	// Make this sprite face in some direction
+	//offset.xy = offset.x*attr_Normal.xy;
 	vec2 toCamera = normalize(V.xy);
 	offset.xy = offset.x*vec2(toCamera.y, -toCamera.x);
-#else //FLATTENED & EFFECT
-	// Make this sprite flattened on the ground, without clipping
-	offset.z = offset.z*attr_Normal.z + 0.5;
 #endif
 
 	vec4 worldPos = vec4(attr_Position + offset, 1.0);

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // tr_surf.c
 #include "tr_local.h"
-#include "tr_xyc_weather.h"
+#include "tr_weather.h"
 
 /*
 
@@ -2150,28 +2150,12 @@ static void RB_SurfaceSprites( srfSprites_t *surf )
 
 	if (ss->type == SURFSPRITE_ORIENTED)
 	{
-		shaderFlags |= SSDEF_ORIENTED;
+		shaderFlags |= SSDEF_FACE_CAMERA;
 	}
-	else if (ss->type == SURFSPRITE_VERTICAL)
+	
+	if (ss->type == SURFSPRITE_VERTICAL)
 	{
-		shaderFlags |= SSDEF_VERTICAL;
-	}
-	else if (ss->type == SURFSPRITE_FLATTENED)
-	{
-		shaderFlags |= SSDEF_FLATTENED;
-	}
-	//else if ((ss->type == SURFSPRITE_EFFECT) && (ss->type == SURFSPRITE_WEATHERFX))
-	else if (ss->type == SURFSPRITE_EFFECT)
-	{
-		shaderFlags |= SSDEF_EFFECT;
-	}
-	else if (ss->type == SURFSPRITE_WEATHERFX)
-	{
-		shaderFlags |= SSDEF_EFFECT;
-	}
-	else
-	{
-		return;
+		shaderFlags |= SSDEF_FACE_UP;
 	}
 
 	shaderProgram_t *program = programGroup + shaderFlags;
@@ -2186,9 +2170,6 @@ static void RB_SurfaceSprites( srfSprites_t *surf )
 	data.fadeScale = ss->fadeScale;
 	data.widthVariance = ss->variance[0];
 	data.heightVariance = ss->variance[1];
-	data.widthfxGrow = ss->fxGrow[0];
-	data.heightfxGrow = ss->fxGrow[1];
-	data.fxDuration = ss->fxDuration;
 
 	GLSL_BindProgram(program);
 	GL_State(firstStage->stateBits);
@@ -2292,8 +2273,6 @@ void (*rb_surfaceTable[SF_NUM_SURFACE_TYPES])( void *) = {
 	(void(*)(void*))RB_SurfaceVBOMesh,	    // SF_VBO_MESH,
 	(void(*)(void*))RB_SurfaceVBOMDVMesh,   // SF_VBO_MDVMESH
 	(void(*)(void*))RB_SurfaceSprites,      // SF_SPRITES
-#ifndef __JKA_WEATHER__
 	(void(*)(void*))RB_SurfaceWeather,      // SF_WEATHER
-#endif //__JKA_WEATHER__
 	(void(*)(void*))RB_Refractive,			// SF_REFRACTIVE
 };
