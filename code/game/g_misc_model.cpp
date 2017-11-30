@@ -143,20 +143,20 @@ void CrystalAmmoSettings(gentity_t *ent)
 
 
 //------------------------------------------------------------
-void misc_model_ghoul_use(gentity_t *self, gentity_t *other, gentity_t *activator)
+void misc_model_ghoul_use(gentity_t *ent, gentity_t *other, gentity_t *activator)
 {
 	// Become solid again.
-	if (!self->count)
+	if (!ent->count)
 	{
-		self->count = 1;
-		self->activator = activator;
-		self->contents = CONTENTS_BODY;
-		self->clipmask = MASK_NPCSOLID;
-		self->svFlags &= ~SVF_NOCLIENT;
-		self->s.eFlags &= ~EF_NODRAW;
+		ent->count = 1;
+		ent->activator = activator;
+		ent->contents = CONTENTS_BODY;
+		ent->clipmask = MASK_NPCSOLID;
+		ent->svFlags &= ~SVF_NOCLIENT;
+		ent->s.eFlags &= ~EF_NODRAW;
 	}
 
-	G_ActivateBehavior(self, BSET_USE);
+	G_ActivateBehavior(ent, BSET_USE);
 }
 
 //------------------------------------------------------------
@@ -172,19 +172,22 @@ START_OFF - Starts off until used.
 "rootbone" - Default "model_root" animation root bone
 "startFrame" - Default "0". animation start frame
 "endFrame" - Default "0". animation end frame
+"animSpeed" - Default "1.0". animation speed
 "skin" - Default "<model_dir>/model_default.skin". Skin file to load when USE_SKIN is enabled.
 
 - Use "startFrame" to set the start frame of the animation.
 - Use "endFrame" to set the end frame of the animation.
+- Use "animSpeed" to speed up or slow down the animation.
 - Use "renderRadius" for models larger than a player model if you notice the misc_model_ghoul disappearing when moving the camera.
 - Use "rootbone" to change the bone that the animation will play from, instead of animating the entire GLA. Use wisely.
 - Use "skin" to choose a skin. "models/players/kyle/model_red.skin is an example. Only need to specify if using a skin other than model_default.skin.
 - Use START_OFF to have your model appear & become solid (if checked) when triggered. Animation will always play regardless though.
 */
 //------------------------------------------------------------
-extern void G_LoadAnimFileSet(gentity_t *ent, const char *pModelName);
 void SP_misc_model_ghoul( gentity_t *ent )
 {
+	// Model init
+	//**************************
 	ent->s.modelindex = G_ModelIndex( ent->model );
 	gi.G2API_InitGhoul2Model( ent->ghoul2, ent->model, ent->s.modelindex, NULL_HANDLE, NULL_HANDLE, 0, 0 );
 
@@ -198,7 +201,10 @@ void SP_misc_model_ghoul( gentity_t *ent )
 	G_SetOrigin( ent, ent->s.origin );
 	G_SetAngles( ent, ent->s.angles );
 
+	// Scale
+	//**************************
 	qboolean bHasScale = G_SpawnVector( "modelscale_vec", "1 1 1", ent->s.modelScale );
+
 	if ( !bHasScale ) {
 		float temp;
 
@@ -208,6 +214,7 @@ void SP_misc_model_ghoul( gentity_t *ent )
 			bHasScale = qtrue;
 		}
 	}
+
 	if ( bHasScale ) {
 		//scale the x axis of the bbox up.
 		ent->maxs[0] *= ent->s.modelScale[0];
@@ -225,43 +232,21 @@ void SP_misc_model_ghoul( gentity_t *ent )
 		ent->s.origin[2] += ( oldMins2 - ent->mins[2] );
 	}
 
-	if ( ent->spawnflags & 1 ) //SOLID
+	// Solid
+	//**************************
+	if ( ent->spawnflags & 1 ) //SOLID flag.
 	{
 		ent->contents = CONTENTS_BODY;
 		ent->clipmask = MASK_NPCSOLID;
 	}
 	
+	// Start off
+	//**************************
 	ent->e_UseFunc = useF_misc_model_ghoul_use;
 
-	// Animation
-	char *root_boneName;
-	int animNumber;
-	int animflags;
-
-	G_SpawnString("rootbone", "model_root", &root_boneName);
-	G_SpawnInt("animation", "0", &animNumber);
-
-	if (ent->spawnflags & 2) //LOOP
+	if (ent->spawnflags & 4) //START_OFF flag.
 	{
-		animflags = BONE_ANIM_OVERRIDE_LOOP;
-	}
-	else
-	{
-		animflags = BONE_ANIM_OVERRIDE_FREEZE;
-	}
-
-	float animSpeed;
-
-	G_SpawnInt("startFrame", "0", &ent->startFrame);
-	G_SpawnInt("endFrame", "0", &ent->endFrame);
-	G_SpawnFloat("animSpeed", "1.0", &animSpeed);
-
-	gi.G2API_SetBoneAnim(&ent->ghoul2[0], root_boneName, ent->startFrame, ent->endFrame, animflags, animSpeed, cg.time, -1, -1);
-
-	// Start off
-	if (ent->spawnflags & 4) //START_OFF
-	{
-		ent->spawnContents = ent->contents;	// It Navs can temporarly turn it "on"
+		ent->spawnContents = ent->contents;
 		ent->s.solid = 0;
 		ent->contents = 0;
 		ent->clipmask = 0;
@@ -270,19 +255,41 @@ void SP_misc_model_ghoul( gentity_t *ent )
 		ent->count = 0;
 	}
 
+	// Animation
+	//**************************
+	char *root_boneName;
+	int animflags = BONE_ANIM_OVERRIDE_FREEZE;
+	float animSpeed;
+
+	G_SpawnString("rootbone", "model_root", &root_boneName);
+
+	if (ent->spawnflags & 2) //LOOP flag.
+	{
+		animflags = BONE_ANIM_OVERRIDE_LOOP;
+	}
+
+	G_SpawnInt("startFrame", "0", &ent->startFrame);
+	G_SpawnInt("endFrame", "0", &ent->endFrame);
+	G_SpawnFloat("animSpeed", "1.0", &animSpeed);
+
+	gi.G2API_SetBoneAnim(&ent->ghoul2[0], root_boneName, ent->startFrame, ent->endFrame, animflags, animSpeed + Q_flrand(-1.0f, 1.0f) * 0.1f, 0, -1, -1);
+	ent->endFrame = 0; // don't allow it to do anything with the animation function in G_main
+	
 	// Skin
+	//**************************
 	char skinPath[MAX_QPATH];
 	char skinPath2[MAX_QPATH];
 	int skin = 0;
 
-	//output is now "models/players/kyle/model.glm"
-	COM_StripExtension(ent->model, skinPath, sizeof(skinPath)); //stripped extension out, output is now "models/players/kyle/model"
-	Com_sprintf(skinPath2, sizeof(skinPath), "%s_", skinPath); //added "_" onto the end, output is now "models/players/kyle/model_"
+	//example - output is currently "models/players/kyle/model.glm"
+	COM_StripExtension(ent->model, skinPath, sizeof(skinPath)); //example - stripped extension out, output is now "models/players/kyle/model"
+	Com_sprintf(skinPath2, sizeof(skinPath), "%s_", skinPath); //example - added "_" onto the end, output is now "models/players/kyle/model_"
 
 	G_SpawnString("skin", va("%sdefault.skin", skinPath2), &ent->skin);
 	gi.G2API_SetSkin(&ent->ghoul2[0], G_SkinIndex(ent->skin), skin);
 
-
+	// Register & precache
+	//**************************
 	cgi_R_RegisterModel( ent->model );
 	gi.G2API_PrecacheGhoul2Model( ent->model );
 
