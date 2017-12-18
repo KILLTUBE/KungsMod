@@ -2097,6 +2097,8 @@ typedef struct glstate_s {
 	matrix_t        modelview;
 	matrix_t        projection;
 	matrix_t		modelviewProjection;
+	int				attrIndex;
+	int				attrStepRate;
 } glstate_t;
 
 typedef enum {
