@@ -641,8 +641,11 @@ void main()
 #if defined(PER_PIXEL_LIGHTING)
 	float isLightgrid = float(var_LightDir.w < 1.0);
 	L = var_LightDir.xyz;
+  #if defined(USE_LIGHT_VERTEX)
+	L = -normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * (1.0 - u_EnableTextures.y);
+  #endif
   #if defined(USE_DELUXEMAP)
-	L = normalize(texture(u_LightGridDirectionMap, gridCell).rgb) * (1.0 - u_EnableTextures.y);
+	L = -normalize(texture(u_LightGridDirectionMap, gridCell).rgb  * 2.0 - vec3(1.0)) * (1.0 - u_EnableTextures.y);
 	L += (texture(u_DeluxeMap, var_TexCoords.zw).xyz - vec3(0.5)) * u_EnableTextures.y;
   #endif
 	float sqrLightDist = dot(L, L);
@@ -653,7 +656,7 @@ void main()
 	vertexColor = var_Color.rgb * var_Color.rgb;
 	ambientLight *= ambientLight;
 	#if defined(USE_LIGHT_VECTOR)
-	  L += -normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * isLightgrid;
+	  L -= normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * isLightgrid;
 	  vec3 directedLight = texture(u_LightGridDirectionalLightMap, gridCell).rgb * isLightgrid;
 	  directedLight *= directedLight;
 	  directedLight += u_DirectedLight * u_DirectedLight;
@@ -661,7 +664,7 @@ void main()
   #else
 	vertexColor = var_Color.rgb;
 	#if defined(USE_LIGHT_VECTOR)
-	  L += -normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * isLightgrid;
+	  L -= normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * isLightgrid;
 	  vec3 directedLight = texture(u_LightGridDirectionalLightMap, gridCell).rgb * isLightgrid;
 	  directedLight += u_DirectedLight;
 	#endif
