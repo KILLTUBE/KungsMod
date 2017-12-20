@@ -357,6 +357,7 @@ typedef enum
 	useF_funcBBrushUse,
 	useF_misc_model_use,
 	useF_misc_model_ghoul_use,
+	useF_misc_model_iqm_use,
 	useF_Use_Item,
 	useF_Use_Shooter,
 	useF_GoExplodeDeath,

@@ -297,6 +297,131 @@ void SP_misc_model_ghoul( gentity_t *ent )
 }
 
 
+//------------------------------------------------------------
+void misc_model_iqm_use(gentity_t *ent, gentity_t *other, gentity_t *activator)
+{
+	// Become solid again.
+	if (!ent->count)
+	{
+		ent->count = 1;
+		ent->activator = activator;
+		ent->contents = CONTENTS_BODY;
+		ent->clipmask = MASK_NPCSOLID;
+		ent->svFlags &= ~SVF_NOCLIENT;
+		ent->s.eFlags &= ~EF_NODRAW;
+	}
+
+	G_ActivateBehavior(ent, BSET_USE);
+}
+
+//------------------------------------------------------------
+/*QUAKED misc_model_iqm (1 0 0) (-16 -16 -24) (16 16 32) SOLID LOOP START_OFF
+SOLID - Movement is blocked by it with the MASK_NPCSOLID & CONTENTS_BODY.
+LOOP - Loop animation.
+START_OFF - Starts off until used.
+
+"model" - .iqm file to load
+"modelscale" - "x" uniform scale
+"modelscale_vec" - "x y z" scale model in each axis
+"skin" - Default "<model_dir>/model_default.skin". Skin file to load when USE_SKIN is enabled.
+
+- Use "skin" to choose a skin. "models/players/kyle/model_red.skin is an example. Only need to specify if using a skin other than model_default.skin.
+- Use START_OFF to have your model appear & become solid (if checked) when triggered. Animation will always play regardless though.
+*/
+//------------------------------------------------------------
+void SP_misc_model_iqm(gentity_t *ent)
+{
+	// Model init
+	//**************************
+	ent->s.modelindex = G_ModelIndex(ent->model);
+
+	G_SetOrigin(ent, ent->s.origin);
+	G_SetAngles(ent, ent->s.angles);
+
+	// Scale
+	//**************************
+	qboolean bHasScale = G_SpawnVector("modelscale_vec", "1 1 1", ent->s.modelScale);
+
+	if (!bHasScale) {
+		float temp;
+
+		G_SpawnFloat("modelscale", "0", &temp);
+		if (temp != 0.0f) {
+			ent->s.modelScale[0] = ent->s.modelScale[1] = ent->s.modelScale[2] = temp;
+			bHasScale = qtrue;
+		}
+	}
+
+	if (bHasScale) {
+		//scale the x axis of the bbox up.
+		ent->maxs[0] *= ent->s.modelScale[0];
+		ent->mins[0] *= ent->s.modelScale[0];
+
+		//scale the y axis of the bbox up.
+		ent->maxs[1] *= ent->s.modelScale[1];
+		ent->mins[1] *= ent->s.modelScale[1];
+
+		//scale the z axis of the bbox up and adjust origin accordingly
+		float oldMins2 = ent->mins[2];
+
+		ent->maxs[2] *= ent->s.modelScale[2];
+		ent->mins[2] *= ent->s.modelScale[2];
+		ent->s.origin[2] += (oldMins2 - ent->mins[2]);
+	}
+
+	// Solid
+	//**************************
+	if (ent->spawnflags & 1) //SOLID flag.
+	{
+		ent->contents = CONTENTS_BODY;
+		ent->clipmask = MASK_NPCSOLID;
+	}
+
+	// Start off
+	//**************************
+	ent->e_UseFunc = useF_misc_model_iqm_use;
+
+	if (ent->spawnflags & 4) //START_OFF flag.
+	{
+		ent->spawnContents = ent->contents;
+		ent->s.solid = 0;
+		ent->contents = 0;
+		ent->clipmask = 0;
+		ent->svFlags |= SVF_NOCLIENT;
+		ent->s.eFlags |= EF_NODRAW;
+		ent->count = 0;
+	}
+
+	// Animation
+	//**************************
+	refEntity_t	refEnt;
+
+	if (ent->spawnflags & 2) //LOOP flag.
+	{
+		ent->s.eFlags |= EF_ANIM_ALLFAST;
+	}
+
+	// Skin
+	//**************************
+	char skinPath[MAX_QPATH];
+	char skinPath2[MAX_QPATH];
+	int skin = 0;
+
+	//example - output is currently "models/players/kyle/model.glm"
+	COM_StripExtension(ent->model, skinPath, sizeof(skinPath)); //example - stripped extension out, output is now "models/players/kyle/model"
+	Com_sprintf(skinPath2, sizeof(skinPath), "%s_", skinPath); //example - added "_" onto the end, output is now "models/players/kyle/model_"
+
+	G_SpawnString("skin", va("%sdefault.skin", skinPath2), &ent->skin);
+	//gi.G2API_SetSkin(&ent->ghoul2[0], G_SkinIndex(ent->skin), skin);
+	gi.RE_RegisterSkin(ent->skin);
+
+	// Register & precache
+	//**************************
+	cgi_R_RegisterModel(ent->model);
+
+	gi.linkentity(ent);
+}
+
 #define RACK_BLASTER	1
 #define RACK_REPEATER	2
 #define RACK_ROCKET		4

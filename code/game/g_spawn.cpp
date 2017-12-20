@@ -480,6 +480,7 @@ void SP_misc_atst_drivable( gentity_t *ent );
 
 void SP_misc_model_breakable(gentity_t *ent);//stays as an ent
 void SP_misc_model_ghoul(gentity_t *ent);//stays as an ent
+void SP_misc_model_iqm(gentity_t *ent);//stays as an ent
 void SP_misc_portal_camera(gentity_t *ent);
 
 void SP_misc_bsp(gentity_t *ent);
@@ -700,6 +701,7 @@ spawn_t	spawns[] = {
 	{"misc_weather_zone", SP_misc_weather_zone},
 
 	{"misc_model_ghoul", SP_misc_model_ghoul},
+	{"misc_model_iqm", SP_misc_model_iqm},
 	{"misc_model_breakable", SP_misc_model_breakable},
 	{"misc_portal_surface", SP_misc_portal_surface},
 	{"misc_portal_camera", SP_misc_portal_camera},
