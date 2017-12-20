@@ -383,7 +383,7 @@ void GL_VertexAttribPointers(
 				BUFFER_OFFSET(attrib.offset));
 		}
 
-		if (attrib.index != glState.attrIndex && attrib.stepRate != glState.attrStepRate)
+		if (attrib.stepRate != glState.attrStepRate)
 		{
 			glState.attrIndex = attrib.index;
 			glState.attrStepRate = attrib.stepRate;
