@@ -1145,6 +1145,22 @@ int		G_ParseAnimFileSet(const char *skeletonName, const char *modelName=0)
 				G_ParseAnimationFile(1,    skeletonMapName, fileIndex);
 				G_ParseAnimationEvtFile(1, skeletonMapName, fileIndex, cineGLAIndex, false/*flag for model specific*/);
 			}
+
+			// loading the DF2 animation GLA, while leaving base _humanoid GLA intact.
+			char  _humanoid_df2Name[MAX_QPATH];
+			Com_sprintf(_humanoid_df2Name, MAX_QPATH, "_humanoid_df2");
+
+			const int df2_animsGLAIndex = gi.G2API_PrecacheGhoul2Model(va("models/players/%s/%s.gla", _humanoid_df2Name, _humanoid_df2Name));
+			if (df2_animsGLAIndex)
+			{
+				assert(df2_animsGLAIndex == normalGLAIndex + 2);
+				if (df2_animsGLAIndex != normalGLAIndex + 2)
+				{
+					Com_Error(ERR_DROP, "_humanoid_df2 GLA was not loaded after the normal GLA.  Cannot continue safely.");
+				}
+				G_ParseAnimationFile(2, _humanoid_df2Name, fileIndex);
+				G_ParseAnimationEvtFile(2, _humanoid_df2Name, fileIndex, df2_animsGLAIndex, false/*flag for model specific*/);
+			}
 		}
 		else
 		{
