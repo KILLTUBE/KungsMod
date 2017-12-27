@@ -3274,7 +3274,7 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 			}
 			RE_RegisterModel(va("models/players/_humanoid_%s/_humanoid_%s.gla", mapname, mapname));
 		}
-		// loading the DF2 animation GLA, while leaving base _humanoid GLA intact.
+		// loading the DF2 animation GLA for new animations, so animators don't need to edit the base _humanoid GLA.
 		RE_RegisterModel("models/players/_humanoid_df2/_humanoid_df2.gla");
 	}
 

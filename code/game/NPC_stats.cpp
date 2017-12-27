@@ -1146,7 +1146,7 @@ int		G_ParseAnimFileSet(const char *skeletonName, const char *modelName=0)
 				G_ParseAnimationEvtFile(1, skeletonMapName, fileIndex, cineGLAIndex, false/*flag for model specific*/);
 			}
 
-			// loading the DF2 animation GLA, while leaving base _humanoid GLA intact.
+			// loading the DF2 animation GLA for new animations, so animators don't need to edit the base _humanoid GLA.
 			char  _humanoid_df2Name[MAX_QPATH];
 			Com_sprintf(_humanoid_df2Name, MAX_QPATH, "_humanoid_df2");
 
