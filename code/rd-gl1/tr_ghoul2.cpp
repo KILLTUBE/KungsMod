@@ -3574,11 +3574,16 @@ qboolean R_LoadMDXM( model_t *mod, void *buffer, const char *mod_name, qboolean 
 		LL(mdxm->ofsEnd);
 	}
 
-	// first up, go load in the animation file we need that has the skeletal animation info for this model
 	mdxm->animIndex = RE_RegisterModel(va ("%s.gla",mdxm->animName));
+
+	// Register additional GLAs for _humanoid
+	//----------------------------------------
 	if (!strcmp(mdxm->animName,"models/players/_humanoid/_humanoid"))
-	{	//if we're loading the humanoid, look for a cinematic gla for this map
+	{
+		// Register the cinematic GLA
+		//----------------------------
 		const char*mapname = sv_mapname->string;
+
 		if (strcmp(mapname,"nomap") )
 		{
 			if (strrchr(mapname,'/') )	//maps in subfolders use the root name, ( presuming only one level deep!)
@@ -3587,7 +3592,9 @@ qboolean R_LoadMDXM( model_t *mod, void *buffer, const char *mod_name, qboolean 
 			}
 			RE_RegisterModel(va ("models/players/_humanoid_%s/_humanoid_%s.gla",mapname,mapname));
 		}
-		// loading the DF2 animation GLA for new animations, so animators don't need to edit the base _humanoid GLA.
+
+		// Register the DF2 GLA
+		//-----------------------
 		RE_RegisterModel("models/players/_humanoid_df2/_humanoid_df2.gla");
 	}
 

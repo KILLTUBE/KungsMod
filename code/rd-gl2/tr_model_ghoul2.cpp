@@ -399,14 +399,8 @@ public:
 	// Need to add in smoothing step?
 	CTransformBone *EvalFull(int index)
 	{
-#ifdef JK2_MODE
-		//		Eval(index);
-
-		// FIXME BBi Was commented
-		Eval(index);
-#else
 		EvalRender(index);
-#endif // JK2_MODE
+
 		if (mSmoothingActive)
 		{
 			return mSmoothBones + index;
@@ -3261,11 +3255,16 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 		LL(mdxm->ofsEnd);
 	}
 
-	// first up, go load in the animation file we need that has the skeletal animation info for this model
 	mdxm->animIndex = RE_RegisterModel(va("%s.gla", mdxm->animName));
+
+	// Register additional GLAs for _humanoid
+	//----------------------------------------
 	if (!strcmp(mdxm->animName, "models/players/_humanoid/_humanoid"))
-	{	//if we're loading the humanoid, look for a cinematic gla for this map
+	{
+		// Register the cinematic GLA
+		//----------------------------
 		const char*mapname = sv_mapname->string;
+
 		if (strcmp(mapname, "nomap"))
 		{
 			if (strrchr(mapname, '/'))	//maps in subfolders use the root name, ( presuming only one level deep!)
@@ -3274,24 +3273,24 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 			}
 			RE_RegisterModel(va("models/players/_humanoid_%s/_humanoid_%s.gla", mapname, mapname));
 		}
-		// loading the DF2 animation GLA for new animations, so animators don't need to edit the base _humanoid GLA.
+
+		// Register the DF2 GLA
+		//-----------------------
 		RE_RegisterModel("models/players/_humanoid_df2/_humanoid_df2.gla");
 	}
 
-#ifndef JK2_MODE
 	bool isAnOldModelFile = false;
+
 	if (mdxm->numBones == 72 && strstr(mdxm->animName, "_humanoid"))
 	{
 		isAnOldModelFile = true;
 	}
-#endif
 
 	if (!mdxm->animIndex)
 	{
 		ri.Printf(PRINT_WARNING, "R_LoadMDXM: missing animation file %s for mesh %s\n", mdxm->animName, mdxm->name);
 		return qfalse;
 	}
-#ifndef JK2_MODE
 	else
 	{
 		assert(tr.models[mdxm->animIndex]->data.gla->numBones == mdxm->numBones);
@@ -3315,7 +3314,6 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 			}
 		}
 	}
-#endif
 
 	mod->numLods = mdxm->numLODs - 1;	//copy this up to the model for ease of use - it wil get inced after this.
 
@@ -3334,13 +3332,11 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 		LL(surfInfo->numChildren);
 		LL(surfInfo->parentIndex);
 
-#ifndef JK2_MODE
 		Q_strlwr(surfInfo->name);	//just in case
 		if (!strcmp(&surfInfo->name[strlen(surfInfo->name) - 4], "_off"))
 		{
 			surfInfo->name[strlen(surfInfo->name) - 4] = 0;	//remove "_off" from name
 		}
-#endif
 
 		if (surfInfo->shader[0] == '[')
 		{
@@ -3464,7 +3460,6 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 			}
 #endif
 
-#ifndef JK2_MODE
 			if (isAnOldModelFile)
 			{
 				int *boneRef = (int *)((byte *)surf + surf->ofsBoneReferences);
@@ -3481,7 +3476,6 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 					}
 				}
 			}
-#endif
 			// find the next surface
 			surf = (mdxmSurface_t *)((byte *)surf + surf->ofsEnd);
 		}
