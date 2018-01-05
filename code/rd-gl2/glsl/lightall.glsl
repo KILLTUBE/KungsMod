@@ -641,8 +641,12 @@ void main()
 #if defined(PER_PIXEL_LIGHTING)
 	float isLightgrid = float(var_LightDir.w < 1.0);
 	L = var_LightDir.xyz;
+  #if defined(USE_LIGHT_VERTEX)
+	L = -normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * (1.0 - u_EnableTextures.y);
+  #endif
   #if defined(USE_DELUXEMAP)
-	L = (texture(u_DeluxeMap, var_TexCoords.zw).xyz - vec3(0.5)) * u_EnableTextures.y;
+	L = -normalize(texture(u_LightGridDirectionMap, gridCell).rgb  * 2.0 - vec3(1.0)) * (1.0 - u_EnableTextures.y);
+	L += (texture(u_DeluxeMap, var_TexCoords.zw).xyz - vec3(0.5)) * u_EnableTextures.y;
   #endif
 	float sqrLightDist = dot(L, L);
 	L /= sqrt(sqrLightDist);
@@ -652,16 +656,15 @@ void main()
 	vertexColor = var_Color.rgb * var_Color.rgb;
 	ambientLight *= ambientLight;
 	#if defined(USE_LIGHT_VECTOR)
-	  L += -normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * isLightgrid;
+	  L -= normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * isLightgrid;
 	  vec3 directedLight = texture(u_LightGridDirectionalLightMap, gridCell).rgb * isLightgrid;
 	  directedLight *= directedLight;
 	  directedLight += u_DirectedLight * u_DirectedLight;
 	#endif
   #else
-	vertexColor = var_Color.rgb
+	vertexColor = var_Color.rgb;
 	#if defined(USE_LIGHT_VECTOR)
-	  float isLightgrid = float(var_LightDir.w < 1.0);
-	  L += -normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * isLightgrid;
+	  L -= normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * isLightgrid;
 	  vec3 directedLight = texture(u_LightGridDirectionalLightMap, gridCell).rgb * isLightgrid;
 	  directedLight += u_DirectedLight;
 	#endif
@@ -693,8 +696,8 @@ void main()
   #endif
 
   #if defined(USE_LIGHTMAP) || defined(USE_LIGHT_VERTEX)
-	float surfNL = clamp(dot(N, L), 0.0, 1.0);
-	ambientColor = mix(ambientColor, lightColor, surfNL);
+	float surfNL = clamp(dot(N, L), 0.0, 1.0) * 0.25;
+	ambientColor = max(lightColor - lightColor * surfNL, vec3(0.0));
   #endif
 
   #if defined(USE_SPECULARMAP)
@@ -723,7 +726,7 @@ void main()
 	// diffuse rgb is diffuse
 	// specular rgb is specular reflectance at normal incidence
 	// specular alpha is gloss
-	float roughness = = max(specular.a, 0.04);
+	float roughness = max(specular.a, 0.04);
 
 	// adjust diffuse by specular reflectance, to maintain energy conservation
 	diffuse.rgb *= vec3(1.0) - specular.rgb;
@@ -738,7 +741,7 @@ void main()
 
   #if defined(USE_LIGHTMAP) || defined(USE_LIGHT_VERTEX)
 	NE = abs(dot(N, E)) + 1e-5;
-	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness) * 0.25;
+	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness) * 0.5;
   #endif
   #if defined(USE_LIGHT_VECTOR)
 	NE = abs(dot(N, E)) + 1e-5;

@@ -1854,13 +1854,12 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArrays
 					lightScales[0] = r_ambientScale->value;
 					lightScales[1] = r_directedScale->value;
 
-					uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDORIGIN, tr.world->lightGridOrigin);
-					uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDCELLINVERSESIZE, tr.world->lightGridInverseSize);
-					uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDLIGHTSCALE, lightScales);
-
-					samplerBindingsWriter.AddStaticImage(tr.world->ambientLightImages[0], TB_LGAMBIENT);
-					samplerBindingsWriter.AddStaticImage(tr.world->directionImages, TB_LGDIRECTION);
-					samplerBindingsWriter.AddStaticImage(tr.world->directionalLightImages[0], TB_LGLIGHTCOLOR);
+					if (tr.world)
+					{
+						uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDORIGIN, tr.world->lightGridOrigin);
+						uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDCELLINVERSESIZE, tr.world->lightGridInverseSize);
+						uniformDataWriter.SetUniformVec3(UNIFORM_LIGHTGRIDLIGHTSCALE, lightScales);
+					}
 
 					if (pStage->bundle[TB_NORMALMAP].image[0])
 					{
@@ -1931,7 +1930,6 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArrays
 
 			uniformDataWriter.SetUniformVec4(UNIFORM_CUBEMAPINFO, vec);
 		}
-		samplerBindingsWriter.AddStaticImage(tr.envBrdfImage, TB_ENVBRDFMAP);
 
 		CaptureDrawData(input, pStage, index, stage);
 

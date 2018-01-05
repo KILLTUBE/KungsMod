@@ -382,7 +382,13 @@ void GL_VertexAttribPointers(
 				attrib.stride,
 				BUFFER_OFFSET(attrib.offset));
 		}
-		qglVertexAttribDivisor(attrib.index, attrib.stepRate);
+
+		if (attrib.stepRate != glState.attrStepRate)
+		{
+			glState.attrIndex = attrib.index;
+			glState.attrStepRate = attrib.stepRate;
+			qglVertexAttribDivisor(attrib.index, attrib.stepRate);
+		}
 
 		glState.currentVaoAttribs[attrib.index] = attrib;
 	}
@@ -1366,7 +1372,7 @@ static void RB_RenderDrawSurfList(drawSurf_t *drawSurfs, int numDrawSurfs)
 	void *allocMark = backEndData->perFrameMemory->Mark();
 	assert(backEndData->currentPass == nullptr);
 	backEndData->currentPass = RB_CreatePass(
-		*backEndData->perFrameMemory, numDrawSurfs * 4);
+		*backEndData->perFrameMemory, numDrawSurfs * 5);
 
 	// save original time for entity shader offsets
 	float originalTime = backEnd.refdef.floatTime;
@@ -2166,6 +2172,14 @@ static void RB_RenderMainPass(drawSurf_t *drawSurfs, int numDrawSurfs)
 	if (backEnd.viewParms.flags & VPF_DEPTHSHADOW)
 	{
 		return;
+	}
+
+	if (tr.world)
+	{
+		GL_BindToTMU(tr.envBrdfImage, TB_ENVBRDFMAP);
+		GL_BindToTMU(tr.world->ambientLightImages[0], TB_LGAMBIENT);
+		GL_BindToTMU(tr.world->directionImages, TB_LGDIRECTION);
+		GL_BindToTMU(tr.world->directionalLightImages[0], TB_LGLIGHTCOLOR);
 	}
 
 	RB_RenderDrawSurfList(drawSurfs, numDrawSurfs);
