@@ -104,23 +104,17 @@ static void ClearGlobalShader(void)
 
 	memset( &shader, 0, sizeof( shader ) );
 	memset( &stages, 0, sizeof( stages ) );
-	for ( i = 0 ; i < MAX_SHADER_STAGES ; i++ ) {
+	for (i = 0; i < MAX_SHADER_STAGES; i++) {
 		stages[i].bundle[0].texMods = texMods[i];
 		//stages[i].mGLFogColorOverride = GLFOGOVERRIDE_NONE;
 
 		// default normal/specular
 		VectorSet4(stages[i].normalScale, 0.0f, 0.0f, 0.0f, 0.0f);
-		if (r_pbr->integer) {
-			stages[i].specularScale[0] = r_baseGloss->value;
-			stages[i].specularScale[2] = 1.0;
-		}
-		else 
-		{
-			stages[i].specularScale[0] =
-			stages[i].specularScale[1] =
-			stages[i].specularScale[2] = r_baseSpecular->value;
-			stages[i].specularScale[3] = r_baseGloss->value;
-		}
+		stages[i].specularScale[0] =
+		stages[i].specularScale[1] =
+		stages[i].specularScale[2] = r_baseSpecular->value;
+		stages[i].specularScale[3] = r_baseGloss->value;
+
 	}
 
 	shader.contentFlags = CONTENTS_SOLID | CONTENTS_OPAQUE;
@@ -1593,17 +1587,9 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 				ri.Printf( PRINT_WARNING, "WARNING: missing parameter for specular reflectance in shader '%s'\n", shader.name );
 				continue;
 			}
-			if (r_pbr->integer)
-				{
-					// interpret specularReflectance < 0.5 as nonmetal
-					stage->specularScale[1] = atof(token);// < 0.5f) ? 0.0f : 1.0f;
-				}
-			else
-				{
-					stage->specularScale[0] =
-					stage->specularScale[1] =
-					stage->specularScale[2] = atof(token);
-				}
+			stage->specularScale[0] =
+			stage->specularScale[1] =
+			stage->specularScale[2] = atof(token);
 		}
 		//
 		// specularExponent <value>
@@ -1620,18 +1606,10 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 			}
 			exponent = atof( token );
 
-			// Change shininess to gloss 
-			// FIXME: assumes max exponent of 8192 and min of 1, must change here if altered in lightall_fp.glsl 
-			if (r_pbr->integer)
-				stage->specularScale[0] = 1.0f - powf(2.0f / (exponent + 2.0), 0.25);
-			else
-			{
-				// Change shininess to gloss
-				// Assumes max exponent of 8190 and min of 0, must change here if altered in lightall_fp.glsl
-				exponent = CLAMP(exponent, 0.0f, 8190.0f);
-				stage->specularScale[3] = (log2f(exponent + 2.0f) - 1.0f) / 12.0f;
-			}
-
+			// Change shininess to gloss
+			// Assumes max exponent of 8190 and min of 0, must change here if altered in lightall_fp.glsl
+			exponent = CLAMP(exponent, 0.0f, 8190.0f);
+			stage->specularScale[3] = (log2f(exponent + 2.0f) - 1.0f) / 12.0f;
 		}
 		//
 		// gloss <value> 
@@ -1647,10 +1625,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 			}
 
 			gloss = atof(token);
-			if (r_pbr->integer)
-				stage->specularScale[0] = 1.0 - gloss;
-			else
-				stage->specularScale[3] = gloss;
+			stage->specularScale[3] = gloss;
 		}
 		//
 		// roughness <value>
@@ -1665,15 +1640,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 				continue;
 			}
 			roughness = atof(token);
-			if (r_pbr->integer)
-				stage->specularScale[0] = roughness;
-			else
-			{
-				if (roughness >= 0.125)
-				stage->specularScale[3] = log2f(1.0f / roughness) / 3.0f;
-				else
-				stage->specularScale[3] = 1.0f;
-			}
+			stage->specularScale[3] = 1.0 - roughness;
 		}
 		//
 		// parallaxDepth <value>
@@ -1726,7 +1693,6 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 		}
 		//
 		// specularScale <rgb> <gloss>
-		// or specularScale <metallic> <smoothness> with r_pbr 1
 		// or specularScale <r> <g> <b>
 		// or specularScale <r> <g> <b> <gloss>
 		//
@@ -1753,20 +1719,12 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 			token = COM_ParseExt(text, qfalse);
 			if ( token[0] == 0 )
 			{
-				if (r_pbr->integer) {
-					// two values, metallic then smoothness
-					float smoothness = stage->specularScale[1];
-					stage->specularScale[1] = (stage->specularScale[0] < 0.5f) ? 0.0f : 1.0f;
-					stage->specularScale[0] = smoothness;
-				}
-				else
-				{
-					// two values, rgb then gloss
-					stage->specularScale[3] = stage->specularScale[1];
-					stage->specularScale[1] =
-					stage->specularScale[2] = stage->specularScale[0];
-					continue;
-				}
+				// two values, rgb then gloss
+				stage->specularScale[3] = stage->specularScale[1];
+				stage->specularScale[0] =
+				stage->specularScale[1] =
+				stage->specularScale[2] = stage->specularScale[0];
+				continue;
 			}
 
 			stage->specularScale[2] = atof( token );

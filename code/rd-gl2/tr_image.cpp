@@ -1957,9 +1957,21 @@ static void RawImage_UploadTexture(byte *data, int x, int y, int width, int heig
 		dataFormat = GL_DEPTH_COMPONENT;
 		dataType = GL_UNSIGNED_BYTE;
 		break;
+	case GL_RG16F:
+		dataFormat = GL_RG;
+		dataType = GL_HALF_FLOAT;
+		break;
 	case GL_RGBA16F:
 		dataFormat = GL_RGBA;
 		dataType = GL_HALF_FLOAT;
+		break;
+	case GL_RG32F:
+		dataFormat = GL_RG;
+		dataType = GL_FLOAT;
+		break;
+	case GL_RGBA32F:
+		dataFormat = GL_RGBA;
+		dataType = GL_FLOAT;
 		break;
 	default:
 		dataFormat = GL_RGBA;
@@ -2847,13 +2859,15 @@ R_CreateEnvBrdfLUT
 from https://github.com/knarkowicz/IntegrateDFG
 ================
 */
-#define	LUT_WIDTH	128
-#define	LUT_HEIGHT	128
 static void R_CreateEnvBrdfLUT(void) {
+
+	static const int LUT_WIDTH = 128;
+	static const int LUT_HEIGHT = 128;
+
 	if (!r_cubeMapping->integer)
 		return;
 
-	uint16_t	data[LUT_WIDTH][LUT_HEIGHT][4];
+	uint16_t	data[LUT_WIDTH * LUT_HEIGHT * 2];
 
 	float const MATH_PI = 3.14159f;
 	unsigned const sampleNum = 1024;
@@ -2910,14 +2924,12 @@ static void R_CreateEnvBrdfLUT(void) {
 			scale /= sampleNum;
 			bias /= sampleNum;
 
-			data[y][x][0] = FloatToHalf(scale);
-			data[y][x][1] = FloatToHalf(bias);
-			data[y][x][2] = 0.0f;
-			data[y][x][3] = 0.0f;
+			data[x * 2 + y * LUT_WIDTH * 2 + 0] = FloatToHalf(scale);
+			data[x * 2 + y * LUT_WIDTH * 2 + 1] = FloatToHalf(bias);
 		}
 	}
 
-	tr.envBrdfImage = R_CreateImage("*envBrdfLUT", (byte*)data, 128, 128, IMGTYPE_COLORALPHA, IMGFLAG_NO_COMPRESSION | IMGFLAG_CLAMPTOEDGE, GL_RGBA16F);
+	tr.envBrdfImage = R_CreateImage("*envBrdfLUT", (byte*)data, LUT_WIDTH, LUT_HEIGHT, IMGTYPE_COLORALPHA, IMGFLAG_NO_COMPRESSION | IMGFLAG_CLAMPTOEDGE, GL_RG16F);
 	return;
 }
 

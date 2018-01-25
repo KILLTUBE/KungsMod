@@ -340,7 +340,7 @@ uniform samplerCube u_CubeMap;
 #endif
 
 #if defined(USE_NORMALMAP) || defined(USE_DELUXEMAP) || defined(USE_SPECULARMAP) || defined(USE_CUBEMAP)
-// y = deluxe, w = cube
+// x = normal, y = deluxe, z = specular, w = cube
 uniform vec4      u_EnableTextures; 
 #endif
 
@@ -700,37 +700,27 @@ void main()
 	ambientColor = max(lightColor - lightColor * surfNL, vec3(0.0));
   #endif
 
+	vec4 specular = vec4(1.0);
   #if defined(USE_SPECULARMAP)
-	vec4 specular = texture(u_SpecularMap, texCoords);
+	specular *= vec4(diffuse.rgb, 1.0) * (1.0 - u_EnableTextures.z);
+	specular += texture(u_SpecularMap, texCoords) * u_EnableTextures.z;
   #else
-	vec4 specular = vec4(0.5);
+	specular = vec4(diffuse.rgb,1.0);
   #endif
 	specular *= u_SpecularScale;
 
   #if defined(USE_PBR)
 	diffuse.rgb *= diffuse.rgb;
+	specular.rgb *= specular.rgb;
   #endif
 
-  float ao = 1.0;
-  #if defined(USE_PBR)
-	// diffuse rgb is base color
-	// specular red is gloss
-	// specular green is metallicness
-	// specular blue is ao
-	float roughness = max(specular.r, 0.04);
-	float metal		= specular.g;
-	ao				= specular.b;
-	specular.rgb	= metal * diffuse.rgb + vec3(0.04 - 0.04 * metal);
-	diffuse.rgb    *= 1.0 - metal;
-  #else
 	// diffuse rgb is diffuse
 	// specular rgb is specular reflectance at normal incidence
 	// specular alpha is gloss
-	float roughness = max(specular.a, 0.04);
+	float roughness = 1.0 - min(specular.a, 0.96);
 
 	// adjust diffuse by specular reflectance, to maintain energy conservation
-	diffuse.rgb *= vec3(1.0) - specular.rgb;
-  #endif
+	diffuse.rgb -= specular.rgb * (1.0 - u_EnableTextures.z);
 
     H  = normalize(L + E);
     EH = max(1e-8, dot(E, H));
@@ -749,7 +739,7 @@ void main()
   #endif
 
 	out_Color.rgb  = lightColor   * reflectance * (attenuation * NL);
-	out_Color.rgb += ambientColor * ao * diffuse.rgb;
+	out_Color.rgb += ambientColor * diffuse.rgb;
 
 
   #if defined(USE_CUBEMAP)
