@@ -361,7 +361,7 @@ Ghoul2 Insert End
 	}
 	else if ( s1->eFlags & EF_ANIM_ALLFAST )
 	{
-		ent.frame = (cg.time / 100);
+		ent.frame = (cg.time / 55);
 		ent.renderfx|=RF_WRAP_FRAMES;
 	}
 	else

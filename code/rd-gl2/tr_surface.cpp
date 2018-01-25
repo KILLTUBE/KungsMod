@@ -2072,6 +2072,12 @@ void RB_SurfaceVBOMDVMesh(srfVBOMDVMesh_t * surface)
 
 	GLimp_LogComment("--- RB_SurfaceVBOMDVMesh ---\n");
 
+	if (ShaderRequiresCPUDeforms(tess.shader))
+	{
+		RB_SurfaceMesh(surface->mdvSurface);
+		return;
+	}
+
 	if(!surface->vbo || !surface->ibo)
 		return;
 

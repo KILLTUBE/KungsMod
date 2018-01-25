@@ -1112,29 +1112,34 @@ int		G_ParseAnimFileSet(const char *skeletonName, const char *modelName=0)
 			}
 		}
 
-		// Get The Cinematic GLA Name
-		//----------------------------
+		// Process additional GLAs for _humanoid
+		//---------------------------------------
 		if (Q_stricmp(skeletonName, "_humanoid")==0)
 		{
-			const char* mapName = strrchr( level.mapname, '/' );
-			if (mapName)
-			{
-				mapName++;
-			}
-			else
-			{
-				mapName = level.mapname;
-			}
-			char  skeletonMapName[MAX_QPATH];
-			Com_sprintf(skeletonMapName, MAX_QPATH, "_humanoid_%s", mapName);
+			// Precache the base GLA, and remember its index
+			//-----------------------------------------------
 			const int normalGLAIndex = gi.G2API_PrecacheGhoul2Model("models/players/_humanoid/_humanoid.gla");//double check this always comes first!
 
-			// Make Sure To Precache The GLAs (both regular and cinematic), And Remember Their Indicies
-			//------------------------------------------------------------------------------------------
 			G_ParseAnimationFile(0,    skeletonName, fileIndex);
 			G_ParseAnimationEvtFile(0, skeletonName, fileIndex, normalGLAIndex, false/*flag for model specific*/);
 
+			// Precache & append the cinematic GLA to the end of the base GLA, and remember its index
+			//----------------------------------------------------------------------------------------
+			const char* mapName = strrchr(level.mapname, '/');
+
+			if (mapName) 
+			{
+				mapName++;
+			} 
+			else 
+			{
+				mapName = level.mapname;
+			}
+
+			char  skeletonMapName[MAX_QPATH];
+			Com_sprintf(skeletonMapName, MAX_QPATH, "_humanoid_%s", mapName);
 			const int cineGLAIndex = gi.G2API_PrecacheGhoul2Model( va("models/players/%s/%s.gla", skeletonMapName, skeletonMapName));
+
 			if (cineGLAIndex)
 			{
 				assert(cineGLAIndex == normalGLAIndex+1);
@@ -1145,13 +1150,28 @@ int		G_ParseAnimFileSet(const char *skeletonName, const char *modelName=0)
 				G_ParseAnimationFile(1,    skeletonMapName, fileIndex);
 				G_ParseAnimationEvtFile(1, skeletonMapName, fileIndex, cineGLAIndex, false/*flag for model specific*/);
 			}
+
+			// Precache & append the DF2 GLA to the end of the cinematic GLA, and remember its index
+			//---------------------------------------------------------------------------------------
+			char  _humanoid_df2Name[MAX_QPATH];
+			Com_sprintf(_humanoid_df2Name, MAX_QPATH, "_humanoid_df2");
+			const int df2_GLAIndex = gi.G2API_PrecacheGhoul2Model(va("models/players/%s/%s.gla", _humanoid_df2Name, _humanoid_df2Name));
+
+			if (df2_GLAIndex)
+			{
+				assert(df2_GLAIndex == normalGLAIndex + 2);
+				if (df2_GLAIndex != normalGLAIndex + 2)
+				{
+					Com_Error(ERR_DROP, "_humanoid_df2 GLA was not loaded after the normal & cinematic GLAs.  Cannot continue safely.");
+				}
+				G_ParseAnimationFile(2, _humanoid_df2Name, fileIndex);
+				G_ParseAnimationEvtFile(2, _humanoid_df2Name, fileIndex, df2_GLAIndex, false/*flag for model specific*/);
+			}
 		}
 		else
 		{
-			// non-humanoid...
-			//
-			// Make Sure To Precache The GLAs (both regular and cinematic), And Remember Their Indicies
-			//------------------------------------------------------------------------------------------
+			// Precache the non-humanoid GLA, and remember its index
+			//-------------------------------------------------------
 			G_ParseAnimationFile(0,    skeletonName, fileIndex);
 			G_ParseAnimationEvtFile(0, skeletonName, fileIndex);
 		}
