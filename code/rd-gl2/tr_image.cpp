@@ -2867,7 +2867,7 @@ static void R_CreateEnvBrdfLUT(void) {
 	if (!r_cubeMapping->integer)
 		return;
 
-	uint16_t	data[LUT_WIDTH * LUT_HEIGHT * 2];
+	uint16_t	data[LUT_WIDTH][LUT_HEIGHT][2];
 
 	float const MATH_PI = 3.14159f;
 	unsigned const sampleNum = 1024;
@@ -2924,8 +2924,8 @@ static void R_CreateEnvBrdfLUT(void) {
 			scale /= sampleNum;
 			bias /= sampleNum;
 
-			data[x * 2 + y * LUT_WIDTH * 2 + 0] = FloatToHalf(scale);
-			data[x * 2 + y * LUT_WIDTH * 2 + 1] = FloatToHalf(bias);
+			data[x][y][0] = FloatToHalf(scale);
+			data[x][y][1] = FloatToHalf(bias);
 		}
 	}
 
