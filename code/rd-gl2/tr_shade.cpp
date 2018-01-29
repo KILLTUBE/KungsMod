@@ -1771,7 +1771,11 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input, const VertexArrays
 			{
 				// force specular to nonmetal if rendering cubemaps
 				if (r_pbr->integer)
+				{
+					specularScale[0] = 0.0f;
 					specularScale[1] = 0.0f;
+					specularScale[2] = 0.0f;
+				}
 			}
 			uniformDataWriter.SetUniformVec4(UNIFORM_SPECULARSCALE, specularScale);
 		}

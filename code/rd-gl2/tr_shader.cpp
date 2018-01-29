@@ -104,23 +104,17 @@ static void ClearGlobalShader(void)
 
 	memset( &shader, 0, sizeof( shader ) );
 	memset( &stages, 0, sizeof( stages ) );
-	for ( i = 0 ; i < MAX_SHADER_STAGES ; i++ ) {
+	for (i = 0; i < MAX_SHADER_STAGES; i++) {
 		stages[i].bundle[0].texMods = texMods[i];
 		//stages[i].mGLFogColorOverride = GLFOGOVERRIDE_NONE;
 
 		// default normal/specular
 		VectorSet4(stages[i].normalScale, 0.0f, 0.0f, 0.0f, 0.0f);
-		if (r_pbr->integer) {
-			stages[i].specularScale[0] = r_baseGloss->value;
-			stages[i].specularScale[2] = 1.0;
-		}
-		else 
-		{
-			stages[i].specularScale[0] =
-			stages[i].specularScale[1] =
-			stages[i].specularScale[2] = r_baseSpecular->value;
-			stages[i].specularScale[3] = r_baseGloss->value;
-		}
+		stages[i].specularScale[0] =
+		stages[i].specularScale[1] =
+		stages[i].specularScale[2] = r_baseSpecular->value;
+		stages[i].specularScale[3] = r_baseGloss->value;
+
 	}
 
 	shader.contentFlags = CONTENTS_SOLID | CONTENTS_OPAQUE;
@@ -1214,6 +1208,10 @@ ParseStage
 static qboolean ParseStage( shaderStage_t *stage, const char **text )
 {
 	char *token;
+	char bufferPackedTextureName[MAX_QPATH];
+	char bufferBaseColorTextureName[MAX_QPATH];
+	qboolean buildSpecFromPacked = qfalse;
+	qboolean foundBaseColor = qfalse;
 	unsigned depthMaskBits = GLS_DEPTHMASK_TRUE;
 	unsigned blendSrcBits = 0;
 	unsigned blendDstBits = 0;
@@ -1301,13 +1299,16 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 				if (r_srgb->integer)
 					flags |= IMGFLAG_SRGB;
 
-				stage->bundle[0].image[0] = R_FindImageFile( token, type, flags );
+				Q_strncpyz( bufferBaseColorTextureName,token,sizeof(bufferBaseColorTextureName));
+				stage->bundle[0].image[0] = R_FindImageFile(bufferBaseColorTextureName, type, flags );
 
 				if ( !stage->bundle[0].image[0] )
 				{
 					ri.Printf( PRINT_WARNING, "WARNING: R_FindImageFile could not find '%s' in shader '%s'\n", token, shader.name );
 					return qfalse;
 				}
+
+				foundBaseColor = qtrue;
 			}
 		}
 		//
@@ -1347,16 +1348,16 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 			VectorSet4(stage->normalScale, r_baseNormalX->value, r_baseNormalY->value, 1.0f, r_baseParallax->value);
 		}
 		//
-		// rmoMap <name>
+		// specMap <name> || specularMap <name>
 		//
-		else if (!Q_stricmp(token, "rmoMap"))
+		else if (!Q_stricmp(token, "specMap") || !Q_stricmp(token, "specularMap"))
 		{
 			imgType_t type = IMGTYPE_COLORALPHA;
 
 			token = COM_ParseExt(text, qfalse);
 			if (!token[0])
 			{
-				ri.Printf(PRINT_WARNING, "WARNING: missing parameter for 'rmoMap' keyword in shader '%s'\n", shader.name);
+				ri.Printf(PRINT_WARNING, "WARNING: missing parameter for 'specularMap' keyword in shader '%s'\n", shader.name);
 				return qfalse;
 			}
 
@@ -1372,6 +1373,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 				flags |= IMGFLAG_NO_COMPRESSION;
 
 			flags |= IMGFLAG_NOLIGHTSCALE;
+
 			stage->bundle[TB_SPECULARMAP].image[0] = R_FindImageFile(token, type, flags);
 
 			if (!stage->bundle[TB_SPECULARMAP].image[0])
@@ -1381,6 +1383,20 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 			}
 
 			VectorSet4(stage->specularScale, 1.0f, 1.0f, 1.0f, 1.0f);
+		}
+		//
+		// rmoMap <name>
+		//
+		else if (!Q_stricmp(token, "rmoMap"))
+		{
+			token = COM_ParseExt(text, qfalse);
+			if (!token[0])
+			{
+				ri.Printf(PRINT_WARNING, "WARNING: missing parameter for 'rmoMap' keyword in shader '%s'\n", shader.name);
+				return qfalse;
+			}
+			buildSpecFromPacked = qtrue;
+			Q_strncpyz(bufferPackedTextureName, token, sizeof(bufferPackedTextureName));
 		}
 		//
 		// clampmap <name>
@@ -1593,17 +1609,9 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 				ri.Printf( PRINT_WARNING, "WARNING: missing parameter for specular reflectance in shader '%s'\n", shader.name );
 				continue;
 			}
-			if (r_pbr->integer)
-				{
-					// interpret specularReflectance < 0.5 as nonmetal
-					stage->specularScale[1] = atof(token);// < 0.5f) ? 0.0f : 1.0f;
-				}
-			else
-				{
-					stage->specularScale[0] =
-					stage->specularScale[1] =
-					stage->specularScale[2] = atof(token);
-				}
+			stage->specularScale[0] =
+			stage->specularScale[1] =
+			stage->specularScale[2] = atof(token);
 		}
 		//
 		// specularExponent <value>
@@ -1620,18 +1628,10 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 			}
 			exponent = atof( token );
 
-			// Change shininess to gloss 
-			// FIXME: assumes max exponent of 8192 and min of 1, must change here if altered in lightall_fp.glsl 
-			if (r_pbr->integer)
-				stage->specularScale[0] = 1.0f - powf(2.0f / (exponent + 2.0), 0.25);
-			else
-			{
-				// Change shininess to gloss
-				// Assumes max exponent of 8190 and min of 0, must change here if altered in lightall_fp.glsl
-				exponent = CLAMP(exponent, 0.0f, 8190.0f);
-				stage->specularScale[3] = (log2f(exponent + 2.0f) - 1.0f) / 12.0f;
-			}
-
+			// Change shininess to gloss
+			// Assumes max exponent of 8190 and min of 0, must change here if altered in lightall_fp.glsl
+			exponent = CLAMP(exponent, 0.0f, 8190.0f);
+			stage->specularScale[3] = (log2f(exponent + 2.0f) - 1.0f) / 12.0f;
 		}
 		//
 		// gloss <value> 
@@ -1647,10 +1647,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 			}
 
 			gloss = atof(token);
-			if (r_pbr->integer)
-				stage->specularScale[0] = 1.0 - gloss;
-			else
-				stage->specularScale[3] = gloss;
+			stage->specularScale[3] = gloss;
 		}
 		//
 		// roughness <value>
@@ -1665,15 +1662,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 				continue;
 			}
 			roughness = atof(token);
-			if (r_pbr->integer)
-				stage->specularScale[0] = roughness;
-			else
-			{
-				if (roughness >= 0.125)
-				stage->specularScale[3] = log2f(1.0f / roughness) / 3.0f;
-				else
-				stage->specularScale[3] = 1.0f;
-			}
+			stage->specularScale[3] = 1.0 - roughness;
 		}
 		//
 		// parallaxDepth <value>
@@ -1726,7 +1715,6 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 		}
 		//
 		// specularScale <rgb> <gloss>
-		// or specularScale <metallic> <smoothness> with r_pbr 1
 		// or specularScale <r> <g> <b>
 		// or specularScale <r> <g> <b> <gloss>
 		//
@@ -1753,20 +1741,12 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 			token = COM_ParseExt(text, qfalse);
 			if ( token[0] == 0 )
 			{
-				if (r_pbr->integer) {
-					// two values, metallic then smoothness
-					float smoothness = stage->specularScale[1];
-					stage->specularScale[1] = (stage->specularScale[0] < 0.5f) ? 0.0f : 1.0f;
-					stage->specularScale[0] = smoothness;
-				}
-				else
-				{
-					// two values, rgb then gloss
-					stage->specularScale[3] = stage->specularScale[1];
-					stage->specularScale[1] =
-					stage->specularScale[2] = stage->specularScale[0];
-					continue;
-				}
+				// two values, rgb then gloss
+				stage->specularScale[3] = stage->specularScale[1];
+				stage->specularScale[0] =
+				stage->specularScale[1] =
+				stage->specularScale[2] = stage->specularScale[0];
+				continue;
 			}
 
 			stage->specularScale[2] = atof( token );
@@ -2086,8 +2066,23 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 	//
 	// build specular and diffuse if albedo and packed textures were found
 	//
+	if (foundBaseColor && buildSpecFromPacked) 
+	{
+		int flags = IMGFLAG_NONE;
 
+		if (!shader.noMipMaps)
+			flags |= IMGFLAG_MIPMAP;
 
+		if (!shader.noPicMip)
+			flags |= IMGFLAG_PICMIP;
+
+		if (shader.noTC)
+			flags |= IMGFLAG_NO_COMPRESSION;
+
+		R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(stage, bufferBaseColorTextureName, bufferPackedTextureName, flags);
+
+		VectorSet4(stage->specularScale, 1.0f, 1.0f, 1.0f, 1.0f);
+	}
 
 	//
 	// if cgen isn't explicitly specified, use either identity or identitylighting
@@ -3152,7 +3147,7 @@ static void CollapseStagesToLightall(shaderStage_t *stage, shaderStage_t *lightm
 			int specularFlags = (diffuseImg->flags & ~(IMGFLAG_GENNORMALMAP | IMGFLAG_SRGB)) | IMGFLAG_NOLIGHTSCALE;
 
 			COM_StripExtension(diffuseImg->imgName, specularName, MAX_QPATH);
-			Q_strcat(specularName, MAX_QPATH, "_rmo");
+			Q_strcat(specularName, MAX_QPATH, "_spec");
 
 			specularImg = R_FindImageFile(specularName, IMGTYPE_COLORALPHA, specularFlags);
 

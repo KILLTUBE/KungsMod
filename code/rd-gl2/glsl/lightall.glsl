@@ -340,7 +340,7 @@ uniform samplerCube u_CubeMap;
 #endif
 
 #if defined(USE_NORMALMAP) || defined(USE_DELUXEMAP) || defined(USE_SPECULARMAP) || defined(USE_CUBEMAP)
-// y = deluxe, w = cube
+// x = normal, y = deluxe, z = specular, w = cube
 uniform vec4      u_EnableTextures; 
 #endif
 
@@ -703,34 +703,20 @@ void main()
   #if defined(USE_SPECULARMAP)
 	vec4 specular = texture(u_SpecularMap, texCoords);
   #else
-	vec4 specular = vec4(0.5);
+	vec4 specular = vec4(1.0);
   #endif
 	specular *= u_SpecularScale;
 
   #if defined(USE_PBR)
 	diffuse.rgb *= diffuse.rgb;
+	specular.rgb *= specular.rgb;
   #endif
 
-  float ao = 1.0;
-  #if defined(USE_PBR)
-	// diffuse rgb is base color
-	// specular red is gloss
-	// specular green is metallicness
-	// specular blue is ao
-	float roughness = max(specular.r, 0.04);
-	float metal		= specular.g;
-	ao				= specular.b;
-	specular.rgb	= metal * diffuse.rgb + vec3(0.04 - 0.04 * metal);
-	diffuse.rgb    *= 1.0 - metal;
-  #else
 	// diffuse rgb is diffuse
 	// specular rgb is specular reflectance at normal incidence
 	// specular alpha is gloss
-	float roughness = max(specular.a, 0.04);
-
-	// adjust diffuse by specular reflectance, to maintain energy conservation
-	diffuse.rgb *= vec3(1.0) - specular.rgb;
-  #endif
+	float roughness = 1.0 - specular.a;
+	//roughness *= roughness;
 
     H  = normalize(L + E);
     EH = max(1e-8, dot(E, H));
@@ -739,18 +725,13 @@ void main()
 	
 	reflectance = CalcDiffuse(diffuse.rgb, NH, EH, roughness);
 
-  #if defined(USE_LIGHTMAP) || defined(USE_LIGHT_VERTEX)
-	NE = abs(dot(N, E)) + 1e-5;
-	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness) * 0.5;
-  #endif
   #if defined(USE_LIGHT_VECTOR)
 	NE = abs(dot(N, E)) + 1e-5;
 	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness);
   #endif
 
 	out_Color.rgb  = lightColor   * reflectance * (attenuation * NL);
-	out_Color.rgb += ambientColor * ao * diffuse.rgb;
-
+	out_Color.rgb += ambientColor * diffuse.rgb;
 
   #if defined(USE_CUBEMAP)
 	NE = clamp(dot(N, E), 0.0, 1.0);
