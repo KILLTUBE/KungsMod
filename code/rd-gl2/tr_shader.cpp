@@ -1299,7 +1299,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 				if (r_srgb->integer)
 					flags |= IMGFLAG_SRGB;
 
-				strcpy( bufferBaseColorTextureName,token);
+				Q_strncpyz( bufferBaseColorTextureName,token,sizeof(bufferBaseColorTextureName));
 				stage->bundle[0].image[0] = R_FindImageFile(bufferBaseColorTextureName, type, flags );
 
 				if ( !stage->bundle[0].image[0] )
@@ -1396,7 +1396,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 				return qfalse;
 			}
 			buildSpecFromPacked = qtrue;
-			strcpy(bufferPackedTextureName, token);
+			Q_strncpyz(bufferPackedTextureName, token, sizeof(bufferPackedTextureName));
 		}
 		//
 		// clampmap <name>
@@ -2082,9 +2082,6 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 		R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(stage, bufferBaseColorTextureName, bufferPackedTextureName, flags);
 
 		VectorSet4(stage->specularScale, 1.0f, 1.0f, 1.0f, 1.0f);
-
-		foundBaseColor = qfalse;
-		buildSpecFromPacked = qfalse;
 	}
 
 	//
