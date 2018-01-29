@@ -700,12 +700,10 @@ void main()
 	ambientColor = max(lightColor - lightColor * surfNL, vec3(0.0));
   #endif
 
-	vec4 specular = vec4(1.0);
   #if defined(USE_SPECULARMAP)
-	specular *= vec4(diffuse.rgb, 1.0) * (1.0 - u_EnableTextures.z);
-	specular += texture(u_SpecularMap, texCoords) * u_EnableTextures.z;
+	vec4 specular = texture(u_SpecularMap, texCoords);
   #else
-	specular = vec4(diffuse.rgb,1.0);
+	vec4 specular = vec4(1.0);
   #endif
 	specular *= u_SpecularScale;
 
@@ -717,10 +715,8 @@ void main()
 	// diffuse rgb is diffuse
 	// specular rgb is specular reflectance at normal incidence
 	// specular alpha is gloss
-	float roughness = 1.0 - min(specular.a, 0.96);
-
-	// adjust diffuse by specular reflectance, to maintain energy conservation
-	diffuse.rgb -= specular.rgb * (1.0 - u_EnableTextures.z);
+	float roughness = 1.0 - specular.a;
+	//roughness *= roughness;
 
     H  = normalize(L + E);
     EH = max(1e-8, dot(E, H));
@@ -729,10 +725,6 @@ void main()
 	
 	reflectance = CalcDiffuse(diffuse.rgb, NH, EH, roughness);
 
-  #if defined(USE_LIGHTMAP) || defined(USE_LIGHT_VERTEX)
-	NE = abs(dot(N, E)) + 1e-5;
-	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness) * 0.5;
-  #endif
   #if defined(USE_LIGHT_VECTOR)
 	NE = abs(dot(N, E)) + 1e-5;
 	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness);
@@ -740,7 +732,6 @@ void main()
 
 	out_Color.rgb  = lightColor   * reflectance * (attenuation * NL);
 	out_Color.rgb += ambientColor * diffuse.rgb;
-
 
   #if defined(USE_CUBEMAP)
 	NE = clamp(dot(N, E), 0.0, 1.0);

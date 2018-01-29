@@ -1208,6 +1208,10 @@ ParseStage
 static qboolean ParseStage( shaderStage_t *stage, const char **text )
 {
 	char *token;
+	char bufferPackedTextureName[MAX_QPATH];
+	char bufferBaseColorTextureName[MAX_QPATH];
+	qboolean buildSpecFromPacked = qfalse;
+	qboolean foundBaseColor = qfalse;
 	unsigned depthMaskBits = GLS_DEPTHMASK_TRUE;
 	unsigned blendSrcBits = 0;
 	unsigned blendDstBits = 0;
@@ -1295,13 +1299,16 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 				if (r_srgb->integer)
 					flags |= IMGFLAG_SRGB;
 
-				stage->bundle[0].image[0] = R_FindImageFile( token, type, flags );
+				strcpy( bufferBaseColorTextureName,token);
+				stage->bundle[0].image[0] = R_FindImageFile(bufferBaseColorTextureName, type, flags );
 
 				if ( !stage->bundle[0].image[0] )
 				{
 					ri.Printf( PRINT_WARNING, "WARNING: R_FindImageFile could not find '%s' in shader '%s'\n", token, shader.name );
 					return qfalse;
 				}
+
+				foundBaseColor = qtrue;
 			}
 		}
 		//
@@ -1341,16 +1348,16 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 			VectorSet4(stage->normalScale, r_baseNormalX->value, r_baseNormalY->value, 1.0f, r_baseParallax->value);
 		}
 		//
-		// rmoMap <name>
+		// specMap <name> || specularMap <name>
 		//
-		else if (!Q_stricmp(token, "rmoMap"))
+		else if (!Q_stricmp(token, "specMap") || !Q_stricmp(token, "specularMap"))
 		{
 			imgType_t type = IMGTYPE_COLORALPHA;
 
 			token = COM_ParseExt(text, qfalse);
 			if (!token[0])
 			{
-				ri.Printf(PRINT_WARNING, "WARNING: missing parameter for 'rmoMap' keyword in shader '%s'\n", shader.name);
+				ri.Printf(PRINT_WARNING, "WARNING: missing parameter for 'specularMap' keyword in shader '%s'\n", shader.name);
 				return qfalse;
 			}
 
@@ -1366,6 +1373,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 				flags |= IMGFLAG_NO_COMPRESSION;
 
 			flags |= IMGFLAG_NOLIGHTSCALE;
+
 			stage->bundle[TB_SPECULARMAP].image[0] = R_FindImageFile(token, type, flags);
 
 			if (!stage->bundle[TB_SPECULARMAP].image[0])
@@ -1375,6 +1383,20 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 			}
 
 			VectorSet4(stage->specularScale, 1.0f, 1.0f, 1.0f, 1.0f);
+		}
+		//
+		// rmoMap <name>
+		//
+		else if (!Q_stricmp(token, "rmoMap"))
+		{
+			token = COM_ParseExt(text, qfalse);
+			if (!token[0])
+			{
+				ri.Printf(PRINT_WARNING, "WARNING: missing parameter for 'rmoMap' keyword in shader '%s'\n", shader.name);
+				return qfalse;
+			}
+			buildSpecFromPacked = qtrue;
+			strcpy(bufferPackedTextureName, token);
 		}
 		//
 		// clampmap <name>
@@ -2044,8 +2066,26 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 	//
 	// build specular and diffuse if albedo and packed textures were found
 	//
+	if (foundBaseColor && buildSpecFromPacked) 
+	{
+		int flags = IMGFLAG_NONE;
 
+		if (!shader.noMipMaps)
+			flags |= IMGFLAG_MIPMAP;
 
+		if (!shader.noPicMip)
+			flags |= IMGFLAG_PICMIP;
+
+		if (shader.noTC)
+			flags |= IMGFLAG_NO_COMPRESSION;
+
+		R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(stage, bufferBaseColorTextureName, bufferPackedTextureName, flags);
+
+		VectorSet4(stage->specularScale, 1.0f, 1.0f, 1.0f, 1.0f);
+
+		foundBaseColor = qfalse;
+		buildSpecFromPacked = qfalse;
+	}
 
 	//
 	// if cgen isn't explicitly specified, use either identity or identitylighting
@@ -3110,7 +3150,7 @@ static void CollapseStagesToLightall(shaderStage_t *stage, shaderStage_t *lightm
 			int specularFlags = (diffuseImg->flags & ~(IMGFLAG_GENNORMALMAP | IMGFLAG_SRGB)) | IMGFLAG_NOLIGHTSCALE;
 
 			COM_StripExtension(diffuseImg->imgName, specularName, MAX_QPATH);
-			Q_strcat(specularName, MAX_QPATH, "_rmo");
+			Q_strcat(specularName, MAX_QPATH, "_spec");
 
 			specularImg = R_FindImageFile(specularName, IMGTYPE_COLORALPHA, specularFlags);
 

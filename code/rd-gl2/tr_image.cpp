@@ -2549,6 +2549,89 @@ done:
 		R_Free(resampledBuffer);
 }
 
+void R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(shaderStage_t *stage, const char *name, const char *rmoName, int flags)
+{
+	image_t	*image,*specImage;
+	char	diffuseName[MAX_QPATH];
+	char	specularName[MAX_QPATH];
+	int		width, height, rmoWidth, rmoHeight;
+	byte	*rmoPic,*baseColorPic,*specGlossPic,*diffusePic;
+	long	hash;
+
+	if (!name) {
+		return;
+	}
+
+	COM_StripExtension(name, diffuseName, MAX_QPATH);
+	Q_strcat(diffuseName, MAX_QPATH, "_diffuse");
+
+	COM_StripExtension(name, specularName, MAX_QPATH);
+	Q_strcat(specularName, MAX_QPATH, "_spec");
+
+	hash = generateHashValue(specularName);
+
+	//
+	// see if the image is already processed
+	//
+	for (image = hashTable[hash]; image; image = image->next) {
+		if (!strcmp(specularName, image->imgName)) {
+			// the white image can be used with any set of parms, but other mismatches are errors
+			if (strcmp(specularName, "*white")) {
+				if (image->flags != flags) {
+					ri.Printf(PRINT_DEVELOPER, "WARNING: reused image %s with mixed flags (%i vs %i)\n", specularName, image->flags, flags);
+				}
+			}
+			return;
+		}
+	}
+
+	//
+	// load the pics from disk
+	//
+	R_LoadImage(name, &baseColorPic, &width, &height);
+	if (baseColorPic == NULL) {
+		return;
+	}
+	R_LoadImage(rmoName, &rmoPic, &rmoWidth, &rmoHeight);
+	if (rmoPic == NULL) {
+		return;
+	}
+
+	if (width != rmoWidth || height != rmoHeight)
+	{
+		ri.Printf(PRINT_ALL, "WARNING: Can't build Specular Map for %s (different texture sizes for baseColor and rmo)\n", name);
+		return;
+	}
+
+	specGlossPic = (byte *)R_Malloc(width * height * 4, TAG_GP2, qfalse);
+	diffusePic = (byte *)R_Malloc(width * height * 4, TAG_GP2, qfalse);
+
+	for (int i = 0; i < width * height * 4; i+=4)
+	{
+		float gloss = 1.0f - MAX((float)rmoPic[i + 0] / 255.0f, 0.04f);
+		float metalness = (float)rmoPic[i + 1] / 255.0f;
+		float ao = (float)rmoPic[i + 2] / 255.0f;
+
+		// diffuse Color = baseColor * (1.0 - metalness) * occlusion 
+		diffusePic[i + 0] = abs(baseColorPic[i + 0] * (1.0f - metalness) * ao);
+		diffusePic[i + 1] = abs(baseColorPic[i + 1] * (1.0f - metalness) * ao);
+		diffusePic[i + 2] = abs(baseColorPic[i + 2] * (1.0f - metalness) * ao);
+		diffusePic[i + 3] = abs(baseColorPic[i + 3]);
+
+		// specular Color = mix(0.04, baseColor, metalness)
+		specGlossPic[i + 0] = abs((0.04f * 255.0f * (1.0f - metalness)) + (baseColorPic[i + 0] * metalness));
+		specGlossPic[i + 1] = abs((0.04f * 255.0f * (1.0f - metalness)) + (baseColorPic[i + 1] * metalness));
+		specGlossPic[i + 2] = abs((0.04f * 255.0f * (1.0f - metalness)) + (baseColorPic[i + 2] * metalness));
+		specGlossPic[i + 3] = abs(gloss * 255.0f);
+	}
+
+	stage->bundle[TB_COLORMAP].image[0] = R_CreateImage(diffuseName, diffusePic, width, height, IMGTYPE_COLORALPHA, flags, 0);
+	stage->bundle[TB_SPECULARMAP].image[0] = R_CreateImage(specularName, specGlossPic, width, height, IMGTYPE_COLORALPHA, flags, 0);
+
+	R_Free(baseColorPic);
+	R_Free(rmoPic);
+}
+
 
 static void R_CreateNormalMap(const char *name, byte *pic, int width, int height, int flags)
 {
