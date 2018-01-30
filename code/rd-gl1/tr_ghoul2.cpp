@@ -3595,7 +3595,7 @@ qboolean R_LoadMDXM( model_t *mod, void *buffer, const char *mod_name, qboolean 
 
 		// Register the DF2 GLA
 		//-----------------------
-		RE_RegisterModel("models/players/_humanoid_df2/_humanoid_df2.gla");
+		//RE_RegisterModel("models/players/_humanoid_df2/_humanoid_df2.gla");
 	}
 
 #ifndef JK2_MODE
