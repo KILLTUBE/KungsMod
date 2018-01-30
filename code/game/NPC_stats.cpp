@@ -1159,13 +1159,26 @@ int		G_ParseAnimFileSet(const char *skeletonName, const char *modelName=0)
 
 			if (df2_GLAIndex)
 			{
-				assert(df2_GLAIndex == normalGLAIndex + 2);
-				if (df2_GLAIndex != normalGLAIndex + 2)
+				if (!cineGLAIndex)
 				{
-					Com_Error(ERR_DROP, "_humanoid_df2 GLA was not loaded after the normal & cinematic GLAs.  Cannot continue safely.");
+					assert(df2_GLAIndex == normalGLAIndex + 1);
+					if (df2_GLAIndex != normalGLAIndex + 1)
+					{
+						Com_Error(ERR_DROP, "_humanoid_df2 GLA was not loaded after the normal GLA.  Cannot continue safely.");
+					}
+					G_ParseAnimationFile(1, _humanoid_df2Name, fileIndex);
+					G_ParseAnimationEvtFile(1, _humanoid_df2Name, fileIndex, df2_GLAIndex, false/*flag for model specific*/);
 				}
-				G_ParseAnimationFile(2, _humanoid_df2Name, fileIndex);
-				G_ParseAnimationEvtFile(2, _humanoid_df2Name, fileIndex, df2_GLAIndex, false/*flag for model specific*/);
+				else
+				{
+					assert(df2_GLAIndex == normalGLAIndex + 2);
+					if (df2_GLAIndex != normalGLAIndex + 2)
+					{
+						Com_Error(ERR_DROP, "_humanoid_df2 GLA was not loaded after the normal & cinematic GLAs.  Cannot continue safely.");
+					}
+					G_ParseAnimationFile(2, _humanoid_df2Name, fileIndex);
+					G_ParseAnimationEvtFile(2, _humanoid_df2Name, fileIndex, df2_GLAIndex, false/*flag for model specific*/);
+				}
 			}
 		}
 		else
