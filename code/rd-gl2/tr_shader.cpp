@@ -3059,7 +3059,7 @@ static void CollapseStagesToLightall(shaderStage_t *stage, shaderStage_t *lightm
 {
 	int defs = 0;
 
-	//ri.Printf(PRINT_ALL, "shader %s has diffuse %s", shader.name, diffuse->bundle[0].image[0]->imgName);
+	//ri.Printf(PRINT_ALL, "shader %s has diffuse %s", shader.name, stage->bundle[0].image[0]->imgName);
 
 	// reuse diffuse, mark others inactive
 	stage->type = ST_GLSL;
@@ -3093,6 +3093,7 @@ static void CollapseStagesToLightall(shaderStage_t *stage, shaderStage_t *lightm
 		{
 			if ((stage->bundle[TB_NORMALMAP].image[0]->type == IMGTYPE_NORMALHEIGHT) && r_parallaxMapping->integer)
 				defs |= LIGHTDEF_USE_PARALLAXMAP;
+			//ri.Printf(PRINT_ALL, ", normalmap %s", stage->bundle[TB_NORMALMAP].image[0]->imgName);
 		}
 		
 		else if ((lightmap || useLightVector || useLightVertex) && (diffuseImg = stage->bundle[TB_DIFFUSEMAP].image[0]))
@@ -3138,7 +3139,7 @@ static void CollapseStagesToLightall(shaderStage_t *stage, shaderStage_t *lightm
 		image_t *diffuseImg;
 		if (stage->bundle[TB_SPECULARMAP].image[0])
 		{
-			//ri.Printf(PRINT_ALL, ", specularmap %s", specular->bundle[0].image[0]->imgName);
+			//ri.Printf(PRINT_ALL, ", specularmap %s", stage->bundle[TB_SPECULARMAP].image[0]->imgName);
 		}
 		else if ((lightmap || useLightVector || useLightVertex) && (diffuseImg = stage->bundle[TB_DIFFUSEMAP].image[0]) && r_pbr->integer)
 		{
