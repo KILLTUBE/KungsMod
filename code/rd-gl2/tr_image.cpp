@@ -2568,20 +2568,21 @@ void R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(shaderStage_t *stage, const c
 	COM_StripExtension(name, specularName, MAX_QPATH);
 	Q_strcat(specularName, MAX_QPATH, "_spec");
 
-	hash = generateHashValue(specularName);
-
 	//
-	// see if the image is already processed
+	// see if the images are already loaded
 	//
+	hash = generateHashValue(diffuseName);
 	for (image = hashTable[hash]; image; image = image->next) {
-		if (!strcmp(specularName, image->imgName)) {
-			// the white image can be used with any set of parms, but other mismatches are errors
-			if (strcmp(specularName, "*white")) {
-				if (image->flags != flags) {
-					ri.Printf(PRINT_DEVELOPER, "WARNING: reused image %s with mixed flags (%i vs %i)\n", specularName, image->flags, flags);
+		if (!strcmp(diffuseName, image->imgName)) {
+			stage->bundle[TB_COLORMAP].image[0] = image;
+			// check for specular map
+			hash = generateHashValue(specularName);
+			for (image = hashTable[hash]; image; image = image->next) {
+				if (!strcmp(specularName, image->imgName)) {
+					stage->bundle[TB_SPECULARMAP].image[0] = image;
+					return;
 				}
 			}
-			return;
 		}
 	}
 

@@ -392,6 +392,10 @@ static size_t GLSL_GetShaderHeader(
 	if (r_pbr->integer)
 		Q_strcat(dest, size, "#define USE_PBR\n");
 
+	if (r_debugVisuals->integer)
+		Q_strcat(dest, size, 
+			va("#define USE_DEBUG %d\n", r_debugVisuals->integer));
+
 	if (r_cubeMapping->integer)
 	{
 		//copy in tr_backend for prefiltering the mipmaps

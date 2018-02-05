@@ -3879,6 +3879,12 @@ world_t *R_LoadBSP(const char *name, int *bspIndex)
 			R_LoadCubemapEntities("info_player_deathmatch");
 		}
 
+		if (!tr.numCubemaps)
+		{
+			// use spawn points as cubemaps
+			R_LoadCubemapEntities("info_player_start");
+		}
+
 		if (tr.numCubemaps)
 		{
 			R_AssignCubemapsToWorldSurfaces(worldData);
