@@ -719,6 +719,10 @@ void main()
 	
 	reflectance = CalcDiffuse(diffuse.rgb, NH, EH, roughness);
 
+  #if defined(USE_LIGHTMAP) || defined(USE_LIGHT_VERTEX)
+	NE = abs(dot(N, E)) + 1e-5;
+	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness) * 0.4;
+  #endif
   #if defined(USE_LIGHT_VECTOR)
 	NE = abs(dot(N, E)) + 1e-5;
 	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness);
@@ -780,6 +784,15 @@ void main()
     #endif
 
 	out_Color.rgb += lightColor * reflectance * NL2;
+  #endif
+
+  #if defined(USE_DEBUG)
+	if (USE_DEBUG == 1)
+		out_Color.rgb = diffuse.rgb;
+	if (USE_DEBUG == 2)
+		out_Color.rgb = specular.rgb;
+	if (USE_DEBUG == 3)
+		out_Color.rgb = N.rgb * 0.5 + 0.5;
   #endif
 
   #if defined(USE_PBR)

@@ -2097,7 +2097,8 @@ void RB_StageIteratorGeneric( void )
 		// 
 		// now do any dynamic lighting needed
 		//
-		if ( tess.dlightBits &&
+		if ( r_debugVisuals->integer == 0 &&
+			 tess.dlightBits &&
 			 tess.shader->lightingStage >= 0 &&
 			 r_dlightMode->integer)
 		{

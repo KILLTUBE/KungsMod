@@ -141,6 +141,7 @@ extern cvar_t	*r_lodCurveError;
 extern cvar_t   *r_srgb;
 extern cvar_t	*r_swapInterval;
 extern cvar_t	*r_mode;
+extern cvar_t	*r_debugVisuals;
 extern cvar_t	*r_debugLight;
 extern cvar_t	*r_debugSort;
 extern cvar_t	*r_ignoreGLErrors;

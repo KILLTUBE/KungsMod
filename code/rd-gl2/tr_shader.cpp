@@ -2066,7 +2066,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 	//
 	// build specular and diffuse if albedo and packed textures were found
 	//
-	if (foundBaseColor && buildSpecFromPacked) 
+	if (foundBaseColor && buildSpecFromPacked)
 	{
 		int flags = IMGFLAG_NONE;
 
@@ -3141,7 +3141,7 @@ static void CollapseStagesToLightall(shaderStage_t *stage, shaderStage_t *lightm
 		{
 			//ri.Printf(PRINT_ALL, ", specularmap %s", stage->bundle[TB_SPECULARMAP].image[0]->imgName);
 		}
-		else if ((lightmap || useLightVector || useLightVertex) && (diffuseImg = stage->bundle[TB_DIFFUSEMAP].image[0]) && r_pbr->integer)
+		else if ((lightmap || useLightVector || useLightVertex) && (diffuseImg = stage->bundle[TB_DIFFUSEMAP].image[0]))
 		{
 			char specularName[MAX_QPATH];
 			image_t *specularImg;
@@ -3159,6 +3159,15 @@ static void CollapseStagesToLightall(shaderStage_t *stage, shaderStage_t *lightm
 				stage->bundle[TB_SPECULARMAP].image[0] = specularImg;
 
 				VectorSet4(stage->specularScale, 1.0f, 1.0f, 1.0f, 1.0f);
+			}
+			else
+			{
+				COM_StripExtension(diffuseImg->imgName, specularName, MAX_QPATH);
+				Q_strcat(specularName, MAX_QPATH, "_rmo");
+				R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(stage, diffuseImg->imgName, specularName, specularFlags);
+
+				if (stage->bundle[TB_SPECULARMAP].image[0])
+					VectorSet4(stage->specularScale, 1.0f, 1.0f, 1.0f, 1.0f);
 			}
 		}
 	}
