@@ -2607,24 +2607,35 @@ void R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(shaderStage_t *stage, const c
 	specGlossPic = (byte *)R_Malloc(width * height * 4, TAG_GP2, qfalse);
 	diffusePic = (byte *)R_Malloc(width * height * 4, TAG_GP2, qfalse);
 
-	for (int i = 0; i < width * height * 4; i+=4)
+	const float gamma = 2.2f;
+	const float inverseGamma = 1.0f / 2.2f;
+	const int size = width * height * 4;
+
+	for (int i = 0; i < size; i += 4)
 	{
-		float gloss = (float)rmoPic[i + 0] / 255.0f;
+		float gloss = ByteToFloat(rmoPic[i + 0]);
 		gloss = (1.0 - gloss) + (0.04 * gloss);
-		float metalness = (float)rmoPic[i + 1] / 255.0f;
-		float ao = (float)rmoPic[i + 2] / 255.0f;
+		float metalness = ByteToFloat(rmoPic[i + 1]);
+		float ao = ByteToFloat(rmoPic[i + 2]);
+		
+
+		float color[3];
+		color[0] = pow(ByteToFloat(baseColorPic[i + 0]), gamma);
+		color[1] = pow(ByteToFloat(baseColorPic[i + 1]), gamma);
+		color[2] = pow(ByteToFloat(baseColorPic[i + 2]), gamma);
 
 		// diffuse Color = baseColor * (1.0 - metalness) * occlusion 
-		diffusePic[i + 0] = baseColorPic[i + 0] * (1.0f - metalness) * ao;
-		diffusePic[i + 1] = baseColorPic[i + 1] * (1.0f - metalness) * ao;
-		diffusePic[i + 2] = baseColorPic[i + 2] * (1.0f - metalness) * ao;
+		diffusePic[i + 0] = (pow(color[0] * (1.0f - metalness) * ao, inverseGamma)) * 255.0f;
+		diffusePic[i + 1] = (pow(color[1] * (1.0f - metalness) * ao, inverseGamma)) * 255.0f;
+		diffusePic[i + 2] = (pow(color[2] * (1.0f - metalness) * ao, inverseGamma)) * 255.0f;
 		diffusePic[i + 3] = baseColorPic[i + 3];
 
-		// specular Color = mix(0.04, baseColor, metalness)
-		specGlossPic[i + 0] = (0.04f * 255.0f * (1.0f - metalness)) + (baseColorPic[i + 0] * metalness);
-		specGlossPic[i + 1] = (0.04f * 255.0f * (1.0f - metalness)) + (baseColorPic[i + 1] * metalness);
-		specGlossPic[i + 2] = (0.04f * 255.0f * (1.0f - metalness)) + (baseColorPic[i + 2] * metalness);
-		specGlossPic[i + 3] = gloss * 255.0f;
+		// specular Color = mix(baseSpecular, baseColor, metalness)
+		float baseSpecular  = (pow(r_baseSpecular->value, gamma));
+		specGlossPic[i + 0] = (pow(baseSpecular * (1.0f - metalness) + (color[0] * metalness), inverseGamma)) * 255.0f;
+		specGlossPic[i + 1] = (pow(baseSpecular * (1.0f - metalness) + (color[1] * metalness), inverseGamma)) * 255.0f;
+		specGlossPic[i + 2] = (pow(baseSpecular * (1.0f - metalness) + (color[2] * metalness), inverseGamma)) * 255.0f;
+		specGlossPic[i + 3] = (gloss) * 255.0f;
 	}
 
 	stage->bundle[TB_COLORMAP].image[0] = R_CreateImage(diffuseName, diffusePic, width, height, IMGTYPE_COLORALPHA, flags, 0);
