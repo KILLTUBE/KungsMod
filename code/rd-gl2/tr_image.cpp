@@ -2613,28 +2613,28 @@ void R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(shaderStage_t *stage, const c
 
 	for (int i = 0; i < size; i += 4)
 	{
-		float gloss = ByteToFloat(rmoPic[i + 0]);
-		gloss = (1.0 - gloss) + (0.04 * gloss);
+		float roughness = ByteToFloat(rmoPic[i + 0]);
+		float gloss		= (1.0 - roughness) + (0.04 * roughness);
 		float metalness = ByteToFloat(rmoPic[i + 1]);
-		float ao = ByteToFloat(rmoPic[i + 2]);
-		
-
+		float ao		= ByteToFloat(rmoPic[i + 2]);
+		float specAo	= (1.0f * gloss * gloss) + (ao * (1.0f - gloss * gloss));
+		 
 		float color[3];
-		color[0] = pow(ByteToFloat(baseColorPic[i + 0]), gamma);
-		color[1] = pow(ByteToFloat(baseColorPic[i + 1]), gamma);
-		color[2] = pow(ByteToFloat(baseColorPic[i + 2]), gamma);
+		color[0] = ByteToFloat(baseColorPic[i + 0]);
+		color[1] = ByteToFloat(baseColorPic[i + 1]);
+		color[2] = ByteToFloat(baseColorPic[i + 2]);
 
 		// diffuse Color = baseColor * (1.0 - metalness) * occlusion 
-		diffusePic[i + 0] = (pow(color[0] * (1.0f - metalness) * ao, inverseGamma)) * 255.0f;
-		diffusePic[i + 1] = (pow(color[1] * (1.0f - metalness) * ao, inverseGamma)) * 255.0f;
-		diffusePic[i + 2] = (pow(color[2] * (1.0f - metalness) * ao, inverseGamma)) * 255.0f;
+		diffusePic[i + 0] = color[0] * (1.0f - metalness) * ao * 255.0f;
+		diffusePic[i + 1] = color[1] * (1.0f - metalness) * ao * 255.0f;
+		diffusePic[i + 2] = color[2] * (1.0f - metalness) * ao * 255.0f;
 		diffusePic[i + 3] = baseColorPic[i + 3];
 
 		// specular Color = mix(baseSpecular, baseColor, metalness)
-		float baseSpecular  = (pow(r_baseSpecular->value, gamma));
-		specGlossPic[i + 0] = (pow(baseSpecular * (1.0f - metalness) + (color[0] * metalness), inverseGamma)) * 255.0f;
-		specGlossPic[i + 1] = (pow(baseSpecular * (1.0f - metalness) + (color[1] * metalness), inverseGamma)) * 255.0f;
-		specGlossPic[i + 2] = (pow(baseSpecular * (1.0f - metalness) + (color[2] * metalness), inverseGamma)) * 255.0f;
+		float baseSpecular  = 56.0f / 255.0f;
+		specGlossPic[i + 0] = (baseSpecular * (1.0f - metalness) + color[0] * metalness) * specAo * 255.0f;
+		specGlossPic[i + 1] = (baseSpecular * (1.0f - metalness) + color[1] * metalness) * specAo * 255.0f;
+		specGlossPic[i + 2] = (baseSpecular * (1.0f - metalness) + color[2] * metalness) * specAo * 255.0f;
 		specGlossPic[i + 3] = (gloss) * 255.0f;
 	}
 
