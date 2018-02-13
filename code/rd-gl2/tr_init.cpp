@@ -241,8 +241,6 @@ cvar_t  *r_shadowCascadeZFar;
 cvar_t  *r_shadowCascadeZBias;
 cvar_t	*r_ambientScale;
 cvar_t	*r_directedScale;
-cvar_t	*r_bloom_threshold;
-
 
 int max_polys;
 int max_polyverts;
@@ -1298,7 +1296,6 @@ void R_Register(void)
 	r_dynamicGlowSoft = ri.Cvar_Get("r_dynamicGlowSoft", "1", CVAR_ARCHIVE);
 	r_dynamicGlowWidth = ri.Cvar_Get("r_dynamicGlowWidth", "320", CVAR_ARCHIVE | CVAR_LATCH);
 	r_dynamicGlowHeight = ri.Cvar_Get("r_dynamicGlowHeight", "240", CVAR_ARCHIVE | CVAR_LATCH);
-	r_bloom_threshold = ri.Cvar_Get("r_bloom_threshold", "0.85", CVAR_ARCHIVE);
 	r_debugContext = ri.Cvar_Get("r_debugContext", "0", CVAR_LATCH);
 	r_picmip = ri.Cvar_Get("r_picmip", "0", CVAR_ARCHIVE | CVAR_LATCH);
 	ri.Cvar_CheckRange(r_picmip, 0, 16, qtrue);
