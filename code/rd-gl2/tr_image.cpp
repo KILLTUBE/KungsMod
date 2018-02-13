@@ -2635,7 +2635,7 @@ void R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(shaderStage_t *stage, const c
 		specGlossPic[i + 0] = (baseSpecular * (1.0f - metalness) + color[0] * metalness) * specAo * 255.0f;
 		specGlossPic[i + 1] = (baseSpecular * (1.0f - metalness) + color[1] * metalness) * specAo * 255.0f;
 		specGlossPic[i + 2] = (baseSpecular * (1.0f - metalness) + color[2] * metalness) * specAo * 255.0f;
-		specGlossPic[i + 3] = (gloss) * 255.0f;
+		specGlossPic[i + 3] = gloss * 255.0f;
 	}
 
 	stage->bundle[TB_COLORMAP].image[0] = R_CreateImage(diffuseName, diffusePic, width, height, IMGTYPE_COLORALPHA, flags, 0);

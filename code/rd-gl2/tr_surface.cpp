@@ -2091,6 +2091,26 @@ void RB_SurfaceVBOMDVMesh(srfVBOMDVMesh_t * surface)
 		return;
 	}
 
+	if (refEnt->oldframe || refEnt->frame)
+	{
+		if (refEnt->oldframe == refEnt->frame)
+		{
+			glState.vertexAttribsInterpolation = 0;
+		}
+		else
+		{
+			glState.vertexAttribsInterpolation = refEnt->backlerp;
+		}
+
+		glState.vertexAttribsOldFrame = refEnt->oldframe;
+		glState.vertexAttribsNewFrame = refEnt->frame;
+		glState.vertexAnimation = qtrue;
+
+		//FIXME: Use GPU deforming instead of CPU one
+		RB_SurfaceMesh(surface->mdvSurface);
+		return;
+	}
+
 	RB_BeginSurface(tess.shader, tess.fogNum, tess.cubemapIndex);
 
 	R_BindVBO(surface->vbo);
@@ -2106,22 +2126,6 @@ void RB_SurfaceVBOMDVMesh(srfVBOMDVMesh_t * surface)
 
 	//mdvModel = surface->mdvModel;
 	//mdvSurface = surface->mdvSurface;
-
-	if ( refEnt->oldframe || refEnt->frame )
-	{
-		if(refEnt->oldframe == refEnt->frame)
-		{
-			glState.vertexAttribsInterpolation = 0;
-		}
-		else
-		{
-			glState.vertexAttribsInterpolation = refEnt->backlerp;
-		}
-
-		glState.vertexAttribsOldFrame = refEnt->oldframe;
-		glState.vertexAttribsNewFrame = refEnt->frame;
-		glState.vertexAnimation = qtrue;
-	}
 
 	RB_EndSurface();
 
