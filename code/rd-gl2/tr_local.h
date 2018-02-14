@@ -271,7 +271,6 @@ extern cvar_t   *r_shadowCascadeZFar;
 extern cvar_t   *r_shadowCascadeZBias;
 extern cvar_t	*r_ambientScale;
 extern cvar_t	*r_directedScale;
-extern cvar_t	*r_bloom_threshold;
 /*
 End Cvars
 */
