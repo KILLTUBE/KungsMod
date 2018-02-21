@@ -465,7 +465,7 @@ static cvarTable_t cvarTable[] = {
 	{ &cg_smoothPlayerPos, "cg_smoothPlayerPos", "0.5", 0},
 	{ &cg_smoothPlayerPlat, "cg_smoothPlayerPlat", "0.75", 0},
 	{ &cg_smoothPlayerPlatAccel, "cg_smoothPlayerPlatAccel", "3.25", 0},
-	{ &cg_g2Marks, "cg_g2Marks", "1", CVAR_ARCHIVE },
+	{ &cg_g2Marks, "cg_g2Marks", "0", CVAR_ARCHIVE },
 	{ &fx_expensivePhysics, "fx_expensivePhysics", "1", CVAR_ARCHIVE },
 	{ &cg_debugHealthBars,	"cg_debugHealthBars",	"0", CVAR_CHEAT },
 
