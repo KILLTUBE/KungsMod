@@ -3914,13 +3914,11 @@ world_t *R_LoadBSP(const char *name, int *bspIndex)
 	}
 
 	// create static VBOS from the world
-#if 0
 	R_CreateWorldVBOs(worldData);
 	if (r_mergeLeafSurfaces->integer)
 	{
 		R_MergeLeafSurfaces(worldData);
 	}
-#endif
 
 	worldData->dataSize = (byte *)R_Hunk_Alloc(0, qtrue) - startMarker;
 

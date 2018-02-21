@@ -2221,6 +2221,9 @@ static void RB_RenderMainPass(drawSurf_t *drawSurfs, int numDrawSurfs)
 
 	// darken down any stencil shadows
 	RB_ShadowFinish();
+
+	// add light flares on lights that aren't obscured
+	RB_RenderFlares();
 }
 
 static void RB_GenerateMipmapsForCubemapFaceRender()
