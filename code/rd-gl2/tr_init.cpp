@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include <algorithm>
 
 static size_t FRAME_UNIFORM_BUFFER_SIZE = 8 * 1024 * 1024;
-static size_t FRAME_VERTEX_BUFFER_SIZE = 8 * 1024 * 1024;
-static size_t FRAME_INDEX_BUFFER_SIZE = 2 * 1024 * 1024;
+static size_t FRAME_VERTEX_BUFFER_SIZE = 12 * 1024 * 1024;
+static size_t FRAME_INDEX_BUFFER_SIZE = 4 * 1024 * 1024;
 
 glconfig_t  glConfig;
 glconfigExt_t glConfigExt;
@@ -1345,7 +1345,7 @@ void R_Register(void)
 	r_baseGloss = ri.Cvar_Get("r_baseGloss", "0.45", CVAR_ARCHIVE | CVAR_LATCH);
 	r_dlightMode = ri.Cvar_Get("r_dlightMode", "1", CVAR_ARCHIVE | CVAR_LATCH);
 	r_pshadowDist = ri.Cvar_Get("r_pshadowDist", "128", CVAR_ARCHIVE);
-	r_mergeLightmaps = ri.Cvar_Get("r_mergeLightmaps", "0", CVAR_ARCHIVE | CVAR_LATCH);
+	r_mergeLightmaps = ri.Cvar_Get("r_mergeLightmaps", "1", CVAR_ARCHIVE | CVAR_LATCH);
 	r_imageUpsample = ri.Cvar_Get("r_imageUpsample", "0", CVAR_ARCHIVE | CVAR_LATCH);
 	r_imageUpsampleMaxSize = ri.Cvar_Get("r_imageUpsampleMaxSize", "1024", CVAR_ARCHIVE | CVAR_LATCH);
 	r_imageUpsampleType = ri.Cvar_Get("r_imageUpsampleType", "1", CVAR_ARCHIVE | CVAR_LATCH);

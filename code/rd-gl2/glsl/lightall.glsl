@@ -721,7 +721,7 @@ void main()
 
   #if defined(USE_LIGHTMAP) || defined(USE_LIGHT_VERTEX)
 	NE = abs(dot(N, E)) + 1e-5;
-	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness) * 0.4;
+	reflectance += CalcSpecular(specular.rgb, NH, NL, NE, EH, roughness) * 1.0;
   #endif
   #if defined(USE_LIGHT_VECTOR)
 	NE = abs(dot(N, E)) + 1e-5;
@@ -747,7 +747,7 @@ void main()
 	// from http://marmosetco.tumblr.com/post/81245981087
 	#if defined(HORIZON_FADE)
 		const float horizonFade = HORIZON_FADE;
-		horiz = clamp( 1.0 + horizonFade * dot(-(R + parallax),var_Normal.xyz), 0.0, 1.0 );
+		horiz = clamp( 1.0 + horizonFade * dot(-R,var_Normal.xyz), 0.0, 1.0 );
 		horiz *= horiz;
 	#endif
 

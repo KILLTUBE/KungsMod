@@ -2613,10 +2613,12 @@ void R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(shaderStage_t *stage, const c
 
 	for (int i = 0; i < size; i += 4)
 	{
+		const float aoStrength = 0.5f;
 		float roughness = ByteToFloat(rmoPic[i + 0]);
 		float gloss		= (1.0 - roughness) + (0.04 * roughness);
 		float metalness = ByteToFloat(rmoPic[i + 1]);
 		float ao		= ByteToFloat(rmoPic[i + 2]);
+		ao += (1.0 - ao) * (1.0 - aoStrength);
 		float specAo	= (1.0f * gloss * gloss) + (ao * (1.0f - gloss * gloss));
 		 
 		float color[3];
@@ -3186,13 +3188,10 @@ void R_CreateBuiltinImages(void) {
 
 	if (r_refraction->integer) 
 	{
-		tr.refractiveImage = R_CreateImage("*refractiveFbo", NULL, width, height, IMGTYPE_COLORALPHA, IMGFLAG_NO_COMPRESSION | IMGFLAG_CLAMPTOEDGE, rgbFormat);		
+		tr.refractiveImage = R_CreateImage("*refractiveFbo", NULL, width, height, IMGTYPE_COLORALPHA, IMGFLAG_NO_COMPRESSION | IMGFLAG_CLAMPTOEDGE, hdrFormat);
 	}
 
-	if (r_pbr->integer)
-	{
-		tr.prefilterEnvMapImage = R_CreateImage("*prefilterEnvMapFbo", NULL, r_cubemapSize->integer / 2, r_cubemapSize->integer / 2, IMGTYPE_COLORALPHA, IMGFLAG_NO_COMPRESSION | IMGFLAG_CLAMPTOEDGE, hdrFormat);
-	}
+	tr.prefilterEnvMapImage = R_CreateImage("*prefilterEnvMapFbo", NULL, r_cubemapSize->integer / 2, r_cubemapSize->integer / 2, IMGTYPE_COLORALPHA, IMGFLAG_NO_COMPRESSION | IMGFLAG_CLAMPTOEDGE, hdrFormat);
 
 	for (x = 0; x < MAX_DRAWN_PSHADOWS; x++)
 	{

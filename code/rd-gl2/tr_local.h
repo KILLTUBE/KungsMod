@@ -1512,7 +1512,11 @@ compared quickly during the qsorting process
 #define QSORT_CUBEMAP_BITS		6
 #define QSORT_CUBEMAP_MASK		((1 << QSORT_CUBEMAP_BITS) - 1)
 
-#define	QSORT_SHADERNUM_SHIFT	(QSORT_CUBEMAP_SHIFT + QSORT_CUBEMAP_BITS)
+#define QSORT_ENTITYNUM_SHIFT	(QSORT_CUBEMAP_SHIFT + QSORT_CUBEMAP_BITS)
+#define QSORT_ENTITYNUM_BITS	REFENTITYNUM_BITS
+#define QSORT_ENTITYNUM_MASK	((1 << QSORT_ENTITYNUM_BITS) - 1)
+
+#define	QSORT_SHADERNUM_SHIFT	(QSORT_ENTITYNUM_SHIFT + QSORT_ENTITYNUM_BITS)
 #define QSORT_SHADERNUM_BITS	SHADERNUM_BITS
 #define QSORT_SHADERNUM_MASK	((1 << QSORT_SHADERNUM_BITS) - 1)
 
@@ -1526,7 +1530,6 @@ compared quickly during the qsorting process
 
 typedef struct drawSurf_s {
 	uint32_t sort; // bit combination for fast compares
-	int entityNum;
 	uint32_t dlightBits;
 	surfaceType_t *surface; // any of surface*_t
 	int fogIndex;
@@ -2323,8 +2326,8 @@ typedef struct trGlobals_s {
 	image_t					**lightmaps;
 	image_t					**deluxemaps;
 
-	int                     fatLightmapSize;
-	int		                fatLightmapStep;
+	vec2i_t					lightmapAtlasSize;
+	vec2i_t					lightmapsPerAtlasSide;
 
 	int                     numCubemaps;
 	vec3_t                  *cubemapOrigins;
@@ -2471,8 +2474,8 @@ void R_RenderCubemapSide( int cubemapIndex, int cubemapSide, qboolean subscene )
 void R_AddMD3Surfaces( trRefEntity_t *e, int entityNum );
 void R_AddPolygonSurfaces(const trRefdef_t *refdef);
 
-void R_DecomposeSort( uint32_t sort, shader_t **shader, int *cubemap, int *postRender );
-uint32_t R_CreateSortKey(int sortedShaderIndex, int cubemapIndex, int postRender);
+void R_DecomposeSort(uint32_t sort, int *entityNum, shader_t **shader, int *cubemap, int *postRender);
+uint32_t R_CreateSortKey(int entityNum, int sortedShaderIndex, int cubemapIndex, int postRender);
 void R_AddDrawSurf( surfaceType_t *surface, int entityNum, shader_t *shader, int fogIndex, int dlightMap, int postRender, int cubemap );
 bool R_IsPostRenderEntity ( int refEntityNum, const trRefEntity_t *refEntity );
 
@@ -2516,7 +2519,7 @@ void GL_SetModelviewMatrix(matrix_t matrix);
 void GL_Cull( int cullType );
 void GL_DepthRange( float min, float max );
 void GL_VertexAttribPointers(size_t numAttributes, vertexAttribute_t *attributes);
-void GL_DrawIndexed(GLenum primitiveType, int numIndices, int offset, int numInstances, int baseVertex);
+void GL_DrawIndexed(GLenum primitiveType, int numIndices, GLenum indexType, int offset, int numInstances, int baseVertex);
 void GL_MultiDrawIndexed(GLenum primitiveType, int *numIndices, glIndex_t **offsets, int numDraws);
 void GL_Draw(GLenum primitiveType, int firstVertex, int numVertices, int numInstances);
 
@@ -2793,7 +2796,8 @@ void R_VBOList_f(void);
 
 void RB_UpdateVBOs(unsigned int attribBits);
 void RB_CommitInternalBufferData();
-void RB_UpdateUniformBlock(uniformBlock_t block, void *data);
+void RB_BindUniformBlock(uniformBlock_t block);
+void RB_BindAndUpdateUniformBlock(uniformBlock_t block, void *data);
 void CalculateVertexArraysProperties(uint32_t attributes, VertexArraysProperties *properties);
 void CalculateVertexArraysFromVBO(uint32_t attributes, const VBO_t *vbo, VertexArraysProperties *properties);
 
@@ -3270,6 +3274,12 @@ struct SamplerBinding
 	uint8_t slot;
 };
 
+struct UniformBlockBinding
+{
+	void *data;
+	uniformBlock_t block;
+};
+
 enum DrawCommandType
 {
 	DRAW_COMMAND_MULTI_INDEXED,
@@ -3294,6 +3304,7 @@ struct DrawCommand
 
 		struct DrawIndexed
 		{
+			GLenum indexType;
 			GLsizei numIndices;
 			glIndex_t firstIndex;
 		} indexed;
@@ -3320,6 +3331,9 @@ struct DrawItem
 
 	uint32_t numSamplerBindings;
 	SamplerBinding *samplerBindings;
+
+	uint32_t numUniformBlockBindings;
+	UniformBlockBinding *uniformBlockBindings;
 
 	UniformData *uniformData;
 

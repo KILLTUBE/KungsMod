@@ -48,7 +48,7 @@ void R_DrawElementsVBO( int numIndexes, glIndex_t firstIndex, glIndex_t minIndex
 	int offset = firstIndex * sizeof(glIndex_t) +
 		(tess.useInternalVBO ? backEndData->currentFrame->dynamicIboCommitOffset : 0);
 
-	GL_DrawIndexed(GL_TRIANGLES, numIndexes, offset, 1, 0);
+	GL_DrawIndexed(GL_TRIANGLES, numIndexes, GL_INDEX_TYPE, offset, 1, 0);
 }
 
 
@@ -832,6 +832,7 @@ void RB_FillDrawCommand(
 		if ( input->multiDrawPrimitives == 1 )
 		{
 			drawCmd.type = DRAW_COMMAND_INDEXED;
+			drawCmd.params.indexed.indexType = GL_INDEX_TYPE;
 			drawCmd.params.indexed.firstIndex = (glIndex_t)(size_t)(input->multiDrawFirstIndex[0]);
 			drawCmd.params.indexed.numIndices = input->multiDrawNumIndexes[0];
 		}
@@ -859,6 +860,7 @@ void RB_FillDrawCommand(
 			(input->useInternalVBO ? backEndData->currentFrame->dynamicIboCommitOffset : 0);
 
 		drawCmd.type = DRAW_COMMAND_INDEXED;
+		drawCmd.params.indexed.indexType = GL_INDEX_TYPE;
 		drawCmd.params.indexed.firstIndex = offset;
 		drawCmd.params.indexed.numIndices = input->numIndexes;
 	}
@@ -1516,31 +1518,28 @@ void RB_StageIteratorLiquid( void )
 		uniformDataWriter.SetUniformVec4(UNIFORM_PRIMARYLIGHTORIGIN, backEnd.refdef.sunDir);
 	}
 
-	LiquidBlock data = {};
+	LiquidBlock *data = ojkAlloc<LiquidBlock>(*backEndData->perFrameMemory);
+	*data = {};
 
-	data.isLiquid = 1.0;
-	data.height = tess.shader->liquid.height;
-	data.choppy = tess.shader->liquid.choppy;
-	data.speed = tess.shader->liquid.speed;
-	data.freq = tess.shader->liquid.freq;
-	data.depth = tess.shader->liquid.depth;
-	data.time = tess.shaderTime;
-	
-	RB_UpdateUniformBlock(UNIFORM_BLOCK_LIQUID, &data);
+	data->isLiquid = 1.0;
+	data->height = tess.shader->liquid.height;
+	data->choppy = tess.shader->liquid.choppy;
+	data->speed = tess.shader->liquid.speed;
+	data->freq = tess.shader->liquid.freq;
+	data->depth = tess.shader->liquid.depth;
+	data->time = tess.shaderTime;
 
-	LiquidBlock2 data2 = {};
+	LiquidBlock2 *data2 = ojkAlloc<LiquidBlock2>(*backEndData->perFrameMemory);
+	*data2 = {};
 
-	data2.water_color_r = tess.shader->liquid.water_color[0];
-	data2.water_color_g = tess.shader->liquid.water_color[1];
-	data2.water_color_b = tess.shader->liquid.water_color[2];
-	data2.fog_color_r = tess.shader->liquid.fog_color[0];
-	data2.fog_color_g = tess.shader->liquid.fog_color[1];
-	data2.fog_color_b = tess.shader->liquid.fog_color[2];
+	data2->water_color_r = tess.shader->liquid.water_color[0];
+	data2->water_color_g = tess.shader->liquid.water_color[1];
+	data2->water_color_b = tess.shader->liquid.water_color[2];
+	data2->fog_color_r = tess.shader->liquid.fog_color[0];
+	data2->fog_color_g = tess.shader->liquid.fog_color[1];
+	data2->fog_color_b = tess.shader->liquid.fog_color[2];
 	//ri.Printf(PRINT_ALL, "water_color should be: %f %f %f\n", tess.shader->liquid.water_color[0], tess.shader->liquid.water_color[1], tess.shader->liquid.water_color[2]);
 	//ri.Printf(PRINT_ALL, "water_color is: %f %f %f\n", data2.water_color_r, data2.water_color_g, data2.water_color_b);
-
-	RB_UpdateUniformBlock(UNIFORM_BLOCK_LIQUID2, &data2);
-
 
 	DrawItem item = {};
 	item.stateBits = GLS_SRCBLEND_SRC_ALPHA | GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA;
@@ -1553,6 +1552,13 @@ void RB_StageIteratorLiquid( void )
 	item.attributes = ojkAllocArray<vertexAttribute_t>(
 		*backEndData->perFrameMemory, vertexArrays.numVertexArrays);
 	memcpy(item.attributes, attribs, sizeof(*item.attributes)*vertexArrays.numVertexArrays);
+
+	item.numUniformBlockBindings = 2;
+	item.uniformBlockBindings = ojkAllocArray<UniformBlockBinding>(*backEndData->perFrameMemory, item.numUniformBlockBindings);
+	item.uniformBlockBindings[0].data = data;
+	item.uniformBlockBindings[0].block = UNIFORM_BLOCK_LIQUID;
+	item.uniformBlockBindings[1].data = data2;
+	item.uniformBlockBindings[1].block = UNIFORM_BLOCK_LIQUID2;
 
 	item.uniformData = uniformDataWriter.Finish(*backEndData->perFrameMemory);
 	// FIXME: This is a bit ugly with the casting
