@@ -524,6 +524,7 @@ if(BuildMPEngine)
 			"${MPDir}/win32/icon.ico"
 			"${MPDir}/win32/resource.h"
 			"${MPDir}/win32/openjk.rc"
+			"${SharedDir}/sys/win_manifest.manifest"
 			)
 
 		set(MPEngineFiles ${MPEngineFiles} ${MPEngineWin32Files})
@@ -576,14 +577,6 @@ if(BuildMPEngine)
 			add_executable(${MPEngine} ${MPEngineFiles})
 		endif(MakeApplicationBundles)
 	endif(WIN32)
-
-	# add DPI awareness manifest
-	if(MSVC)
-		add_custom_command(TARGET ${MPEngine} POST_BUILD
-			COMMAND "mt.exe" -manifest \"${SharedDir}\\sys\\win_manifest.xml\" -inputresource:\"$<TARGET_FILE:${MPEngine}>\"\;\#1 -outputresource:\"$<TARGET_FILE:${MPEngine}>\"\;\#1
-			COMMENT "Adding manifest..." 
-		)
-	endif()
 
 	if(MakeApplicationBundles)
 		install(TARGETS ${MPEngine}

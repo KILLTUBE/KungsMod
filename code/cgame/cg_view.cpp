@@ -1287,11 +1287,11 @@ qboolean CG_CalcFOVFromX( float fov_x )
 	float	phase;
 	float	v;
 	cg.refdef.viewContents = 0;
-	if (gi.totalMapContents() & ( CONTENTS_WATER | CONTENTS_SLIME | CONTENTS_LAVA ))
+	if (gi.totalMapContents() & ( CONTENTS_WATER | CONTENTS_SLIME | CONTENTS_LAVA | CONTENTS_BATTERYACID ))
 	{
 		cg.refdef.viewContents = CG_PointContents( cg.refdef.vieworg, -1 );
 	}
-	if ( cg.refdef.viewContents & ( CONTENTS_WATER | CONTENTS_SLIME | CONTENTS_LAVA ) )
+	if ( cg.refdef.viewContents & ( CONTENTS_WATER | CONTENTS_SLIME | CONTENTS_LAVA | CONTENTS_BATTERYACID ) )
 	{
 		phase = cg.time / 1000.0 * WAVE_FREQUENCY * M_PI * 2;
 		v = WAVE_AMPLITUDE * sin( phase );

@@ -1678,7 +1678,7 @@ static void CG_BreathPuffs( centity_t *cent, vec3_t angles, vec3_t origin )
 	gi.G2API_GiveMeVectorFromMatrix( boltMatrix, ORIGIN, vEffectOrigin );
 
 	int contents = cgi_CM_PointContents( vEffectOrigin, 0 );
-	if ( contents & ( CONTENTS_SLIME | CONTENTS_LAVA ) )	// If they're submerged in something bad, leave.
+	if ( contents & ( CONTENTS_SLIME | CONTENTS_LAVA | CONTENTS_BATTERYACID ) )	// If they're submerged in something bad, leave.
 	{
 		return;
 	}
@@ -3846,7 +3846,7 @@ static void _PlayerSplash( const vec3_t origin, const vec3_t velocity, const flo
 	// if the feet aren't in liquid, don't make a mark
 	// this won't handle moving water brushes, but they wouldn't draw right anyway...
 	contents = cgi_CM_PointContents( end, 0 );
-	if ( !( contents & ( CONTENTS_WATER | CONTENTS_SLIME | CONTENTS_LAVA ) ) )
+	if ( !( contents & ( CONTENTS_WATER | CONTENTS_SLIME | CONTENTS_LAVA | CONTENTS_BATTERYACID ) ) )
 	{
 		return;
 	}
@@ -3863,13 +3863,13 @@ static void _PlayerSplash( const vec3_t origin, const vec3_t velocity, const flo
 
 	// if the head isn't out of liquid, don't make a mark
 	contents = cgi_CM_PointContents( start, 0 );
-	if ( contents & ( CONTENTS_SOLID | CONTENTS_WATER | CONTENTS_SLIME | CONTENTS_LAVA ) )
+	if ( contents & ( CONTENTS_SOLID | CONTENTS_WATER | CONTENTS_SLIME | CONTENTS_LAVA | CONTENTS_BATTERYACID ) )
 	{
 		return;
 	}
 
 	// trace down to find the surface
-	cgi_CM_BoxTrace( &trace, start, end, NULL, NULL, 0, ( CONTENTS_WATER | CONTENTS_SLIME | CONTENTS_LAVA ) );
+	cgi_CM_BoxTrace( &trace, start, end, NULL, NULL, 0, ( CONTENTS_WATER | CONTENTS_SLIME | CONTENTS_LAVA | CONTENTS_BATTERYACID ) );
 
 	if ( trace.fraction == 1.0 )
 	{
@@ -5951,7 +5951,7 @@ void CG_CheckSaberInWater( centity_t *cent, centity_t *scent, int saberNum, int 
 	{//saber can stay on underwater
 		return;
 	}
-	if (gi.totalMapContents() & (CONTENTS_WATER|CONTENTS_SLIME))
+	if (gi.totalMapContents() & (CONTENTS_WATER|CONTENTS_SLIME|CONTENTS_BATTERYACID))
 	{
 		vec3_t		saberOrg;
 		mdxaBone_t	boltMatrix;
@@ -5962,7 +5962,7 @@ void CG_CheckSaberInWater( centity_t *cent, centity_t *scent, int saberNum, int 
 		gi.G2API_GiveMeVectorFromMatrix( boltMatrix, ORIGIN, saberOrg );
 
 		const int contents = gi.pointcontents( saberOrg, cent->currentState.clientNum );
-		if ( contents & (CONTENTS_WATER|CONTENTS_SLIME) )
+		if ( contents & (CONTENTS_WATER|CONTENTS_SLIME|CONTENTS_BATTERYACID) )
 		{//still in water
 			client->ps.saberEventFlags |= SEF_INWATER;
 			return;
@@ -6432,12 +6432,12 @@ Ghoul2 Insert End
 			}
 			else
 			{//tracing from base to end
-				gi.trace( &trace, org_, NULL, NULL, end, cent->currentState.clientNum, traceMask|CONTENTS_WATER|CONTENTS_SLIME, (EG2_Collision)0, 0 );
+				gi.trace( &trace, org_, NULL, NULL, end, cent->currentState.clientNum, traceMask|CONTENTS_WATER|CONTENTS_SLIME|CONTENTS_BATTERYACID, (EG2_Collision)0, 0 );
 			}
 
 			if ( trace.fraction < 1.0f )
 			{
-				if ( (trace.contents&CONTENTS_WATER) || (trace.contents&CONTENTS_SLIME) )
+				if ( (trace.contents&CONTENTS_WATER) || (trace.contents&CONTENTS_SLIME) || (trace.contents&CONTENTS_BATTERYACID) )
 				{
 					if ( !noMarks )
 					{
