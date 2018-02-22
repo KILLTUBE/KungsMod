@@ -4552,6 +4552,7 @@ void WP_SaberDamageTrace( gentity_t *ent, int saberNum, int bladeNum )
 	}
 	if ( (saberContents&CONTENTS_WATER)||
 		(saberContents&CONTENTS_SLIME)||
+		(saberContents&CONTENTS_BATTERYACID)||
 		(saberContents&CONTENTS_LAVA) )
 	{//um... turn off?  Or just set length to 1?
 		//FIXME: short-out effect/sound?

@@ -3963,8 +3963,18 @@ static void CG_Draw2DScreenTints( void )
 		float phase = cg.time / 1000.0 * WAVE_FREQUENCY * M_PI * 2;
 		hcolor[3] = 0.4 + (0.1f*sin( phase ));
 		hcolor[0] = 0;
-		hcolor[1] = 0.7f;
-		hcolor[2] = 0;
+		hcolor[1] = 0.75f;
+		hcolor[2] = 0.2f;
+
+		CG_FillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, hcolor);
+	}
+	else if ((cg.refdef.viewContents&CONTENTS_BATTERYACID))
+	{//tint screen brown
+		float phase = cg.time / 1000.0 * WAVE_FREQUENCY * M_PI * 2;
+		hcolor[3] = 0.4 + (0.1f*sin(phase));
+		hcolor[0] = 0.5f;
+		hcolor[1] = 0.3f;
+		hcolor[2] = 0.1f;
 
 		CG_FillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, hcolor);
 	}
@@ -3972,9 +3982,9 @@ static void CG_Draw2DScreenTints( void )
 	{//tint screen light blue -- FIXME: check to see if in fog?
 		float phase = cg.time / 1000.0 * WAVE_FREQUENCY * M_PI * 2;
 		hcolor[3] = 0.3 + (0.05f*sin( phase ));
-		hcolor[0] = 0;
-		hcolor[1] = 0.2f;
-		hcolor[2] = 0.8f;
+		hcolor[0] = 0.1f;
+		hcolor[1] = 0.19f;
+		hcolor[2] = 0.22f;
 
 		CG_FillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, hcolor);
 	}

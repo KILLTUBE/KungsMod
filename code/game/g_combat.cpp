@@ -4856,7 +4856,7 @@ int CheckArmor (gentity_t *ent, int damage, int dflags, int mod)
 	{
 		// The Assassin Always Completely Ignores These Damage Types
 		//-----------------------------------------------------------
-		if (mod==MOD_GAS ||	mod==MOD_IMPACT || mod==MOD_LAVA || mod==MOD_SLIME || mod==MOD_WATER ||
+		if (mod==MOD_GAS ||	mod==MOD_IMPACT || mod==MOD_LAVA || mod==MOD_SLIME || mod==MOD_WATER || mod==MOD_BATTERYACID ||
 			mod==MOD_FORCE_GRIP || mod==MOD_FORCE_DRAIN || mod==MOD_SEEKER || mod==MOD_MELEE ||
 			mod==MOD_BOWCASTER || mod==MOD_BRYAR || mod==MOD_BRYAR_ALT || mod==MOD_BLASTER || mod==MOD_BLASTER_ALT ||
 			mod==MOD_SNIPER || mod==MOD_BOWCASTER || mod==MOD_BOWCASTER_ALT || mod==MOD_REPEATER || mod==MOD_REPEATER_ALT)
@@ -4866,7 +4866,7 @@ int CheckArmor (gentity_t *ent, int damage, int dflags, int mod)
 
 		// The Assassin Always Takes Half Of These Damage Types
 		//------------------------------------------------------
-		if (mod==MOD_GAS ||	mod==MOD_IMPACT || mod==MOD_LAVA || mod==MOD_SLIME || mod==MOD_WATER)
+		if (mod==MOD_GAS ||	mod==MOD_IMPACT || mod==MOD_LAVA || mod==MOD_SLIME || mod==MOD_WATER || mod==MOD_BATTERYACID)
 		{
 			return damage/2;
 		}
@@ -5899,6 +5899,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker, const
 				case MOD_FLECHETTE:
 				case MOD_WATER:
 				case MOD_SLIME:
+				case MOD_BATTERYACID:
 				case MOD_LAVA:
 				case MOD_FALLING:
 				case MOD_MELEE:
@@ -6149,7 +6150,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker, const
 			}
 		}
 
-		if (mod==MOD_SLIME || mod==MOD_LAVA)
+		if (mod==MOD_SLIME || mod==MOD_LAVA || mod==MOD_BATTERYACID)
 		{
 			// Hazard Troopers Don't Mind Acid Rain
 			if (targ->client->NPC_class == CLASS_HAZARD_TROOPER
@@ -6187,6 +6188,41 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker, const
 						G_PlayEffect( "world/acid_fizz", testTrace.G2CollisionMap[0].mCollisionPosition );
 					}
 //					CG_DrawEdge(testStartPos,	testEndPos,	EDGE_IMPACT_POSSIBLE);
+					float chanceOfFizz = gi.WE_GetChanceOfSaberFizz();
+					TIMER_Set(targ, "AcidPainDebounce", 200 + (10000.0f * Q_flrand(0.0f, 1.0f) * chanceOfFizz));
+					hitLoc = HL_CHEST;
+				}
+			}
+
+			if (mod == MOD_BATTERYACID)
+			{
+				trace_t		testTrace;
+				vec3_t		testDirection;
+				vec3_t		testStartPos;
+				vec3_t		testEndPos;
+				//int			numPuffs = Q_irand(1, 2);
+
+				//for (int i=0; i<numPuffs; i++)
+				{
+					testDirection[0] = (Q_flrand(0.0f, 1.0f) * 0.5f) - 0.25f;
+					testDirection[1] = (Q_flrand(0.0f, 1.0f) * 0.5f) - 0.25f;
+					testDirection[2] = 1.0f;
+					VectorMA(targ->currentOrigin, 60.0f, testDirection, testStartPos);
+					VectorCopy(targ->currentOrigin, testEndPos);
+					testEndPos[0] += (Q_flrand(0.0f, 1.0f) * 8.0f) - 4.0f;
+					testEndPos[1] += (Q_flrand(0.0f, 1.0f) * 8.0f) - 4.0f;
+					testEndPos[2] += (Q_flrand(0.0f, 1.0f) * 8.0f);
+
+					gi.trace(&testTrace, testStartPos, NULL, NULL, testEndPos, ENTITYNUM_NONE, MASK_SHOT, G2_COLLIDE, 0);
+
+					if (!testTrace.startsolid &&
+						!testTrace.allsolid &&
+						testTrace.entityNum == targ->s.number &&
+						testTrace.G2CollisionMap[0].mEntityNum != -1)
+					{
+						G_PlayEffect("world/batteryacid_fizz", testTrace.G2CollisionMap[0].mCollisionPosition);
+					}
+					//					CG_DrawEdge(testStartPos,	testEndPos,	EDGE_IMPACT_POSSIBLE);
 					float chanceOfFizz = gi.WE_GetChanceOfSaberFizz();
 					TIMER_Set(targ, "AcidPainDebounce", 200 + (10000.0f * Q_flrand(0.0f, 1.0f) * chanceOfFizz));
 					hitLoc = HL_CHEST;

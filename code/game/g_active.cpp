@@ -549,7 +549,7 @@ void P_WorldEffects( gentity_t *ent ) {
 
 	if ( !in_camera )
 	{
-		if (gi.totalMapContents() & (CONTENTS_WATER|CONTENTS_SLIME))
+		if (gi.totalMapContents() & (CONTENTS_WATER|CONTENTS_SLIME|CONTENTS_BATTERYACID))
 		{
 			mouthContents = gi.pointcontents( ent->client->renderInfo.eyePoint, ent->s.number );
 		}
@@ -558,7 +558,7 @@ void P_WorldEffects( gentity_t *ent ) {
 	// check for drowning
 	//
 
-	if ( (mouthContents&(CONTENTS_WATER|CONTENTS_SLIME)) )
+	if ( (mouthContents&(CONTENTS_WATER|CONTENTS_SLIME|CONTENTS_BATTERYACID)) )
 	{
 
 		if ( ent->client->NPC_class == CLASS_SWAMPTROOPER )
@@ -604,7 +604,7 @@ void P_WorldEffects( gentity_t *ent ) {
 	// check for sizzle damage (move to pmove?)
 	//
 	if (ent->waterlevel &&
-		(ent->watertype&(CONTENTS_LAVA|CONTENTS_SLIME)) ) {
+		(ent->watertype&(CONTENTS_LAVA|CONTENTS_SLIME|CONTENTS_BATTERYACID)) ) {
 		if (ent->health > 0
 			&& ent->painDebounceTime < level.time	) {
 
@@ -616,6 +616,11 @@ void P_WorldEffects( gentity_t *ent ) {
 			if (ent->watertype & CONTENTS_SLIME) {
 				G_Damage (ent, NULL, NULL, NULL, NULL,
 					1, 0, MOD_SLIME);
+			}
+
+			if (ent->watertype & CONTENTS_BATTERYACID) {
+				G_Damage(ent, NULL, NULL, NULL, NULL,
+					1, 0, MOD_BATTERYACID);
 			}
 		}
 	}

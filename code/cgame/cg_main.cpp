@@ -1179,6 +1179,10 @@ static void CG_RegisterEffects( void )
 	{
 		theFxScheduler.RegisterEffect( "env/acid_splash" );
 	}
+	if ((gi.totalMapContents()&CONTENTS_BATTERYACID))
+	{
+		theFxScheduler.RegisterEffect("env/batteryacid_splash");
+	}
 	theFxScheduler.RegisterEffect( "misc/breath" );
 }
 

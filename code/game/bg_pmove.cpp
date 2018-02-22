@@ -2504,7 +2504,7 @@ static qboolean	PM_CheckWaterJump( void ) {
 
 	spot[2] += 16;
 	cont = pm->pointcontents( spot, pm->ps->clientNum );
-	if ( cont&(CONTENTS_SOLID|CONTENTS_PLAYERCLIP|CONTENTS_WATER|CONTENTS_SLIME|CONTENTS_LAVA|CONTENTS_BODY) ) {
+	if ( cont&(CONTENTS_SOLID|CONTENTS_PLAYERCLIP|CONTENTS_WATER|CONTENTS_SLIME|CONTENTS_LAVA|CONTENTS_BATTERYACID|CONTENTS_BODY) ) {
 		return qfalse;
 	}
 
@@ -4534,7 +4534,7 @@ static void PM_SetVehicleAngles( vec3_t normal )
 	VectorClear( vAngles );
 
 
- 	if (pm->waterlevel>0 || (normal && (pml.groundTrace.contents&(CONTENTS_WATER|CONTENTS_SLIME|CONTENTS_LAVA))))
+ 	if (pm->waterlevel>0 || (normal && (pml.groundTrace.contents&(CONTENTS_WATER|CONTENTS_SLIME|CONTENTS_LAVA|CONTENTS_BATTERYACID))))
 	{//in water
 	//	vAngles[PITCH] += (pm->ps->viewangles[PITCH]-vAngles[PITCH])*0.75f + (pitchBias*0.5);
 	}
@@ -5391,7 +5391,7 @@ void PM_HoverTrace( void )
 		//		if it's 1.0f, you sink halfway into water.  If it's 0, you sink...
 		if ( pVeh->m_pVehicleInfo->bouyancy >= 2.0f )
 		{//sit on water
-			traceContents |= (CONTENTS_WATER|CONTENTS_SLIME|CONTENTS_LAVA);
+			traceContents |= (CONTENTS_WATER|CONTENTS_SLIME|CONTENTS_LAVA|CONTENTS_BATTERYACID);
 		}
  		pm->trace( trace, pm->ps->origin, pm->mins, pm->maxs, point, pm->ps->clientNum, traceContents, (EG2_Collision)0, 0 );
 		if ( trace->plane.normal[2] >= minNormal )
@@ -5406,7 +5406,7 @@ void PM_HoverTrace( void )
 			//		pm->ps->velocity[2] = 60.0f;
 			//	}
 
-				if ( (trace->contents&(CONTENTS_WATER|CONTENTS_SLIME|CONTENTS_LAVA)) )
+				if ( (trace->contents&(CONTENTS_WATER|CONTENTS_SLIME|CONTENTS_LAVA|CONTENTS_BATTERYACID)) )
 				{//hovering on water, make a spash if moving
 					if ( fabs(pm->ps->velocity[0]) + fabs(pm->ps->velocity[1]) > 100 )
 					{//moving at a decent speed
@@ -8825,6 +8825,10 @@ static void PM_WaterEvents( void ) {		// FIXME?
 			else if ( (tr.contents&CONTENTS_SLIME) )
 			{
 				G_PlayEffect( "env/acid_splash", tr.endpos, axis );
+			}
+			else if ((tr.contents&CONTENTS_BATTERYACID))
+			{
+				G_PlayEffect( "env/batteryacid_splash", tr.endpos, axis );
 			}
 			else //must be water
 			{
