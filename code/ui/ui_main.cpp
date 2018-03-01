@@ -441,7 +441,7 @@ static void UI_UpdateScreenshot( void )
 
 extern void trap_R_FontRatioFix( float ratio );
 static vmCvar_t r_ratioFix;
-static void CG_Set2DRatio(void) {
+static void UI_Set2DRatio(void) {
 	if (r_ratioFix.integer)
 		uiInfo.uiDC.widthRatioCoef = (float)(SCREEN_WIDTH * uiInfo.uiDC.glconfig.vidHeight) / (float)(SCREEN_HEIGHT * uiInfo.uiDC.glconfig.vidWidth);
 	else
@@ -2811,7 +2811,7 @@ static void UI_RegisterCvars( void )
 		if (!Q_stricmp(cv->cvarName, "r_ratioFix")) 
 		{
 			Cvar_Update(cv->vmCvar);
-			CG_Set2DRatio();
+			UI_Set2DRatio();
 		}
 
 		if ( cv->update )
@@ -3706,14 +3706,14 @@ void UI_UpdateCvars( void )
 		Cvar_Update( cv->vmCvar );
 		if (!Q_stricmp(cv->cvarName, "r_ratioFix")) 
 		{
-			CG_Set2DRatio();
+			UI_Set2DRatio();
 	*/
 	for ( i=0, cv=cvarTable; i<cvarTableSize; i++, cv++ ) {
 		if ( cv->vmCvar ) {
 			int modCount = cv->vmCvar->modificationCount;
 			Cvar_Update( cv->vmCvar );
 			if (!Q_stricmp(cv->cvarName, "r_ratioFix")) {
-				CG_Set2DRatio();
+				UI_Set2DRatio();
 			}
 			if ( cv->vmCvar->modificationCount != modCount ) {
 				if ( cv->update )
