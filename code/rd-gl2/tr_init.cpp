@@ -1326,7 +1326,7 @@ void R_Register(void)
 	r_forceAutoExposureMax = ri.Cvar_Get("r_forceAutoExposureMax", "2.0", CVAR_CHEAT);
 	r_cameraExposure = ri.Cvar_Get("r_cameraExposure", "0", CVAR_CHEAT);
 	r_srgb = ri.Cvar_Get("r_srgb", "0", CVAR_ARCHIVE | CVAR_LATCH);
-	r_refraction = ri.Cvar_Get("r_refraction", "1", CVAR_ARCHIVE | CVAR_LATCH);
+	r_refraction = ri.Cvar_Get("r_refraction", "0", CVAR_ARCHIVE | CVAR_LATCH);
 	r_depthPrepass = ri.Cvar_Get("r_depthPrepass", "1", CVAR_ARCHIVE);
 	r_ssao = ri.Cvar_Get("r_ssao", "0", CVAR_LATCH | CVAR_ARCHIVE);
 	r_normalMapping = ri.Cvar_Get("r_normalMapping", "1", CVAR_ARCHIVE | CVAR_LATCH);
