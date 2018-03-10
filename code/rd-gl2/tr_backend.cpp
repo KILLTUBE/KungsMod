@@ -2490,6 +2490,7 @@ RB_SwapBuffers
 
 =============
 */
+void RE_RenderImGui();
 static const void	*RB_SwapBuffers( const void *data ) {
 	const swapBuffersCommand_t	*cmd;
 
@@ -2555,6 +2556,8 @@ static const void	*RB_SwapBuffers( const void *data ) {
 	currentFrame->sync = qglFenceSync( GL_SYNC_GPU_COMMANDS_COMPLETE, 0 );
 
 	backEndData->realFrameNumber = frameNumber + 1;
+
+	RE_RenderImGui();
 
 	GLimp_LogComment( "***************** RB_SwapBuffers *****************\n\n\n" );
 
@@ -2705,6 +2708,8 @@ const void *RB_PostProcess(const void *data)
 
 			FBO_Blit(srcFbo, srcBox, NULL, NULL, dstBox, NULL, color, 0);
 		}
+
+		FBO_BlitFromTexture(tr.renderGUIImage, srcBox, NULL, NULL, dstBox, NULL, NULL, GLS_SRCBLEND_SRC_ALPHA | GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA);
 	}
 
 	if (r_drawSunRays->integer)

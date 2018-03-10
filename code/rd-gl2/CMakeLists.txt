@@ -97,8 +97,11 @@ if(BuildSPRdGL2)
 	# main files
 	set(SPRDGL2MainFiles
 		"${SPDir}/rd-gl2/glext.h"
-		"${SPDir}/rd-gl2/iqm.h"		
+		"${SPDir}/rd-gl2/iqm.h"	
+		"${SPDir}/rd-gl2/nuklear.h"
 		"${SPDir}/rd-gl2/qgl.h"
+		"${SPDir}/rd-gl2/stb_image.h"
+		"${SPDir}/rd-gl2/stb_truetype.h"
 		"${SPDir}/rd-gl2/tr_allocator.cpp"
 		"${SPDir}/rd-gl2/tr_allocator.h"
 		"${SPDir}/rd-gl2/tr_backend.cpp"
@@ -117,6 +120,7 @@ if(BuildSPRdGL2)
 		"${SPDir}/rd-gl2/tr_flares.cpp"
 		"${SPDir}/rd-gl2/tr_glsl.cpp"
 		"${SPDir}/rd-gl2/tr_glsl_parse.cpp"
+		"${SPDir}/rd-gl2/tr_gui.cpp"
 		"${SPDir}/rd-gl2/tr_image.cpp"
 		"${SPDir}/rd-gl2/tr_image_dds.cpp"
 		"${SPDir}/rd-gl2/tr_init.cpp"
@@ -154,6 +158,57 @@ if(BuildSPRdGL2)
 	source_group("renderer\\glsl" FILES ${SPRDGL2GLSLFiles})
 	set(SPRDGL2Files ${SPRDGL2Files} ${SPRDGL2GLSLFiles})
 	
+	set(SPRDGL2ImGuiFiles
+		"${SPDir}/rd-gl2/imgui/ccall/ccall.h"
+		"${SPDir}/rd-gl2/imgui/MagicFile.cpp/magicfile.cpp"
+		"${SPDir}/rd-gl2/imgui/MagicFile.cpp/magicfile.h"
+		"${SPDir}/rd-gl2/imgui/ffi.cpp"
+		"${SPDir}/rd-gl2/imgui/imconfig.h"
+		"${SPDir}/rd-gl2/imgui/imgui.cpp"
+		"${SPDir}/rd-gl2/imgui/imgui.h"
+		"${SPDir}/rd-gl2/imgui/imgui_api.cpp"
+		"${SPDir}/rd-gl2/imgui/imgui_api.h"
+		"${SPDir}/rd-gl2/imgui/imgui_c_utils.cpp"
+		"${SPDir}/rd-gl2/imgui/imgui_c_utils.h"
+		"${SPDir}/rd-gl2/imgui/imgui_default_docks.cpp"
+		"${SPDir}/rd-gl2/imgui/imgui_default_docks.h"
+		"${SPDir}/rd-gl2/imgui/imgui_demo.cpp"
+		"${SPDir}/rd-gl2/imgui/imgui_dock.cpp"
+		"${SPDir}/rd-gl2/imgui/imgui_dock.h"
+		"${SPDir}/rd-gl2/imgui/imgui_draw.cpp"
+		"${SPDir}/rd-gl2/imgui/imgui_fixedarea.cpp"
+		"${SPDir}/rd-gl2/imgui/imgui_fixedarea.h"
+		"${SPDir}/rd-gl2/imgui/imgui_impl_idtech3_gles.cpp"
+		"${SPDir}/rd-gl2/imgui/imgui_impl_idtech3_gles.h"
+		"${SPDir}/rd-gl2/imgui/imgui_internal.h"
+		"${SPDir}/rd-gl2/imgui/imgui_utils.cpp"
+		"${SPDir}/rd-gl2/imgui/imgui_utils.h"
+		"${SPDir}/rd-gl2/imgui/include_imgui.h"
+		"${SPDir}/rd-gl2/imgui/include_quakegl.h"
+		"${SPDir}/rd-gl2/imgui/stb_rect_pack.h"
+		"${SPDir}/rd-gl2/imgui/stb_textedit.h"
+		"${SPDir}/rd-gl2/imgui/stb_truetype.h"
+		)
+	source_group("imgui" FILES ${SPRDGL2ImGuiFiles})
+	set(SPRDGL2Files ${SPRDGL2Files} ${SPRDGL2ImGuiFiles})
+
+	set(SPRDGL2ImGuiDockFiles
+		"${SPDir}/rd-gl2/imgui_docks/dock.cpp"
+		"${SPDir}/rd-gl2/imgui_docks/dock.h"
+		"${SPDir}/rd-gl2/imgui_docks/dock_console.cpp"
+		"${SPDir}/rd-gl2/imgui_docks/dock_console.h"
+		"${SPDir}/rd-gl2/imgui_docks/dock_julia.cpp"
+		"${SPDir}/rd-gl2/imgui_docks/dock_julia.h"
+		"${SPDir}/rd-gl2/imgui_docks/dock_node.cpp"
+		"${SPDir}/rd-gl2/imgui_docks/dock_node.h"
+		"${SPDir}/rd-gl2/imgui_docks/dock_repl.cpp"
+		"${SPDir}/rd-gl2/imgui_docks/dock_repl.h"
+		"${SPDir}/rd-gl2/imgui_docks/dock_skeleton.cpp"
+		"${SPDir}/rd-gl2/imgui_docks/dock_skeleton.h"
+		)
+	source_group("imgui_docks" FILES ${SPRDGL2ImGuiDockFiles})
+	set(SPRDGL2Files ${SPRDGL2Files} ${SPRDGL2ImGuiDockFiles})
+
 	set(SPRDGL2RdCommonFiles
 		"${SPDir}/rd-common/mdx_format.h"
 		"${SPDir}/rd-common/tr_common.h"

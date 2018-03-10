@@ -587,8 +587,11 @@ typedef struct {
 
 // in order from highest priority to lowest
 // if none of the catchers are active, bound key strings will be executed
-#define KEYCATCH_CONSOLE	1
-#define	KEYCATCH_UI			2
+//#define KEYCATCH_CONSOLE		1
+//#define	KEYCATCH_UI			2
+#define KEYCATCH_IMGUI			(1<<0)
+#define KEYCATCH_CONSOLE		(1<<1)
+#define	KEYCATCH_UI				(1<<2)
 
 
 // sound channels

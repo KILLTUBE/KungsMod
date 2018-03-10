@@ -28,6 +28,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "client.h"
 #include "client_ui.h"
 
+#include "cl_warzonegui.h"
+
 /*
 
 key up events are sent even if in console mode
@@ -1240,6 +1242,10 @@ void CL_KeyDownEvent( int key, unsigned time )
 		return;
 	}
 
+	// depending on keycatch the client can now disable mouse, keyboard and other stuff
+	if (key == A_F2)
+		Key_SetCatcher(Key_GetCatcher() ^ KEYCATCH_IMGUI);
+
 	// keys can still be used for bound actions
 	if ( ( cls.state == CA_CINEMATIC || CL_IsRunningInGameCinematic()) && !Key_GetCatcher() )
 	{
@@ -1257,11 +1263,14 @@ void CL_KeyDownEvent( int key, unsigned time )
 		}
 
 		if ( !( Key_GetCatcher( ) & KEYCATCH_UI ) ) {
-			if ( cls.state == CA_ACTIVE )
-				UI_SetActiveMenu( "ingame", NULL );
+			if (cls.state == CA_ACTIVE) {
+				UI_SetActiveMenu("ingame", NULL);
+				WarzoneGUI::MenuOpenEvent(qtrue);
+			}
 			else {
 				CL_Disconnect_f();
 				UI_SetActiveMenu( "mainMenu", NULL );
+				WarzoneGUI::MenuOpenEvent(qfalse);
 			}
 			return;
 		}
@@ -1329,6 +1338,8 @@ void CL_KeyEvent (int key, qboolean down, unsigned time) {
 		CL_KeyDownEvent( key, time );
 	else
 		CL_KeyUpEvent( key, time );
+
+	WarzoneGUI::KeyEvent(key, down);
 }
 
 /*

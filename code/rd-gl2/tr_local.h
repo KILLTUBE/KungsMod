@@ -271,6 +271,9 @@ extern cvar_t   *r_shadowCascadeZFar;
 extern cvar_t   *r_shadowCascadeZBias;
 extern cvar_t	*r_ambientScale;
 extern cvar_t	*r_directedScale;
+
+extern cvar_t   *gui_tooltipSize;
+extern cvar_t   *gui_tooltipCentered;
 /*
 End Cvars
 */
@@ -2095,6 +2098,7 @@ typedef struct glstate_s {
 	int				numBones;
 	shaderProgram_t *currentProgram;
 	FBO_t          *currentFBO;
+	FBO_t          *previousFBO;
 	VBO_t          *currentVBO;
 	IBO_t          *currentIBO;
 	matrix_t        modelview;
@@ -2272,6 +2276,7 @@ typedef struct trGlobals_s {
 	
 
 	image_t					*renderImage;
+	image_t					*renderGUIImage;
 	image_t					*glowImage;
 	image_t					*glowImageScaled[6];
 	image_t					*refractiveImage;
@@ -2310,6 +2315,8 @@ typedef struct trGlobals_s {
 	FBO_t					*hdrDepthFbo;
 	FBO_t                   *renderCubeFbo;
 	FBO_t					*preFilterEnvMapFbo;
+
+	FBO_t					*renderGUIFbo;
 
 	shader_t				*defaultShader;
 	shader_t				*shadowShader;
@@ -2532,6 +2539,8 @@ extern glconfigExt_t	glConfigExt;
 void RE_StretchRaw (int x, int y, int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty);
 void RE_UploadCinematic (int cols, int rows, const byte *data, int client, qboolean dirty);
 void RE_SetRangedFog ( float range );
+
+void RE_SendInputEvents(qboolean clientKeyStatus[MAX_KEYS], vec2_t clientMouseStatus, qboolean menuOpen);
 
 void RE_BeginFrame( stereoFrame_t stereoFrame );
 void RE_BeginRegistration( glconfig_t *glconfig );

@@ -457,6 +457,17 @@ void FBO_Init(void)
 		R_CheckFBO(tr.renderFbo);
 	}
 
+	{
+		tr.renderGUIFbo = FBO_Create("_renderGUI", tr.renderGUIImage->width, tr.renderGUIImage->height);
+		FBO_Bind(tr.renderGUIFbo);
+
+		FBO_AttachTextureImage(tr.renderGUIImage, 0);
+
+		FBO_SetupDrawBuffers();
+
+		R_CheckFBO(tr.renderGUIFbo);
+	}
+
 	// clear render buffer
 	// this fixes the corrupt screen bug with r_hdr 1 on older hardware
 	if (tr.renderFbo)
