@@ -1480,6 +1480,9 @@ int CIN_PlayCinematic( const char *arg, int x, int y, int w, int h, int systemBi
 	char	name[MAX_OSPATH];
 	int		i;
 
+	//DT EDIT: Removes the stupid pink color from the video sides in favor of 'black', however the console still 'sticks' if pressed
+	SCR_FillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, colorTable[CT_BLACK]);
+
 	if (strstr(arg, "/") == NULL && strstr(arg, "\\") == NULL) {
 		Com_sprintf (name, sizeof(name), "video/%s", arg);
 	} else {
@@ -1916,7 +1919,8 @@ static void PlayCinematic(const char *arg, const char *s, qboolean qbInGame)
 		//
 		////////////////////////////////////////////////////////////////////
 
-		CL_handle = CIN_PlayCinematic( arg, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, bits, psAudioFile );
+		//DT EDIT: Setting '80' for x position is pretty bad, but no choice - the usual way of using '*cls.ratioFix' doesn't work here.
+		CL_handle = CIN_PlayCinematic( arg, 80, 0, SCREEN_WIDTH *cls.ratioFix, SCREEN_HEIGHT, bits, psAudioFile );
 		if (CL_handle >= 0)
 		{
 			cinTable[CL_handle].hCRAWLTEXT = hCrawl;
