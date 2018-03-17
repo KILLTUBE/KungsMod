@@ -93,6 +93,87 @@ set(MPRend2RdCommonFiles
 source_group("rd-common" FILES ${MPRend2RdCommonFiles})
 set(MPRend2Files ${MPRend2Files} ${MPRend2RdCommonFiles})
 
+
+set(MPRend2ImGuiFiles
+	"${MPDir}/rd-rend2/imgui/ccall/ccall.h"
+	"${MPDir}/rd-rend2/imgui/MagicFile.cpp/magicfile.cpp"
+	"${MPDir}/rd-rend2/imgui/MagicFile.cpp/magicfile.h"
+	"${MPDir}/rd-rend2/imgui/ffi.cpp"
+	"${MPDir}/rd-rend2/imgui/imconfig.h"
+	"${MPDir}/rd-rend2/imgui/imgui.cpp"
+	"${MPDir}/rd-rend2/imgui/imgui.h"
+	"${MPDir}/rd-rend2/imgui/imgui_api.cpp"
+	"${MPDir}/rd-rend2/imgui/imgui_api.h"
+	"${MPDir}/rd-rend2/imgui/imgui_c_utils.cpp"
+	"${MPDir}/rd-rend2/imgui/imgui_c_utils.h"
+	"${MPDir}/rd-rend2/imgui/imgui_default_docks.cpp"
+	"${MPDir}/rd-rend2/imgui/imgui_default_docks.h"
+	"${MPDir}/rd-rend2/imgui/imgui_demo.cpp"
+	"${MPDir}/rd-rend2/imgui/imgui_dock.cpp"
+	"${MPDir}/rd-rend2/imgui/imgui_dock.h"
+	"${MPDir}/rd-rend2/imgui/imgui_draw.cpp"
+	"${MPDir}/rd-rend2/imgui/imgui_fixedarea.cpp"
+	"${MPDir}/rd-rend2/imgui/imgui_fixedarea.h"
+	"${MPDir}/rd-rend2/imgui/imgui_impl_idtech3_gles.cpp"
+	"${MPDir}/rd-rend2/imgui/imgui_impl_idtech3_gles.h"
+	"${MPDir}/rd-rend2/imgui/imgui_internal.h"
+	"${MPDir}/rd-rend2/imgui/imgui_utils.cpp"
+	"${MPDir}/rd-rend2/imgui/imgui_utils.h"
+	"${MPDir}/rd-rend2/imgui/include_imgui.h"
+	"${MPDir}/rd-rend2/imgui/include_quakegl.h"
+	"${MPDir}/rd-rend2/imgui/stb_rect_pack.h"
+	"${MPDir}/rd-rend2/imgui/stb_textedit.h"
+	"${MPDir}/rd-rend2/imgui/stb_truetype.h")
+source_group("imgui" FILES ${MPRend2ImGuiFiles})
+set(MPRend2Files ${MPRend2Files} ${MPRend2ImGuiFiles})
+
+
+set(MPRend2ImGuiOpenJKFiles
+	"${MPDir}/rd-rend2/imgui_openjk/imgui_openjk_default_docks.h"
+	"${MPDir}/rd-rend2/imgui_openjk/imgui_openjk_default_docks.cpp"
+	"${MPDir}/rd-rend2/imgui_openjk/gluecode.h"
+	"${MPDir}/rd-rend2/imgui_openjk/gluecode.cpp"
+)
+source_group("imgui_openjk" FILES ${MPRend2ImGuiOpenJKFiles})
+set(MPRend2Files ${MPRend2Files} ${MPRend2ImGuiOpenJKFiles})
+
+set(MPRend2ImGuiDockFiles
+	"${MPDir}/rd-rend2/imgui_docks/dock.cpp"
+	"${MPDir}/rd-rend2/imgui_docks/dock.h"
+	"${MPDir}/rd-rend2/imgui_docks/dock_console.cpp"
+	"${MPDir}/rd-rend2/imgui_docks/dock_console.h"
+	"${MPDir}/rd-rend2/imgui_docks/dock_julia.cpp"
+	"${MPDir}/rd-rend2/imgui_docks/dock_julia.h"
+	"${MPDir}/rd-rend2/imgui_docks/dock_node.cpp"
+	"${MPDir}/rd-rend2/imgui_docks/dock_node.h"
+	"${MPDir}/rd-rend2/imgui_docks/dock_repl.cpp"
+	"${MPDir}/rd-rend2/imgui_docks/dock_repl.h"
+	"${MPDir}/rd-rend2/imgui_docks/dock_skeleton.cpp"
+	"${MPDir}/rd-rend2/imgui_docks/dock_skeleton.h")
+source_group("imgui_docks" FILES ${MPRend2ImGuiDockFiles})
+set(MPRend2Files ${MPRend2Files} ${MPRend2ImGuiDockFiles})
+
+set(MPRend2ImGuiDockOpenJKFiles
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_shadereditor.cpp"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_shadereditor.h"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_mapinfo.cpp"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_mapinfo.h"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_perf.cpp"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_perf.h"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_controlflow.cpp"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_controlflow.h"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_models.cpp"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_models.h"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_all.cpp"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_all.h"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_mdxm.cpp"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_mdxm.h"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_mdxa.cpp"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_mdxa.h"
+)
+source_group("imgui_docks_openjk" FILES ${MPRend2ImGuiDockOpenJKFiles})
+set(MPRend2Files ${MPRend2Files} ${MPRend2ImGuiDockOpenJKFiles})
+
 set(MPRend2CommonFiles
 	"${MPDir}/qcommon/matcomp.cpp"
 	"${MPDir}/qcommon/q_shared.cpp"
