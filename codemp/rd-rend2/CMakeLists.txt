@@ -63,6 +63,8 @@ set(MPRend2Files
 	"${MPDir}/rd-rend2/tr_world.cpp"
 	"${MPDir}/rd-rend2/tr_weather.cpp"
 	"${MPDir}/rd-rend2/tr_weather.h"
+	"${MPDir}/rd-rend2/compose_models.cpp"
+	"${MPDir}/rd-rend2/compose_models.h"
 	)
 source_group("renderer" FILES ${MPRend2Files})
 
@@ -123,7 +125,8 @@ set(MPRend2ImGuiFiles
 	"${MPDir}/rd-rend2/imgui/include_quakegl.h"
 	"${MPDir}/rd-rend2/imgui/stb_rect_pack.h"
 	"${MPDir}/rd-rend2/imgui/stb_textedit.h"
-	"${MPDir}/rd-rend2/imgui/stb_truetype.h")
+	"${MPDir}/rd-rend2/imgui/stb_truetype.h"
+)
 source_group("imgui" FILES ${MPRend2ImGuiFiles})
 set(MPRend2Files ${MPRend2Files} ${MPRend2ImGuiFiles})
 
@@ -149,17 +152,18 @@ set(MPRend2ImGuiDockFiles
 	"${MPDir}/rd-rend2/imgui_docks/dock_repl.cpp"
 	"${MPDir}/rd-rend2/imgui_docks/dock_repl.h"
 	"${MPDir}/rd-rend2/imgui_docks/dock_skeleton.cpp"
-	"${MPDir}/rd-rend2/imgui_docks/dock_skeleton.h")
+	"${MPDir}/rd-rend2/imgui_docks/dock_skeleton.h"
+)
 source_group("imgui_docks" FILES ${MPRend2ImGuiDockFiles})
 set(MPRend2Files ${MPRend2Files} ${MPRend2ImGuiDockFiles})
 
 set(MPRend2ImGuiDockOpenJKFiles
-	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_shadereditor.cpp"
-	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_shadereditor.h"
-	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_mapinfo.cpp"
-	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_mapinfo.h"
-	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_perf.cpp"
-	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_perf.h"
+#	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_shadereditor.cpp"
+#	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_shadereditor.h"
+#	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_mapinfo.cpp"
+#	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_mapinfo.h"
+#	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_perf.cpp"
+#	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_perf.h"
 	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_controlflow.cpp"
 	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_controlflow.h"
 	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_models.cpp"

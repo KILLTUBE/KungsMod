@@ -13,6 +13,7 @@
 #endif
 #include "qcommon/disablewarnings.h"
 #include "tr_cache.h"
+#include "compose_models.h"
 
 #define	LL(x) x=LittleLong(x)
 
@@ -3835,6 +3836,8 @@ Bone  52:   "face_always_":
 
 */
 
+qboolean model_upload_mdxm_to_gpu(model_t *mod);
+
 qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &bAlreadyCached)
 {
 	int					i,l, j;
@@ -4023,11 +4026,20 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 		lod = (mdxmLOD_t *)( (byte *)lod + lod->ofsEnd );
 	}
 
+
+	return model_upload_mdxm_to_gpu(mod);
+}
+
+// todo: free old gpu buffers when available
+qboolean model_upload_mdxm_to_gpu(model_t *mod) {
+
+	mdxmHeader_t *mdxm = mdxmHeader(mod);
+
 	// Make a copy on the GPU
-	lod = (mdxmLOD_t *)((byte *)mdxm + mdxm->ofsLODs);
+	mdxmLOD_t *lod = (mdxmLOD_t *)((byte *)mdxm + mdxm->ofsLODs);
 
 	mod->data.glm->vboModels = (mdxmVBOModel_t *)ri.Hunk_Alloc (sizeof (mdxmVBOModel_t) * mdxm->numLODs, h_low);
-	for ( l = 0; l < mdxm->numLODs; l++ )
+	for (int l = 0; l < mdxm->numLODs; l++ )
 	{
 		mdxmVBOModel_t *vboModel = &mod->data.glm->vboModels[l];
 		mdxmVBOMesh_t *vboMeshes;
@@ -4058,7 +4070,7 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 		vboModel->vboMeshes = (mdxmVBOMesh_t *)ri.Hunk_Alloc (sizeof (mdxmVBOMesh_t) * mdxm->numSurfaces, h_low);
 		vboMeshes = vboModel->vboMeshes;
 
-		surf = (mdxmSurface_t *)((byte *)lod + sizeof (mdxmLOD_t) + (mdxm->numSurfaces * sizeof (mdxmLODSurfOffset_t)));
+		mdxmSurface_t *surf = (mdxmSurface_t *)((byte *)lod + sizeof (mdxmLOD_t) + (mdxm->numSurfaces * sizeof (mdxmLODSurfOffset_t)));
 
 		// Calculate the required size of the vertex buffer.
 		for ( int n = 0; n < mdxm->numSurfaces; n++ )

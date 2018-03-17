@@ -4,7 +4,6 @@
 #include "../imgui_docks_openjk/dock_mdxm.h"
 #include "../imgui_docks_openjk/dock_mdxa.h"
 //#include <renderergl2/tr_model_kung.h>
-#include "rd-warzone/tr_glsl.h"
 #include "../tr_local.h"
 #include "../compose_models.h"
 

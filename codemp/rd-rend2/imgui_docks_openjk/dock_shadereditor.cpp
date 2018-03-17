@@ -2,7 +2,7 @@
 
 #include "../imgui_docks/dock_console.h"
 //#include <renderergl2/tr_model_kung.h>
-#include "rd-warzone/tr_glsl.h"
+#include "../tr_glsl.h"
 #include <imgui/MagicFile.cpp/magicfile.h>
 
 DockShaders::DockShaders() {}

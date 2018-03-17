@@ -4,8 +4,6 @@
 
 DockAll::DockAll() {}
 
-#include "../tr_debug.h"
-
 const char *DockAll::label() {
 	return "All";
 }
