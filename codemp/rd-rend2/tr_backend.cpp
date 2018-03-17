@@ -2417,6 +2417,9 @@ static const void	*RB_SwapBuffers( const void *data ) {
 		}
 	}
 
+	void RE_RenderImGui();
+	RE_RenderImGui();
+
 	int frameNumber = backEndData->realFrameNumber;
 	gpuFrame_t *currentFrame = backEndData->currentFrame;
 

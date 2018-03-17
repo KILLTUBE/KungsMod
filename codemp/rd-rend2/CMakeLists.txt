@@ -63,6 +63,7 @@ set(MPRend2Files
 	"${MPDir}/rd-rend2/tr_world.cpp"
 	"${MPDir}/rd-rend2/tr_weather.cpp"
 	"${MPDir}/rd-rend2/tr_weather.h"
+	"${MPDir}/rd-rend2/tr_imgui.cpp"
 	"${MPDir}/rd-rend2/compose_models.cpp"
 	"${MPDir}/rd-rend2/compose_models.h"
 	)
