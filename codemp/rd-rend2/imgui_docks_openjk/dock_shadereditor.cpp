@@ -16,7 +16,7 @@ const char *DockShaders::label() {
 }
 
 extern int shaders_next_id;
-extern shaderProgram_t *shaders[256];
+extern shaderProgram_t *shaders[1024];
 
 bool IsKeyPressedMap(ImGuiKey key, bool repeat = true);
 
@@ -80,8 +80,11 @@ void DockShaders::recompileShader() {
 
 void DockShaders::imgui() {
 
-
-	#define NUM_SHADERS 512
+	if (shaders_next_id == 0) {
+		ImGui::Text("no shaders registered");
+		return;
+	}
+	#define NUM_SHADERS 1024
 	int num_shaders = shaders_next_id;
 	//shaderProgram_t *shaders[NUM_SHADERS];
 	char items[NUM_SHADERS][256];

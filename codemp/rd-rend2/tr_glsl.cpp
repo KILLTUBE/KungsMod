@@ -404,7 +404,7 @@ static bool GLSL_IsGPUShaderCompiled (GLuint shader)
 }
 
 int shaders_next_id = 0;
-shaderProgram_t *shaders[256] = {NULL};
+shaderProgram_t *shaders[1024] = {NULL};
 
 static GLuint GLSL_CompileGPUShader(
 	GLuint program,
@@ -2081,6 +2081,8 @@ static int GLSL_LoadGPUProgramWeather(
 
 void GLSL_LoadGPUShaders()
 {
+	shaders_next_id = 0;
+
 #if 0
 	// vertex size = 48 bytes
 	VertexFormat bspVertexFormat = {
