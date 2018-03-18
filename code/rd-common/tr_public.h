@@ -391,6 +391,7 @@ typedef struct {
 
 	void	(*R_SendInputEvents)	(qboolean keyStatus[MAX_KEYS], vec2_t mouseStatus, qboolean menuOpen);
 	void	(*CharEvent)			(int key);
+	void	(*MouseWheelEvent)		(float dir);
 } refexport_t;
 
 // this is the only function actually exported at the linker level

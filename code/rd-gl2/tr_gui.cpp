@@ -1295,6 +1295,10 @@ void RE_CharEvent(int key) {
 	}
 }
 
+void RE_MouseWheelEvent(float dir) {
+	imgui_mouse_wheel(dir);
+}
+
 void RE_RenderImGui() {
 	float width = FBO_WIDTH;
 	float height = FBO_HEIGHT;
@@ -1370,11 +1374,6 @@ void RE_RenderImGui() {
 	imgui_mouse_set_button(0, keyStatus[A_MOUSE1]);
 	imgui_mouse_set_button(1, keyStatus[A_MOUSE2]);
 	imgui_mouse_set_button(2, keyStatus[A_MOUSE3]);
-
-	if (keyStatus[A_MWHEELDOWN])
-		imgui_mouse_wheel(-1.0);
-	else if (keyStatus[A_MWHEELUP])
-		imgui_mouse_wheel(1.0);
 
 /*
  * VK_0 - VK_9 are the same as ASCII '0' - '9' (0x30 - 0x39)
