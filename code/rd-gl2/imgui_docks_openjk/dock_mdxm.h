@@ -20,6 +20,4 @@ public:
 	void imgui_mdxm_list_surfhierarchy();
 };
 
-CCALL int add_dock(Dock *dock);
 #endif
-

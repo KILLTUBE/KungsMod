@@ -1,4 +1,4 @@
-#if 0 //Warzone shit..
+#if 0
 #include "dock_mapinfo.h"
 #include "../imgui_docks/dock_console.h"
 #include "../imgui_openjk/gluecode.h"

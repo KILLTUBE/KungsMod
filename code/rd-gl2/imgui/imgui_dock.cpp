@@ -13,6 +13,22 @@ DockContext g_dock;
 
 #define ASSERT(x) IM_ASSERT(x)
 
+
+char *SlotToString(Slot_ slot) {
+	switch (slot) {
+		case Slot_Left:	   return "Slot_Left";
+		case Slot_Right:   return "Slot_Right";
+		case Slot_Top:	   return "Slot_Top";
+		case Slot_Bottom:  return "Slot_Bottom";
+		case Slot_Tab:	   return "Slot_Tab";
+		case Slot_Float:   return "Slot_Float";
+		case Slot_None:	   return "Slot_None";
+	}
+	return "unknown slot enum";
+}
+
+CCALL int imgui_log(char *format, ...);
+
 //namespace ImGui
 //{
 
@@ -141,6 +157,9 @@ DockContext g_dock;
 
 	void CDock::setPosSize(const ImVec2& _pos, const ImVec2& _size)
 	{
+
+		//imgui_log("setPosSize(pos=%d,%d size=%d,%d)\n", (int)_pos.x, (int)_pos.y, (int)_size.x, (int)_size.y);
+
 		size = _size;
 		pos = _pos;
 		for (CDock* tmp = prev_tab; tmp; tmp = tmp->prev_tab)
@@ -877,6 +896,9 @@ void DockContext::setDockPosSize(Dock& dest, Dock& dock, Slot_ dock_slot, Dock& 
 
 void DockContext::doDock(Dock& dock, Dock* dest, Slot_ dock_slot)
 {
+
+	//imgui_log("doDock(dock=%s, dest=%s, dock_slot=%s)\n", dock.label, dest==NULL?"NULL":dest->label, SlotToString(dock_slot));
+
 	IM_ASSERT(!dock.parent);
 	if (!dest)
 	{
@@ -1273,8 +1295,8 @@ void DockContext::load()
 		printf("%d docks\n", ival);
 
 		for (int i = 0; i < ival; i++) {
-			Dock *new_dock = (Dock *) ImGui::MemAlloc(sizeof(Dock));
-			memset(new_dock, 0, sizeof(Dock));
+			CDock *new_dock = (CDock *) ImGui::MemAlloc(sizeof(CDock));
+			memset(new_dock, 0, sizeof(CDock));
 			assert(new_dock != NULL);
 			m_docks.push_back(new_dock);
 		}
@@ -1343,7 +1365,7 @@ void DockContext::load()
 			m_docks[id]->first = 0;
 
 
-			Dock *dock = m_docks[i];
+			CDock *dock = m_docks[i];
 
 				const char *extension = get_filename_extension(dock->label);
 				if (

@@ -1,3 +1,4 @@
+#if 0
 #ifndef DOCK_MAPINFO
 #define DOCK_MAPINFO
 
@@ -13,4 +14,5 @@ public:
 	virtual void imgui();
 };
 
+#endif
 #endif

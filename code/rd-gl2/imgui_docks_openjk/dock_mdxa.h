@@ -21,6 +21,4 @@ public:
 	void imgui_skeleton();
 };
 
-CCALL int add_dock(Dock *dock);
 #endif
-

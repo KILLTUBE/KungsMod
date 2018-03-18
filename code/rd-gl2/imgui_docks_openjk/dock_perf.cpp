@@ -1,4 +1,4 @@
-#if 0 Not in SP...
+#if 0
 #include "dock_perf.h"
 #include "../imgui_docks/dock_console.h"
 #include "../imgui_openjk/gluecode.h"

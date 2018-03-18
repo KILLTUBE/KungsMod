@@ -1,3 +1,4 @@
+#if 0
 #ifndef DOCK_PERF
 #define DOCK_PERF
 
@@ -13,4 +14,5 @@ public:
 	virtual void imgui();
 };
 
+#endif
 #endif

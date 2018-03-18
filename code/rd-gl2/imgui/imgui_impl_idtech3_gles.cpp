@@ -24,7 +24,7 @@ static GLuint       g_FontTexture = 0;
 static int          g_ShaderHandle = 0, g_VertHandle = 0, g_FragHandle = 0;
 static int          g_AttribLocationTex = 0, g_AttribLocationProjMtx = 0;
 static int          g_AttribLocationPosition = 0, g_AttribLocationUV = 0, g_AttribLocationColor = 0;
-unsigned int		g_VboHandle = 0, g_VaoHandle = 0, g_ElementsHandle = 0;
+unsigned int g_VboHandle = 0, g_VaoHandle = 0, g_ElementsHandle = 0;
 
 // This is the main rendering function that you have to implement and provide to ImGui (via setting up 'RenderDrawListsFn' in the ImGuiIO structure)
 // Note that this implementation is little overcomplicated because we are saving/setting up/restoring every OpenGL state explicitly, in order to be able to run within any OpenGL engine that doesn't do so. 
@@ -474,29 +474,29 @@ void    ImGui_ImplSdlGL3_InvalidateDeviceObjects()
     }
 }
 
+#include "client/keycodes.h"
 bool    ImGui_ImplSdlGL3_Init()
 {
     ImGuiIO& io = ImGui::GetIO();
-	io.KeyMap[ImGuiKey_Tab] = A_TAB;                     // Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.  
-	io.KeyMap[ImGuiKey_LeftArrow] = A_CURSOR_LEFT;
-	io.KeyMap[ImGuiKey_RightArrow] = A_CURSOR_RIGHT;
-	io.KeyMap[ImGuiKey_UpArrow] = A_CURSOR_UP;
-	io.KeyMap[ImGuiKey_DownArrow] = A_CURSOR_DOWN;
-	io.KeyMap[ImGuiKey_PageUp] = A_PAGE_UP;
-	io.KeyMap[ImGuiKey_PageDown] = A_PAGE_DOWN;
-	io.KeyMap[ImGuiKey_Home] = A_HOME;
-	io.KeyMap[ImGuiKey_End] = A_END;
-	io.KeyMap[ImGuiKey_Delete] = A_DELETE;
-	io.KeyMap[ImGuiKey_Backspace] = A_BACKSPACE;
-	io.KeyMap[ImGuiKey_Enter] = A_ENTER;
-	io.KeyMap[ImGuiKey_Escape] = A_ESCAPE;
-	io.KeyMap[ImGuiKey_A] = A_CAP_A;
-	io.KeyMap[ImGuiKey_C] = A_CAP_C;
-	io.KeyMap[ImGuiKey_V] = A_CAP_V;
-	io.KeyMap[ImGuiKey_X] = A_CAP_X;
-	io.KeyMap[ImGuiKey_Y] = A_CAP_Y;
-	io.KeyMap[ImGuiKey_Z] = A_CAP_Z;
-
+    io.KeyMap[ImGuiKey_Tab] = A_TAB;                     // Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
+    io.KeyMap[ImGuiKey_LeftArrow] = A_CURSOR_LEFT;
+    io.KeyMap[ImGuiKey_RightArrow] = A_CURSOR_RIGHT;
+    io.KeyMap[ImGuiKey_UpArrow] = A_CURSOR_UP;
+    io.KeyMap[ImGuiKey_DownArrow] = A_CURSOR_DOWN;
+    io.KeyMap[ImGuiKey_PageUp] = A_PAGE_UP;
+    io.KeyMap[ImGuiKey_PageDown] = A_PAGE_DOWN;
+    io.KeyMap[ImGuiKey_Home] = A_HOME;
+    io.KeyMap[ImGuiKey_End] = A_END;
+    io.KeyMap[ImGuiKey_Delete] = A_DELETE;
+    io.KeyMap[ImGuiKey_Backspace] = A_BACKSPACE;
+    io.KeyMap[ImGuiKey_Enter] = A_ENTER;
+    io.KeyMap[ImGuiKey_Escape] = A_ESCAPE;
+    io.KeyMap[ImGuiKey_A] = A_CAP_A;
+    io.KeyMap[ImGuiKey_C] = A_CAP_C;
+    io.KeyMap[ImGuiKey_V] = A_CAP_V;
+    io.KeyMap[ImGuiKey_X] = A_CAP_X;
+    io.KeyMap[ImGuiKey_Y] = A_CAP_Y;
+    io.KeyMap[ImGuiKey_Z] = A_CAP_Z;
 
     io.RenderDrawListsFn = ImGui_ImplSdlGL3_RenderDrawLists;   // Alternatively you can set this to NULL and call ImGui::GetDrawData() after ImGui::Render() to get the same ImDrawData pointer.
     io.SetClipboardTextFn = ImGui_ImplSdlGL3_SetClipboardText;

@@ -95,8 +95,6 @@ int main_menu_GUIasd() {
 CCALL int imgui_default_docks() {
     ImGuiIO& io = ImGui::GetIO();
 
-
-
 	if (ImGui::GetIO().DisplaySize.y > 0) {
 		////////////////////////////////////////////////////
 		// Setup root docking window                      //
@@ -132,10 +130,10 @@ CCALL int imgui_default_docks() {
 	static int first = 1;
 	if (first) {
 		first = 0;
-		docks.push_back(new DockREPL("testone"));
+		//docks.push_back(new DockREPL("testone"));
 		docks.push_back(new DockConsole());
 		docks.push_back(new DockNode());
-		docks.push_back(new DockJulia());
+		//docks.push_back(new DockJulia());
 	}
 
 	for (Dock *dock : docks) {
@@ -151,6 +149,7 @@ CCALL int imgui_default_docks() {
 		ImGui::ShowDemoWindow(&show_demo_window);
 	}
 	EndDock();
+
 
 	return 1;
 }
