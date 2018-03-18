@@ -1982,6 +1982,10 @@ void C_LevelLoadEnd( void )
 	ri.S_RestartMusic();
 }
 
+
+void RE_CharEvent(int key);
+void RE_MouseWheelEvent(float dir);
+
 /*
 @@@@@@@@@@@@@@@@@@@@@
 GetRefAPI
@@ -2179,6 +2183,10 @@ Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 	/*
 	Ghoul2 Insert End
 	*/
+
+	
+	re.CharEvent							= RE_CharEvent;
+	re.MouseWheelEvent						= RE_MouseWheelEvent;
 
 	return &re;
 }

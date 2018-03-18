@@ -21,8 +21,8 @@ void RE_RenderImGui() {
 	float width = glConfig.vidWidth;
 	float height = glConfig.vidHeight;
 		
-	//if ( ! (ri->Key_GetCatcher() & KEYCATCH_IMGUI))
-	//	return;
+	if ( ! (ri.Key_GetCatcher() & KEYCATCH_IMGUI))
+		return;
 
 	// copy over all keys to imgui
 	ImGuiIO& io = ImGui::GetIO();
@@ -97,7 +97,7 @@ void RE_RenderImGui() {
 	//FBO_Bind(tr.renderGUIFbo);
 	FBO_Bind(NULL);
 	GL_SetDefaultState();
-	GL_State(GLS_DEPTHTEST_DISABLE | GLS_SRCBLEND_SRC_ALPHA | GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA);;
+	GL_State(GLS_DEPTHTEST_DISABLE | GLS_SRCBLEND_SRC_ALPHA | GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA);
 	GL_Cull(CT_TWO_SIDED);
 	qglColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	qglClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -115,12 +115,20 @@ void RE_RenderImGui() {
 	imgui_end_frame();
 
 	/* default OpenGL state */
-	qglUseProgram(0);
-	qglBindBuffer(GL_ARRAY_BUFFER, 0);
-	qglBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	qglBindVertexArray(0);
+	//qglUseProgram(0);
+	//qglBindBuffer(GL_ARRAY_BUFFER, 0);
+	//qglBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	//qglBindVertexArray(tr.globalVao);
+	tr.globalVao;
 	//FBO_Bind(glState.previousFBO);
-	FBO_Bind(NULL);
+	// todo: make it a proper DSA function and save it in glState aswell
+	// for some reason a map loading is resetting tr.globalVao, so imgui only works in the start menu...
+	qglBindVertexArray(1);
+	//FBO_Bind(NULL);
+	R_BindNullVBO();
+	R_BindNullIBO();
+	//glState.current = -123;
+	GLSL_BindNullProgram();
 	GL_SetDefaultState();
 }
 

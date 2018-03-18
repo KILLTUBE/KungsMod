@@ -1300,6 +1300,27 @@ Called by CL_KeyEvent to handle a keypress
 */
 void CL_KeyDownEvent( int key, unsigned time )
 {
+	//Com_Printf("CL_KeyDownEvent(key=%d, time=?)\n", key);
+
+	// depending on keycatch the client can now disable mouse, keyboard and other stuff
+	if ( key == A_F2) {
+		Key_SetCatcher( Key_GetCatcher( ) ^ KEYCATCH_IMGUI );
+		return;
+	}
+
+	// ignore input for everything else when ImGui is active
+	if ( Key_GetCatcher( ) & KEYCATCH_IMGUI ) {
+		switch (key) {
+			case A_MWHEELUP:
+				re->MouseWheelEvent(1.0);
+				break;
+			case A_MWHEELDOWN:
+				re->MouseWheelEvent(-1.0);
+				break;
+		}
+		return;
+	}
+
 	kg.keys[keynames[key].upper].down = qtrue;
 	kg.keys[keynames[key].upper].repeats++;
 	if( kg.keys[keynames[key].upper].repeats == 1 ) {
@@ -1314,11 +1335,15 @@ void CL_KeyDownEvent( int key, unsigned time )
 	}
 
 	// console key is hardcoded, so the user can never unbind it
-	if ( key == A_CONSOLE || (kg.keys[A_SHIFT].down && key == A_ESCAPE) ) {
+	if ( key == 94/*grave key on german keyboard*/ || key == A_CONSOLE || (kg.keys[A_SHIFT].down && key == A_ESCAPE) ) {
 		Con_ToggleConsole_f();
 		Key_ClearStates ();
 		return;
 	}
+	
+	// depending on keycatch the client can now disable mouse, keyboard and other stuff
+	if ( key == A_F2)
+		Key_SetCatcher( Key_GetCatcher( ) ^ KEYCATCH_IMGUI );
 
 	// keys can still be used for bound actions
 	if ( cls.state == CA_CINEMATIC && !Key_GetCatcher() ) {
@@ -1398,6 +1423,12 @@ Called by CL_KeyEvent to handle a keyrelease
 */
 void CL_KeyUpEvent( int key, unsigned time )
 {
+	//Com_Printf("CL_KeyUpEvent(key=%d, time=?)\n", key);
+	// ignore input for everything else when ImGui is active
+	if ( Key_GetCatcher( ) & KEYCATCH_IMGUI ) {
+		return;
+	}
+
 	kg.keys[keynames[key].upper].repeats = 0;
 	kg.keys[keynames[key].upper].down = qfalse;
 	kg.keyDownCount--;
@@ -1452,7 +1483,8 @@ void CL_CharEvent( int key ) {
 		return;
 
 	// distribute the key down event to the appropriate handler
-		 if ( Key_GetCatcher() & KEYCATCH_CONSOLE )		Field_CharEvent( &g_consoleField, key );
+		 if ( Key_GetCatcher() & KEYCATCH_IMGUI )		re->CharEvent( key );
+	else if ( Key_GetCatcher() & KEYCATCH_CONSOLE )		Field_CharEvent( &g_consoleField, key );
 	else if ( Key_GetCatcher() & KEYCATCH_UI )			UIVM_KeyEvent( key|K_CHAR_FLAG, qtrue );
 	else if ( Key_GetCatcher() & KEYCATCH_CGAME )		CGVM_KeyEvent( key|K_CHAR_FLAG, qtrue );
 	else if ( Key_GetCatcher() & KEYCATCH_MESSAGE )		Field_CharEvent( &chatField, key );

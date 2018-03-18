@@ -245,6 +245,8 @@ typedef struct refexport_s {
 		float				(*Font_StrLenPixels)					( const char *text, const int iFontIndex, const float scale );
 	} ext;
 
+	void				(*CharEvent)							(int key);
+	void				(*MouseWheelEvent)						(float dir);
 } refexport_t;
 
 //
@@ -346,6 +348,7 @@ typedef struct refimport_s {
 	// Persistent data store
 	bool			(*PD_Store)							( const char *name, const void *data, size_t size );
 	const void *	(*PD_Load)							( const char *name, size_t *size );
+	int (*Key_GetCatcher)();
 } refimport_t;
 
 // this is the only function actually exported at the linker level
