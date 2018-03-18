@@ -34,8 +34,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "sys/sys_loadlib.h"
 #include "qcommon/ojk_saved_game.h"
 
-#include "cl_warzonegui.h"
-
 #define	RETRANSMIT_TIMEOUT	3000	// time between connection packet retransmits
 
 cvar_t	*cl_renderer;
@@ -868,11 +866,9 @@ void CL_Frame ( int msec,float fractionMsec ) {
 			S_StopSounds();		//kill em all but music
 			cl_skippingcin->modified=qfalse;
 			Com_Printf (S_COLOR_YELLOW "%s", SE_GetString("CON_TEXT_SKIPPING"));
-			WarzoneGUI::SendKeyboardStatusToRenderer();
 			SCR_UpdateScreen();
 		}
 	} else {
-		WarzoneGUI::SendKeyboardStatusToRenderer();
 		// update the screen
 		SCR_UpdateScreen();
 	}
@@ -1084,6 +1080,14 @@ static CMiniHeap *GetG2VertSpaceServer( void ) {
 #define DEFAULT_RENDER_LIBRARY	"rdsp-GL2"
 #endif
 
+const char *Clipboard_Get() {
+	return SDL_GetClipboardText();
+}
+
+void Clipboard_Set(const char *text) {
+	SDL_SetClipboardText(text);
+}
+
 void CL_InitRef( void ) {
 	refexport_t	*ret;
 	static refimport_t rit;
@@ -1193,6 +1197,8 @@ void CL_InitRef( void ) {
 	rit.saved_game = &ojk::SavedGame::get_instance();
 
 	rit.Key_GetCatcher = Key_GetCatcher;
+	rit.Clipboard_Get = Clipboard_Get;
+	rit.Clipboard_Set = Clipboard_Set;
 
 	ret = GetRefAPI( REF_API_VERSION, &rit );
 

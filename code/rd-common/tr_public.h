@@ -130,7 +130,8 @@ typedef struct {
 	int					(*com_frameTime)					( void );
 
 	int					(*Key_GetCatcher)					();
-
+	const char			*(*Clipboard_Get)					();
+	void				(*Clipboard_Set)					(const char *text);
 } refimport_t;
 
 extern refimport_t ri;
@@ -389,9 +390,10 @@ typedef struct {
 	void		(*G2Time_ResetTimers)(void);
 	void		(*G2Time_ReportTimers)(void);
 
-	void	(*R_SendInputEvents)	(qboolean keyStatus[MAX_KEYS], vec2_t mouseStatus, qboolean menuOpen);
+	void	(*KeyEvent)				(int key, int state);
 	void	(*CharEvent)			(int key);
 	void	(*MouseWheelEvent)		(float dir);
+	void	(*MouseClickEvent)		(int key, int state);
 } refexport_t;
 
 // this is the only function actually exported at the linker level

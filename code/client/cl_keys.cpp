@@ -28,8 +28,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "client.h"
 #include "client_ui.h"
 
-#include "cl_warzonegui.h"
-
 /*
 
 key up events are sent even if in console mode
@@ -1222,28 +1220,6 @@ Called by CL_KeyEvent to handle a keypress
 */
 void CL_KeyDownEvent( int key, unsigned time )
 {
-	//Com_Printf("CL_KeyDownEvent(key=%d, time=?)\n", key); 
-
-	// depending on keycatch the client can now disable mouse, keyboard and other stuff  
-	if (key == A_F2) {
-		Key_SetCatcher(Key_GetCatcher() ^ KEYCATCH_IMGUI);
-		switch (key) {
-			case A_MWHEELUP:
-				re.MouseWheelEvent(1.0);
-				break;
-			case A_MWHEELDOWN:
-				re.MouseWheelEvent(-1.0);
-				break;
-		}
-		return;
-	}
-	
-	// ignore input for everything else when ImGui is active  
-	if (Key_GetCatcher() & KEYCATCH_IMGUI) {
-
-		return;
-	}
-
 	kg.keys[keynames[key].upper].down = qtrue;
 	kg.keys[keynames[key].upper].repeats++;
 	if( kg.keys[keynames[key].upper].repeats == 1 ) {
@@ -1258,7 +1234,7 @@ void CL_KeyDownEvent( int key, unsigned time )
 	}
 
 	// console key is hardcoded, so the user can never unbind it
-	if ( key == A_CONSOLE || (kg.keys[A_SHIFT].down && key == A_ESCAPE) ) {
+	if ( key == 94/*grave key on german keyboard*/ || key == A_CONSOLE || (kg.keys[A_SHIFT].down && key == A_ESCAPE) ) {
 		Con_ToggleConsole_f();
 		Key_ClearStates ();
 		return;
@@ -1283,12 +1259,10 @@ void CL_KeyDownEvent( int key, unsigned time )
 		if ( !( Key_GetCatcher( ) & KEYCATCH_UI ) ) {
 			if (cls.state == CA_ACTIVE) {
 				UI_SetActiveMenu("ingame", NULL);
-				WarzoneGUI::MenuOpenEvent(qtrue);
 			}
 			else {
 				CL_Disconnect_f();
 				UI_SetActiveMenu( "mainMenu", NULL );
-				WarzoneGUI::MenuOpenEvent(qfalse);
 			}
 			return;
 		}
@@ -1319,12 +1293,6 @@ Called by CL_KeyEvent to handle a keyrelease
 */
 void CL_KeyUpEvent( int key, unsigned time )
 {
-	// ignore input for everything else when ImGui is active  
-	if (Key_GetCatcher() & KEYCATCH_IMGUI) {
-		//Com_Printf("CL_KeyUpEvent(key=%d, time=?)\n", key);  
-		return;
-	}
-
 	kg.keys[keynames[key].upper].repeats = 0;
 	kg.keys[keynames[key].upper].down = qfalse;
 	kg.keyDownCount--;
@@ -1358,13 +1326,47 @@ Called by the system for both key up and key down events
 ===================
 */
 void CL_KeyEvent (int key, qboolean down, unsigned time) {
-	//Com_Printf("void CL_KeyEvent (int key=%d, qboolean down=%d, unsigned time=%d)\n", key, down, time); 
+	// depending on keycatch the client can now disable mouse, keyboard and other stuff  
+	if (down && key == A_F2) {
+		Key_SetCatcher(Key_GetCatcher() ^ KEYCATCH_IMGUI);
+		return;
+	}
+
+	if (Key_GetCatcher() & KEYCATCH_IMGUI) {
+		switch (key) {
+			case A_MOUSE1: 
+				re.MouseClickEvent(0, down); 
+				return;
+			case A_MOUSE2: 
+				re.MouseClickEvent(1, down); 
+				return;
+			case A_MOUSE3: 
+				re.MouseClickEvent(2, down); 
+				return;
+			case A_MOUSE4: 
+				re.MouseClickEvent(3, down); 
+				return;
+			case A_MOUSE5: 
+				re.MouseClickEvent(4, down); 
+				return;
+			default:
+				re.KeyEvent(key, down);
+		}
+
+		if (down) {
+			if (key == A_MWHEELUP) 
+				re.MouseWheelEvent(1.0);
+
+			if (key == A_MWHEELDOWN) 
+				re.MouseWheelEvent(-1.0);
+		}
+		return;
+	}
+
 	if( down )
 		CL_KeyDownEvent( key, time );
 	else
 		CL_KeyUpEvent( key, time );
-
-	WarzoneGUI::KeyEvent(key, down);
 }
 
 /*
@@ -1380,8 +1382,8 @@ void CL_CharEvent( int key ) {
 		return;
 
 	// distribute the key down event to the apropriate handler
-		 if (Key_GetCatcher() & KEYCATCH_IMGUI)			re.CharEvent(key);
-	else if (Key_GetCatcher() & KEYCATCH_CONSOLE)		Field_CharEvent(&g_consoleField, key);
+		 if ( Key_GetCatcher() & KEYCATCH_IMGUI )		re.CharEvent( key );
+	else if ( Key_GetCatcher() & KEYCATCH_CONSOLE )		Field_CharEvent( &g_consoleField, key );
 	else if ( Key_GetCatcher() & KEYCATCH_UI )			_UI_KeyEvent( key|K_CHAR_FLAG, qtrue );
 	else if ( cls.state == CA_DISCONNECTED )			Field_CharEvent( &g_consoleField, key );
 }

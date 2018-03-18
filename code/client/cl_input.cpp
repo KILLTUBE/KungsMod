@@ -28,8 +28,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "client.h"
 #include "client_ui.h"
 
-#include "cl_warzonegui.h"
-
 #ifndef _WIN32
 #include <cmath>
 #endif
@@ -450,7 +448,6 @@ CL_MouseEvent
 void CL_MouseEvent( int dx, int dy, int time ) {
 	if ( Key_GetCatcher( ) & KEYCATCH_UI ) {
 		_UI_MouseEvent( dx, dy );
-		WarzoneGUI::MouseEvent(dx, dy);
 	}
 	else {
 		cl.mouseDx[cl.mouseIndex] += dx;

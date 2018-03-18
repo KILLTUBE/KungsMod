@@ -45,6 +45,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "../ghoul2/ghoul2_gore.h"
 #endif
 
+#include "compose_models.h"
+
 #define	LL(x) x=LittleLong(x)
 #define	LS(x) x=LittleShort(x)
 #define	LF(x) x=LittleFloat(x)
@@ -3180,6 +3182,7 @@ Child 7: (index 23), name "reye"
 
 */
 
+qboolean model_upload_mdxm_to_gpu(model_t *mod);
 qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &bAlreadyCached) {
 	int					i, l, j;
 	mdxmHeader_t		*pinmodel, *mdxm;
@@ -3483,11 +3486,18 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 		lod = (mdxmLOD_t *)((byte *)lod + lod->ofsEnd);
 	}
 
+	return model_upload_mdxm_to_gpu(mod);
+}
+
+// todo: free old gpu buffers when available  
+qboolean model_upload_mdxm_to_gpu(model_t *mod) {
+	mdxmHeader_t *mdxm = mdxmHeader(mod);
+
 	// Make a copy on the GPU
-	lod = (mdxmLOD_t *)((byte *)mdxm + mdxm->ofsLODs);
+	mdxmLOD_t *lod = (mdxmLOD_t *)((byte *)mdxm + mdxm->ofsLODs);
 
 	mod->data.glm->vboModels = (mdxmVBOModel_t *)R_Hunk_Alloc(sizeof(mdxmVBOModel_t) * mdxm->numLODs, qtrue);
-	for (l = 0; l < mdxm->numLODs; l++)
+	for (int l = 0; l < mdxm->numLODs; l++)
 	{
 		mdxmVBOModel_t *vboModel = &mod->data.glm->vboModels[l];
 		mdxmVBOMesh_t *vboMeshes;
@@ -3518,7 +3528,7 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 		vboModel->vboMeshes = (mdxmVBOMesh_t *)R_Hunk_Alloc(sizeof(mdxmVBOMesh_t) * mdxm->numSurfaces, qtrue);
 		vboMeshes = vboModel->vboMeshes;
 
-		surf = (mdxmSurface_t *)((byte *)lod + sizeof(mdxmLOD_t) + (mdxm->numSurfaces * sizeof(mdxmLODSurfOffset_t)));
+		mdxmSurface_t *surf = (mdxmSurface_t *)((byte *)lod + sizeof(mdxmLOD_t) + (mdxm->numSurfaces * sizeof(mdxmLODSurfOffset_t)));
 
 		// Calculate the required size of the vertex buffer.
 		for (int n = 0; n < mdxm->numSurfaces; n++)
@@ -3640,7 +3650,7 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 
 				index[0] = t[k].indexes[0];
 				index[1] = t[k].indexes[1];
-				index[2] = t[k].indexes[2];	
+				index[2] = t[k].indexes[2];
 
 				v0 = v[index[0]].vertCoords;
 				v1 = v[index[1]].vertCoords;

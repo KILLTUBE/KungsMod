@@ -4,7 +4,7 @@
 #include "dock_console.h"
 //#include <kung/include_duktape.h>
 #include <string>
-#include "../imgui/MagicFile.cpp/magicfile.h"
+#include "../imgui/MagicFile/magicfile.h"
 
 bool IsKeyPressedMap(ImGuiKey key, bool repeat);
 void SaveIniSettingsToDisk(const char* ini_filename); // was a static function in ImGui

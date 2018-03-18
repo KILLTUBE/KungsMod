@@ -24,7 +24,7 @@ static GLuint       g_FontTexture = 0;
 static int          g_ShaderHandle = 0, g_VertHandle = 0, g_FragHandle = 0;
 static int          g_AttribLocationTex = 0, g_AttribLocationProjMtx = 0;
 static int          g_AttribLocationPosition = 0, g_AttribLocationUV = 0, g_AttribLocationColor = 0;
-static unsigned int g_VboHandle = 0, g_VaoHandle = 0, g_ElementsHandle = 0;
+unsigned int		g_VboHandle = 0, g_VaoHandle = 0, g_ElementsHandle = 0;
 
 // This is the main rendering function that you have to implement and provide to ImGui (via setting up 'RenderDrawListsFn' in the ImGuiIO structure)
 // Note that this implementation is little overcomplicated because we are saving/setting up/restoring every OpenGL state explicitly, in order to be able to run within any OpenGL engine that doesn't do so. 
@@ -222,7 +222,7 @@ const char* ImGui_ImplSdlGL3_GetClipboardText(void*) {
 //#else
 //    return SDL_GetClipboardText();
 //#endif
-	return "todo";
+	return ri.Clipboard_Get();
 }
 
 void ImGui_ImplSdlGL3_SetClipboardText(void*, const char* text) {
@@ -234,6 +234,7 @@ void ImGui_ImplSdlGL3_SetClipboardText(void*, const char* text) {
 #else
     //SDL_SetClipboardText(text);
 #endif
+	ri.Clipboard_Set(text);
 }
 
 // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
@@ -476,7 +477,7 @@ void    ImGui_ImplSdlGL3_InvalidateDeviceObjects()
 bool    ImGui_ImplSdlGL3_Init()
 {
     ImGuiIO& io = ImGui::GetIO();
-	//io.KeyMap[ImGuiKey_Tab] = A_TAB;                     // Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.  
+	io.KeyMap[ImGuiKey_Tab] = A_TAB;                     // Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.  
 	io.KeyMap[ImGuiKey_LeftArrow] = A_CURSOR_LEFT;
 	io.KeyMap[ImGuiKey_RightArrow] = A_CURSOR_RIGHT;
 	io.KeyMap[ImGuiKey_UpArrow] = A_CURSOR_UP;

@@ -113,8 +113,6 @@ if(BuildSPEngine)
 		"${SPDir}/client/cl_scrn.cpp"
 		"${SPDir}/client/cl_ui.cpp"
 		"${SPDir}/client/cl_mp3.h"
-		"${SPDir}/client/cl_warzonegui.cpp"
-		"${SPDir}/client/cl_warzonegui.h"
 		"${SPDir}/client/client.h"
 		"${SPDir}/client/client_ui.h"
 

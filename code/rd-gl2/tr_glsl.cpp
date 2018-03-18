@@ -439,6 +439,9 @@ static bool GLSL_IsGPUShaderCompiled(GLuint shader)
 	return (compiled == GL_TRUE);
 }
 
+int shaders_next_id = 0;
+shaderProgram_t *shaders[256] = { NULL };
+
 static GLuint GLSL_CompileGPUShader(
 	GLuint program,
 	const GLchar *buffer,
@@ -548,7 +551,7 @@ static size_t GLSL_LoadGPUShaderSource(
 	return result;
 }
 
-static void GLSL_LinkProgram(GLuint program)
+void GLSL_LinkProgram(GLuint program)
 {
 	qglLinkProgram(program);
 
@@ -560,6 +563,17 @@ static void GLSL_LinkProgram(GLuint program)
 		ri.Printf(PRINT_ALL, "\n");
 		ri.Error(ERR_FATAL, "shaders failed to link");
 	}
+}
+
+GLint GLSL_LinkProgramSafe(GLuint program) {
+	GLint           linked;
+	qglLinkProgram(program);
+	qglGetProgramiv(program, GL_LINK_STATUS, &linked);
+	if (!linked) {
+		GLSL_PrintProgramInfoLog(program, qfalse);
+		Com_Printf("shaders failed to link\n");
+	}
+	return linked;
 }
 
 static void GLSL_ShowProgramUniforms(GLuint program)
@@ -587,7 +601,7 @@ static void GLSL_ShowProgramUniforms(GLuint program)
 	qglUseProgram(0);
 }
 
-static void GLSL_BindShaderInterface(shaderProgram_t *program)
+void GLSL_BindShaderInterface(shaderProgram_t *program)
 {
 	static const char *shaderInputNames[] = {
 		"attr_Position",  // ATTR_INDEX_POSITION
@@ -665,7 +679,7 @@ public:
 	bool AddShader(const GPUShaderDesc& shaderDesc, const char *extra);
 	bool Build(shaderProgram_t *program);
 
-private:
+//private:
 	static const size_t MAX_SHADER_SOURCE_LEN = 16384;
 
 	void ReleaseShaders();
@@ -805,6 +819,12 @@ static bool GLSL_LoadGPUShader(
 	const GPUProgramDesc& programDesc)
 {
 	builder.Start(name, attribs);
+
+	// register this shader to access/edit it in live editor  
+	int shader_id = shaders_next_id++;
+	shaders[shader_id] = program;
+	shaders[shader_id]->attribs = attribs;
+
 	for (int i = 0; i < programDesc.numShaders; ++i)
 	{
 		const GPUShaderDesc& shaderDesc = programDesc.shaders[i];
@@ -812,8 +832,17 @@ static bool GLSL_LoadGPUShader(
 		{
 			return false;
 		}
+		if (shaderDesc.type == GPUSHADER_VERTEX) {
+			strncpy(program->vertexText, builder.shaderSource.c_str(), sizeof(program->vertexText));
+		}
+		if (shaderDesc.type == GPUSHADER_FRAGMENT) {
+			strncpy(program->fragText, builder.shaderSource.c_str(), sizeof(program->fragText));
+		}
+
 	}
-	return builder.Build(program);
+	//return builder.Build(program);
+	bool ret = builder.Build(program);
+	return ret;
 }
 
 void GLSL_InitUniforms(shaderProgram_t *program)
@@ -2392,6 +2421,8 @@ void GLSL_BindProgram(shaderProgram_t * program)
 		GLSL_BindNullProgram();
 		return;
 	}
+
+	program->usageCount++;
 
 	if (r_logFile->integer)
 	{

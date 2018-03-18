@@ -1320,6 +1320,9 @@ struct UniformData
 	//char data[1];
 };
 
+// meh, just guessing something, not too small and not too wasteful  
+#define MAX_GLSL_LENGTH 32768
+
 // shaderProgram_t represents a pair of one
 // GLSL vertex and one GLSL fragment shader
 typedef struct shaderProgram_s
@@ -1336,6 +1339,13 @@ typedef struct shaderProgram_s
 
 	// uniform blocks
 	uint32_t uniformBlocks;
+
+	// keep the glsl source code around so we can live edit it  
+	char vertexText[MAX_GLSL_LENGTH];
+	char fragText[MAX_GLSL_LENGTH];
+	int usageCount;
+	GLuint vertexShader;
+	GLuint fragmentShader;
 } shaderProgram_t;
 
 struct technique_t
@@ -2540,9 +2550,10 @@ void RE_StretchRaw (int x, int y, int w, int h, int cols, int rows, const byte *
 void RE_UploadCinematic (int cols, int rows, const byte *data, int client, qboolean dirty);
 void RE_SetRangedFog ( float range );
 
-void RE_SendInputEvents(qboolean clientKeyStatus[MAX_KEYS], vec2_t clientMouseStatus, qboolean menuOpen);
+void RE_KeyEvent(int key, int state);
 void RE_CharEvent(int key);
 void RE_MouseWheelEvent(float dir);
+void RE_MouseClickEvent(int key, int state);
 
 void RE_BeginFrame( stereoFrame_t stereoFrame );
 void RE_BeginRegistration( glconfig_t *glconfig );

@@ -2088,9 +2088,10 @@ extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *ri
 	G2EX(ClearSkinGore);
 #endif
 
-	re.R_SendInputEvents = RE_SendInputEvents;
+	re.KeyEvent = RE_KeyEvent;
 	re.CharEvent = RE_CharEvent;
 	re.MouseWheelEvent = RE_MouseWheelEvent;
+	re.MouseClickEvent = RE_MouseClickEvent;
 
 #ifdef G2_PERFORMANCE_ANALYSIS
 	re.G2Time_ReportTimers = G2Time_ReportTimers;

@@ -2549,15 +2549,15 @@ static const void	*RB_SwapBuffers( const void *data ) {
 		}
 	}
 
+	RE_RenderImGui();
+
 	int frameNumber = backEndData->realFrameNumber;
 	gpuFrame_t *currentFrame = backEndData->currentFrame;
 
 	assert( !currentFrame->sync );
 	currentFrame->sync = qglFenceSync( GL_SYNC_GPU_COMMANDS_COMPLETE, 0 );
 
-	backEndData->realFrameNumber = frameNumber + 1;
-
-	RE_RenderImGui();
+	backEndData->realFrameNumber = frameNumber + 1;	
 
 	GLimp_LogComment( "***************** RB_SwapBuffers *****************\n\n\n" );
 

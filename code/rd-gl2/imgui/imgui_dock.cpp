@@ -1,6 +1,6 @@
 #include "imgui_dock.h"
 #include "imgui_c_utils.h"
-#include "MagicFile.cpp/magicfile.h"
+#include "MagicFile/magicfile.h"
 
 //#include <kung/opsys/opsystem_repl_julia.h>
 //#include <kung/include_utils.h>
@@ -1169,7 +1169,7 @@ int DockContext::getDockIndex(Dock* dock)
 	return -1;
 }
 
-#include "MagicFile.cpp/magicfile.h"
+#include "MagicFile/magicfile.h"
 void DockContext::save()
 {
 
