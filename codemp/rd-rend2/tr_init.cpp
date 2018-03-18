@@ -1983,8 +1983,10 @@ void C_LevelLoadEnd( void )
 }
 
 
+void RE_KeyEvent(int key, int state);
 void RE_CharEvent(int key);
 void RE_MouseWheelEvent(float dir);
+void RE_MouseClickEvent(int key, int state);
 
 /*
 @@@@@@@@@@@@@@@@@@@@@
@@ -2184,9 +2186,10 @@ Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 	Ghoul2 Insert End
 	*/
 
-	
+	re.KeyEvent								= RE_KeyEvent;
 	re.CharEvent							= RE_CharEvent;
 	re.MouseWheelEvent						= RE_MouseWheelEvent;
+	re.MouseClickEvent						= RE_MouseClickEvent;
 
 	return &re;
 }

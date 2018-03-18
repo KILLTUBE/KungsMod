@@ -477,7 +477,7 @@ void    ImGui_ImplSdlGL3_InvalidateDeviceObjects()
 bool    ImGui_ImplSdlGL3_Init()
 {
     ImGuiIO& io = ImGui::GetIO();
-    //io.KeyMap[ImGuiKey_Tab] = A_TAB;                     // Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
+    io.KeyMap[ImGuiKey_Tab] = A_TAB;                     // Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
     io.KeyMap[ImGuiKey_LeftArrow] = A_CURSOR_LEFT;
     io.KeyMap[ImGuiKey_RightArrow] = A_CURSOR_RIGHT;
     io.KeyMap[ImGuiKey_UpArrow] = A_CURSOR_UP;

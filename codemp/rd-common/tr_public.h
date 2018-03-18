@@ -245,8 +245,10 @@ typedef struct refexport_s {
 		float				(*Font_StrLenPixels)					( const char *text, const int iFontIndex, const float scale );
 	} ext;
 
+	void				(*KeyEvent)								(int key, int state);
 	void				(*CharEvent)							(int key);
 	void				(*MouseWheelEvent)						(float dir);
+	void				(*MouseClickEvent)						(int key, int state);
 } refexport_t;
 
 //
