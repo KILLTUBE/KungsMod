@@ -2,7 +2,11 @@
 
 #include "../imgui_docks/dock_console.h"
 //#include <renderergl2/tr_model_kung.h>
-#include "../tr_glsl.h"
+
+// todo... make a nice header again
+//#include "../tr_glsl.h"
+GLint GLSL_LinkProgramSafe(GLuint program);
+
 #include <imgui/MagicFile.cpp/magicfile.h>
 
 DockShaders::DockShaders() {}
@@ -10,6 +14,9 @@ DockShaders::DockShaders() {}
 const char *DockShaders::label() {
 	return "shaders";
 }
+
+extern int shaders_next_id;
+extern shaderProgram_t *shaders[256];
 
 bool IsKeyPressedMap(ImGuiKey key, bool repeat = true);
 
@@ -37,6 +44,10 @@ int GLSL_MyCompileGPUShader(GLuint program, GLuint *prevShader, const GLchar *bu
 	return 1;
 }
 
+// basically GLSL_BindAttributeLocations, but using program->attribs OOP style
+void GLSL_BindShaderInterface( shaderProgram_t *program );
+void GLSL_InitUniforms(shaderProgram_t *program);
+
 void DockShaders::recompileShader() {
 		int newProgram = qglCreateProgram();
 		int retVert = GLSL_MyCompileGPUShader(newProgram, &shader->vertexShader, shader->vertexText, strlen(shader->vertexText), GL_VERTEX_SHADER);
@@ -51,9 +62,10 @@ void DockShaders::recompileShader() {
 		}
 		// if both shaders compiled, link them and resetup all the quake stuff
 		shader->program = newProgram;
-		GLSL_BindAttributeLocations(shader, shader->attribs);
+		//GLSL_BindAttributeLocations(shader, shader->attribs);
+		GLSL_BindShaderInterface(shader);
 		int retLink = GLSL_LinkProgramSafe(newProgram);
-		GLSL_BindAttributeLocations(shader, shader->attribs);
+		GLSL_BindShaderInterface(shader);
 		GLSL_InitUniforms(shader);
 		imgui_log("ret compile shader:  retVert=%d retFrag=%d retLink=%d\n", retVert, retFrag, retLink);
 }
@@ -69,7 +81,7 @@ void DockShaders::recompileShader() {
 void DockShaders::imgui() {
 
 
-	#define NUM_SHADERS 256
+	#define NUM_SHADERS 512
 	int num_shaders = shaders_next_id;
 	//shaderProgram_t *shaders[NUM_SHADERS];
 	char items[NUM_SHADERS][256];

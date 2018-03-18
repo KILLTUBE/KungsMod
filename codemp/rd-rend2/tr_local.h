@@ -1244,6 +1244,8 @@ struct UniformData
 	//char data[1];
 };
 
+// meh, just guessing something, not too small and not too wasteful
+#define MAX_GLSL_LENGTH 32768
 // shaderProgram_t represents a pair of one
 // GLSL vertex and one GLSL fragment shader
 typedef struct shaderProgram_s
@@ -1260,6 +1262,13 @@ typedef struct shaderProgram_s
 
 	// uniform blocks
 	uint32_t uniformBlocks;
+
+	// keep the glsl source code around so we can live edit it
+	char vertexText[MAX_GLSL_LENGTH];
+	char fragText[MAX_GLSL_LENGTH];
+	int usageCount;
+	GLuint vertexShader;
+	GLuint fragmentShader;
 } shaderProgram_t;
 
 struct technique_t

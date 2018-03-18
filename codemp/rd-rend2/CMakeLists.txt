@@ -159,8 +159,8 @@ source_group("imgui_docks" FILES ${MPRend2ImGuiDockFiles})
 set(MPRend2Files ${MPRend2Files} ${MPRend2ImGuiDockFiles})
 
 set(MPRend2ImGuiDockOpenJKFiles
-#	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_shadereditor.cpp"
-#	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_shadereditor.h"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_shadereditor.cpp"
+	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_shadereditor.h"
 #	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_mapinfo.cpp"
 #	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_mapinfo.h"
 #	"${MPDir}/rd-rend2/imgui_docks_openjk/dock_perf.cpp"
