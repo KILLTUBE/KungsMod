@@ -351,6 +351,8 @@ typedef struct refimport_s {
 	bool			(*PD_Store)							( const char *name, const void *data, size_t size );
 	const void *	(*PD_Load)							( const char *name, size_t *size );
 	int (*Key_GetCatcher)();
+	const char *(*Clipboard_Get)();
+	void (*Clipboard_Set)(const char *text);
 } refimport_t;
 
 // this is the only function actually exported at the linker level

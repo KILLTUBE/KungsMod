@@ -222,7 +222,7 @@ const char* ImGui_ImplSdlGL3_GetClipboardText(void*) {
 //#else
 //    return SDL_GetClipboardText();
 //#endif
-	return "todo";
+	return ri.Clipboard_Get();
 }
 
 void ImGui_ImplSdlGL3_SetClipboardText(void*, const char* text) {
@@ -234,6 +234,7 @@ void ImGui_ImplSdlGL3_SetClipboardText(void*, const char* text) {
 #else
     //SDL_SetClipboardText(text);
 #endif
+	ri.Clipboard_Set(text);
 }
 
 // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
