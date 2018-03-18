@@ -389,7 +389,8 @@ typedef struct {
 	void		(*G2Time_ResetTimers)(void);
 	void		(*G2Time_ReportTimers)(void);
 
-	void(*R_SendInputEvents)	(qboolean keyStatus[MAX_KEYS], vec2_t mouseStatus, qboolean menuOpen);
+	void	(*R_SendInputEvents)	(qboolean keyStatus[MAX_KEYS], vec2_t mouseStatus, qboolean menuOpen);
+	void	(*CharEvent)			(int key);
 } refexport_t;
 
 // this is the only function actually exported at the linker level

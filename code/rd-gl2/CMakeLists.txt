@@ -158,6 +158,13 @@ if(BuildSPRdGL2)
 	source_group("renderer\\glsl" FILES ${SPRDGL2GLSLFiles})
 	set(SPRDGL2Files ${SPRDGL2Files} ${SPRDGL2GLSLFiles})
 	
+	set(SPRDGL2ImGuiOpenJKFiles  
+		"${SPDir}/rd-gl2/imgui_openjk/imgui_openjk_default_docks.cpp"  
+		"${SPDir}/rd-gl2/imgui_openjk/imgui_openjk_default_docks.h"
+		)  
+	source_group("imgui_openjk" FILES ${SPRDGL2ImGuiOpenJKFiles})  
+	set(SPRDGL2Files ${SPRDGL2Files} ${SPRDGL2ImGuiOpenJKFiles})
+
 	set(SPRDGL2ImGuiFiles
 		"${SPDir}/rd-gl2/imgui/ccall/ccall.h"
 		"${SPDir}/rd-gl2/imgui/MagicFile.cpp/magicfile.cpp"

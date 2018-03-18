@@ -11,6 +11,8 @@
 #include <limits.h>
 
 #include "imgui/imgui_api.h"
+#include "imgui/include_imgui.h"
+#include "imgui_openjk/imgui_openjk_default_docks.h"
 
 #define NK_INCLUDE_FIXED_TYPES
 #define NK_INCLUDE_STANDARD_IO
@@ -1283,6 +1285,16 @@ void RE_SendInputEvents(qboolean clientKeyStatus[MAX_KEYS], vec2_t clientMouseSt
 	menuOpen = open;
 }
 
+void RE_CharEvent(int key) {
+	// basically just this: https://github.com/ocornut/imgui/blob/69e700f8694f89707b7aec91551f4a9546684040/examples/directx9_example/imgui_impl_dx9.cpp#L273  
+	// with a round trip from client.exe to renderer.dll  
+	// You can also use ToAscii()+GetKeyboardState() to retrieve characters.  
+	if (key > 0 && key < 0x10000) {
+		ImGuiIO& io = ImGui::GetIO();
+		io.AddInputCharacter((unsigned short)key);
+	}
+}
+
 void RE_RenderImGui() {
 	float width = FBO_WIDTH;
 	float height = FBO_HEIGHT;
@@ -1411,6 +1423,7 @@ void RE_RenderImGui() {
 
 	imgui_new_frame();
 	imgui_render();
+	imgui_openjk_default_docks();
 	imgui_end_frame();
 
 	/* default OpenGL state */

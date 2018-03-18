@@ -2089,6 +2089,7 @@ extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *ri
 #endif
 
 	re.R_SendInputEvents = RE_SendInputEvents;
+	re.CharEvent = RE_CharEvent;
 
 #ifdef G2_PERFORMANCE_ANALYSIS
 	re.G2Time_ReportTimers = G2Time_ReportTimers;

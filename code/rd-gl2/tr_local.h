@@ -2541,6 +2541,7 @@ void RE_UploadCinematic (int cols, int rows, const byte *data, int client, qbool
 void RE_SetRangedFog ( float range );
 
 void RE_SendInputEvents(qboolean clientKeyStatus[MAX_KEYS], vec2_t clientMouseStatus, qboolean menuOpen);
+void RE_CharEvent(int key);
 
 void RE_BeginFrame( stereoFrame_t stereoFrame );
 void RE_BeginRegistration( glconfig_t *glconfig );
