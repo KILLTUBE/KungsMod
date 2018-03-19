@@ -2094,7 +2094,6 @@ void RB_StageIteratorGeneric( void )
 		//
 		if ( r_debugVisuals->integer == 0 &&
 			 tess.dlightBits &&
-			 tess.shader->lightingStage >= 0 &&
 			 r_dlightMode->integer)
 		{
 			ForwardDlight(input, &vertexArrays);
