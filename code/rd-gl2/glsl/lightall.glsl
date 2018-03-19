@@ -653,7 +653,6 @@ void main()
 	  L -= normalize(texture(u_LightGridDirectionMap, gridCell).rgb * 2.0 - vec3(1.0)) * isLightgrid;
 	  vec3 directedLight = texture(u_LightGridDirectionalLightMap, gridCell).rgb * isLightgrid;
 	  directedLight *= directedLight;
-	  directedLight += u_DirectedLight * u_DirectedLight;
 	#endif
   #else
 	vertexColor = var_Color.rgb;
@@ -704,7 +703,7 @@ void main()
 #if defined(USE_PBR)
 	diffuse.rgb *= diffuse.rgb;
 	specular.rgb *= specular.rgb;
-	// energy conservation
+	// energy conservation, requires specular workflow to use an albedo texture too
 	diffuse.rgb *= vec3(1.0) - specular.rgb;
 #endif
 
