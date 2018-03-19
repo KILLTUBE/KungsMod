@@ -74,7 +74,8 @@ void imgui_stage(shaderStage_t *stage) {
 
 	ImGui::SameLine();
 	ImGui::Checkbox("isActive", &stage->active);
-
+	ImGui::DragFloat4("specularScale", stage->specularScale);
+	ImGui::DragFloat4("normalScale", stage->normalScale);
 
 
 
@@ -155,37 +156,45 @@ void imgui_stage(shaderStage_t *stage) {
 	//ImGui::DragFloat("maila2", stage->maila + 2);
 	//ImGui::DragFloat("maila3", stage->maila + 3);
 
-	if (ImGui::CollapsingHeader("Bundles")) {
+	//if (ImGui::CollapsingHeader("Bundles")) {
 
 		for (int bundle_id=0; bundle_id < NUM_TEXTURE_BUNDLES; bundle_id++) {
 			textureBundle_t *bundle = stage->bundle + bundle_id;
 
+			char tmp[512];
+			snprintf(tmp, sizeof(tmp), "bundle[%d]: numTexMods=%d", bundle_id, bundle->numTexMods);
+			if (ImGui::CollapsingHeader(tmp)) {
+
+				for (int image_id=0; image_id<8; image_id++) {
+					image_t *img = bundle->image[image_id];
+					ImGui::Text("Img[%d]: %p", image_id, img);
+					ImGui::PushID(((int)bundle)+image_id);
+					if (img) {
+
+						//ImGui::Text("image id: %d", imageid);
+						int imageid = getImageID(img);
+						if (ImGui::DragInt("id", &imageid)) {
+							const int maxImages = sizeof(tr.images)/sizeof(image_t *);
+							if (imageid >=0 && imageid < maxImages)
+								bundle->image[image_id] = tr.images[imageid];
+						}
+
+						ImGui::Image((ImTextureID)img->texnum, ImVec2(256,256));
 						
-			ImGui::Text("bundle[%d]: numTexMods=%d", bundle_id, bundle->numTexMods);
-			ImGui::SameLine();
-
-			for (int image_id=0; image_id<8; image_id++) {
-				image_t *img = bundle->image[image_id];
-				ImGui::Text("Img[%d]: %p", image_id, img);
-				if (img) {
-
-					//ImGui::Text("image id: %d", imageid);
-					int imageid = getImageID(img);
-					if (ImGui::DragInt("id", &imageid)) {
-						if (imageid>=0 && imageid <2048)
-							bundle->image[image_id] = tr.images[imageid];
+						if (ImGui::Button("image = NULL")) {
+							bundle->image[image_id] = NULL;
+						}
+					} else {
+						if (ImGui::Button("Assign Image")) {
+							bundle->image[image_id] = tr.images[0];
+						}
 					}
+					ImGui::PopID();
 
-				} else {
-					if (ImGui::Button("Assign Image")) {
-						bundle->image[image_id] = tr.images[0];
-					}
 				}
-
-			}
-					
+			}	
 		}
-	}
+	//} // if() bundles
 
 	/*
 	#define GLS_SRCBLEND_ZERO						0x00000001
