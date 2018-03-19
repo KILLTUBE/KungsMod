@@ -105,8 +105,22 @@ void imgui_stage(shaderStage_t *stage) {
 	ImGui::Checkbox("isActive", &stage->active);
 	ImGui::DragFloat4("specularScale", stage->specularScale);
 	ImGui::DragFloat4("normalScale", stage->normalScale);
+	
+	int tmp_r = stage->constantColor[0];
+	ImGui::DragInt("r", &tmp_r);
+	stage->constantColor[0] = tmp_r;
 
+	int tmp_g = stage->constantColor[1];
+	ImGui::DragInt("g", &tmp_g);
+	stage->constantColor[1] = tmp_g;
 
+	int tmp_b = stage->constantColor[2];
+	ImGui::DragInt("b", &tmp_b);
+	stage->constantColor[2] = tmp_b;
+
+	int tmp_a = stage->constantColor[3];
+	ImGui::DragInt("a", &tmp_a);
+	stage->constantColor[3] = tmp_a;
 
 	if (stage->glslShaderGroup) {
 		ImGui::Text("current glslShaderGroup: %s", stage->glslShaderGroup->name);
