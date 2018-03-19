@@ -3046,10 +3046,6 @@ void R_LoadEnvironmentJson(const char *baseName)
 
 		lightJson = JSON_ArrayGetValue(environmentArrayJson, bufferEnd, i);
 
-		keyValueJson = JSON_ObjectGetNamedValue(lightJson, bufferEnd, "Name");
-		if(!JSON_ValueGetString(keyValueJson, bufferEnd, name, MAX_QPATH))
-			ri.Printf(PRINT_ALL, "light %i: has no name\n", i);
-
 		keyValueJson = JSON_ObjectGetNamedValue(lightJson, bufferEnd, "Position");
 		JSON_ArrayGetIndex(keyValueJson, bufferEnd, indexes, 3);
 		for (j = 0; j < 3; j++)
