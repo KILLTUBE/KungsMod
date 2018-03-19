@@ -45,8 +45,12 @@ static float *TableForFunc( genFunc_t func )
 		break;
 	}
 
-	ri.Error( ERR_DROP, "TableForFunc called with invalid function '%d' in shader '%s'", func, tess.shader->name );
-	return NULL;
+	//ri.Error( ERR_DROP, "TableForFunc called with invalid function '%d' in shader '%s'", func, tess.shader->name );
+	//return NULL;
+
+	// meh, dont crash like a pussy when changing stuff dynamically in imgui
+	ri.Printf( PRINT_WARNING, "TableForFunc called with invalid function '%d' in shader '%s'\n", func, tess.shader->name );
+	return tr.sinTable;
 }
 
 /*

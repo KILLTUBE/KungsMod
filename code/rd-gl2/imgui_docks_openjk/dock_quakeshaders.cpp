@@ -61,6 +61,35 @@ const char *toString(stageType_t stageType) {
 }
 
 
+namespace ImGui {
+	bool Enum(colorGen_t *ptrValue) {
+		char *names[] = {
+			"CGEN_BAD,                                                                                         ",
+			"CGEN_IDENTITY_LIGHTING,	// tr.identityLight                                                    ",
+			"CGEN_IDENTITY,			// always (1,1,1,1)                                                        ",
+			"CGEN_ENTITY,			// grabbed from entity's modulate field                                    ",
+			"CGEN_ONE_MINUS_ENTITY,	// grabbed from 1 - entity.modulate                                        ",
+			"CGEN_EXACT_VERTEX,		// tess.vertexColors                                                       ",
+			"CGEN_VERTEX,			// tess.vertexColors * tr.identityLight                                    ",
+			"CGEN_EXACT_VERTEX_LIT,	// like CGEN_EXACT_VERTEX but takes a light direction from the lightgrid   ",
+			"CGEN_VERTEX_LIT,		// like CGEN_VERTEX but takes a light direction from the lightgrid         ",
+			"CGEN_ONE_MINUS_VERTEX,                                                                            ",
+			"CGEN_WAVEFORM,			// programmatically generated                                              ",
+			"CGEN_LIGHTING_DIFFUSE,                                                                            ",
+			"CGEN_LIGHTING_DIFFUSE_ENTITY, // diffuse lighting * entity                                        ",
+			"CGEN_FOG,				// standard fog                                                            ",
+			"CGEN_CONST,				// fixed color                                                         ",
+			"CGEN_LIGHTMAPSTYLE,		// lightmap style                                                      "
+		};
+		int bla = *ptrValue;
+		bool ret = ImGui::Combo("Status",  (int *)&bla, names, 15);
+		if (ret) {
+			*ptrValue = (colorGen_t)bla;
+		}
+		return ret;
+	}
+}
+
 void imgui_stage(shaderStage_t *stage) {
 	
 
@@ -138,6 +167,8 @@ void imgui_stage(shaderStage_t *stage) {
 	int rgbGen = stage->rgbGen;
 	ImGui::DragInt("rgbGen", &rgbGen);
 	stage->rgbGen = (colorGen_t)rgbGen;
+
+	ImGui::Enum(&stage->rgbGen);
 
 	int defs = stage->glslShaderIndex;
 	ImGui::Text("LIGHTDEF_USE_LIGHTMAP        = %d", defs & LIGHTDEF_USE_LIGHTMAP       );
@@ -251,6 +282,9 @@ void imgui_stage(shaderStage_t *stage) {
 	ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_ONE_MINUS_DST_ALPHA) if (ImGui::Button("ONE_MINUS_DST_ALPHA")) { dst = GLS_DSTBLEND_ONE_MINUS_DST_ALPHA; } POPCOLOR
 	ImGui::PopID();
 
+	
+
+
 #undef PUSHCOLOR
 #undef POPCOLOR
 
@@ -259,6 +293,18 @@ void imgui_stage(shaderStage_t *stage) {
 
 	stage->stateBits &= ~GLS_DSTBLEND_BITS; // remove dst bitmask
 	stage->stateBits |= dst; // and set old one or if clicked, the new one
+
+	if (ImGui::Button("REMOVE SRC/DST")) {
+		stage->stateBits &= ~GLS_SRCBLEND_BITS;
+		stage->stateBits &= ~GLS_DSTBLEND_BITS;
+	}
+	if (ImGui::Button("ADD SRC/DST")) {
+		// just set some src/dst, my ati driver crashes when there is a src with not dst :S
+		stage->stateBits &= ~GLS_SRCBLEND_BITS; // remove src bitmask
+		stage->stateBits |= GLS_SRCBLEND_ONE;
+		stage->stateBits &= ~GLS_DSTBLEND_BITS; // remove dst bitmask
+		stage->stateBits |= GLS_DSTBLEND_ONE; 
+	}
 
 }
 
