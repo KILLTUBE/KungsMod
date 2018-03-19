@@ -2956,7 +2956,7 @@ void R_LoadEnvironmentJson(const char *baseName)
 	} buffer;
 	char *bufferEnd;
 
-	const char *cubemapArrayJson;
+	const char *environmentArrayJson;
 	int filelen, i;
 
 	Com_sprintf(filename, MAX_QPATH, "cubemaps/%s/env.json", baseName);
@@ -2974,23 +2974,23 @@ void R_LoadEnvironmentJson(const char *baseName)
 		ri.FS_FreeFile(buffer.v);
 		return;
 	}
-
-	cubemapArrayJson = JSON_ObjectGetNamedValue(buffer.c, bufferEnd, "Cubemaps");
-	if (!cubemapArrayJson)
+	//-----------------------------CUBEMAPS------------------------------------
+	environmentArrayJson = JSON_ObjectGetNamedValue(buffer.c, bufferEnd, "Cubemaps");
+	if (!environmentArrayJson)
 	{
 		ri.Printf(PRINT_ALL, "Bad %s: no Cubemaps\n", filename);
 		ri.FS_FreeFile(buffer.v);
 		return;
 	}
 
-	if (JSON_ValueGetType(cubemapArrayJson, bufferEnd) != JSONTYPE_ARRAY)
+	if (JSON_ValueGetType(environmentArrayJson, bufferEnd) != JSONTYPE_ARRAY)
 	{
 		ri.Printf(PRINT_ALL, "Bad %s: Cubemaps not an array\n", filename);
 		ri.FS_FreeFile(buffer.v);
 		return;
 	}
 
-	tr.numCubemaps = JSON_ArrayGetIndex(cubemapArrayJson, bufferEnd, NULL, 0);
+	tr.numCubemaps = JSON_ArrayGetIndex(environmentArrayJson, bufferEnd, NULL, 0);
 	tr.cubemaps = (cubemap_t *)R_Hunk_Alloc(tr.numCubemaps * sizeof(*tr.cubemaps), qtrue);
 	memset(tr.cubemaps, 0, tr.numCubemaps * sizeof(*tr.cubemaps));
 
@@ -3000,7 +3000,7 @@ void R_LoadEnvironmentJson(const char *baseName)
 		const char *cubemapJson, *keyValueJson, *indexes[3];
 		int j;
 
-		cubemapJson = JSON_ArrayGetValue(cubemapArrayJson, bufferEnd, i);
+		cubemapJson = JSON_ArrayGetValue(environmentArrayJson, bufferEnd, i);
 
 		keyValueJson = JSON_ObjectGetNamedValue(cubemapJson, bufferEnd, "Name");
 		if (!JSON_ValueGetString(keyValueJson, bufferEnd, cubemap->name, MAX_QPATH))
@@ -3015,6 +3015,55 @@ void R_LoadEnvironmentJson(const char *baseName)
 		keyValueJson = JSON_ObjectGetNamedValue(cubemapJson, bufferEnd, "Radius");
 		if (keyValueJson)
 			cubemap->parallaxRadius = JSON_ValueGetFloat(keyValueJson, bufferEnd);
+	}
+
+	//-----------------------------LIGHTS------------------------------------
+	environmentArrayJson = JSON_ObjectGetNamedValue(buffer.c, bufferEnd, "Lights");
+	if (!environmentArrayJson)
+	{
+		ri.Printf(PRINT_ALL, "Bad %s: no Lights\n", filename);
+		ri.FS_FreeFile(buffer.v);
+		return;
+	}
+
+	if (JSON_ValueGetType(environmentArrayJson, bufferEnd) != JSONTYPE_ARRAY)
+	{
+		ri.Printf(PRINT_ALL, "Bad %s: Lights not an array\n", filename);
+		ri.FS_FreeFile(buffer.v);
+		return;
+	}
+
+	tr.numRealTimeLights = JSON_ArrayGetIndex(environmentArrayJson, bufferEnd, NULL, 0);
+	tr.realTimeLights = (realTimeLight_t *)R_Hunk_Alloc(tr.numRealTimeLights * sizeof(*tr.realTimeLights), qtrue);
+	memset(tr.realTimeLights, 0, tr.numRealTimeLights * sizeof(*tr.realTimeLights));
+
+	for (i = 0; i < tr.numRealTimeLights; i++)
+	{
+		realTimeLight_t *light = &tr.realTimeLights[i];
+		const char *lightJson, *keyValueJson, *indexes[3];
+		char name[MAX_QPATH];
+		int j;
+
+		lightJson = JSON_ArrayGetValue(environmentArrayJson, bufferEnd, i);
+
+		keyValueJson = JSON_ObjectGetNamedValue(lightJson, bufferEnd, "Name");
+		if(!JSON_ValueGetString(keyValueJson, bufferEnd, name, MAX_QPATH))
+			ri.Printf(PRINT_ALL, "light %i: has no name\n", i);
+
+		keyValueJson = JSON_ObjectGetNamedValue(lightJson, bufferEnd, "Position");
+		JSON_ArrayGetIndex(keyValueJson, bufferEnd, indexes, 3);
+		for (j = 0; j < 3; j++)
+			light->position[j] = JSON_ValueGetFloat(indexes[j], bufferEnd);
+
+		keyValueJson = JSON_ObjectGetNamedValue(lightJson, bufferEnd, "Color");
+		JSON_ArrayGetIndex(keyValueJson, bufferEnd, indexes, 3);
+		for (j = 0; j < 3; j++)
+			light->color[j] = JSON_ValueGetFloat(indexes[j], bufferEnd);
+
+		light->strength = 100.0f;
+		keyValueJson = JSON_ObjectGetNamedValue(lightJson, bufferEnd, "Strength");
+		if (keyValueJson)
+			light->strength = JSON_ValueGetFloat(keyValueJson, bufferEnd);
 	}
 
 	ri.FS_FreeFile(buffer.v);

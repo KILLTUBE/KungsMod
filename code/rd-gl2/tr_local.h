@@ -831,6 +831,20 @@ typedef struct {
 	vec3_t		fog_color;
 } liquidParms_t;
 
+typedef enum {
+	RTLT_POINT,
+	RTLT_SPOT,
+	RTLT_TUBE,
+}realTimeLightType;
+
+typedef struct {
+	vec3_t	position;
+	vec3_t	color;
+	vec3_t	rotation;
+	float	strength;
+	float	length;
+	int		type;
+}realTimeLight_t;
 
 typedef struct {
 	vec3_t	color;
@@ -2341,6 +2355,10 @@ typedef struct trGlobals_s {
 	int                     numCubemaps;
 	vec3_t                  *cubemapOrigins;
 	cubemap_t               *cubemaps;
+
+	int						numRealTimeLights;
+	vec3_t					*realTimeLightsOrigins;
+	realTimeLight_t			*realTimeLights;
 
 	trRefEntity_t			*currentEntity;
 	trRefEntity_t			worldEntity;		// point currentEntity at this when rendering world
