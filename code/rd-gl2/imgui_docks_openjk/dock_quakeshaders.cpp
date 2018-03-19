@@ -4,6 +4,7 @@
 
 #include "../tr_local.h"
 #include "../imgui_docks/dock_console.h"
+#include "../imgui_openjk/gluecode.h"
 
 DockQuakeShaders::DockQuakeShaders() {
 }
@@ -47,6 +48,211 @@ CCALL int shaderCreateStage(int shaderID, int stageID) {
 	return 1;
 }
 
+const char *toString(stageType_t stageType) {
+	switch (stageType) {
+		/*case ST_COLORMAP:*/
+		case ST_DIFFUSEMAP:		   return "ST_DIFFUSEMAP"; // same as ST_COLORMAP, both 0
+		case ST_NORMALMAP:		   return "ST_NORMALMAP";
+		case ST_NORMALPARALLAXMAP: return "ST_NORMALPARALLAXMAP";
+		case ST_SPECULARMAP:	   return "ST_SPECULARMAP";
+		case ST_GLSL:			   return "ST_GLSL";
+	}
+	return "unknown stageType enum";
+}
+
+
+void imgui_stage(shaderStage_t *stage) {
+	
+
+	if (ImGui::Button("ST_DIFFUSEMAP"))        stage->type = ST_DIFFUSEMAP;
+	if (ImGui::Button("ST_NORMALMAP"))         stage->type = ST_NORMALMAP;
+	if (ImGui::Button("ST_NORMALPARALLAXMAP")) stage->type = ST_NORMALPARALLAXMAP;
+	if (ImGui::Button("ST_SPECULARMAP"))       stage->type = ST_SPECULARMAP;
+	if (ImGui::Button("ST_GLSL"))              stage->type = ST_GLSL;
+					
+	ImGui::Checkbox("isDetail", &stage->isDetail);
+
+	ImGui::SameLine();
+	ImGui::Checkbox("isActive", &stage->active);
+
+
+
+
+	if (stage->glslShaderGroup) {
+		ImGui::Text("current glslShaderGroup: %s", stage->glslShaderGroup->name);
+	}
+				
+	/*
+	shaderProgram_t genericShader[GENERICDEF_COUNT];
+	shaderProgram_t textureColorShader;
+	shaderProgram_t fogShader[FOGDEF_COUNT];
+	shaderProgram_t dlightShader[DLIGHTDEF_COUNT];
+	shaderProgram_t lightallShader[LIGHTDEF_COUNT];
+	shaderProgram_t shadowmapShader;
+	shaderProgram_t pshadowShader;
+	shaderProgram_t down4xShader;
+	shaderProgram_t bokehShader;
+	shaderProgram_t tonemapShader;
+	shaderProgram_t calclevels4xShader[2];
+	shaderProgram_t shadowmaskShader;
+	shaderProgram_t ssaoShader;
+	shaderProgram_t depthBlurShader[4];
+	shaderProgram_t testcubeShader;
+	*/
+	if (ImGui::Button("glslShaderGroup = genericShader"     )) { stage->glslShaderGroup =  tr.genericShader;       }
+	if (ImGui::Button("glslShaderGroup = textureColorShader")) { stage->glslShaderGroup = &tr.textureColorShader;  }
+	if (ImGui::Button("glslShaderGroup = fogShader"         )) { stage->glslShaderGroup =  tr.fogShader;           }
+	if (ImGui::Button("glslShaderGroup = dlightShader"      )) { stage->glslShaderGroup =  tr.dlightShader;        }
+	if (ImGui::Button("glslShaderGroup = lightallShader"    )) { stage->glslShaderGroup =  tr.lightallShader;      }
+	if (ImGui::Button("glslShaderGroup = shadowmapShader"   )) { stage->glslShaderGroup = &tr.shadowmapShader;     }
+	if (ImGui::Button("glslShaderGroup = pshadowShader"     )) { stage->glslShaderGroup = &tr.pshadowShader;       }
+	if (ImGui::Button("glslShaderGroup = down4xShader"      )) { stage->glslShaderGroup = &tr.down4xShader;        }
+	if (ImGui::Button("glslShaderGroup = bokehShader"       )) { stage->glslShaderGroup = &tr.bokehShader;         }
+	if (ImGui::Button("glslShaderGroup = tonemapShader"     )) { stage->glslShaderGroup = &tr.tonemapShader;       }
+	if (ImGui::Button("glslShaderGroup = calclevels4xShader")) { stage->glslShaderGroup =  tr.calclevels4xShader;  }
+	if (ImGui::Button("glslShaderGroup = shadowmaskShader"  )) { stage->glslShaderGroup = &tr.shadowmaskShader;    }
+	if (ImGui::Button("glslShaderGroup = ssaoShader"        )) { stage->glslShaderGroup = &tr.ssaoShader;          }
+	if (ImGui::Button("glslShaderGroup = depthBlurShader"   )) { stage->glslShaderGroup =  tr.depthBlurShader;     }
+	if (ImGui::Button("glslShaderGroup = testcubeShader"    )) { stage->glslShaderGroup = &tr.testcubeShader;      }
+
+	/*
+	LIGHTDEF_USE_LIGHTMAP        = 0x0001,
+	LIGHTDEF_USE_LIGHT_VECTOR    = 0x0002,
+	LIGHTDEF_USE_LIGHT_VERTEX    = 0x0003,
+	LIGHTDEF_LIGHTTYPE_MASK      = 0x0003,
+	LIGHTDEF_ENTITY              = 0x0004,
+	LIGHTDEF_USE_TCGEN_AND_TCMOD = 0x0008,
+	LIGHTDEF_USE_PARALLAXMAP     = 0x0010,
+	LIGHTDEF_USE_SHADOWMAP       = 0x0020,
+	LIGHTDEF_ALL                 = 0x003F,
+	LIGHTDEF_COUNT               = 0x0040				
+	*/
+	ImGui::DragInt("defs", &stage->glslShaderIndex);
+
+
+	int tmpStateBits = stage->stateBits;
+	ImGui::DragInt("stateBits", &tmpStateBits);
+	stage->stateBits = tmpStateBits;
+
+	int rgbGen = stage->rgbGen;
+	ImGui::DragInt("rgbGen", &rgbGen);
+	stage->rgbGen = (colorGen_t)rgbGen;
+
+	int defs = stage->glslShaderIndex;
+	ImGui::Text("LIGHTDEF_USE_LIGHTMAP        = %d", defs & LIGHTDEF_USE_LIGHTMAP       );
+	ImGui::Text("LIGHTDEF_USE_LIGHT_VECTOR    = %d", defs & LIGHTDEF_USE_LIGHT_VECTOR   );
+	ImGui::Text("LIGHTDEF_USE_LIGHT_VERTEX    = %d", defs & LIGHTDEF_USE_LIGHT_VERTEX   );
+	ImGui::Text("LIGHTDEF_LIGHTTYPE_MASK      = %d", defs & LIGHTDEF_LIGHTTYPE_MASK     );
+	//ImGui::Text("LIGHTDEF_ENTITY              = %d", defs & LIGHTDEF_ENTITY             );
+	ImGui::Text("LIGHTDEF_USE_TCGEN_AND_TCMOD = %d", defs & LIGHTDEF_USE_TCGEN_AND_TCMOD);
+	ImGui::Text("LIGHTDEF_USE_PARALLAXMAP     = %d", defs & LIGHTDEF_USE_PARALLAXMAP    );
+	ImGui::Text("LIGHTDEF_USE_SHADOWMAP       = %d", defs & LIGHTDEF_USE_SHADOWMAP      );
+	ImGui::Text("LIGHTDEF_ALL                 = %d", defs & LIGHTDEF_ALL                );
+	ImGui::Text("LIGHTDEF_COUNT               = %d", defs & LIGHTDEF_COUNT              );
+				
+	//ImGui::DragFloat("maila0", stage->maila + 0);
+	//ImGui::DragFloat("maila1", stage->maila + 1);
+	//ImGui::DragFloat("maila2", stage->maila + 2);
+	//ImGui::DragFloat("maila3", stage->maila + 3);
+
+	if (ImGui::CollapsingHeader("Bundles")) {
+
+		for (int bundle_id=0; bundle_id < NUM_TEXTURE_BUNDLES; bundle_id++) {
+			textureBundle_t *bundle = stage->bundle + bundle_id;
+
+						
+			ImGui::Text("bundle[%d]: numTexMods=%d", bundle_id, bundle->numTexMods);
+			ImGui::SameLine();
+
+			for (int image_id=0; image_id<8; image_id++) {
+				image_t *img = bundle->image[image_id];
+				ImGui::Text("Img[%d]: %p", image_id, img);
+				if (img) {
+
+					//ImGui::Text("image id: %d", imageid);
+					int imageid = getImageID(img);
+					if (ImGui::DragInt("id", &imageid)) {
+						if (imageid>=0 && imageid <2048)
+							bundle->image[image_id] = tr.images[imageid];
+					}
+
+				} else {
+					if (ImGui::Button("Assign Image")) {
+						bundle->image[image_id] = tr.images[0];
+					}
+				}
+
+			}
+					
+		}
+	}
+
+	/*
+	#define GLS_SRCBLEND_ZERO						0x00000001
+	#define GLS_SRCBLEND_ONE						0x00000002
+	#define GLS_SRCBLEND_DST_COLOR					0x00000003
+	#define GLS_SRCBLEND_ONE_MINUS_DST_COLOR		0x00000004
+	#define GLS_SRCBLEND_SRC_ALPHA					0x00000005
+	#define GLS_SRCBLEND_ONE_MINUS_SRC_ALPHA		0x00000006
+	#define GLS_SRCBLEND_DST_ALPHA					0x00000007
+	#define GLS_SRCBLEND_ONE_MINUS_DST_ALPHA		0x00000008
+	#define GLS_SRCBLEND_ALPHA_SATURATE				0x00000009
+	#define		GLS_SRCBLEND_BITS					0x0000000f
+
+	#define GLS_DSTBLEND_ZERO						0x00000010
+	#define GLS_DSTBLEND_ONE						0x00000020
+	#define GLS_DSTBLEND_SRC_COLOR					0x00000030
+	#define GLS_DSTBLEND_ONE_MINUS_SRC_COLOR		0x00000040
+	#define GLS_DSTBLEND_SRC_ALPHA					0x00000050
+	#define GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA		0x00000060
+	#define GLS_DSTBLEND_DST_ALPHA					0x00000070
+	#define GLS_DSTBLEND_ONE_MINUS_DST_ALPHA		0x00000080
+	#define		GLS_DSTBLEND_BITS					0x000000f0
+	*/
+				
+	int src = stage->stateBits & GLS_SRCBLEND_BITS;
+	int dst = stage->stateBits & GLS_DSTBLEND_BITS;
+					
+	int cc = 0;
+#define PUSHCOLOR_IF(condition) if (condition) { cc=1; ImGui::PushStyleColor(0, ImVec4(0,0,1,1)); }
+#define POPCOLOR  if (cc) { cc=0; ImGui::PopStyleColor(); }
+				
+	ImGui::Text("SOURCE:");
+	ImGui::PushID(GLS_SRCBLEND_BITS);
+	ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_ZERO               ) if (ImGui::Button("ZERO")                ){ src = GLS_SRCBLEND_ZERO;                } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_ONE                ) if (ImGui::Button("ONE")                 ){ src = GLS_SRCBLEND_ONE;                 } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_DST_COLOR          ) if (ImGui::Button("DST_COLOR")           ){ src = GLS_SRCBLEND_DST_COLOR;           } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_ONE_MINUS_DST_COLOR) if (ImGui::Button("ONE_MINUS_DST_COLOR") ){ src = GLS_SRCBLEND_ONE_MINUS_DST_COLOR; } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_SRC_ALPHA          ) if (ImGui::Button("SRC_ALPHA")           ){ src = GLS_SRCBLEND_SRC_ALPHA;           } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_ONE_MINUS_SRC_ALPHA) if (ImGui::Button("ONE_MINUS_SRC_ALPHA") ){ src = GLS_SRCBLEND_ONE_MINUS_SRC_ALPHA; } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_DST_ALPHA          ) if (ImGui::Button("DST_ALPHA")           ){ src = GLS_SRCBLEND_DST_ALPHA;           } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_ONE_MINUS_DST_ALPHA) if (ImGui::Button("ONE_MINUS_DST_ALPHA") ){ src = GLS_SRCBLEND_ONE_MINUS_DST_ALPHA; } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_ALPHA_SATURATE     ) if (ImGui::Button("ALPHA_SATURATE")      ){ src = GLS_SRCBLEND_ALPHA_SATURATE;      } POPCOLOR
+	ImGui::PopID();
+
+	ImGui::Text("DST:");
+	ImGui::PushID(GLS_DSTBLEND_BITS);
+	ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_ZERO               ) if (ImGui::Button("ZERO"               )) { dst = GLS_DSTBLEND_ZERO;                } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_ONE                ) if (ImGui::Button("ONE"                )) { dst = GLS_DSTBLEND_ONE;                 } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_SRC_COLOR          ) if (ImGui::Button("SRC_COLOR"          )) { dst = GLS_DSTBLEND_SRC_COLOR;           } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_ONE_MINUS_SRC_COLOR) if (ImGui::Button("ONE_MINUS_SRC_COLOR")) { dst = GLS_DSTBLEND_ONE_MINUS_SRC_COLOR; } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_SRC_ALPHA          ) if (ImGui::Button("SRC_ALPHA"          )) { dst = GLS_DSTBLEND_SRC_ALPHA;           } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA) if (ImGui::Button("ONE_MINUS_SRC_ALPHA")) { dst = GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA; } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_DST_ALPHA          ) if (ImGui::Button("DST_ALPHA"          )) { dst = GLS_DSTBLEND_DST_ALPHA;           } POPCOLOR
+	ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_ONE_MINUS_DST_ALPHA) if (ImGui::Button("ONE_MINUS_DST_ALPHA")) { dst = GLS_DSTBLEND_ONE_MINUS_DST_ALPHA; } POPCOLOR
+	ImGui::PopID();
+
+#undef PUSHCOLOR
+#undef POPCOLOR
+
+	stage->stateBits &= ~GLS_SRCBLEND_BITS; // remove src bitmask
+	stage->stateBits |= src; // and set old one or if clicked, the new one
+
+	stage->stateBits &= ~GLS_DSTBLEND_BITS; // remove dst bitmask
+	stage->stateBits |= dst; // and set old one or if clicked, the new one
+
+}
+
 void DockQuakeShaders::imgui() {
 
 	for (int i=0; i<tr.numShaders; i++) {
@@ -86,219 +292,23 @@ void DockQuakeShaders::imgui() {
 				shaderStage_t *stage = shader->stages[stage_id];
 				if (stage == NULL)
 					break;
+
+
+
 				ImGui::PushID(stage);
 
+				char tmp[512];
+				snprintf(tmp, sizeof(tmp), "stage_id=%d type=%s",
+					stage_id,
+					toString(stage->type)
+				);
 
-					char *stageTypeString = "";
-					switch (stage->type) {
-						/*case ST_COLORMAP:*/
-						case ST_DIFFUSEMAP:		   stageTypeString = "ST_DIFFUSEMAP"; // same as ST_COLORMAP
-						case ST_NORMALMAP:		   stageTypeString = "ST_NORMALMAP";
-						case ST_NORMALPARALLAXMAP: stageTypeString = "ST_NORMALPARALLAXMAP";
-						case ST_SPECULARMAP:	   stageTypeString = "ST_SPECULARMAP";
-						case ST_GLSL:			   stageTypeString = "ST_GLSL";
-					}
-
-				
-					ImGui::Text("Type: %s", stageTypeString);
-
-					if (ImGui::Button("ST_DIFFUSEMAP"))        stage->type = ST_DIFFUSEMAP;
-					if (ImGui::Button("ST_NORMALMAP"))         stage->type = ST_NORMALMAP;
-					if (ImGui::Button("ST_NORMALPARALLAXMAP")) stage->type = ST_NORMALPARALLAXMAP;
-					if (ImGui::Button("ST_SPECULARMAP"))       stage->type = ST_SPECULARMAP;
-					if (ImGui::Button("ST_GLSL"))              stage->type = ST_GLSL;
-					
-					bool tmpIsDetail = stage->isDetail;
-					ImGui::Checkbox("isDetail", &tmpIsDetail);
-					stage->isDetail = (qboolean)tmpIsDetail;
-
-					bool tmpIsActive = stage->active;
-					ImGui::Checkbox("isActive", &tmpIsActive);
-					stage->active = (qboolean)tmpIsActive;
-
-
-
-
-					if (stage->glslShaderGroup) {
-						ImGui::Text("current glslShaderGroup: %s", stage->glslShaderGroup->name);
-					}
-				
-				/*
-				shaderProgram_t genericShader[GENERICDEF_COUNT];
-				shaderProgram_t textureColorShader;
-				shaderProgram_t fogShader[FOGDEF_COUNT];
-				shaderProgram_t dlightShader[DLIGHTDEF_COUNT];
-				shaderProgram_t lightallShader[LIGHTDEF_COUNT];
-				shaderProgram_t shadowmapShader;
-				shaderProgram_t pshadowShader;
-				shaderProgram_t down4xShader;
-				shaderProgram_t bokehShader;
-				shaderProgram_t tonemapShader;
-				shaderProgram_t calclevels4xShader[2];
-				shaderProgram_t shadowmaskShader;
-				shaderProgram_t ssaoShader;
-				shaderProgram_t depthBlurShader[4];
-				shaderProgram_t testcubeShader;
-				*/
-				if (ImGui::Button("glslShaderGroup = genericShader"     )) { stage->glslShaderGroup =  tr.genericShader;       }
-				if (ImGui::Button("glslShaderGroup = textureColorShader")) { stage->glslShaderGroup = &tr.textureColorShader;  }
-				if (ImGui::Button("glslShaderGroup = fogShader"         )) { stage->glslShaderGroup =  tr.fogShader;           }
-				if (ImGui::Button("glslShaderGroup = dlightShader"      )) { stage->glslShaderGroup =  tr.dlightShader;        }
-				if (ImGui::Button("glslShaderGroup = lightallShader"    )) { stage->glslShaderGroup =  tr.lightallShader;      }
-				if (ImGui::Button("glslShaderGroup = shadowmapShader"   )) { stage->glslShaderGroup = &tr.shadowmapShader;     }
-				if (ImGui::Button("glslShaderGroup = pshadowShader"     )) { stage->glslShaderGroup = &tr.pshadowShader;       }
-				if (ImGui::Button("glslShaderGroup = down4xShader"      )) { stage->glslShaderGroup = &tr.down4xShader;        }
-				if (ImGui::Button("glslShaderGroup = bokehShader"       )) { stage->glslShaderGroup = &tr.bokehShader;         }
-				if (ImGui::Button("glslShaderGroup = tonemapShader"     )) { stage->glslShaderGroup = &tr.tonemapShader;       }
-				if (ImGui::Button("glslShaderGroup = calclevels4xShader")) { stage->glslShaderGroup =  tr.calclevels4xShader;  }
-				if (ImGui::Button("glslShaderGroup = shadowmaskShader"  )) { stage->glslShaderGroup = &tr.shadowmaskShader;    }
-				if (ImGui::Button("glslShaderGroup = ssaoShader"        )) { stage->glslShaderGroup = &tr.ssaoShader;          }
-				if (ImGui::Button("glslShaderGroup = depthBlurShader"   )) { stage->glslShaderGroup =  tr.depthBlurShader;     }
-				if (ImGui::Button("glslShaderGroup = testcubeShader"    )) { stage->glslShaderGroup = &tr.testcubeShader;      }
-
-				/*
-				LIGHTDEF_USE_LIGHTMAP        = 0x0001,
-				LIGHTDEF_USE_LIGHT_VECTOR    = 0x0002,
-				LIGHTDEF_USE_LIGHT_VERTEX    = 0x0003,
-				LIGHTDEF_LIGHTTYPE_MASK      = 0x0003,
-				LIGHTDEF_ENTITY              = 0x0004,
-				LIGHTDEF_USE_TCGEN_AND_TCMOD = 0x0008,
-				LIGHTDEF_USE_PARALLAXMAP     = 0x0010,
-				LIGHTDEF_USE_SHADOWMAP       = 0x0020,
-				LIGHTDEF_ALL                 = 0x003F,
-				LIGHTDEF_COUNT               = 0x0040				
-				*/
-				ImGui::DragInt("defs", &stage->glslShaderIndex);
-
-
-				int tmpStateBits = stage->stateBits;
-				ImGui::DragInt("stateBits", &tmpStateBits);
-				stage->stateBits = tmpStateBits;
-
-				int rgbGen = stage->rgbGen;
-				ImGui::DragInt("rgbGen", &rgbGen);
-				stage->rgbGen = (colorGen_t)rgbGen;
-
-				int defs = stage->glslShaderIndex;
-				ImGui::Text("LIGHTDEF_USE_LIGHTMAP        = %d", defs & LIGHTDEF_USE_LIGHTMAP       );
-				ImGui::Text("LIGHTDEF_USE_LIGHT_VECTOR    = %d", defs & LIGHTDEF_USE_LIGHT_VECTOR   );
-				ImGui::Text("LIGHTDEF_USE_LIGHT_VERTEX    = %d", defs & LIGHTDEF_USE_LIGHT_VERTEX   );
-				ImGui::Text("LIGHTDEF_LIGHTTYPE_MASK      = %d", defs & LIGHTDEF_LIGHTTYPE_MASK     );
-				//ImGui::Text("LIGHTDEF_ENTITY              = %d", defs & LIGHTDEF_ENTITY             );
-				ImGui::Text("LIGHTDEF_USE_TCGEN_AND_TCMOD = %d", defs & LIGHTDEF_USE_TCGEN_AND_TCMOD);
-				ImGui::Text("LIGHTDEF_USE_PARALLAXMAP     = %d", defs & LIGHTDEF_USE_PARALLAXMAP    );
-				ImGui::Text("LIGHTDEF_USE_SHADOWMAP       = %d", defs & LIGHTDEF_USE_SHADOWMAP      );
-				ImGui::Text("LIGHTDEF_ALL                 = %d", defs & LIGHTDEF_ALL                );
-				ImGui::Text("LIGHTDEF_COUNT               = %d", defs & LIGHTDEF_COUNT              );
-				
-				//ImGui::DragFloat("maila0", stage->maila + 0);
-				//ImGui::DragFloat("maila1", stage->maila + 1);
-				//ImGui::DragFloat("maila2", stage->maila + 2);
-				//ImGui::DragFloat("maila3", stage->maila + 3);
-
-				if (ImGui::CollapsingHeader("Bundles")) {
-
-					for (int bundle_id=0; bundle_id < NUM_TEXTURE_BUNDLES; bundle_id++) {
-						textureBundle_t *bundle = stage->bundle + bundle_id;
-
-						
-						ImGui::Text("bundle[%d]: numTexMods=%d", bundle_id, bundle->numTexMods);
-						ImGui::SameLine();
-
-						for (int image_id=0; image_id<8; image_id++) {
-							image_t *img = bundle->image[image_id];
-							ImGui::Text("Img[%d]: %p", image_id, img);
-							if (img) {
-
-								//ImGui::Text("image id: %d", imageid);
-								int imageid = getImageID(img);
-								if (ImGui::DragInt("id", &imageid)) {
-									if (imageid>=0 && imageid <2048)
-										bundle->image[image_id] = tr.images[imageid];
-								}
-
-							} else {
-								if (ImGui::Button("Assign Image")) {
-									bundle->image[image_id] = tr.images[0];
-								}
-							}
-
-						}
-					
-					}
+				if (ImGui::CollapsingHeader(tmp)) {
+					imgui_stage(stage);
 				}
+
+				
 				ImGui::PopID();
-
-				ImGui::Text("stage[%d] = %p active=%d", stage_id, stage, stage->active);
-
-
-
-/*
-#define GLS_SRCBLEND_ZERO						0x00000001
-#define GLS_SRCBLEND_ONE						0x00000002
-#define GLS_SRCBLEND_DST_COLOR					0x00000003
-#define GLS_SRCBLEND_ONE_MINUS_DST_COLOR		0x00000004
-#define GLS_SRCBLEND_SRC_ALPHA					0x00000005
-#define GLS_SRCBLEND_ONE_MINUS_SRC_ALPHA		0x00000006
-#define GLS_SRCBLEND_DST_ALPHA					0x00000007
-#define GLS_SRCBLEND_ONE_MINUS_DST_ALPHA		0x00000008
-#define GLS_SRCBLEND_ALPHA_SATURATE				0x00000009
-#define		GLS_SRCBLEND_BITS					0x0000000f
-
-#define GLS_DSTBLEND_ZERO						0x00000010
-#define GLS_DSTBLEND_ONE						0x00000020
-#define GLS_DSTBLEND_SRC_COLOR					0x00000030
-#define GLS_DSTBLEND_ONE_MINUS_SRC_COLOR		0x00000040
-#define GLS_DSTBLEND_SRC_ALPHA					0x00000050
-#define GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA		0x00000060
-#define GLS_DSTBLEND_DST_ALPHA					0x00000070
-#define GLS_DSTBLEND_ONE_MINUS_DST_ALPHA		0x00000080
-#define		GLS_DSTBLEND_BITS					0x000000f0
-*/
-				
-				int src = stage->stateBits & GLS_SRCBLEND_BITS;
-				int dst = stage->stateBits & GLS_DSTBLEND_BITS;
-				
-				
-				
-				int cc = 0;
-#define PUSHCOLOR_IF(condition) if (condition) { cc=1; ImGui::PushStyleColor(0, ImVec4(0,0,1,1)); }
-#define POPCOLOR  if (cc) { cc=0; ImGui::PopStyleColor(); }
-				
-				ImGui::Text("SOURCE:");
-				ImGui::PushID(GLS_SRCBLEND_BITS);
-				ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_ZERO               ) if (ImGui::Button("ZERO")                ){ src = GLS_SRCBLEND_ZERO;                } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_ONE                ) if (ImGui::Button("ONE")                 ){ src = GLS_SRCBLEND_ONE;                 } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_DST_COLOR          ) if (ImGui::Button("DST_COLOR")           ){ src = GLS_SRCBLEND_DST_COLOR;           } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_ONE_MINUS_DST_COLOR) if (ImGui::Button("ONE_MINUS_DST_COLOR") ){ src = GLS_SRCBLEND_ONE_MINUS_DST_COLOR; } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_SRC_ALPHA          ) if (ImGui::Button("SRC_ALPHA")           ){ src = GLS_SRCBLEND_SRC_ALPHA;           } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_ONE_MINUS_SRC_ALPHA) if (ImGui::Button("ONE_MINUS_SRC_ALPHA") ){ src = GLS_SRCBLEND_ONE_MINUS_SRC_ALPHA; } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_DST_ALPHA          ) if (ImGui::Button("DST_ALPHA")           ){ src = GLS_SRCBLEND_DST_ALPHA;           } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_ONE_MINUS_DST_ALPHA) if (ImGui::Button("ONE_MINUS_DST_ALPHA") ){ src = GLS_SRCBLEND_ONE_MINUS_DST_ALPHA; } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(src == GLS_SRCBLEND_ALPHA_SATURATE     ) if (ImGui::Button("ALPHA_SATURATE")      ){ src = GLS_SRCBLEND_ALPHA_SATURATE;      } POPCOLOR
-				ImGui::PopID();
-
-				ImGui::Text("DST:");
-				ImGui::PushID(GLS_DSTBLEND_BITS);
-				ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_ZERO               ) if (ImGui::Button("ZERO"               )) { dst = GLS_DSTBLEND_ZERO;                } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_ONE                ) if (ImGui::Button("ONE"                )) { dst = GLS_DSTBLEND_ONE;                 } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_SRC_COLOR          ) if (ImGui::Button("SRC_COLOR"          )) { dst = GLS_DSTBLEND_SRC_COLOR;           } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_ONE_MINUS_SRC_COLOR) if (ImGui::Button("ONE_MINUS_SRC_COLOR")) { dst = GLS_DSTBLEND_ONE_MINUS_SRC_COLOR; } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_SRC_ALPHA          ) if (ImGui::Button("SRC_ALPHA"          )) { dst = GLS_DSTBLEND_SRC_ALPHA;           } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA) if (ImGui::Button("ONE_MINUS_SRC_ALPHA")) { dst = GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA; } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_DST_ALPHA          ) if (ImGui::Button("DST_ALPHA"          )) { dst = GLS_DSTBLEND_DST_ALPHA;           } POPCOLOR
-				ImGui::SameLine(); PUSHCOLOR_IF(dst == GLS_DSTBLEND_ONE_MINUS_DST_ALPHA) if (ImGui::Button("ONE_MINUS_DST_ALPHA")) { dst = GLS_DSTBLEND_ONE_MINUS_DST_ALPHA; } POPCOLOR
-				ImGui::PopID();
-
-#undef PUSHCOLOR
-#undef POPCOLOR
-
-				stage->stateBits &= ~GLS_SRCBLEND_BITS; // remove src bitmask
-				stage->stateBits |= src; // and set old one or if clicked, the new one
-
-				stage->stateBits &= ~GLS_DSTBLEND_BITS; // remove dst bitmask
-				stage->stateBits |= dst; // and set old one or if clicked, the new one
-
 			}
 		}
 		ImGui::PopID();
