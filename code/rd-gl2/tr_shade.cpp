@@ -1166,7 +1166,7 @@ static void RB_FogPass( shaderCommands_t *input, const fog_t *fog, const VertexA
 
 	ComputeDeformValues(&deformType, &deformGen, deformParams);
 
-	cullType_t cullType = RB_GetCullType(&backEnd.viewParms, backEnd.currentEntity, input->shader->cullType);
+	cullType_t cullType = CT_FRONT_SIDED;
 
 	vertexAttribute_t attribs[ATTR_INDEX_MAX] = {};
 	GL_VertexArraysToAttribs(attribs, ARRAY_LEN(attribs), vertexArrays);
