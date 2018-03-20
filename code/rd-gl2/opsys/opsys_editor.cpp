@@ -410,68 +410,6 @@ void OpSystemEditor::HandleCopyPaste() {
 
 }
 
-#include <imgui/imgui_fixedarea.h>
-
-// todo: this should be a method of OpSystemEditor...
-void imgui_addopsmenu(OpSystem *opsys) {
-	ImGui::Begin("Oopsies");
-
-	if (ImGui::IsWindowHovered() && ImGui::IsKeyPressed('A'))
-		opsys->editor->showAddOpsMenu = 0;
-	if (ImGui::Button("Close Window"))
-		opsys->editor->showAddOpsMenu = 0;
-
-	FixedArea fa(ImGui::GetCursorPos(), ImGui::GetWindowSize(), 7);
-
-	ImGui::PushItemWidth(fa.GetColWidth());
-	
-	fa.SetCol(0); ImGui::Text("Math");
-	fa.SetCol(1); ImGui::Text("OpenGL");
-	fa.SetCol(2); ImGui::Text("JavaScript");
-	fa.SetCol(3); ImGui::Text("Stuff");
-	fa.SetCol(4); ImGui::Text("idtech3");
-	fa.SetCol(5); ImGui::Text("Meta");
-	fa.SetCol(6); ImGui::Text("Float");
-
-	// we need to count how many op buttons we added for each category, so we can set the "next row" accordingly
-	int idx_math = 0;
-	int idx_opengl = 0;
-	int idx_javascript = 0;
-	int idx_stuff = 0;
-	int idx_idtech3 = 0;
-	int idx_meta = 0;
-	int idx_float = 0;
-
-	// when some button was pressed, this will be != NULL, so we can add it
-	Op *createdOp = NULL;
-
-	// pretty nice, we generate all buttons by just iterating once over the available ops
-	for (oplist_t *i=available_ops; i->name; i++) {
-		if (i->type == OPLIST_TYPE_MATH      ) { fa.row = idx_math       + 1; fa.SetCol(0); if (ImGui::Button(i->name)) { createdOp = i->create_op(); } idx_math++      ; }
-		if (i->type == OPLIST_TYPE_OPENGL    ) { fa.row = idx_opengl     + 1; fa.SetCol(1); if (ImGui::Button(i->name)) { createdOp = i->create_op(); } idx_opengl++    ; }
-		if (i->type == OPLIST_TYPE_JAVASCRIPT) { fa.row = idx_javascript + 1; fa.SetCol(2); if (ImGui::Button(i->name)) { createdOp = i->create_op(); } idx_javascript++; }
-		if (i->type == OPLIST_TYPE_STUFF     ) { fa.row = idx_stuff      + 1; fa.SetCol(3); if (ImGui::Button(i->name)) { createdOp = i->create_op(); } idx_stuff++     ; }
-		if (i->type == OPLIST_TYPE_IDTECH3   ) { fa.row = idx_idtech3    + 1; fa.SetCol(4); if (ImGui::Button(i->name)) { createdOp = i->create_op(); } idx_idtech3++   ; }
-		if (i->type == OPLIST_TYPE_META      ) { fa.row = idx_meta       + 1; fa.SetCol(5); if (ImGui::Button(i->name)) { createdOp = i->create_op(); } idx_meta++      ; }
-		if (i->type == OPLIST_TYPE_FLOAT     ) { fa.row = idx_float      + 1; fa.SetCol(6); if (ImGui::Button(i->name)) { createdOp = i->create_op(); } idx_float++     ; }
-	}
-
-	if (createdOp) {
-		createdOp->pos = opsys->editor->positionForNewOp; // set saved position to created op which was set when 'a' was pressed
-		opsys->add( createdOp ); // add this lovely operator to current OpSystem
-		opsys->regenerateCallGraphs(); // will make the added op a Requester type probably
-		opsys->editor->showAddOpsMenu = 0; // kill window when op was created
-	}
-
-	// this was the old window, basically just a shitty list with buttons to create ops one the "default op position" which is set in op.h probably somewhere
-	if (0)
-		opsys->makeOpButtons();
-
-	// probably clean up imgui stuff
-	ImGui::PopItemWidth();
-	ImGui::End();
-}
-
 void OpSystemEditor::DoFrame() {
 
 	// this stuff is always done, even when window isnt hovered... just draw everything
@@ -520,13 +458,6 @@ void OpSystemEditor::DoFrame() {
 
 	}
 
-	// needs to be outside of windowhovered-if, otherwise it flickers
-	if (showAddOpsMenu) {
-		imgui_addopsmenu(this->opsys);
-	}
-
-
-
 	if (ImGui::IsMouseClicked(1)) {
 		positionForNewOp = mousepos;
 	}
@@ -535,59 +466,74 @@ void OpSystemEditor::DoFrame() {
 }
 
 void addOp(OpSystem *opsys, Op *createdOp) {
-		createdOp->pos = opsys->editor->positionForNewOp; // set saved position to created op which was set when 'a' was pressed
-		opsys->add( createdOp ); // add this lovely operator to current OpSystem
-		opsys->regenerateCallGraphs(); // will make the added op a Requester type probably
-		opsys->editor->showAddOpsMenu = 0; // kill window when op was created
-		opsys->editor->positionForNewOp.y += createdOp->size.y + 20; // dont place next op on same pos
+	createdOp->pos = opsys->editor->positionForNewOp; // set saved position to created op which was set when 'a' was pressed
+	opsys->add( createdOp ); // add this lovely operator to current OpSystem
+	opsys->regenerateCallGraphs(); // will make the added op a Requester type probably
+	opsys->editor->showAddOpsMenu = 0; // kill window when op was created
+	opsys->editor->positionForNewOp.y += createdOp->size.y + 30; // dont place next op on same pos
+}
+
+void imgui(OpSystem *opsys, oplist_t *oplist, char *name) {
+	if (ImGui::BeginMenu(name)) {
+		for (oplist_t *i=oplist; i->name; i++) {
+			if (ImGui::Button(i->name)) {
+				addOp(opsys, i->create_op());
+			}
+		}
+		ImGui::EndMenu();
+	}
 }
 
 void OpSystemEditor::ContextMenu() {
-	if (ImGui::BeginPopupContextWindow("color context menu", 1, false)) {
-		static ImVec4 color = ImColor(0.8f, 0.5f, 1.0f, 1.0f);
-		ImGui::ColorButton("color", color);
-		if (ImGui::Selectable("Set to zero")) {}
-		if (ImGui::Selectable("Set to PI")) {}
-		ImGui::DragFloat("positionForNewOp", &positionForNewOp.x);
-		ImGui::ColorEdit3("##edit", (float*)&color);
+	if (ImGui::BeginPopupContextWindow(opsys->name, 1, false)) {
+		//static ImVec4 color = ImColor(0.8f, 0.5f, 1.0f, 1.0f);
+		//ImGui::ColorButton("color", color);
+		//if (ImGui::Selectable("Set to zero")) {}
+		//if (ImGui::Selectable("Set to PI")) {}
+		//ImGui::DragFloat("positionForNewOp", &positionForNewOp.x);
+		//ImGui::ColorEdit3("##edit", (float*)&color);
 
-
-		ImGui::Text("opsys...");
-		if (ImGui::BeginMenu("requesters")) {
-			for (auto op_ : opsys->all) {
-				int outgoing_links = 0;
-				for (int i=0; i<op_->number_of_outputs; i++) {
-					LinkOutput *output = op_->default_link_outputs + i;
-					outgoing_links += output->inputlinks->size();
+		if (ImGui::BeginMenu("opsys...")) {
+			if (ImGui::BeginMenu("requesters")) {
+				for (auto op_ : opsys->all) {
+					int outgoing_links = 0;
+					for (int i=0; i<op_->number_of_outputs; i++) {
+						LinkOutput *output = op_->default_link_outputs + i;
+						outgoing_links += output->inputlinks->size();
+					}
+					if (outgoing_links == 0)
+						ImGui::Text("%s: outgoing links: %d", op_->name, outgoing_links);
 				}
-				if (outgoing_links == 0)
-					ImGui::Text("%s: outgoing links: %d", op_->name, outgoing_links);
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("all ops")) {
+				for (auto op_ : opsys->all) {
+					ImGui::Text("%s", op_->name);
+				}
+				ImGui::EndMenu();
 			}
 			ImGui::EndMenu();
 		}
 		ImGui::Separator();
 
+		imgui(opsys, ops_stuff     , "new: stuff...");
+		imgui(opsys, ops_meta      , "new: meta...");
+		imgui(opsys, ops_javascript, "new: javascript...");
+		imgui(opsys, ops_math      , "new: math...");
+		imgui(opsys, ops_float     , "new: float...");
+		imgui(opsys, ops_opengl    , "new: opengl...");
+		imgui(opsys, ops_idtech3   , "new: idtech3...");
 		
-		if (ImGui::BeginMenu("idtech3...")) {
-			for (oplist_t *i=ops_idtech3; i->name; i++) {
-
-
-				if (ImGui::Button(i->name)) {
-					addOp(opsys, i->create_op());
-				}
-			}
-			
-
-			ImGui::EndMenu();
-		}
 		ImGui::Separator();
-
 
 		if (opsys->contextMenuOp) {
 			opsys->contextMenuOp->RenderEditor();
 		}
-		if (ImGui::Button("Close"))
-		ImGui::CloseCurrentPopup();
+
+		ImGui::Separator();
+
+		if (ImGui::Button("[close this menu]"))
+			ImGui::CloseCurrentPopup();
 
 		//js_call(ctx, "contextmenu", "");
 

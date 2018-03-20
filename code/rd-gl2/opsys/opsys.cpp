@@ -357,13 +357,6 @@ void OpSystem::add(Op *op) {
 }
 
 void OpSystem::makeOpButtons() {
-	for (oplist_t *i=available_ops; i->name; i++) {
-		if (ImGui::Button(i->name)) {
-			add( i->create_op() );
-			if (this != NULL);
-				regenerateCallGraphs(); // will make the added op a Requester probably
-		}
-	}
 }
 
 void OpSystem::clearScene() {
@@ -436,13 +429,17 @@ Op *OpSystem::op_from_string(char *line, int forceRecreation) {
 
 	oplist_t *found = NULL;
 	// compare "firstword" with all available ops and call from_string() to create it
-	for (oplist_t *avail=available_ops; avail->name; avail++) {
-		if ( ! strcmp(avail->name, firstword)) {
-			//return avail->from_string(line);
-			found = avail;
-			continue;
-		}
-	}
+
+
+	imgui_log("op_from_string> todo: make some kind of hashmap of all available docks, so i can still get a reference by string to them");
+	return NULL;
+	//for (oplist_t *avail=available_ops; avail->name; avail++) {
+	//	if ( ! strcmp(avail->name, firstword)) {
+	//		//return avail->from_string(line);
+	//		found = avail;
+	//		continue;
+	//	}
+	//}
 
 	if ( ! found)
 		return NULL;

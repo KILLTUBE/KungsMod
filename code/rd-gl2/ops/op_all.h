@@ -29,9 +29,14 @@ typedef struct oplist_s {
 	Op *(*create_op)();
 	int type;
 } oplist_t;
-extern oplist_t available_ops[];
 
-extern oplist_t ops_idtech3[];
+oplist_t ops_stuff[];
+oplist_t ops_meta[];
+oplist_t ops_javascript[];
+oplist_t ops_math[];
+oplist_t ops_float[];
+oplist_t ops_opengl[];
+oplist_t ops_idtech3[];
 
 #endif
 

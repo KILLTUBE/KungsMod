@@ -89,7 +89,8 @@
 //
 //}
 
-oplist_t available_ops[] = {
+
+oplist_t ops_stuff[] = {
 	//{ "Timer", create_timer },
 	{ "OpCheckerboard"                , [] {return (Op *)new OpCheckerboard             ();}  , OPLIST_TYPE_STUFF        },
 	{ "OpKeyboard"                    , [] {return (Op *)new OpKeyboard                 ();}  , OPLIST_TYPE_STUFF        },
@@ -102,18 +103,27 @@ oplist_t available_ops[] = {
 	{ "OpAStar"                       , [] {return (Op *)new OpAStar                    ();}  , OPLIST_TYPE_STUFF        },
 	{ "OpFile"                        , [] {return (Op *)new OpFile                     ();}  , OPLIST_TYPE_STUFF        },
 	{ "OpLine"                        , [] {return (Op *)new OpLine                     ();}  , OPLIST_TYPE_STUFF        },
-							          											        
+	NULL
+};
+
+oplist_t ops_meta[] = {
 	{ "OpPrefab"                      , [] {return (Op *)new OpPrefab                   ();}  , OPLIST_TYPE_META         },
 	{ "OpPrefabInput"                 , [] {return (Op *)new OpPrefabInput              ();}  , OPLIST_TYPE_META         },
 	{ "OpPrefabOutput"                , [] {return (Op *)new OpPrefabOutput             ();}  , OPLIST_TYPE_META         },
 	{ "OpScriptWrapper"               , [] {return (Op *)new OpScriptWrapper            ();}  , OPLIST_TYPE_META         },
 	{ "OpNop"                         , [] {return (Op *)new OpNop                      ();}  , OPLIST_TYPE_META         },
-							          											        
+	NULL
+};
+
+oplist_t ops_javascript[] = {			          											        
 	{ "OpJavaScript"                  , [] {return (Op *)new OpJavaScript               ();}  , OPLIST_TYPE_JAVASCRIPT   },
 	{ "OpJavaScriptFile"              , [] {return (Op *)new OpJavaScriptFile           ();}  , OPLIST_TYPE_JAVASCRIPT   },
 	{ "OpExpression"                  , [] {return (Op *)new OpExpression               ();}  , OPLIST_TYPE_JAVASCRIPT   },
 	{ "OpToFloat"                     , [] {return (Op *)new OpToFloat                  ();}  , OPLIST_TYPE_JAVASCRIPT   },
-							          											        
+	NULL
+};
+
+oplist_t ops_math[] = {
 	{ "OpPerspective"                 , [] {return (Op *)new OpPerspective              ();}  , OPLIST_TYPE_MATH         },
 	{ "OpOrtho"                       , [] {return (Op *)new OpOrtho                    ();}  , OPLIST_TYPE_MATH         },
 	{ "OpMatrix"                      , [] {return (Op *)new OpMatrix                   ();}  , OPLIST_TYPE_MATH         },
@@ -135,7 +145,10 @@ oplist_t available_ops[] = {
 	{ "OpQuaternion"                  , [] {return (Op *)new OpQuaternion               ();}  , OPLIST_TYPE_MATH         },
 	{ "OpQuaternionMultiply"          , [] {return (Op *)new OpQuaternionMultiply       ();}  , OPLIST_TYPE_MATH         },
 	{ "OpQuaternionInverse"           , [] {return (Op *)new OpQuaternionInverse        ();}  , OPLIST_TYPE_MATH         },
-	
+	NULL
+};
+
+oplist_t ops_float[] = {
 	{ "OpValue"                       , [] {return (Op *)new OpValue                    ();}  , OPLIST_TYPE_FLOAT        },
 	{ "OpDivide"                      , [] {return (Op *)new OpDivide                   ();}  , OPLIST_TYPE_FLOAT        },
 	{ "OpMultiply"                    , [] {return (Op *)new OpMultiply                 ();}  , OPLIST_TYPE_FLOAT        },
@@ -145,7 +158,10 @@ oplist_t available_ops[] = {
 	{ "OpCos"                         , [] {return (Op *)new OpCos                      ();}  , OPLIST_TYPE_FLOAT        },
 	{ "OpNegate"                      , [] {return (Op *)new OpNegate                   ();}  , OPLIST_TYPE_FLOAT        },
 	{ "OpMapFloat"                    , [] {return (Op *)new OpMapFloat                 ();}  , OPLIST_TYPE_FLOAT        },
-							          											        
+	NULL
+};
+
+oplist_t ops_opengl[] = {
 	{ "OpMeshEditor"                  , [] {return (Op *)new OpMeshEditor               ();}  , OPLIST_TYPE_OPENGL       },
 	{ "OpRenderer"                    , [] {return (Op *)new OpRenderer                 ();}  , OPLIST_TYPE_OPENGL       },
 	{ "OpFragmentShader"              , [] {return (Op *)new OpFragmentShader           ();}  , OPLIST_TYPE_OPENGL       },
@@ -162,10 +178,8 @@ oplist_t available_ops[] = {
 	{ "OpAxis"                        , [] {return (Op *)new OpAxis                     ();}  , OPLIST_TYPE_OPENGL       },
 	NULL
 };
-	
 
 oplist_t ops_idtech3[] = {
-
 	{ "OpPlayer"                                , [] {return (Op *)new OpPlayer                             ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "OpIDTech3ProjectionMatrix"               , [] {return (Op *)new OpIDTech3ProjectionMatrix            ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "OpIDTech3ModelViewMatrix"                , [] {return (Op *)new OpIDTech3ModelViewMatrix             ();}  , OPLIST_TYPE_IDTECH3      },
