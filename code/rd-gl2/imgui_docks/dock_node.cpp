@@ -2,7 +2,7 @@
 #include "../imgui/include_imgui.h"
 //#include <client/client.h>
 #include "dock_console.h"
-//#include <kung/include_duktape.h>
+//#include <include_duktape.h>
 #include <string>
 #include "../imgui/MagicFile/magicfile.h"
 

@@ -1,6 +1,6 @@
 #include "../ccall/ccall.h"
 #include "magicfile.h"
-//#include <kung/imgui/imgui_console.h>
+//#include <imgui/imgui_console.h>
 #include <string.h>
 #include <stdio.h>	 // all for vararg lol, had "undefined identifier va_alist"...
 #include <stdlib.h>	 // all for vararg lol, had "undefined identifier va_alist"...
