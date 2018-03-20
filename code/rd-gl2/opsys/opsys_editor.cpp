@@ -258,7 +258,7 @@ void OpSystemEditor::HandleCopyPaste() {
 	//	imgui_log("strg v pressed\n");
 	//}
 	
-	if (ImGui::IsKeyPressed('c', false) && io.KeyCtrl) {
+	if (ImGui::IsKeyPressed('C', false) && io.KeyCtrl) {
 		std::vector<Op *> selectedOps;
 
 		for (auto op: opsys->all) {
@@ -286,7 +286,7 @@ void OpSystemEditor::HandleCopyPaste() {
 
 		ImGui::SetClipboardText(buffer.c_str());
 	}
-	if (ImGui::IsKeyPressed('v', false) && io.KeyCtrl) {
+	if (ImGui::IsKeyPressed('V', false) && io.KeyCtrl) {
 		char *buffer = (char *)ImGui::GetClipboardText();
 
 		std::list<std::string> lines;
@@ -416,7 +416,7 @@ void OpSystemEditor::HandleCopyPaste() {
 void imgui_addopsmenu(OpSystem *opsys) {
 	ImGui::Begin("Oopsies");
 
-	if (ImGui::IsWindowHovered() && ImGui::IsKeyPressed('a'))
+	if (ImGui::IsWindowHovered() && ImGui::IsKeyPressed('A'))
 		opsys->editor->showAddOpsMenu = 0;
 	if (ImGui::Button("Close Window"))
 		opsys->editor->showAddOpsMenu = 0;
@@ -497,8 +497,7 @@ void OpSystemEditor::DoFrame() {
 		HandleLinkCreating();
 		DragAndDrop();
 
-
-		if (ImGui::IsKeyPressed('a')) {
+		if (ImGui::IsKeyPressed('A')) {
 			if (showAddOpsMenu) {
 				// if the showAddOpsMenu was already shown, hide it now
 				showAddOpsMenu = 0;
