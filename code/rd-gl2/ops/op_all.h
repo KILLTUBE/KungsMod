@@ -31,6 +31,8 @@ typedef struct oplist_s {
 } oplist_t;
 extern oplist_t available_ops[];
 
+extern oplist_t ops_idtech3[];
+
 #endif
 
 #endif

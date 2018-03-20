@@ -160,7 +160,12 @@ oplist_t available_ops[] = {
 	{ "OpGLLegacy"                    , [] {return (Op *)new OpGLLegacy                 ();}  , OPLIST_TYPE_OPENGL       },
 	{ "OpNode"                        , [] {return (Op *)new OpNode                     ();}  , OPLIST_TYPE_OPENGL       },
 	{ "OpAxis"                        , [] {return (Op *)new OpAxis                     ();}  , OPLIST_TYPE_OPENGL       },
+	NULL
+};
 	
+
+oplist_t ops_idtech3[] = {
+
 	{ "OpPlayer"                                , [] {return (Op *)new OpPlayer                             ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "OpIDTech3ProjectionMatrix"               , [] {return (Op *)new OpIDTech3ProjectionMatrix            ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "OpIDTech3ModelViewMatrix"                , [] {return (Op *)new OpIDTech3ModelViewMatrix             ();}  , OPLIST_TYPE_IDTECH3      },

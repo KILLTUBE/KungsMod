@@ -249,6 +249,8 @@ if(BuildSPRdGL2)
 		"${SPDir}/rd-gl2/imgui_docks_openjk/dock_quakeshaders.h"
 		"${SPDir}/rd-gl2/imgui_docks_openjk/dock_opsys.cpp"
 		"${SPDir}/rd-gl2/imgui_docks_openjk/dock_opsys.h"
+		"${SPDir}/rd-gl2/imgui_docks_openjk/dock_images.cpp"
+		"${SPDir}/rd-gl2/imgui_docks_openjk/dock_images.h"
 		) 
 	source_group("imgui_docks_openjk" FILES ${SPRDGL2ImGuiDockOpenJKFiles}) 
 	set(SPRDGL2Files ${SPRDGL2Files} ${SPRDGL2ImGuiDockOpenJKFiles}) 

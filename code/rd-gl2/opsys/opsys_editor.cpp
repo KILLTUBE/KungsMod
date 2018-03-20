@@ -534,6 +534,13 @@ void OpSystemEditor::DoFrame() {
 	ContextMenu();
 }
 
+void addOp(OpSystem *opsys, Op *createdOp) {
+		createdOp->pos = opsys->editor->positionForNewOp; // set saved position to created op which was set when 'a' was pressed
+		opsys->add( createdOp ); // add this lovely operator to current OpSystem
+		opsys->regenerateCallGraphs(); // will make the added op a Requester type probably
+		opsys->editor->showAddOpsMenu = 0; // kill window when op was created
+		opsys->editor->positionForNewOp.y += createdOp->size.y + 20; // dont place next op on same pos
+}
 
 void OpSystemEditor::ContextMenu() {
 	if (ImGui::BeginPopupContextWindow("color context menu", 1, false)) {
@@ -541,34 +548,44 @@ void OpSystemEditor::ContextMenu() {
 		ImGui::ColorButton("color", color);
 		if (ImGui::Selectable("Set to zero")) {}
 		if (ImGui::Selectable("Set to PI")) {}
-		ImGui::Text("Pos for new op: %f, %f", positionForNewOp.x, positionForNewOp.y);
-		ImGui::Text("Edit color");
+		ImGui::DragFloat("positionForNewOp", &positionForNewOp.x);
 		ImGui::ColorEdit3("##edit", (float*)&color);
 
-		static int show_app_main_menu_bar;
-		if (ImGui::BeginMenu("Examples"))
-		{
-		ImGui::MenuItem("Main menu bar", NULL, &show_app_main_menu_bar);
-		ImGui::MenuItem("Console", NULL, &show_app_main_menu_bar);
-		ImGui::MenuItem("Log", NULL, &show_app_main_menu_bar);
-		ImGui::MenuItem("Simple layout", NULL, &show_app_main_menu_bar);
-		ImGui::MenuItem("Property editor", NULL, &show_app_main_menu_bar);
-		ImGui::MenuItem("Long text display", NULL, &show_app_main_menu_bar);
-		ImGui::MenuItem("Auto-resizing window", NULL, &show_app_main_menu_bar);
-		ImGui::MenuItem("Constrained-resizing window", NULL, &show_app_main_menu_bar);
-		ImGui::MenuItem("Simple overlay", NULL, &show_app_main_menu_bar);
-		ImGui::MenuItem("Manipulating window title", NULL, &show_app_main_menu_bar);
-		ImGui::MenuItem("Custom rendering", NULL, &show_app_main_menu_bar);
-		ImGui::EndMenu();
-		}
-		if (ImGui::BeginMenu("Help"))
-		{
-		ImGui::MenuItem("Metrics", NULL, &show_app_main_menu_bar);
-		ImGui::MenuItem("Style Editor", NULL, &show_app_main_menu_bar);
-		ImGui::MenuItem("About ImGui", NULL, &show_app_main_menu_bar);
-		ImGui::EndMenu();
-		}
 
+		ImGui::Text("opsys...");
+		if (ImGui::BeginMenu("requesters")) {
+			for (auto op_ : opsys->all) {
+				int outgoing_links = 0;
+				for (int i=0; i<op_->number_of_outputs; i++) {
+					LinkOutput *output = op_->default_link_outputs + i;
+					outgoing_links += output->inputlinks->size();
+				}
+				if (outgoing_links == 0)
+					ImGui::Text("%s: outgoing links: %d", op_->name, outgoing_links);
+			}
+			ImGui::EndMenu();
+		}
+		ImGui::Separator();
+
+		
+		if (ImGui::BeginMenu("idtech3...")) {
+			for (oplist_t *i=ops_idtech3; i->name; i++) {
+
+
+				if (ImGui::Button(i->name)) {
+					addOp(opsys, i->create_op());
+				}
+			}
+			
+
+			ImGui::EndMenu();
+		}
+		ImGui::Separator();
+
+
+		if (opsys->contextMenuOp) {
+			opsys->contextMenuOp->RenderEditor();
+		}
 		if (ImGui::Button("Close"))
 		ImGui::CloseCurrentPopup();
 

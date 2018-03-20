@@ -25,7 +25,7 @@ class OpSystem {
 public:
 
 
-	
+	Op *contextMenuOp = NULL;
 	std::map<std::string, Op *> id2op; // only used for loadFile() so far
 	std::vector<Op *> loaded_ops; // only used for loadFile() so far
 

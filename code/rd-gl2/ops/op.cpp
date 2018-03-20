@@ -407,9 +407,13 @@ void Op::PostRender() {
 
 		if (ImGui::IsMouseReleased(0))
 			imgui_was_dragged = 0;
-
+		
 		if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0)) {
 			dragged_op = this;
+		}
+
+		if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(1)) {
+			system->contextMenuOp = this; // so we can show editor for this op in context menu
 		}
 
 		if (dragged_op == this) {
@@ -560,8 +564,185 @@ char *glmodetostr(int mode) {
 	return "no glmode found";
 }
 
+
+
+void imgui(LinkOutput *ol) {
+	// only increase il->changed, do not set to 1
+	// otherwise previous changed flags will be overwritten (this "bug" made me rewrite this system in C, because I thought it's a initializer bug in C++ lol)
+	switch ( ol->type ) {
+		case OP_TYPE_FLOAT:
+			ImGui::PushID(ol);
+			ol->changed += ImGui::DragFloat(ol->name, &ol->val_f);
+			ImGui::PopID();
+			break;
+		case OP_TYPE_INT:
+			ImGui::PushID(ol);
+			ol->changed += ImGui::DragInt(ol->name, &ol->val_i);
+			ImGui::PopID();
+			break;
+		case OP_TYPE_MATRIX:
+			ImGui::PushID(ol);
+			ImGui::PushItemWidth(50);
+			ol->changed += ImGui::DragFloat("aa", ol->matrix +  0 + 0, 0.01); ImGui::SameLine(0, 5);
+			ol->changed += ImGui::DragFloat("ab", ol->matrix +  4 + 0, 0.01); ImGui::SameLine(0, 5);
+			ol->changed += ImGui::DragFloat("ac", ol->matrix +  8 + 0, 0.01); ImGui::SameLine(0, 5);
+			ol->changed += ImGui::DragFloat("ad", ol->matrix + 12 + 0, 0.01);
+			ol->changed += ImGui::DragFloat("ba", ol->matrix +  0 + 1, 0.01); ImGui::SameLine(0, 5);
+			ol->changed += ImGui::DragFloat("bb", ol->matrix +  4 + 1, 0.01); ImGui::SameLine(0, 5);
+			ol->changed += ImGui::DragFloat("bc", ol->matrix +  8 + 1, 0.01); ImGui::SameLine(0, 5);
+			ol->changed += ImGui::DragFloat("bd", ol->matrix + 12 + 1, 0.01);
+			ol->changed += ImGui::DragFloat("ca", ol->matrix +  0 + 2, 0.01); ImGui::SameLine(0, 5);
+			ol->changed += ImGui::DragFloat("cb", ol->matrix +  4 + 2, 0.01); ImGui::SameLine(0, 5);
+			ol->changed += ImGui::DragFloat("cc", ol->matrix +  8 + 2, 0.01); ImGui::SameLine(0, 5);
+			ol->changed += ImGui::DragFloat("cd", ol->matrix + 12 + 2, 0.01);
+			ol->changed += ImGui::DragFloat("da", ol->matrix +  0 + 3, 0.01); ImGui::SameLine(0, 5);
+			ol->changed += ImGui::DragFloat("db", ol->matrix +  4 + 3, 0.01); ImGui::SameLine(0, 5);
+			ol->changed += ImGui::DragFloat("dc", ol->matrix +  8 + 3, 0.01); ImGui::SameLine(0, 5);
+			ol->changed += ImGui::DragFloat("dd", ol->matrix + 12 + 3, 0.01);
+			ImGui::PopItemWidth();
+			ImGui::PopID();
+			break;
+		case OP_TYPE_VERTEXSHADER:
+		case OP_TYPE_FRAGMENTSHADER:
+		case OP_TYPE_PROGRAM:
+		case OP_TYPE_GLBUFFER:
+		case OP_TYPE_GLATTRIB:
+		case OP_TYPE_GLUNIFORM:
+			ImGui::PushID(ol);
+			ol->changed += ImGui::DragInt(ol->name, (int *)&ol->opengl_id);
+			ImGui::PopID();
+			break;
+		case OP_TYPE_GLDRAWMODE: {
+			ImGui::PushID(ol);
+			ol->changed += ImGui::DragFloat(ol->name,&ol->val_f);
+
+			ImGui::Text("Mode: %s", glmodetostr((int)ol->val_f));
+
+			// fuckin shit doesnt work
+			//ImVec2 size(200, 20);
+			////ImGui::Button(glmodetostr(il->val_i), size);
+			//ImGui::Button("muh", size);
+			//if (BeginButtonDropDown("##sprtdd", size)) {
+			//	openglmodes_t *cur = glmodes;
+			//	while (cur->str) {
+			//		ImGui::PushID(cur);
+			//		if (ImGui::Button(cur->str, size)) {
+			//			imgui_log("test1 %d\n", cur->val);
+			//		}
+			//		ImGui::PopID();
+			//		cur++;
+			//	}
+			//	EndButtonDropDown();
+			//}
+
+			ImGui::PopID();
+			break;
+		}
+
+		default:
+			ImGui::PushID(ol);
+			ImGui::Text("op_render_editor: input.type: %d", ol->type);
+			//ImGui::DragFloat(il->name, &il->val_f);
+			ImGui::PopID();
+				
+	}	// end switch
+
+	if (ol->changed) {
+		ol->owner->forcereload++;
+	}
+}
+
+
+
+void imgui(Link *il) {
+	// only increase il->changed, do not set to 1
+	// otherwise previous changed flags will be overwritten (this "bug" made me rewrite this system in C, because I thought it's a initializer bug in C++ lol)
+	switch ( il->type ) {
+		case OP_TYPE_FLOAT:
+			ImGui::PushID(il);
+			il->changed += ImGui::DragFloat(il->name, &il->val_f);
+			ImGui::PopID();
+			break;
+		case OP_TYPE_INT:
+			ImGui::PushID(il);
+			il->changed += ImGui::DragInt(il->name, &il->val_i);
+			ImGui::PopID();
+			break;
+		case OP_TYPE_MATRIX:
+			ImGui::PushID(il);				
+			ImGui::PushItemWidth(50);
+			il->changed += ImGui::DragFloat("aa", il->matrix +  0 + 0, 0.01); ImGui::SameLine(0, 5);
+			il->changed += ImGui::DragFloat("ab", il->matrix +  4 + 0, 0.01); ImGui::SameLine(0, 5);
+			il->changed += ImGui::DragFloat("ac", il->matrix +  8 + 0, 0.01); ImGui::SameLine(0, 5);
+			il->changed += ImGui::DragFloat("ad", il->matrix + 12 + 0, 0.01);
+			il->changed += ImGui::DragFloat("ba", il->matrix +  0 + 1, 0.01); ImGui::SameLine(0, 5);
+			il->changed += ImGui::DragFloat("bb", il->matrix +  4 + 1, 0.01); ImGui::SameLine(0, 5);
+			il->changed += ImGui::DragFloat("bc", il->matrix +  8 + 1, 0.01); ImGui::SameLine(0, 5);
+			il->changed += ImGui::DragFloat("bd", il->matrix + 12 + 1, 0.01);
+			il->changed += ImGui::DragFloat("ca", il->matrix +  0 + 2, 0.01); ImGui::SameLine(0, 5);
+			il->changed += ImGui::DragFloat("cb", il->matrix +  4 + 2, 0.01); ImGui::SameLine(0, 5);
+			il->changed += ImGui::DragFloat("cc", il->matrix +  8 + 2, 0.01); ImGui::SameLine(0, 5);
+			il->changed += ImGui::DragFloat("cd", il->matrix + 12 + 2, 0.01);
+			il->changed += ImGui::DragFloat("da", il->matrix +  0 + 3, 0.01); ImGui::SameLine(0, 5);
+			il->changed += ImGui::DragFloat("db", il->matrix +  4 + 3, 0.01); ImGui::SameLine(0, 5);
+			il->changed += ImGui::DragFloat("dc", il->matrix +  8 + 3, 0.01); ImGui::SameLine(0, 5);
+			il->changed += ImGui::DragFloat("dd", il->matrix + 12 + 3, 0.01);
+			ImGui::PopItemWidth();
+			ImGui::PopID();
+			break;
+		case OP_TYPE_VERTEXSHADER:
+		case OP_TYPE_FRAGMENTSHADER:
+		case OP_TYPE_PROGRAM:
+		case OP_TYPE_GLBUFFER:
+		case OP_TYPE_GLATTRIB:
+		case OP_TYPE_GLUNIFORM:
+			ImGui::PushID(il);
+			il->changed += ImGui::DragInt(il->name, (int *)&il->opengl_id);
+			ImGui::PopID();
+			break;
+		case OP_TYPE_GLDRAWMODE: {
+			ImGui::PushID(il);
+			il->changed += ImGui::DragFloat(il->name,&il->val_f);
+
+			ImGui::Text("Mode: %s", glmodetostr((int)il->val_f));
+
+			// fuckin shit doesnt work
+			//ImVec2 size(200, 20);
+			////ImGui::Button(glmodetostr(il->val_i), size);
+			//ImGui::Button("muh", size);
+			//if (BeginButtonDropDown("##sprtdd", size)) {
+			//	openglmodes_t *cur = glmodes;
+			//	while (cur->str) {
+			//		ImGui::PushID(cur);
+			//		if (ImGui::Button(cur->str, size)) {
+			//			imgui_log("test1 %d\n", cur->val);
+			//		}
+			//		ImGui::PopID();
+			//		cur++;
+			//	}
+			//	EndButtonDropDown();
+			//}
+
+			ImGui::PopID();
+			break;
+		}
+
+		default:
+			ImGui::PushID(il);
+			ImGui::Text("op_render_editor: type: %d", il->type);
+			//ImGui::DragFloat(il->name, &il->val_f);
+			ImGui::PopID();
+				
+	}	// end switch
+
+	if (il->changed) {
+		il->owner->forcereload++;
+	}
+}
+
+
 void Op::RenderEditor() {
-	if (ImGui::CollapsingHeader("Op Debug")) {
+	if (ImGui::BeginMenu("debug")) {
 
 		bool tmp = enabled;
 		ImGui::Checkbox("Enabled", &tmp);
@@ -574,227 +755,75 @@ void Op::RenderEditor() {
 		if (ImGui::Button("Update")) {
 			Update();
 		}
-		if (ImGui::Button("List Requesters")) {
-			for (auto op_ : system->all) {
-				int outgoing_links = 0;
-				for (int i=0; i<op_->number_of_outputs; i++) {
-					LinkOutput *output = op_->default_link_outputs + i;
-					outgoing_links += output->inputlinks->size();
-				}
-				if (outgoing_links == 0)
-					imgui_log("%s: outgoing links: %d", op_->name, outgoing_links);
-			}
-		}
-		if (ImGui::Button("Show Callgraph")) {
+
+
+		if (ImGui::BeginMenu("callgraph")) {
 			std::list<Op *> *callgraph = new std::list<Op *>();
 			Op::GenerateCallgraph(this, callgraph);
 			int j = 0;
 			for (auto i : *callgraph) {
-				imgui_log("callgraph[%d]: %s\n", j, i->name);
+				ImGui::Text("callgraph[%d]: %s\n", j, i->name);
 				j++;
 			}
+			ImGui::EndMenu();
 		}
-		if (ImGui::Button("Show Backlinks")) {
-				for (int i=0; i<number_of_inputs; i++) {
-					Link *input = default_link_inputs + i;
-					int j=0;
-					for (auto backlink : *input->cached_backlinks) {
-						imgui_log("input[%d].backlink[%d]: %s\n", i, j, backlink->owner->name);
-						j++;
-					}
+		if (ImGui::BeginMenu("backlinks")) {
+			for (int i=0; i<number_of_inputs; i++) {
+				Link *input = default_link_inputs + i;
+				int j=0;
+				for (auto backlink : *input->cached_backlinks) {
+					ImGui::Text("input[%d].backlink[%d]: %s\n", i, j, backlink->owner->name);
+					j++;
 				}
+			}
+			ImGui::EndMenu();
 		}
+		ImGui::EndMenu();
 	}
-	if (ImGui::CollapsingHeader("Op Settings")) {
-		ImGui::DragFloat("size x", &size.x, 1.0f, 0.0f, 0.0f, "%.3f");
-		ImGui::DragFloat("size y", &size.y, 1.0f, 0.0f, 0.0f, "%.3f");
-		ImGui::DragFloat("pos x", &pos.x, 1.0f, 0.0f, 0.0f, "%.3f");
-		ImGui::DragFloat("pos y", &pos.y, 1.0f, 0.0f, 0.0f, "%.3f");
-	}
-	
-	if (ImGui::CollapsingHeader("Inputs")) {
+	ImGui::Separator();
+	ImGui::Text("%s %s", GetClassname(), name);
 
+	if (ImGui::BeginMenu("settings")) {
+		ImGui::DragFloat2("size", &size.x, 1.0f, 0.0f, 0.0f, "%.3f");
+		ImGui::DragFloat2("pos", &pos.x, 1.0f, 0.0f, 0.0f, "%.3f");
+		ImGui::EndMenu();
+	}
+
+	if (ImGui::BeginMenu("inputs")) {
 		for (int i=0; i<number_of_inputs; i++) {
 			Link *il = default_link_inputs + i;
-			ImGui::Text("LinkInput[%d] %s", i, il->name);
-
-			// only increase il->changed, do not set to 1
-			// otherwise previous changed flags will be overwritten (this "bug" made me rewrite this system in C, because I thought it's a initializer bug in C++ lol)
-			switch ( il->type ) {
-				case OP_TYPE_FLOAT:
-					ImGui::PushID(il);
-					il->changed += ImGui::DragFloat(il->name, &il->val_f);
-					ImGui::PopID();
-					break;
-				case OP_TYPE_INT:
-					ImGui::PushID(il);
-					il->changed += ImGui::DragInt(il->name, &il->val_i);
-					ImGui::PopID();
-					break;
-				case OP_TYPE_MATRIX:
-					ImGui::PushID(il);				
-					ImGui::PushItemWidth(50);
-					il->changed += ImGui::DragFloat("aa", il->matrix +  0 + 0, 0.01); ImGui::SameLine(0, 5);
-					il->changed += ImGui::DragFloat("ab", il->matrix +  4 + 0, 0.01); ImGui::SameLine(0, 5);
-					il->changed += ImGui::DragFloat("ac", il->matrix +  8 + 0, 0.01); ImGui::SameLine(0, 5);
-					il->changed += ImGui::DragFloat("ad", il->matrix + 12 + 0, 0.01);
-					il->changed += ImGui::DragFloat("ba", il->matrix +  0 + 1, 0.01); ImGui::SameLine(0, 5);
-					il->changed += ImGui::DragFloat("bb", il->matrix +  4 + 1, 0.01); ImGui::SameLine(0, 5);
-					il->changed += ImGui::DragFloat("bc", il->matrix +  8 + 1, 0.01); ImGui::SameLine(0, 5);
-					il->changed += ImGui::DragFloat("bd", il->matrix + 12 + 1, 0.01);
-					il->changed += ImGui::DragFloat("ca", il->matrix +  0 + 2, 0.01); ImGui::SameLine(0, 5);
-					il->changed += ImGui::DragFloat("cb", il->matrix +  4 + 2, 0.01); ImGui::SameLine(0, 5);
-					il->changed += ImGui::DragFloat("cc", il->matrix +  8 + 2, 0.01); ImGui::SameLine(0, 5);
-					il->changed += ImGui::DragFloat("cd", il->matrix + 12 + 2, 0.01);
-					il->changed += ImGui::DragFloat("da", il->matrix +  0 + 3, 0.01); ImGui::SameLine(0, 5);
-					il->changed += ImGui::DragFloat("db", il->matrix +  4 + 3, 0.01); ImGui::SameLine(0, 5);
-					il->changed += ImGui::DragFloat("dc", il->matrix +  8 + 3, 0.01); ImGui::SameLine(0, 5);
-					il->changed += ImGui::DragFloat("dd", il->matrix + 12 + 3, 0.01);
-					ImGui::PopItemWidth();
-					ImGui::PopID();
-					break;
-				case OP_TYPE_VERTEXSHADER:
-				case OP_TYPE_FRAGMENTSHADER:
-				case OP_TYPE_PROGRAM:
-				case OP_TYPE_GLBUFFER:
-				case OP_TYPE_GLATTRIB:
-				case OP_TYPE_GLUNIFORM:
-					ImGui::PushID(il);
-					il->changed += ImGui::DragInt(il->name, (int *)&il->opengl_id);
-					ImGui::PopID();
-					break;
-				case OP_TYPE_GLDRAWMODE: {
-					ImGui::PushID(il);
-					il->changed += ImGui::DragFloat(il->name,&il->val_f);
-
-					ImGui::Text("Mode: %s", glmodetostr((int)il->val_f));
-
-					// fuckin shit doesnt work
-					//ImVec2 size(200, 20);
-					////ImGui::Button(glmodetostr(il->val_i), size);
-					//ImGui::Button("muh", size);
-					//if (BeginButtonDropDown("##sprtdd", size)) {
-					//	openglmodes_t *cur = glmodes;
-					//	while (cur->str) {
-					//		ImGui::PushID(cur);
-					//		if (ImGui::Button(cur->str, size)) {
-					//			imgui_log("test1 %d\n", cur->val);
-					//		}
-					//		ImGui::PopID();
-					//		cur++;
-					//	}
-					//	EndButtonDropDown();
-					//}
-
-					ImGui::PopID();
-					break;
-				}
-
-				default:
-					ImGui::PushID(il);
-					ImGui::Text("op_render_editor: input[%d].type: %d", i, il->type);
-					//ImGui::DragFloat(il->name, &il->val_f);
-					ImGui::PopID();
-				
-			}	// end switch
-
-			if (il->changed) {
-				il->owner->forcereload++;
+			char menuName[256];
+			snprintf(menuName, sizeof(menuName), "in[%d] %s", i, il->name);
+			if (ImGui::BeginMenu(menuName)) {
+				imgui(il);
+				ImGui::EndMenu();
 			}
 		} // end for
+		ImGui::EndMenu();
 	}
 
-	if (ImGui::CollapsingHeader("Outputs")) {
+
+		//if ()
+		//{
+		//ImGui::MenuItem("Metrics", NULL, &show_app_main_menu_bar);
+		//ImGui::MenuItem("Style Editor", NULL, &show_app_main_menu_bar);
+		//ImGui::MenuItem("About ImGui", NULL, &show_app_main_menu_bar);
+		//
+		//}
+
+	if (ImGui::BeginMenu("outputs")) {
 
 		for (int i=0; i<number_of_outputs; i++) {
 			LinkOutput *ol = default_link_outputs + i;
-
-			ImGui::Text("LinkOutput[%d] %s", i, ol->name);
-
-			// only increase il->changed, do not set to 1
-			// otherwise previous changed flags will be overwritten (this "bug" made me rewrite this system in C, because I thought it's a initializer bug in C++ lol)
-			switch ( ol->type ) {
-				case OP_TYPE_FLOAT:
-					ImGui::PushID(ol);
-					ol->changed += ImGui::DragFloat(ol->name, &ol->val_f);
-					ImGui::PopID();
-					break;
-				case OP_TYPE_INT:
-					ImGui::PushID(ol);
-					ol->changed += ImGui::DragInt(ol->name, &ol->val_i);
-					ImGui::PopID();
-					break;
-				case OP_TYPE_MATRIX:
-					ImGui::PushID(ol);
-					ImGui::PushItemWidth(50);
-					ol->changed += ImGui::DragFloat("aa", ol->matrix +  0 + 0, 0.01); ImGui::SameLine(0, 5);
-					ol->changed += ImGui::DragFloat("ab", ol->matrix +  4 + 0, 0.01); ImGui::SameLine(0, 5);
-					ol->changed += ImGui::DragFloat("ac", ol->matrix +  8 + 0, 0.01); ImGui::SameLine(0, 5);
-					ol->changed += ImGui::DragFloat("ad", ol->matrix + 12 + 0, 0.01);
-					ol->changed += ImGui::DragFloat("ba", ol->matrix +  0 + 1, 0.01); ImGui::SameLine(0, 5);
-					ol->changed += ImGui::DragFloat("bb", ol->matrix +  4 + 1, 0.01); ImGui::SameLine(0, 5);
-					ol->changed += ImGui::DragFloat("bc", ol->matrix +  8 + 1, 0.01); ImGui::SameLine(0, 5);
-					ol->changed += ImGui::DragFloat("bd", ol->matrix + 12 + 1, 0.01);
-					ol->changed += ImGui::DragFloat("ca", ol->matrix +  0 + 2, 0.01); ImGui::SameLine(0, 5);
-					ol->changed += ImGui::DragFloat("cb", ol->matrix +  4 + 2, 0.01); ImGui::SameLine(0, 5);
-					ol->changed += ImGui::DragFloat("cc", ol->matrix +  8 + 2, 0.01); ImGui::SameLine(0, 5);
-					ol->changed += ImGui::DragFloat("cd", ol->matrix + 12 + 2, 0.01);
-					ol->changed += ImGui::DragFloat("da", ol->matrix +  0 + 3, 0.01); ImGui::SameLine(0, 5);
-					ol->changed += ImGui::DragFloat("db", ol->matrix +  4 + 3, 0.01); ImGui::SameLine(0, 5);
-					ol->changed += ImGui::DragFloat("dc", ol->matrix +  8 + 3, 0.01); ImGui::SameLine(0, 5);
-					ol->changed += ImGui::DragFloat("dd", ol->matrix + 12 + 3, 0.01);
-					ImGui::PopItemWidth();
-					ImGui::PopID();
-					break;
-				case OP_TYPE_VERTEXSHADER:
-				case OP_TYPE_FRAGMENTSHADER:
-				case OP_TYPE_PROGRAM:
-				case OP_TYPE_GLBUFFER:
-				case OP_TYPE_GLATTRIB:
-				case OP_TYPE_GLUNIFORM:
-					ImGui::PushID(ol);
-					ol->changed += ImGui::DragInt(ol->name, (int *)&ol->opengl_id);
-					ImGui::PopID();
-					break;
-				case OP_TYPE_GLDRAWMODE: {
-					ImGui::PushID(ol);
-					ol->changed += ImGui::DragFloat(ol->name,&ol->val_f);
-
-					ImGui::Text("Mode: %s", glmodetostr((int)ol->val_f));
-
-					// fuckin shit doesnt work
-					//ImVec2 size(200, 20);
-					////ImGui::Button(glmodetostr(il->val_i), size);
-					//ImGui::Button("muh", size);
-					//if (BeginButtonDropDown("##sprtdd", size)) {
-					//	openglmodes_t *cur = glmodes;
-					//	while (cur->str) {
-					//		ImGui::PushID(cur);
-					//		if (ImGui::Button(cur->str, size)) {
-					//			imgui_log("test1 %d\n", cur->val);
-					//		}
-					//		ImGui::PopID();
-					//		cur++;
-					//	}
-					//	EndButtonDropDown();
-					//}
-
-					ImGui::PopID();
-					break;
-				}
-
-				default:
-					ImGui::PushID(ol);
-					ImGui::Text("op_render_editor: input[%d].type: %d", i, ol->type);
-					//ImGui::DragFloat(il->name, &il->val_f);
-					ImGui::PopID();
-				
-			}	// end switch
-
-			if (ol->changed) {
-				ol->owner->forcereload++;
+			char menuName[256];
+			snprintf(menuName, sizeof(menuName), "out[%d] %s", i, ol->name);
+			if (ImGui::BeginMenu(menuName)) {
+				imgui(ol);
+				ImGui::EndMenu();
 			}
 		} // end for
+
+		ImGui::EndMenu();
 	}
 
 	//if (op_did_inputs_change(op)) {

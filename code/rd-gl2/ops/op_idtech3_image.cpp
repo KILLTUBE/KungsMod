@@ -40,12 +40,12 @@ void OpIDTech3Image::Render() {
 	//ImGui::PrintVector3(&fa, default_link_outputs[0].vector3);
 	//fa.NextRow();
 	//ImGui::PrintVector3(&fa, default_link_outputs[1].vector3);
-
+	
+	ImGui::SetCursorPos(pos + ImVec2(1,1));
 	image_t *image = tr.images[image_id];
 	if (image == NULL) {
 		ImGui::Text("image == NULL");
 	} else {
-		ImGui::SetCursorPos(pos + ImVec2(1,1));
 		ImGui::Image((ImTextureID)image->texnum, size - ImVec2(2,2));
 	}
 	
