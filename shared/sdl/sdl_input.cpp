@@ -893,6 +893,14 @@ static void IN_ProcessEvents( void )
 				Cbuf_ExecuteText(EXEC_NOW, "quit Closed window\n");
 				break;
 
+			case SDL_DROPFILE: {
+				const char *dropfile = e.drop.file;
+				// simply tell the renderer about file drop
+				re.DropFileEvent(dropfile);
+				SDL_free((void *)dropfile);
+				break;
+			}
+
 			case SDL_WINDOWEVENT:
 				switch( e.window.event )
 				{

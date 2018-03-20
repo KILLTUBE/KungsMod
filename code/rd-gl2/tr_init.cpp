@@ -2092,6 +2092,7 @@ extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *ri
 	re.CharEvent = RE_CharEvent;
 	re.MouseWheelEvent = RE_MouseWheelEvent;
 	re.MouseClickEvent = RE_MouseClickEvent;
+	re.DropFileEvent = RE_DropFileEvent;
 
 #ifdef G2_PERFORMANCE_ANALYSIS
 	re.G2Time_ReportTimers = G2Time_ReportTimers;

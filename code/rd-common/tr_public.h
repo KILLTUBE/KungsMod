@@ -394,6 +394,7 @@ typedef struct {
 	void	(*CharEvent)			(int key);
 	void	(*MouseWheelEvent)		(float dir);
 	void	(*MouseClickEvent)		(int key, int state);
+	void	(*DropFileEvent)		(const char *filename);
 } refexport_t;
 
 // this is the only function actually exported at the linker level

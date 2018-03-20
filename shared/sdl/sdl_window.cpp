@@ -576,6 +576,8 @@ static rserr_t GLimp_SetMode(glconfig_t *glConfig, const windowDesc_t *windowDes
 				continue;
 			}
 
+			SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
+
 #ifndef MACOS_X
 			SDL_SetWindowIcon( screen, icon );
 #endif

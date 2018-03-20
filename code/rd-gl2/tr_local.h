@@ -2554,6 +2554,7 @@ void RE_KeyEvent(int key, int state);
 void RE_CharEvent(int key);
 void RE_MouseWheelEvent(float dir);
 void RE_MouseClickEvent(int key, int state);
+void RE_DropFileEvent(const char *filename);
 
 void RE_BeginFrame( stereoFrame_t stereoFrame );
 void RE_BeginRegistration( glconfig_t *glconfig );
