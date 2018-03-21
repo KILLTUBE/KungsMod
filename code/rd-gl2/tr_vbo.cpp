@@ -154,6 +154,36 @@ VBO_t *R_CreateVBO(byte * vertexes, int vertexesSize, vboUsage_t usage)
 	return vbo;
 }
 
+// basically just a copy of R_CreateVBO, fixed for updating
+void R_UpdateVBO(VBO_t *vbo, byte * vertexes, int vertexesSize, vboUsage_t usage) {
+	R_IssuePendingRenderCommands();
+
+	vbo->vertexesSize = vertexesSize;
+
+	qglBindBuffer(GL_ARRAY_BUFFER, vbo->vertexesVBO);
+	if ( glRefConfig.immutableBuffers )
+	{
+		GLbitfield creationFlags = 0;
+		if ( usage == VBO_USAGE_DYNAMIC )
+		{
+			creationFlags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT;
+		}
+
+		qglBufferStorage(GL_ARRAY_BUFFER, vertexesSize, vertexes, creationFlags);
+	}
+	else
+	{
+		int glUsage = GetGLBufferUsage (usage);
+		qglBufferData(GL_ARRAY_BUFFER, vertexesSize, vertexes, glUsage);
+	}
+
+	qglBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glState.currentVBO = NULL;
+
+	GL_CheckErrors();
+}
+
 /*
 ============
 R_CreateIBO
@@ -200,6 +230,37 @@ IBO_t *R_CreateIBO(byte * indexes, int indexesSize, vboUsage_t usage)
 	GL_CheckErrors();
 
 	return ibo;
+}
+
+// basically copy of R_CreateIBO, just fixed for updating
+void R_UpdateIBO(IBO_t *ibo, byte * indexes, int indexesSize, vboUsage_t usage) {
+	R_IssuePendingRenderCommands();
+
+	ibo->indexesSize = indexesSize;
+
+	qglBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo->indexesVBO);
+	if ( glRefConfig.immutableBuffers )
+	{
+		GLbitfield creationFlags = 0;
+		if ( usage == VBO_USAGE_DYNAMIC )
+		{
+			creationFlags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT;
+		}
+
+		qglBufferStorage(GL_ELEMENT_ARRAY_BUFFER, indexesSize, indexes, creationFlags);
+		GL_CheckErrors();
+	}
+	else
+	{
+		int glUsage = GetGLBufferUsage (usage);
+		qglBufferData(GL_ELEMENT_ARRAY_BUFFER, indexesSize, indexes, glUsage);
+	}
+
+	qglBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	glState.currentIBO = NULL;
+
+	GL_CheckErrors();
 }
 
 /*

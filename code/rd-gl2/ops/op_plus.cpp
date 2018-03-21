@@ -21,7 +21,7 @@ void OpPlus::Render() {
 	ImGui::SetCursorPos(pos + ImVec2(5,5));
 	ImGui::PushID(this);
 	ImGui::PushItemWidth(80);
-	ImGui::DragFloat(name, &tmp_val);
+	ImGui::DragFloat(name, &out);
 	ImGui::PopItemWidth();
 	ImGui::PopID();
 
@@ -29,8 +29,7 @@ void OpPlus::Render() {
 }
 
 void OpPlus::Update() {
-	tmp_val = val_a + val_b;
-	default_link_outputs[0].SetValue(tmp_val);
+	default_link_outputs[0].SetValue( val_a + val_b );
 }
 
 void OpPlus::RenderEditor() {

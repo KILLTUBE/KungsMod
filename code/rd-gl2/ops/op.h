@@ -244,7 +244,8 @@ public:
 	void *javascript_heapptr_render_canvas = NULL;
 	void *javascript_heapptr_render_editor = NULL;
 	virtual void	UpdateDuktapeHeappointers();
-
+	
+	bool IsSelectedByPoint(ImVec2 point);
 	virtual int IsSelectedByRect(ImVec2 rect_from, ImVec2 rect_to);
 
 	static char *TypeToString   (OpType type);

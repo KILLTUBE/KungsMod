@@ -119,12 +119,13 @@ void OpSystemEditor::DoMouseScissoring() {
 
 
 void OpSystemEditor::DoMouseRectSelection() {
-	if (ImGui::IsMouseClicked(1)) {
+	// this is middle mouse button, right mouse is already context menu
+	if (ImGui::IsMouseClicked(2)) {
 		rect_from = mousepos;
 		rect_to = mousepos; // reset end pos, otherwise it might fuck up shit
 		rect_active = 1;
 	}
-	if (ImGui::IsMouseDragging(1) && rect_active) {
+	if (ImGui::IsMouseDragging(2) && rect_active) {
 		rect_to = mousepos;
 		DrawRect(rect_from.x, rect_from.y, rect_to.x, rect_to.y);
 		for (auto op : opsys->all) {
@@ -456,11 +457,34 @@ void OpSystemEditor::DoFrame() {
 			opsys->deleteSelectedOps();
 		}
 
+
+		bool inContextMenu = ! ImGui::IsMouseHoveringWindow();
+		bool freeToClick = ! ImGui::IsAnyItemHovered();
+		//const bool leftMouseClicked = ImGui::IsMouseClicked(0);
+		bool leftMouseClicked = ImGui::IsMouseReleased(0);
+
+
+
+		if (!inContextMenu && freeToClick && leftMouseClicked && dragged_op == NULL) {
+
+			// simply go over every op and see if we touch any
+			
+			//bool fail = false;
+			//for (auto op : opsys->all) {
+			//	if (op->IsSelectedByPoint(mousepos)) {
+			//		fail = true;
+			//		break;
+			//	}
+			//}
+			//if (! fail)
+				positionForNewOp = mousepos;
+		}
+
 	}
 
-	if (ImGui::IsMouseClicked(1)) {
-		positionForNewOp = mousepos;
-	}
+
+	DrawLine(positionForNewOp.x-10, positionForNewOp.y-10, positionForNewOp.x+10, positionForNewOp.y+10);
+	DrawLine(positionForNewOp.x+10, positionForNewOp.y-10, positionForNewOp.x-10, positionForNewOp.y+10);
 
 	ContextMenu();
 }

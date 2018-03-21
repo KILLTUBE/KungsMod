@@ -63,6 +63,7 @@
 #include "ops/op_idtech3_perspectivematrix.h"
 #include "ops/op_idtech3_refentity.h"
 #include "ops/op_idtech3_image.h"
+#include "ops/op_idtech3_mdxm.h"
 #include "ops/op_skeleton.h"
 #include "ops/op_vector3.h"
 #include "ops/op_vector4.h"
@@ -186,6 +187,7 @@ oplist_t ops_idtech3[] = {
 	{ "OpIDTech3ModelViewProjectionMatrix"      , [] {return (Op *)new OpIDTech3ModelViewProjectionMatrix   ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "OpIDTech3RefEntity"                      , [] {return (Op *)new OpIDTech3RefEntity                   ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "OpIDTech3Image"                          , [] {return (Op *)new OpIDTech3Image                       ();}  , OPLIST_TYPE_IDTECH3      },
+	{ "OpMDXM"                                  , [] {return (Op *)new OpMDXM                               ();}  , OPLIST_TYPE_IDTECH3      },
 	//{ "Helix", (Op *(*)())op_helix_new },
 	//{ "Helix", create_helix },
 	//{ "Color", create_color },

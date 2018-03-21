@@ -168,6 +168,17 @@ void Op::PropagateData() {
 }
 
 
+bool Op::IsSelectedByPoint(ImVec2 point) {
+	float left   = pos.x;
+	float right  = pos.x + size.x;
+	float top    = pos.y;
+	float bottom = pos.y + size.y;
+	int a = between(left, point.x, right);
+	int b = between( top, point.y, bottom);
+	if (a && b)
+		return true;
+	return false;
+}
 int Op::IsSelectedByRect(ImVec2 rect_from, ImVec2 rect_to) {
 	float box_left   = rect_from.x;
 	float box_right  = rect_to.x;

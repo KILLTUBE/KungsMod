@@ -21,7 +21,7 @@ void OpSin::Render() {
 	ImGui::SetCursorPos(pos + ImVec2(5,5));
 	ImGui::PushID(this);
 	ImGui::PushItemWidth(80);
-	ImGui::DragFloat(name, &tmp_val);
+	ImGui::DragFloat(name, &out);
 	ImGui::PopItemWidth();
 	ImGui::PopID();
 
@@ -29,15 +29,7 @@ void OpSin::Render() {
 }
 
 void OpSin::Update() {
-	//log("matrix: %d", default_link_inputs[0].val_i);
-	//log("got value: %f", val);
-	tmp_val = ::sinf(val);
-	auto *ol = default_link_outputs + 0;
-	for (auto il : *ol->inputlinks) {
-		il->val_f = tmp_val;
-		if (type == OpType::OP_TYPE_SENDER)
-			il->owner->Update();
-	}
+	default_link_outputs[0].SetValue( ::sinf(val) );
 }
 
 void OpSin::RenderEditor() {

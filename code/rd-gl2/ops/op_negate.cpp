@@ -29,8 +29,7 @@ void OpNegate::Render() {
 }
 
 void OpNegate::Update() {
-	out = -in;
-	default_link_outputs[0].changed++;
+	default_link_outputs[0].SetValue( -in );
 }
 
 void OpNegate::RenderEditor() {
