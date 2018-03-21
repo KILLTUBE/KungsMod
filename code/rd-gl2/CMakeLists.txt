@@ -304,6 +304,8 @@ if(BuildSPRdGL2)
 		"${SPDir}/rd-gl2/ops/op_idtech3_refentity.h"
 		"${SPDir}/rd-gl2/ops/op_idtech3_image.cpp"
 		"${SPDir}/rd-gl2/ops/op_idtech3_image.h"
+		"${SPDir}/rd-gl2/ops/op_idtech3_mdxm.cpp"
+		"${SPDir}/rd-gl2/ops/op_idtech3_mdxm.h"
 		"${SPDir}/rd-gl2/ops/op_if.cpp"
 		"${SPDir}/rd-gl2/ops/op_if.h"
 		"${SPDir}/rd-gl2/ops/op_javascript.cpp"

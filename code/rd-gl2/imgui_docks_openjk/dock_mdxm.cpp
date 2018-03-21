@@ -56,7 +56,7 @@ void DockMDXM::imgui_mdxm_surface_vertices(mdxmSurface_t *surf) {
 	}
 }
 
-qboolean model_upload_mdxm_to_gpu_special(model_t *mod, mdxmSurface_t *specialSurface, float scale);
+//qboolean model_upload_mdxm_to_gpu_special(model_t *mod, mdxmSurface_t *specialSurface, float scale);
 
 void DockMDXM::imgui_mdxm_surface(mdxmSurface_t *surf, int surface_id) {
 	ImGui::PushID(surf);
@@ -85,13 +85,13 @@ void DockMDXM::imgui_mdxm_surface(mdxmSurface_t *surf, int surface_id) {
 			//scaleVertices(surf, 2.0);
 			//model_upload_mdxm_to_gpu(mod);
 			
-			model_upload_mdxm_to_gpu_special(mod, surf, 2.0);
+			//model_upload_mdxm_to_gpu_special(mod, surf, 2.0);
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("verts /= 2")) {
 			//scaleVertices(surf, 0.5);
 			//model_upload_mdxm_to_gpu(mod);
-			model_upload_mdxm_to_gpu_special(mod, surf, 0.5);
+			//model_upload_mdxm_to_gpu_special(mod, surf, 0.5);
 		}
 
 		imgui_mdxm_surface_vertices(surf);

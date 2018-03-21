@@ -11,7 +11,7 @@ extern "C" {
 #include "tr_local.h"
 
 #include <compose_models.h>
-
+#include <matrix.h>
 void OpMDXM::Init() {
 	Op::Init();
 	size = ImVec2(128, 128);
@@ -20,7 +20,9 @@ void OpMDXM::Init() {
 	InitLink(0, "model_id",   OP_TYPE_INT  );
 	InitLink(1, "lod_id",     OP_TYPE_INT  );
 	InitLink(2, "surface_id", OP_TYPE_INT  );
-	InitLink(3, "scale"     , OP_TYPE_FLOAT);
+	InitLink(3, "matrix"    , OP_TYPE_MATRIX);
+	mat_identity(default_link_inputs[3].matrix);
+
 	number_of_outputs = 0;
 	InitLinkOutput(0, "r", OP_TYPE_INT);
 	InitLinkOutput(1, "g", OP_TYPE_INT);
@@ -36,7 +38,8 @@ mdxmHeader_t *mdxmHeaderSafe(model_t *mod) {
 	return glm->header;
 }
 
-qboolean model_upload_mdxm_to_gpu_special(model_t *mod, mdxmSurface_t *specialSurface, float scale);
+//qboolean model_upload_mdxm_to_gpu_special(model_t *mod, mdxmSurface_t *specialSurface, float scale);
+qboolean model_upload_mdxm_to_gpu_special(model_t *mod, mdxmSurface_t *specialSurface, float matrix[16]);
 
 void OpMDXM::Render() {
 	Op::PreRender();
@@ -77,8 +80,9 @@ void OpMDXM::Render() {
 						for (int i=0; i<surface_id; i++)
 							mdxmSurface = next(mdxmSurface);
 						ImGui::Text("numVerts: %d", mdxmSurface->numVerts);
-
-						model_upload_mdxm_to_gpu_special(mod, mdxmSurface, scale);
+						
+						//model_upload_mdxm_to_gpu_special(mod, mdxmSurface, scale);
+						model_upload_mdxm_to_gpu_special(mod, mdxmSurface, default_link_inputs[3].matrix);
 
 
 					} else {

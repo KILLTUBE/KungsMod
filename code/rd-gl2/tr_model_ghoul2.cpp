@@ -3805,9 +3805,9 @@ qboolean model_upload_mdxm_to_gpu(model_t *mod) {
 
 void R_UpdateIBO(IBO_t *ibo, byte * indexes, int indexesSize, vboUsage_t usage);
 void R_UpdateVBO(VBO_t *vbo, byte * vertexes, int vertexesSize, vboUsage_t usage);
+#include <include_glm.h>
 
-// todo: free old gpu buffers when available  
-qboolean model_upload_mdxm_to_gpu_special(model_t *mod, mdxmSurface_t *specialSurface, float scale) {
+qboolean model_upload_mdxm_to_gpu_special(model_t *mod, mdxmSurface_t *specialSurface, float matrix[16]) {
 	mdxmHeader_t *mdxm = mdxmHeader(mod);
 
 	// Make a copy on the GPU
@@ -3909,12 +3909,22 @@ qboolean model_upload_mdxm_to_gpu_special(model_t *mod, mdxmSurface_t *specialSu
 			{
 				if (surf == specialSurface) {
 					VectorCopy(v[k].vertCoords, *verts);
-					float *v_x = ((float *)verts) + 0;
-					float *v_y = ((float *)verts) + 1;
-					float *v_z = ((float *)verts) + 2;
-					*v_x *= scale;
-					*v_y *= scale;
-					*v_z *= scale;
+					float *v_x = ((float *)*verts) + 0;
+					float *v_y = ((float *)*verts) + 1;
+					float *v_z = ((float *)*verts) + 2;
+
+					glm::vec4 vec_in = glm::vec4(*v_x, *v_y, *v_z, 1.0);
+					//vec_in.x = *v_x;
+					//vec_in.y = *v_y;
+					//vec_in.z = *v_z;
+					//vec_in.w = 1;
+					
+					glm::vec4 tmp = glm::make_mat4(matrix) * vec_in;
+					//memcpy(default_link_outputs[0].vector4, glm::value_ptr(tmp), 4 * sizeof(float));
+
+					*v_x = tmp.x;
+					*v_y = tmp.y;
+					*v_z = tmp.z;
 				
 				} else {
 					VectorCopy(v[k].vertCoords, *verts);
