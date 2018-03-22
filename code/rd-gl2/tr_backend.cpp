@@ -2906,6 +2906,56 @@ const void *RB_ExportCubemaps(const void *data)
 	return (const void *)(cmd + 1);
 }
 
+/*
+=============
+RB_BuildSphericalHarmonics
+
+=============
+*/
+const void *RB_BuildSphericalHarmonics(const void *data)
+{
+	const buildSphericalHarmonicsCommand_t *cmd = (buildSphericalHarmonicsCommand_t *)data;
+
+	// finish any 2D drawing if needed
+	if (tess.numIndexes)
+		RB_EndSurface();
+
+	if (!tr.world || tr.numSphericalHarmonics == 0 || !r_cubeMapping->integer)
+	{
+		// do nothing
+		ri.Printf(PRINT_ALL, "No world or no cubemapping enabled!\n");
+		return (const void *)(cmd + 1);
+	}
+
+	if (cmd)
+	{
+		ri.Printf(PRINT_ALL, "Building spherical harmonics!\n");
+		GLenum cubemapFormat = GL_RGBA8;
+
+		if (r_hdr->integer)
+		{
+			cubemapFormat = GL_RGBA16F;
+		}
+		for (int i = 0; i < (tr.numSphericalHarmonics); i++)
+		{
+			tr.sphericalHarmonics[i].image = R_CreateImage(va("*sphericalHarmonic%d", i + 1), NULL, 64, 64, IMGTYPE_COLORALPHA, IMGFLAG_NO_COMPRESSION | IMGFLAG_CLAMPTOEDGE | IMGFLAG_MIPMAP | IMGFLAG_CUBEMAP, cubemapFormat);
+
+			for (int j = 0; j < 6; j++)
+			{
+				RE_ClearScene();
+				R_RenderCubemapSide(tr.sphericalHarmonics, i, j, qfalse, qtrue);
+				R_IssuePendingRenderCommands();
+				R_InitNextFrame();
+			}
+			//TODO: Convolve the cubemaps & build SH Coefficients
+			//paper: http://www.graphics.stanford.edu/papers/envmap/envmap.pdf
+			
+		}
+		//TODO: Export them somehow. json file?
+	}
+
+	return (const void *)(cmd + 1);
+}
 
 /*
 ====================
@@ -2971,6 +3021,9 @@ void RB_ExecuteRenderCommands( const void *data ) {
 			break;
 		case RC_EXPORT_CUBEMAPS:
 			data = RB_ExportCubemaps(data);
+			break;
+		case RC_BUILD_SPHERICAL_HARMONICS:
+			data = RB_BuildSphericalHarmonics(data);
 			break;
 		case RC_BEGIN_TIMED_BLOCK:
 			data = RB_BeginTimedBlock(data);

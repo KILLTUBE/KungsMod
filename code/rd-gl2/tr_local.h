@@ -2357,6 +2357,10 @@ typedef struct trGlobals_s {
 	vec3_t                  *cubemapOrigins;
 	cubemap_t               *cubemaps;
 
+	int						numSphericalHarmonics;
+	vec3_t					*sphericalHarmonicsOrigins;
+	cubemap_t				*sphericalHarmonics;
+
 	int						numRealTimeLights;
 	vec3_t					*realTimeLightsOrigins;
 	realTimeLight_t			*realTimeLights;
@@ -3136,6 +3140,10 @@ typedef struct {
 	int commandId;
 } exportCubemapsCommand_t;
 
+typedef struct {
+	int commandId;
+} buildSphericalHarmonicsCommand_t;
+
 typedef struct beginTimedBlockCommand_s {
 	int commandId;
 	qhandle_t timerHandle;
@@ -3166,6 +3174,7 @@ typedef enum {
 	RC_CONVOLVECUBEMAP,
 	RC_POSTPROCESS,
 	RC_EXPORT_CUBEMAPS,
+	RC_BUILD_SPHERICAL_HARMONICS,
 	RC_BEGIN_TIMED_BLOCK,
 	RC_END_TIMED_BLOCK
 } renderCommand_t;
