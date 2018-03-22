@@ -78,17 +78,25 @@ void OpIDTech3Image::Update() {
 }
 
 #include "include_console.h"
-
+extern int CACHE_IMAGE;
 bool OpIDTech3Image::LoadFilename(const char *filename) {
 	byte *dataPic;
 	int width;
 	int height;
-	R_LoadImage(filename, &dataPic, &width, &height);
+	//R_LoadImage(filename, &dataPic, &width, &height);
+
+	CACHE_IMAGE = 1;
+	image_t *image = R_FindImageFile(filename, IMGTYPE_COLORALPHA, 259);
+	CACHE_IMAGE = 0;
+	image_out = image->id;
+	return true;
+
 	imgui_log("shortname=%s data=%p width=%d height=%d\n", filename, dataPic, width, height);
 	if (dataPic) {
-		tr.whiteImage = R_CreateImage(filename, (byte *)dataPic, width, height, IMGTYPE_COLORALPHA, IMGFLAG_NONE, GL_RGBA8);
-		image_out = tr.numImages - 1;
-		R_Free(dataPic);
+		image_t *image = R_CreateImage(filename, (byte *)dataPic, width, height, IMGTYPE_COLORALPHA, IMGFLAG_NONE, GL_RGBA8);
+		image_out = image->id;
+		image->data = dataPic; // dont free anymore, keep a copy around...
+		//R_Free(dataPic);
 		return true;
 	}
 	return false;

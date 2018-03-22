@@ -2292,6 +2292,7 @@ image_t *R_CreateImage(const char *name, byte *pic, int width, int height, imgTy
 	}
 	
 	image = tr.images[tr.numImages] = (image_t *)R_Hunk_Alloc(sizeof(image_t), qtrue);
+	image->id = tr.numImages;
 	qglGenTextures(1, &image->texnum);
 	tr.numImages++;
 
@@ -2762,6 +2763,7 @@ Finds or loads the given image.
 Returns NULL if it fails, not a default image.
 ==============
 */
+int CACHE_IMAGE = 0;
 image_t	*R_FindImageFile(const char *name, imgType_t type, int flags)
 {
 	image_t	*image;
@@ -2806,7 +2808,11 @@ image_t	*R_FindImageFile(const char *name, imgType_t type, int flags)
 	}
 
 	image = R_CreateImage(name, pic, width, height, type, flags, 0);
-	R_Free(pic);
+	if (CACHE_IMAGE) {
+		image->data = pic;
+	} else {
+		R_Free(pic);
+	}
 
 	return image;
 }

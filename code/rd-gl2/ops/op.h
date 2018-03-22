@@ -44,6 +44,7 @@
 #define OP_TYPE_VECTOR2 18
 #define OP_TYPE_MATRICES 19
 #define OP_TYPE_IMAGE 20
+#define OP_TYPE_SHADER 21
 
 void DrawLine(float a_x, float a_y, float b_x, float b_y);
 void DrawRect(float a_x, float a_y, float b_x, float b_y);
