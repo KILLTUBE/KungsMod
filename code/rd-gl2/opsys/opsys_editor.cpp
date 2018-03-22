@@ -178,10 +178,14 @@ void OpSystemEditor::HandleLinkCreating() {
 		//}
 
 		link_from->inputlinks->push_back(link_to);
-		link_from = NULL;
 		link_to->changed += 1; // make op_did_inputs_change work on linking
+		
 		//link_to->owner->forcereload += 1;
 		opsys->regenerateCallGraphs();
+		link_from->owner->PropagateData(); // first make sure that the receiving op knows about the new input data
+		link_to->owner->OnLinkConnect(link_to->local_id); // then in OnLinkConnect the op can act upon it
+
+		link_from = NULL;
 	}
 	// link_to is set based on if(ishovered()), so we gotta reset it all time so hover resets it all time
 	link_to = NULL;	

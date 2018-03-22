@@ -140,6 +140,10 @@ public:
 	GLuint opengl_id = 0; 	// make advanced classes for Program/Vertex/Fragment?
 	void *customclass = NULL;
 	
+	void SetValue(int val) {
+		val_i = val;
+		changed++;
+	}
 	void SetValue(float val) {
 		val_f = val;
 		changed++;

@@ -304,6 +304,12 @@ if(BuildSPRdGL2)
 		"${SPDir}/rd-gl2/ops/op_idtech3_refentity.h"
 		"${SPDir}/rd-gl2/ops/op_idtech3_image.cpp"
 		"${SPDir}/rd-gl2/ops/op_idtech3_image.h"
+		"${SPDir}/rd-gl2/ops/op_idtech3_image_mix.cpp"
+		"${SPDir}/rd-gl2/ops/op_idtech3_image_mix.h"
+		"${SPDir}/rd-gl2/ops/op_idtech3_image_scale.cpp"
+		"${SPDir}/rd-gl2/ops/op_idtech3_image_scale.h"
+		"${SPDir}/rd-gl2/ops/op_idtech3_image_split.cpp"
+		"${SPDir}/rd-gl2/ops/op_idtech3_image_split.h"
 		"${SPDir}/rd-gl2/ops/op_idtech3_mdxm.cpp"
 		"${SPDir}/rd-gl2/ops/op_idtech3_mdxm.h"
 		"${SPDir}/rd-gl2/ops/op_if.cpp"
@@ -423,6 +429,13 @@ if(BuildSPRdGL2)
 	)
 	source_group("opsys" FILES ${Opsys})
 	set(SPRDGL2Files ${SPRDGL2Files} ${Opsys})
+	
+	set(OpTypes
+		"${SPDir}/rd-gl2/op_types/op_type_image.cpp"
+		"${SPDir}/rd-gl2/op_types/op_type_image.h"
+	)
+	source_group("op_types" FILES ${OpTypes})
+	set(SPRDGL2Files ${SPRDGL2Files} ${OpTypes})
 	
 	
 	

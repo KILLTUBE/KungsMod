@@ -63,6 +63,9 @@
 #include "ops/op_idtech3_perspectivematrix.h"
 #include "ops/op_idtech3_refentity.h"
 #include "ops/op_idtech3_image.h"
+#include "ops/op_idtech3_image_split.h"
+#include "ops/op_idtech3_image_scale.h"
+#include "ops/op_idtech3_image_mix.h"
 #include "ops/op_idtech3_mdxm.h"
 #include "ops/op_skeleton.h"
 #include "ops/op_vector3.h"
@@ -186,7 +189,10 @@ oplist_t ops_idtech3[] = {
 	{ "OpIDTech3ModelViewMatrix"                , [] {return (Op *)new OpIDTech3ModelViewMatrix             ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "OpIDTech3ModelViewProjectionMatrix"      , [] {return (Op *)new OpIDTech3ModelViewProjectionMatrix   ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "OpIDTech3RefEntity"                      , [] {return (Op *)new OpIDTech3RefEntity                   ();}  , OPLIST_TYPE_IDTECH3      },
-	{ "OpIDTech3Image"                          , [] {return (Op *)new OpIDTech3Image                       ();}  , OPLIST_TYPE_IDTECH3      },
+	{ "Image"                                   , [] {return (Op *)new OpIDTech3Image                       ();}  , OPLIST_TYPE_IDTECH3      },
+	{ "ImageSplit"                              , [] {return (Op *)new OpIDTech3ImageSplit                  ();}  , OPLIST_TYPE_IDTECH3      },
+	{ "ImageScale"                              , [] {return (Op *)new OpIDTech3ImageScale                  ();}  , OPLIST_TYPE_IDTECH3      },
+	{ "ImageMix"                                , [] {return (Op *)new OpIDTech3ImageMix                    ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "OpMDXM"                                  , [] {return (Op *)new OpMDXM                               ();}  , OPLIST_TYPE_IDTECH3      },
 	//{ "Helix", (Op *(*)())op_helix_new },
 	//{ "Helix", create_helix },

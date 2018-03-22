@@ -1,5 +1,5 @@
 #include "op.h"
-#include "op_idtech3_image.h"
+#include "op_idtech3_image_scale.h"
 
 extern "C" {
 //#include <renderergl2\tr_local.h>
@@ -10,21 +10,22 @@ extern "C" {
 
 #include "tr_local.h"
 
-void OpIDTech3Image::Init() {
+void OpIDTech3ImageScale::Init() {
 	Op::Init();
 	size = ImVec2(128, 128);
 	pos = ImVec2(250, 300);
-	number_of_inputs = 0;
+	number_of_inputs = 5;
 	InitLink(0, "#", OP_TYPE_IMAGE);
+	InitLink(1, "sr", OP_TYPE_FLOAT);
+	InitLink(2, "sg", OP_TYPE_FLOAT);
+	InitLink(3, "sb", OP_TYPE_FLOAT);
+	InitLink(4, "sa", OP_TYPE_FLOAT);
 	number_of_outputs = 1;
 	InitLinkOutput(0, "#", OP_TYPE_IMAGE);
-	
-
-
 	showtitle = 1;
 }
 
-void OpIDTech3Image::Render() {
+void OpIDTech3ImageScale::Render() {
 	Op::PreRender();
 	
 	//ImGui::SetCursorPos(pos + ImVec2(5,5));
@@ -43,12 +44,12 @@ void OpIDTech3Image::Render() {
 	
 	ImGui::SetCursorPos(pos + ImVec2(1,1));
 
-	if (image_out >= 0 && image_out <= 4095) {
-		image_t *image = tr.images[image_out];
+	if (image_id >= 0 && image_id <= 4095) {
+		image_t *image = tr.images[image_id];
 		if (image != NULL) {
 			ImGui::Image((ImTextureID)image->texnum, size - ImVec2(2,2));
 		} else {
-			ImGui::Text("image_out == NULL");
+			ImGui::Text("image == NULL");
 		}
 	} else {
 		ImGui::Text("image_id must be 0 to 4095");
@@ -56,7 +57,7 @@ void OpIDTech3Image::Render() {
 	Op::PostRender();
 }
 
-void OpIDTech3Image::Update() {
+void OpIDTech3ImageScale::Update() {
 	//image_id = default_link_inputs[0].val_f;
 	//if (image_id < 0)
 	//	image_id = 0;
@@ -79,35 +80,10 @@ void OpIDTech3Image::Update() {
 
 #include "include_console.h"
 
-bool OpIDTech3Image::LoadFilename(const char *filename) {
-	byte *dataPic;
-	int width;
-	int height;
-	R_LoadImage(filename, &dataPic, &width, &height);
-	imgui_log("shortname=%s data=%p width=%d height=%d\n", filename, dataPic, width, height);
-	if (dataPic) {
-		tr.whiteImage = R_CreateImage(filename, (byte *)dataPic, width, height, IMGTYPE_COLORALPHA, IMGFLAG_NONE, GL_RGBA8);
-		image_out = tr.numImages - 1;
-		R_Free(dataPic);
-		return true;
-	}
-	return false;
-}
-
-void OpIDTech3Image::RenderEditor() {
-	if (ImGui::Button("load models/map_objects/pbr_test/Body.jpg"))
-		LoadFilename("models/map_objects/pbr_test/Body.jpg");
-
-	if (ImGui::Button("load models/map_objects/pbr_test/Body_Normal.tga"))
-		LoadFilename("models/map_objects/pbr_test/Body_Normal.tga");
-
-	if (ImGui::Button("load models/map_objects/pbr_test/Body_RMO.jpg"))
-		LoadFilename("models/map_objects/pbr_test/Body_RMO.jpg");
-
+void OpIDTech3ImageScale::RenderEditor() {
 	Op::RenderEditor();
 }
 
-OpIDTech3Image::OpIDTech3Image() {
-
+OpIDTech3ImageScale::OpIDTech3ImageScale() {
 	Init();
 }
