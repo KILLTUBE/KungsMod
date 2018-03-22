@@ -575,7 +575,7 @@ char *glmodetostr(int mode) {
 	return "no glmode found";
 }
 
-
+#include "op_types/op_type_image.h"
 
 void imgui(LinkOutput *ol) {
 	// only increase il->changed, do not set to 1
@@ -648,6 +648,12 @@ void imgui(LinkOutput *ol) {
 
 			ImGui::PopID();
 			break;
+		}
+
+		
+		case OP_TYPE_IMAGE: {
+			
+			op_type_image_imgui(ol);
 		}
 
 		default:

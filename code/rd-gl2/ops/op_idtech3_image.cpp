@@ -15,12 +15,59 @@ void OpIDTech3Image::Init() {
 	size = ImVec2(128, 128);
 	pos = ImVec2(250, 300);
 	number_of_inputs = 1;
-	InitLink(0, "#", OP_TYPE_INT);
+	InitLink(0, "#", OP_TYPE_IMAGE);
 	number_of_outputs = 4;
-	InitLinkOutput(0, "r", OP_TYPE_INT);
-	InitLinkOutput(1, "g", OP_TYPE_INT);
-	InitLinkOutput(2, "b", OP_TYPE_INT);
-	InitLinkOutput(3, "a", OP_TYPE_INT);
+	InitLinkOutput(0, "r", OP_TYPE_IMAGE);
+	InitLinkOutput(1, "g", OP_TYPE_IMAGE);
+	InitLinkOutput(2, "b", OP_TYPE_IMAGE);
+	InitLinkOutput(3, "a", OP_TYPE_IMAGE);
+
+	
+	int hdrFormat = GL_RGBA8;
+	//if (r_hdr->integer)
+	//	hdrFormat = GL_RGBA16F;
+	byte	*data = (byte *)malloc(2048 * 2048 * 4);
+	//Com_Memset(data, 255, sizeof(data));
+	int w = 2048;
+	int h = 2048;
+
+	for (int i=0; i<w*h*4; i+=4) {
+		data[i+0] = 255;
+		data[i+1] = 0;
+		data[i+2] = 0;
+		data[i+3] = 255;
+	}
+	tr.whiteImage = R_CreateImage("op red out", (byte *)data, 2048, 2048, IMGTYPE_COLORALPHA, IMGFLAG_NONE, hdrFormat);
+	red = tr.numImages - 1;
+	
+	for (int i=0; i< w*h*4; i+=4) {
+		data[i+0] = 0;
+		data[i+1] = 255;
+		data[i+2] = 0;
+		data[i+3] = 255;
+	}
+	tr.whiteImage = R_CreateImage("op green out", (byte *)data, 2048, 2048, IMGTYPE_COLORALPHA, IMGFLAG_NONE, hdrFormat);
+	green = tr.numImages - 1;
+
+	for (int i=0; i< w*h*4; i+=4) {
+		data[i+0] = 0;
+		data[i+1] = 0;
+		data[i+2] = 255;
+		data[i+3] = 255;
+	}
+	tr.whiteImage = R_CreateImage("op blue out", (byte *)data, 2048, 2048, IMGTYPE_COLORALPHA, IMGFLAG_NONE, hdrFormat);
+	blue = tr.numImages - 1;
+
+	for (int i=0; i< w*h*4; i+=4) {
+		data[i+0] = 0;
+		data[i+1] = 0;
+		data[i+2] = 0;
+		data[i+3] = 0;
+	}
+	tr.whiteImage = R_CreateImage("op alpha out", (byte *)data, 2048, 2048, IMGTYPE_COLORALPHA, IMGFLAG_NONE, hdrFormat);
+	alpha = tr.numImages - 1;
+
+
 	showtitle = 1;
 }
 

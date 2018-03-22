@@ -24,7 +24,6 @@
 
 //#include <include_physfs.h>
 
-// 0 = none 1 = float, 1 = int, 2 = string, 3=whatever
 #define OP_TYPE_FLOAT 1
 #define OP_TYPE_INT 2
 #define OP_TYPE_MATRIX 3
@@ -44,6 +43,7 @@
 #define OP_TYPE_VECTOR3 17
 #define OP_TYPE_VECTOR2 18
 #define OP_TYPE_MATRICES 19
+#define OP_TYPE_IMAGE 20
 
 void DrawLine(float a_x, float a_y, float b_x, float b_y);
 void DrawRect(float a_x, float a_y, float b_x, float b_y);
