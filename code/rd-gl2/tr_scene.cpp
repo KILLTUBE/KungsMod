@@ -552,7 +552,7 @@ void RE_RenderScene( const refdef_t *fd ) {
 		{
 			for (j = 0; j < 6; j++)
 			{
-				R_RenderCubemapSide(i, j, qtrue);
+				R_RenderCubemapSide(tr.cubemaps, i, j, qtrue, qfalse);
 			}
 		}
 	}

@@ -3183,6 +3183,11 @@ void R_LoadCubemaps(world_t *world)
 
 void R_RenderMissingCubemaps()
 {
+	if (tr.cubemaps[0].image)
+	{
+		return;
+	}
+
 	GLenum cubemapFormat = GL_RGBA8;
 
 	if (r_hdr->integer)
@@ -3190,15 +3195,19 @@ void R_RenderMissingCubemaps()
 		cubemapFormat = GL_RGBA16F;
 	}
 
-	for (int i = 0; i < tr.numCubemaps; i++)
+	int numberOfBounces = 3;
+	for (int k = 0; k < numberOfBounces; k++)
 	{
-		if (!tr.cubemaps[i].image)
+		qboolean bounce = qboolean(k != 0);
+		for (int i = 0; i < tr.numCubemaps; i++)
 		{
-			tr.cubemaps[i].image = R_CreateImage(va("*cubeMap%d", i), NULL, r_cubemapSize->integer, r_cubemapSize->integer, IMGTYPE_COLORALPHA, IMGFLAG_NO_COMPRESSION | IMGFLAG_CLAMPTOEDGE | IMGFLAG_MIPMAP | IMGFLAG_CUBEMAP, cubemapFormat);
+			if (!bounce)
+				tr.cubemaps[i].image = R_CreateImage(va("*cubeMap%d", i), NULL, r_cubemapSize->integer, r_cubemapSize->integer, IMGTYPE_COLORALPHA, IMGFLAG_NO_COMPRESSION | IMGFLAG_CLAMPTOEDGE | IMGFLAG_MIPMAP | IMGFLAG_CUBEMAP, cubemapFormat);
+
 			for (int j = 0; j < 6; j++)
 			{
 				RE_ClearScene();
-				R_RenderCubemapSide(i, j, qfalse);
+				R_RenderCubemapSide(tr.cubemaps, i, j, qfalse, bounce);
 				R_IssuePendingRenderCommands();
 				R_InitNextFrame();
 			}
