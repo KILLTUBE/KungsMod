@@ -83,14 +83,18 @@ bool OpIDTech3Image::LoadFilename(const char *filename) {
 	byte *dataPic;
 	int width;
 	int height;
-	//R_LoadImage(filename, &dataPic, &width, &height);
+	
 
+#if 0
+	// the 259 flag also generates a normal map
 	CACHE_IMAGE = 1;
 	image_t *image = R_FindImageFile(filename, IMGTYPE_COLORALPHA, 259);
 	CACHE_IMAGE = 0;
 	image_out = image->id;
 	return true;
+#endif
 
+	R_LoadImage(filename, &dataPic, &width, &height);
 	imgui_log("shortname=%s data=%p width=%d height=%d\n", filename, dataPic, width, height);
 	if (dataPic) {
 		image_t *image = R_CreateImage(filename, (byte *)dataPic, width, height, IMGTYPE_COLORALPHA, IMGFLAG_NONE, GL_RGBA8);

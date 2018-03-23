@@ -64,6 +64,7 @@
 #include "ops/op_idtech3_refentity.h"
 #include "ops/op_idtech3_image.h"
 #include "ops/op_idtech3_image_split.h"
+#include "ops/op_idtech3_image_split_alpha.h"
 #include "ops/op_idtech3_image_scale.h"
 #include "ops/op_idtech3_image_mix.h"
 #include "ops/op_idtech3_rmo.h"
@@ -193,6 +194,7 @@ oplist_t ops_idtech3[] = {
 	{ "OpIDTech3RefEntity"                      , [] {return (Op *)new OpIDTech3RefEntity                   ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "Image"                                   , [] {return (Op *)new OpIDTech3Image                       ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "ImageSplit"                              , [] {return (Op *)new OpIDTech3ImageSplit                  ();}  , OPLIST_TYPE_IDTECH3      },
+	{ "OpIDTech3ImageSplitAlpha"                , [] {return (Op *)new OpIDTech3ImageSplitAlpha             ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "ImageScale"                              , [] {return (Op *)new OpIDTech3ImageScale                  ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "ImageMix"                                , [] {return (Op *)new OpIDTech3ImageMix                    ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "OpIDTech3RMO"                            , [] {return (Op *)new OpIDTech3RMO                         ();}  , OPLIST_TYPE_IDTECH3      },

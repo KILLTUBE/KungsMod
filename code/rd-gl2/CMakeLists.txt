@@ -310,6 +310,8 @@ if(BuildSPRdGL2)
 		"${SPDir}/rd-gl2/ops/op_idtech3_image_scale.h"
 		"${SPDir}/rd-gl2/ops/op_idtech3_image_split.cpp"
 		"${SPDir}/rd-gl2/ops/op_idtech3_image_split.h"
+		"${SPDir}/rd-gl2/ops/op_idtech3_image_split_alpha.cpp"
+		"${SPDir}/rd-gl2/ops/op_idtech3_image_split_alpha.h"
 		"${SPDir}/rd-gl2/ops/op_idtech3_rmo.cpp"
 		"${SPDir}/rd-gl2/ops/op_idtech3_rmo.h"
 		"${SPDir}/rd-gl2/ops/op_idtech3_shader_pbr.cpp"
