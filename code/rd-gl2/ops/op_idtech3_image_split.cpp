@@ -94,7 +94,9 @@ void OpIDTech3ImageSplit::Render() {
 void OpIDTech3ImageSplit::Update() {
 	
 	if (DidInputsChange()) {
+
 		imgui_log("%s->Update();\n", name);
+		SetInputsUnchanged();
 
 		// now the annoying thing...
 		// we only get the image_id... but the image RGBA data itself is nowhere saved... so we read the name and simply load the image again from disc
@@ -131,6 +133,10 @@ void OpIDTech3ImageSplit::Update() {
 		byte	*data = NULL;
 		//Com_Memset(data, 255, sizeof(data));
 
+
+		// we are saving every channel into RED, so everything is going to look red...
+		// its like splitting 4 channel images in gimp and every channel is just monochrome black/white, but im using the red channel for that, easiest atm
+
 		data = R_GetImageData(handle_out_red);
 		if (data) {
 			for (int i=0; i<w*h*4; i+=4) {
@@ -145,8 +151,8 @@ void OpIDTech3ImageSplit::Update() {
 		data = R_GetImageData(handle_out_green);
 		if (data) {
 			for (int i=0; i< w*h*4; i+=4) {
-				data[i+0] = 0;
-				data[i+1] = dataPic[i+1];
+				data[i+0] = dataPic[i+1];
+				data[i+1] = 0;
 				data[i+2] = 0;
 				data[i+3] = 255;
 			}
@@ -156,9 +162,9 @@ void OpIDTech3ImageSplit::Update() {
 		data = R_GetImageData(handle_out_blue);
 		if (data) {
 			for (int i=0; i< w*h*4; i+=4) {
-				data[i+0] = 0;
+				data[i+0] = dataPic[i+2];
 				data[i+1] = 0;
-				data[i+2] = dataPic[i+2];
+				data[i+2] = 0;
 				data[i+3] = 255;
 			}
 			R_UpdateImageFromBuffer(tr.images[ handle_out_blue ]);
@@ -167,15 +173,14 @@ void OpIDTech3ImageSplit::Update() {
 		data = R_GetImageData(handle_out_alpha);
 		if (data) {
 			for (int i=0; i< w*h*4; i+=4) {
-				data[i+0] = 0;
+				data[i+0] = dataPic[i+3];
 				data[i+1] = 0;
 				data[i+2] = 0;
-				data[i+3] = dataPic[i+3];
+				data[i+3] = 255;
 			}
 			R_UpdateImageFromBuffer(tr.images[ handle_out_alpha ]);
 		}
 
-		SetInputsUnchanged();
 	}
 
 	//image_id = default_link_inputs[0].val_f;

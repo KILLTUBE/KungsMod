@@ -300,6 +300,9 @@ void OpSystem::deleteOp(Op *op) {
 	while (iterator != all.end()) {
 		if (op == *iterator) {
 			op->Destroy();
+			if (contextMenuOp == op) { // make sure we wont derefence this op anymore from context menu once its deleted... wouldnt have such bugs with a int-handle-only system
+				contextMenuOp = NULL;
+			}
 			iterator = all.erase(iterator);
 			break;
 		}
@@ -321,6 +324,9 @@ void OpSystem::deleteSelectedOps() {
 		auto op = *iterator;
 		if (op->selected && ! op->is_permanent) {
 			op->Destroy();
+			if (contextMenuOp == op) { // make sure we wont derefence this op anymore from context menu once its deleted... wouldnt have such bugs with a int-handle-only system
+				contextMenuOp = NULL;
+			}
 			iterator = all.erase(iterator);
 		} else {
 			iterator++;
