@@ -10,6 +10,11 @@ extern "C" {
 
 #include "tr_local.h"
 
+
+qhandle_t R_CreateImageRGBA(char *name, int width, int height, byte r, byte g, byte b, byte a);
+void R_UpdateImageFromBuffer(image_t *image);
+byte *R_GetImageData(int id);
+
 void OpIDTech3ShaderPBR::Init() {
 	Op::Init();
 	size = ImVec2(128, 128);
@@ -28,6 +33,11 @@ void OpIDTech3ShaderPBR::Init() {
 	InitLinkOutput(2, "specular gloss", OP_TYPE_IMAGE);
 	
 	
+	
+	handle_image_out_diffuse_opacity = R_CreateImageRGBA("handle_image_out_diffuse_opacity", 2048, 2048, 255,   0,   0, 255); // red
+	handle_image_out_normal_height   = R_CreateImageRGBA("handle_image_out_normal_height"  , 2048, 2048,   0, 255,   0, 255); // green
+	handle_image_out_specular_gloss  = R_CreateImageRGBA("handle_image_out_specular_gloss" , 2048, 2048,   0,   0, 255, 255); // blue... as default values
+
 	showtitle = 1;
 }
 
@@ -98,49 +108,66 @@ void OpIDTech3ShaderPBR::OnLinkConnect(int id) {
 	int w = 2048;
 	int h = 2048;
 	
-	byte	*data_diffuse_opacity = (byte *)malloc(w * h * 4);
-	byte	*data_normal_height = (byte *)malloc(w * h * 4);
-	byte	*data_specular_gloss = (byte *)malloc(w * h * 4);
-	//Com_Memset(data, 255, sizeof(data));
-	
-	for (int i=0; i<w*h*4; i+=4) {
-		// diffuse into rgb
-		data_diffuse_opacity[i+0] = data_diffuse[i+0];
-		data_diffuse_opacity[i+1] = data_diffuse[i+1];
-		data_diffuse_opacity[i+2] = data_diffuse[i+2];
-		// red channel from opacity into alpha
-		data_diffuse_opacity[i+3] = data_opacity[i+0];
-	}
-	image_t *image_diffuse_opacity = R_CreateImage("OpShaderPBR diffuse opacity out", (byte *)data_diffuse_opacity, w, h, IMGTYPE_COLORALPHA, IMGFLAG_NONE, hdrFormat);
-	
-	for (int i=0; i<w*h*4; i+=4) {
-		// normal into rgb
-		data_normal_height[i+0] = data_normal[i+0];
-		data_normal_height[i+1] = data_normal[i+1];
-		data_normal_height[i+2] = data_normal[i+2];
-		// red channel from height into alpha
-		data_normal_height[i+3] = data_height[i+0];
-	}
-	image_t *image_normal_height = R_CreateImage("OpShaderPBR normal height out", (byte *)data_normal_height, w, h, IMGTYPE_COLORALPHA, IMGFLAG_NONE, hdrFormat);
+	//byte	*data_diffuse_opacity = (byte *)malloc(w * h * 4);
+	//byte	*data_normal_height = (byte *)malloc(w * h * 4);
+	//byte	*data_specular_gloss = (byte *)malloc(w * h * 4);
 
-	for (int i=0; i<w*h*4; i+=4) {
-		// normal into rgb
-		data_specular_gloss[i+0] = data_specular[i+0];
-		data_specular_gloss[i+1] = data_specular[i+1];
-		data_specular_gloss[i+2] = data_specular[i+2];
-		// red channel from gloss into alpha
-		data_specular_gloss[i+3] = data_gloss[i+0];
+
+	byte	*data_diffuse_opacity = R_GetImageData(handle_image_out_diffuse_opacity);
+	byte	*data_normal_height   = R_GetImageData(handle_image_out_normal_height);
+	byte	*data_specular_gloss  = R_GetImageData(handle_image_out_specular_gloss);
+	
+	
+
+	//Com_Memset(data, 255, sizeof(data));
+	if (data_diffuse_opacity) {
+		for (int i=0; i<w*h*4; i+=4) {
+			// diffuse into rgb
+			data_diffuse_opacity[i+0] = data_diffuse[i+0];
+			data_diffuse_opacity[i+1] = data_diffuse[i+1];
+			data_diffuse_opacity[i+2] = data_diffuse[i+2];
+			// red channel from opacity into alpha
+			data_diffuse_opacity[i+3] = data_opacity[i+0];
+		}
+		//image_t *image_diffuse_opacity = R_CreateImage("OpShaderPBR diffuse opacity out", (byte *)data_diffuse_opacity, w, h, IMGTYPE_COLORALPHA, IMGFLAG_NONE, hdrFormat);
+		R_UpdateImageFromBuffer( tr.images[ handle_image_out_diffuse_opacity ] );
 	}
-	image_t *image_specular_gloss = R_CreateImage("OpShaderPBR specular gloss out", (byte *)data_normal_height, w, h, IMGTYPE_COLORALPHA, IMGFLAG_NONE, hdrFormat);
+
+	if (data_normal_height) {
+		for (int i=0; i<w*h*4; i+=4) {
+			// normal into rgb
+			data_normal_height[i+0] = data_normal[i+0];
+			data_normal_height[i+1] = data_normal[i+1];
+			data_normal_height[i+2] = data_normal[i+2];
+			// red channel from height into alpha
+			data_normal_height[i+3] = data_height[i+0];
+		}
+		//image_t *image_normal_height = R_CreateImage("OpShaderPBR normal height out", (byte *)data_normal_height, w, h, IMGTYPE_COLORALPHA, IMGFLAG_NONE, hdrFormat);
+		R_UpdateImageFromBuffer( tr.images[ handle_image_out_normal_height ] );
+	}
+
+	if (data_specular_gloss) {
+		for (int i=0; i<w*h*4; i+=4) {
+			// normal into rgb
+			data_specular_gloss[i+0] = data_specular[i+0];
+			data_specular_gloss[i+1] = data_specular[i+1];
+			data_specular_gloss[i+2] = data_specular[i+2];
+			// red channel from gloss into alpha
+			data_specular_gloss[i+3] = data_gloss[i+0];
+		}
+		//image_t *image_specular_gloss = R_CreateImage("OpShaderPBR specular gloss out", (byte *)data_normal_height, w, h, IMGTYPE_COLORALPHA, IMGFLAG_NONE, hdrFormat);
+		R_UpdateImageFromBuffer( tr.images[ handle_image_out_specular_gloss ] );
+	}
+
 
 	/*
 	int &handle_image_out_diffuse_opacity       = default_link_outputs[0].val_i = 0; // rgba, diffuse=rgb, opacity=alpha
 	int &handle_image_out_normal_height         = default_link_outputs[1].val_i = 0; // rgba, normal=rgb, height=alpha
 	int &handle_image_out_specular_gloss        = default_link_outputs[2].val_i = 0; // rgba, specular=rgb, gloss=alpha
 	*/
-	handle_image_out_diffuse_opacity = image_diffuse_opacity->id;
-	handle_image_out_normal_height   = image_normal_height->id;
-	handle_image_out_specular_gloss  = image_specular_gloss->id;
+	//handle_image_out_diffuse_opacity = image_diffuse_opacity->id;
+	//handle_image_out_normal_height   = image_normal_height->id;
+	//handle_image_out_specular_gloss  = image_specular_gloss->id;
 
 
 	// now we can generate the three shaders rend2 is using internally, which are:

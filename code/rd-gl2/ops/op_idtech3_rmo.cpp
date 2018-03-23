@@ -37,8 +37,8 @@ void OpIDTech3RMO::Init() {
 	InitLinkOutput(1, "spec", OP_TYPE_IMAGE);
 	
 	// just create two shitty images, so we have the handle at least... later just update
-	image_out_diff = R_CreateImageRGBA("image_out_diff", 128, 128, 255,   0, 255, 255); // red+blue
-	image_out_spec = R_CreateImageRGBA("image_out_spec", 128, 128,   0, 255, 255, 255); // green+blue
+	image_out_diff = R_CreateImageRGBA("image_out_diff", 2048, 2048, 255,   0, 255, 255); // red+blue
+	image_out_spec = R_CreateImageRGBA("image_out_spec", 2048, 2048,   0, 255, 255, 255); // green+blue
 
 	showtitle = 1;
 }
@@ -106,6 +106,9 @@ byte *R_GetImageData(int id) {
 }
 
 
+void R_UpdateImageFromBuffer(image_t *image);
+byte *R_GetImageData(int id);
+
 void OpIDTech3RMO::OnLinkConnect(int id) {
 	byte *baseColorPic = R_GetImageData(image_in_base);
 	byte *rmoPic       = R_GetImageData(image_in_rmo);
@@ -130,6 +133,9 @@ void OpIDTech3RMO::OnLinkConnect(int id) {
 	// todo... dynamic
 	int width = 2048;
 	int height = 2048;
+
+	R_GetImageData(image_out_diff);
+	R_GetImageData(image_out_spec);
 
 	byte *specGlossPic = (byte *)R_Malloc(width * height * 4, TAG_GP2, qfalse);
 	byte *diffusePic   = (byte *)R_Malloc(width * height * 4, TAG_GP2, qfalse);

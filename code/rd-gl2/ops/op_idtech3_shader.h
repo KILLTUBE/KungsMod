@@ -7,10 +7,10 @@ class OpIDTech3Shader : public Op {
 public:
 	OpIDTech3Shader();
 	// handles into tr.images
-	int &handle_in_shader                     = default_link_inputs[0].val_i = 0;
-	int &handle_image_in_diffuse       = default_link_inputs[1].val_i = 0; // rgb channel
-	int &handle_image_in_specular      = default_link_inputs[2].val_i = 0; // rgb channel
-	int &handle_image_in_normal        = default_link_inputs[3].val_i = 0; // rgb channel
+	int &handle_in_shader            = default_link_inputs[0].val_i = 0;
+	int &handle_image_in_diffuse     = default_link_inputs[1].val_i = 0; // rgb channel
+	int &handle_image_in_normal      = default_link_inputs[2].val_i = 0; // rgb channel
+	int &handle_image_in_specular    = default_link_inputs[3].val_i = 0; // rgb channel
 
 	//// those are the merged ones from the upper ones
 	//int &handle_image_out_diffuse_opacity       = default_link_outputs[0].val_i = 0; // rgba, diffuse=rgb, opacity=alpha
