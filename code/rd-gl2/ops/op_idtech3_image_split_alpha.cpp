@@ -16,16 +16,9 @@ void OpIDTech3ImageSplitAlpha::Init() {
 	pos = ImVec2(250, 300);
 	number_of_inputs = 1;
 	InitLink(0, "#", OP_TYPE_IMAGE);
-	number_of_outputs = 4;
-	InitLinkOutput(0, "r", OP_TYPE_IMAGE);
-	InitLinkOutput(1, "g", OP_TYPE_IMAGE);
-	InitLinkOutput(2, "b", OP_TYPE_IMAGE);
-	InitLinkOutput(3, "a", OP_TYPE_IMAGE);
-
-	
-
-
-
+	number_of_outputs = 2;
+	InitLinkOutput(0, "rgb", OP_TYPE_IMAGE);
+	InitLinkOutput(1, "a", OP_TYPE_IMAGE);
 	showtitle = 1;
 }
 
