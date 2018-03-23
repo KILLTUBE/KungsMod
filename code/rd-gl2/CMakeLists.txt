@@ -304,6 +304,8 @@ if(BuildSPRdGL2)
 		"${SPDir}/rd-gl2/ops/op_idtech3_refentity.h"
 		"${SPDir}/rd-gl2/ops/op_idtech3_image.cpp"
 		"${SPDir}/rd-gl2/ops/op_idtech3_image.h"
+		"${SPDir}/rd-gl2/ops/op_idtech3_image_color.cpp"
+		"${SPDir}/rd-gl2/ops/op_idtech3_image_color.h"
 		"${SPDir}/rd-gl2/ops/op_idtech3_image_mix.cpp"
 		"${SPDir}/rd-gl2/ops/op_idtech3_image_mix.h"
 		"${SPDir}/rd-gl2/ops/op_idtech3_image_scale.cpp"

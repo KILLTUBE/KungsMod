@@ -146,9 +146,17 @@ void Op::PropagateData() {
 		//	continue;
 
 		for (auto li : *lo->inputlinks) {
-
+			switch (lo->type) {
+				case OP_TYPE_FLOAT:
+					if (li->val_f != lo->val_f) {
+						li->val_f = lo->val_f;
+						li->changed++;
+					}
+					continue;
+			
+			}
 			// probably its better at some point to copy the whole class at once lol
-			li->val_f = lo->val_f;
+			//li->val_f = lo->val_f;
 			li->val_i = lo->val_i;
 			
 			li->opengl_id = lo->opengl_id;

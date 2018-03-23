@@ -20,9 +20,9 @@ qhandle_t R_CreateImageRGBA(char *name, int width, int height, byte r, byte g, b
 		data[i+3] = a;
 	}
 	image_t *image = R_CreateImage(name, data, width, height, IMGTYPE_COLORALPHA, IMGFLAG_NONE, GL_RGBA8);
-	R_Free(data);
-	int handle_id = tr.numImages - 1;
-	return handle_id;
+	//R_Free(data);
+	image->data = data;
+	return image->id;
 }
 
 void OpIDTech3RMO::Init() {
