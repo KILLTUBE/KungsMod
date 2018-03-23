@@ -3194,8 +3194,8 @@ void R_RenderMissingCubemaps()
 		cubemapFormat = GL_RGBA16F;
 	}
 
-	int numberOfBounces = 3;
-	for (int k = 0; k < numberOfBounces; k++)
+	int numberOfBounces = 2;
+	for (int k = 0; k <= numberOfBounces; k++)
 	{
 		qboolean bounce = qboolean(k != 0);
 		for (int i = 0; i < tr.numCubemaps; i++)
@@ -3211,11 +3211,13 @@ void R_RenderMissingCubemaps()
 				R_InitNextFrame();
 			}
 
-			RE_ClearScene();
-			R_AddConvolveCubemapCmd(i);
-			R_IssuePendingRenderCommands();
-			R_InitNextFrame();
-
+			for (int j = 0; j < 6; j++)
+			{
+				RE_ClearScene();
+				R_AddConvolveCubemapCmd(i, j);
+				R_IssuePendingRenderCommands();
+				R_InitNextFrame();
+			}
 		}
 	}
 }

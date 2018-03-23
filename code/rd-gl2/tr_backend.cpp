@@ -1969,14 +1969,12 @@ static const void *RB_PrefilterEnvMap(const void *data) {
 		height = height / 2.0;
 		qglViewport(0, 0, width, height);
 		qglScissor(0, 0, width, height);
-		for (int cubemapSide = 0; cubemapSide < 6; cubemapSide++) 
-		{
-			vec4_t viewInfo;
-			VectorSet4(viewInfo, cubemapSide, level, numMips, 0.0);
-			GLSL_SetUniformVec4(&tr.prefilterEnvMapShader, UNIFORM_VIEWINFO, viewInfo);
-			RB_InstantQuad2(quadVerts, texCoords);
-			qglCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + cubemapSide, level, 0, 0, 0, 0, width, height);
-		}
+
+		vec4_t viewInfo;
+		VectorSet4(viewInfo, cmd->cubeSide, level, numMips, 0.0);
+		GLSL_SetUniformVec4(&tr.prefilterEnvMapShader, UNIFORM_VIEWINFO, viewInfo);
+		RB_InstantQuad2(quadVerts, texCoords);
+		qglCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + cmd->cubeSide, level, 0, 0, 0, 0, width, height);
 	}
 
 	GL_SelectTexture(0);

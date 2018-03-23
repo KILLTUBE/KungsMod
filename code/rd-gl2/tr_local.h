@@ -3128,6 +3128,7 @@ typedef struct capShadowmapCommand_s {
 typedef struct convolveCubemapCommand_s {
 	int commandId;
 	int cubemap;
+	int cubeSide;
 } convolveCubemapCommand_t;
 
 typedef struct postProcessCommand_s {
@@ -3246,7 +3247,7 @@ void RB_ExecuteRenderCommands( const void *data );
 void R_IssuePendingRenderCommands( void );
 
 void R_AddDrawSurfCmd( drawSurf_t *drawSurfs, int numDrawSurfs );
-void R_AddConvolveCubemapCmd(int cubemap);
+void R_AddConvolveCubemapCmd(int cubemap, int cubeSide);
 void R_AddCapShadowmapCmd( int dlight, int cubeSide );
 void R_AddPostProcessCmd (void);
 qhandle_t R_BeginTimedBlockCmd( const char *name );
