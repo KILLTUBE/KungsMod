@@ -98,6 +98,8 @@ if(BuildSPRdGL2)
 	set(SPRDGL2MainFiles
 		"${SPDir}/rd-gl2/compose_models.cpp"  
 		"${SPDir}/rd-gl2/compose_models.h"
+		"${SPDir}/rd-gl2/compose_images.cpp"  
+		"${SPDir}/rd-gl2/compose_images.h"
 		"${SPDir}/rd-gl2/glext.h"
 		"${SPDir}/rd-gl2/iqm.h"	
 		"${SPDir}/rd-gl2/qgl.h"

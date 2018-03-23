@@ -10,23 +10,18 @@ extern "C" {
 
 #include "tr_local.h"
 #include "include_console.h"
+#include "compose_images.h"
 
 qhandle_t R_CreateImageRGBA(char *name, int width, int height, byte r, byte g, byte b, byte a);
 byte *R_GetImageData(int id);
 void Upload32(byte *data, int width, int height, imgType_t type, int flags, qboolean lightMap, GLenum internalFormat, int *pUploadWidth, int *pUploadHeight);
 void R_UpdateImageFromBuffer(image_t *image) {
 	GL_Bind(image);
-
-			Upload32((byte *)image->data, image->width, image->height, image->type, image->flags,
-				/*isLightmap*/qfalse, image->internalFormat, &image->uploadWidth,
-				&image->uploadHeight);
-		
-
-		//qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, glWrapClampMode);
-		//qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, glWrapClampMode);
-	//}
-
+	Upload32((byte *)image->data, image->width, image->height, image->type, image->flags, /*isLightmap*/qfalse, image->internalFormat, &image->uploadWidth, &image->uploadHeight);
+	//qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, glWrapClampMode);
+	//qglTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, glWrapClampMode);
 	//GL_SelectTexture(0);
+	markImageChanged(image->id);
 }
 
 void OpIDTech3ImageColor::Init() {

@@ -98,7 +98,6 @@ void OpIDTech3RMO::Update() {
 
 #include "include_console.h"
 
-
 byte *R_GetImageData(int id) {
 	image_t *image = tr.images[ id ];
 	if (image == NULL)

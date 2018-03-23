@@ -134,6 +134,8 @@ void Op::SetInputsUnchanged() {
 
 // Op::PropagateData is called in Op::Request()
 
+#include <compose_images.h>
+
 void Op::PropagateData() {
 	for (int i=0; i<number_of_outputs; i++) {
 		LinkOutput *lo = default_link_outputs + i;
@@ -150,6 +152,13 @@ void Op::PropagateData() {
 				case OP_TYPE_FLOAT:
 					if (li->val_f != lo->val_f) {
 						li->val_f = lo->val_f;
+						li->changed++;
+					}
+					continue;
+				case OP_TYPE_IMAGE:
+					// even tho the image id is the same, it might have been changed, so gotta check hasImageChanged(...)
+					if (li->val_i != lo->val_i || hasImageChanged(lo->val_i)) {
+						li->val_i = lo->val_i;
 						li->changed++;
 					}
 					continue;
