@@ -152,6 +152,8 @@ void Op::PropagateData() {
 				case OP_TYPE_FLOAT:
 					if (li->val_f != lo->val_f) {
 						li->val_f = lo->val_f;
+						li->val_i = (int)lo->val_f; // so i can use float sliders as int/handle lol
+
 						li->changed++;
 					}
 					continue;

@@ -69,6 +69,7 @@
 #include "ops/op_idtech3_image_scale.h"
 #include "ops/op_idtech3_image_mix.h"
 #include "ops/op_idtech3_rmo.h"
+#include "ops/op_idtech3_shader.h"
 #include "ops/op_idtech3_shader_pbr.h"
 #include "ops/op_idtech3_mdxm.h"
 #include "ops/op_skeleton.h"
@@ -200,6 +201,7 @@ oplist_t ops_idtech3[] = {
 	{ "ImageScale"                              , [] {return (Op *)new OpIDTech3ImageScale                  ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "ImageMix"                                , [] {return (Op *)new OpIDTech3ImageMix                    ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "OpIDTech3RMO"                            , [] {return (Op *)new OpIDTech3RMO                         ();}  , OPLIST_TYPE_IDTECH3      },
+	{ "OpIDTech3Shader"                         , [] {return (Op *)new OpIDTech3Shader                      ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "OpIDTech3ShaderPBR"                      , [] {return (Op *)new OpIDTech3ShaderPBR                   ();}  , OPLIST_TYPE_IDTECH3      },
 	{ "OpMDXM"                                  , [] {return (Op *)new OpMDXM                               ();}  , OPLIST_TYPE_IDTECH3      },
 	//{ "Helix", (Op *(*)())op_helix_new },
