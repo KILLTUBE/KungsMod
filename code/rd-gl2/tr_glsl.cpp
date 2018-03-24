@@ -1566,6 +1566,9 @@ static int GLSL_LoadGPUProgramDLight(
 	return numPrograms;
 }
 
+
+void R_SetupShaderMapsLightall(shaderProgram_t *shader);
+
 static int GLSL_LoadGPUProgramLightAll(
 	ShaderProgramBuilder& builder,
 	Allocator& scratchAlloc)
@@ -1722,25 +1725,9 @@ static int GLSL_LoadGPUProgramLightAll(
 		{
 			ri.Error(ERR_FATAL, "Could not load lightall shader!");
 		}
-
 		GLSL_InitUniforms(&tr.lightallShader[i]);
-
-		qglUseProgram(tr.lightallShader[i].program);
-		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_DIFFUSEMAP, TB_DIFFUSEMAP);
-		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_LIGHTMAP, TB_LIGHTMAP);
-		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_NORMALMAP, TB_NORMALMAP);
-		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_DELUXEMAP, TB_DELUXEMAP);
-		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_SPECULARMAP, TB_SPECULARMAP);
-		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_SHADOWMAP, TB_SHADOWMAP);
-		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_CUBEMAP, TB_CUBEMAP);
-		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_ENVBRDFMAP, TB_ENVBRDFMAP);
-		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_LIGHTGRIDDIRECTIONMAP, TB_LGDIRECTION);
-		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_LIGHTGRIDDIRECTIONALLIGHTMAP, TB_LGLIGHTCOLOR);
-		GLSL_SetUniformInt(&tr.lightallShader[i], UNIFORM_LIGHTGRIDAMBIENTLIGHTMAP, TB_LGAMBIENT);
-		qglUseProgram(0);
-
+		R_SetupShaderMapsLightall(tr.lightallShader + i);
 		GLSL_FinishGPUShader(&tr.lightallShader[i]);
-
 		++numPrograms;
 	}
 

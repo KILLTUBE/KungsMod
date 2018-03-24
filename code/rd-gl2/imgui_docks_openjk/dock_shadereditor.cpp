@@ -48,6 +48,22 @@ int GLSL_MyCompileGPUShader(GLuint program, GLuint *prevShader, const GLchar *bu
 void GLSL_BindShaderInterface( shaderProgram_t *program );
 void GLSL_InitUniforms(shaderProgram_t *program);
 
+void R_SetupShaderMapsLightall(shaderProgram_t *shader) {
+	qglUseProgram(shader->program);
+	GLSL_SetUniformInt(shader, UNIFORM_DIFFUSEMAP, TB_DIFFUSEMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_LIGHTMAP, TB_LIGHTMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_NORMALMAP, TB_NORMALMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_DELUXEMAP, TB_DELUXEMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_SPECULARMAP, TB_SPECULARMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_SHADOWMAP, TB_SHADOWMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_CUBEMAP, TB_CUBEMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_ENVBRDFMAP, TB_ENVBRDFMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_LIGHTGRIDDIRECTIONMAP, TB_LGDIRECTION);
+	GLSL_SetUniformInt(shader, UNIFORM_LIGHTGRIDDIRECTIONALLIGHTMAP, TB_LGLIGHTCOLOR);
+	GLSL_SetUniformInt(shader, UNIFORM_LIGHTGRIDAMBIENTLIGHTMAP, TB_LGAMBIENT);
+	qglUseProgram(0);
+}
+
 void DockShaders::recompileShader() {
 		int newProgram = qglCreateProgram();
 		int retVert = GLSL_MyCompileGPUShader(newProgram, &shader->vertexShader, shader->vertexText, strlen(shader->vertexText), GL_VERTEX_SHADER);
@@ -67,6 +83,14 @@ void DockShaders::recompileShader() {
 		int retLink = GLSL_LinkProgramSafe(newProgram);
 		GLSL_BindShaderInterface(shader);
 		GLSL_InitUniforms(shader);
+
+		// atm just fixing up lightall shaders for pbr testing, wanna make a better system tho...
+		// e.g. being able dynamically to change every input map, gotta see
+		if (strcmp(shader->name, "lightall") == 0)
+			R_SetupShaderMapsLightall(shader);
+
+
+
 		imgui_log("ret compile shader:  retVert=%d retFrag=%d retLink=%d\n", retVert, retFrag, retLink);
 }
 
