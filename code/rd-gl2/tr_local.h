@@ -745,6 +745,15 @@ typedef enum
 	ST_GLSL
 } stageType_t;
 
+enum specularType
+{
+	SPEC_GEN,	// generate specular from material settings
+	SPEC_RMO,	// calculate spec from rmo  texture with a specular of 0.04 for dielectric materials
+	SPEC_RMOS,	// calculate spec from rmos texture with a specular of 0.0 - 0.08 from input
+	SPEC_MOXR,  // calculate spec from moxr texture with a specular of 0.04 for dielectric materials
+	SPEC_MOSR,  // calculate spec from mosr texture with a specular of 0.0 - 0.08 from input
+};
+
 enum AlphaTestCmp
 {
 	ATEST_CMP_NONE,
@@ -826,6 +835,20 @@ typedef struct {
 	vec3_t		fog_color;
 } liquidParms_t;
 
+typedef enum {
+	RTLT_POINT,
+	RTLT_SPOT,
+	RTLT_TUBE,
+}realTimeLightType;
+
+typedef struct {
+	vec3_t	position;
+	vec3_t	color;
+	vec3_t	rotation;
+	float	strength;
+	float	length;
+	int		type;
+}realTimeLight_t;
 
 typedef struct {
 	vec3_t	color;
@@ -1462,6 +1485,7 @@ typedef struct {
 	int			viewportX, viewportY, viewportWidth, viewportHeight;
 	int			scissorX, scissorY, scissorWidth, scissorHeight;
 	FBO_t		*targetFbo;
+	cubemap_t	*cubemapSelection;
 	int         targetFboLayer;
 	int         targetFboCubemapIndex;
 	float		fovX, fovY;
@@ -2351,6 +2375,14 @@ typedef struct trGlobals_s {
 	vec3_t                  *cubemapOrigins;
 	cubemap_t               *cubemaps;
 
+	int						numSphericalHarmonics;
+	vec3_t					*sphericalHarmonicsOrigins;
+	cubemap_t				*sphericalHarmonics;
+
+	int						numRealTimeLights;
+	vec3_t					*realTimeLightsOrigins;
+	realTimeLight_t			*realTimeLights;
+
 	trRefEntity_t			*currentEntity;
 	trRefEntity_t			worldEntity;		// point currentEntity at this when rendering world
 	model_t					*currentModel;
@@ -2487,7 +2519,7 @@ void R_RenderView( viewParms_t *parms );
 void R_RenderDlightCubemaps(const refdef_t *fd);
 void R_RenderPshadowMaps(const refdef_t *fd);
 void R_RenderSunShadowMaps(const refdef_t *fd, int level);
-void R_RenderCubemapSide( int cubemapIndex, int cubemapSide, qboolean subscene );
+void R_RenderCubemapSide(cubemap_t *cubemaps, int cubemapIndex, int cubemapSide, qboolean subscene, qboolean bounce );
 
 void R_AddMD3Surfaces( trRefEntity_t *e, int entityNum );
 void R_AddPolygonSurfaces(const trRefdef_t *refdef);
@@ -3120,6 +3152,7 @@ typedef struct capShadowmapCommand_s {
 typedef struct convolveCubemapCommand_s {
 	int commandId;
 	int cubemap;
+	int cubeSide;
 } convolveCubemapCommand_t;
 
 typedef struct postProcessCommand_s {
@@ -3131,6 +3164,10 @@ typedef struct postProcessCommand_s {
 typedef struct {
 	int commandId;
 } exportCubemapsCommand_t;
+
+typedef struct {
+	int commandId;
+} buildSphericalHarmonicsCommand_t;
 
 typedef struct beginTimedBlockCommand_s {
 	int commandId;
@@ -3162,6 +3199,7 @@ typedef enum {
 	RC_CONVOLVECUBEMAP,
 	RC_POSTPROCESS,
 	RC_EXPORT_CUBEMAPS,
+	RC_BUILD_SPHERICAL_HARMONICS,
 	RC_BEGIN_TIMED_BLOCK,
 	RC_END_TIMED_BLOCK
 } renderCommand_t;
@@ -3233,7 +3271,7 @@ void RB_ExecuteRenderCommands( const void *data );
 void R_IssuePendingRenderCommands( void );
 
 void R_AddDrawSurfCmd( drawSurf_t *drawSurfs, int numDrawSurfs );
-void R_AddConvolveCubemapCmd(int cubemap);
+void R_AddConvolveCubemapCmd(int cubemap, int cubeSide);
 void R_AddCapShadowmapCmd( int dlight, int cubeSide );
 void R_AddPostProcessCmd (void);
 qhandle_t R_BeginTimedBlockCmd( const char *name );
@@ -3269,7 +3307,7 @@ void RE_AddDecalToScene ( qhandle_t shader, const vec3_t origin, const vec3_t di
 void R_AddDecals( void );
 
 image_t *R_FindImageFile( const char *name, imgType_t type, int flags );
-void R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(shaderStage_t *stage, const char *name, const char *rmoName, int flags);
+void R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(shaderStage_t *stage, const char *name, const char *rmoName, int flags, int type);
 qhandle_t RE_RegisterShader( const char *name );
 qhandle_t RE_RegisterShaderNoMip( const char *name );
 image_t *R_CreateImage( const char *name, byte *pic, int width, int height, imgType_t type, int flags, int internalFormat );

@@ -112,7 +112,7 @@ static void ClearGlobalShader(void)
 		VectorSet4(stages[i].normalScale, 0.0f, 0.0f, 0.0f, 0.0f);
 		stages[i].specularScale[0] =
 		stages[i].specularScale[1] =
-		stages[i].specularScale[2] = r_baseSpecular->value;
+		stages[i].specularScale[2] = pow(r_baseSpecular->value, (1.0f/2.2f));
 		stages[i].specularScale[3] = r_baseGloss->value;
 
 	}
@@ -1210,7 +1210,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 	char *token;
 	char bufferPackedTextureName[MAX_QPATH];
 	char bufferBaseColorTextureName[MAX_QPATH];
-	qboolean buildSpecFromPacked = qfalse;
+	int  buildSpecFromPacked = SPEC_GEN;
 	qboolean foundBaseColor = qfalse;
 	unsigned depthMaskBits = GLS_DEPTHMASK_TRUE;
 	unsigned blendSrcBits = 0;
@@ -1385,9 +1385,9 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 			VectorSet4(stage->specularScale, 1.0f, 1.0f, 1.0f, 1.0f);
 		}
 		//
-		// rmoMap <name>
+		// rmoMap <name> || rmosMap <name>
 		//
-		else if (!Q_stricmp(token, "rmoMap"))
+		else if (!Q_stricmp(token, "rmoMap") || !Q_stricmp(token, "rmosMap"))
 		{
 			token = COM_ParseExt(text, qfalse);
 			if (!token[0])
@@ -1395,7 +1395,21 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 				ri.Printf(PRINT_WARNING, "WARNING: missing parameter for 'rmoMap' keyword in shader '%s'\n", shader.name);
 				return qfalse;
 			}
-			buildSpecFromPacked = qtrue;
+			buildSpecFromPacked = !Q_stricmp(token, "rmosMap") ? SPEC_RMOS : SPEC_RMO;
+			Q_strncpyz(bufferPackedTextureName, token, sizeof(bufferPackedTextureName));
+		}
+		//
+		// moxrMap <name> || mosrMap <name>
+		//
+		else if (!Q_stricmp(token, "moxrMap") || !Q_stricmp(token, "mosrMap"))
+		{
+			token = COM_ParseExt(text, qfalse);
+			if (!token[0])
+			{
+				ri.Printf(PRINT_WARNING, "WARNING: missing parameter for 'moxrMap' keyword in shader '%s'\n", shader.name);
+				return qfalse;
+			}
+			buildSpecFromPacked = !Q_stricmp(token, "mosrMap") ? SPEC_MOSR : SPEC_MOXR;
 			Q_strncpyz(bufferPackedTextureName, token, sizeof(bufferPackedTextureName));
 		}
 		//
@@ -2066,7 +2080,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 	//
 	// build specular and diffuse if albedo and packed textures were found
 	//
-	if (foundBaseColor && buildSpecFromPacked)
+	if (foundBaseColor && buildSpecFromPacked != SPEC_GEN)
 	{
 		int flags = IMGFLAG_NONE;
 
@@ -2079,7 +2093,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 		if (shader.noTC)
 			flags |= IMGFLAG_NO_COMPRESSION;
 
-		R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(stage, bufferBaseColorTextureName, bufferPackedTextureName, flags);
+		R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(stage, bufferBaseColorTextureName, bufferPackedTextureName, flags, buildSpecFromPacked);
 
 		//VectorSet4(stage->specularScale, 1.0f, 1.0f, 1.0f, 1.0f);
 	}
@@ -3165,7 +3179,7 @@ static void CollapseStagesToLightall(shaderStage_t *stage, shaderStage_t *lightm
 			{
 				COM_StripExtension(diffuseImg->imgName, specularName, MAX_QPATH);
 				Q_strcat(specularName, MAX_QPATH, "_rmo");
-				R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(stage, diffuseImg->imgName, specularName, specularFlags);
+				R_CreateDiffuseAndSpecMapsFromBaseColorAndRMO(stage, diffuseImg->imgName, specularName, specularFlags, SPEC_RMO);
 
 				if (stage->bundle[TB_SPECULARMAP].image[0])
 					VectorSet4(stage->specularScale, 1.0f, 1.0f, 1.0f, 1.0f);
@@ -3713,39 +3727,6 @@ static shader_t *GeneratePermanentShader( void ) {
 }
 
 /*
-====================
-FindLightingStages
-
-Find proper stage for dlight pass
-====================
-*/
-
-#define GLS_BLEND_BITS (GLS_SRCBLEND_BITS | GLS_DSTBLEND_BITS)
-static void FindLightingStages(void)
-{
-	int i;
-	shader.lightingStage = -1;
-
-	if (shader.isSky || (shader.surfaceFlags & (SURF_NODLIGHT | SURF_SKY)) || shader.sort > SS_OPAQUE)
-		return;
-
-	for (i = 0; i < shader.numUnfoggedPasses; i++) {
-		if (!stages[i].bundle[0].isLightmap) {
-			if (stages[i].bundle[0].tcGen != TCGEN_TEXTURE)
-				continue;
-			if ((stages[i].stateBits & GLS_BLEND_BITS) == (GLS_SRCBLEND_ONE | GLS_DSTBLEND_ONE))
-				continue;
-			if (stages[i].rgbGen == CGEN_IDENTITY && (stages[i].stateBits & GLS_BLEND_BITS) == (GLS_SRCBLEND_DST_COLOR | GLS_DSTBLEND_ZERO)) {
-				if (shader.lightingStage >= 0) {
-					continue;
-				}
-			}
-			shader.lightingStage = i;
-		}
-	}
-}
-
-/*
 =================
 VertexLightingCollapse
 
@@ -4109,8 +4090,6 @@ static shader_t *FinishShader( void ) {
 	// compute number of passes
 	//
 	shader.numUnfoggedPasses = stage;
-
-	FindLightingStages();
 
 	// fogonly shaders don't have any normal passes
 	if (stage == 0 && !shader.isSky)

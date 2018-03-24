@@ -1022,6 +1022,33 @@ void R_ExportCubemaps_f(void)
 	R_ExportCubemaps();
 }
 
+/*
+==================
+R_BuildSphericalHarmonics
+==================
+*/
+void R_BuildSphericalHarmonics(void)
+{
+	buildSphericalHarmonicsCommand_t	*cmd;
+
+	cmd = (buildSphericalHarmonicsCommand_t	*)R_GetCommandBuffer(sizeof(*cmd));
+	if (!cmd) {
+		return;
+	}
+	cmd->commandId = RC_BUILD_SPHERICAL_HARMONICS;
+}
+
+
+/*
+==================
+R_ExportCubemaps_f
+==================
+*/
+void R_BuildSphericalHarmonics_f(void)
+{
+	R_BuildSphericalHarmonics();
+}
+
 //============================================================================
 
 /*
@@ -1249,19 +1276,20 @@ typedef struct consoleCommand_s {
 } consoleCommand_t;
 
 static consoleCommand_t	commands[] = {
-	{ "imagelist",			R_ImageList_f },
-	{ "shaderlist",			R_ShaderList_f },
-	{ "skinlist",			R_SkinList_f },
-	{ "fontlist",			R_FontList_f },
-	{ "screenshot",			R_ScreenShotJPEG_f },
-	{ "screenshot_png",		R_ScreenShotPNG_f },
-	{ "screenshot_tga",		R_ScreenShotTGA_f },
-	{ "gfxinfo",			GfxInfo_f },
-	{ "gfxmeminfo",			GfxMemInfo_f },
-	{ "modellist",			R_Modellist_f },
-	{ "vbolist",			R_VBOList_f },
-	{ "capframes",			R_CaptureFrameData_f },
-	{ "exportCubemaps",		R_ExportCubemaps_f },
+	{ "imagelist",						R_ImageList_f },
+	{ "shaderlist",						R_ShaderList_f },
+	{ "skinlist",						R_SkinList_f },
+	{ "fontlist",						R_FontList_f },
+	{ "screenshot",						R_ScreenShotJPEG_f },
+	{ "screenshot_png",					R_ScreenShotPNG_f },
+	{ "screenshot_tga",					R_ScreenShotTGA_f },
+	{ "gfxinfo",						GfxInfo_f },
+	{ "gfxmeminfo",						GfxMemInfo_f },
+	{ "modellist",						R_Modellist_f },
+	{ "vbolist",						R_VBOList_f },
+	{ "capframes",						R_CaptureFrameData_f },
+	{ "exportCubemaps",					R_ExportCubemaps_f },
+	{ "buildSphericalHarmonics",		R_BuildSphericalHarmonics_f },
 };
 
 static const size_t numCommands = ARRAY_LEN(commands);
@@ -1345,7 +1373,7 @@ void R_Register(void)
 	r_baseNormalX = ri.Cvar_Get("r_baseNormalX", "1.0", CVAR_ARCHIVE | CVAR_LATCH);
 	r_baseNormalY = ri.Cvar_Get("r_baseNormalY", "1.0", CVAR_ARCHIVE | CVAR_LATCH);
 	r_baseParallax = ri.Cvar_Get("r_baseParallax", "0.05", CVAR_ARCHIVE | CVAR_LATCH);
-	r_baseSpecular = ri.Cvar_Get("r_baseSpecular", "0.08", CVAR_ARCHIVE | CVAR_LATCH);
+	r_baseSpecular = ri.Cvar_Get("r_baseSpecular", "0.04", CVAR_ARCHIVE | CVAR_LATCH);
 	r_baseGloss = ri.Cvar_Get("r_baseGloss", "0.45", CVAR_ARCHIVE | CVAR_LATCH);
 	r_dlightMode = ri.Cvar_Get("r_dlightMode", "1", CVAR_ARCHIVE | CVAR_LATCH);
 	r_pshadowDist = ri.Cvar_Get("r_pshadowDist", "128", CVAR_ARCHIVE);
