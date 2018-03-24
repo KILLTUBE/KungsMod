@@ -82,7 +82,7 @@ void OpIDTech3ShaderPBR::Update() {
 
 	if (DidInputsChange()) {
 		SetInputsUnchanged();
-		imgui_log("%s->Update();\n", name);
+		//imgui_log("%s->Update();\n", name);
 
 
 		/*
