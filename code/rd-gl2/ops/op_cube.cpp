@@ -1,6 +1,6 @@
 //#include "craftstructs.h"
-#include <include_gl.h>
-#include <include_imgui.h>
+#include "../include_gl.h"
+#include "../include_imgui.h"
 
 //#include "imgui_impl_glfw.h"
 #include <stdio.h>
@@ -10,9 +10,9 @@
 #include "op.h"
 #include "op_cube.h"
 
-#include <include_console.h>
-#include <include_glm.h>
-#include <primitives_3d.h>
+#include "../include_console.h"
+#include "../include_glm.h"
+#include "../primitives_3d.h"
 
 //float javascript_viewmatrix[16] = {0};
 /*

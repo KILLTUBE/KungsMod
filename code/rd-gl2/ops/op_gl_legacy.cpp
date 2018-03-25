@@ -1,10 +1,10 @@
-#include <include_gl.h>
+#include "../include_gl.h"
 
 #include "op.h"
 #include "op_gl_legacy.h"
 
 
-#include <matrix.h>
+#include "../matrix.h"
 /**/
 
 extern float player_matrix[16];

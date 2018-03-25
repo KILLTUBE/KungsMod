@@ -18,7 +18,7 @@ void RE_CharEvent(int key) {
 		io.AddInputCharacter((unsigned short)key);
 	}
 }
-#include <include_console.h>
+#include "include_console.h"
 void RE_DropFileEvent(const char *filename) {
 	imgui_log("Dropped file: %s\n", filename);
 }

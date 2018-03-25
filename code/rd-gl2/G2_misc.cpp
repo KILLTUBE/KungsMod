@@ -26,7 +26,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "../qcommon/q_shared.h"
 #endif
 
-#include "tr_common.h"
+#include "../rd-common/tr_common.h"
 
 #if !defined(TR_LOCAL_H)
 #include "tr_local.h"

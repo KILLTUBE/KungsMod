@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "opsys/opsys.h"
+#include "opsys.h"
 
 class Node {
 public:

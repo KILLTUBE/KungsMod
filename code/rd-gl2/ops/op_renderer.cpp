@@ -1,5 +1,5 @@
 //#include "craftstructs.h"
-#include <include_imgui.h>
+#include "../include_imgui.h"
 //#include "imgui_impl_glfw.h"
 #include <stdio.h>
 //#include "libs\glfw\include\GLFW/glfw3.h"
@@ -8,7 +8,7 @@
 #include "op.h"
 #include "op_renderer.h"
 
-#include "opsys/opsys.h"
+#include "../opsys/opsys.h"
 
 void OpRenderer::Init() {
 

@@ -5,7 +5,7 @@
 #include <include_duktape.h>
 #include <duktape/dukdebugheaders.h>
 #endif
-#include <include_console.h>
+#include "../include_console.h"
 
 void OpNop::Init() {
 	Op::Init();

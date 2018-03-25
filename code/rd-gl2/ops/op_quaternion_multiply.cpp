@@ -1,7 +1,7 @@
 #include "op.h"
 #include "op_quaternion_multiply.h"
 
-#include <matrix.h>
+#include "../matrix.h"
 
 
 void OpQuaternionMultiply::Init() {
@@ -15,7 +15,7 @@ void OpQuaternionMultiply::Init() {
 	number_of_outputs = 1;
 }
 
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
 void OpQuaternionMultiply::Render() {
 	Op::PreRender();

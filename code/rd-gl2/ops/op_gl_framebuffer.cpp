@@ -1,5 +1,5 @@
-#include <include_gl.h>
-#include "opsys/opsys_opengl.h"
+#include "../include_gl.h"
+#include "../opsys/opsys_opengl.h"
 #include "op.h"
 #include "op_gl_framebuffer.h"
 //#include "util.h"

@@ -5,7 +5,7 @@
 //#include <opsys/opsystem_repl_julia.h>
 //#include <include_utils.h>
 //#include <imgui/dock/dock_repl.h>
-//#include <include_console.h>
+//#include "../include_console.h"
 //#include <include_ccall.h>
 //CCALL long	FS_ReadFile(const char *qpath, void **buffer);
 

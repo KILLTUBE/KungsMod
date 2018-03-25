@@ -6,7 +6,7 @@ extern "C" {
 //#include <server\server.h>
 }
 
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
 void OpPlayer::Init() {
 	Op::Init();

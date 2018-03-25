@@ -1,14 +1,14 @@
-#include <include_imgui.h>
-#include <include_gl.h>
+#include "../include_imgui.h"
+#include "../include_gl.h"
 
 //#include "imgui_impl_glfw.h"
 #include <stdio.h>
 //#include "libs\glfw\include\GLFW/glfw3.h"
 #include <list>
-#include <matrix.h>
-#include <opsys/opsys_utils.h>
+#include "../matrix.h"
+#include "../opsys/opsys_utils.h"
 
-#include <include_console.h>
+#include "../include_console.h"
 
 //void DrawLine(float a_x, float a_y, float b_x, float b_y) {
 void DrawLine(float a_x, float a_y, float b_x, float b_y) {
@@ -134,7 +134,7 @@ void Op::SetInputsUnchanged() {
 
 // Op::PropagateData is called in Op::Request()
 
-#include <compose_images.h>
+#include "../compose_images.h"
 
 void Op::PropagateData() {
 	for (int i=0; i<number_of_outputs; i++) {
@@ -594,7 +594,7 @@ char *glmodetostr(int mode) {
 	return "no glmode found";
 }
 
-#include "op_types/op_type_image.h"
+#include "../op_types/op_type_image.h"
 
 void imgui(LinkOutput *ol) {
 	// only increase il->changed, do not set to 1

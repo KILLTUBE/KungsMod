@@ -1,7 +1,7 @@
 #include "op.h"
 #include "op_matrix_multiply.h"
 
-#include <matrix.h>
+#include "../matrix.h"
 
 
 void OpMatrixMultiply::Init() {
@@ -16,7 +16,7 @@ void OpMatrixMultiply::Init() {
 	number_of_outputs = 1;
 }
 
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
 void OpMatrixMultiply::Render() {
 	Op::PreRender();

@@ -6,9 +6,9 @@ extern "C" {
 //#include <server\server.h>
 }
 
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
-#include "tr_local.h"
+#include "../tr_local.h"
 
 void OpIDTech3Shader::Init() {
 	Op::Init();
@@ -62,7 +62,7 @@ void OpIDTech3Shader::Render() {
 
 byte *R_GetImageData(int id);
 
-#include <include_console.h>
+#include "../include_console.h"
 
 void OpIDTech3Shader::OnLinkConnect(int id) {
 
@@ -111,7 +111,7 @@ void OpIDTech3Shader::Update() {
 	
 }
 
-#include "include_console.h"
+#include "../include_console.h"
 
 
 

@@ -1,7 +1,7 @@
 #include "op.h"
 #include "op_matrix_inverse.h"
-#include <matrix.h>
-#include <imgui/imgui_fixedarea.h>
+#include "../matrix.h"
+#include "../imgui/imgui_fixedarea.h"
 
 void OpMatrixInverse::Init() {
 	Op::Init();

@@ -1,13 +1,13 @@
 #include "op.h"
 #include "op_idtech3_perspectivematrix.h"
 
-#include <matrix.h>
+#include "../matrix.h"
 
 extern "C" void renderer_get_mvp(float *out_mvp);
 extern "C" void renderer_get_perspective(float *out_matrix);
 extern "C" void renderer_get_modelview(float *out_matrix);
 
-#include <include_ccall.h>
+#include "../include_ccall.h"
 
 // todo bind to real renderer values, atm just fixing linking errors
 float matrix_mvp[16];

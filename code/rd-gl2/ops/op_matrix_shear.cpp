@@ -1,7 +1,7 @@
 #include "op.h"
 #include "op_matrix_shear.h"
 
-#include <matrix.h>
+#include "../matrix.h"
 
 void OpMatrixShear::Init() {
 	Op::Init();

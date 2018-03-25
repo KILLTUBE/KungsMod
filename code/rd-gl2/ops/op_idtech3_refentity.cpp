@@ -8,8 +8,8 @@ extern "C" {
 
 //#include <tr_local.h>
 
-#include <imgui/imgui_fixedarea.h>
-#include <include_ccall.h>
+#include "../imgui/imgui_fixedarea.h"
+#include "../include_ccall.h"
 
 OpIDTech3RefEntity *renderme = NULL;
 CCALL void opsys_idtech3_render_refentities() {

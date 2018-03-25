@@ -6,7 +6,7 @@ typedef unsigned int GLuint;
 
 #include <stdio.h>
 #include <vector>
-#include <include_glm.h>
+#include "../include_glm.h"
 
 typedef struct linedata_s {
 	float x, y, z;
@@ -47,7 +47,7 @@ public:
 extern DebugLines kungdebuglines;
 #endif
 
-#include <include_ccall.h>
+#include "../include_ccall.h"
 // We might use the C api aswell in our C++ code
 // But kungdebuglines.AddLine is probably nicer via glm vector class
 CCALL void kungdebugline_add(

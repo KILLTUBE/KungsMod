@@ -1,18 +1,18 @@
-#include <include_gl.h>
+#include "../include_gl.h"
 
 //#include "craft_interaction.h"
 
-#include <include_imgui.h>
+#include "../include_imgui.h"
 #ifdef USE_DUKTAPE
 #include <include_duktape.h>
 #endif
-#include <include_console.h>
+#include "../include_console.h"
 
 //#include "craft_faust.h"
-#include "opsys/opsys.h"
-#include "ops/op_astar.h"
+#include "../opsys/opsys.h"
+#include "../ops/op_astar.h"
 #include "opsys_javascript.h"
-#include "opsys/opsys_hierarchy.h"
+#include "../opsys/opsys_hierarchy.h"
 
 #if 0
 int js_printf(char *msg, ...) {

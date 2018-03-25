@@ -1,10 +1,10 @@
 
-#include "opsys/opsys_opengl.h"
+#include "../opsys/opsys_opengl.h"
 #include "op.h"
 #include "op_gl_program.h"
 //#include "util.h"
 
-#include <include_console.h>
+#include "../include_console.h"
 
 void OpProgram::MakeProgram() {
 	if (program)

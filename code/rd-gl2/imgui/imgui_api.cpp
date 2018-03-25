@@ -4,7 +4,7 @@
 //#ifdef ES2
 //	#include <GLES3/gl3.h>
 //#else
-//	#include <include_gl.h>
+//	#include "../include_gl.h"
 //#endif
 
 #include "include_quakegl.h"

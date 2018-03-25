@@ -29,7 +29,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "tr_local.h"
 #endif
 
-#include "tr_common.h"
+#include "../rd-common/tr_common.h"
 
 #include "qcommon/matcomp.h"
 #include "tr_cache.h"
@@ -3805,7 +3805,7 @@ qboolean model_upload_mdxm_to_gpu(model_t *mod) {
 
 void R_UpdateIBO(IBO_t *ibo, byte * indexes, int indexesSize, vboUsage_t usage);
 void R_UpdateVBO(VBO_t *vbo, byte * vertexes, int vertexesSize, vboUsage_t usage);
-#include <include_glm.h>
+#include "include_glm.h"
 
 qboolean model_upload_mdxm_to_gpu_special(model_t *mod, mdxmSurface_t *specialSurface, float matrix[16]) {
 	mdxmHeader_t *mdxm = mdxmHeader(mod);

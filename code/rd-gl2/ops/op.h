@@ -19,8 +19,8 @@
 //#include <mesh.h>
 
 
-#include "include_glm.h"
-#include "include_gl.h"
+#include "../include_glm.h"
+#include "../include_gl.h"
 
 //#include <include_physfs.h>
 

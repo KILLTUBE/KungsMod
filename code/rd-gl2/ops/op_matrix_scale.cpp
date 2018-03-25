@@ -1,7 +1,7 @@
 #include "op.h"
 #include "op_matrix_scale.h"
 
-#include <matrix.h>
+#include "../matrix.h"
 
 void OpMatrixScale::Init() {
 	Op::Init();

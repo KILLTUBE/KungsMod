@@ -14,6 +14,6 @@
 #include <limits.h>
 #define STB_IMAGE_IMPLEMENTATION
 //#include "stb_image.h"
-#include "tr_local.h"
+#include "../tr_local.h"
 
 #endif

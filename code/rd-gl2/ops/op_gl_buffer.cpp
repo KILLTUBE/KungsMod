@@ -1,6 +1,6 @@
 //#include "craftstructs.h"
-#include <include_gl.h>
-#include <include_imgui.h>
+#include "../include_gl.h"
+#include "../include_imgui.h"
 
 //#include "imgui_impl_glfw.h"
 #include <stdio.h>
@@ -10,7 +10,7 @@
 #include "op.h"
 #include "op_gl_buffer.h"
 
-#include <include_console.h>
+#include "../include_console.h"
 
 //float javascript_viewmatrix[16] = {0};
 /*
@@ -97,7 +97,7 @@ void OpGLBuffer::Init() {
 	//buffercontent.set
 }
 
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
 void OpGLBuffer::Render() {
 	Op::PreRender();

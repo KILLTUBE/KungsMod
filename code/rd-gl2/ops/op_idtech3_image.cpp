@@ -6,9 +6,9 @@ extern "C" {
 //#include <server\server.h>
 }
 
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
-#include "tr_local.h"
+#include "../tr_local.h"
 
 void OpIDTech3Image::Init() {
 	Op::Init();
@@ -77,7 +77,7 @@ void OpIDTech3Image::Update() {
 	
 }
 
-#include "include_console.h"
+#include "../include_console.h"
 extern int CACHE_IMAGE;
 bool OpIDTech3Image::LoadFilename(const char *filename) {
 	byte *dataPic;

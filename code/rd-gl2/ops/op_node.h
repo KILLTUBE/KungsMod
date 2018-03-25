@@ -4,7 +4,7 @@
 //#include <opsys/opsystem_hierarchy.h>
 #include "op.h"
 
-#include <opsys/opsys_link_matrices.h>
+#include "../opsys/opsys_link_matrices.h"
 class OpNode;
 
 class NodeForOp {

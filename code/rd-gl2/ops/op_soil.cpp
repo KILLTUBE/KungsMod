@@ -1,8 +1,8 @@
-#include <include_gl.h>
+#include "../include_gl.h"
 #include "op.h"
 #include "op_soil.h"
 
-#include <include_imgui.h>
+#include "../include_imgui.h"
 
 //#include "G:/libs/Simple OpenGL Image Library/src/SOIL.h"
 

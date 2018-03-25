@@ -1,7 +1,7 @@
 #include "op.h"
 #include "op_matrices.h"
 
-#include <matrix.h>
+#include "../matrix.h"
 
 void OpMatrices::Init() {
 	Op::Init();

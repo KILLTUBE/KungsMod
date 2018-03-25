@@ -4,7 +4,7 @@
 #if USE_DUKTAPE
 #include <include_duktape.h>
 #endif
-#include <include_console.h>
+#include "../include_console.h"
 
 //void file_get_contents(char *filename, char *buffer, int buffersize) {
 //	FILE *f = NULL;

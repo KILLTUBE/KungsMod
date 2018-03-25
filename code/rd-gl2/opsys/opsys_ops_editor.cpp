@@ -1,15 +1,15 @@
-﻿#include "opsys/opsys.h"
+﻿#include "../opsys/opsys.h"
 
 //#include <include_duktape.h>
-#include <imgui_docks/dock_console.h>
-#include <imgui/imgui_dock.h>
+#include "../imgui_docks/dock_console.h"
+#include "../imgui/imgui_dock.h"
 
-#include "opsys/opsys_utils.h"
-#include "ops/op_prefab.h"
+#include "../opsys/opsys_utils.h"
+#include "../ops/op_prefab.h"
 #include <list>
-#include "opsys/opsys_hierarchy.h"
-#include "opsys/opsys_explorer.h"
-#include "ops/op_file.h"
+#include "../opsys/opsys_hierarchy.h"
+#include "../opsys/opsys_explorer.h"
+#include "../ops/op_file.h"
 
 
 //#include <globals.h>

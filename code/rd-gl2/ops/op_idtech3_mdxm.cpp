@@ -6,12 +6,12 @@ extern "C" {
 //#include <server\server.h>
 }
 
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
-#include "tr_local.h"
+#include "../tr_local.h"
 
-#include <compose_models.h>
-#include <matrix.h>
+#include "../compose_models.h"
+#include "../matrix.h"
 void OpMDXM::Init() {
 	Op::Init();
 	size = ImVec2(128, 128);

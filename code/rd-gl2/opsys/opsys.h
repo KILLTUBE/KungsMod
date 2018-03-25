@@ -1,18 +1,18 @@
 #ifndef OP_SYSTEM_H
 #define OP_SYSTEM_H
 
-#include "ops/op_all.h"
-#include "ops/op_value.h"
-#include "ops/op_matrix.h"
-#include "ops/op_prefab.h"
-#include "ops/op_renderer.h"
-#include "ops/op_cube.h"
-#include "ops/op_astar.h"
+#include "../ops/op_all.h"
+#include "../ops/op_value.h"
+#include "../ops/op_matrix.h"
+#include "../ops/op_prefab.h"
+#include "../ops/op_renderer.h"
+#include "../ops/op_cube.h"
+#include "../ops/op_astar.h"
 
 #include <list>
 #include <map>
 
-#include "opsys/opsys_editor.h"
+#include "opsys_editor.h"
 
 extern std::list<OpSystem *> systems;
 

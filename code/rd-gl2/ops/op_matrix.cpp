@@ -1,7 +1,7 @@
 #include "op.h"
 #include "op_matrix.h"
-#include <matrix.h> // matcpy
-#include <imgui/imgui_fixedarea.h>
+#include "../matrix.h" // matcpy
+#include "../imgui/imgui_fixedarea.h"
 
 void OpMatrix::Init() {
 	Op::Init();

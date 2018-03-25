@@ -1,12 +1,12 @@
 //#include <include_duktape.h>
-#include "include_console.h"
-#include "opsys/opsys_utils.h"
-#include "ops/op_prefab.h"
+#include "../include_console.h"
+#include "opsys_utils.h"
+#include "../ops/op_prefab.h"
 #include <list>
-#include <imgui/imgui_dock.h>
-#include "opsys/opsys_hierarchy.h"
-#include "opsys/opsys_explorer.h"
-#include "ops/op_file.h"
+#include "../imgui/imgui_dock.h"
+#include "opsys_hierarchy.h"
+#include "opsys_explorer.h"
+#include "../ops/op_file.h"
 
 
 //#include <globals.h>
@@ -14,13 +14,13 @@
 // bla headers..
 
 #include <string>
-#include <opsys/opsys_editor.h>
-#include <opsys/opsys.h>
-#include <opsys/opsys_utils.h>
+#include "opsys_editor.h"
+#include "opsys.h"
+#include "opsys_utils.h"
 
 const char *get_filename_ext(const char *filename);
-#include "ops/op_file.h"
-#include <imgui/include_imgui.h>
+#include "../ops/op_file.h"
+#include "../imgui/include_imgui.h"
 
 OpSystemEditor::OpSystemEditor(OpSystem *opsys_) {
 	opsys = opsys_;

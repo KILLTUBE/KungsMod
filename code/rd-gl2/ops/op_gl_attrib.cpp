@@ -1,6 +1,6 @@
 //#include "craftstructs.h"
-#include <include_gl.h>
-#include <include_imgui.h>
+#include "../include_gl.h"
+#include "../include_imgui.h"
 
 //#include "imgui_impl_glfw.h"
 #include <stdio.h>

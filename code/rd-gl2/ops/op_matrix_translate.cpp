@@ -1,7 +1,7 @@
 #include "op.h"
 #include "op_matrix_translate.h"
 
-#include <matrix.h>
+#include "../matrix.h"
 
 void OpMatrixTranslate::Init() {
 	Op::Init();

@@ -7,7 +7,7 @@
 //#include "../tr_glsl.h"
 GLint GLSL_LinkProgramSafe(GLuint program);
 
-#include <imgui/MagicFile/magicfile.h>
+#include "../imgui/MagicFile/magicfile.h"
 
 DockShaders::DockShaders() {}
 

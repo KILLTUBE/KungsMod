@@ -1,7 +1,7 @@
 #ifndef DOCK_OPSYS
 #define DOCK_OPSYS
 
-#include <imgui_docks/dock.h>
+#include "../imgui_docks/dock.h"
 #include <string>
 
 class DockOpsys : public Dock {

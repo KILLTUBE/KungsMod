@@ -1,7 +1,7 @@
-#include <include_gl.h>
+#include "../include_gl.h"
 
-#include "opsys/opsys_opengl.h"
-#include <include_console.h>
+#include "../opsys/opsys_opengl.h"
+#include "../include_console.h"
 #include "stdio.h"
 #include "stdlib.h"
 

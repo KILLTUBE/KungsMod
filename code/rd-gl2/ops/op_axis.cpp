@@ -1,17 +1,17 @@
-#include <include_gl.h>
-#include <include_glm.h>
+#include "../include_gl.h"
+#include "../include_glm.h"
 //#include "craftstructs.h"
-#include <include_imgui.h>
+#include "../include_imgui.h"
 //#include "imgui_impl_glfw.h"
 #include <stdio.h>
 //#include "libs\glfw\include\GLFW/glfw3.h"
 #include <list>
 #include "op.h"
 #include "op_axis.h"
-#include "opsys/opsys.h"
-#include <imgui/imgui_fixedarea.h>
-#include <utils_opengl/debuglines.h>
-#include <include_console.h>
+#include "../opsys/opsys.h"
+#include "../imgui/imgui_fixedarea.h"
+#include "../utils_opengl/debuglines.h"
+#include "../include_console.h"
 //#include <oglwrap.h>
 
 void Buffer2::LoadFile(char *filename) {
@@ -359,7 +359,7 @@ void OpAxis::Render() {
 void OpAxis::Update() {
 }
 
-#include <ops/op_node.h>
+#include "../ops/op_node.h"
 
 NodeForOp **nodes = NULL;
 glm::vec4 pos4;

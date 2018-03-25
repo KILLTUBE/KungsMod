@@ -1,9 +1,9 @@
 #include "op.h"
 #include "op_matrix_transpose.h"
 
-#include <matrix.h>
+#include "../matrix.h"
 
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
 void OpMatrixTranspose::Init() {
 	Op::Init();

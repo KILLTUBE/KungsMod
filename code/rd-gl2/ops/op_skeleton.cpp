@@ -1,10 +1,10 @@
 #include "op.h"
 #include "op_skeleton.h"
 
-#include <matrix.h>
+#include "../matrix.h"
 
-#include <glm/gtc/matrix_transform.hpp> 
-#include <glm/gtx/quaternion.hpp>
+#include "../glm/gtc/matrix_transform.hpp"
+#include "../glm/gtx/quaternion.hpp"
 
 
 typedef struct bone_s {
@@ -67,7 +67,7 @@ void OpSkeleton::Init() {
 #endif
 }
 
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
 void OpSkeleton::Render() {
 	Op::PreRender();

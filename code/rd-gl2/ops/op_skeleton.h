@@ -2,14 +2,14 @@
 #define OP_SKELETON_H
 
 #include "op.h"
-#include <matrix.h>
+#include "../matrix.h"
 
 #include <vector>
 #include <array>
 
 // Maybe extend some CustomClass? So I could add some "customclass->IsArrayOfMatrices()" etc.
 
-#include <opsys/opsys_link_matrices.h>
+#include "../opsys/opsys_link_matrices.h"
 
 class Joint {
 public:

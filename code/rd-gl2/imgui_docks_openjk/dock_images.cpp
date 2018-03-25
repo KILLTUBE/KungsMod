@@ -1,8 +1,8 @@
 #include "dock_images.h"
-#include <include_imgui.h>
+#include "../include_imgui.h"
 #include <client/client.h>
 
-#include <tr_local.h>
+#include "../tr_local.h"
 
 DockImages::DockImages() {
 }

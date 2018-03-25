@@ -1,6 +1,6 @@
 #include "op.h"
 #include "op_craft.h"
-#include <include_console.h>
+#include "../include_console.h"
 
 void OpCraft::Init() {
 	Op::Init();

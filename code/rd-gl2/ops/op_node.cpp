@@ -1,16 +1,16 @@
-#include <include_gl.h>
+#include "../include_gl.h"
 //#include "craftstructs.h"
-#include <include_imgui.h>
+#include "../include_imgui.h"
 //#include "imgui_impl_glfw.h"
 #include <stdio.h>
 //#include "libs\glfw\include\GLFW/glfw3.h"
 #include <list>
 #include "op.h"
 #include "op_node.h"
-#include "opsys/opsys.h"
-#include <glm/gtc/matrix_transform.hpp> 
-#include <glm/gtx/quaternion.hpp>
-#include <include_console.h>
+#include "../opsys/opsys.h"
+#include "../glm/gtc/matrix_transform.hpp"
+#include "../glm/gtx/quaternion.hpp"
+#include "../include_console.h"
 
 void NodeCalcLocalToWorld(NodeForOp *node, int depth=0);
 
@@ -27,7 +27,7 @@ typedef struct bone_s {
 	char *name;
 } bone_t;
 
-#include <utils_opengl/debuglines.h>
+#include "../utils_opengl/debuglines.h"
 
 
 typedef struct boneweight_s {
@@ -435,7 +435,7 @@ void NodeForOp::recalculateGlobalPositionAndRotation() {
 }
 
 
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
 void node_renderposition(FixedArea *fa, NodeForOp *node) {
 	fa->SetCol(0);

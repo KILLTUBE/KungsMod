@@ -23,7 +23,7 @@ void DockConsole::imgui() {
 	imgui_console_content();
 }
 
-//#include <include_gl.h>
+//#include "../include_gl.h"
 //#include <include_glfw.h>
 // had to change this to a pointer, because otherwise it would crash... probably it wasn't initialized yet
 std::list<std::string> *console_lines = NULL;

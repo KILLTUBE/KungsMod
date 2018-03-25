@@ -1,6 +1,6 @@
 #include "compose_lib.h"
 
-#include <tr_local.h>
+#include "tr_local.h"
 
 #if 1
 

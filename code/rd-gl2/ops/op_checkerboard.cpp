@@ -1,9 +1,9 @@
 #include "op.h"
 #include "op_checkerboard.h"
 
-#include <include_imgui.h>
+#include "../include_imgui.h"
 
-#include <include_gl.h>
+#include "../include_gl.h"
 
 void OpCheckerboard::MakeCheckImage() {
 	int i, j, c;

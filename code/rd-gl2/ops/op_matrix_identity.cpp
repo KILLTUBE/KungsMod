@@ -1,7 +1,7 @@
 #include "op.h"
 #include "op_matrix_identity.h"
 
-#include <matrix.h>
+#include "../matrix.h"
 
 void OpMatrixIdentity::Init() {
 	Op::Init();

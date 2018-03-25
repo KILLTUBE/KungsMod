@@ -1,7 +1,7 @@
 #include "op.h"
 #include "op_quaternion_inverse.h"
 
-#include <matrix.h>
+#include "../matrix.h"
 
 
 void OpQuaternionInverse::Init() {
@@ -13,7 +13,7 @@ void OpQuaternionInverse::Init() {
 	InitLinkOutput(0, "Q", OP_TYPE_QUAT);
 }
 
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
 void OpQuaternionInverse::Render() {
 	Op::PreRender();

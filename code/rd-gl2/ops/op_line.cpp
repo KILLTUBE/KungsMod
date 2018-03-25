@@ -1,8 +1,8 @@
 #include "op.h"
 #include "op_line.h"
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
-#include <utils_opengl/debuglines.h>
+#include "../utils_opengl/debuglines.h"
 
 void OpLine::Init() {
 	Op::Init();

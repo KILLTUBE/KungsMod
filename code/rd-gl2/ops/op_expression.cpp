@@ -4,7 +4,7 @@
 #ifdef USE_DUKTAPE
 #include <include_duktape.h>
 #endif
-#include <include_console.h>
+#include "../include_console.h"
 
 void OpExpression::Init() {
 	Op::Init();

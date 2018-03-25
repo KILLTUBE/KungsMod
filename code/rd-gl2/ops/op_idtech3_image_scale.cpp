@@ -6,9 +6,9 @@ extern "C" {
 //#include <server\server.h>
 }
 
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
-#include "tr_local.h"
+#include "../tr_local.h"
 
 void OpIDTech3ImageScale::Init() {
 	Op::Init();
@@ -78,7 +78,7 @@ void OpIDTech3ImageScale::Update() {
 	
 }
 
-#include "include_console.h"
+#include "../include_console.h"
 
 void OpIDTech3ImageScale::RenderEditor() {
 	Op::RenderEditor();

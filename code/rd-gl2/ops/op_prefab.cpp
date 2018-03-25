@@ -1,8 +1,8 @@
 #include "op.h"
 #include "op_prefab.h"
-#include "opsys/opsys.h"
+#include "../opsys/opsys.h"
 
-#include <matrix.h>
+#include "../matrix.h"
 
 void OpPrefab::Init() {
 	Op::Init();

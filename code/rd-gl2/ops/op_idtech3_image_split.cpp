@@ -6,9 +6,9 @@ extern "C" {
 //#include <server\server.h>
 }
 
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
-#include "tr_local.h"
+#include "../tr_local.h"
 
 qhandle_t R_CreateImageRGBA(char *name, int width, int height, byte r, byte g, byte b, byte a);
 void R_UpdateImageFromBuffer(image_t *image);
@@ -36,7 +36,7 @@ void OpIDTech3ImageSplit::Init() {
 	showtitle = 1;
 }
 
-#include <include_console.h>
+#include "../include_console.h"
 
 void OpIDTech3ImageSplit::OnLinkConnect(int id) {
 
@@ -203,7 +203,7 @@ void OpIDTech3ImageSplit::Update() {
 	
 }
 
-#include "include_console.h"
+#include "../include_console.h"
 
 void OpIDTech3ImageSplit::RenderEditor() {
 	Op::RenderEditor();

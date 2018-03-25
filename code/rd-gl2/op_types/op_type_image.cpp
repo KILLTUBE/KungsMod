@@ -1,5 +1,5 @@
-#include "opsys/opsys.h"
-#include "tr_local.h"
+#include "../opsys/opsys.h"
+#include "../tr_local.h"
 
 void op_type_image_imgui(LinkOutput *ol) {
 	image_t *image = tr.images[ ol->val_i ];

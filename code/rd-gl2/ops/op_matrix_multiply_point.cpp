@@ -1,7 +1,7 @@
 #include "op.h"
 #include "op_matrix_multiply_point.h"
-#include <matrix.h> // matcpy
-#include <imgui/imgui_fixedarea.h>
+#include "../matrix.h" // matcpy
+#include "../imgui/imgui_fixedarea.h"
 
 void OpMatrixMultiplyPoint::Init() {
 	Op::Init();

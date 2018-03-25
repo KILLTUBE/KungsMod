@@ -14,7 +14,7 @@
 #include "../imgui_docks_openjk/dock_quakeshaders.h"
 #include "../imgui_docks_openjk/dock_opsys.h"
 #include "../imgui_docks_openjk/dock_images.h"
-#include "imgui/imgui_api.h"
+#include "../imgui/imgui_api.h"
 
 #include <list>
 std::list<Dock *> imgui_quake_docks;

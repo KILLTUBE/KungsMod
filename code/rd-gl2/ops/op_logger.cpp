@@ -1,7 +1,7 @@
 #include "op.h"
 #include "op_logger.h"
 
-#include <include_console.h>
+#include "../include_console.h"
 
 void OpLogger::Init() {
 	Op::Init();

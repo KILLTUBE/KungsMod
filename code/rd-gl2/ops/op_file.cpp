@@ -1,14 +1,14 @@
-#include <include_gl.h>
+#include "../include_gl.h"
 #include "op.h"
 #include "op_file.h"
 
-#include <include_imgui.h>
+#include "../include_imgui.h"
 //#include <include_soil.h>
 //#include <include_devil.h>
 //#include <include_physfs.h>
 
 #include "op_prefab.h"
-#include "opsys/opsys.h"
+#include "../opsys/opsys.h"
 //#include <format_cod2_xmodel.h>
 
 

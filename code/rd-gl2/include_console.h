@@ -2,6 +2,6 @@
 #define INCLUDE_CONSOLE
 
 // should rename it to console_log()
-#include <imgui_docks/dock_console.h>
+#include "imgui_docks/dock_console.h"
 
 #endif

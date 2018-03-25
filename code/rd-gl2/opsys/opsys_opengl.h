@@ -3,8 +3,8 @@
 
 
 //#include "GL/glew.h"
-//#include <include_gl.h>
-#include <qgl.h>
+//#include "../include_gl.h"
+#include "../qgl.h"
 //#include "glfw\include\GLFW/glfw3.h"
 
 extern int openglstarted;

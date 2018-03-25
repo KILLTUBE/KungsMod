@@ -2,7 +2,7 @@
 #define LINK_MATRICES_H
 
 #include <vector>
-#include <matrix.h>
+#include "../matrix.h"
 
 class LinkMatrices {
 public:

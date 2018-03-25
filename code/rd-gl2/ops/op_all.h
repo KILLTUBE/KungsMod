@@ -3,9 +3,9 @@
 
 #if defined(_MSC_VER) || defined(EMSCRIPTEN)
 
-//#include <include_gl.h>
+//#include "../include_gl.h"
 #include "op.h"
-#include "opsys/opsys.h"
+#include "../opsys/opsys.h"
 
 void InitPermanentOps();
 extern std::vector<Op *> permanent_ops;

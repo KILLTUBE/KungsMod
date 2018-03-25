@@ -1,11 +1,11 @@
-#include <include_gl.h>
+#include "../include_gl.h"
 #include <stdio.h>
 #include <list>
 #include "op.h"
 #include "op_astar.h"
-#include <include_glm.h>
-#include <primitives_3d.h>
-#include <matrix.h>
+#include "../include_glm.h"
+#include "../primitives_3d.h"
+#include "../matrix.h"
 
 //float javascript_viewmatrix[16] = {0};
 /*

@@ -1,9 +1,9 @@
 #include "op.h"
 #include "op_matrix_decompose.h"
-#include <matrix.h> // matcpy
-#include <imgui/imgui_fixedarea.h>
+#include "../matrix.h" // matcpy
+#include "../imgui/imgui_fixedarea.h"
 
-#include <glm/gtx/matrix_decompose.hpp>
+#include "../glm/gtx/matrix_decompose.hpp"
 
 void OpMatrixDecompose::Init() {
 	Op::Init();

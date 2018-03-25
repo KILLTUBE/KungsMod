@@ -1,7 +1,7 @@
 #include "op.h"
 #include "op_matrix_ortho.h"
 
-#include <matrix.h>
+#include "../matrix.h"
 
 void OpOrtho::Init() {
 	Op::Init();

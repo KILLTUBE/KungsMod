@@ -6,7 +6,7 @@
 #include <duktape/dukdebugheaders.h>
 #endif
 
-#include <include_console.h>
+#include "../include_console.h"
 
 void OpScriptWrapper::Init() {
 	Op::Init();

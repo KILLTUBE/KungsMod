@@ -1,8 +1,9 @@
-#include <include_imgui.h>
+#include "../include_imgui.h"
 
-#include <imgui_docks/dock_console.h>
+#include "../imgui_docks/dock_console.h"
 #include <vector>
-#include "opsys/opsys_hierarchy.h"
+
+#include "../opsys/opsys_hierarchy.h"
 
 int next_node_id = 0;
 #include <algorithm>
@@ -10,7 +11,7 @@ int next_node_id = 0;
 
 //#include <duktape/dukhelpers.h>
 
-#include "ops/op.h"
+#include "../ops/op.h"
 //#include <imgui/op_treenode.h>
 
 Node::Node(char *name_, char *opsystem_filename_) : opsystem(opsystem_filename_)

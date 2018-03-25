@@ -6,11 +6,11 @@ extern "C" {
 //#include <server\server.h>
 }
 
-#include <imgui/imgui_fixedarea.h>
+#include "../imgui/imgui_fixedarea.h"
 
-#include "tr_local.h"
-#include "include_console.h"
-#include "compose_images.h"
+#include "../tr_local.h"
+#include "../include_console.h"
+#include "../compose_images.h"
 
 qhandle_t R_CreateImageRGBA(char *name, int width, int height, byte r, byte g, byte b, byte a);
 byte *R_GetImageData(int id);

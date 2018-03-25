@@ -1,13 +1,13 @@
-#include "opsys/opsys.h"
-#include "ops/op_expression.h"
-#include "ops/op_prefab.h"
-#include "ops/op_prefab_input.h"
-#include "ops/op_prefab_output.h"
-#include "ops/op_switch.h"
-#include "ops/op_keyboard.h"
-#include "ops/op_logger.h"
-#include "ops/op_javascript.h"
-#include "ops/op_astar.h"
+#include "../opsys/opsys.h"
+#include "../ops/op_expression.h"
+#include "../ops/op_prefab.h"
+#include "../ops/op_prefab_input.h"
+#include "../ops/op_prefab_output.h"
+#include "../ops/op_switch.h"
+#include "../ops/op_keyboard.h"
+#include "../ops/op_logger.h"
+#include "../ops/op_javascript.h"
+#include "../ops/op_astar.h"
 
 #include <vector>
 #include <map>
@@ -17,12 +17,12 @@
 #endif
 
 #include "../imgui_docks/dock_console.h"
-#include "ops/op_prefab_input.h"
-#include "ops/op_prefab_output.h"
+#include "../ops/op_prefab_input.h"
+#include "../ops/op_prefab_output.h"
 
-#include "ops/op_gl_legacy.h"
+#include "../ops/op_gl_legacy.h"
 //#include "ops/op_xmodel.h"
-#include "opsys/opsys_hierarchy.h"
+#include "../opsys/opsys_hierarchy.h"
 
 std::list<OpSystem *> systems;
 
