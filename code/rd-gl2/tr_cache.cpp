@@ -89,7 +89,7 @@ qboolean CModelCacheManager::LoadFile( const char *pFileName, void **ppFileBuffe
 		return qtrue;	
 	}
 
-	int len = ri.FS_ReadFile(path, ppFileBuffer);
+	int len = FS_ReadFile(path, ppFileBuffer);
 	if ( len == -1 || *ppFileBuffer == NULL )
 	{
 		return qfalse;

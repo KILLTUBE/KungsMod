@@ -34,6 +34,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #define	REF_API_VERSION		18
 
+//#include "compose_lib.h"
+
 typedef struct {
 	void				(QDECL *Printf)						( int printLevel, const char *fmt, ...) __attribute__ ((format (printf, 2, 3)));
 	void				(QDECL *Error)						( int errorLevel, const char *fmt, ...) NORETURN_PTR __attribute__ ((format (printf, 2, 3)));
@@ -68,6 +70,7 @@ typedef struct {
 	const char*			(*SE_GetString)						( const char *reference );
 
 
+#if 1
 	void				(*FS_FreeFile)						( void *buffer );
 	void				(*FS_FreeFileList)					( char **fileList );
 	int					(*FS_Read)							( void *buffer, int len, fileHandle_t f );
@@ -81,6 +84,7 @@ typedef struct {
 	char **				(*FS_ListFiles)						( const char *directory, const char *extension, int *numfiles );
 	int					(*FS_Write)							( const void *buffer, int len, fileHandle_t f );
 	void				(*FS_WriteFile)						( const char *qpath, const void *buffer, int size );
+#endif
 
 	void				(*CM_DrawDebugSurface)				( void (*drawPoly)( int color, int numPoints, float *points ) );
 	bool				(*CM_CullWorldBox)					( const cplane_t *frustrum, const vec3pair_t bounds );

@@ -699,7 +699,7 @@ void RB_TakeScreenshot(int x, int y, int width, int height, char *fileName)
 	if (glConfig.deviceSupportsGamma)
 		R_GammaCorrect(allbuf + offset, memcount);
 
-	ri.FS_WriteFile(fileName, buffer, memcount + 18);
+	FS_WriteFile(fileName, buffer, memcount + 18);
 
 	R_Free(allbuf);
 }
@@ -877,7 +877,7 @@ static void R_LevelShot(void) {
 		R_GammaCorrect(buffer + 18, LEVELSHOTSIZE * LEVELSHOTSIZE * 3);
 	}
 
-	ri.FS_WriteFile(checkname, buffer, LEVELSHOTSIZE * LEVELSHOTSIZE * 3 + 18);
+	FS_WriteFile(checkname, buffer, LEVELSHOTSIZE * LEVELSHOTSIZE * 3 + 18);
 
 	R_Free(buffer);
 	R_Free(allsource);
@@ -917,7 +917,7 @@ void R_ScreenShotTGA_f(void) {
 		// timestamp the file
 		R_ScreenshotFilename(checkname, sizeof(checkname), ".tga");
 
-		if (ri.FS_FileExists(checkname)) {
+		if (FS_FileExists(checkname)) {
 			Com_Printf("ScreenShot: Couldn't create a file\n");
 			return;
 		}
@@ -949,7 +949,7 @@ void R_ScreenShotPNG_f(void) {
 		// timestamp the file
 		R_ScreenshotFilename(checkname, sizeof(checkname), ".png");
 
-		if (ri.FS_FileExists(checkname)) {
+		if (FS_FileExists(checkname)) {
 			Com_Printf("ScreenShot: Couldn't create a file\n");
 			return;
 		}
@@ -981,7 +981,7 @@ void R_ScreenShotJPEG_f(void) {
 		// timestamp the file
 		R_ScreenshotFilename(checkname, sizeof(checkname), ".jpg");
 
-		if (ri.FS_FileExists(checkname)) {
+		if (FS_FileExists(checkname)) {
 			Com_Printf("ScreenShot: Couldn't create a file\n");
 			return;
 		}
@@ -1262,7 +1262,7 @@ static void R_CaptureFrameData_f()
 	else if (Q_stricmp(cmd, "multi") == 0)
 		tr.numFramesToCapture = atoi(ri.Cmd_Argv(1));
 
-	int len = ri.FS_FOpenFileByMode("rend2.log", &tr.debugFile, FS_APPEND);
+	int len = FS_FOpenFileByMode("rend2.log", &tr.debugFile, FS_APPEND);
 	if (len == -1 || !tr.debugFile)
 	{
 		ri.Printf(PRINT_ERROR, "Failed to open rend2 log file\n");

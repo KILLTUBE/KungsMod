@@ -29,7 +29,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 void user_write_data( png_structp png_ptr, png_bytep data, png_size_t length ) {
 	fileHandle_t fp = *(fileHandle_t*)png_get_io_ptr( png_ptr );
-	ri.FS_Write( data, length, fp );
+	FS_Write( data, length, fp );
 }
 void user_flush_data( png_structp png_ptr ) {
 	//TODO: ri->FS_Flush?
@@ -51,7 +51,7 @@ int RE_SavePNG( const char *filename, byte *buf, size_t width, size_t height, in
 	*/
 	int depth = 8;
 
-	fp = ri.FS_FOpenFileWrite( filename, qtrue );
+	fp = FS_FOpenFileWrite( filename, qtrue );
 	if ( !fp ) {
 		goto fopen_failed;
 	}
@@ -119,7 +119,7 @@ png_failure:
 png_create_info_struct_failed:
 	png_destroy_write_struct (&png_ptr, &info_ptr);
 png_create_write_struct_failed:
-	ri.FS_FCloseFile( fp );
+	FS_FCloseFile( fp );
 fopen_failed:
 	return status;
 }
@@ -142,7 +142,7 @@ struct PNGFileReader
 	PNGFileReader ( char *buf ) : buf(buf), offset(0), png_ptr(NULL), info_ptr(NULL) {}
 	~PNGFileReader()
 	{
-		ri.FS_FreeFile (buf);
+		FS_FreeFile (buf);
 
 		if ( info_ptr != NULL )
 		{
@@ -303,7 +303,7 @@ void user_read_data( png_structp png_ptr, png_bytep data, png_size_t length ) {
 void LoadPNG ( const char *filename, byte **data, int *width, int *height )
 {
 	char *buf = NULL;
-	int len = ri.FS_ReadFile (filename, (void **)&buf);
+	int len = FS_ReadFile (filename, (void **)&buf);
 	if ( len < 0 || buf == NULL )
 	{
 		return;

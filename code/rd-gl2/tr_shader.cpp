@@ -4776,7 +4776,7 @@ static void ScanAndLoadShaderFiles(void)
 	long sum = 0, summand;
 
 	// scan for shader files
-	shaderFiles = ri.FS_ListFiles("shaders", ".shader", &numShaderFiles);
+	shaderFiles = FS_ListFiles("shaders", ".shader", &numShaderFiles);
 
 	if (!shaderFiles || !numShaderFiles)
 	{
@@ -4802,7 +4802,7 @@ static void ScanAndLoadShaderFiles(void)
 				strcpy(ext, ".mtr");
 			}
 
-			if (ri.FS_ReadFile(filename, NULL) <= 0)
+			if (FS_ReadFile(filename, NULL) <= 0)
 			{
 				Com_sprintf(filename, sizeof(filename), "shaders/%s", shaderFiles[i]);			
 			}
@@ -4815,7 +4815,7 @@ static void ScanAndLoadShaderFiles(void)
 
 		//ri.Printf( PRINT_DEVELOPER, "...loading '%s'\n", filename );
 		// Looks like stripping out crap in the shaders will save about 200k
-		summand = ri.FS_ReadFile(filename, (void **)&buffers[i]);
+		summand = FS_ReadFile(filename, (void **)&buffers[i]);
 		if (!buffers[i])
 			ri.Error(ERR_DROP, "Couldn't load %s", filename);
 
@@ -4837,13 +4837,13 @@ static void ScanAndLoadShaderFiles(void)
 		strcat(textEnd, buffers[i]);
 		strcat(textEnd, "\n");
 		textEnd += strlen(textEnd);
-		ri.FS_FreeFile(buffers[i]);
+		FS_FreeFile(buffers[i]);
 	}
 
 	COM_Compress(s_shaderText);
 
 	// free up memory
-	ri.FS_FreeFileList(shaderFiles);
+	FS_FreeFileList(shaderFiles);
 
 	#ifdef USE_STL_FOR_SHADER_LOOKUPS
 	SetupShaderEntryPtrs();

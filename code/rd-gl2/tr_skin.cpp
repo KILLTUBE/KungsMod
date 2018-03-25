@@ -167,7 +167,7 @@ int RE_GetAnimationCFG(const char *psCFGFilename, char *psDest, int iDestSize)
 		// not found, so load it...
 		//
 		fileHandle_t f;
-		int iLen = ri.FS_FOpenFileRead(psCFGFilename, &f, qfalse);
+		int iLen = FS_FOpenFileRead(psCFGFilename, &f, qfalse);
 		if (iLen <= 0)
 		{
 			return 0;
@@ -175,9 +175,9 @@ int RE_GetAnimationCFG(const char *psCFGFilename, char *psDest, int iDestSize)
 
 		psText = (char *)R_Malloc(iLen + 1, TAG_ANIMATION_CFG, qfalse);
 
-		ri.FS_Read(psText, iLen, f);
+		FS_Read(psText, iLen, f);
 		psText[iLen] = '\0';
-		ri.FS_FCloseFile(f);
+		FS_FCloseFile(f);
 
 		AnimationCFGs[psCFGFilename] = psText;
 	}
@@ -273,7 +273,7 @@ qhandle_t RE_RegisterIndividualSkin(const char *name, qhandle_t hSkin)
 	char		surfName[MAX_QPATH];
 
 	// load and parse the skin file
-	ri.FS_ReadFile(name, (void **)&text);
+	FS_ReadFile(name, (void **)&text);
 	if (!text) {
 		ri.Printf(PRINT_WARNING, "WARNING: RE_RegisterSkin( '%s' ) failed to load!\n", name);
 		return 0;
@@ -327,7 +327,7 @@ qhandle_t RE_RegisterIndividualSkin(const char *name, qhandle_t hSkin)
 		skin->numSurfaces++;
 	}
 
-	ri.FS_FreeFile(text);
+	FS_FreeFile(text);
 
 
 	// never let a skin have 0 shaders

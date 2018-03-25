@@ -340,7 +340,7 @@ static	void R_LoadLightmaps( world_t *worldData, lump_t *l, lump_t *surfs ) {
 				Com_sprintf( filename, sizeof( filename ), "maps/%s/lm_%04d.hdr", worldData->baseName, i * (tr.worldDeluxeMapping ? 2 : 1) );
 				//ri.Printf(PRINT_ALL, "looking for %s\n", filename);
 
-				size = ri.FS_ReadFile(filename, (void **)&hdrLightmap);
+				size = FS_ReadFile(filename, (void **)&hdrLightmap);
 			}
 
 			if (hdrLightmap)
@@ -498,7 +498,7 @@ static	void R_LoadLightmaps( world_t *worldData, lump_t *l, lump_t *surfs ) {
 					textureInternalFormat);
 
 			if (hdrLightmap)
-				ri.FS_FreeFile(hdrLightmap);
+				FS_FreeFile(hdrLightmap);
 		}
 
 		if (tr.worldDeluxeMapping)
@@ -2182,7 +2182,7 @@ static	void R_LoadSurfaces( world_t *worldData, lump_t *surfs, lump_t *verts, lu
 		Com_sprintf( filename, sizeof( filename ), "maps/%s/vertlight.raw", worldData->baseName);
 		//ri.Printf(PRINT_ALL, "looking for %s\n", filename);
 
-		size = ri.FS_ReadFile(filename, (void **)&hdrVertColors);
+		size = FS_ReadFile(filename, (void **)&hdrVertColors);
 
 		if (hdrVertColors)
 		{
@@ -2256,7 +2256,7 @@ static	void R_LoadSurfaces( world_t *worldData, lump_t *surfs, lump_t *verts, lu
 
 	if (hdrVertColors)
 	{
-		ri.FS_FreeFile(hdrVertColors);
+		FS_FreeFile(hdrVertColors);
 	}
 
 #ifdef PATCH_STITCHING
@@ -2696,7 +2696,7 @@ void R_LoadLightGrid( world_t *worldData, lump_t *l ) {
 		Com_sprintf( filename, sizeof( filename ), "maps/%s/lightgrid.raw", worldData->baseName);
 		//ri.Printf(PRINT_ALL, "looking for %s\n", filename);
 
-		size = ri.FS_ReadFile(filename, (void **)&hdrLightGrid);
+		size = FS_ReadFile(filename, (void **)&hdrLightGrid);
 
 		if (hdrLightGrid)
 		{
@@ -2723,7 +2723,7 @@ void R_LoadLightGrid( world_t *worldData, lump_t *l ) {
 		}
 
 		if (hdrLightGrid)
-			ri.FS_FreeFile(hdrLightGrid);
+			FS_FreeFile(hdrLightGrid);
 	}
 }
 
@@ -2961,7 +2961,7 @@ void R_LoadEnvironmentJson(const char *baseName)
 
 	Com_sprintf(filename, MAX_QPATH, "cubemaps/%s/env.json", baseName);
 
-	filelen = ri.FS_ReadFile(filename, &buffer.v);
+	filelen = FS_ReadFile(filename, &buffer.v);
 	if (!buffer.c)
 		return;
 	bufferEnd = buffer.c + filelen;
@@ -2971,7 +2971,7 @@ void R_LoadEnvironmentJson(const char *baseName)
 	if (JSON_ValueGetType(buffer.c, bufferEnd) != JSONTYPE_OBJECT)
 	{
 		ri.Printf(PRINT_ALL, "Bad %s: does not start with a object\n", filename);
-		ri.FS_FreeFile(buffer.v);
+		FS_FreeFile(buffer.v);
 		return;
 	}
 	//-----------------------------CUBEMAPS------------------------------------
@@ -2979,14 +2979,14 @@ void R_LoadEnvironmentJson(const char *baseName)
 	if (!environmentArrayJson)
 	{
 		ri.Printf(PRINT_ALL, "Bad %s: no Cubemaps\n", filename);
-		ri.FS_FreeFile(buffer.v);
+		FS_FreeFile(buffer.v);
 		return;
 	}
 
 	if (JSON_ValueGetType(environmentArrayJson, bufferEnd) != JSONTYPE_ARRAY)
 	{
 		ri.Printf(PRINT_ALL, "Bad %s: Cubemaps not an array\n", filename);
-		ri.FS_FreeFile(buffer.v);
+		FS_FreeFile(buffer.v);
 		return;
 	}
 
@@ -3022,14 +3022,14 @@ void R_LoadEnvironmentJson(const char *baseName)
 	if (!environmentArrayJson)
 	{
 		ri.Printf(PRINT_ALL, "Bad %s: no Lights\n", filename);
-		ri.FS_FreeFile(buffer.v);
+		FS_FreeFile(buffer.v);
 		return;
 	}
 
 	if (JSON_ValueGetType(environmentArrayJson, bufferEnd) != JSONTYPE_ARRAY)
 	{
 		ri.Printf(PRINT_ALL, "Bad %s: Lights not an array\n", filename);
-		ri.FS_FreeFile(buffer.v);
+		FS_FreeFile(buffer.v);
 		return;
 	}
 
@@ -3061,7 +3061,7 @@ void R_LoadEnvironmentJson(const char *baseName)
 			light->strength = JSON_ValueGetFloat(keyValueJson, bufferEnd);
 	}
 
-	ri.FS_FreeFile(buffer.v);
+	FS_FreeFile(buffer.v);
 }
 
 void R_LoadCubemapEntities(char *cubemapEntityName)
@@ -3953,7 +3953,7 @@ world_t *R_LoadBSP(const char *name, int *bspIndex)
 	}
 
 	// load it
-	ri.FS_ReadFile(name, &buffer.v);
+	FS_ReadFile(name, &buffer.v);
 	if (!buffer.b)
 	{
 		if (bspIndex == nullptr)
@@ -4064,7 +4064,7 @@ world_t *R_LoadBSP(const char *name, int *bspIndex)
 	R_BindNullVBO();
 	R_BindNullIBO();
 
-	ri.FS_FreeFile(buffer.v);
+	FS_FreeFile(buffer.v);
 
 	return worldData;
 }
