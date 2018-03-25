@@ -290,3 +290,21 @@ const char*			SE_GetString					( const char *reference ) {
 ojk::ISavedGame* get_saved_game() {
 	return ri.get_saved_game();
 }
+
+void R_Printf(int printLevel, const char *fmt, ...) {
+	char buf[4096];
+	va_list args;
+	va_start (args, fmt);
+	vsnprintf(buf, sizeof(buf), fmt, args);
+	va_end(args);
+	ri.Printf(printLevel, buf);
+}
+
+void R_Error(int errorLevel, const char *fmt, ...) {
+	char buf[4096];
+	va_list args;
+	va_start (args, fmt);
+	vsnprintf(buf, sizeof(buf), fmt, args);
+	va_end(args);
+	ri.Error(errorLevel, buf);
+}

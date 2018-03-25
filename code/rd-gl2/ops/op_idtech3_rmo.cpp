@@ -113,7 +113,7 @@ void OpIDTech3RMO::Update() {
 
 		//if (width != rmoWidth || height != rmoHeight)
 		//{
-		//	ri.Printf(PRINT_ALL, "WARNING: Can't build Specular Map for %s (different texture sizes for baseColor and rmo)\n", name);
+		//	R_Printf(PRINT_ALL, "WARNING: Can't build Specular Map for %s (different texture sizes for baseColor and rmo)\n", name);
 		//	return;
 		//}
 

@@ -580,7 +580,7 @@ void GL_CheckErrs(const char *file, int line) {
 		break;
 	}
 
-	ri.Error(ERR_FATAL, "GL_CheckErrors: %s in %s at line %d", s, file, line);
+	R_Error(ERR_FATAL, "GL_CheckErrors: %s in %s at line %d", s, file, line);
 #endif
 }
 
@@ -882,7 +882,7 @@ static void R_LevelShot(void) {
 	R_Free(buffer);
 	R_Free(allsource);
 
-	ri.Printf(PRINT_ALL, "Wrote %s\n", checkname);
+	R_Printf(PRINT_ALL, "Wrote %s\n", checkname);
 }
 
 /*
@@ -926,7 +926,7 @@ void R_ScreenShotTGA_f(void) {
 	R_TakeScreenshot(0, 0, glConfig.vidWidth, glConfig.vidHeight, checkname, SSF_TGA);
 
 	if (!silent)
-		ri.Printf(PRINT_ALL, "Wrote %s\n", checkname);
+		R_Printf(PRINT_ALL, "Wrote %s\n", checkname);
 }
 
 void R_ScreenShotPNG_f(void) {
@@ -958,7 +958,7 @@ void R_ScreenShotPNG_f(void) {
 	R_TakeScreenshot(0, 0, glConfig.vidWidth, glConfig.vidHeight, checkname, SSF_PNG);
 
 	if (!silent)
-		ri.Printf(PRINT_ALL, "Wrote %s\n", checkname);
+		R_Printf(PRINT_ALL, "Wrote %s\n", checkname);
 }
 
 void R_ScreenShotJPEG_f(void) {
@@ -990,7 +990,7 @@ void R_ScreenShotJPEG_f(void) {
 	R_TakeScreenshot(0, 0, glConfig.vidWidth, glConfig.vidHeight, checkname, SSF_JPEG);
 
 	if (!silent)
-		ri.Printf(PRINT_ALL, "Wrote %s\n", checkname);
+		R_Printf(PRINT_ALL, "Wrote %s\n", checkname);
 }
 
 //============================================================================
@@ -1112,7 +1112,7 @@ void R_PrintLongString(const char *string) {
 	while (size > 0)
 	{
 		Q_strncpyz(buffer, p, sizeof(buffer));
-		ri.Printf(PRINT_ALL, "%s", buffer);
+		R_Printf(PRINT_ALL, "%s", buffer);
 		p += 1023;
 		size -= 1023;
 	}
@@ -1144,54 +1144,54 @@ static void GfxInfo_f(void)
 	int fullscreen = Cvar_VariableIntegerValue("r_fullscreen");
 	int noborder = Cvar_VariableIntegerValue("r_noborder");
 
-	ri.Printf(PRINT_ALL, "\nGL_VENDOR: %s\n", glConfig.vendor_string);
-	ri.Printf(PRINT_ALL, "GL_RENDERER: %s\n", glConfig.renderer_string);
-	ri.Printf(PRINT_ALL, "GL_VERSION: %s\n", glConfig.version_string);
-	ri.Printf(PRINT_ALL, "GL_EXTENSIONS: ");
+	R_Printf(PRINT_ALL, "\nGL_VENDOR: %s\n", glConfig.vendor_string);
+	R_Printf(PRINT_ALL, "GL_RENDERER: %s\n", glConfig.renderer_string);
+	R_Printf(PRINT_ALL, "GL_VERSION: %s\n", glConfig.version_string);
+	R_Printf(PRINT_ALL, "GL_EXTENSIONS: ");
 	R_PrintLongString(glConfigExt.originalExtensionString);
-	ri.Printf(PRINT_ALL, "\n");
-	ri.Printf(PRINT_ALL, "GL_MAX_TEXTURE_SIZE: %d\n", glConfig.maxTextureSize);
-	ri.Printf(PRINT_ALL, "\nPIXELFORMAT: color(%d-bits) Z(%d-bit) stencil(%d-bits)\n", glConfig.colorBits, glConfig.depthBits, glConfig.stencilBits);
-	ri.Printf(PRINT_ALL, "MODE: %d, %d x %d %s%s hz:",
+	R_Printf(PRINT_ALL, "\n");
+	R_Printf(PRINT_ALL, "GL_MAX_TEXTURE_SIZE: %d\n", glConfig.maxTextureSize);
+	R_Printf(PRINT_ALL, "\nPIXELFORMAT: color(%d-bits) Z(%d-bit) stencil(%d-bits)\n", glConfig.colorBits, glConfig.depthBits, glConfig.stencilBits);
+	R_Printf(PRINT_ALL, "MODE: %d, %d x %d %s%s hz:",
 		Cvar_VariableIntegerValue("r_mode"),
 		glConfig.vidWidth, glConfig.vidHeight,
 		fullscreen == 0 ? noborderstrings[noborder == 1] : noborderstrings[0],
 		fsstrings[fullscreen == 1]);
 	if (glConfig.displayFrequency)
 	{
-		ri.Printf(PRINT_ALL, "%d\n", glConfig.displayFrequency);
+		R_Printf(PRINT_ALL, "%d\n", glConfig.displayFrequency);
 	}
 	else
 	{
-		ri.Printf(PRINT_ALL, "N/A\n");
+		R_Printf(PRINT_ALL, "N/A\n");
 	}
 	if (glConfig.deviceSupportsGamma)
 	{
-		ri.Printf(PRINT_ALL, "GAMMA: hardware w/ %d overbright bits\n", tr.overbrightBits);
+		R_Printf(PRINT_ALL, "GAMMA: hardware w/ %d overbright bits\n", tr.overbrightBits);
 	}
 	else
 	{
-		ri.Printf(PRINT_ALL, "GAMMA: software w/ %d overbright bits\n", tr.overbrightBits);
+		R_Printf(PRINT_ALL, "GAMMA: software w/ %d overbright bits\n", tr.overbrightBits);
 	}
 
-	ri.Printf(PRINT_ALL, "texturemode: %s\n", r_textureMode->string);
-	ri.Printf(PRINT_ALL, "picmip: %d\n", r_picmip->integer);
-	ri.Printf(PRINT_ALL, "texture bits: %d\n", r_texturebits->integer);
+	R_Printf(PRINT_ALL, "texturemode: %s\n", r_textureMode->string);
+	R_Printf(PRINT_ALL, "picmip: %d\n", r_picmip->integer);
+	R_Printf(PRINT_ALL, "texture bits: %d\n", r_texturebits->integer);
 
 	if (r_vertexLight->integer)
 	{
-		ri.Printf(PRINT_ALL, "HACK: using vertex lightmap approximation\n");
+		R_Printf(PRINT_ALL, "HACK: using vertex lightmap approximation\n");
 	}
 	int displayRefresh = Cvar_VariableIntegerValue("r_displayRefresh");
 	if (displayRefresh) {
-		ri.Printf(PRINT_ALL, "Display refresh set to %d\n", displayRefresh);
+		R_Printf(PRINT_ALL, "Display refresh set to %d\n", displayRefresh);
 	}
 
 	if (r_finish->integer) {
-		ri.Printf(PRINT_ALL, "Forcing glFinish\n");
+		R_Printf(PRINT_ALL, "Forcing glFinish\n");
 	}
 
-	ri.Printf(PRINT_ALL, "Dynamic Glow: %s\n", enablestrings[r_dynamicGlow->integer != 0]);
+	R_Printf(PRINT_ALL, "Dynamic Glow: %s\n", enablestrings[r_dynamicGlow->integer != 0]);
 }
 
 /*
@@ -1205,7 +1205,7 @@ void GfxMemInfo_f(void)
 	{
 	case MI_NONE:
 	{
-		ri.Printf(PRINT_ALL, "No extension found for GPU memory info.\n");
+		R_Printf(PRINT_ALL, "No extension found for GPU memory info.\n");
 	}
 	break;
 	case MI_NVX:
@@ -1213,19 +1213,19 @@ void GfxMemInfo_f(void)
 		int value;
 
 		qglGetIntegerv(GL_GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX, &value);
-		ri.Printf(PRINT_ALL, "GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX: %ikb\n", value);
+		R_Printf(PRINT_ALL, "GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX: %ikb\n", value);
 
 		qglGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &value);
-		ri.Printf(PRINT_ALL, "GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX: %ikb\n", value);
+		R_Printf(PRINT_ALL, "GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX: %ikb\n", value);
 
 		qglGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &value);
-		ri.Printf(PRINT_ALL, "GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX: %ikb\n", value);
+		R_Printf(PRINT_ALL, "GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX: %ikb\n", value);
 
 		qglGetIntegerv(GL_GPU_MEMORY_INFO_EVICTION_COUNT_NVX, &value);
-		ri.Printf(PRINT_ALL, "GPU_MEMORY_INFO_EVICTION_COUNT_NVX: %i\n", value);
+		R_Printf(PRINT_ALL, "GPU_MEMORY_INFO_EVICTION_COUNT_NVX: %i\n", value);
 
 		qglGetIntegerv(GL_GPU_MEMORY_INFO_EVICTED_MEMORY_NVX, &value);
-		ri.Printf(PRINT_ALL, "GPU_MEMORY_INFO_EVICTED_MEMORY_NVX: %ikb\n", value);
+		R_Printf(PRINT_ALL, "GPU_MEMORY_INFO_EVICTED_MEMORY_NVX: %ikb\n", value);
 	}
 	break;
 	case MI_ATI:
@@ -1234,13 +1234,13 @@ void GfxMemInfo_f(void)
 		int value[4];
 
 		qglGetIntegerv(GL_VBO_FREE_MEMORY_ATI, &value[0]);
-		ri.Printf(PRINT_ALL, "VBO_FREE_MEMORY_ATI: %ikb total %ikb largest aux: %ikb total %ikb largest\n", value[0], value[1], value[2], value[3]);
+		R_Printf(PRINT_ALL, "VBO_FREE_MEMORY_ATI: %ikb total %ikb largest aux: %ikb total %ikb largest\n", value[0], value[1], value[2], value[3]);
 
 		qglGetIntegerv(GL_TEXTURE_FREE_MEMORY_ATI, &value[0]);
-		ri.Printf(PRINT_ALL, "TEXTURE_FREE_MEMORY_ATI: %ikb total %ikb largest aux: %ikb total %ikb largest\n", value[0], value[1], value[2], value[3]);
+		R_Printf(PRINT_ALL, "TEXTURE_FREE_MEMORY_ATI: %ikb total %ikb largest aux: %ikb total %ikb largest\n", value[0], value[1], value[2], value[3]);
 
 		qglGetIntegerv(GL_RENDERBUFFER_FREE_MEMORY_ATI, &value[0]);
-		ri.Printf(PRINT_ALL, "RENDERBUFFER_FREE_MEMORY_ATI: %ikb total %ikb largest aux: %ikb total %ikb largest\n", value[0], value[1], value[2], value[3]);
+		R_Printf(PRINT_ALL, "RENDERBUFFER_FREE_MEMORY_ATI: %ikb total %ikb largest aux: %ikb total %ikb largest\n", value[0], value[1], value[2], value[3]);
 	}
 	break;
 	}
@@ -1251,7 +1251,7 @@ static void R_CaptureFrameData_f()
 	int argc = Cmd_Argc();
 	if (argc <= 1)
 	{
-		ri.Printf(PRINT_ALL, "Usage: %s <multi|single>\n", Cmd_Argv(0));
+		R_Printf(PRINT_ALL, "Usage: %s <multi|single>\n", Cmd_Argv(0));
 		return;
 	}
 
@@ -1265,7 +1265,7 @@ static void R_CaptureFrameData_f()
 	int len = FS_FOpenFileByMode("rend2.log", &tr.debugFile, FS_APPEND);
 	if (len == -1 || !tr.debugFile)
 	{
-		ri.Printf(PRINT_ERROR, "Failed to open rend2 log file\n");
+		R_Printf(PRINT_ERROR, "Failed to open rend2 log file\n");
 		tr.numFramesToCapture = 0;
 	}
 }
@@ -1635,7 +1635,7 @@ void R_Init(void) {
 	byte *ptr;
 	int i;
 
-	ri.Printf(PRINT_ALL, "----- R_Init -----\n");
+	R_Printf(PRINT_ALL, "----- R_Init -----\n");
 
 	ShaderEntryPtrs_Clear();
 
@@ -1735,14 +1735,14 @@ void R_Init(void) {
 #if defined(_DEBUG)
 	GLenum err = qglGetError();
 	if (err != GL_NO_ERROR)
-		ri.Printf(PRINT_ALL, "glGetError() = 0x%x\n", err);
+		R_Printf(PRINT_ALL, "glGetError() = 0x%x\n", err);
 #endif
 
 	RestoreGhoul2InfoArray();
 
 	// print info
 	GfxInfo_f();
-	ri.Printf(PRINT_ALL, "----- finished R_Init -----\n");
+	R_Printf(PRINT_ALL, "----- finished R_Init -----\n");
 }
 
 /*
@@ -1752,7 +1752,7 @@ RE_Shutdown
 */
 void RE_Shutdown(qboolean destroyWindow, qboolean restarting) {
 
-	ri.Printf(PRINT_ALL, "RE_Shutdown( %i )\n", destroyWindow);
+	R_Printf(PRINT_ALL, "RE_Shutdown( %i )\n", destroyWindow);
 
 	for (size_t i = 0; i < numCommands; i++)
 		Cmd_RemoveCommand(commands[i].cmd);
@@ -1932,7 +1932,7 @@ extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *ri
 	Com_Memset(&re, 0, sizeof(re));
 
 	if (apiVersion != REF_API_VERSION) {
-		ri.Printf(PRINT_ALL, "Mismatched REF_API_VERSION: expected %i, got %i\n",
+		R_Printf(PRINT_ALL, "Mismatched REF_API_VERSION: expected %i, got %i\n",
 			REF_API_VERSION, apiVersion);
 		return NULL;
 	}

@@ -93,3 +93,7 @@ qboolean			LowPhysicalMemory				( void );
 const char*			SE_GetString					( const char *reference );
 
 ojk::ISavedGame* get_saved_game();
+
+
+void		R_Printf			( int printLevel, const char *fmt, ...);
+void		R_Error				( int errorLevel, const char *fmt, ...);

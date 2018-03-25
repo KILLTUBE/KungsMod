@@ -37,9 +37,10 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 //#include "compose_lib.h"
 
 typedef struct {
+#if 1
 	void				(QDECL *Printf)						( int printLevel, const char *fmt, ...) __attribute__ ((format (printf, 2, 3)));
 	void				(QDECL *Error)						( int errorLevel, const char *fmt, ...) NORETURN_PTR __attribute__ ((format (printf, 2, 3)));
-
+#endif
 	// milliseconds should only be used for profiling, never for anything game related. Get time from the refdef
 #if 1
 	int					(*Milliseconds)						( void );

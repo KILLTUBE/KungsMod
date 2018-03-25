@@ -1335,7 +1335,7 @@ qboolean R_GetPortalOrientations( drawSurf_t *drawSurf, int entityNum,
 	// to see a surface before the server has communicated the matching
 	// portal surface entity, so we don't want to print anything here...
 
-	//ri.Printf( PRINT_ALL, "Portal surface without a portal entity\n" );
+	//R_Printf( PRINT_ALL, "Portal surface without a portal entity\n" );
 
 	return qfalse;
 }
@@ -1523,7 +1523,7 @@ qboolean R_MirrorViewBySurface (drawSurf_t *drawSurf, int entityNum) {
 
 	// don't recursively mirror
 	if (tr.viewParms.isPortal) {
-		ri.Printf( PRINT_DEVELOPER, "WARNING: recursive mirror/portal found\n" );
+		R_Printf( PRINT_DEVELOPER, "WARNING: recursive mirror/portal found\n" );
 		return qfalse;
 	}
 
@@ -1847,7 +1847,7 @@ void R_SortAndSubmitDrawSurfs( drawSurf_t *drawSurfs, int numDrawSurfs ) {
 
 				// no shader should ever have this sort type
 				if ( shader->sort == SS_BAD ) {
-					ri.Error (ERR_DROP, "Shader '%s'with sort == SS_BAD", shader->name );
+					R_Error (ERR_DROP, "Shader '%s'with sort == SS_BAD", shader->name );
 				}
 
 				// if the mirror was completely clipped away, we may need to check another surface
@@ -1944,7 +1944,7 @@ static void R_AddEntitySurface (const trRefdef_t *refdef, int entityNum)
 				R_AddDrawSurf( &entitySurface, entityNum, tr.defaultShader, 0, 0, R_IsPostRenderEntity (entityNum, ent), 0 /* cubeMap */ );
 				break;
 			default:
-				ri.Error( ERR_DROP, "R_AddEntitySurfaces: Bad modeltype" );
+				R_Error( ERR_DROP, "R_AddEntitySurfaces: Bad modeltype" );
 				break;
 			}
 		}
@@ -1954,7 +1954,7 @@ static void R_AddEntitySurface (const trRefdef_t *refdef, int entityNum)
 	//		R_AddDrawSurf( &entitySurface, entityNum, shader, R_SpriteFogNum( ent ), false, R_IsPostRenderEntity (entityNum, ent), 0 /* cubeMap */ );
 	//		break;
 	default:
-		ri.Error( ERR_DROP, "R_AddEntitySurfaces: Bad reType" );
+		R_Error( ERR_DROP, "R_AddEntitySurfaces: Bad reType" );
 	}
 }
 
@@ -2806,8 +2806,8 @@ void R_RenderSunShadowMaps(const refdef_t *fd, int level)
 		lightviewBounds[1][2] = floor(lightviewBounds[1][2]);
 		VectorScale(lightviewBounds[1], worldUnitsPerTexel, lightviewBounds[1]);
 
-		//ri.Printf(PRINT_ALL, "znear %f zfar %f\n", lightviewBounds[0][0], lightviewBounds[1][0]);		
-		//ri.Printf(PRINT_ALL, "fovx %f fovy %f xmin %f xmax %f ymin %f ymax %f\n", fd->fov_x, fd->fov_y, xmin, xmax, ymin, ymax);
+		//R_Printf(PRINT_ALL, "znear %f zfar %f\n", lightviewBounds[0][0], lightviewBounds[1][0]);		
+		//R_Printf(PRINT_ALL, "fovx %f fovy %f xmin %f xmax %f ymin %f ymax %f\n", fd->fov_x, fd->fov_y, xmin, xmax, ymin, ymax);
 	}
 
 
