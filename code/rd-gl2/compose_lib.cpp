@@ -76,9 +76,9 @@ void				FS_WriteFile					( const char *qpath, const void *buffer, int size ) {
 //	return ri.CM_PointContents(p, model);
 //}
 
-void		S_RestartMusic					( void ) {
-	ri.S_RestartMusic();
-}
+//void		S_RestartMusic					( void ) {
+//	ri.S_RestartMusic();
+//}
 
 //qboolean	SND_RegisterAudio_LevelLoadEnd	( qboolean bDeleteEverythingNotUsedThisLevel ) {
 //	return ri.SND_RegisterAudio_LevelLoadEnd(bDeleteEverythingNotUsedThisLevel);
@@ -140,9 +140,9 @@ CMiniHeap *		GetG2VertSpaceServer			( void ) {
 
 
 // ============= NOT IN MP BEYOND THIS POINT
-void				SV_Trace						( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, const int passEntityNum, const int contentmask, const EG2_Collision eG2TraceType, const int useLod ) {
-	ri.SV_Trace(results, start, mins, maxs, end, passEntityNum, contentmask, eG2TraceType, useLod);
-}
+//void				SV_Trace						( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, const int passEntityNum, const int contentmask, const EG2_Collision eG2TraceType, const int useLod ) {
+//	ri.SV_Trace(results, start, mins, maxs, end, passEntityNum, contentmask, eG2TraceType, useLod);
+//}
 
 #endif
 
@@ -155,9 +155,9 @@ void				SV_Trace						( trace_t *results, const vec3_t start, const vec3_t mins,
 //	return ri.CM_DeleteCachedMap(bGuaranteedOkToDelete);
 //}
 
-qboolean			CL_IsRunningInGameCinematic		( void ) {
-	return ri.CL_IsRunningInGameCinematic();
-}
+//qboolean			CL_IsRunningInGameCinematic		( void ) {
+//	return ri.CL_IsRunningInGameCinematic();
+//}
 
 void*				gpvCachedMapDiskImage			( void ) {
 	return ri.gpvCachedMapDiskImage();
@@ -201,9 +201,9 @@ int					Milliseconds					( void ) {
 	return ri.Milliseconds();
 }
 
-void				Hunk_ClearToMark				( void ) {
-	ri.Hunk_ClearToMark();
-}
+//void				Hunk_ClearToMark				( void ) {
+//	ri.Hunk_ClearToMark();
+//}
 
 
 #include <client/client.h>
@@ -294,9 +294,9 @@ qboolean			LowPhysicalMemory				( void ) {
 
 #endif
 
-ojk::ISavedGame* get_saved_game() {
-	return ri.get_saved_game();
-}
+//ojk::ISavedGame* get_saved_game() {
+//	return ri.get_saved_game();
+//}
 
 void R_Printf(int printLevel, const char *fmt, ...) {
 	char buf[4096];

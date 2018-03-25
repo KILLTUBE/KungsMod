@@ -2557,7 +2557,7 @@ static const void	*RB_SwapBuffers( const void *data ) {
 
 	backEndData->realFrameNumber = frameNumber + 1;	
 
-	GLimp_LogComment( "***************** RB_SwapBuffers *****************\n\n\n" );
+	//GLimp_LogComment( "***************** RB_SwapBuffers *****************\n\n\n" );
 
 	WIN_Present( &window );
 

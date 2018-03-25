@@ -1093,35 +1093,37 @@ ojk::ISavedGame *get_saved_game() {
 	return &ojk::SavedGame::get_instance();
 }
 
+extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI(int apiVersion, refimport_t *rimp);
+
 void CL_InitRef( void ) {
 	refexport_t	*ret;
 	static refimport_t rit;
 	char		dllName[MAX_OSPATH];
-	GetRefAPI_t	GetRefAPI;
+	//GetRefAPI_t	GetRefAPI;
 
-	Com_Printf( "----- Initializing Renderer ----\n" );
-    cl_renderer = Cvar_Get( "cl_renderer", DEFAULT_RENDER_LIBRARY, CVAR_ARCHIVE|CVAR_LATCH|CVAR_PROTECTED );
-
-	Com_sprintf( dllName, sizeof( dllName ), "%s_" ARCH_STRING DLL_EXT, cl_renderer->string );
-
-	if( !(rendererLib = Sys_LoadDll( dllName, qfalse )) && strcmp( cl_renderer->string, cl_renderer->resetString ) )
-	{
-		Com_Printf( "failed: trying to load fallback renderer\n" );
+	//Com_Printf( "----- Initializing Renderer ----\n" );
+    //cl_renderer = Cvar_Get( "cl_renderer", DEFAULT_RENDER_LIBRARY, CVAR_ARCHIVE|CVAR_LATCH|CVAR_PROTECTED );
+	//
+	//Com_sprintf( dllName, sizeof( dllName ), "%s_" ARCH_STRING DLL_EXT, cl_renderer->string );
+	//
+	//if( !(rendererLib = Sys_LoadDll( dllName, qfalse )) && strcmp( cl_renderer->string, cl_renderer->resetString ) )
+	//{
+	//	Com_Printf( "failed: trying to load fallback renderer\n" );
 		Cvar_ForceReset( "cl_renderer" );
-
-		Com_sprintf( dllName, sizeof( dllName ), DEFAULT_RENDER_LIBRARY "_" ARCH_STRING DLL_EXT );
-		rendererLib = Sys_LoadDll( dllName, qfalse );
-	}
-
-	if ( !rendererLib ) {
-		Com_Error( ERR_FATAL, "Failed to load renderer\n" );
-	}
+	//
+	//	Com_sprintf( dllName, sizeof( dllName ), DEFAULT_RENDER_LIBRARY "_" ARCH_STRING DLL_EXT );
+	//	rendererLib = Sys_LoadDll( dllName, qfalse );
+	//}
+	//
+	//if ( !rendererLib ) {
+	//	Com_Error( ERR_FATAL, "Failed to load renderer\n" );
+	//}
 
 	memset( &rit, 0, sizeof( rit ) );
 
-	GetRefAPI = (GetRefAPI_t)Sys_LoadFunction( rendererLib, "GetRefAPI" );
-	if ( !GetRefAPI )
-		Com_Error( ERR_FATAL, "Can't load symbol GetRefAPI: '%s'", Sys_LibraryError() );
+	//GetRefAPI = (GetRefAPI_t)Sys_LoadFunction( rendererLib, "GetRefAPI" );
+	//if ( !GetRefAPI )
+	//	Com_Error( ERR_FATAL, "Can't load symbol GetRefAPI: '%s'", Sys_LibraryError() );
 
 #define RIT(y)	rit.y = y
 	RIT(CIN_PlayCinematic);
@@ -1205,6 +1207,7 @@ void CL_InitRef( void ) {
 	rit.Clipboard_Get = Clipboard_Get;
 	rit.Clipboard_Set = Clipboard_Set;
 
+	
 	ret = GetRefAPI( REF_API_VERSION, &rit );
 
 	if ( !ret ) {
