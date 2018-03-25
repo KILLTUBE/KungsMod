@@ -356,7 +356,8 @@ typedef struct image_s {
 
 	imgType_t   type;
 	int			flags;
-
+	void *data; // if != NULL, its not freed, for later recalculations (opsys)
+	int id; // index into tr.images
 	struct image_s *next;
 	struct image_s *poolNext;
 } image_t;

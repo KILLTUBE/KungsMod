@@ -11,6 +11,9 @@
 #include "../imgui_docks_openjk/dock_controlflow.h"
 #include "../imgui_docks_openjk/dock_models.h"
 #include "../imgui_docks_openjk/dock_all.h"
+#include "../imgui_docks_openjk/dock_quakeshaders.h"
+#include "../imgui_docks_openjk/dock_opsys.h"
+#include "../imgui_docks_openjk/dock_images.h"
 #include "../imgui/imgui_api.h"
 
 #include <list>
@@ -19,7 +22,7 @@ std::list<Dock *> imgui_quake_docks;
 void alignTabsDefault();
 
 CCALL int add_dock(Dock *dock) {
-	imgui_quake_docks.push_back( dock );
+	imgui_quake_docks.push_back(dock);
 	return 1;
 }
 
@@ -33,20 +36,22 @@ CCALL int imgui_openjk_default_docks() {
 		imgui_quake_docks.push_back(new DockControlFlow());
 		imgui_quake_docks.push_back(new DockModels());
 		imgui_quake_docks.push_back(new DockAll());
+		imgui_quake_docks.push_back(new DockQuakeShaders());
 		imgui_quake_docks.push_back(new DockShaders());
+		imgui_quake_docks.push_back(new DockImages());
+		imgui_quake_docks.push_back(new DockOpsys("opsystems/matmulpoint.opsys"));
 		//imgui_quake_docks.push_back(new DockExplorer());
 		//imgui_quake_docks.push_back(new DockAnims());
 		//imgui_quake_docks.push_back(new DockSound());
 		//imgui_quake_docks.push_back(new DockVars());
 		//imgui_quake_docks.push_back(new DockQuakeShaders());
 		//imgui_quake_docks.push_back(new DockHuds());
-		//imgui_quake_docks.push_back(new DockImages());
 		//imgui_quake_docks.push_back(new DockEntity());
 		//imgui_quake_docks.push_back(new DockConfigstrings());
-		#ifndef EMSCRIPTEN
+#ifndef EMSCRIPTEN
 		//imgui_quake_docks.push_back(new DockDuktape());
 		//imgui_quake_docks.push_back(new DockOpsys( "opsystems/matmulpoint.opsys" ));
-		#endif
+#endif
 	}
 
 	for (Dock *dock : imgui_quake_docks) {
@@ -58,7 +63,7 @@ CCALL int imgui_openjk_default_docks() {
 		}
 		EndDock();
 	}
-	
+
 	// gotta make sure that the docks were at least drawn once, otherwise cant find them via string label
 	static int first = 1;
 	if (first) {

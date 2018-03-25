@@ -4,7 +4,7 @@
 //#ifdef ES2
 //	#include <GLES3/gl3.h>
 //#else
-//	#include <kung/include_gl.h>
+//	#include "../include_gl.h"
 //#endif
 
 #include "include_quakegl.h"
@@ -18,21 +18,21 @@ int imgui_ready;
 //#endif
 
 
-//#include <kung/imgui/dock/dock.h>
-//#include <kung/imgui/dock/dock_repl.h>
-//#include <kung/imgui/dock/dock_explorer.h>
-//#include <kung/imgui/dock/dock_shadereditor.h>
-//#include <kung/imgui/dock/dock_opsys.h>
-//#include <kung/imgui/dock/dock_models.h>
-//#include <kung/imgui/dock/dock_anims.h>
-//#include <kung/imgui/dock/dock_sound.h>
-//#include <kung/imgui/dock/dock_vars.h>
-//#include <kung/imgui/dock/dock_quakeshaders.h>
-//#include <kung/imgui/dock/dock_huds.h>
-//#include <kung/imgui/dock/dock_node.h>
-//#include <kung/imgui/dock/dock_duktape.h>
-//#include <kung/imgui/dock/dock_julia.h>
-//#include <kung/imgui/dock/dock_images.h>
+//#include <imgui/dock/dock.h>
+//#include <imgui/dock/dock_repl.h>
+//#include <imgui/dock/dock_explorer.h>
+//#include <imgui/dock/dock_shadereditor.h>
+//#include <imgui/dock/dock_opsys.h>
+//#include <imgui/dock/dock_models.h>
+//#include <imgui/dock/dock_anims.h>
+//#include <imgui/dock/dock_sound.h>
+//#include <imgui/dock/dock_vars.h>
+//#include <imgui/dock/dock_quakeshaders.h>
+//#include <imgui/dock/dock_huds.h>
+//#include <imgui/dock/dock_node.h>
+//#include <imgui/dock/dock_duktape.h>
+//#include <imgui/dock/dock_julia.h>
+//#include <imgui/dock/dock_images.h>
 
 //#include <list>
 //std::list<Dock *> docks;
@@ -44,7 +44,7 @@ EXTERNC float g_MouseWheel = 0.0;
 
 //void render_op_system();
 
-//#include <kung/imgui/dock/dock_webtech.h>
+//#include <imgui/dock/dock_webtech.h>
 
 
 CCALL void imgui_set_mousepos(int left, int top)          { imguidata.mouse_left   = left;  imguidata.mouse_top     = top;    }
@@ -98,7 +98,7 @@ CCALL void imgui_on_key_text(int key) {
 
 
 //#include <imgui/imgui_console.h>
-//#include <kung/include_duktape.h>
+//#include <include_duktape.h>
 
 
 //CCALL void q3_main();

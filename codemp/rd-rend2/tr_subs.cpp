@@ -60,9 +60,32 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //}
 
 
-void R_Free( void *ptr ) {
-	ri.Z_Free( ptr );
+void *R_Malloc(int iSize, memtag_t eTag, qboolean bZeroit) {
+	return ri.Z_Malloc(iSize, eTag, bZeroit, 4);
 }
+
+void R_Free(void *ptr) {
+	Z_Free(ptr);
+}
+
+int R_MemSize(memtag_t eTag) {
+	return Z_MemSize(eTag);
+}
+
+void R_MorphMallocTag(void *pvBuffer, memtag_t eDesiredTag) {
+	Z_MorphMallocTag(pvBuffer, eDesiredTag);
+}
+
+void *R_Hunk_Alloc(int iSize, qboolean bZeroit) {
+	return ri.Z_Malloc(iSize, TAG_TEMP_HUNKALLOC, bZeroit, 4);
+}
+
+
+
+
+
+
+
 	GoreTextureCoordinates::GoreTextureCoordinates()
 	{
 		int i;

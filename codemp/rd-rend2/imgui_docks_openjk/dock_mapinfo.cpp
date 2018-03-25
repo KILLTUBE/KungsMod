@@ -1,3 +1,4 @@
+#if 0
 #include "dock_mapinfo.h"
 #include "../imgui_docks/dock_console.h"
 #include "../imgui_openjk/gluecode.h"
@@ -7,7 +8,7 @@ DockMapInfo::DockMapInfo() {}
 const char *DockMapInfo::label() {
 	return "MapInfo";
 }
-#if 0
+
 extern qboolean	DISABLE_DEPTH_PREPASS;
 extern qboolean	LODMODEL_MAP;
 extern qboolean	DISABLE_MERGED_GLOWS;
@@ -114,10 +115,8 @@ extern vec4_t DAY_NIGHT_AMBIENT_COLOR_ORIGINAL;
 extern vec4_t DAY_NIGHT_AMBIENT_COLOR_CURRENT;
 extern float DAY_NIGHT_24H_TIME;
 //#endif
-#endif
 
 void DockMapInfo::imgui() {
-#if 0
 	ImGui::Checkbox("DISABLE_DEPTH_PREPASS", &DISABLE_DEPTH_PREPASS);
 	ImGui::Checkbox("LODMODEL_MAP", &LODMODEL_MAP);
 	ImGui::Checkbox("DISABLE_MERGED_GLOWS", &DISABLE_MERGED_GLOWS);
@@ -250,5 +249,5 @@ void DockMapInfo::imgui() {
 		ImGui::Checkbox("WZ_WEATHER_ENABLED", &WZ_WEATHER_ENABLED);
 		ImGui::Checkbox("WZ_WEATHER_SOUND_ONLY", &WZ_WEATHER_SOUND_ONLY);
 	}
-#endif
 }
+#endif

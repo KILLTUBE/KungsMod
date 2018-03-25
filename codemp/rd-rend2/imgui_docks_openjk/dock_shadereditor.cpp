@@ -7,7 +7,7 @@
 //#include "../tr_glsl.h"
 GLint GLSL_LinkProgramSafe(GLuint program);
 
-#include "../imgui/MagicFile.cpp/magicfile.h"
+#include "../imgui/MagicFile/magicfile.h"
 
 DockShaders::DockShaders() {}
 
@@ -16,7 +16,7 @@ const char *DockShaders::label() {
 }
 
 extern int shaders_next_id;
-extern shaderProgram_t *shaders[1024];
+extern shaderProgram_t *shaders[2048];
 
 bool IsKeyPressedMap(ImGuiKey key, bool repeat = true);
 
@@ -48,6 +48,24 @@ int GLSL_MyCompileGPUShader(GLuint program, GLuint *prevShader, const GLchar *bu
 void GLSL_BindShaderInterface( shaderProgram_t *program );
 void GLSL_InitUniforms(shaderProgram_t *program);
 
+void R_SetupShaderMapsLightall(shaderProgram_t *shader) {
+	qglUseProgram(shader->program);
+	GLSL_SetUniformInt(shader, UNIFORM_DIFFUSEMAP, TB_DIFFUSEMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_LIGHTMAP, TB_LIGHTMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_NORMALMAP, TB_NORMALMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_DELUXEMAP, TB_DELUXEMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_SPECULARMAP, TB_SPECULARMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_SHADOWMAP, TB_SHADOWMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_CUBEMAP, TB_CUBEMAP);
+	GLSL_SetUniformInt(shader, UNIFORM_ENVBRDFMAP, TB_ENVBRDFMAP);
+#ifdef SOON
+	GLSL_SetUniformInt(shader, UNIFORM_LIGHTGRIDDIRECTIONMAP, TB_LGDIRECTION);
+	GLSL_SetUniformInt(shader, UNIFORM_LIGHTGRIDDIRECTIONALLIGHTMAP, TB_LGLIGHTCOLOR);
+	GLSL_SetUniformInt(shader, UNIFORM_LIGHTGRIDAMBIENTLIGHTMAP, TB_LGAMBIENT);
+#endif
+	qglUseProgram(0);
+}
+
 void DockShaders::recompileShader() {
 		int newProgram = qglCreateProgram();
 		int retVert = GLSL_MyCompileGPUShader(newProgram, &shader->vertexShader, shader->vertexText, strlen(shader->vertexText), GL_VERTEX_SHADER);
@@ -67,6 +85,14 @@ void DockShaders::recompileShader() {
 		int retLink = GLSL_LinkProgramSafe(newProgram);
 		GLSL_BindShaderInterface(shader);
 		GLSL_InitUniforms(shader);
+
+		// atm just fixing up lightall shaders for pbr testing, wanna make a better system tho...
+		// e.g. being able dynamically to change every input map, gotta see
+		if (strcmp(shader->name, "lightall") == 0)
+			R_SetupShaderMapsLightall(shader);
+
+
+
 		imgui_log("ret compile shader:  retVert=%d retFrag=%d retLink=%d\n", retVert, retFrag, retLink);
 }
 
@@ -80,11 +106,8 @@ void DockShaders::recompileShader() {
 
 void DockShaders::imgui() {
 
-	if (shaders_next_id == 0) {
-		ImGui::Text("no shaders registered");
-		return;
-	}
-	#define NUM_SHADERS 1024
+
+	#define NUM_SHADERS 2048
 	int num_shaders = shaders_next_id;
 	//shaderProgram_t *shaders[NUM_SHADERS];
 	char items[NUM_SHADERS][256];

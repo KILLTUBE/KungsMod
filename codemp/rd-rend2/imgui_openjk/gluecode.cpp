@@ -1,9 +1,8 @@
-
 #include "gluecode.h"
 
 // not exactly an imgui function lol
 void Cvar_SetInt(cvar_t *cvar, int value) {
-	ri.Cvar_Set(cvar->name, va("%i", value));
+	Cvar_Set(cvar->name, va("%i", value));
 }
 
 namespace ImGui {
@@ -18,18 +17,20 @@ namespace ImGui {
 
 	bool CvarBool(cvar_t *cvar) {
 		bool changed = ImGui::Checkbox(cvar->name, (qboolean *)&cvar->integer);
-		if (cvar->description && cvar->description[0] && ImGui::IsItemHovered()) {
+		//We don't have this in SP...
+		/*if (cvar->description && cvar->description[0] && ImGui::IsItemHovered()) {
 			ImGui::SetTooltip(cvar->description);
-		}
+		}*/
 		if (changed)
 			Cvar_SetInt(cvar, cvar->integer);
 		return changed;
 	}
 	bool CvarInt(cvar_t *cvar) {
 		bool changed = ImGui::DragInt(cvar->name, &cvar->integer, /*cvar->dragspeed*/1.0, cvar->min, cvar->max);
-		if (cvar->description && cvar->description[0] && ImGui::IsItemHovered()) {
+		//We don't have this in SP...
+		/*if (cvar->description && cvar->description[0] && ImGui::IsItemHovered()) {
 			ImGui::SetTooltip(cvar->description);
-		}
+		}*/
 		if (changed)
 			Cvar_SetInt(cvar, cvar->integer);
 		return changed;

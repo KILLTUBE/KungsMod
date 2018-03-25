@@ -4344,6 +4344,367 @@ qboolean model_upload_mdxm_to_gpu(model_t *mod) {
 	return qtrue;
 }
 
+void *R_Malloc(int iSize, memtag_t eTag, qboolean bZeroit);
+void R_Free(void *ptr);
+int R_MemSize(memtag_t eTag);
+void R_MorphMallocTag(void *pvBuffer, memtag_t eDesiredTag);
+void *R_Hunk_Alloc(int iSize, qboolean bZeroit);
+
+void R_UpdateIBO(IBO_t *ibo, byte * indexes, int indexesSize, vboUsage_t usage);
+void R_UpdateVBO(VBO_t *vbo, byte * vertexes, int vertexesSize, vboUsage_t usage);
+#include "include_glm.h"
+
+qboolean model_upload_mdxm_to_gpu_special(model_t *mod, mdxmSurface_t *specialSurface, float matrix[16]) {
+	mdxmHeader_t *mdxm = mdxmHeader(mod);
+
+	// Make a copy on the GPU
+	mdxmLOD_t *lod = (mdxmLOD_t *)((byte *)mdxm + mdxm->ofsLODs);
+	//mod->data.glm->vboModels[0].vbo == NULL
+	//mod->data.glm->vboModels = (mdxmVBOModel_t *)R_Hunk_Alloc(sizeof(mdxmVBOModel_t) * mdxm->numLODs, qtrue);
+	for (int l = 0; l < mdxm->numLODs; l++)
+	{
+		mdxmVBOModel_t *vboModel = &mod->data.glm->vboModels[l];
+		mdxmVBOMesh_t *vboMeshes;
+
+		vec3_t *verts;
+		uint32_t *normals;
+		vec2_t *texcoords;
+		byte *bonerefs;
+		byte *weights;
+		uint32_t *tangents;
+
+		byte *data;
+		int dataSize = 0;
+		int ofsPosition, ofsNormals, ofsTexcoords, ofsBoneRefs, ofsWeights;
+		int ofs_tangent;
+		int stride = 0;
+		int numVerts = 0;
+		int numTriangles = 0;
+
+		vec3_t *tangentsf;
+		vec3_t *bitangentsf;
+
+		// +1 to add total vertex count
+		int *baseVertexes = (int *)R_Malloc(sizeof(int)* (mdxm->numSurfaces + 1), TAG_TEMP_WORKSPACE, qfalse);
+		int *indexOffsets = (int *)R_Malloc(sizeof(int)* mdxm->numSurfaces, TAG_TEMP_WORKSPACE, qfalse);
+
+		vboModel->numVBOMeshes = mdxm->numSurfaces;
+		//vboModel->vboMeshes = (mdxmVBOMesh_t *)R_Hunk_Alloc(sizeof(mdxmVBOMesh_t) * mdxm->numSurfaces, qtrue);
+		vboMeshes = vboModel->vboMeshes;
+
+		mdxmSurface_t *surf = (mdxmSurface_t *)((byte *)lod + sizeof(mdxmLOD_t) + (mdxm->numSurfaces * sizeof(mdxmLODSurfOffset_t)));
+
+		// Calculate the required size of the vertex buffer.
+		for (int n = 0; n < mdxm->numSurfaces; n++)
+		{
+			baseVertexes[n] = numVerts;
+			indexOffsets[n] = numTriangles * 3;
+
+			numVerts += surf->numVerts;
+			numTriangles += surf->numTriangles;
+
+			surf = (mdxmSurface_t *)((byte *)surf + surf->ofsEnd);
+		}
+
+		baseVertexes[mdxm->numSurfaces] = numVerts;
+
+		tangentsf = (vec3_t *)R_Malloc(sizeof(vec3_t)* numVerts, TAG_TEMP_WORKSPACE, qtrue);
+		bitangentsf = (vec3_t *)R_Malloc(sizeof(vec3_t)* numVerts, TAG_TEMP_WORKSPACE, qtrue);
+
+		dataSize += numVerts * sizeof(*verts);
+		dataSize += numVerts * sizeof(*normals);
+		dataSize += numVerts * sizeof(*texcoords);
+		dataSize += numVerts * sizeof(*weights) * 4;
+		dataSize += numVerts * sizeof(*bonerefs) * 4;
+		dataSize += numVerts * sizeof(*tangents);
+
+		// Allocate and write to memory
+		data = (byte *)R_Malloc(dataSize, TAG_TEMP_WORKSPACE, qfalse);
+
+		verts = (vec3_t *)(data + stride);
+		ofsPosition = stride;
+		stride += sizeof(*verts);
+
+		normals = (uint32_t *)(data + stride);
+		ofsNormals = stride;
+		stride += sizeof(*normals);
+
+		texcoords = (vec2_t *)(data + stride);
+		ofsTexcoords = stride;
+		stride += sizeof(*texcoords);
+
+		bonerefs = data + stride;
+		ofsBoneRefs = stride;
+		stride += sizeof(*bonerefs) * 4;
+
+		weights = data + stride;
+		ofsWeights = stride;
+		stride += sizeof(*weights) * 4;
+
+		tangents = (uint32_t *)(data + stride);
+		ofs_tangent = stride;
+		stride += sizeof(*tangents);
+
+		surf = (mdxmSurface_t *)((byte *)lod + sizeof(mdxmLOD_t) + (mdxm->numSurfaces * sizeof(mdxmLODSurfOffset_t)));
+
+		for (int n = 0; n < mdxm->numSurfaces; n++)
+		{
+			// Positions and normals
+			mdxmVertex_t *v = (mdxmVertex_t *)((byte *)surf + surf->ofsVerts);
+
+			for (int k = 0; k < surf->numVerts; k++)
+			{
+				if (surf == specialSurface) {
+					VectorCopy(v[k].vertCoords, *verts);
+					float *v_x = ((float *)*verts) + 0;
+					float *v_y = ((float *)*verts) + 1;
+					float *v_z = ((float *)*verts) + 2;
+
+					glm::vec4 vec_in = glm::vec4(*v_x, *v_y, *v_z, 1.0);
+					//vec_in.x = *v_x;
+					//vec_in.y = *v_y;
+					//vec_in.z = *v_z;
+					//vec_in.w = 1;
+					
+					glm::vec4 tmp = glm::make_mat4(matrix) * vec_in;
+					//memcpy(default_link_outputs[0].vector4, glm::value_ptr(tmp), 4 * sizeof(float));
+
+					*v_x = tmp.x;
+					*v_y = tmp.y;
+					*v_z = tmp.z;
+				
+				} else {
+					VectorCopy(v[k].vertCoords, *verts);
+				}
+				*normals = R_VboPackNormal(v[k].normal);
+
+				verts = (vec3_t *)((byte *)verts + stride);
+				normals = (uint32_t *)((byte *)normals + stride);
+			}
+
+			// Weights
+			for (int k = 0; k < surf->numVerts; k++)
+			{
+				int numWeights = G2_GetVertWeights(&v[k]);
+				int lastWeight = 255;
+				int lastInfluence = numWeights - 1;
+				for (int w = 0; w < lastInfluence; w++)
+				{
+					float weight = G2_GetVertBoneWeightNotSlow(&v[k], w);
+					weights[w] = (byte)(weight * 255.0f);
+					bonerefs[w] = G2_GetVertBoneIndex(&v[k], w);
+
+					lastWeight -= weights[w];
+				}
+
+				assert(lastWeight > 0);
+
+				// Ensure that all the weights add up to 1.0
+				weights[lastInfluence] = lastWeight;
+				bonerefs[lastInfluence] = G2_GetVertBoneIndex(&v[k], lastInfluence);
+
+				// Fill in the rest of the info with zeroes.
+				for (int w = numWeights; w < 4; w++)
+				{
+					weights[w] = 0;
+					bonerefs[w] = 0;
+				}
+
+				weights += stride;
+				bonerefs += stride;
+			}
+
+			// Texture coordinates
+			mdxmVertexTexCoord_t *tc = (mdxmVertexTexCoord_t *)(v + surf->numVerts);
+			for (int k = 0; k < surf->numVerts; k++)
+			{
+				(*texcoords)[0] = tc[k].texCoords[0];
+				(*texcoords)[1] = tc[k].texCoords[1];
+
+				texcoords = (vec2_t *)((byte *)texcoords + stride);
+			}
+
+			mdxmTriangle_t *t = (mdxmTriangle_t *)((byte *)surf + surf->ofsTriangles);
+			for (int k = 0; k < surf->numTriangles; k++)
+			{
+				int index[3];
+				vec3_t sdir, tdir;
+				float *v0, *v1, *v2;
+				float *uv0, *uv1, *uv2;
+				vec3_t normal = { 0.0f, 0.0f, 0.0f };
+
+				index[0] = t[k].indexes[0];
+				index[1] = t[k].indexes[1];
+				index[2] = t[k].indexes[2];
+
+				v0 = v[index[0]].vertCoords;
+				v1 = v[index[1]].vertCoords;
+				v2 = v[index[2]].vertCoords;
+
+				uv0 = tc[index[0]].texCoords;
+				uv1 = tc[index[1]].texCoords;
+				uv2 = tc[index[2]].texCoords;
+
+				VectorAdd(normal, v[index[0]].normal, normal);
+				VectorAdd(normal, v[index[1]].normal, normal);
+				VectorAdd(normal, v[index[2]].normal, normal);
+				VectorNormalize(normal);
+
+				R_CalcTexDirs(sdir, tdir, v0, v1, v2, uv0, uv1, uv2);
+
+				for (int i = 0; i < 3; i++)
+				{
+					VectorAdd(tangentsf[baseVertexes[n] + index[i]],
+						sdir,
+						tangentsf[baseVertexes[n] + index[i]]);
+
+					VectorAdd(bitangentsf[baseVertexes[n] + index[i]],
+						tdir,
+						bitangentsf[baseVertexes[n] + index[i]]);
+				}
+			}
+
+			// Finally add it to the vertex buffer data
+			for (int k = 0; k < surf->numVerts; k++)
+			{
+				vec3_t sdir, tdir;
+
+				vec3_t& tangent = tangentsf[baseVertexes[n] + k];
+				vec3_t& bitangent = bitangentsf[baseVertexes[n] + k];
+				vec3_t NxT;
+				vec4_t T;
+
+				VectorCopy(tangent, sdir);
+				VectorCopy(bitangent, tdir);
+
+				VectorNormalize(sdir);
+				VectorNormalize(tdir);
+
+				R_CalcTbnFromNormalAndTexDirs(tangent, bitangent, v[k].normal, sdir, tdir);
+
+				CrossProduct(v[k].normal, tangent, NxT);
+				VectorCopy(tangent, T);
+				T[3] = DotProduct(NxT, bitangent) < 0.0f ? -1.0f : 1.0f;
+
+				*tangents = R_VboPackTangent(T);
+				tangents = (uint32_t *)((byte *)tangents + stride);
+			}
+
+			surf = (mdxmSurface_t *)((byte *)surf + surf->ofsEnd);
+		}
+
+		assert((byte *)verts == (data + dataSize));
+
+		const char *modelName = strrchr(mdxm->name, '/');
+		if (modelName == NULL)
+		{
+			modelName = mdxm->name;
+		}
+
+		// only create a VBO if we dont have one already
+		VBO_t  *vbo = NULL;
+		//if (vboMeshes->vbo == NULL)
+		//	vbo = vboMeshes->vbo = R_CreateVBO(data, dataSize, VBO_USAGE_STATIC);
+		//else
+		//	vbo = vboMeshes->vbo;
+		R_UpdateVBO(vboMeshes->vbo, data, dataSize, VBO_USAGE_STATIC);
+		vbo = vboMeshes->vbo;
+
+		R_Free(data);
+		R_Free(tangentsf);
+		R_Free(bitangentsf);
+
+		vbo->offsets[ATTR_INDEX_POSITION] = ofsPosition;
+		vbo->offsets[ATTR_INDEX_NORMAL] = ofsNormals;
+		vbo->offsets[ATTR_INDEX_TEXCOORD0] = ofsTexcoords;
+		vbo->offsets[ATTR_INDEX_BONE_INDEXES] = ofsBoneRefs;
+		vbo->offsets[ATTR_INDEX_BONE_WEIGHTS] = ofsWeights;
+		vbo->offsets[ATTR_INDEX_TANGENT] = ofs_tangent;
+
+		vbo->strides[ATTR_INDEX_POSITION] = stride;
+		vbo->strides[ATTR_INDEX_NORMAL] = stride;
+		vbo->strides[ATTR_INDEX_TEXCOORD0] = stride;
+		vbo->strides[ATTR_INDEX_BONE_INDEXES] = stride;
+		vbo->strides[ATTR_INDEX_BONE_WEIGHTS] = stride;
+		vbo->strides[ATTR_INDEX_TANGENT] = stride;
+
+		vbo->sizes[ATTR_INDEX_POSITION] = sizeof(*verts);
+		vbo->sizes[ATTR_INDEX_NORMAL] = sizeof(*normals);
+		vbo->sizes[ATTR_INDEX_TEXCOORD0] = sizeof(*texcoords);
+		vbo->sizes[ATTR_INDEX_BONE_WEIGHTS] = sizeof(*weights);
+		vbo->sizes[ATTR_INDEX_BONE_INDEXES] = sizeof(*bonerefs);
+		vbo->sizes[ATTR_INDEX_TANGENT] = sizeof(*tangents);
+
+		// Fill in the index buffer
+		glIndex_t *indices = (glIndex_t *)R_Malloc(sizeof(glIndex_t)* numTriangles * 3, TAG_TEMP_WORKSPACE, qfalse);
+		glIndex_t *index = indices;
+
+		surf = (mdxmSurface_t *)((byte *)lod + sizeof(mdxmLOD_t) + (mdxm->numSurfaces * sizeof(mdxmLODSurfOffset_t)));
+
+		for (int n = 0; n < mdxm->numSurfaces; n++)
+		{
+			mdxmTriangle_t *t = (mdxmTriangle_t *)((byte *)surf + surf->ofsTriangles);
+
+			for (int k = 0; k < surf->numTriangles; k++, index += 3)
+			{
+				index[0] = t[k].indexes[0] + baseVertexes[n];
+				assert(index[0] >= 0 && index[0] < numVerts);
+
+				index[1] = t[k].indexes[1] + baseVertexes[n];
+				assert(index[1] >= 0 && index[1] < numVerts);
+
+				index[2] = t[k].indexes[2] + baseVertexes[n];
+				assert(index[2] >= 0 && index[2] < numVerts);
+			}
+
+			surf = (mdxmSurface_t *)((byte *)surf + surf->ofsEnd);
+		}
+
+		assert(index == (indices + numTriangles * 3));
+
+
+		//IBO_t *ibo = R_CreateIBO((byte *)indices, sizeof(glIndex_t) * numTriangles * 3, VBO_USAGE_STATIC);
+		IBO_t *ibo = NULL;
+		//if (vboMeshes->ibo == NULL)
+		//	ibo = vboMeshes->ibo = R_CreateIBO((byte *)indices, sizeof(glIndex_t) * numTriangles * 3, VBO_USAGE_STATIC);
+		//else
+		ibo = vboMeshes->ibo;
+		R_UpdateIBO(ibo, (byte *)indices, sizeof(glIndex_t) * numTriangles * 3, VBO_USAGE_STATIC);		
+
+		// just reuse the old one...
+		//IBO_t *ibo = vboModel->ibo;
+
+		R_Free(indices);
+
+		surf = (mdxmSurface_t *)((byte *)lod + sizeof(mdxmLOD_t) + (mdxm->numSurfaces * sizeof(mdxmLODSurfOffset_t)));
+
+		for (int n = 0; n < mdxm->numSurfaces; n++)
+		{
+			vboMeshes[n].vbo = vbo;
+			vboMeshes[n].ibo = ibo;
+
+			vboMeshes[n].indexOffset = indexOffsets[n];
+			vboMeshes[n].minIndex = baseVertexes[n];
+			vboMeshes[n].maxIndex = baseVertexes[n + 1] - 1;
+			vboMeshes[n].numVertexes = surf->numVerts;
+			vboMeshes[n].numIndexes = surf->numTriangles * 3;
+
+			surf = (mdxmSurface_t *)((byte *)surf + surf->ofsEnd);
+		}
+
+		vboModel->vbo = vbo;
+		vboModel->ibo = ibo;
+
+		R_Free(indexOffsets);
+		R_Free(baseVertexes);
+
+		lod = (mdxmLOD_t *)((byte *)lod + lod->ofsEnd);
+	}
+
+	return qtrue;
+}
+
+
 //#define CREATE_LIMB_HIERARCHY
 
 #ifdef CREATE_LIMB_HIERARCHY

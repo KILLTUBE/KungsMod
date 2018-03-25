@@ -2095,7 +2095,7 @@ Upload32
 ===============
 */
 extern qboolean charSet;
-static void Upload32( byte *data, int width, int height, imgType_t type, int flags,
+void Upload32( byte *data, int width, int height, imgType_t type, int flags,
 	qboolean lightMap, GLenum internalFormat, int *pUploadWidth, int *pUploadHeight)
 {
 	byte		*scaledBuffer = NULL;

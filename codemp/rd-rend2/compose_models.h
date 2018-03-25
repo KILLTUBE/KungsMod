@@ -1,4 +1,4 @@
-#include "../rd-rend2/tr_local.h"
+#include "tr_local.h"
 
 inline mdxmVertex_t *firstVertex(mdxmSurface_t *surf) {
 	return (mdxmVertex_t *) ((byte *)surf + surf->ofsVerts);
@@ -47,3 +47,4 @@ const char *toString(surfaceType_t t);
 const char *toString(modtype_t type);
 const char *toString(mdxmSurface_t *surf);
 const char *toString(mdxmSurface_t *surf, char *lookupTableName);
+

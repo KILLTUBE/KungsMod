@@ -15,7 +15,7 @@ public:
 	virtual const char *label();
 	virtual void imgui();
 	void imgui_mdxm_surface_vertices(mdxmSurface_t *surf);
-	void imgui_mdxm_surface(mdxmSurface_t *surf);
+	void imgui_mdxm_surface(mdxmSurface_t *surf, int surface_id);
 	void imgui_mdxm_list_lods();
 	void imgui_mdxm_list_surfhierarchy();
 };

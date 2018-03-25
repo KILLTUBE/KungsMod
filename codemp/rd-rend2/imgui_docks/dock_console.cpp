@@ -5,7 +5,7 @@
 #include <sstream>
 #include <iostream>
 
-//#include <kung/include_webgamegui.h>
+//#include <include_webgamegui.h>
 
 
 #include "dock_console.h"
@@ -23,8 +23,8 @@ void DockConsole::imgui() {
 	imgui_console_content();
 }
 
-//#include <kung/include_gl.h>
-//#include <kung/include_glfw.h>
+//#include "../include_gl.h"
+//#include <include_glfw.h>
 // had to change this to a pointer, because otherwise it would crash... probably it wasn't initialized yet
 std::list<std::string> *console_lines = NULL;
 

@@ -1,12 +1,12 @@
 #include "imgui_dock.h"
 #include "imgui_c_utils.h"
-#include "MagicFile.cpp/magicfile.h"
+#include "MagicFile/magicfile.h"
 
-//#include <kung/opsys/opsystem_repl_julia.h>
-//#include <kung/include_utils.h>
-//#include <kung/imgui/dock/dock_repl.h>
-//#include <kung/include_console.h>
-//#include <kung/include_ccall.h>
+//#include <opsys/opsystem_repl_julia.h>
+//#include <include_utils.h>
+//#include <imgui/dock/dock_repl.h>
+//#include "../include_console.h"
+//#include <include_ccall.h>
 //CCALL long	FS_ReadFile(const char *qpath, void **buffer);
 
 DockContext g_dock;
@@ -1191,7 +1191,7 @@ int DockContext::getDockIndex(Dock* dock)
 	return -1;
 }
 
-#include "MagicFile.cpp/magicfile.h"
+#include "MagicFile/magicfile.h"
 void DockContext::save()
 {
 

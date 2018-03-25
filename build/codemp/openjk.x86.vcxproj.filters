@@ -448,8 +448,44 @@
     <ClCompile Include="..\..\codemp\rd-rend2\tr_weather.cpp">
       <Filter>rend2</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui\MagicFile.cpp\magicfile.cpp">
+    <ClCompile Include="..\..\codemp\rd-common\tr_font.cpp">
+      <Filter>rend-common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-common\tr_image_jpg.cpp">
+      <Filter>rend-common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-common\tr_image_load.cpp">
+      <Filter>rend-common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-common\tr_image_png.cpp">
+      <Filter>rend-common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-common\tr_image_tga.cpp">
+      <Filter>rend-common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-common\tr_noise.cpp">
+      <Filter>rend-common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\glsl_shaders.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\compose_lib.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\matrix.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\primitives_3d.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\compose_images.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\MagicFile\magicfile.cpp">
       <Filter>rend2\imgui\MagicFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_utils.cpp">
+      <Filter>rend2\imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\rd-rend2\imgui\ffi.cpp">
       <Filter>rend2\imgui</Filter>
@@ -481,9 +517,6 @@
     <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_impl_idtech3_gles.cpp">
       <Filter>rend2\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_utils.cpp">
-      <Filter>rend2\imgui</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock.cpp">
       <Filter>rend2\imgui_docks</Filter>
     </ClCompile>
@@ -508,6 +541,9 @@
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_controlflow.cpp">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_images.cpp">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mapinfo.cpp">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClCompile>
@@ -520,7 +556,13 @@
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_models.cpp">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_opsys.cpp">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_perf.cpp">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_quakeshaders.cpp">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_shadereditor.cpp">
@@ -532,26 +574,269 @@
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_openjk\imgui_openjk_default_docks.cpp">
       <Filter>rend2\imgui_openjk</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-common\tr_font.cpp">
-      <Filter>rend-common</Filter>
+    <ClCompile Include="..\..\codemp\rd-rend2\op_types\op_type_image.cpp">
+      <Filter>rend2\op_types</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-common\tr_image_jpg.cpp">
-      <Filter>rend-common</Filter>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op.cpp">
+      <Filter>rend2\ops</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-common\tr_image_load.cpp">
-      <Filter>rend-common</Filter>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_all.cpp">
+      <Filter>rend2\ops</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-common\tr_image_png.cpp">
-      <Filter>rend-common</Filter>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_astar.cpp">
+      <Filter>rend2\ops</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-common\tr_image_tga.cpp">
-      <Filter>rend-common</Filter>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_axis.cpp">
+      <Filter>rend2\ops</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-common\tr_noise.cpp">
-      <Filter>rend-common</Filter>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_checkerboard.cpp">
+      <Filter>rend2\ops</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\glsl_shaders.cpp">
-      <Filter>rend2</Filter>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_cos.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_craft.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_cube.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_divide.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_expression.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_file.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_attrib.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_buffer.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_fragment_shader.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_framebuffer.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_legacy.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_program.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_uniform.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_vertex_shader.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_image.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_color.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_mix.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_scale.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_split.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_split_alpha.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_mdxm.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_perspectivematrix.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_player.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_refentity.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_rmo.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_shader.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_shader_pbr.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_if.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_javascript.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_javascript_file.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_keyboard.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_line.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_logger.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_mapfloat.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrices.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_decompose.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_identity.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_inverse.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_multiply.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_multiply_point.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_ortho.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_rotate.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_scale.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_shear.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_translate.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_transpose.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_mesh_editor.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_minus.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_multiply.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_negate.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_node.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_nop.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_perspective.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_plus.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_prefab.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_prefab_input.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_prefab_output.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_quaternion.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_quaternion_inverse.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_quaternion_multiply.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_random_shit.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_renderer.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_scriptwrapper.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_sin.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_skeleton.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_soil.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_switch.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_tofloat.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_value.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_vector3.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_vector4.cpp">
+      <Filter>rend2\ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys.cpp">
+      <Filter>rend2\opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_editor.cpp">
+      <Filter>rend2\opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_explorer.cpp">
+      <Filter>rend2\opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_hierarchy.cpp">
+      <Filter>rend2\opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_javascript.cpp">
+      <Filter>rend2\opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_link_matrices.cpp">
+      <Filter>rend2\opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_opengl.cpp">
+      <Filter>rend2\opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_ops_editor.cpp">
+      <Filter>rend2\opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_utils.cpp">
+      <Filter>rend2\opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\utils_opengl\debuglines.cpp">
+      <Filter>rend2\utils_opengl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -858,7 +1143,49 @@
     <ClInclude Include="..\..\codemp\rd-rend2\tr_weather.h">
       <Filter>rend2</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\MagicFile.cpp\magicfile.h">
+    <ClInclude Include="..\..\codemp\rd-common\mdx_format.h">
+      <Filter>rend-common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-common\tr_common.h">
+      <Filter>rend-common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-common\tr_font.h">
+      <Filter>rend-common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-common\tr_public.h">
+      <Filter>rend-common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-common\tr_types.h">
+      <Filter>rend-common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\compose_images.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\compose_lib.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\include_ccall.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\include_console.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\include_gl.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\include_glm.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\include_imgui.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\matrix.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\primitives_3d.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\MagicFile\magicfile.h">
       <Filter>rend2\imgui\MagicFile</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\rd-rend2\imgui\imconfig.h">
@@ -930,6 +1257,9 @@
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_controlflow.h">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_images.h">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mapinfo.h">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClInclude>
@@ -942,7 +1272,13 @@
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_models.h">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_opsys.h">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_perf.h">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_quakeshaders.h">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_shadereditor.h">
@@ -954,20 +1290,269 @@
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_openjk\imgui_openjk_default_docks.h">
       <Filter>rend2\imgui_openjk</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-common\mdx_format.h">
-      <Filter>rend-common</Filter>
+    <ClInclude Include="..\..\codemp\rd-rend2\op_types\op_type_image.h">
+      <Filter>rend2\op_types</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-common\tr_common.h">
-      <Filter>rend-common</Filter>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op.h">
+      <Filter>rend2\ops</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-common\tr_font.h">
-      <Filter>rend-common</Filter>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_all.h">
+      <Filter>rend2\ops</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-common\tr_public.h">
-      <Filter>rend-common</Filter>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_astar.h">
+      <Filter>rend2\ops</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-common\tr_types.h">
-      <Filter>rend-common</Filter>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_axis.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_checkerboard.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_cos.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_craft.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_cube.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_divide.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_expression.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_file.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_attrib.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_buffer.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_fragment_shader.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_framebuffer.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_legacy.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_program.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_uniform.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_vertex_shader.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_image.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_color.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_mix.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_scale.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_split.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_split_alpha.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_mdxm.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_perspectivematrix.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_player.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_refentity.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_rmo.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_shader.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_shader_pbr.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_if.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_javascript.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_javascript_file.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_keyboard.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_line.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_logger.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_mapfloat.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrices.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_decompose.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_identity.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_inverse.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_multiply.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_multiply_point.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_ortho.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_rotate.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_scale.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_shear.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_translate.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_transpose.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_mesh_editor.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_minus.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_multiply.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_negate.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_node.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_node.hpp">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_nop.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_perspective.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_plus.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_prefab.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_prefab_input.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_prefab_output.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_quaternion.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_quaternion_inverse.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_quaternion_multiply.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_random_shit.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_renderer.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_scriptwrapper.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_sin.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_skeleton.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_soil.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_switch.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_tofloat.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_value.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_vector3.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_vector4.h">
+      <Filter>rend2\ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys.h">
+      <Filter>rend2\opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys_editor.h">
+      <Filter>rend2\opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys_explorer.h">
+      <Filter>rend2\opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys_hierarchy.h">
+      <Filter>rend2\opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys_javascript.h">
+      <Filter>rend2\opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys_link_matrices.h">
+      <Filter>rend2\opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys_opengl.h">
+      <Filter>rend2\opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys_utils.h">
+      <Filter>rend2\opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\utils_opengl\debuglines.h">
+      <Filter>rend2\utils_opengl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1052,6 +1637,18 @@
     </Filter>
     <Filter Include="rend-common">
       <UniqueIdentifier>{0ff0139c-6c94-48a0-874c-43e7a1d55689}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rend2\op_types">
+      <UniqueIdentifier>{45106bf6-0700-41fe-9111-bcdc0c2770ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rend2\ops">
+      <UniqueIdentifier>{a202aabc-b8df-45c4-81f3-1b5b9b330627}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rend2\opsys">
+      <UniqueIdentifier>{08663209-cfed-4f52-86e9-a2c4b2fbde01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rend2\utils_opengl">
+      <UniqueIdentifier>{9669c53c-15c3-46d3-889f-aa043f191621}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

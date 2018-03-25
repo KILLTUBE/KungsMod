@@ -56,7 +56,9 @@ void DockMDXM::imgui_mdxm_surface_vertices(mdxmSurface_t *surf) {
 	}
 }
 
-void DockMDXM::imgui_mdxm_surface(mdxmSurface_t *surf) {
+//qboolean model_upload_mdxm_to_gpu_special(model_t *mod, mdxmSurface_t *specialSurface, float scale);
+
+void DockMDXM::imgui_mdxm_surface(mdxmSurface_t *surf, int surface_id) {
 	ImGui::PushID(surf);
 
 	char strBoneReferences[128];
@@ -76,17 +78,20 @@ void DockMDXM::imgui_mdxm_surface(mdxmSurface_t *surf) {
 	}
 
 	char strVerts[128];
-	snprintf(strVerts, sizeof(strVerts), "%d vertices", surf->numVerts);
+	snprintf(strVerts, sizeof(strVerts), "surface[%d] %d vertices", surface_id, surf->numVerts);
 	if (ImGui::CollapsingHeader(strVerts)) {
 
 		if (ImGui::Button("verts *= 2")) {
-			scaleVertices(surf, 2.0);
-			model_upload_mdxm_to_gpu(mod);
+			//scaleVertices(surf, 2.0);
+			//model_upload_mdxm_to_gpu(mod);
+			
+			//model_upload_mdxm_to_gpu_special(mod, surf, 2.0);
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("verts /= 2")) {
-			scaleVertices(surf, 0.5);
-			model_upload_mdxm_to_gpu(mod);
+			//scaleVertices(surf, 0.5);
+			//model_upload_mdxm_to_gpu(mod);
+			//model_upload_mdxm_to_gpu_special(mod, surf, 0.5);
 		}
 
 		imgui_mdxm_surface_vertices(surf);
@@ -107,7 +112,7 @@ void DockMDXM::imgui_mdxm_list_lods() {
 
 
 				if (ImGui::CollapsingHeader(toString(surf, lookupSurfNames[i]))) {
-					imgui_mdxm_surface(surf);
+					imgui_mdxm_surface(surf, i);
 				}
 				surf = next(surf);
 			}
