@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\XycaRend2\codemp\game\bg_misc.c">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\game\bg_saberLoad.c">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\game\bg_saga.c">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\game\bg_vehicleLoad.c">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\game\bg_weapons.c">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\q_shared.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\string.cpp">
+      <Filter>common/safe</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\ui\ui_atoms.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\ui\ui_cvar.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\ui\ui_force.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\ui\ui_gameinfo.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\ui\ui_main.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\ui\ui_saber.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\ui\ui_shared.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\ui\ui_syscalls.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\XycaRend2\codemp\game\anims.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\bg_local.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\bg_public.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\bg_saga.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\bg_weapons.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\surfaceflags.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\disablewarnings.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\game_version.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\q_shared.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\qfiles.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\tags.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\string.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\sscanf.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\limited_vector.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ui\keycodes.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ui\menudef.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ui\ui_force.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ui\ui_local.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ui\ui_public.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ui\ui_shared.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ui\ui_xcvar.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_types.h">
+      <Filter>rd-common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\XycaRend2\codemp\ui\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="game">
+      <UniqueIdentifier>{7549D124-61E6-3E9C-8374-1BF9AD7AA9DC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{31E8F33F-C00E-303B-BEEA-6DF39804EF66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common/safe">
+      <UniqueIdentifier>{3C6DA5D0-2005-35E2-A21E-7E6AB39C9220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{87046E3E-1C66-3D90-96FE-53BD197D747E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rd-common">
+      <UniqueIdentifier>{FB72095E-03A3-3F61-B545-5C751757D4D9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

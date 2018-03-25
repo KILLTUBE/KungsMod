@@ -1,0 +1,587 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{84652D8B-5933-3E09-98EA-D8D528589025}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>MP Rend2 Renderer</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">rd-rend2_x86.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">rd-rend2_x86</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">rd-rend2_x86.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">rd-rend2_x86</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">rd-rend2_x86.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">rd-rend2_x86</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">rd-rend2_x86.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">rd-rend2_x86</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR="Debug";rd_rend2_x86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR=\"Debug\";rd_rend2_x86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\..\lib\jpeg-9a\Debug\bundled_libjpeg.lib;..\..\lib\libpng\Debug\bundled_libpng.lib;..\..\lib\zlib\Debug\bundled_zlib.lib;..\..\lib\minizip\Debug\bundled_minizip.lib;glu32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/XycaRend2/build/codemp/rd-rend2/Debug/rd-rend2_x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/XycaRend2/build/Debug/rd-rend2_x86.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR="Release";rd_rend2_x86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR=\"Release\";rd_rend2_x86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\..\lib\jpeg-9a\Release\bundled_libjpeg.lib;..\..\lib\libpng\Release\bundled_libpng.lib;..\..\lib\zlib\Release\bundled_zlib.lib;..\..\lib\minizip\Release\bundled_minizip.lib;glu32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/XycaRend2/build/codemp/rd-rend2/Release/rd-rend2_x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/XycaRend2/build/Release/rd-rend2_x86.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR="MinSizeRel";rd_rend2_x86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR=\"MinSizeRel\";rd_rend2_x86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\..\lib\jpeg-9a\MinSizeRel\bundled_libjpeg.lib;..\..\lib\libpng\MinSizeRel\bundled_libpng.lib;..\..\lib\zlib\MinSizeRel\bundled_zlib.lib;..\..\lib\minizip\MinSizeRel\bundled_minizip.lib;glu32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/XycaRend2/build/codemp/rd-rend2/MinSizeRel/rd-rend2_x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/XycaRend2/build/MinSizeRel/rd-rend2_x86.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR="RelWithDebInfo";rd_rend2_x86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR=\"RelWithDebInfo\";rd_rend2_x86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\..\lib\jpeg-9a\RelWithDebInfo\bundled_libjpeg.lib;..\..\lib\libpng\RelWithDebInfo\bundled_libpng.lib;..\..\lib\zlib\RelWithDebInfo\bundled_zlib.lib;..\..\lib\minizip\RelWithDebInfo\bundled_minizip.lib;glu32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/XycaRend2/build/codemp/rd-rend2/RelWithDebInfo/rd-rend2_x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/XycaRend2/build/RelWithDebInfo/rd-rend2_x86.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/rd-rend2/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\codemp\rd-rend2\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/rd-rend2/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\codemp\rd-rend2\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/rd-rend2/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\codemp\rd-rend2\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/rd-rend2/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\codemp\rd-rend2\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\XycaRend2\build\CMakeFiles\070487cf9cfdf0276b1a19a5350969ce\glsl_shaders.cpp.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating glsl_shaders.cpp</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+..\..\Debug\compact_glsl.exe C:/XycaRend2/build/codemp/rd-rend2/glsl_shaders.cpp C:/XycaRend2/codemp/rd-rend2/glsl/bokeh.glsl C:/XycaRend2/codemp/rd-rend2/glsl/calclevels4x.glsl C:/XycaRend2/codemp/rd-rend2/glsl/depthblur.glsl C:/XycaRend2/codemp/rd-rend2/glsl/dglow_downsample.glsl C:/XycaRend2/codemp/rd-rend2/glsl/dglow_upsample.glsl C:/XycaRend2/codemp/rd-rend2/glsl/dlight.glsl C:/XycaRend2/codemp/rd-rend2/glsl/down4x.glsl C:/XycaRend2/codemp/rd-rend2/glsl/fogpass.glsl C:/XycaRend2/codemp/rd-rend2/glsl/gaussian_blur.glsl C:/XycaRend2/codemp/rd-rend2/glsl/generic.glsl C:/XycaRend2/codemp/rd-rend2/glsl/lightall.glsl C:/XycaRend2/codemp/rd-rend2/glsl/prefilterEnvMap.glsl C:/XycaRend2/codemp/rd-rend2/glsl/pshadow.glsl C:/XycaRend2/codemp/rd-rend2/glsl/shadowfill.glsl C:/XycaRend2/codemp/rd-rend2/glsl/shadowmask.glsl C:/XycaRend2/codemp/rd-rend2/glsl/ssao.glsl C:/XycaRend2/codemp/rd-rend2/glsl/surface_sprites.glsl C:/XycaRend2/codemp/rd-rend2/glsl/texturecolor.glsl C:/XycaRend2/codemp/rd-rend2/glsl/tonemap.glsl C:/XycaRend2/codemp/rd-rend2/glsl/weather.glsl
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/XycaRend2/build/CMakeFiles/070487cf9cfdf0276b1a19a5350969ce/glsl_shaders.cpp.rule;C:\XycaRend2\build\Debug\compact_glsl.exe;C:\XycaRend2\codemp\rd-rend2\glsl\bokeh.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\calclevels4x.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\depthblur.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\dglow_downsample.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\dglow_upsample.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\dlight.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\down4x.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\fogpass.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\gaussian_blur.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\generic.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\lightall.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\prefilterEnvMap.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\pshadow.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\shadowfill.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\shadowmask.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\ssao.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\surface_sprites.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\texturecolor.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\tonemap.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\weather.glsl;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\codemp\rd-rend2\glsl_shaders.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating glsl_shaders.cpp</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+..\..\Release\compact_glsl.exe C:/XycaRend2/build/codemp/rd-rend2/glsl_shaders.cpp C:/XycaRend2/codemp/rd-rend2/glsl/bokeh.glsl C:/XycaRend2/codemp/rd-rend2/glsl/calclevels4x.glsl C:/XycaRend2/codemp/rd-rend2/glsl/depthblur.glsl C:/XycaRend2/codemp/rd-rend2/glsl/dglow_downsample.glsl C:/XycaRend2/codemp/rd-rend2/glsl/dglow_upsample.glsl C:/XycaRend2/codemp/rd-rend2/glsl/dlight.glsl C:/XycaRend2/codemp/rd-rend2/glsl/down4x.glsl C:/XycaRend2/codemp/rd-rend2/glsl/fogpass.glsl C:/XycaRend2/codemp/rd-rend2/glsl/gaussian_blur.glsl C:/XycaRend2/codemp/rd-rend2/glsl/generic.glsl C:/XycaRend2/codemp/rd-rend2/glsl/lightall.glsl C:/XycaRend2/codemp/rd-rend2/glsl/prefilterEnvMap.glsl C:/XycaRend2/codemp/rd-rend2/glsl/pshadow.glsl C:/XycaRend2/codemp/rd-rend2/glsl/shadowfill.glsl C:/XycaRend2/codemp/rd-rend2/glsl/shadowmask.glsl C:/XycaRend2/codemp/rd-rend2/glsl/ssao.glsl C:/XycaRend2/codemp/rd-rend2/glsl/surface_sprites.glsl C:/XycaRend2/codemp/rd-rend2/glsl/texturecolor.glsl C:/XycaRend2/codemp/rd-rend2/glsl/tonemap.glsl C:/XycaRend2/codemp/rd-rend2/glsl/weather.glsl
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/XycaRend2/build/CMakeFiles/070487cf9cfdf0276b1a19a5350969ce/glsl_shaders.cpp.rule;C:\XycaRend2\build\Release\compact_glsl.exe;C:\XycaRend2\codemp\rd-rend2\glsl\bokeh.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\calclevels4x.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\depthblur.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\dglow_downsample.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\dglow_upsample.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\dlight.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\down4x.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\fogpass.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\gaussian_blur.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\generic.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\lightall.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\prefilterEnvMap.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\pshadow.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\shadowfill.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\shadowmask.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\ssao.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\surface_sprites.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\texturecolor.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\tonemap.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\weather.glsl;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\codemp\rd-rend2\glsl_shaders.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Generating glsl_shaders.cpp</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+..\..\MinSizeRel\compact_glsl.exe C:/XycaRend2/build/codemp/rd-rend2/glsl_shaders.cpp C:/XycaRend2/codemp/rd-rend2/glsl/bokeh.glsl C:/XycaRend2/codemp/rd-rend2/glsl/calclevels4x.glsl C:/XycaRend2/codemp/rd-rend2/glsl/depthblur.glsl C:/XycaRend2/codemp/rd-rend2/glsl/dglow_downsample.glsl C:/XycaRend2/codemp/rd-rend2/glsl/dglow_upsample.glsl C:/XycaRend2/codemp/rd-rend2/glsl/dlight.glsl C:/XycaRend2/codemp/rd-rend2/glsl/down4x.glsl C:/XycaRend2/codemp/rd-rend2/glsl/fogpass.glsl C:/XycaRend2/codemp/rd-rend2/glsl/gaussian_blur.glsl C:/XycaRend2/codemp/rd-rend2/glsl/generic.glsl C:/XycaRend2/codemp/rd-rend2/glsl/lightall.glsl C:/XycaRend2/codemp/rd-rend2/glsl/prefilterEnvMap.glsl C:/XycaRend2/codemp/rd-rend2/glsl/pshadow.glsl C:/XycaRend2/codemp/rd-rend2/glsl/shadowfill.glsl C:/XycaRend2/codemp/rd-rend2/glsl/shadowmask.glsl C:/XycaRend2/codemp/rd-rend2/glsl/ssao.glsl C:/XycaRend2/codemp/rd-rend2/glsl/surface_sprites.glsl C:/XycaRend2/codemp/rd-rend2/glsl/texturecolor.glsl C:/XycaRend2/codemp/rd-rend2/glsl/tonemap.glsl C:/XycaRend2/codemp/rd-rend2/glsl/weather.glsl
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/XycaRend2/build/CMakeFiles/070487cf9cfdf0276b1a19a5350969ce/glsl_shaders.cpp.rule;C:\XycaRend2\build\MinSizeRel\compact_glsl.exe;C:\XycaRend2\codemp\rd-rend2\glsl\bokeh.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\calclevels4x.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\depthblur.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\dglow_downsample.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\dglow_upsample.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\dlight.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\down4x.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\fogpass.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\gaussian_blur.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\generic.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\lightall.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\prefilterEnvMap.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\pshadow.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\shadowfill.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\shadowmask.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\ssao.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\surface_sprites.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\texturecolor.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\tonemap.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\weather.glsl;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\codemp\rd-rend2\glsl_shaders.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Generating glsl_shaders.cpp</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+..\..\RelWithDebInfo\compact_glsl.exe C:/XycaRend2/build/codemp/rd-rend2/glsl_shaders.cpp C:/XycaRend2/codemp/rd-rend2/glsl/bokeh.glsl C:/XycaRend2/codemp/rd-rend2/glsl/calclevels4x.glsl C:/XycaRend2/codemp/rd-rend2/glsl/depthblur.glsl C:/XycaRend2/codemp/rd-rend2/glsl/dglow_downsample.glsl C:/XycaRend2/codemp/rd-rend2/glsl/dglow_upsample.glsl C:/XycaRend2/codemp/rd-rend2/glsl/dlight.glsl C:/XycaRend2/codemp/rd-rend2/glsl/down4x.glsl C:/XycaRend2/codemp/rd-rend2/glsl/fogpass.glsl C:/XycaRend2/codemp/rd-rend2/glsl/gaussian_blur.glsl C:/XycaRend2/codemp/rd-rend2/glsl/generic.glsl C:/XycaRend2/codemp/rd-rend2/glsl/lightall.glsl C:/XycaRend2/codemp/rd-rend2/glsl/prefilterEnvMap.glsl C:/XycaRend2/codemp/rd-rend2/glsl/pshadow.glsl C:/XycaRend2/codemp/rd-rend2/glsl/shadowfill.glsl C:/XycaRend2/codemp/rd-rend2/glsl/shadowmask.glsl C:/XycaRend2/codemp/rd-rend2/glsl/ssao.glsl C:/XycaRend2/codemp/rd-rend2/glsl/surface_sprites.glsl C:/XycaRend2/codemp/rd-rend2/glsl/texturecolor.glsl C:/XycaRend2/codemp/rd-rend2/glsl/tonemap.glsl C:/XycaRend2/codemp/rd-rend2/glsl/weather.glsl
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/XycaRend2/build/CMakeFiles/070487cf9cfdf0276b1a19a5350969ce/glsl_shaders.cpp.rule;C:\XycaRend2\build\RelWithDebInfo\compact_glsl.exe;C:\XycaRend2\codemp\rd-rend2\glsl\bokeh.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\calclevels4x.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\depthblur.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\dglow_downsample.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\dglow_upsample.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\dlight.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\down4x.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\fogpass.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\gaussian_blur.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\generic.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\lightall.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\prefilterEnvMap.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\pshadow.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\shadowfill.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\shadowmask.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\ssao.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\surface_sprites.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\texturecolor.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\tonemap.glsl;C:\XycaRend2\codemp\rd-rend2\glsl\weather.glsl;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\codemp\rd-rend2\glsl_shaders.cpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\iqm.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\glext.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\qgl.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\G2_API.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\G2_bolts.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\G2_bones.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\G2_misc.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\G2_surfaces.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_allocator.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_allocator.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_animation.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_backend.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_bsp.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_cache.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_cache.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_cmds.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_curve.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_decals.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_extensions.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_extramath.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_extramath.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_extratypes.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_fbo.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_fbo.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_flares.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_ghoul2.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_glsl.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_glsl_parse.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_image.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_init.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_light.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_local.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_main.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_marks.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_mesh.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_model.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_model_iqm.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_postprocess.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_postprocess.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_scene.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_shade.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_shade_calc.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_shader.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_shadows.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_skin.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_sky.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_subs.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_surface.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_vbo.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_world.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_weather.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_weather.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_imgui.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\compose_models.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\compose_models.h" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\bokeh.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\calclevels4x.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\depthblur.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\dglow_downsample.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\dglow_upsample.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\dlight.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\down4x.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\fogpass.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\gaussian_blur.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\generic.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\lightall.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\prefilterEnvMap.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\pshadow.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\shadowfill.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\shadowmask.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\ssao.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\surface_sprites.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\texturecolor.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\tonemap.glsl" />
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\weather.glsl" />
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\g2_local.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\ghoul2_shared.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\ghoul2\G2_gore.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\G2_gore.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-common\mdx_format.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_common.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_font.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_font.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_image_load.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_image_jpg.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_image_tga.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_image_png.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_noise.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_public.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_types.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\ccall\ccall.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\MagicFile.cpp\magicfile.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\MagicFile.cpp\magicfile.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\ffi.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imconfig.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_api.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_api.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_c_utils.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_c_utils.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_default_docks.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_default_docks.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_demo.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_dock.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_dock.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_draw.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_fixedarea.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_fixedarea.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_impl_idtech3_gles.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_impl_idtech3_gles.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_internal.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_utils.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_utils.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\include_imgui.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\include_quakegl.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\stb_rect_pack.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\stb_textedit.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\stb_truetype.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_openjk\imgui_openjk_default_docks.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_openjk\imgui_openjk_default_docks.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_openjk\gluecode.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_openjk\gluecode.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_console.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_console.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_julia.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_julia.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_node.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_node.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_repl.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_repl.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_skeleton.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_skeleton.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_shadereditor.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_shadereditor.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_controlflow.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_controlflow.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_models.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_models.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_all.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_all.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_mdxm.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_mdxm.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_mdxa.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_mdxa.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\matcomp.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\q_shared.cpp" />
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h" />
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h" />
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h" />
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h" />
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h" />
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\string.cpp" />
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\string.h" />
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\sscanf.h" />
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\limited_vector.h" />
+    <ClCompile Include="C:\XycaRend2\build\codemp\rd-rend2\glsl_shaders.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\XycaRend2\build\lib\jpeg-9a\bundled_libjpeg.vcxproj">
+      <Project>{47E1B3AF-1560-3E9B-AA40-118D2C8FB759}</Project>
+      <Name>bundled_libjpeg</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\XycaRend2\build\lib\libpng\bundled_libpng.vcxproj">
+      <Project>{9ABE8290-5F67-3AE1-AC5E-AEB4CA8D4DBC}</Project>
+      <Name>bundled_libpng</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\XycaRend2\build\lib\minizip\bundled_minizip.vcxproj">
+      <Project>{CC776DAF-DBC0-320D-9C43-3BE2F7B3CAE8}</Project>
+      <Name>bundled_minizip</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\XycaRend2\build\lib\zlib\bundled_zlib.vcxproj">
+      <Project>{B58BEC2B-E4A4-376D-9C62-F87FDF353067}</Project>
+      <Name>bundled_zlib</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\XycaRend2\build\codemp\rd-rend2\compact_glsl.vcxproj">
+      <Project>{E45D6DB2-48BE-3E9F-B905-B9B60E413060}</Project>
+      <Name>compact_glsl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,797 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{083FF3C6-E1F6-3519-B3F9-F1BD0C87D386}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>MP Client</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">openjk.x86.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">openjk.x86</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">openjk.x86.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">openjk.x86</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">openjk.x86.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">openjk.x86</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">openjk.x86.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">openjk.x86</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>Debug\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\Debug\bundled_minizip.lib;..\lib\zlib\Debug\bundled_zlib.lib;..\lib\jpeg-9a\Debug\bundled_libjpeg.lib;..\lib\libpng\Debug\bundled_libpng.lib;..\..\lib\OpenAL32.lib;..\..\lib\SDL2\lib\x86\SDL2main.lib;..\..\lib\SDL2\lib\x86\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/XycaRend2/build/codemp/Debug/openjk.x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/XycaRend2/build/Debug/openjk.x86.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>Release\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\Release\bundled_minizip.lib;..\lib\zlib\Release\bundled_zlib.lib;..\..\lib\OpenAL32.lib;..\..\lib\SDL2\lib\x86\SDL2main.lib;..\..\lib\SDL2\lib\x86\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/XycaRend2/build/codemp/Release/openjk.x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/XycaRend2/build/Release/openjk.x86.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>MinSizeRel\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\MinSizeRel\bundled_minizip.lib;..\lib\zlib\MinSizeRel\bundled_zlib.lib;..\..\lib\OpenAL32.lib;..\..\lib\SDL2\lib\x86\SDL2main.lib;..\..\lib\SDL2\lib\x86\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/XycaRend2/build/codemp/MinSizeRel/openjk.x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/XycaRend2/build/MinSizeRel/openjk.x86.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>RelWithDebInfo\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\RelWithDebInfo\bundled_minizip.lib;..\lib\zlib\RelWithDebInfo\bundled_zlib.lib;..\..\lib\OpenAL32.lib;..\..\lib\SDL2\lib\x86\SDL2main.lib;..\..\lib\SDL2\lib\x86\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/XycaRend2/build/codemp/RelWithDebInfo/openjk.x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/XycaRend2/build/RelWithDebInfo/openjk.x86.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/XycaRend2/codemp/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/XycaRend2/codemp/CMakeLists.txt;C:\XycaRend2\codemp\CMakeLists.txt;C:\XycaRend2\CMakeModules\InstallZIP.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\CMakeParseArguments.cmake;C:\XycaRend2\codemp\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\codemp\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/XycaRend2/codemp/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/XycaRend2/codemp/CMakeLists.txt;C:\XycaRend2\codemp\CMakeLists.txt;C:\XycaRend2\CMakeModules\InstallZIP.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\CMakeParseArguments.cmake;C:\XycaRend2\codemp\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\codemp\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/XycaRend2/codemp/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/XycaRend2/codemp/CMakeLists.txt;C:\XycaRend2\codemp\CMakeLists.txt;C:\XycaRend2\CMakeModules\InstallZIP.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\CMakeParseArguments.cmake;C:\XycaRend2\codemp\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\codemp\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/XycaRend2/codemp/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/XycaRend2/codemp/CMakeLists.txt;C:\XycaRend2\codemp\CMakeLists.txt;C:\XycaRend2\CMakeModules\InstallZIP.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\CMakeParseArguments.cmake;C:\XycaRend2\codemp\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\codemp\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\codemp\rd-common\mdx_format.h" />
+    <ClInclude Include="..\..\codemp\rd-common\tr_common.h" />
+    <ClInclude Include="..\..\codemp\rd-common\tr_font.h" />
+    <ClInclude Include="..\..\codemp\rd-common\tr_public.h" />
+    <ClInclude Include="..\..\codemp\rd-common\tr_types.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\compose_models.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\glext.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imconfig.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_api.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_c_utils.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_default_docks.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_dock.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_fixedarea.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_impl_idtech3_gles.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_internal.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_utils.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\include_imgui.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\include_quakegl.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\MagicFile.cpp\magicfile.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\stb_rect_pack.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\stb_textedit.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\stb_truetype.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_console.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_julia.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_node.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_repl.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_skeleton.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_all.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_controlflow.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mapinfo.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mdxa.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mdxm.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_models.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_perf.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_shadereditor.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_openjk\gluecode.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_openjk\imgui_openjk_default_docks.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\iqm.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\qgl.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_allocator.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_cache.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_extramath.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_extratypes.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_fbo.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_local.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_postprocess.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_weather.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\client.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\keys.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\snd_public.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\game\anims.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\game\bg_public.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\game\bg_weapons.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\botlib\botlib.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\game\g_public.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\game\surfaceflags.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\q_shared.h" />
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h" />
+    <ClCompile Include="..\..\codemp\rd-common\tr_font.cpp" />
+    <ClCompile Include="..\..\codemp\rd-common\tr_image_jpg.cpp" />
+    <ClCompile Include="..\..\codemp\rd-common\tr_image_load.cpp" />
+    <ClCompile Include="..\..\codemp\rd-common\tr_image_png.cpp" />
+    <ClCompile Include="..\..\codemp\rd-common\tr_image_tga.cpp" />
+    <ClCompile Include="..\..\codemp\rd-common\tr_noise.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\compose_models.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_API.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_bolts.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_bones.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_misc.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_surfaces.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\glsl_shaders.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\ffi.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_api.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_c_utils.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_default_docks.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_dock.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_fixedarea.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_impl_idtech3_gles.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_utils.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\MagicFile.cpp\magicfile.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_console.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_julia.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_node.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_repl.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_skeleton.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_all.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_controlflow.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mapinfo.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mdxa.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mdxm.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_models.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_perf.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_shadereditor.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_openjk\gluecode.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_openjk\imgui_openjk_default_docks.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_allocator.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_animation.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_backend.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_bsp.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_cache.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_cmds.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_curve.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_decals.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_extensions.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_extramath.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_fbo.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_flares.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_ghoul2.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_glsl.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_glsl_parse.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_image.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_imgui.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_init.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_light.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_main.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_marks.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_mesh.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_model.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_model_iqm.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_postprocess.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_scene.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_shade.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_shader.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_shade_calc.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_shadows.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_skin.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_sky.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_subs.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_surface.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_vbo.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_weather.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_world.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_load.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_local.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_patch.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_patch.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_polylib.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_polylib.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_public.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_test.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_trace.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cmd.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\common.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cvar.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\disablewarnings.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\files.cpp">
+      <ObjectFileName>$(IntDir)/qcommon/files.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\game_version.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\GenericParser2.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\GenericParser2.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\huffman.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\md4.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\md5.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\md5.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\MiniHeap.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\msg.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\matcomp.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\matcomp.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\net_chan.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\net_ip.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\persistence.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\q_shared.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\qcommon.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\qfiles.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\RoffSystem.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\RoffSystem.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\sstring.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\stringed_ingame.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\stringed_ingame.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\stringed_interface.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\stringed_interface.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\tags.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\timing.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\vm.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\z_memman_pc.cpp" />
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h" />
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h" />
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h" />
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\files.cpp">
+      <ObjectFileName>$(IntDir)/__/shared/qcommon/safe/files.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\files.h" />
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\G2.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\G2_gore.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\ghoul2_shared.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\g2_local.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\BlockStream.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\blockstream.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\GameInterface.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\GameInterface.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\icarus.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Instance.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\instance.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Interface.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\interface.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\interpreter.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Memory.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Q3_Interface.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\Q3_Interface.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Q3_Registers.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\Q3_Registers.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Sequence.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\sequence.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Sequencer.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\sequencer.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\TaskManager.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\taskmanager.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\tokenizer.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\server\NPCNav\navigator.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\server\NPCNav\navigator.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\server\server.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_bot.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_ccmds.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_challenge.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_client.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_game.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_init.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_main.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_net_chan.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_snapshot.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_world.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_gameapi.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\server\sv_gameapi.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\ui\keycodes.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\ui\ui_public.h" />
+    <ClCompile Include="C:\XycaRend2\shared\sys\snapvector.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\eax\eax.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\eax\EaxMan.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_avi.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_cgame.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_cgameapi.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\cl_cgameapi.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_cin.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_console.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_input.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_keys.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_lan.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\cl_lan.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_main.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_net_chan.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_parse.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_scrn.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_ui.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_uiapi.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\cl_uiapi.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\FXExport.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\FXExport.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxPrimitives.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\FxPrimitives.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxScheduler.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\FxScheduler.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxSystem.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\FxSystem.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxTemplate.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxUtil.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\FxUtil.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\snd_ambient.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\snd_ambient.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\snd_dma.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\snd_local.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\snd_mem.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\snd_mix.cpp" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\snd_mp3.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\snd_mp3.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\client\snd_music.cpp" />
+    <ClInclude Include="C:\XycaRend2\codemp\client\snd_music.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\Ratl\bits_vs.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\Ratl\ratl_common.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\Ratl\vector_vs.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\Ravl\CVec.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cdct.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\config.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\csbt.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\csbtb.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\csbtl3.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cup.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cupini.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cupl1.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cupl3.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cwin.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cwinb.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cwinm.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\htable.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\hwin.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\jdw.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\l3.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\l3dq.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\l3init.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\mdct.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\mhead.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\mhead.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\mp3struct.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\msis.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\port.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\small_header.h" />
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\tableawd.h" />
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\towave.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\uph.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\upsf.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\wavep.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <None Include="C:\XycaRend2\codemp\win32\icon.ico" />
+    <ClInclude Include="C:\XycaRend2\codemp\win32\resource.h" />
+    <ResourceCompile Include="C:\XycaRend2\codemp\win32\openjk.rc" />
+    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_window.cpp" />
+    <ClInclude Include="C:\XycaRend2\shared\sdl\sdl_icon.h" />
+    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_input.cpp" />
+    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_sound.cpp" />
+    <ClInclude Include="C:\XycaRend2\shared\sys\sys_loadlib.h" />
+    <ClInclude Include="C:\XycaRend2\shared\sys\sys_local.h" />
+    <ClCompile Include="C:\XycaRend2\shared\sys\sys_main.cpp" />
+    <ClCompile Include="C:\XycaRend2\shared\sys\sys_event.cpp" />
+    <ClInclude Include="C:\XycaRend2\shared\sys\sys_public.h" />
+    <ClInclude Include="C:\XycaRend2\shared\sys\con_local.h" />
+    <ClCompile Include="C:\XycaRend2\shared\sys\con_log.cpp" />
+    <ClCompile Include="C:\XycaRend2\shared\sys\sys_win32.cpp" />
+    <ClCompile Include="C:\XycaRend2\shared\sys\con_passive.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\XycaRend2\build\codemp\botlib.vcxproj">
+      <Project>{F87DB7EF-0C81-39D3-960A-2A2A770E10C6}</Project>
+      <Name>botlib</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\XycaRend2\build\lib\minizip\bundled_minizip.vcxproj">
+      <Project>{CC776DAF-DBC0-320D-9C43-3BE2F7B3CAE8}</Project>
+      <Name>bundled_minizip</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\XycaRend2\build\lib\zlib\bundled_zlib.vcxproj">
+      <Project>{B58BEC2B-E4A4-376D-9C62-F87FDF353067}</Project>
+      <Name>bundled_zlib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

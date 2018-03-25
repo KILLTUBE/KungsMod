@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\glsl\compact.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_allocator.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_glsl_parse.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_allocator.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{32DEA5A7-40AA-34F7-88BA-CC5362417C66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer">
+      <UniqueIdentifier>{63985400-C5BC-36F4-B39D-FC8235DE5FA3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

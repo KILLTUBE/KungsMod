@@ -1,0 +1,890 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Animal.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_AssassinDroid.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Atst.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_BobaFett.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Civilian.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Default.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Droid.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_GalakMech.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Grenadier.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_HazardTrooper.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Howler.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_ImperialProbe.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Interrogator.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Jedi.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Mark1.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Mark2.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_MineMonster.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Rancor.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Remote.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_RocketTrooper.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_SaberDroid.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_SandCreature.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Seeker.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Sentry.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Sniper.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Stormtrooper.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Tusken.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Utils.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Wampa.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_active.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_breakable.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_camera.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_client.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_cmds.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_combat.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_emplaced.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_functions.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_fx.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_inventory.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_itemLoad.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_items.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_main.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_mem.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_misc.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_misc_model.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_missile.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_mover.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_nav.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_navigator.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_navnew.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_object.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_objectives.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_rail.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_ref.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_roff.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_savegame.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_session.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_spawn.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_svcmds.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_target.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\G_Timer.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_trigger.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_turret.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_usable.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_utils.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_weapon.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_weaponLoad.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\genericparser2.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\NPC.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_behavior.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_combat.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_goal.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_misc.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_move.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_reactions.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_senses.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_sounds.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_spawn.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_stats.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_utils.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_atst.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_blaster_pistol.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_blaster_rifle.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_bot_laser.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_bowcaster.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_concussion.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_demp2.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_det_pack.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_disruptor.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_emplaced_gun.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_flechette.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_melee.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_noghri_stick.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_repeater.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_rocket_launcher.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_saber.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_saberLoad.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_stun_baton.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_thermal.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_trip_mine.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\wp_tusken.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\Q3_Interface.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\bg_misc.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\bg_pangles.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\bg_panimate.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\bg_pmove.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\bg_slidemove.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\AnimalNPC.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\bg_vehicleLoad.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\FighterNPC.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\g_vehicles.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\SpeederNPC.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\WalkerNPC.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_camera.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_consolecmds.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_credits.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_draw.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_drawtools.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_effects.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_ents.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_event.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_headers.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_info.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_lights.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_localents.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_main.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_marks.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_players.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_playerstate.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_predict.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_scoreboard.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_servercmds.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_snapshot.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_syscalls.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_text.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_view.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_weapons.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_ATSTMain.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_Blaster.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_Bowcaster.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_BryarPistol.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_Concussion.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_DEMP2.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_Disruptor.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_Emplaced.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_Flechette.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_HeavyRepeater.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_NoghriShot.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_RocketLauncher.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_TuskenShot.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FxPrimitives.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FxScheduler.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FxSystem.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FxTemplate.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\cgame\FxUtil.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\ui\gameinfo.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\tri_coll_test.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\q_shared.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\string.cpp">
+      <Filter>common/safe</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\files.cpp">
+      <Filter>common/safe</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\icarus\BlockStream.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\icarus\IcarusImplementation.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\icarus\Sequence.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\icarus\Sequencer.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\icarus\TaskManager.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\Ratl\ratl.cpp">
+      <Filter>ratl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\Ravl\CBounds.cpp">
+      <Filter>ravl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\Ravl\CVec.cpp">
+      <Filter>ravl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\Rufl\hfile.cpp">
+      <Filter>rufl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\Rufl\hstring.cpp">
+      <Filter>rufl</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\XycaRend2\code\game\Q3_Interface.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\ai.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\anims.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\b_local.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\b_public.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\bg_local.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\bg_public.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\bset.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\bstate.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\channels.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\common_headers.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\dmstates.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\events.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\fields.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_functions.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_items.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_local.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_nav.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_navigator.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_public.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_roff.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_shared.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\genericparser2.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\ghoul2_shared.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\hitlocs.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\npc_headers.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\objectives.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\say.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\statindex.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\surfaceflags.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\teams.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\weapons.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\w_local.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\wp_saber.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_vehicles.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\cgame\cg_camera.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\cgame\animtable.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\cgame\cg_headers.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\cgame\cg_local.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\cgame\cg_media.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\cgame\cg_public.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\cgame\common_headers.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\cgame\FxPrimitives.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\cgame\FxScheduler.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\cgame\FxSystem.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\cgame\FxUtil.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\cgame\strip_objectives.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\ui\gameinfo.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\sstring.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\tags.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\timing.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\q_shared.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_i_saved_game.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game_class_archivers.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game_helper.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game_helper_fwd.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_scope_guard.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\string.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\sscanf.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\limited_vector.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\files.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\safe\memory.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\icarus\blockstream.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\icarus\IcarusImplementation.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\icarus\IcarusInterface.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\icarus\sequence.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\icarus\sequencer.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\icarus\StdAfx.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\icarus\taskmanager.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\array_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\bits_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\grid_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\handle_pool_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\hash_pool_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\heap_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\list_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\map_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\pool_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\queue_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\ratl_common.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\scheduler_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\stack_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\string_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ratl\vector_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ravl\CBounds.h">
+      <Filter>ravl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ravl\CMatrix.h">
+      <Filter>ravl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ravl\CVec.h">
+      <Filter>ravl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Rufl\hfile.h">
+      <Filter>rufl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Rufl\hstring.h">
+      <Filter>rufl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ragl\graph_region.h">
+      <Filter>ragl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ragl\graph_triangulate.h">
+      <Filter>ragl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ragl\graph_vs.h">
+      <Filter>ragl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ragl\kdtree_vs.h">
+      <Filter>ragl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\Ragl\ragl_common.h">
+      <Filter>ragl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\ghoul2\G2.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\ghoul2\ghoul2_gore.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-common\mdx_format.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-common\tr_types.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\client\vmachine.h">
+      <Filter>client</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\XycaRend2\code\game\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="C:\XycaRend2\code\win32\game.rc">
+      <Filter>win32</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="game">
+      <UniqueIdentifier>{7549D124-61E6-3E9C-8374-1BF9AD7AA9DC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cgame">
+      <UniqueIdentifier>{DAAAF9C2-59CC-3EF7-B764-E8B26E9A8262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{87046E3E-1C66-3D90-96FE-53BD197D747E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{31E8F33F-C00E-303B-BEEA-6DF39804EF66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common/safe">
+      <UniqueIdentifier>{3C6DA5D0-2005-35E2-A21E-7E6AB39C9220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="icarus">
+      <UniqueIdentifier>{6561F42C-A6CA-3C34-9156-FDFB5DAB885B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ratl">
+      <UniqueIdentifier>{272CDB1D-5FF8-3F5F-B224-70D61E38593B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ravl">
+      <UniqueIdentifier>{46E4EBCA-0C86-334D-8531-63E4A0F911EC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rufl">
+      <UniqueIdentifier>{29821330-F2DB-395C-BFB7-CF96C08029B0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ragl">
+      <UniqueIdentifier>{724513E2-255F-367D-8490-E462895A4698}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ghoul2">
+      <UniqueIdentifier>{BCEF1A1C-2E3D-3214-8221-133CD34F5221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer">
+      <UniqueIdentifier>{63985400-C5BC-36F4-B39D-FC8235DE5FA3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="client">
+      <UniqueIdentifier>{35A49749-771A-39FF-B414-D6510D60EC4C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{5C04D696-0FBE-3EC2-A660-6967131354F3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

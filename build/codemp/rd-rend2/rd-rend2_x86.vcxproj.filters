@@ -1,0 +1,536 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\G2_API.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\G2_bolts.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\G2_bones.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\G2_misc.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\G2_surfaces.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_allocator.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_animation.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_backend.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_bsp.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_cache.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_cmds.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_curve.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_decals.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_extensions.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_extramath.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_fbo.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_flares.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_ghoul2.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_glsl.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_glsl_parse.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_image.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_init.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_light.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_main.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_marks.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_mesh.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_model.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_model_iqm.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_postprocess.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_scene.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_shade.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_shade_calc.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_shader.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_shadows.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_skin.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_sky.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_subs.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_surface.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_vbo.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_world.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_weather.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_imgui.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\compose_models.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\ghoul2\G2_gore.cpp">
+      <Filter>ghoul2</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_font.cpp">
+      <Filter>rd-common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_image_load.cpp">
+      <Filter>rd-common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_image_jpg.cpp">
+      <Filter>rd-common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_image_tga.cpp">
+      <Filter>rd-common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_image_png.cpp">
+      <Filter>rd-common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_noise.cpp">
+      <Filter>rd-common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\MagicFile.cpp\magicfile.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\ffi.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_api.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_c_utils.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_default_docks.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_demo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_dock.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_fixedarea.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_impl_idtech3_gles.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_utils.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_openjk\imgui_openjk_default_docks.cpp">
+      <Filter>imgui_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_openjk\gluecode.cpp">
+      <Filter>imgui_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock.cpp">
+      <Filter>imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_console.cpp">
+      <Filter>imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_julia.cpp">
+      <Filter>imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_node.cpp">
+      <Filter>imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_repl.cpp">
+      <Filter>imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_skeleton.cpp">
+      <Filter>imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_shadereditor.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_controlflow.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_models.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_all.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_mdxm.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_mdxa.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\matcomp.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\q_shared.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\string.cpp">
+      <Filter>common/safe</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\build\codemp\rd-rend2\glsl_shaders.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\iqm.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\glext.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\qgl.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_allocator.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_cache.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_extramath.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_extratypes.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_fbo.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_local.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_postprocess.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_weather.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\compose_models.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\g2_local.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\ghoul2_shared.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\G2_gore.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-common\mdx_format.h">
+      <Filter>rd-common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_common.h">
+      <Filter>rd-common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_font.h">
+      <Filter>rd-common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_public.h">
+      <Filter>rd-common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_types.h">
+      <Filter>rd-common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\ccall\ccall.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\MagicFile.cpp\magicfile.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imconfig.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_api.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_c_utils.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_default_docks.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_dock.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_fixedarea.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_impl_idtech3_gles.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_internal.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\imgui_utils.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\include_imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\include_quakegl.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\stb_rect_pack.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\stb_textedit.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui\stb_truetype.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_openjk\imgui_openjk_default_docks.h">
+      <Filter>imgui_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_openjk\gluecode.h">
+      <Filter>imgui_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock.h">
+      <Filter>imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_console.h">
+      <Filter>imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_julia.h">
+      <Filter>imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_node.h">
+      <Filter>imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_repl.h">
+      <Filter>imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks\dock_skeleton.h">
+      <Filter>imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_shadereditor.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_controlflow.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_models.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_all.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_mdxm.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\imgui_docks_openjk\dock_mdxa.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\string.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\sscanf.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\limited_vector.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt" />
+    <CustomBuild Include="C:\XycaRend2\build\CMakeFiles\070487cf9cfdf0276b1a19a5350969ce\glsl_shaders.cpp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\bokeh.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\calclevels4x.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\depthblur.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\dglow_downsample.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\dglow_upsample.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\dlight.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\down4x.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\fogpass.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\gaussian_blur.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\generic.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\lightall.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\prefilterEnvMap.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\pshadow.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\shadowfill.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\shadowmask.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\ssao.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\surface_sprites.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\texturecolor.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\tonemap.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+    <None Include="C:\XycaRend2\codemp\rd-rend2\glsl\weather.glsl">
+      <Filter>renderer\glsl</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="renderer\glsl">
+      <UniqueIdentifier>{4688A830-2C67-3127-95F8-2AABB28E549E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{FCDEFB5A-9342-3E32-A8E8-4E9B87736A85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer">
+      <UniqueIdentifier>{63985400-C5BC-36F4-B39D-FC8235DE5FA3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ghoul2">
+      <UniqueIdentifier>{BCEF1A1C-2E3D-3214-8221-133CD34F5221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rd-common">
+      <UniqueIdentifier>{FB72095E-03A3-3F61-B545-5C751757D4D9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{35412B51-10EF-30C3-BB7D-37E36C6BC110}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui_openjk">
+      <UniqueIdentifier>{6C018AFA-E112-344F-85E0-460ACA2F5000}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui_docks">
+      <UniqueIdentifier>{F740038A-4274-3073-B636-9B38813B1CD6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui_docks_openjk">
+      <UniqueIdentifier>{78C03145-4DD2-3512-ADAB-6DE8CF59F4D5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{31E8F33F-C00E-303B-BEEA-6DF39804EF66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common/safe">
+      <UniqueIdentifier>{3C6DA5D0-2005-35E2-A21E-7E6AB39C9220}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

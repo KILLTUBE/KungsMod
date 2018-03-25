@@ -1,0 +1,625 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D6C50D8A-27DA-331F-8F92-9F90F24CD081}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>SP Game Library</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">jagamex86.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">jagamex86</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">jagamex86.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">jagamex86</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">jagamex86.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">jagamex86</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">jagamex86.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">jagamex86</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\code\game;C:\XycaRend2\lib\gsl-lite\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;SP_GAME;CMAKE_INTDIR="Debug";jagamex86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;SP_GAME;CMAKE_INTDIR=\"Debug\";jagamex86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\code\game;C:\XycaRend2\lib\gsl-lite\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\code\game;C:\XycaRend2\lib\gsl-lite\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/XycaRend2/build/code/game/Debug/jagamex86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/XycaRend2/build/Debug/jagamex86.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\code\game;C:\XycaRend2\lib\gsl-lite\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;SP_GAME;CMAKE_INTDIR="Release";jagamex86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;SP_GAME;CMAKE_INTDIR=\"Release\";jagamex86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\code\game;C:\XycaRend2\lib\gsl-lite\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\code\game;C:\XycaRend2\lib\gsl-lite\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/XycaRend2/build/code/game/Release/jagamex86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/XycaRend2/build/Release/jagamex86.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\code\game;C:\XycaRend2\lib\gsl-lite\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;SP_GAME;CMAKE_INTDIR="MinSizeRel";jagamex86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;SP_GAME;CMAKE_INTDIR=\"MinSizeRel\";jagamex86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\code\game;C:\XycaRend2\lib\gsl-lite\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\code\game;C:\XycaRend2\lib\gsl-lite\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/XycaRend2/build/code/game/MinSizeRel/jagamex86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/XycaRend2/build/MinSizeRel/jagamex86.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\code\game;C:\XycaRend2\lib\gsl-lite\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;SP_GAME;CMAKE_INTDIR="RelWithDebInfo";jagamex86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;SP_GAME;CMAKE_INTDIR=\"RelWithDebInfo\";jagamex86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\code\game;C:\XycaRend2\lib\gsl-lite\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\code\game;C:\XycaRend2\lib\gsl-lite\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/XycaRend2/build/code/game/RelWithDebInfo/jagamex86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/XycaRend2/build/RelWithDebInfo/jagamex86.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\XycaRend2\code\game\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/XycaRend2/code/game/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/code/game/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/XycaRend2/code/game/CMakeLists.txt;C:\XycaRend2\code\game\CMakeLists.txt;C:\XycaRend2\code\game\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\code\game\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/XycaRend2/code/game/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/code/game/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/XycaRend2/code/game/CMakeLists.txt;C:\XycaRend2\code\game\CMakeLists.txt;C:\XycaRend2\code\game\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\code\game\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/XycaRend2/code/game/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/code/game/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/XycaRend2/code/game/CMakeLists.txt;C:\XycaRend2\code\game\CMakeLists.txt;C:\XycaRend2\code\game\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\code\game\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/XycaRend2/code/game/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/code/game/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/XycaRend2/code/game/CMakeLists.txt;C:\XycaRend2\code\game\CMakeLists.txt;C:\XycaRend2\code\game\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\code\game\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Animal.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_AssassinDroid.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Atst.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_BobaFett.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Civilian.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Default.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Droid.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_GalakMech.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Grenadier.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_HazardTrooper.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Howler.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_ImperialProbe.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Interrogator.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Jedi.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Mark1.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Mark2.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_MineMonster.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Rancor.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Remote.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_RocketTrooper.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_SaberDroid.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_SandCreature.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Seeker.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Sentry.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Sniper.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Stormtrooper.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Tusken.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Utils.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AI_Wampa.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_active.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_breakable.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_camera.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_client.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_cmds.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_combat.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_emplaced.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_functions.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_fx.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_inventory.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_itemLoad.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_items.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_main.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_mem.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_misc.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_misc_model.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_missile.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_mover.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_nav.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_navigator.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_navnew.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_object.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_objectives.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_rail.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_ref.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_roff.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_savegame.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_session.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_spawn.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_svcmds.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_target.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\G_Timer.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_trigger.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_turret.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_usable.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_utils.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_weapon.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_weaponLoad.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\genericparser2.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\NPC.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_behavior.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_combat.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_goal.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_misc.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_move.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_reactions.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_senses.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_sounds.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_spawn.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_stats.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\NPC_utils.cpp"  />
+    <ClInclude Include="C:\XycaRend2\code\game\Q3_Interface.h" />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_atst.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_blaster_pistol.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_blaster_rifle.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_bot_laser.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_bowcaster.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_concussion.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_demp2.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_det_pack.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_disruptor.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_emplaced_gun.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_flechette.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_melee.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_noghri_stick.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_repeater.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_rocket_launcher.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_saber.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_saberLoad.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_stun_baton.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_thermal.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_trip_mine.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\wp_tusken.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\Q3_Interface.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\bg_misc.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\bg_pangles.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\bg_panimate.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\bg_pmove.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\bg_slidemove.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\AnimalNPC.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\bg_vehicleLoad.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\FighterNPC.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\g_vehicles.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\SpeederNPC.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\game\WalkerNPC.cpp"  />
+    <ClInclude Include="C:\XycaRend2\code\game\ai.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\anims.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\b_local.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\b_public.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\bg_local.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\bg_public.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\bset.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\bstate.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\channels.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\common_headers.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\dmstates.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\events.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\fields.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\g_functions.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\g_items.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\g_local.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\g_nav.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\g_navigator.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\g_public.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\g_roff.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\g_shared.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\genericparser2.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\ghoul2_shared.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\hitlocs.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\npc_headers.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\objectives.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\say.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\statindex.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\surfaceflags.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\teams.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\weapons.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\w_local.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\wp_saber.h" />
+    <ClInclude Include="C:\XycaRend2\code\game\g_vehicles.h" />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_camera.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_consolecmds.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_credits.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_draw.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_drawtools.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_effects.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_ents.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_event.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_headers.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_info.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_lights.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_localents.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_main.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_marks.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_players.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_playerstate.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_predict.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_scoreboard.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_servercmds.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_snapshot.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_syscalls.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_text.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_view.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\cg_weapons.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_ATSTMain.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_Blaster.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_Bowcaster.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_BryarPistol.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_Concussion.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_DEMP2.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_Disruptor.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_Emplaced.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_Flechette.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_HeavyRepeater.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_NoghriShot.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_RocketLauncher.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FX_TuskenShot.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FxPrimitives.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FxScheduler.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FxSystem.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FxTemplate.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\cgame\FxUtil.cpp"  />
+    <ClInclude Include="C:\XycaRend2\code\cgame\cg_camera.h" />
+    <ClInclude Include="C:\XycaRend2\code\cgame\animtable.h" />
+    <ClInclude Include="C:\XycaRend2\code\cgame\cg_headers.h" />
+    <ClInclude Include="C:\XycaRend2\code\cgame\cg_local.h" />
+    <ClInclude Include="C:\XycaRend2\code\cgame\cg_media.h" />
+    <ClInclude Include="C:\XycaRend2\code\cgame\cg_public.h" />
+    <ClInclude Include="C:\XycaRend2\code\cgame\common_headers.h" />
+    <ClInclude Include="C:\XycaRend2\code\cgame\FxPrimitives.h" />
+    <ClInclude Include="C:\XycaRend2\code\cgame\FxScheduler.h" />
+    <ClInclude Include="C:\XycaRend2\code\cgame\FxSystem.h" />
+    <ClInclude Include="C:\XycaRend2\code\cgame\FxUtil.h" />
+    <ClInclude Include="C:\XycaRend2\code\cgame\strip_objectives.h" />
+    <ClCompile Include="C:\XycaRend2\code\ui\gameinfo.cpp"  />
+    <ClInclude Include="C:\XycaRend2\code\ui\gameinfo.h" />
+    <ClCompile Include="C:\XycaRend2\code\qcommon\tri_coll_test.cpp"  />
+    <ClInclude Include="C:\XycaRend2\code\qcommon\sstring.h" />
+    <ClInclude Include="C:\XycaRend2\code\qcommon\tags.h" />
+    <ClInclude Include="C:\XycaRend2\code\qcommon\timing.h" />
+    <ClCompile Include="C:\XycaRend2\code\qcommon\q_shared.cpp"  />
+    <ClInclude Include="C:\XycaRend2\code\qcommon\q_shared.h" />
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_i_saved_game.h" />
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game_class_archivers.h" />
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game_helper.h" />
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game_helper_fwd.h" />
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_scope_guard.h" />
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h" />
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h" />
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h" />
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h" />
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h" />
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\string.cpp"  />
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\string.h" />
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\sscanf.h" />
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\limited_vector.h" />
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\files.h" />
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\files.cpp"  />
+    <ClInclude Include="C:\XycaRend2\code\qcommon\safe\memory.h" />
+    <ClCompile Include="C:\XycaRend2\code\icarus\BlockStream.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\icarus\IcarusImplementation.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\icarus\Sequence.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\icarus\Sequencer.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\icarus\TaskManager.cpp"  />
+    <ClInclude Include="C:\XycaRend2\code\icarus\blockstream.h" />
+    <ClInclude Include="C:\XycaRend2\code\icarus\IcarusImplementation.h" />
+    <ClInclude Include="C:\XycaRend2\code\icarus\IcarusInterface.h" />
+    <ClInclude Include="C:\XycaRend2\code\icarus\sequence.h" />
+    <ClInclude Include="C:\XycaRend2\code\icarus\sequencer.h" />
+    <ClInclude Include="C:\XycaRend2\code\icarus\StdAfx.h" />
+    <ClInclude Include="C:\XycaRend2\code\icarus\taskmanager.h" />
+    <ClCompile Include="C:\XycaRend2\code\Ratl\ratl.cpp"  />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\array_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\bits_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\grid_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\handle_pool_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\hash_pool_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\heap_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\list_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\map_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\pool_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\queue_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\ratl_common.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\scheduler_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\stack_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\string_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ratl\vector_vs.h" />
+    <ClCompile Include="C:\XycaRend2\code\Ravl\CBounds.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\Ravl\CVec.cpp"  />
+    <ClInclude Include="C:\XycaRend2\code\Ravl\CBounds.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ravl\CMatrix.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ravl\CVec.h" />
+    <ClCompile Include="C:\XycaRend2\code\Rufl\hfile.cpp"  />
+    <ClCompile Include="C:\XycaRend2\code\Rufl\hstring.cpp"  />
+    <ClInclude Include="C:\XycaRend2\code\Rufl\hfile.h" />
+    <ClInclude Include="C:\XycaRend2\code\Rufl\hstring.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ragl\graph_region.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ragl\graph_triangulate.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ragl\graph_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ragl\kdtree_vs.h" />
+    <ClInclude Include="C:\XycaRend2\code\Ragl\ragl_common.h" />
+    <ClInclude Include="C:\XycaRend2\code\ghoul2\G2.h" />
+    <ClInclude Include="C:\XycaRend2\code\ghoul2\ghoul2_gore.h" />
+    <ClInclude Include="C:\XycaRend2\code\rd-common\mdx_format.h" />
+    <ClInclude Include="C:\XycaRend2\code\rd-common\tr_types.h" />
+    <ClInclude Include="C:\XycaRend2\code\client\vmachine.h" />
+    <ResourceCompile Include="C:\XycaRend2\code\win32\game.rc"  />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\XycaRend2\build\ZERO_CHECK.vcxproj">
+      <Project>{A9FA2F9A-DFB7-30BC-8A34-97427C85E75C}</Project>
+      <Name>ZERO_CHECK</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

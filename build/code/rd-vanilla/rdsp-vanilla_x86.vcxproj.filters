@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\G2_API.cpp">
+      <Filter>ghoul2</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\G2_bolts.cpp">
+      <Filter>ghoul2</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\G2_bones.cpp">
+      <Filter>ghoul2</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\G2_misc.cpp">
+      <Filter>ghoul2</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\G2_surfaces.cpp">
+      <Filter>ghoul2</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\matcomp.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\q_shared.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\string.cpp">
+      <Filter>common/safe</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_arb.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_backend.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_bsp.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_cmds.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_curve.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_draw.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_ghoul2.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_image.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_init.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_light.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_main.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_marks.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_mesh.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_model.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_quicksprite.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_scene.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_shade.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_shade_calc.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_shader.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_shadows.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_skin.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_sky.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_stl.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_subs.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_surface.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_surfacesprites.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_world.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-vanilla\tr_WorldEffects.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-common\tr_font.cpp">
+      <Filter>rd-common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-common\tr_image_load.cpp">
+      <Filter>rd-common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-common\tr_image_jpg.cpp">
+      <Filter>rd-common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-common\tr_image_tga.cpp">
+      <Filter>rd-common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-common\tr_image_png.cpp">
+      <Filter>rd-common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\rd-common\tr_noise.cpp">
+      <Filter>rd-common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\XycaRend2\code\ghoul2\G2.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\ghoul2\ghoul2_gore.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\q_shared.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_i_saved_game.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game_class_archivers.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game_helper.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game_helper_fwd.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_scope_guard.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\string.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\sscanf.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\limited_vector.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-vanilla\glext.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-vanilla\qgl.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-vanilla\tr_local.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-vanilla\tr_quicksprite.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-vanilla\tr_stl.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-vanilla\tr_WorldEffects.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-common\mdx_format.h">
+      <Filter>rd-common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-common\tr_common.h">
+      <Filter>rd-common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-common\tr_font.h">
+      <Filter>rd-common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-common\tr_public.h">
+      <Filter>rd-common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-common\tr_types.h">
+      <Filter>rd-common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\XycaRend2\code\rd-vanilla\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ghoul2">
+      <UniqueIdentifier>{BCEF1A1C-2E3D-3214-8221-133CD34F5221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{31E8F33F-C00E-303B-BEEA-6DF39804EF66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common/safe">
+      <UniqueIdentifier>{3C6DA5D0-2005-35E2-A21E-7E6AB39C9220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer">
+      <UniqueIdentifier>{63985400-C5BC-36F4-B39D-FC8235DE5FA3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rd-common">
+      <UniqueIdentifier>{FB72095E-03A3-3F61-B545-5C751757D4D9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

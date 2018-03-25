@@ -1,0 +1,1057 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_load.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_patch.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_polylib.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_test.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_trace.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cmd.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\common.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cvar.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\files.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\GenericParser2.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\huffman.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\md4.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\md5.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\msg.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\matcomp.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\net_chan.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\net_ip.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\persistence.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\q_shared.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\RoffSystem.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\stringed_ingame.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\stringed_interface.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\vm.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\z_memman_pc.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\files.cpp">
+      <Filter>common/safe</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\BlockStream.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\GameInterface.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Instance.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Interface.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Memory.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Q3_Interface.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Q3_Registers.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Sequence.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Sequencer.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\TaskManager.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\NPCNav\navigator.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_bot.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_ccmds.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_challenge.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_client.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_game.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_init.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_main.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_net_chan.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_snapshot.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_world.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_gameapi.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\snapvector.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_avi.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_cgame.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_cgameapi.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_cin.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_console.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_input.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_keys.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_lan.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_main.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_net_chan.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_parse.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_scrn.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_ui.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\cl_uiapi.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\FXExport.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxPrimitives.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxScheduler.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxSystem.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxTemplate.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxUtil.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\snd_ambient.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\snd_dma.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\snd_mem.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\snd_mix.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\snd_mp3.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\snd_music.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cdct.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\csbt.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\csbtb.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\csbtl3.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cup.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cupini.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cupl1.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cupl3.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cwin.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cwinb.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cwinm.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\hwin.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\l3dq.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\l3init.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\mdct.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\mhead.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\msis.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\towave.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\uph.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\upsf.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\mp3code\wavep.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_window.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_input.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_sound.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\sys_main.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\sys_event.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\con_log.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\sys_win32.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\con_passive.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_world.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\compose_models.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_API.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_bolts.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_bones.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_misc.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_surfaces.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_allocator.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_animation.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_backend.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_bsp.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_cache.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_cmds.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_curve.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_decals.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_extensions.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_extramath.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_fbo.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_flares.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_ghoul2.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_glsl.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_glsl_parse.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_image.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_imgui.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_init.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_light.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_main.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_marks.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_mesh.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_model.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_model_iqm.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_postprocess.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_scene.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_shade.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_shade_calc.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_shader.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_shadows.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_skin.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_sky.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_subs.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_surface.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_vbo.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_weather.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\MagicFile.cpp\magicfile.cpp">
+      <Filter>rend2\imgui\MagicFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\ffi.cpp">
+      <Filter>rend2\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui.cpp">
+      <Filter>rend2\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_api.cpp">
+      <Filter>rend2\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_c_utils.cpp">
+      <Filter>rend2\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_default_docks.cpp">
+      <Filter>rend2\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_demo.cpp">
+      <Filter>rend2\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_dock.cpp">
+      <Filter>rend2\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_draw.cpp">
+      <Filter>rend2\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_fixedarea.cpp">
+      <Filter>rend2\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_impl_idtech3_gles.cpp">
+      <Filter>rend2\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_utils.cpp">
+      <Filter>rend2\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock.cpp">
+      <Filter>rend2\imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_console.cpp">
+      <Filter>rend2\imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_julia.cpp">
+      <Filter>rend2\imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_node.cpp">
+      <Filter>rend2\imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_repl.cpp">
+      <Filter>rend2\imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_skeleton.cpp">
+      <Filter>rend2\imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_all.cpp">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_controlflow.cpp">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mapinfo.cpp">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mdxa.cpp">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mdxm.cpp">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_models.cpp">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_perf.cpp">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_shadereditor.cpp">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_openjk\gluecode.cpp">
+      <Filter>rend2\imgui_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_openjk\imgui_openjk_default_docks.cpp">
+      <Filter>rend2\imgui_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-common\tr_font.cpp">
+      <Filter>rend-common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-common\tr_image_jpg.cpp">
+      <Filter>rend-common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-common\tr_image_load.cpp">
+      <Filter>rend-common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-common\tr_image_png.cpp">
+      <Filter>rend-common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-common\tr_image_tga.cpp">
+      <Filter>rend-common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-common\tr_noise.cpp">
+      <Filter>rend-common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\glsl_shaders.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\client.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\keys.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\snd_public.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\anims.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\bg_public.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\bg_weapons.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\botlib\botlib.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\g_public.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\surfaceflags.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\q_shared.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_local.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_patch.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_polylib.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_public.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\disablewarnings.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\game_version.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\GenericParser2.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\md5.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\MiniHeap.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\matcomp.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\qcommon.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\qfiles.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\RoffSystem.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\sstring.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\stringed_ingame.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\stringed_interface.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\tags.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\timing.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\files.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\G2.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\G2_gore.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\ghoul2_shared.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\g2_local.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\blockstream.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\GameInterface.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\icarus.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\instance.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\interface.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\interpreter.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\Q3_Interface.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\Q3_Registers.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\sequence.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\sequencer.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\taskmanager.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\tokenizer.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\server\NPCNav\navigator.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\server\server.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\server\sv_gameapi.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ui\keycodes.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ui\ui_public.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\eax\eax.h">
+      <Filter>eax</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\eax\EaxMan.h">
+      <Filter>eax</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\cl_cgameapi.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\cl_lan.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\cl_uiapi.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\FXExport.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\FxPrimitives.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\FxScheduler.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\FxSystem.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\FxUtil.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\snd_ambient.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\snd_local.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\snd_mp3.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\snd_music.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\Ratl\bits_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\Ratl\ratl_common.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\Ratl\vector_vs.h">
+      <Filter>ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\Ravl\CVec.h">
+      <Filter>ravl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\config.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\htable.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\jdw.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\l3.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\mhead.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\mp3struct.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\port.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\small_header.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\mp3code\tableawd.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\win32\resource.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sdl\sdl_icon.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sys\sys_loadlib.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sys\sys_local.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sys\sys_public.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sys\con_local.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\compose_models.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\glext.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\iqm.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\qgl.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_allocator.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_cache.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_extramath.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_extratypes.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_fbo.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_local.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_postprocess.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_weather.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\MagicFile.cpp\magicfile.h">
+      <Filter>rend2\imgui\MagicFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imconfig.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_api.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_c_utils.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_default_docks.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_dock.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_fixedarea.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_impl_idtech3_gles.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_internal.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_utils.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\include_imgui.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\include_quakegl.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\stb_rect_pack.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\stb_textedit.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui\stb_truetype.h">
+      <Filter>rend2\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock.h">
+      <Filter>rend2\imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_console.h">
+      <Filter>rend2\imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_julia.h">
+      <Filter>rend2\imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_node.h">
+      <Filter>rend2\imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_repl.h">
+      <Filter>rend2\imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_skeleton.h">
+      <Filter>rend2\imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_all.h">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_controlflow.h">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mapinfo.h">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mdxa.h">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mdxm.h">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_models.h">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_perf.h">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_shadereditor.h">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_openjk\gluecode.h">
+      <Filter>rend2\imgui_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_openjk\imgui_openjk_default_docks.h">
+      <Filter>rend2\imgui_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-common\mdx_format.h">
+      <Filter>rend-common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-common\tr_common.h">
+      <Filter>rend-common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-common\tr_font.h">
+      <Filter>rend-common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-common\tr_public.h">
+      <Filter>rend-common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-common\tr_types.h">
+      <Filter>rend-common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\XycaRend2\codemp\win32\icon.ico">
+      <Filter>win32</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="C:\XycaRend2\codemp\win32\openjk.rc">
+      <Filter>win32</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="game">
+      <UniqueIdentifier>{7549D124-61E6-3E9C-8374-1BF9AD7AA9DC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{31E8F33F-C00E-303B-BEEA-6DF39804EF66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common/safe">
+      <UniqueIdentifier>{3C6DA5D0-2005-35E2-A21E-7E6AB39C9220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="server">
+      <UniqueIdentifier>{707816E9-F98B-33E9-A1AD-F56A02647BF2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cgame">
+      <UniqueIdentifier>{DAAAF9C2-59CC-3EF7-B764-E8B26E9A8262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="client">
+      <UniqueIdentifier>{35A49749-771A-39FF-B414-D6510D60EC4C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ghoul2">
+      <UniqueIdentifier>{BCEF1A1C-2E3D-3214-8221-133CD34F5221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="icarus">
+      <UniqueIdentifier>{6561F42C-A6CA-3C34-9156-FDFB5DAB885B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{87046E3E-1C66-3D90-96FE-53BD197D747E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sys">
+      <UniqueIdentifier>{670A8743-0A3C-3CB3-B7CB-FF8AC73C0102}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="eax">
+      <UniqueIdentifier>{65C0E413-CF87-30CC-8F24-7012AA87911F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ratl">
+      <UniqueIdentifier>{272CDB1D-5FF8-3F5F-B224-70D61E38593B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ravl">
+      <UniqueIdentifier>{46E4EBCA-0C86-334D-8531-63E4A0F911EC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mp3code">
+      <UniqueIdentifier>{C2A61990-67EA-3529-93E3-C30D87E11522}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{5C04D696-0FBE-3EC2-A660-6967131354F3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rend2">
+      <UniqueIdentifier>{7d471388-358f-4947-aaf3-669f6f7e67d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rend2\glsl">
+      <UniqueIdentifier>{4e59dea5-56a1-48a7-8912-f2a35d68f288}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rend2\imgui">
+      <UniqueIdentifier>{e2eb6aa4-2c31-4b1b-9ebf-28f59d9fd05c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rend2\imgui_docks">
+      <UniqueIdentifier>{9c4229e6-40b3-404b-a954-b9401b171792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rend2\imgui_docks_openjk">
+      <UniqueIdentifier>{0e0bfb20-080f-4073-aba2-04ca4d4ff332}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rend2\imgui_openjk">
+      <UniqueIdentifier>{17ad2690-8ff0-41d8-85a7-aa8ab333de8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rend2\imgui\MagicFile">
+      <UniqueIdentifier>{3d072455-43c5-4157-aa6f-18c3308405fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rend-common">
+      <UniqueIdentifier>{0ff0139c-6c94-48a0-874c-43e7a1d55689}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

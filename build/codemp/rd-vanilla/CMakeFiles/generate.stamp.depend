@@ -1,0 +1,5 @@
+# CMake generation dependency list for this directory.
+C:/XycaRend2/codemp/rd-vanilla/CMakeLists.txt
+C:/cmake-3.9.4-win64-x64/share/cmake-3.9/Modules/FindOpenGL.cmake
+C:/cmake-3.9.4-win64-x64/share/cmake-3.9/Modules/FindPackageHandleStandardArgs.cmake
+C:/cmake-3.9.4-win64-x64/share/cmake-3.9/Modules/FindPackageMessage.cmake

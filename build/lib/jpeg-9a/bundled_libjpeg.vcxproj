@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{47E1B3AF-1560-3E9B-AA40-118D2C8FB759}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>bundled_libjpeg</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\lib\jpeg-9a\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">bundled_libjpeg.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">bundled_libjpeg</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\lib\jpeg-9a\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">bundled_libjpeg.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">bundled_libjpeg</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\lib\jpeg-9a\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">bundled_libjpeg.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">bundled_libjpeg</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\lib\jpeg-9a\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">bundled_libjpeg.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">bundled_libjpeg</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\lib\jpeg-9a\.;C:\XycaRend2\lib\jpeg-9a\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsC</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\lib\jpeg-9a\.;C:\XycaRend2\lib\jpeg-9a\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\lib\jpeg-9a\.;C:\XycaRend2\lib\jpeg-9a\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\lib\jpeg-9a\.;C:\XycaRend2\lib\jpeg-9a\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsC</CompileAs>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\lib\jpeg-9a\.;C:\XycaRend2\lib\jpeg-9a\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\lib\jpeg-9a\.;C:\XycaRend2\lib\jpeg-9a\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\lib\jpeg-9a\.;C:\XycaRend2\lib\jpeg-9a\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsC</CompileAs>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\lib\jpeg-9a\.;C:\XycaRend2\lib\jpeg-9a\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\lib\jpeg-9a\.;C:\XycaRend2\lib\jpeg-9a\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\XycaRend2\lib\jpeg-9a\.;C:\XycaRend2\lib\jpeg-9a\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsC</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\XycaRend2\lib\jpeg-9a\.;C:\XycaRend2\lib\jpeg-9a\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\XycaRend2\lib\jpeg-9a\.;C:\XycaRend2\lib\jpeg-9a\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\XycaRend2\lib\jpeg-9a\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/XycaRend2/lib/jpeg-9a/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/lib/jpeg-9a/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/XycaRend2/lib/jpeg-9a/CMakeLists.txt;C:\XycaRend2\lib\jpeg-9a\CMakeLists.txt;C:\XycaRend2\lib\jpeg-9a\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\lib\jpeg-9a\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/XycaRend2/lib/jpeg-9a/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/lib/jpeg-9a/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/XycaRend2/lib/jpeg-9a/CMakeLists.txt;C:\XycaRend2\lib\jpeg-9a\CMakeLists.txt;C:\XycaRend2\lib\jpeg-9a\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\lib\jpeg-9a\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/XycaRend2/lib/jpeg-9a/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/lib/jpeg-9a/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/XycaRend2/lib/jpeg-9a/CMakeLists.txt;C:\XycaRend2\lib\jpeg-9a\CMakeLists.txt;C:\XycaRend2\lib\jpeg-9a\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\lib\jpeg-9a\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/XycaRend2/lib/jpeg-9a/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/lib/jpeg-9a/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/XycaRend2/lib/jpeg-9a/CMakeLists.txt;C:\XycaRend2\lib\jpeg-9a\CMakeLists.txt;C:\XycaRend2\lib\jpeg-9a\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\lib\jpeg-9a\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\XycaRend2\lib\jpeg-9a\include\jconfig.h" />
+    <ClInclude Include="C:\XycaRend2\lib\jpeg-9a\include\jmorecfg.h" />
+    <ClInclude Include="C:\XycaRend2\lib\jpeg-9a\include\jpegint.h" />
+    <ClInclude Include="C:\XycaRend2\lib\jpeg-9a\include\jpeglib.h" />
+    <ClInclude Include="C:\XycaRend2\lib\jpeg-9a\cderror.h" />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jaricom.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jcapimin.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jcapistd.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jcarith.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jccoefct.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jccolor.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jcdctmgr.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jchuff.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jcinit.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jcmainct.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jcmarker.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jcmaster.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jcomapi.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jcparam.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jcprepct.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jcsample.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jctrans.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdapimin.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdapistd.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdarith.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdatadst.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdatasrc.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdcoefct.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdcolor.c"  />
+    <ClInclude Include="C:\XycaRend2\lib\jpeg-9a\jdct.h" />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jddctmgr.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdhuff.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdinput.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdmainct.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdmarker.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdmaster.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdmerge.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdpostct.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdsample.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jdtrans.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jerror.c"  />
+    <ClInclude Include="C:\XycaRend2\lib\jpeg-9a\jerror.h" />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jfdctflt.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jfdctfst.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jfdctint.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jidctflt.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jidctfst.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jidctint.c"  />
+    <ClInclude Include="C:\XycaRend2\lib\jpeg-9a\jinclude.h" />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jmemmgr.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jmemnobs.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jquant1.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jquant2.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\jutils.c"  />
+    <ClInclude Include="C:\XycaRend2\lib\jpeg-9a\jversion.h" />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\rdbmp.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\rdcolmap.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\rdgif.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\rdppm.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\rdrle.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\rdswitch.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\rdtarga.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\wrbmp.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\wrgif.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\wrppm.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\wrrle.c"  />
+    <ClCompile Include="C:\XycaRend2\lib\jpeg-9a\wrtarga.c"  />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\XycaRend2\build\ZERO_CHECK.vcxproj">
+      <Project>{A9FA2F9A-DFB7-30BC-8A34-97427C85E75C}</Project>
+      <Name>ZERO_CHECK</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,581 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\XycaRend2\code\client\cl_cgame.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\cl_cin.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\cl_console.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\cl_input.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\cl_keys.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\cl_main.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\cl_mp3.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\cl_parse.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\cl_scrn.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\cl_ui.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\snd_ambient.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\snd_dma.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\snd_mem.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\snd_mix.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\snd_music.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\client\vmachine.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\cm_load.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\cm_patch.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\cm_polylib.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\cm_test.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\cm_trace.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\cmd.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\common.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\cvar.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\files.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\md4.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\msg.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\net_chan.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\q_shared.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\stringed_ingame.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\stringed_interface.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\strip.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\persistence.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\z_memman_pc.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\qcommon\ojk_saved_game.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\files.cpp">
+      <Filter>common/safe</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\string.cpp">
+      <Filter>common/safe</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\server\exe_headers.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\server\sv_ccmds.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\server\sv_client.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\server\sv_game.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\server\sv_init.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\server\sv_main.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\server\sv_savegame.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\server\sv_snapshot.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\server\sv_world.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\game\genericparser2.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\cdct.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\csbt.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\csbtb.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\csbtl3.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\cup.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\cupini.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\cupl1.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\cupl3.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\cwin.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\cwinb.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\cwinm.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\hwin.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\l3dq.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\l3init.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\mdct.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\mhead.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\msis.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\towave.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\uph.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\upsf.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\mp3code\wavep.c">
+      <Filter>mp3</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\ui\ui_atoms.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\ui\ui_connect.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\ui\ui_main.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\ui\ui_saber.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\ui\ui_shared.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\code\ui\ui_syscalls.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\sys_main.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\sys_event.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\con_log.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_sound.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_input.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_window.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\sys_win32.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\con_passive.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\XycaRend2\code\client\eax\eax.h">
+      <Filter>eax</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\client\eax\EaxMan.h">
+      <Filter>eax</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\client\keys.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\client\keycodes.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\client\cl_mp3.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\client\client.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\client\client_ui.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\client\snd_ambient.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\client\snd_local.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\client\snd_music.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\client\snd_public.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\client\vmachine.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\cm_local.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\cm_patch.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\cm_polylib.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\cm_public.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\q_shared.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\sstring.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\stringed_ingame.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\stringed_interface.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\tags.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\qfiles.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\qcommon.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\stv_version.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\timing.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\MiniHeap.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_i_saved_game.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game_helper.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game_helper_fwd.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_scope_guard.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\files.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\string.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\sscanf.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\limited_vector.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\qcommon\safe\memory.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\server\exe_headers.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\server\server.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\channels.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\anims.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\b_public.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\bg_public.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\bset.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\bstate.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\common_headers.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_functions.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_items.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_local.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_nav.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_public.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\g_shared.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\genericparser2.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\statindex.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\teams.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\weapons.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\surfaceflags.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\game\ghoul2_shared.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\mp3code\config.h">
+      <Filter>mp3</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\mp3code\htable.h">
+      <Filter>mp3</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\mp3code\jdw.h">
+      <Filter>mp3</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\mp3code\l3.h">
+      <Filter>mp3</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\mp3code\mhead.h">
+      <Filter>mp3</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\mp3code\mp3struct.h">
+      <Filter>mp3</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\mp3code\port.h">
+      <Filter>mp3</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\mp3code\small_header.h">
+      <Filter>mp3</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\mp3code\tableawd.h">
+      <Filter>mp3</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-common\mdx_format.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-common\tr_public.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\rd-common\tr_types.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\ui\gameinfo.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\ui\menudef.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\ui\ui_local.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\ui\ui_public.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\ui\ui_shared.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\ghoul2\G2.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\ghoul2\ghoul2_gore.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\cgame\cg_public.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\cgame\animtable.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\code\win32\resource.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sys\sys_local.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sys\sys_public.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sys\sys_loadlib.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sys\con_local.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sdl\sdl_qgl.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sdl\sdl_icon.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\XycaRend2\code\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="C:\XycaRend2\code\win32\winquake.rc">
+      <Filter>win32</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="eax">
+      <UniqueIdentifier>{65C0E413-CF87-30CC-8F24-7012AA87911F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="client">
+      <UniqueIdentifier>{35A49749-771A-39FF-B414-D6510D60EC4C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{31E8F33F-C00E-303B-BEEA-6DF39804EF66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common/safe">
+      <UniqueIdentifier>{3C6DA5D0-2005-35E2-A21E-7E6AB39C9220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="server">
+      <UniqueIdentifier>{707816E9-F98B-33E9-A1AD-F56A02647BF2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game">
+      <UniqueIdentifier>{7549D124-61E6-3E9C-8374-1BF9AD7AA9DC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mp3">
+      <UniqueIdentifier>{2F4A002B-15F1-3B68-A435-5C1793ACAF9E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer">
+      <UniqueIdentifier>{63985400-C5BC-36F4-B39D-FC8235DE5FA3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{87046E3E-1C66-3D90-96FE-53BD197D747E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ghoul2">
+      <UniqueIdentifier>{BCEF1A1C-2E3D-3214-8221-133CD34F5221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cgame">
+      <UniqueIdentifier>{DAAAF9C2-59CC-3EF7-B764-E8B26E9A8262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{5C04D696-0FBE-3EC2-A660-6967131354F3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sys">
+      <UniqueIdentifier>{670A8743-0A3C-3CB3-B7CB-FF8AC73C0102}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

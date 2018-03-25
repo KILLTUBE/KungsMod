@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt" />
+    <CustomBuild Include="C:\XycaRend2\build\CMakeFiles\29293bd3f75ffe8b00e19163ed53c95c\openjk-x86.pk3.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\XycaRend2\build\CMakeFiles\fb11ffa44094ec2711b20e5d34891fae\Assets.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\XycaRend2\build\codemp\CMakeFiles\Assets" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{FCDEFB5A-9342-3E32-A8E8-4E9B87736A85}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

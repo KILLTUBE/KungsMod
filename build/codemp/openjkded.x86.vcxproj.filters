@@ -1,0 +1,467 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_load.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_patch.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_polylib.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_test.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_trace.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cmd.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\common.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cvar.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\files.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\GenericParser2.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\huffman.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\md4.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\md5.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\msg.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\matcomp.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\net_chan.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\net_ip.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\persistence.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\q_shared.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\RoffSystem.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\stringed_ingame.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\stringed_interface.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\vm.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\qcommon\z_memman_pc.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\files.cpp">
+      <Filter>common/safe</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\BlockStream.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\GameInterface.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Instance.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Interface.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Memory.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Q3_Interface.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Q3_Registers.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Sequence.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\Sequencer.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\icarus\TaskManager.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\NPCNav\navigator.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_bot.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_ccmds.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_challenge.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_client.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_game.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_init.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_main.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_net_chan.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_snapshot.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_world.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\server\sv_gameapi.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\snapvector.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\ghoul2\G2_gore.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-dedicated\G2_API.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-dedicated\G2_bolts.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-dedicated\G2_bones.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-dedicated\G2_misc.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-dedicated\G2_surfaces.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-dedicated\tr_backend.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-dedicated\tr_ghoul2.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-dedicated\tr_init.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-dedicated\tr_main.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-dedicated\tr_mesh.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-dedicated\tr_model.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-dedicated\tr_shader.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\rd-dedicated\tr_skin.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\null\null_client.cpp">
+      <Filter>null</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\null\null_input.cpp">
+      <Filter>null</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\null\null_renderer.cpp">
+      <Filter>null</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\null\null_snddma.cpp">
+      <Filter>null</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\sys_main.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\sys_event.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\sys_win32.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\con_log.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\shared\sys\con_win32.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\client.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\keys.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\snd_public.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\anims.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\bg_public.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\bg_weapons.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\botlib\botlib.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\g_public.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\surfaceflags.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\q_shared.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_local.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_patch.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_polylib.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_public.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\disablewarnings.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\game_version.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\GenericParser2.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\md5.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\MiniHeap.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\matcomp.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\qcommon.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\qfiles.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\RoffSystem.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\sstring.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\stringed_ingame.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\stringed_interface.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\tags.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\qcommon\timing.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\files.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h">
+      <Filter>common/safe</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\G2.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\G2_gore.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\ghoul2_shared.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\g2_local.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\blockstream.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\GameInterface.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\icarus.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\instance.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\interface.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\interpreter.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\Q3_Interface.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\Q3_Registers.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\sequence.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\sequencer.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\taskmanager.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\icarus\tokenizer.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\server\NPCNav\navigator.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\server\server.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\server\sv_gameapi.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ui\keycodes.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\ui\ui_public.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-common\mdx_format.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_public.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\rd-dedicated\tr_local.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sys\sys_loadlib.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sys\sys_local.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sys\sys_public.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\shared\sys\con_local.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="C:\XycaRend2\codemp\win32\openjkded.rc">
+      <Filter>win32</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="game">
+      <UniqueIdentifier>{7549D124-61E6-3E9C-8374-1BF9AD7AA9DC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{31E8F33F-C00E-303B-BEEA-6DF39804EF66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common/safe">
+      <UniqueIdentifier>{3C6DA5D0-2005-35E2-A21E-7E6AB39C9220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="server">
+      <UniqueIdentifier>{707816E9-F98B-33E9-A1AD-F56A02647BF2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cgame">
+      <UniqueIdentifier>{DAAAF9C2-59CC-3EF7-B764-E8B26E9A8262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="client">
+      <UniqueIdentifier>{35A49749-771A-39FF-B414-D6510D60EC4C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ghoul2">
+      <UniqueIdentifier>{BCEF1A1C-2E3D-3214-8221-133CD34F5221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="icarus">
+      <UniqueIdentifier>{6561F42C-A6CA-3C34-9156-FDFB5DAB885B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{87046E3E-1C66-3D90-96FE-53BD197D747E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sys">
+      <UniqueIdentifier>{670A8743-0A3C-3CB3-B7CB-FF8AC73C0102}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{5C04D696-0FBE-3EC2-A660-6967131354F3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer">
+      <UniqueIdentifier>{63985400-C5BC-36F4-B39D-FC8235DE5FA3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="null">
+      <UniqueIdentifier>{044E9609-656E-39CB-B645-3FA5019CE7D0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
