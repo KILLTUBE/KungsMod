@@ -23,7 +23,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 // tr_marks.c -- polygon projection on the world polygons
 
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 
 #define MAX_VERTS_ON_POLY		64
 

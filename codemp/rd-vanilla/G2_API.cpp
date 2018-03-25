@@ -25,7 +25,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "ghoul2/G2_gore.h"
 
 #include "qcommon/MiniHeap.h"
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 
 #include <set>
 #include <list>

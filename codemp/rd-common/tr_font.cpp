@@ -21,7 +21,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "qcommon/sstring.h"	// stl string class won't compile in here (MS shite), so use Gil's.
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 #include "tr_font.h"
 
 #include "qcommon/stringed_ingame.h"

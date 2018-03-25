@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 #include "tr_allocator.h"
 
 namespace

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // tr_main.c -- main control flow for each frame
 
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 #include "tr_weather.h"
 
 #include <string.h> // memcpy

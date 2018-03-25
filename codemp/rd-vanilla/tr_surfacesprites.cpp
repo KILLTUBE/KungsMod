@@ -22,7 +22,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 // tr_shade.c
 
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 
 #include "tr_quicksprite.h"
 #include "tr_WorldEffects.h"

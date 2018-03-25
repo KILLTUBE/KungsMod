@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // tr_extensions.c - extensions needed by the renderer not in sdl_glimp.c
 
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 
 #define GL_GetProcAddress ri.GL_GetProcAddress
 

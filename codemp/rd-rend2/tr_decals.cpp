@@ -1,4 +1,4 @@
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 
 #define	MAX_VERTS_ON_DECAL_POLY	10
 #define	MAX_DECAL_POLYS			500

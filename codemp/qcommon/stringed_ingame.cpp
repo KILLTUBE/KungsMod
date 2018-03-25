@@ -53,7 +53,7 @@ typedef std::vector<int>		vInts_t;
 //
 ///////////////////////////////////////////////
 
-cvar_t	*se_language = NULL;
+extern cvar_t	*se_language;
 cvar_t	*se_debug = NULL;
 cvar_t  *sp_leet = NULL;	// kept as 'sp_' for JK2 compat.
 

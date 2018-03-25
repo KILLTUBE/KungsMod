@@ -26,7 +26,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "../client/vmachine.h"
 
 #if !defined(TR_LOCAL_H)
-	#include "tr_local.h"
+	#include "../rd-rend2/tr_local.h"
 #endif
 
 #include "tr_common.h"

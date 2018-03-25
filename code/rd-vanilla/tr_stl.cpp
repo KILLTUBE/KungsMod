@@ -28,7 +28,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 //	and didn't want them showing up in the renderer files they were used in. This way keeps them more or less invisible
 //	because of minimal dependancies
 //
-#include "tr_local.h"	// this isn't actually needed other than getting rid of warnings via pragmas
+#include "../rd-rend2/tr_local.h"	// this isn't actually needed other than getting rid of warnings via pragmas
 #include "tr_stl.h"
 
 #include <map>

@@ -21,75 +21,66 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // tr_subs.c - common function replacements for modular renderer
 
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 
 
-void QDECL Com_Printf( const char *msg, ... )
-{
-	va_list         argptr;
-	char            text[1024];
-
-	va_start(argptr, msg);
-	Q_vsnprintf(text, sizeof(text), msg, argptr);
-	va_end(argptr);
-
-	ri.Printf(PRINT_ALL, "%s", text);
-}
-
-void QDECL Com_OPrintf( const char *msg, ... )
-{
-	va_list         argptr;
-	char            text[1024];
-
-	va_start(argptr, msg);
-	Q_vsnprintf(text, sizeof(text), msg, argptr);
-	va_end(argptr);
-
-	ri.OPrintf("%s", text);
-}
-
-void QDECL Com_Error( int level, const char *error, ... )
-{
-	va_list         argptr;
-	char            text[1024];
-
-	va_start(argptr, error);
-	Q_vsnprintf(text, sizeof(text), error, argptr);
-	va_end(argptr);
-
-	ri.Error(level, "%s", text);
-}
 
 // HUNK
-void *Hunk_AllocateTempMemory( int size ) {
-	return ri.Hunk_AllocateTempMemory( size );
-}
+//void *Hunk_AllocateTempMemory( int size ) {
+//	return ri.Hunk_AllocateTempMemory( size );
+//}
+//
+//void Hunk_FreeTempMemory( void *buf ) {
+//	ri.Hunk_FreeTempMemory( buf );
+//}
+//
+//void *Hunk_Alloc( int size, ha_pref preference ) {
+//	return ri.Hunk_Alloc( size, preference );
+//}
+//
+//int Hunk_MemoryRemaining( void ) {
+//	return ri.Hunk_MemoryRemaining();
+//}
 
-void Hunk_FreeTempMemory( void *buf ) {
-	ri.Hunk_FreeTempMemory( buf );
-}
+//// ZONE
+//void *Z_Malloc( int iSize, memtag_t eTag, qboolean bZeroit, int iAlign ) {
+//	return ri.Z_Malloc( iSize, eTag, bZeroit, iAlign );
+//}
+//
+//void Z_Free( void *ptr ) {
+//	ri.Z_Free( ptr );
+//}
+//
+//int Z_MemSize( memtag_t eTag ) {
+//	return ri.Z_MemSize( eTag );
+//}
+//
+//void Z_MorphMallocTag( void *pvBuffer, memtag_t eDesiredTag ) {
+//	ri.Z_MorphMallocTag( pvBuffer, eDesiredTag );
+//}
 
-void *Hunk_Alloc( int size, ha_pref preference ) {
-	return ri.Hunk_Alloc( size, preference );
-}
 
-int Hunk_MemoryRemaining( void ) {
-	return ri.Hunk_MemoryRemaining();
-}
-
-// ZONE
-void *Z_Malloc( int iSize, memtag_t eTag, qboolean bZeroit, int iAlign ) {
-	return ri.Z_Malloc( iSize, eTag, bZeroit, iAlign );
-}
-
-void Z_Free( void *ptr ) {
+void R_Free( void *ptr ) {
 	ri.Z_Free( ptr );
 }
-
-int Z_MemSize( memtag_t eTag ) {
-	return ri.Z_MemSize( eTag );
-}
-
-void Z_MorphMallocTag( void *pvBuffer, memtag_t eDesiredTag ) {
-	ri.Z_MorphMallocTag( pvBuffer, eDesiredTag );
-}
+	GoreTextureCoordinates::GoreTextureCoordinates()
+	{
+		int i;
+		for (i=0;i<MAX_LODS;i++)
+		{
+			tex[i]=0;
+		}
+	}
+	GoreTextureCoordinates::~GoreTextureCoordinates()
+	{
+		int i;
+		for (i=0;i<MAX_LODS;i++)
+		{
+			if ( tex[i] )
+			{
+				extern void R_Free(void *pvAddress);
+				R_Free(tex[i]);
+				tex[i] = 0;
+			}
+		}
+	}

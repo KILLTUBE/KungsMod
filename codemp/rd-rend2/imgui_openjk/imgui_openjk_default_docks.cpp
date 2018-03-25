@@ -11,7 +11,7 @@
 #include "../imgui_docks_openjk/dock_controlflow.h"
 #include "../imgui_docks_openjk/dock_models.h"
 #include "../imgui_docks_openjk/dock_all.h"
-#include "imgui/imgui_api.h"
+#include "../imgui/imgui_api.h"
 
 #include <list>
 std::list<Dock *> imgui_quake_docks;

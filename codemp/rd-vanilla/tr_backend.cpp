@@ -21,7 +21,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 #include "glext.h"
 #include "tr_WorldEffects.h"
 

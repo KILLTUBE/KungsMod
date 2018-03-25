@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // tr_mesh.c: triangle model functions
 
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 
 float ProjectRadius( float r, vec3_t location )
 {

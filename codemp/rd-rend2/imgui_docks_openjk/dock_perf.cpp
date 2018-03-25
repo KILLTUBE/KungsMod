@@ -4,13 +4,14 @@
 
 DockPerf::DockPerf() {}
 
-#include "../tr_debug.h"
+//#include "../tr_debug.h"
 
 const char *DockPerf::label() {
 	return "Perf";
 }
 
 void DockPerf::imgui() {
+#if 0
 	if (r_perf->integer) {
 		if (ImGui::Button("Disable Performance Measuring"))
 			Cvar_SetInt(r_perf, 0);
@@ -29,4 +30,5 @@ void DockPerf::imgui() {
 		float maxPercent = (milliseconds / maxTime) * 100.0;
 		ImGui::Text("%s: start=%10d stop=%10d milliseconds=%10.2f maxPercent=%10.2f", name, starttime, stoptime, milliseconds, maxPercent);
 	}
+#endif
 }

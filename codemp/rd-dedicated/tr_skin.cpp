@@ -21,7 +21,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 // tr_image.c
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 
 #include <map>
 

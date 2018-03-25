@@ -1,6 +1,6 @@
 // tr_cache.cpp - Cache models, images, and more..
 
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 #include "tr_cache.h"
 #include <algorithm>
 

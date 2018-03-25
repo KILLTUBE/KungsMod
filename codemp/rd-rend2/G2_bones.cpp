@@ -2,7 +2,7 @@
 
 #include "ghoul2/G2.h"
 #include "ghoul2/g2_local.h"
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 	 
 //rww - RAGDOLL_BEGIN
 #ifndef __linux__

@@ -27,7 +27,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #if !defined(TR_LOCAL_H)
-	#include "tr_local.h"
+	#include "../rd-rend2/tr_local.h"
 #endif
 #if !defined(_QCOMMON_H_)
 	#include "../qcommon/qcommon.h"

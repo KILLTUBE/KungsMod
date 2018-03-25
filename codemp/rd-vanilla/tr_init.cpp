@@ -23,7 +23,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 // tr_init.c -- functions that are not called every frame
 
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 
 #include <algorithm>
 #include "../rd-common/tr_common.h"

@@ -19,7 +19,7 @@ along with Quake III Arena source code; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 
 
 static world_t *R_GetWorld(int worldIndex)

@@ -25,7 +25,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "../server/exe_headers.h"
 
 #include "tr_common.h"
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 #include "tr_stl.h"
 
 // tr_shader.c -- this file deals with the parsing and definition of shaders

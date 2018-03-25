@@ -1,4 +1,4 @@
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 
 inline mdxmVertex_t *firstVertex(mdxmSurface_t *surf) {
 	return (mdxmVertex_t *) ((byte *)surf + surf->ofsVerts);

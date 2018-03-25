@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // tr_init.c -- functions that are not called every frame
 
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 #include "ghoul2/g2_local.h"
 #include "tr_cache.h"
 #include "tr_allocator.h"

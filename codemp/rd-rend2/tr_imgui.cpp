@@ -1,5 +1,5 @@
 #include "imgui/imgui_api.h"
-#include "tr_local.h"
+#include "../rd-rend2/tr_local.h"
 #include "imgui/include_imgui.h"
 #include "imgui_openjk/imgui_openjk_default_docks.h"
 
