@@ -286,3 +286,7 @@ const char*			SE_GetString					( const char *reference ) {
 }
 
 #endif
+
+ojk::ISavedGame* get_saved_game() {
+	return ri.get_saved_game();
+}

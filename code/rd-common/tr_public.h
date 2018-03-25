@@ -121,7 +121,7 @@ typedef struct {
 															const int passEntityNum, const int contentmask,
 															const EG2_Collision eG2TraceType, const int useLod );
 #endif
-	ojk::ISavedGame* saved_game;
+	ojk::ISavedGame* (*get_saved_game)();
 
 #if 1
 	int					(*SV_PointContents)					( const vec3_t p, clipHandle_t model );

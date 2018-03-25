@@ -1775,11 +1775,8 @@ void *G2_FindSurface(const model_s *mod, int index, int lod)
 #define BONE_SAVE_BLOCK_SIZE sizeof(boneInfo_t)
 
 
-void G2_SaveGhoul2Models(
-	CGhoul2Info_v& ghoul2)
-{
-	ojk::SavedGameHelper saved_game(
-		::ri.saved_game);
+void G2_SaveGhoul2Models(CGhoul2Info_v& ghoul2) {
+	ojk::SavedGameHelper saved_game(get_saved_game());
 
 	saved_game.reset_buffer();
 
@@ -1848,19 +1845,14 @@ void G2_SaveGhoul2Models(
 		}
 	}
 
-	saved_game.write_chunk(
-		INT_ID('G', 'H', 'L', '2'));
+	saved_game.write_chunk(INT_ID('G', 'H', 'L', '2'));
 }
 
 // FIXME Remove 'buffer' parameter
-void G2_LoadGhoul2Model(
-	CGhoul2Info_v& ghoul2,
-	char* buffer)
-{
+void G2_LoadGhoul2Model(CGhoul2Info_v& ghoul2, char *buffer) {
 	static_cast<void>(buffer);
 
-	ojk::SavedGameHelper saved_game(
-		::ri.saved_game);
+	ojk::SavedGameHelper saved_game(get_saved_game());
 
 	// first thing, lets see how many ghoul2 models we have, and resize our buffers accordingly
 	int model_count = 0;

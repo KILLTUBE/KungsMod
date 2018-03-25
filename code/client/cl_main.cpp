@@ -1088,6 +1088,11 @@ void Clipboard_Set(const char *text) {
 	SDL_SetClipboardText(text);
 }
 
+ojk::ISavedGame *get_saved_game() {
+
+	return &ojk::SavedGame::get_instance();
+}
+
 void CL_InitRef( void ) {
 	refexport_t	*ret;
 	static refimport_t rit;
@@ -1194,7 +1199,7 @@ void CL_InitRef( void ) {
 
 	rit.SV_PointContents = SV_PointContents;
 
-	rit.saved_game = &ojk::SavedGame::get_instance();
+	rit.get_saved_game = get_saved_game;
 
 	rit.Key_GetCatcher = Key_GetCatcher;
 	rit.Clipboard_Get = Clipboard_Get;
