@@ -3358,7 +3358,7 @@ void R_SetColorMappings(void) {
 
 	if (glConfig.deviceSupportsGamma)
 	{
-		ri.WIN_SetGamma(&glConfig, s_gammatable, s_gammatable, s_gammatable);
+		WIN_SetGamma(&glConfig, s_gammatable, s_gammatable, s_gammatable);
 	}
 }
 

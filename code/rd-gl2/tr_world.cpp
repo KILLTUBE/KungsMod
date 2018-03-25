@@ -672,7 +672,7 @@ qboolean R_inPVS(vec3_t p1, vec3_t p2) {
 	byte	*vis;
 
 	leaf = R_PointInLeaf(p1);
-	vis = ri.CM_ClusterPVS(leaf->cluster);
+	vis = CM_ClusterPVS(leaf->cluster);
 	leaf = R_PointInLeaf(p2);
 
 	if (!(vis[leaf->cluster >> 3] & (1 << (leaf->cluster & 7)))) {

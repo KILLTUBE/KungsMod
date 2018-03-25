@@ -2056,7 +2056,7 @@ void R_DebugGraphics( void ) {
 
 	GL_Bind( tr.whiteImage);
 	GL_Cull( CT_FRONT_SIDED );
-	ri.CM_DrawDebugSurface( R_DebugPolygon );
+	CM_DrawDebugSurface( R_DebugPolygon );
 }
 
 qboolean R_FogParmsMatch(int fog1, int fog2)

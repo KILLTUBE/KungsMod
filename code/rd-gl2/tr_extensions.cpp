@@ -23,8 +23,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "tr_local.h"
 
-#define GL_GetProcAddress ri.GL_GetProcAddress
-
 // Drawing commands
 PFNGLDRAWRANGEELEMENTSPROC qglDrawRangeElements;
 PFNGLDRAWARRAYSINSTANCEDPROC qglDrawArraysInstanced;

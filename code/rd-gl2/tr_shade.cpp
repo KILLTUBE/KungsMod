@@ -86,8 +86,8 @@ void R_BindAnimatedImageToTMU( textureBundle_t *bundle, int tmu ) {
 	if ( bundle->isVideoMap ) {
 		int oldtmu = glState.currenttmu;
 		GL_SelectTexture(tmu);
-		ri.CIN_RunCinematic(bundle->videoMapHandle);
-		ri.CIN_UploadCinematic(bundle->videoMapHandle);
+		CIN_RunCinematic(bundle->videoMapHandle);
+		CIN_UploadCinematic(bundle->videoMapHandle);
 		GL_SelectTexture(oldtmu);
 		return;
 	}

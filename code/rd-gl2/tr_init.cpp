@@ -270,7 +270,7 @@ static void R_Splash()
 	GLSL_BindProgram(&tr.splashScreenShader);
 	qglDrawArrays(GL_TRIANGLES, 0, 3);
 
-	ri.WIN_Present(&window);
+	WIN_Present(&window);
 }
 
 /*
@@ -485,7 +485,7 @@ static void InitOpenGL(void)
 		if (r_debugContext->integer)
 			windowDesc.gl.contextFlags = GLCONTEXT_DEBUG;
 
-		window = ri.WIN_Init(&windowDesc, &glConfig);
+		window = WIN_Init(&windowDesc, &glConfig);
 
 		GLimp_InitCoreFunctions();
 
@@ -1782,7 +1782,7 @@ void RE_Shutdown(qboolean destroyWindow, qboolean restarting) {
 
 	// shut down platform specific OpenGL stuff
 	if (destroyWindow) {
-		ri.WIN_Shutdown();
+		WIN_Shutdown();
 	}
 
 	tr.registered = qfalse;
@@ -1888,8 +1888,8 @@ int C_GetLevel(void)
 void C_LevelLoadEnd(void)
 {
 	CModelCache->LevelLoadEnd(qfalse);
-	ri.SND_RegisterAudio_LevelLoadEnd(qfalse);
-	ri.S_RestartMusic();
+	SND_RegisterAudio_LevelLoadEnd(qfalse);
+	S_RestartMusic();
 }
 
 //bool inServer = false;

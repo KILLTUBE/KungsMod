@@ -100,6 +100,8 @@ if(BuildSPRdGL2)
 		"${SPDir}/rd-gl2/compose_models.h"
 		"${SPDir}/rd-gl2/compose_images.cpp"  
 		"${SPDir}/rd-gl2/compose_images.h"
+		"${SPDir}/rd-gl2/compose_lib.cpp"  
+		"${SPDir}/rd-gl2/compose_lib.h"
 		"${SPDir}/rd-gl2/glext.h"
 		"${SPDir}/rd-gl2/iqm.h"	
 		"${SPDir}/rd-gl2/qgl.h"

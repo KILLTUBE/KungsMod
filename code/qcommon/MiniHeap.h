@@ -23,6 +23,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #if !defined(MINIHEAP_H_INC)
 #define MINIHEAP_H_INC
 
+#include "qcommon.h"
+
+
 
 class CMiniHeap
 {

@@ -86,6 +86,7 @@ typedef struct {
 	void				(*FS_WriteFile)						( const char *qpath, const void *buffer, int size );
 #endif
 
+#if 1
 	void				(*CM_DrawDebugSurface)				( void (*drawPoly)( int color, int numPoints, float *points ) );
 	bool				(*CM_CullWorldBox)					( const cplane_t *frustrum, const vec3pair_t bounds );
 	byte*				(*CM_ClusterPVS)					( int cluster );
@@ -118,7 +119,7 @@ typedef struct {
 	void				(*SV_Trace)							( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end,
 															const int passEntityNum, const int contentmask,
 															const EG2_Collision eG2TraceType, const int useLod );
-
+#endif
 	ojk::ISavedGame* saved_game;
 
 	int					(*SV_PointContents)					( const vec3_t p, clipHandle_t model );

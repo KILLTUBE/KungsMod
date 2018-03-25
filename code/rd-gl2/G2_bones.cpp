@@ -2676,7 +2676,7 @@ void Rag_Trace(trace_t *results, const vec3_t start, const vec3_t mins, const ve
 #ifdef _DEBUG
 	int ragPreTrace = ri.Milliseconds();
 #endif
-	ri.SV_Trace(results, start, mins, maxs, end, passEntityNum, contentmask, eG2TraceType, useLod);
+	SV_Trace(results, start, mins, maxs, end, passEntityNum, contentmask, eG2TraceType, useLod);
 #ifdef _DEBUG
 	int ragPostTrace = ri.Milliseconds();
 

@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include <map>
 #include <unordered_map>
 #include <string>
+#include "compose_lib.h"
 
 #define GL_INDEX_TYPE GL_UNSIGNED_INT
 typedef unsigned int glIndex_t;
