@@ -2,7 +2,7 @@
 
 #include "tr_local.h"
 
-#if 1
+#if 0
 
 void				FS_FreeFile						( void *buffer ) {
 	ri.FS_FreeFile(buffer);
@@ -60,59 +60,59 @@ void				FS_WriteFile					( const char *qpath, const void *buffer, int size ) {
 
 #if 1
 
-void		CM_DrawDebugSurface				( void (*drawPoly)( int color, int numPoints, float *points ) ) {
-	ri.CM_DrawDebugSurface(drawPoly);
-}
-
-bool		CM_CullWorldBox					( const cplane_t *frustrum, const vec3pair_t bounds ) {
-	return ri.CM_CullWorldBox(frustrum, bounds);
-}
-
-byte*		CM_ClusterPVS					( int cluster ) {
-	return ri.CM_ClusterPVS(cluster);
-}
-
-int			CM_PointContents					( const vec3_t p, clipHandle_t model ) {
-	return ri.CM_PointContents(p, model);
-}
+//void		CM_DrawDebugSurface				( void (*drawPoly)( int color, int numPoints, float *points ) ) {
+//	ri.CM_DrawDebugSurface(drawPoly);
+//}
+//
+//bool		CM_CullWorldBox					( const cplane_t *frustrum, const vec3pair_t bounds ) {
+//	return ri.CM_CullWorldBox(frustrum, bounds);
+//}
+//
+//byte*		CM_ClusterPVS					( int cluster ) {
+//	return ri.CM_ClusterPVS(cluster);
+//}
+//
+//int			CM_PointContents					( const vec3_t p, clipHandle_t model ) {
+//	return ri.CM_PointContents(p, model);
+//}
 
 void		S_RestartMusic					( void ) {
 	ri.S_RestartMusic();
 }
 
-qboolean	SND_RegisterAudio_LevelLoadEnd	( qboolean bDeleteEverythingNotUsedThisLevel ) {
-	return ri.SND_RegisterAudio_LevelLoadEnd(bDeleteEverythingNotUsedThisLevel);
-}
+//qboolean	SND_RegisterAudio_LevelLoadEnd	( qboolean bDeleteEverythingNotUsedThisLevel ) {
+//	return ri.SND_RegisterAudio_LevelLoadEnd(bDeleteEverythingNotUsedThisLevel);
+//}
 
-e_status	CIN_RunCinematic					( int handle ) {
-	return ri.CIN_RunCinematic(handle);
-}
-
-int			CIN_PlayCinematic				( const char *arg0, int xpos, int ypos, int width, int height, int bits, const char *psAudioFile /* = NULL */ ) {
-	return ri.CIN_PlayCinematic(arg0, xpos, ypos, width, height, bits, psAudioFile);
-}
-
-void		CIN_UploadCinematic				( int handle ) {
-	return ri.CIN_UploadCinematic(handle);
-}
+//e_status	CIN_RunCinematic					( int handle ) {
+//	return ri.CIN_RunCinematic(handle);
+//}
+//
+//int			CIN_PlayCinematic				( const char *arg0, int xpos, int ypos, int width, int height, int bits, const char *psAudioFile /* = NULL */ ) {
+//	return ri.CIN_PlayCinematic(arg0, xpos, ypos, width, height, bits, psAudioFile);
+//}
+//
+//void		CIN_UploadCinematic				( int handle ) {
+//	return ri.CIN_UploadCinematic(handle);
+//}
 
 
 // window handling
-window_t		WIN_Init                        ( const windowDesc_t *desc, glconfig_t *glConfig ) {
-	return ri.WIN_Init(desc, glConfig);
-}
-
-void			WIN_SetGamma					( glconfig_t *glConfig, byte red[256], byte green[256], byte blue[256] ) {
-	ri.WIN_SetGamma(glConfig, red, green, blue);
-}
-
-void			WIN_Present						( window_t *window ) {
-	ri.WIN_Present(window);
-}
-
-void            WIN_Shutdown                    ( void ) {
-	ri.WIN_Shutdown();
-}
+//window_t		WIN_Init                        ( const windowDesc_t *desc, glconfig_t *glConfig ) {
+//	return ri.WIN_Init(desc, glConfig);
+//}
+//
+//void			WIN_SetGamma					( glconfig_t *glConfig, byte red[256], byte green[256], byte blue[256] ) {
+//	ri.WIN_SetGamma(glConfig, red, green, blue);
+//}
+//
+//void			WIN_Present						( window_t *window ) {
+//	ri.WIN_Present(window);
+//}
+//
+//void            WIN_Shutdown                    ( void ) {
+//	ri.WIN_Shutdown();
+//}
 
 
 // OpenGL-specific
@@ -130,13 +130,13 @@ CMiniHeap *		GetG2VertSpaceServer			( void ) {
 
 
 // Persistent data store
-bool			PD_Store							( const char *name, const void *data, size_t size ) {
-	return ri.PD_Store(name, data, size);
-}
-
-const void *	PD_Load							( const char *name, size_t *size ) {
-	return ri.PD_Load(name, size);
-}
+//bool			PD_Store							( const char *name, const void *data, size_t size ) {
+//	return ri.PD_Store(name, data, size);
+//}
+//
+//const void *	PD_Load							( const char *name, size_t *size ) {
+//	return ri.PD_Load(name, size);
+//}
 
 
 // ============= NOT IN MP BEYOND THIS POINT
@@ -147,13 +147,13 @@ void				SV_Trace						( trace_t *results, const vec3_t start, const vec3_t mins,
 #endif
 
 #if 1
-int					SV_PointContents				( const vec3_t p, clipHandle_t model ) {
-	return ri.SV_PointContents(p, model);
-}
+//int					SV_PointContents				( const vec3_t p, clipHandle_t model ) {
+//	return ri.SV_PointContents(p, model);
+//}
 
-qboolean			CM_DeleteCachedMap				( qboolean bGuaranteedOkToDelete ) {
-	return ri.CM_DeleteCachedMap(bGuaranteedOkToDelete);
-}
+//qboolean			CM_DeleteCachedMap				( qboolean bGuaranteedOkToDelete ) {
+//	return ri.CM_DeleteCachedMap(bGuaranteedOkToDelete);
+//}
 
 qboolean			CL_IsRunningInGameCinematic		( void ) {
 	return ri.CL_IsRunningInGameCinematic();
@@ -179,17 +179,17 @@ int					func_com_frameTime					( void ) {
 	return ri.com_frameTime();
 }
 
-int					Key_GetCatcher					() {
-	return ri.Key_GetCatcher();
-}
-
-const char			*Clipboard_Get					() {
-	return ri.Clipboard_Get();
-}
-
-void				Clipboard_Set					(const char *text) {
-	return ri.Clipboard_Set(text);
-}
+//int					Key_GetCatcher					() {
+//	return ri.Key_GetCatcher();
+//}
+//
+//const char			*Clipboard_Get					() {
+//	return ri.Clipboard_Get();
+//}
+//
+//void				Clipboard_Set					(const char *text) {
+//	return ri.Clipboard_Set(text);
+//}
 
 #endif
 
@@ -205,85 +205,92 @@ void				Hunk_ClearToMark				( void ) {
 	ri.Hunk_ClearToMark();
 }
 
+
+#include <client/client.h>
+
+void *CL_Malloc(int iSize, memtag_t eTag, qboolean bZeroit, int iAlign);
+
 void*				Malloc							( int iSize, memtag_t eTag, qboolean zeroIt, int iAlign ) {
-	return ri.Malloc(iSize, eTag, zeroIt, iAlign);
+	return CL_Malloc(iSize, eTag, zeroIt, iAlign);
 }
 
-int					Z_Free							( void *memory ) {
-	return ri.Z_Free(memory);
-}
+//int					Z_Free							( void *memory ) {
+//	return ri.Z_Free(memory);
+//}
 
-int					Z_MemSize						( memtag_t eTag ) {
-	return ri.Z_MemSize(eTag);
-}
+//int					Z_MemSize						( memtag_t eTag ) {
+//	return ri.Z_MemSize(eTag);
+//}
 
-void				Z_MorphMallocTag				( void *pvBuffer, memtag_t eDesiredTag ) {
-	ri.Z_MorphMallocTag(pvBuffer, eDesiredTag);
-}
+//void				Z_MorphMallocTag				( void *pvBuffer, memtag_t eDesiredTag ) {
+//	ri.Z_MorphMallocTag(pvBuffer, eDesiredTag);
+//}
 
-void				Cmd_ExecuteString				( const char *text ) {
-	ri.Cmd_ExecuteString(text);
-}
+//void				Cmd_ExecuteString				( const char *text ) {
+//	ri.Cmd_ExecuteString(text);
+//}
 
-int					Cmd_Argc						( void ) {
-	return ri.Cmd_Argc();
-}
+//int					Cmd_Argc						( void ) {
+//	return ri.Cmd_Argc();
+//}
+//
+//char *				Cmd_Argv						( int arg ) {
+//	return ri.Cmd_Argv(arg);
+//}
 
-char *				Cmd_Argv						( int arg ) {
-	return ri.Cmd_Argv(arg);
-}
+//void				Cmd_ArgsBuffer					( char *buffer, int bufferLength ) {
+//	ri.Cmd_ArgsBuffer(buffer, bufferLength);
+//}
+//
+//void				Cmd_AddCommand					( const char *cmd_name, xcommand_t function ) {
+//	ri.Cmd_AddCommand(cmd_name, function);
+//}
+//
+//void				Cmd_RemoveCommand				( const char *cmd_name ) {
+//	ri.Cmd_RemoveCommand(cmd_name);
+//}
 
-void				Cmd_ArgsBuffer					( char *buffer, int bufferLength ) {
-	ri.Cmd_ArgsBuffer(buffer, bufferLength);
-}
-
-void				Cmd_AddCommand					( const char *cmd_name, xcommand_t function ) {
-	ri.Cmd_AddCommand(cmd_name, function);
-}
-
-void				Cmd_RemoveCommand				( const char *cmd_name ) {
-	ri.Cmd_RemoveCommand(cmd_name);
-}
-
-void				Cvar_Set						( const char *var_name, const char *value ) {
-	ri.Cvar_Set(var_name, value);
-}
-
-cvar_t *			Cvar_Get						( const char *var_name, const char *value, int flags ) {
-	return ri.Cvar_Get(var_name, value, flags);
-}
-
-void				Cvar_SetValue					( const char *name, float value ) {
-	ri.Cvar_SetValue(name, value);
-}
-
-void				Cvar_CheckRange					( cvar_t *cv, float minVal, float maxVal, qboolean shouldBeIntegral ) {
-	ri.Cvar_CheckRange(cv, minVal, maxVal, shouldBeIntegral);
-}
-
-void				Cvar_VariableStringBuffer		( const char *var_name, char *buffer, int bufsize ) {
-	ri.Cvar_VariableStringBuffer(var_name, buffer, bufsize);
-}
-
-char *				Cvar_VariableString				( const char *var_name ) {
-	return ri.Cvar_VariableString(var_name);
-}
-
-float				Cvar_VariableValue				( const char *var_name ) {
-	return ri.Cvar_VariableValue(var_name);
-}
-
-int					Cvar_VariableIntegerValue		( const char *var_name ) {
-	return ri.Cvar_VariableIntegerValue(var_name);
-}
-
+//void				Cvar_Set						( const char *var_name, const char *value ) {
+//	ri.Cvar_Set(var_name, value);
+//}
+//
+//cvar_t *			Cvar_Get						( const char *var_name, const char *value, int flags ) {
+//	return ri.Cvar_Get(var_name, value, flags);
+//}
+//
+//void				Cvar_SetValue					( const char *name, float value ) {
+//	ri.Cvar_SetValue(name, value);
+//}
+//
+//void				Cvar_CheckRange					( cvar_t *cv, float minVal, float maxVal, qboolean shouldBeIntegral ) {
+//	ri.Cvar_CheckRange(cv, minVal, maxVal, shouldBeIntegral);
+//}
+//
+//void				Cvar_VariableStringBuffer		( const char *var_name, char *buffer, int bufsize ) {
+//	ri.Cvar_VariableStringBuffer(var_name, buffer, bufsize);
+//}
+//
+//char *				Cvar_VariableString				( const char *var_name ) {
+//	return ri.Cvar_VariableString(var_name);
+//}
+//
+//float				Cvar_VariableValue				( const char *var_name ) {
+//	return ri.Cvar_VariableValue(var_name);
+//}
+//
+//int					Cvar_VariableIntegerValue		( const char *var_name ) {
+//	return ri.Cvar_VariableIntegerValue(var_name);
+//}
+//
+qboolean Sys_LowPhysicalMemory(void);
 qboolean			LowPhysicalMemory				( void ) {
-	return ri.LowPhysicalMemory();
+	return Sys_LowPhysicalMemory();
+	//return ri.LowPhysicalMemory();
 }
 
-const char*			SE_GetString					( const char *reference ) {
-	return ri.SE_GetString(reference);
-}
+//const char*			SE_GetString					( const char *reference ) {
+//	return ri.SE_GetString(reference);
+//}
 
 #endif
 

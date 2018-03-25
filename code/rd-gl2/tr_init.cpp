@@ -57,16 +57,16 @@ cvar_t  *r_arb_half_float_pixel;
 cvar_t  *r_arb_vertex_type_2_10_10_10_rev;
 cvar_t  *r_arb_buffer_storage;
 
-cvar_t	*sv_mapname;
-cvar_t	*sv_mapChecksum;
-cvar_t	*se_language;
+extern cvar_t	*sv_mapname;
+extern cvar_t	*sv_mapChecksum;
+extern cvar_t	*se_language;
 cvar_t	*r_ignore;				// used for debugging anything
 cvar_t	*r_verbose;				// used for verbose debug spew
 cvar_t	*r_znear;				// near Z clip plane
 cvar_t	*r_zproj;				// z distance of projection plane
 cvar_t	*r_stereoSeparation;	// separation of cameras for stereo rendering
 cvar_t	*r_skipBackEnd;
-cvar_t	*r_stereo;
+extern cvar_t	*r_stereo;
 cvar_t	*r_anaglyphMode;
 cvar_t	*r_greyscale;
 cvar_t	*r_measureOverdraw;		// enables stencil buffer overdraw measurement
@@ -167,7 +167,7 @@ cvar_t	*broadsword_dircap = 0;
 Ghoul2 Insert End
 */
 
-cvar_t	*com_buildScript;
+extern cvar_t	*com_buildScript;
 
 //
 //GL2-specific
