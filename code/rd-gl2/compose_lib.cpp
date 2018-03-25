@@ -145,3 +145,144 @@ void				SV_Trace						( trace_t *results, const vec3_t start, const vec3_t mins,
 }
 
 #endif
+
+#if 1
+int					SV_PointContents				( const vec3_t p, clipHandle_t model ) {
+	return ri.SV_PointContents(p, model);
+}
+
+qboolean			CM_DeleteCachedMap				( qboolean bGuaranteedOkToDelete ) {
+	return ri.CM_DeleteCachedMap(bGuaranteedOkToDelete);
+}
+
+qboolean			CL_IsRunningInGameCinematic		( void ) {
+	return ri.CL_IsRunningInGameCinematic();
+}
+
+void*				gpvCachedMapDiskImage			( void ) {
+	return ri.gpvCachedMapDiskImage();
+}
+
+char*				gsCachedMapDiskImage			( void ) {
+	return ri.gsCachedMapDiskImage();
+}
+
+qboolean			*gbUsingCachedMapDataRightNow	( void ) {
+	return ri.gbUsingCachedMapDataRightNow();
+}
+
+qboolean			*gbAlreadyDoingLoad				( void ) {
+	return ri.gbAlreadyDoingLoad();
+}
+
+int					func_com_frameTime					( void ) {
+	return ri.com_frameTime();
+}
+
+int					Key_GetCatcher					() {
+	return ri.Key_GetCatcher();
+}
+
+const char			*Clipboard_Get					() {
+	return ri.Clipboard_Get();
+}
+
+void				Clipboard_Set					(const char *text) {
+	return ri.Clipboard_Set(text);
+}
+
+#endif
+
+
+#if 1
+
+
+int					Milliseconds					( void ) {
+	return ri.Milliseconds();
+}
+
+void				Hunk_ClearToMark				( void ) {
+	ri.Hunk_ClearToMark();
+}
+
+void*				Malloc							( int iSize, memtag_t eTag, qboolean zeroIt, int iAlign ) {
+	return ri.Malloc(iSize, eTag, zeroIt, iAlign);
+}
+
+int					Z_Free							( void *memory ) {
+	return ri.Z_Free(memory);
+}
+
+int					Z_MemSize						( memtag_t eTag ) {
+	return ri.Z_MemSize(eTag);
+}
+
+void				Z_MorphMallocTag				( void *pvBuffer, memtag_t eDesiredTag ) {
+	ri.Z_MorphMallocTag(pvBuffer, eDesiredTag);
+}
+
+void				Cmd_ExecuteString				( const char *text ) {
+	ri.Cmd_ExecuteString(text);
+}
+
+int					Cmd_Argc						( void ) {
+	return ri.Cmd_Argc();
+}
+
+char *				Cmd_Argv						( int arg ) {
+	return ri.Cmd_Argv(arg);
+}
+
+void				Cmd_ArgsBuffer					( char *buffer, int bufferLength ) {
+	ri.Cmd_ArgsBuffer(buffer, bufferLength);
+}
+
+void				Cmd_AddCommand					( const char *cmd_name, xcommand_t function ) {
+	ri.Cmd_AddCommand(cmd_name, function);
+}
+
+void				Cmd_RemoveCommand				( const char *cmd_name ) {
+	ri.Cmd_RemoveCommand(cmd_name);
+}
+
+void				Cvar_Set						( const char *var_name, const char *value ) {
+	ri.Cvar_Set(var_name, value);
+}
+
+cvar_t *			Cvar_Get						( const char *var_name, const char *value, int flags ) {
+	return ri.Cvar_Get(var_name, value, flags);
+}
+
+void				Cvar_SetValue					( const char *name, float value ) {
+	ri.Cvar_SetValue(name, value);
+}
+
+void				Cvar_CheckRange					( cvar_t *cv, float minVal, float maxVal, qboolean shouldBeIntegral ) {
+	ri.Cvar_CheckRange(cv, minVal, maxVal, shouldBeIntegral);
+}
+
+void				Cvar_VariableStringBuffer		( const char *var_name, char *buffer, int bufsize ) {
+	ri.Cvar_VariableStringBuffer(var_name, buffer, bufsize);
+}
+
+char *				Cvar_VariableString				( const char *var_name ) {
+	return ri.Cvar_VariableString(var_name);
+}
+
+float				Cvar_VariableValue				( const char *var_name ) {
+	return ri.Cvar_VariableValue(var_name);
+}
+
+int					Cvar_VariableIntegerValue		( const char *var_name ) {
+	return ri.Cvar_VariableIntegerValue(var_name);
+}
+
+qboolean			LowPhysicalMemory				( void ) {
+	return ri.LowPhysicalMemory();
+}
+
+const char*			SE_GetString					( const char *reference ) {
+	return ri.SE_GetString(reference);
+}
+
+#endif

@@ -107,7 +107,7 @@ void GL_TextureMode(const char *string) {
 
 	if (r_ext_texture_filter_anisotropic->value > glConfig.maxTextureFilterAnisotropy)
 	{
-		ri.Cvar_SetValue("r_ext_texture_filter_anisotropic", glConfig.maxTextureFilterAnisotropy);
+		Cvar_SetValue("r_ext_texture_filter_anisotropic", glConfig.maxTextureFilterAnisotropy);
 	}
 
 	// change all the existing mipmap texture objects
@@ -3308,14 +3308,14 @@ void R_SetColorMappings(void) {
 	tr.identityLightByte = 255 * tr.identityLight;
 
 	if (r_intensity->value <= 1) {
-		ri.Cvar_Set("r_intensity", "1");
+		Cvar_Set("r_intensity", "1");
 	}
 
 	if (r_gamma->value < 0.5f) {
-		ri.Cvar_Set("r_gamma", "0.5");
+		Cvar_Set("r_gamma", "0.5");
 	}
 	else if (r_gamma->value > 3.0f) {
-		ri.Cvar_Set("r_gamma", "3.0");
+		Cvar_Set("r_gamma", "3.0");
 	}
 
 	g = r_gamma->value;

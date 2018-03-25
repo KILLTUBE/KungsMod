@@ -2076,7 +2076,7 @@ void R_SetViewFogIndex(void)
 	if (tr.world->numfogs > 1)
 	{//more than just the LA goggles
 		fog_t *fog;
-		int contents = ri.SV_PointContents(tr.refdef.vieworg, 0);
+		int contents = SV_PointContents(tr.refdef.vieworg, 0);
 		if ((contents&CONTENTS_FOG))
 		{//only take a tr.refdef.fogIndex if the tr.refdef.vieworg is actually *in* that fog brush (assumption: checks pointcontents for any CONTENTS_FOG, not that particular brush...)
 			for (tr.refdef.fogIndex = 1; tr.refdef.fogIndex < tr.world->numfogs; tr.refdef.fogIndex++)

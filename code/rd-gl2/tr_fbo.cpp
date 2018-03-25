@@ -412,7 +412,7 @@ void FBO_Init(void)
 
 	if (multisample != r_ext_framebuffer_multisample->integer)
 	{
-		ri.Cvar_SetValue("r_ext_framebuffer_multisample", (float)multisample);
+		Cvar_SetValue("r_ext_framebuffer_multisample", (float)multisample);
 	}
 	
 	// only create a render FBO if we need to resolve MSAA or do HDR

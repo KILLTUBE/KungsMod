@@ -36,7 +36,7 @@ void RE_RenderImGui() {
 	float width = glConfig.vidWidth;
 	float height = glConfig.vidHeight;
 
-	if (!(ri.Key_GetCatcher() & KEYCATCH_IMGUI))
+	if (!(Key_GetCatcher() & KEYCATCH_IMGUI))
 		return;
 
 	// copy over all keys to imgui

@@ -1915,7 +1915,7 @@ static void R_CreateWorldVBOs( world_t *worldData )
 
 	int             startTime, endTime;
 
-	startTime = ri.Milliseconds();
+	startTime = Milliseconds();
 
 	// count surfaces
 	numSortedSurfaces = 0;
@@ -2129,7 +2129,7 @@ static void R_CreateWorldVBOs( world_t *worldData )
 
 	R_Free(surfacesSorted);
 
-	endTime = ri.Milliseconds();
+	endTime = Milliseconds();
 	ri.Printf(PRINT_ALL, "world VBOs calculation time = %5.2f seconds\n", (endTime - startTime) / 1000.0);
 }
 
@@ -3247,7 +3247,7 @@ static void R_MergeLeafSurfaces(world_t *worldData)
 
 	int startTime, endTime;
 
-	startTime = ri.Milliseconds();
+	startTime = Milliseconds();
 
 	numWorldSurfaces = worldData->numWorldSurfaces;
 
@@ -3541,7 +3541,7 @@ static void R_MergeLeafSurfaces(world_t *worldData)
 		mergedSurf++;
 	}
 
-	endTime = ri.Milliseconds();
+	endTime = Milliseconds();
 
 	ri.Printf(PRINT_ALL, "Processed %d surfaces into %d merged, %d unmerged in %5.2f seconds\n", 
 		numWorldSurfaces, numMergedSurfaces, numUnmergedSurfaces, (endTime - startTime) / 1000.0f);

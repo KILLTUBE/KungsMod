@@ -2317,7 +2317,7 @@ void GLSL_LoadGPUShaders()
 
 	R_IssuePendingRenderCommands();
 
-	int startTime = ri.Milliseconds();
+	int startTime = Milliseconds();
 
 	Allocator allocator(512 * 1024);
 	ShaderProgramBuilder builder;
@@ -2350,7 +2350,7 @@ void GLSL_LoadGPUShaders()
 
 	ri.Printf(PRINT_ALL, "loaded %i GLSL shaders (%i gen %i light %i etc) in %5.2f seconds\n",
 		numGenShaders + numLightShaders + numEtcShaders, numGenShaders, numLightShaders,
-		numEtcShaders, (ri.Milliseconds() - startTime) / 1000.0);
+		numEtcShaders, (Milliseconds() - startTime) / 1000.0);
 }
 
 void GLSL_ShutdownGPUShaders(void)

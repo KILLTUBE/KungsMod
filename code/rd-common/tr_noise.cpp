@@ -53,6 +53,9 @@ float GetNoiseTime( int t )
 	return (1+s_noise_table[index]);
 }
 
+
+int					func_com_frameTime					( void );
+
 void R_NoiseInit( void )
 {
 	int i;
@@ -64,7 +67,7 @@ void R_NoiseInit( void )
 		s_noise_table[i] = ( float ) ( ( ( rand() / ( float ) RAND_MAX ) * 2.0 - 1.0 ) );
 		s_noise_perm[i] = ( unsigned char ) ( rand() / ( float ) RAND_MAX * 255 );
 	}
-	srand( ri.com_frameTime() );
+	srand( func_com_frameTime() );
 }
 
 float R_NoiseGet4f( float x, float y, float z, float t )

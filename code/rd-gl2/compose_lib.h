@@ -49,4 +49,45 @@ const void *	PD_Load							( const char *name, size_t *size );
 // ============= NOT IN MP BEYOND THIS POINT
 void				SV_Trace							( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, const int passEntityNum, const int contentmask, const EG2_Collision eG2TraceType, const int useLod );
 
+
+
+
+int					SV_PointContents				( const vec3_t p, clipHandle_t model );
+qboolean			CM_DeleteCachedMap				( qboolean bGuaranteedOkToDelete );	// NOT IN MP
+qboolean			CL_IsRunningInGameCinematic		( void );
+void*				gpvCachedMapDiskImage			( void );
+char*				gsCachedMapDiskImage			( void );
+qboolean			*gbUsingCachedMapDataRightNow	( void );
+qboolean			*gbAlreadyDoingLoad				( void );
+int					func_com_frameTime					( void );
+int					Key_GetCatcher					();
+const char			*Clipboard_Get					();
+void				Clipboard_Set					(const char *text);
+
+
 #endif
+
+
+
+int					Milliseconds					( void );
+void				Hunk_ClearToMark				( void );
+void*				Malloc							( int iSize, memtag_t eTag, qboolean zeroIt, int iAlign );
+int					Z_Free							( void *memory );
+int					Z_MemSize						( memtag_t eTag );
+void				Z_MorphMallocTag				( void *pvBuffer, memtag_t eDesiredTag );
+void				Cmd_ExecuteString				( const char *text );
+int					Cmd_Argc						( void );
+char *				Cmd_Argv						( int arg );
+void				Cmd_ArgsBuffer					( char *buffer, int bufferLength );
+void				Cmd_AddCommand					( const char *cmd_name, xcommand_t function );
+void				Cmd_RemoveCommand				( const char *cmd_name );
+void				Cvar_Set						( const char *var_name, const char *value );
+cvar_t *			Cvar_Get						( const char *var_name, const char *value, int flags );
+void				Cvar_SetValue					( const char *name, float value );
+void				Cvar_CheckRange					( cvar_t *cv, float minVal, float maxVal, qboolean shouldBeIntegral );
+void				Cvar_VariableStringBuffer		( const char *var_name, char *buffer, int bufsize );
+char *				Cvar_VariableString				( const char *var_name );
+float				Cvar_VariableValue				( const char *var_name );
+int					Cvar_VariableIntegerValue		( const char *var_name );
+qboolean			LowPhysicalMemory				( void );
+const char*			SE_GetString					( const char *reference );

@@ -2,7 +2,7 @@
 
 // not exactly an imgui function lol
 void Cvar_SetInt(cvar_t *cvar, int value) {
-	ri.Cvar_Set(cvar->name, va("%i", value));
+	Cvar_Set(cvar->name, va("%i", value));
 }
 
 namespace ImGui {

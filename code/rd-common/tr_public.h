@@ -41,6 +41,7 @@ typedef struct {
 	void				(QDECL *Error)						( int errorLevel, const char *fmt, ...) NORETURN_PTR __attribute__ ((format (printf, 2, 3)));
 
 	// milliseconds should only be used for profiling, never for anything game related. Get time from the refdef
+#if 1
 	int					(*Milliseconds)						( void );
 
 	void				(*Hunk_ClearToMark)					( void );
@@ -68,7 +69,7 @@ typedef struct {
 
 	qboolean			(*LowPhysicalMemory)				( void );
 	const char*			(*SE_GetString)						( const char *reference );
-
+#endif
 
 #if 1
 	void				(*FS_FreeFile)						( void *buffer );
@@ -122,6 +123,7 @@ typedef struct {
 #endif
 	ojk::ISavedGame* saved_game;
 
+#if 1
 	int					(*SV_PointContents)					( const vec3_t p, clipHandle_t model );
 
 	qboolean			(*CM_DeleteCachedMap)				( qboolean bGuaranteedOkToDelete );	// NOT IN MP
@@ -137,6 +139,7 @@ typedef struct {
 	int					(*Key_GetCatcher)					();
 	const char			*(*Clipboard_Get)					();
 	void				(*Clipboard_Set)					(const char *text);
+#endif
 } refimport_t;
 
 extern refimport_t ri;
