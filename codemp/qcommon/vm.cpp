@@ -119,6 +119,11 @@ vm_t *VM_CreateLegacy( vmSlots_t vmSlot, intptr_t( *systemCalls )(intptr_t *) ) 
 		return NULL;
 	}
 
+	if (vmSlot == VM_GAME) {
+		Com_Printf("VM_GAME\n");
+		//DebugBreak();
+	}
+
 	// see if we already have the VM
 	if ( vmTable[vmSlot] )
 		return vmTable[vmSlot];
@@ -175,7 +180,10 @@ vm_t *VM_Create( vmSlots_t vmSlot ) {
 	// find the module api
 	FS_FindPureDLL( vm->name );
 	vm->dllHandle = Sys_LoadGameDll( vm->name, &vm->GetModuleAPI );
-
+	if (vmSlot == VM_GAME) {
+		Com_Printf("asd");
+		return vm;
+	}
 	Com_Printf( "VM_Create: %s" ARCH_STRING DLL_EXT, vm->name );
 	if ( vm->dllHandle ) {
 		if ( com_developer->integer )

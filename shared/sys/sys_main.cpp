@@ -592,10 +592,20 @@ void *Sys_LoadSPGameDll( const char *name, GetGameAPIProc **GetGameAPI )
 	return libHandle;
 }
 
+#include "game/g_public.h"
+extern "C" gameExport_t* QDECL GetModuleAPIGame( int apiVersion, gameImport_t *import );
+
+
 void *Sys_LoadGameDll( const char *name, GetModuleAPIProc **moduleAPI )
 {
 	void	*libHandle = NULL;
 	char	filename[MAX_OSPATH];
+
+
+	if (strcmp(name, "jampgame") == 0) {
+		*moduleAPI = (GetModuleAPIProc *)GetModuleAPIGame;
+		return NULL;
+	}
 
 	Com_sprintf (filename, sizeof(filename), "%s" ARCH_STRING DLL_EXT, name);
 
@@ -654,8 +664,8 @@ void *Sys_LoadGameDll( const char *name, GetModuleAPIProc **moduleAPI )
 			}
 		}
 	}
-
 	*moduleAPI = (GetModuleAPIProc *)Sys_LoadFunction( libHandle, "GetModuleAPI" );
+
 	if ( !*moduleAPI ) {
 		Com_DPrintf ( "Sys_LoadGameDll(%s) failed to find GetModuleAPI function:\n...%s!\n", name, Sys_LibraryError() );
 		Sys_UnloadLibrary( libHandle );
