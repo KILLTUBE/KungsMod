@@ -477,6 +477,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\codemp\rd-rend2\tr_postprocess.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\tr_weather.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\utils_opengl\debuglines.h" />
+    <ClInclude Include="..\..\codemp\server\sv_bot.h" />
     <ClInclude Include="..\..\codemp\server\sv_g2api.h" />
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h" />
     <ClInclude Include="C:\XycaRend2\codemp\client\client.h" />

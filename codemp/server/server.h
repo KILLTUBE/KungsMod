@@ -28,7 +28,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "game/g_public.h"
 #include "game/bg_public.h"
 #include "rd-common/tr_public.h"
-
 //=============================================================================
 
 #define	PERS_SCORE				0		// !!! MUST NOT CHANGE, SERVER AND
@@ -389,22 +388,7 @@ void		SV_InitGameProgs ( void );
 void		SV_ShutdownGameProgs ( void );
 qboolean	SV_inPVS (const vec3_t p1, const vec3_t p2);
 
-//
-// sv_bot.c
-//
-void		SV_BotFrame( int time );
-int			SV_BotAllocateClient(void);
-void		SV_BotFreeClient( int clientNum );
 
-void		SV_BotInitCvars(void);
-int			SV_BotGetSnapshotEntity( int client, int ent );
-int			SV_BotGetConsoleMessage( int client, char *buf, int size );
-
-void *Bot_GetMemoryGame(int size);
-void Bot_FreeMemoryGame(void *ptr);
-
-int BotImport_DebugPolygonCreate(int color, int numPoints, vec3_t *points);
-void BotImport_DebugPolygonDelete(int id);
 
 //============================================================
 //

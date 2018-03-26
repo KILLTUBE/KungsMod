@@ -404,7 +404,7 @@ BotAI_GetSnapshotEntity
 int BotAI_GetSnapshotEntity( int clientNum, int sequence, entityState_t *state ) {
 	int		entNum;
 
-	entNum = trap->BotGetSnapshotEntity( clientNum, sequence );
+	entNum = SV_BotGetSnapshotEntity( clientNum, sequence );
 	if ( entNum == -1 ) {
 		memset(state, 0, sizeof(entityState_t));
 		return -1;
@@ -692,7 +692,7 @@ BotAIRegularUpdate
 */
 void BotAIRegularUpdate(void) {
 	if (regularupdate_time < FloatTime()) {
-		trap->BotUpdateEntityItems();
+		SV_BotUpdateEntityItems();
 		regularupdate_time = FloatTime() + 0.3;
 	}
 }
@@ -745,7 +745,7 @@ int BotAI(int client, float thinktime) {
 	BotAI_GetClientState( client, &bs->cur_ps );
 
 	//retrieve any waiting server commands
-	while( trap->BotGetServerCommand(client, buf, sizeof(buf)) ) {
+	while(SV_BotGetServerCommand(client, buf, sizeof(buf)) ) {
 		//have buf point to the command and args to the command arguments
 		args = strchr( buf, ' ');
 		if (!args) continue;
@@ -891,16 +891,16 @@ int BotAISetupClient(int client, struct bot_settings_s *settings, qboolean resta
 	}
 
 	//allocate a goal state
-	bs->gs = trap->BotAllocGoalState(client);
+	bs->gs = SV_BotAllocGoalState(client);
 
 	//allocate a weapon state
-	bs->ws = trap->BotAllocWeaponState();
+	bs->ws = SV_BotAllocWeaponState();
 
 	bs->inuse = qtrue;
 	bs->entitynum = client;
 	bs->setupcount = 4;
 	bs->entergame_time = FloatTime();
-	bs->ms = trap->BotAllocMoveState();
+	bs->ms = SV_BotAllocMoveState();
 	numbots++;
 
 	//NOTE: reschedule the bot thinking
@@ -928,11 +928,11 @@ int BotAIShutdownClient(int client, qboolean restart) {
 		return qfalse;
 	}
 
-	trap->BotFreeMoveState(bs->ms);
+	SV_BotFreeMoveState(bs->ms);
 	//free the goal state`
-	trap->BotFreeGoalState(bs->gs);
+	SV_BotFreeGoalState(bs->gs);
 	//free the weapon weights
-	trap->BotFreeWeaponState(bs->ws);
+	SV_BotFreeWeaponState(bs->ws);
 	//
 	//clear the bot state
 	memset(bs, 0, sizeof(bot_state_t));
@@ -982,11 +982,11 @@ void BotResetState(bot_state_t *bs) {
 	bs->entitynum = entitynum;
 	bs->entergame_time = entergame_time;
 	//reset several states
-	if (bs->ms) trap->BotResetMoveState(bs->ms);
-	if (bs->gs) trap->BotResetGoalState(bs->gs);
-	if (bs->ws) trap->BotResetWeaponState(bs->ws);
-	if (bs->gs) trap->BotResetAvoidGoals(bs->gs);
-	if (bs->ms) trap->BotResetAvoidReach(bs->ms);
+	if (bs->ms) SV_BotResetMoveState(bs->ms);
+	if (bs->gs) SV_BotResetGoalState(bs->gs);
+	if (bs->ws) SV_BotResetWeaponState(bs->ws);
+	if (bs->gs) SV_BotResetAvoidGoals(bs->gs);
+	if (bs->ms) SV_BotResetAvoidReach(bs->ms);
 }
 
 /*
@@ -7595,7 +7595,7 @@ int BotAIStartFrame(int time) {
 		}
 
 		BotUpdateInput(botstates[i], time, elapsed_time);
-		trap->BotUserCommand(botstates[i]->client, &botstates[i]->lastucmd);
+		SV_BotUserCommand(botstates[i]->client, &botstates[i]->lastucmd);
 	}
 
 	return qtrue;
@@ -7641,7 +7641,7 @@ int BotAISetup( int restart ) {
 	//initialize the bot states
 	memset( botstates, 0, sizeof(botstates) );
 
-	if (!trap->BotLibSetup())
+	if (!SV_BotLibSetup())
 	{
 		return qfalse; //wts?!
 	}
@@ -7669,7 +7669,7 @@ int BotAIShutdown( int restart ) {
 		//don't shutdown the bot library
 	}
 	else {
-		trap->BotLibShutdown();
+		SV_BotLibShutdown();
 	}
 	return qtrue;
 }

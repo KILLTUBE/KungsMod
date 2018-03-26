@@ -819,263 +819,263 @@ static void SV_UnifyWhiteSpaces( char *string ) {
 	botlib_export->ai.UnifyWhiteSpaces( string );
 }
 
-static void SV_BotReplaceSynonyms( char *string, unsigned long int context ) {
+CCALL void SV_BotReplaceSynonyms( char *string, unsigned long int context ) {
 	botlib_export->ai.BotReplaceSynonyms( string, context );
 }
 
-static int SV_BotLoadChatFile( int chatstate, char *chatfile, char *chatname ) {
+CCALL int SV_BotLoadChatFile( int chatstate, char *chatfile, char *chatname ) {
 	return botlib_export->ai.BotLoadChatFile( chatstate, chatfile, chatname );
 }
 
-static void SV_BotSetChatGender( int chatstate, int gender ) {
+CCALL void SV_BotSetChatGender( int chatstate, int gender ) {
 	botlib_export->ai.BotSetChatGender( chatstate, gender );
 }
 
-static void SV_BotSetChatName( int chatstate, char *name, int client ) {
+CCALL void SV_BotSetChatName( int chatstate, char *name, int client ) {
 	botlib_export->ai.BotSetChatName( chatstate, name, client );
 }
 
-static void SV_BotResetGoalState( int goalstate ) {
+CCALL void SV_BotResetGoalState( int goalstate ) {
 	botlib_export->ai.BotResetGoalState( goalstate );
 }
 
-static void SV_BotResetAvoidGoals( int goalstate ) {
+CCALL void SV_BotResetAvoidGoals( int goalstate ) {
 	botlib_export->ai.BotResetAvoidGoals( goalstate );
 }
 
-static void SV_BotPushGoal( int goalstate, void *goal ) {
+CCALL void SV_BotPushGoal( int goalstate, void *goal ) {
 	botlib_export->ai.BotPushGoal( goalstate, (bot_goal_s *)goal );
 }
 
-static void SV_BotPopGoal( int goalstate ) {
+CCALL void SV_BotPopGoal( int goalstate ) {
 	botlib_export->ai.BotPopGoal( goalstate );
 }
 
-static void SV_BotEmptyGoalStack( int goalstate ) {
+CCALL void SV_BotEmptyGoalStack( int goalstate ) {
 	botlib_export->ai.BotEmptyGoalStack( goalstate );
 }
 
-static void SV_BotDumpAvoidGoals( int goalstate ) {
+CCALL void SV_BotDumpAvoidGoals( int goalstate ) {
 	botlib_export->ai.BotDumpAvoidGoals( goalstate );
 }
 
-static void SV_BotDumpGoalStack( int goalstate ) {
+CCALL void SV_BotDumpGoalStack( int goalstate ) {
 	botlib_export->ai.BotDumpGoalStack( goalstate );
 }
 
-static void SV_BotGoalName( int number, char *name, int size ) {
+CCALL void SV_BotGoalName( int number, char *name, int size ) {
 	botlib_export->ai.BotGoalName( number, name, size );
 }
 
-static int SV_BotGetTopGoal( int goalstate, void *goal ) {
+CCALL int SV_BotGetTopGoal( int goalstate, void *goal ) {
 	return botlib_export->ai.BotGetTopGoal( goalstate, (bot_goal_s *)goal );
 }
 
-static int SV_BotGetSecondGoal( int goalstate, void *goal ) {
+CCALL int SV_BotGetSecondGoal( int goalstate, void *goal ) {
 	return botlib_export->ai.BotGetSecondGoal( goalstate, (bot_goal_s *)goal );
 }
 
-static int SV_BotChooseLTGItem( int goalstate, vec3_t origin, int *inventory, int travelflags ) {
+CCALL int SV_BotChooseLTGItem( int goalstate, vec3_t origin, int *inventory, int travelflags ) {
 	return botlib_export->ai.BotChooseLTGItem( goalstate, origin, inventory, travelflags );
 }
 
-static int SV_BotChooseNBGItem( int goalstate, vec3_t origin, int *inventory, int travelflags, void *ltg, float maxtime ) {
+CCALL int SV_BotChooseNBGItem( int goalstate, vec3_t origin, int *inventory, int travelflags, void *ltg, float maxtime ) {
 	return botlib_export->ai.BotChooseNBGItem( goalstate, origin, inventory, travelflags, (bot_goal_s *)ltg, maxtime );
 }
 
-static int SV_BotTouchingGoal( vec3_t origin, void *goal ) {
+CCALL int SV_BotTouchingGoal( vec3_t origin, void *goal ) {
 	return botlib_export->ai.BotTouchingGoal( origin, (bot_goal_s *)goal );
 }
 
-static int SV_BotItemGoalInVisButNotVisible( int viewer, vec3_t eye, vec3_t viewangles, void *goal ) {
+CCALL int SV_BotItemGoalInVisButNotVisible( int viewer, vec3_t eye, vec3_t viewangles, void *goal ) {
 	return botlib_export->ai.BotItemGoalInVisButNotVisible( viewer, eye, viewangles, (bot_goal_s *)goal );
 }
 
-static int SV_BotGetLevelItemGoal( int index, char *classname, void *goal ) {
+CCALL int SV_BotGetLevelItemGoal( int index, char *classname, void *goal ) {
 	return botlib_export->ai.BotGetLevelItemGoal( index, classname, (bot_goal_s *)goal );
 }
 
-static float SV_BotAvoidGoalTime( int goalstate, int number ) {
+CCALL float SV_BotAvoidGoalTime( int goalstate, int number ) {
 	return botlib_export->ai.BotAvoidGoalTime( goalstate, number );
 }
 
-static void SV_BotInitLevelItems( void ) {
+CCALL void SV_BotInitLevelItems( void ) {
 	botlib_export->ai.BotInitLevelItems();
 }
 
-static void SV_BotUpdateEntityItems( void ) {
+CCALL void SV_BotUpdateEntityItems( void ) {
 	botlib_export->ai.BotUpdateEntityItems();
 }
 
-static int SV_BotLoadItemWeights( int goalstate, char *filename ) {
+CCALL int SV_BotLoadItemWeights( int goalstate, char *filename ) {
 	return botlib_export->ai.BotLoadItemWeights( goalstate, filename );
 }
 
-static void SV_BotFreeItemWeights( int goalstate ) {
+CCALL void SV_BotFreeItemWeights( int goalstate ) {
 	botlib_export->ai.BotFreeItemWeights( goalstate );
 }
 
-static void SV_BotSaveGoalFuzzyLogic( int goalstate, char *filename ) {
+CCALL void SV_BotSaveGoalFuzzyLogic( int goalstate, char *filename ) {
 	botlib_export->ai.BotSaveGoalFuzzyLogic( goalstate, filename );
 }
 
-static int SV_BotAllocGoalState( int state ) {
+CCALL int SV_BotAllocGoalState( int state ) {
 	return botlib_export->ai.BotAllocGoalState( state );
 }
 
-static void SV_BotFreeGoalState( int handle ) {
+CCALL void SV_BotFreeGoalState( int handle ) {
 	botlib_export->ai.BotFreeGoalState( handle );
 }
 
-static void SV_BotResetMoveState( int movestate ) {
+CCALL void SV_BotResetMoveState( int movestate ) {
 	botlib_export->ai.BotResetMoveState( movestate );
 }
 
-static void SV_BotMoveToGoal( void *result, int movestate, void *goal, int travelflags ) {
+CCALL void SV_BotMoveToGoal( void *result, int movestate, void *goal, int travelflags ) {
 	botlib_export->ai.BotMoveToGoal( (bot_moveresult_s *)result, movestate, (bot_goal_s *)goal, travelflags );
 }
 
-static int SV_BotMoveInDirection( int movestate, vec3_t dir, float speed, int type ) {
+CCALL int SV_BotMoveInDirection( int movestate, vec3_t dir, float speed, int type ) {
 	return botlib_export->ai.BotMoveInDirection( movestate, dir, speed, type );
 }
 
-static void SV_BotResetAvoidReach( int movestate ) {
+CCALL void SV_BotResetAvoidReach( int movestate ) {
 	botlib_export->ai.BotResetAvoidReach( movestate );
 }
 
-static void SV_BotResetLastAvoidReach( int movestate ) {
+CCALL void SV_BotResetLastAvoidReach( int movestate ) {
 	botlib_export->ai.BotResetLastAvoidReach( movestate );
 }
 
-static int SV_BotReachabilityArea( vec3_t origin, int testground ) {
+CCALL int SV_BotReachabilityArea( vec3_t origin, int testground ) {
 	return botlib_export->ai.BotReachabilityArea( origin, testground );
 }
 
-static int SV_BotMovementViewTarget( int movestate, void *goal, int travelflags, float lookahead, vec3_t target ) {
+CCALL int SV_BotMovementViewTarget( int movestate, void *goal, int travelflags, float lookahead, vec3_t target ) {
 	return botlib_export->ai.BotMovementViewTarget( movestate, (bot_goal_s *)goal, travelflags, lookahead, target );
 }
 
-static int SV_BotAllocMoveState( void ) {
+CCALL int SV_BotAllocMoveState( void ) {
 	return botlib_export->ai.BotAllocMoveState();
 }
 
-static void SV_BotFreeMoveState( int handle ) {
+CCALL void SV_BotFreeMoveState( int handle ) {
 	botlib_export->ai.BotFreeMoveState( handle );
 }
 
-static void SV_BotInitMoveState( int handle, void *initmove ) {
+CCALL void SV_BotInitMoveState( int handle, void *initmove ) {
 	botlib_export->ai.BotInitMoveState( handle, (bot_initmove_s *)initmove );
 }
 
-static int SV_BotChooseBestFightWeapon( int weaponstate, int *inventory ) {
+CCALL int SV_BotChooseBestFightWeapon( int weaponstate, int *inventory ) {
 	return botlib_export->ai.BotChooseBestFightWeapon( weaponstate, inventory );
 }
 
-static void SV_BotGetWeaponInfo( int weaponstate, int weapon, void *weaponinfo ) {
+CCALL void SV_BotGetWeaponInfo( int weaponstate, int weapon, void *weaponinfo ) {
 	botlib_export->ai.BotGetWeaponInfo( weaponstate, weapon, (weaponinfo_s *)weaponinfo );
 }
 
-static int SV_BotLoadWeaponWeights( int weaponstate, char *filename ) {
+CCALL int SV_BotLoadWeaponWeights( int weaponstate, char *filename ) {
 	return botlib_export->ai.BotLoadWeaponWeights( weaponstate, filename );
 }
 
-static int SV_BotAllocWeaponState( void ) {
+CCALL int SV_BotAllocWeaponState( void ) {
 	return botlib_export->ai.BotAllocWeaponState();
 }
 
-static void SV_BotFreeWeaponState( int weaponstate ) {
+CCALL void SV_BotFreeWeaponState( int weaponstate ) {
 	botlib_export->ai.BotFreeWeaponState( weaponstate );
 }
 
-static void SV_BotResetWeaponState( int weaponstate ) {
+CCALL void SV_BotResetWeaponState( int weaponstate ) {
 	botlib_export->ai.BotResetWeaponState( weaponstate );
 }
 
-static int SV_GeneticParentsAndChildSelection( int numranks, float *ranks, int *parent1, int *parent2, int *child ) {
+CCALL int SV_GeneticParentsAndChildSelection( int numranks, float *ranks, int *parent1, int *parent2, int *child ) {
 	return botlib_export->ai.GeneticParentsAndChildSelection( numranks, ranks, parent1, parent2, child );
 }
 
-static void SV_BotInterbreedGoalFuzzyLogic( int parent1, int parent2, int child ) {
+CCALL void SV_BotInterbreedGoalFuzzyLogic( int parent1, int parent2, int child ) {
 	botlib_export->ai.BotInterbreedGoalFuzzyLogic( parent1, parent2, child );
 }
 
-static void SV_BotMutateGoalFuzzyLogic( int goalstate, float range ) {
+CCALL void SV_BotMutateGoalFuzzyLogic( int goalstate, float range ) {
 	botlib_export->ai.BotMutateGoalFuzzyLogic( goalstate, range );
 }
 
-static int SV_BotGetNextCampSpotGoal( int num, void *goal ) {
+CCALL int SV_BotGetNextCampSpotGoal( int num, void *goal ) {
 	return botlib_export->ai.BotGetNextCampSpotGoal( num, (bot_goal_s *)goal );
 }
 
-static int SV_BotGetMapLocationGoal( char *name, void *goal ) {
+CCALL int SV_BotGetMapLocationGoal( char *name, void *goal ) {
 	return botlib_export->ai.BotGetMapLocationGoal( name, (bot_goal_s *)goal );
 }
 
-static int SV_BotNumInitialChats( int chatstate, char *type ) {
+CCALL int SV_BotNumInitialChats( int chatstate, char *type ) {
 	return botlib_export->ai.BotNumInitialChats( chatstate, type );
 }
 
-static void SV_BotGetChatMessage( int chatstate, char *buf, int size ) {
+CCALL void SV_BotGetChatMessage( int chatstate, char *buf, int size ) {
 	botlib_export->ai.BotGetChatMessage( chatstate, buf, size );
 }
 
-static void SV_BotRemoveFromAvoidGoals( int goalstate, int number ) {
+CCALL void SV_BotRemoveFromAvoidGoals( int goalstate, int number ) {
 	botlib_export->ai.BotRemoveFromAvoidGoals( goalstate, number );
 }
 
-static int SV_BotPredictVisiblePosition( vec3_t origin, int areanum, void *goal, int travelflags, vec3_t target ) {
+CCALL int SV_BotPredictVisiblePosition( vec3_t origin, int areanum, void *goal, int travelflags, vec3_t target ) {
 	return botlib_export->ai.BotPredictVisiblePosition( origin, areanum, (bot_goal_s *)goal, travelflags, target );
 }
 
-static void SV_BotSetAvoidGoalTime( int goalstate, int number, float avoidtime ) {
+CCALL void SV_BotSetAvoidGoalTime( int goalstate, int number, float avoidtime ) {
 	botlib_export->ai.BotSetAvoidGoalTime( goalstate, number, avoidtime );
 }
 
-static void SV_BotAddAvoidSpot( int movestate, vec3_t origin, float radius, int type ) {
+CCALL void SV_BotAddAvoidSpot( int movestate, vec3_t origin, float radius, int type ) {
 	botlib_export->ai.BotAddAvoidSpot( movestate, origin, radius, type );
 }
 
-static int SV_BotLibSetup( void ) {
-	return botlib_export->BotLibSetup();
-}
+//CCALL int SV_BotLibSetup( void ) {
+//	return botlib_export->BotLibSetup();
+//}
 
-static int SV_BotLibShutdown( void ) {
-	return botlib_export->BotLibShutdown();
-}
+//CCALL int SV_BotLibShutdown( void ) {
+//	return botlib_export->BotLibShutdown();
+//}
 
-static int SV_BotLibVarSet( char *var_name, char *value ) {
+CCALL int SV_BotLibVarSet( char *var_name, char *value ) {
 	return botlib_export->BotLibVarSet( var_name, value );
 }
 
-static int SV_BotLibVarGet( char *var_name, char *value, int size ) {
+CCALL int SV_BotLibVarGet( char *var_name, char *value, int size ) {
 	return botlib_export->BotLibVarGet( var_name, value, size );
 }
 
-static int SV_BotLibDefine( char *string ) {
+CCALL int SV_BotLibDefine( char *string ) {
 	return botlib_export->PC_AddGlobalDefine( string );
 }
 
-static int SV_BotLibStartFrame( float time ) {
+CCALL int SV_BotLibStartFrame( float time ) {
 	return botlib_export->BotLibStartFrame( time );
 }
 
-static int SV_BotLibLoadMap( const char *mapname ) {
+CCALL int SV_BotLibLoadMap( const char *mapname ) {
 	return botlib_export->BotLibLoadMap( mapname );
 }
 
-static int SV_BotLibUpdateEntity( int ent, void *bue ) {
+CCALL int SV_BotLibUpdateEntity( int ent, void *bue ) {
 	return botlib_export->BotLibUpdateEntity( ent, (bot_entitystate_t *)bue );
 }
 
-static int SV_BotLibTest( int parm0, char *parm1, vec3_t parm2, vec3_t parm3 ) {
+CCALL int SV_BotLibTest( int parm0, char *parm1, vec3_t parm2, vec3_t parm3 ) {
 	return botlib_export->Test( parm0, parm1, parm2, parm3 );
 }
 
-static int SV_BotGetServerCommand( int clientNum, char *message, int size ) {
+CCALL int SV_BotGetServerCommand( int clientNum, char *message, int size ) {
 	return SV_BotGetConsoleMessage( clientNum, message, size );
 }
 
-static void SV_BotUserCommand( int clientNum, usercmd_t *ucmd ) {
+CCALL void SV_BotUserCommand( int clientNum, usercmd_t *ucmd ) {
 	SV_ClientThink( &svs.clients[clientNum], ucmd );
 }
 
@@ -1697,97 +1697,97 @@ void SV_BindGame( void ) {
 		//gi.Nav_FlagAllNodes						= SV_Nav_FlagAllNodes;
 		//gi.Nav_GetPathsCalculated				= SV_Nav_GetPathsCalculated;
 		//gi.Nav_SetPathsCalculated				= SV_Nav_SetPathsCalculated;
-		gi.BotAllocateClient					= SV_BotAllocateClient;
-		gi.BotFreeClient						= SV_BotFreeClient;
-		gi.BotLoadCharacter						= SV_BotLoadCharacter;
-		gi.BotFreeCharacter						= SV_BotFreeCharacter;
-		gi.Characteristic_Float					= SV_Characteristic_Float;
-		gi.Characteristic_BFloat				= SV_Characteristic_BFloat;
-		gi.Characteristic_Integer				= SV_Characteristic_Integer;
-		gi.Characteristic_BInteger				= SV_Characteristic_BInteger;
-		gi.Characteristic_String				= SV_Characteristic_String;
-		gi.BotAllocChatState					= SV_BotAllocChatState;
-		gi.BotFreeChatState						= SV_BotFreeChatState;
-		gi.BotQueueConsoleMessage				= SV_BotQueueConsoleMessage;
-		gi.BotRemoveConsoleMessage				= SV_BotRemoveConsoleMessage;
-		gi.BotNextConsoleMessage				= SV_BotNextConsoleMessage;
-		gi.BotNumConsoleMessages				= SV_BotNumConsoleMessages;
-		gi.BotInitialChat						= SV_BotInitialChat;
-		gi.BotReplyChat							= SV_BotReplyChat;
-		gi.BotChatLength						= SV_BotChatLength;
-		gi.BotEnterChat							= SV_BotEnterChat;
-		gi.StringContains						= SV_StringContains;
-		gi.BotFindMatch							= SV_BotFindMatch;
-		gi.BotMatchVariable						= SV_BotMatchVariable;
-		gi.UnifyWhiteSpaces						= SV_UnifyWhiteSpaces;
-		gi.BotReplaceSynonyms					= SV_BotReplaceSynonyms;
-		gi.BotLoadChatFile						= SV_BotLoadChatFile;
-		gi.BotSetChatGender						= SV_BotSetChatGender;
-		gi.BotSetChatName						= SV_BotSetChatName;
-		gi.BotResetGoalState					= SV_BotResetGoalState;
-		gi.BotResetAvoidGoals					= SV_BotResetAvoidGoals;
-		gi.BotPushGoal							= SV_BotPushGoal;
-		gi.BotPopGoal							= SV_BotPopGoal;
-		gi.BotEmptyGoalStack					= SV_BotEmptyGoalStack;
-		gi.BotDumpAvoidGoals					= SV_BotDumpAvoidGoals;
-		gi.BotDumpGoalStack						= SV_BotDumpGoalStack;
-		gi.BotGoalName							= SV_BotGoalName;
-		gi.BotGetTopGoal						= SV_BotGetTopGoal;
-		gi.BotGetSecondGoal						= SV_BotGetSecondGoal;
-		gi.BotChooseLTGItem						= SV_BotChooseLTGItem;
-		gi.BotChooseNBGItem						= SV_BotChooseNBGItem;
-		gi.BotTouchingGoal						= SV_BotTouchingGoal;
-		gi.BotItemGoalInVisButNotVisible		= SV_BotItemGoalInVisButNotVisible;
-		gi.BotGetLevelItemGoal					= SV_BotGetLevelItemGoal;
-		gi.BotAvoidGoalTime						= SV_BotAvoidGoalTime;
-		gi.BotInitLevelItems					= SV_BotInitLevelItems;
-		gi.BotUpdateEntityItems					= SV_BotUpdateEntityItems;
-		gi.BotLoadItemWeights					= SV_BotLoadItemWeights;
-		gi.BotFreeItemWeights					= SV_BotFreeItemWeights;
-		gi.BotSaveGoalFuzzyLogic				= SV_BotSaveGoalFuzzyLogic;
-		gi.BotAllocGoalState					= SV_BotAllocGoalState;
-		gi.BotFreeGoalState						= SV_BotFreeGoalState;
-		gi.BotResetMoveState					= SV_BotResetMoveState;
-		gi.BotMoveToGoal						= SV_BotMoveToGoal;
-		gi.BotMoveInDirection					= SV_BotMoveInDirection;
-		gi.BotResetAvoidReach					= SV_BotResetAvoidReach;
-		gi.BotResetLastAvoidReach				= SV_BotResetLastAvoidReach;
-		gi.BotReachabilityArea					= SV_BotReachabilityArea;
-		gi.BotMovementViewTarget				= SV_BotMovementViewTarget;
-		gi.BotAllocMoveState					= SV_BotAllocMoveState;
-		gi.BotFreeMoveState						= SV_BotFreeMoveState;
-		gi.BotInitMoveState						= SV_BotInitMoveState;
-		gi.BotChooseBestFightWeapon				= SV_BotChooseBestFightWeapon;
-		gi.BotGetWeaponInfo						= SV_BotGetWeaponInfo;
-		gi.BotLoadWeaponWeights					= SV_BotLoadWeaponWeights;
-		gi.BotAllocWeaponState					= SV_BotAllocWeaponState;
-		gi.BotFreeWeaponState					= SV_BotFreeWeaponState;
-		gi.BotResetWeaponState					= SV_BotResetWeaponState;
-		gi.GeneticParentsAndChildSelection		= SV_GeneticParentsAndChildSelection;
-		gi.BotInterbreedGoalFuzzyLogic			= SV_BotInterbreedGoalFuzzyLogic;
-		gi.BotMutateGoalFuzzyLogic				= SV_BotMutateGoalFuzzyLogic;
-		gi.BotGetNextCampSpotGoal				= SV_BotGetNextCampSpotGoal;
-		gi.BotGetMapLocationGoal				= SV_BotGetMapLocationGoal;
-		gi.BotNumInitialChats					= SV_BotNumInitialChats;
-		gi.BotGetChatMessage					= SV_BotGetChatMessage;
-		gi.BotRemoveFromAvoidGoals				= SV_BotRemoveFromAvoidGoals;
-		gi.BotPredictVisiblePosition			= SV_BotPredictVisiblePosition;
-		gi.BotSetAvoidGoalTime					= SV_BotSetAvoidGoalTime;
-		gi.BotAddAvoidSpot						= SV_BotAddAvoidSpot;
-		gi.BotLibSetup							= SV_BotLibSetup;
-		gi.BotLibShutdown						= SV_BotLibShutdown;
-		gi.BotLibVarSet							= SV_BotLibVarSet;
-		gi.BotLibVarGet							= SV_BotLibVarGet;
-		gi.BotLibDefine							= SV_BotLibDefine;
-		gi.BotLibStartFrame						= SV_BotLibStartFrame;
-		gi.BotLibLoadMap						= SV_BotLibLoadMap;
-		gi.BotLibUpdateEntity					= SV_BotLibUpdateEntity;
-		gi.BotLibTest							= SV_BotLibTest;
-		gi.BotGetSnapshotEntity					= SV_BotGetSnapshotEntity;
-		gi.BotGetServerCommand					= SV_BotGetServerCommand;
-		gi.BotUserCommand						= SV_BotUserCommand;
-		gi.BotUpdateWaypoints					= SV_BotWaypointReception;
-		gi.BotCalculatePaths					= SV_BotCalculatePaths;
+		//gi.BotAllocateClient					= SV_BotAllocateClient;
+		//gi.BotFreeClient						= SV_BotFreeClient;
+		//gi.BotLoadCharacter						= SV_BotLoadCharacter;
+		//gi.BotFreeCharacter						= SV_BotFreeCharacter;
+		//gi.Characteristic_Float					= SV_Characteristic_Float;
+		//gi.Characteristic_BFloat				= SV_Characteristic_BFloat;
+		//gi.Characteristic_Integer				= SV_Characteristic_Integer;
+		//gi.Characteristic_BInteger				= SV_Characteristic_BInteger;
+		//gi.Characteristic_String				= SV_Characteristic_String;
+		//gi.BotAllocChatState					= SV_BotAllocChatState;
+		//gi.BotFreeChatState						= SV_BotFreeChatState;
+		//gi.BotQueueConsoleMessage				= SV_BotQueueConsoleMessage;
+		//gi.BotRemoveConsoleMessage				= SV_BotRemoveConsoleMessage;
+		//gi.BotNextConsoleMessage				= SV_BotNextConsoleMessage;
+		//gi.BotNumConsoleMessages				= SV_BotNumConsoleMessages;
+		//gi.BotInitialChat						= SV_BotInitialChat;
+		//gi.BotReplyChat							= SV_BotReplyChat;
+		//gi.BotChatLength						= SV_BotChatLength;
+		//gi.BotEnterChat							= SV_BotEnterChat;
+		//gi.StringContains						= SV_StringContains;
+		//gi.BotFindMatch							= SV_BotFindMatch;
+		//gi.BotMatchVariable						= SV_BotMatchVariable;
+		//gi.UnifyWhiteSpaces						= SV_UnifyWhiteSpaces;
+		//gi.BotReplaceSynonyms					= SV_BotReplaceSynonyms;
+		//gi.BotLoadChatFile						= SV_BotLoadChatFile;
+		//gi.BotSetChatGender						= SV_BotSetChatGender;
+		//gi.BotSetChatName						= SV_BotSetChatName;
+		//gi.BotResetGoalState					= SV_BotResetGoalState;
+		//gi.BotResetAvoidGoals					= SV_BotResetAvoidGoals;
+		//gi.BotPushGoal							= SV_BotPushGoal;
+		//gi.BotPopGoal							= SV_BotPopGoal;
+		//gi.BotEmptyGoalStack					= SV_BotEmptyGoalStack;
+		//gi.BotDumpAvoidGoals					= SV_BotDumpAvoidGoals;
+		//gi.BotDumpGoalStack						= SV_BotDumpGoalStack;
+		//gi.BotGoalName							= SV_BotGoalName;
+		//gi.BotGetTopGoal						= SV_BotGetTopGoal;
+		//gi.BotGetSecondGoal						= SV_BotGetSecondGoal;
+		//gi.BotChooseLTGItem						= SV_BotChooseLTGItem;
+		//gi.BotChooseNBGItem						= SV_BotChooseNBGItem;
+		//gi.BotTouchingGoal						= SV_BotTouchingGoal;
+		//gi.BotItemGoalInVisButNotVisible		= SV_BotItemGoalInVisButNotVisible;
+		//gi.BotGetLevelItemGoal					= SV_BotGetLevelItemGoal;
+		//gi.BotAvoidGoalTime						= SV_BotAvoidGoalTime;
+		//gi.BotInitLevelItems					= SV_BotInitLevelItems;
+		//gi.BotUpdateEntityItems					= SV_BotUpdateEntityItems;
+		//gi.BotLoadItemWeights					= SV_BotLoadItemWeights;
+		//gi.BotFreeItemWeights					= SV_BotFreeItemWeights;
+		//gi.BotSaveGoalFuzzyLogic				= SV_BotSaveGoalFuzzyLogic;
+		//gi.BotAllocGoalState					= SV_BotAllocGoalState;
+		//gi.BotFreeGoalState						= SV_BotFreeGoalState;
+		//gi.BotResetMoveState					= SV_BotResetMoveState;
+		//gi.BotMoveToGoal						= SV_BotMoveToGoal;
+		//gi.BotMoveInDirection					= SV_BotMoveInDirection;
+		//gi.BotResetAvoidReach					= SV_BotResetAvoidReach;
+		//gi.BotResetLastAvoidReach				= SV_BotResetLastAvoidReach;
+		//gi.BotReachabilityArea					= SV_BotReachabilityArea;
+		//gi.BotMovementViewTarget				= SV_BotMovementViewTarget;
+		//gi.BotAllocMoveState					= SV_BotAllocMoveState;
+		//gi.BotFreeMoveState						= SV_BotFreeMoveState;
+		//gi.BotInitMoveState						= SV_BotInitMoveState;
+		//gi.BotChooseBestFightWeapon				= SV_BotChooseBestFightWeapon;
+		//gi.BotGetWeaponInfo						= SV_BotGetWeaponInfo;
+		//gi.BotLoadWeaponWeights					= SV_BotLoadWeaponWeights;
+		//gi.BotAllocWeaponState					= SV_BotAllocWeaponState;
+		//gi.BotFreeWeaponState					= SV_BotFreeWeaponState;
+		//gi.BotResetWeaponState					= SV_BotResetWeaponState;
+		//gi.GeneticParentsAndChildSelection		= SV_GeneticParentsAndChildSelection;
+		//gi.BotInterbreedGoalFuzzyLogic			= SV_BotInterbreedGoalFuzzyLogic;
+		//gi.BotMutateGoalFuzzyLogic				= SV_BotMutateGoalFuzzyLogic;
+		//gi.BotGetNextCampSpotGoal				= SV_BotGetNextCampSpotGoal;
+		//gi.BotGetMapLocationGoal				= SV_BotGetMapLocationGoal;
+		//gi.BotNumInitialChats					= SV_BotNumInitialChats;
+		//gi.BotGetChatMessage					= SV_BotGetChatMessage;
+		//gi.BotRemoveFromAvoidGoals				= SV_BotRemoveFromAvoidGoals;
+		//gi.BotPredictVisiblePosition			= SV_BotPredictVisiblePosition;
+		//gi.BotSetAvoidGoalTime					= SV_BotSetAvoidGoalTime;
+		//gi.BotAddAvoidSpot						= SV_BotAddAvoidSpot;
+		//gi.BotLibSetup							= SV_BotLibSetup;
+		//gi.BotLibShutdown						= SV_BotLibShutdown;
+		//gi.BotLibVarSet							= SV_BotLibVarSet;
+		//gi.BotLibVarGet							= SV_BotLibVarGet;
+		//gi.BotLibDefine							= SV_BotLibDefine;
+		//gi.BotLibStartFrame						= SV_BotLibStartFrame;
+		//gi.BotLibLoadMap						= SV_BotLibLoadMap;
+		//gi.BotLibUpdateEntity					= SV_BotLibUpdateEntity;
+		//gi.BotLibTest							= SV_BotLibTest;
+		//gi.BotGetSnapshotEntity					= SV_BotGetSnapshotEntity;
+		//gi.BotGetServerCommand					= SV_BotGetServerCommand;
+		//gi.BotUserCommand						= SV_BotUserCommand;
+		//gi.BotUpdateWaypoints					= SV_BotWaypointReception;
+		//gi.BotCalculatePaths					= SV_BotCalculatePaths;
 		gi.AAS_EnableRoutingArea				= SV_AAS_EnableRoutingArea;
 		gi.AAS_BBoxAreas						= SV_AAS_BBoxAreas;
 		gi.AAS_AreaInfo							= SV_AAS_AreaInfo;

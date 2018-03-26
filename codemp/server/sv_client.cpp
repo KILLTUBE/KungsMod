@@ -35,6 +35,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "server/sv_gameapi.h"
 
+#include "botlib/botlib.h"
 static void SV_CloseDownload( client_t *cl );
 
 /*

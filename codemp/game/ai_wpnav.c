@@ -26,6 +26,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "botlib/botlib.h"
 #include "ai_main.h"
 
+
+
 float gWPRenderTime = 0;
 float gDeactivated = 0;
 float gBotEdit = 0;
@@ -3257,8 +3259,8 @@ void BeginAutoPathRoutine(void)
 	G_RMGPathing();
 
 	//rww - Using a faster in-engine version because we're having to wait for this stuff to get done as opposed to just saving it once.
-	trap->BotUpdateWaypoints(gWPNum, gWPArray);
-	trap->BotCalculatePaths(RMG.integer);
+	SV_BotWaypointReception(gWPNum, gWPArray);
+	SV_BotCalculatePaths(RMG.integer);
 	//CalculatePaths(); //make everything nice and connected
 
 

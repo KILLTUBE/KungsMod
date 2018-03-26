@@ -827,7 +827,7 @@ static void G_AddBot( const char *name, float skill, const char *team, int delay
 					*botinfo = NULL, *key = NULL, *s = NULL, *botname = NULL, *model = NULL;
 
 	// have the server allocate a client slot
-	clientNum = trap->BotAllocateClient();
+	clientNum = SV_BotAllocateClient();
 	if ( clientNum == -1 ) {
 //		trap->Print( S_COLOR_RED "Unable to add bot.  All player slots are in use.\n" );
 //		trap->Print( S_COLOR_RED "Start server with more 'open' slots.\n" );
@@ -839,7 +839,7 @@ static void G_AddBot( const char *name, float skill, const char *team, int delay
 	botinfo = G_GetBotInfoByName( name );
 	if ( !botinfo ) {
 		trap->Print( S_COLOR_RED "Error: Bot '%s' not defined\n", name );
-		trap->BotFreeClient( clientNum );
+		SV_BotFreeClient( clientNum );
 		return;
 	}
 

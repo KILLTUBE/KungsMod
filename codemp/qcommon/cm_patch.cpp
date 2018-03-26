@@ -1644,7 +1644,7 @@ Called from the renderer
 ==================
 */
 #ifndef BSPC
-void BotDrawDebugPolygons(void (*drawPoly)(int color, int numPoints, float *points), int value);
+CCALL void BotDrawDebugPolygons(void (*drawPoly)(int color, int numPoints, float *points), int value);
 #endif
 
 void CM_DrawDebugSurface( void (*drawPoly)(int color, int numPoints, float *points) ) {
