@@ -364,5 +364,8 @@ typedef struct refimport_s {
 	typedef	refexport_t* (QDECL *GetRefAPI_t) (int apiVersion, refimport_t *rimp);
 #endif
 
+void R_Printf(int printLevel, const char *fmt, ...);
+void R_Error(int errorLevel, const char *fmt, ...);
+
 #endif
 

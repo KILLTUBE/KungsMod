@@ -690,7 +690,7 @@ void SP_CreatePuffSystem( gentity_t *ent )
 		if ( iPuffSystem < 0 || iPuffSystem > 1 )
 		{
 			iPuffSystem = 0;
-			//ri.Error( ERR_DROP, "Weather Effect: Invalid value for whichsystem key" );
+			//R_Error( ERR_DROP, "Weather Effect: Invalid value for whichsystem key" );
 			Com_Printf( "Weather Effect: Invalid value for whichsystem key\n" );
 		}
 	}

@@ -80,9 +80,9 @@ void GL_TextureMode( const char *string ) {
 	}
 
 	if ( i == numTextureModes ) {
-		ri.Printf( PRINT_ALL, "bad filter name\n" );
+		R_Printf( PRINT_ALL, "bad filter name\n" );
 		for ( i = 0; i < numTextureModes ; i++ ) {
-			ri.Printf( PRINT_ALL, "%s\n", modes[i].name );
+			R_Printf( PRINT_ALL, "%s\n", modes[i].name );
 		}
 		return;
 	}
@@ -231,76 +231,76 @@ void R_ImageList_f( void ) {
 	float	texBytes = 0.0f;
 	const char *yesno[] = {"no ", "yes"};
 
-	ri.Printf( PRINT_ALL,  "\n      -w-- -h-- -mm- -if-- wrap --name-------\n");
+	R_Printf( PRINT_ALL,  "\n      -w-- -h-- -mm- -if-- wrap --name-------\n");
 
 	int iNumImages = R_Images_StartIteration();
 	while ( (image = R_Images_GetNextIteration()) != NULL)
 	{
 		texels   += image->width*image->height;
 		texBytes += image->width*image->height * R_BytesPerTex (image->internalFormat);
-		ri.Printf( PRINT_ALL,   "%4i: %4i %4i  %s ",
+		R_Printf( PRINT_ALL,   "%4i: %4i %4i  %s ",
 			i, image->width, image->height, yesno[image->mipmap] );
 		switch ( image->internalFormat ) {
 		case 1:
-			ri.Printf( PRINT_ALL, "I    " );
+			R_Printf( PRINT_ALL, "I    " );
 			break;
 		case 2:
-			ri.Printf( PRINT_ALL, "IA   " );
+			R_Printf( PRINT_ALL, "IA   " );
 			break;
 		case 3:
-			ri.Printf( PRINT_ALL, "RGB  " );
+			R_Printf( PRINT_ALL, "RGB  " );
 			break;
 		case 4:
-			ri.Printf( PRINT_ALL, "RGBA " );
+			R_Printf( PRINT_ALL, "RGBA " );
 			break;
 		case GL_RGBA8:
-			ri.Printf( PRINT_ALL, "RGBA8" );
+			R_Printf( PRINT_ALL, "RGBA8" );
 			break;
 		case GL_RGB8:
-			ri.Printf( PRINT_ALL, "RGB8" );
+			R_Printf( PRINT_ALL, "RGB8" );
 			break;
 		case GL_RGB4_S3TC:
-			ri.Printf( PRINT_ALL, "S3TC " );
+			R_Printf( PRINT_ALL, "S3TC " );
 			break;
 		case GL_COMPRESSED_RGB_S3TC_DXT1_EXT:
-			ri.Printf( PRINT_ALL, "DXT1 " );
+			R_Printf( PRINT_ALL, "DXT1 " );
 			break;
 		case GL_COMPRESSED_RGBA_S3TC_DXT5_EXT:
-			ri.Printf( PRINT_ALL, "DXT5 " );
+			R_Printf( PRINT_ALL, "DXT5 " );
 			break;
 		case GL_RGBA4:
-			ri.Printf( PRINT_ALL, "RGBA4" );
+			R_Printf( PRINT_ALL, "RGBA4" );
 			break;
 		case GL_RGB5:
-			ri.Printf( PRINT_ALL, "RGB5 " );
+			R_Printf( PRINT_ALL, "RGB5 " );
 			break;
 		default:
-			ri.Printf( PRINT_ALL, "???? " );
+			R_Printf( PRINT_ALL, "???? " );
 		}
 
 		switch ( image->wrapClampMode ) {
 		case GL_REPEAT:
-			ri.Printf( PRINT_ALL, "rept " );
+			R_Printf( PRINT_ALL, "rept " );
 			break;
 		case GL_CLAMP:
-			ri.Printf( PRINT_ALL, "clmp " );
+			R_Printf( PRINT_ALL, "clmp " );
 			break;
 		case GL_CLAMP_TO_EDGE:
-			ri.Printf( PRINT_ALL, "clpE " );
+			R_Printf( PRINT_ALL, "clpE " );
 			break;
 		default:
-			ri.Printf( PRINT_ALL, "%4i ", image->wrapClampMode );
+			R_Printf( PRINT_ALL, "%4i ", image->wrapClampMode );
 			break;
 		}
 
-		ri.Printf( PRINT_ALL, "%s\n", image->imgName );
+		R_Printf( PRINT_ALL, "%s\n", image->imgName );
 		i++;
 	}
-	ri.Printf( PRINT_ALL,  " ---------\n");
-	ri.Printf( PRINT_ALL,  "      -w-- -h-- -mm- -if- wrap --name-------\n");
-	ri.Printf( PRINT_ALL,  " %i total texels (not including mipmaps)\n", texels );
-	ri.Printf( PRINT_ALL,  " %.2fMB total texture mem (not including mipmaps)\n", texBytes/1048576.0f );
-	ri.Printf( PRINT_ALL,  " %i total images\n\n", iNumImages );
+	R_Printf( PRINT_ALL,  " ---------\n");
+	R_Printf( PRINT_ALL,  "      -w-- -h-- -mm- -if- wrap --name-------\n");
+	R_Printf( PRINT_ALL,  " %i total texels (not including mipmaps)\n", texels );
+	R_Printf( PRINT_ALL,  " %.2fMB total texture mem (not including mipmaps)\n", texBytes/1048576.0f );
+	R_Printf( PRINT_ALL,  " %i total images\n\n", iNumImages );
 }
 
 //=======================================================================
@@ -855,22 +855,22 @@ void RE_RegisterImages_Info_f( void )
 	int iNumImages	= R_Images_StartIteration();
 	while ( (pImage	= R_Images_GetNextIteration()) != NULL)
 	{
-		ri.Printf( PRINT_ALL, "%d: (%4dx%4dy) \"%s\"",iImage, pImage->width, pImage->height, pImage->imgName);
-		ri.Printf( PRINT_DEVELOPER, S_COLOR_RED ", levused %d",pImage->iLastLevelUsedOn);
-		ri.Printf( PRINT_ALL, "\n");
+		R_Printf( PRINT_ALL, "%d: (%4dx%4dy) \"%s\"",iImage, pImage->width, pImage->height, pImage->imgName);
+		R_Printf( PRINT_DEVELOPER, S_COLOR_RED ", levused %d",pImage->iLastLevelUsedOn);
+		R_Printf( PRINT_ALL, "\n");
 
 		iTexels += pImage->width * pImage->height;
 		iImage++;
 	}
-	ri.Printf( PRINT_ALL, "%d Images. %d (%.2fMB) texels total, (not including mipmaps)\n",iNumImages, iTexels, (float)iTexels / 1024.0f / 1024.0f);
-	ri.Printf( PRINT_DEVELOPER, S_COLOR_RED "RE_RegisterMedia_GetLevel(): %d",RE_RegisterMedia_GetLevel());
+	R_Printf( PRINT_ALL, "%d Images. %d (%.2fMB) texels total, (not including mipmaps)\n",iNumImages, iTexels, (float)iTexels / 1024.0f / 1024.0f);
+	R_Printf( PRINT_DEVELOPER, S_COLOR_RED "RE_RegisterMedia_GetLevel(): %d",RE_RegisterMedia_GetLevel());
 }
 
 // currently, this just goes through all the images and dumps any not referenced on this level...
 //
 qboolean RE_RegisterImages_LevelLoadEnd(void)
 {
-	ri.Printf( PRINT_DEVELOPER, S_COLOR_RED "RE_RegisterImages_LevelLoadEnd():\n");
+	R_Printf( PRINT_DEVELOPER, S_COLOR_RED "RE_RegisterImages_LevelLoadEnd():\n");
 
 //	int iNumImages = AllocatedImages.size();	// more for curiosity, really.
 
@@ -890,7 +890,7 @@ qboolean RE_RegisterImages_LevelLoadEnd(void)
 			{
 				// nope, so dump it...
 				//
-				ri.Printf( PRINT_DEVELOPER, S_COLOR_RED "Dumping image \"%s\"\n",pImage->imgName);
+				R_Printf( PRINT_DEVELOPER, S_COLOR_RED "Dumping image \"%s\"\n",pImage->imgName);
 
 				R_Images_DeleteImageContents(pImage);
 
@@ -912,10 +912,10 @@ qboolean RE_RegisterImages_LevelLoadEnd(void)
 //	iNumImages = R_Images_StartIteration();
 //	if (iNumImages > MAX_DRAWIMAGES)
 //	{
-//		ri.Printf( PRINT_ALL, S_COLOR_YELLOW  "Level uses %d images, old limit was MAX_DRAWIMAGES (%d)\n", iNumImages, MAX_DRAWIMAGES);
+//		R_Printf( PRINT_ALL, S_COLOR_YELLOW  "Level uses %d images, old limit was MAX_DRAWIMAGES (%d)\n", iNumImages, MAX_DRAWIMAGES);
 //	}
 
-	ri.Printf( PRINT_DEVELOPER, S_COLOR_RED "RE_RegisterImages_LevelLoadEnd(): Ok\n");
+	R_Printf( PRINT_DEVELOPER, S_COLOR_RED "RE_RegisterImages_LevelLoadEnd(): Ok\n");
 
 	GL_ResetBinds();
 
@@ -949,13 +949,13 @@ static image_t *R_FindImageFile_NoLoad(const char *name, qboolean mipmap, qboole
 		//
 		if ( strcmp( pName, "*white" ) ) {
 			if ( pImage->mipmap != !!mipmap ) {
-				ri.Printf( PRINT_ALL, S_COLOR_YELLOW  "WARNING: reused image %s with mixed mipmap parm\n", pName );
+				R_Printf( PRINT_ALL, S_COLOR_YELLOW  "WARNING: reused image %s with mixed mipmap parm\n", pName );
 			}
 			if ( pImage->allowPicmip != !!allowPicmip ) {
-				ri.Printf( PRINT_ALL, S_COLOR_YELLOW  "WARNING: reused image %s with mixed allowPicmip parm\n", pName );
+				R_Printf( PRINT_ALL, S_COLOR_YELLOW  "WARNING: reused image %s with mixed allowPicmip parm\n", pName );
 			}
 			if ( pImage->wrapClampMode != glWrapClampMode ) {
-				ri.Printf( PRINT_ALL, S_COLOR_YELLOW  "WARNING: reused image %s with mixed glWrapClampMode parm\n", pName );
+				R_Printf( PRINT_ALL, S_COLOR_YELLOW  "WARNING: reused image %s with mixed glWrapClampMode parm\n", pName );
 			}
 		}
 
@@ -1115,7 +1115,7 @@ image_t	*R_FindImageFile( const char *name, qboolean mipmap, qboolean allowPicmi
 	//
 	if ( (width&(width-1)) || (height&(height-1)) )
 	{
-		ri.Printf( PRINT_ALL, "Refusing to load non-power-2-dims(%d,%d) pic \"%s\"...\n", width,height,name );
+		R_Printf( PRINT_ALL, "Refusing to load non-power-2-dims(%d,%d) pic \"%s\"...\n", width,height,name );
 		return NULL;
 	}
 

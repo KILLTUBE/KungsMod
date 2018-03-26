@@ -45,7 +45,7 @@ void GL_Bind( image_t *image ) {
 	int texnum;
 
 	if ( !image ) {
-		ri.Printf( PRINT_WARNING, "GL_Bind: NULL image\n" );
+		R_Printf( PRINT_WARNING, "GL_Bind: NULL image\n" );
 		texnum = tr.defaultImage->texnum;
 	} else {
 		texnum = image->texnum;
@@ -78,7 +78,7 @@ void GL_SelectTexture( int unit )
 	}
 
 	if (!(unit >= 0 && unit <= 31))
-		ri.Error( ERR_DROP, "GL_SelectTexture: unit = %i", unit );
+		R_Error( ERR_DROP, "GL_SelectTexture: unit = %i", unit );
 
 	qglActiveTexture( GL_TEXTURE0 + unit );
 
@@ -226,7 +226,7 @@ void GL_State( uint32_t stateBits )
 				srcFactor = GL_SRC_ALPHA_SATURATE;
 				break;
 			default:
-				ri.Error( ERR_DROP, "GL_State: invalid src blend state bits" );
+				R_Error( ERR_DROP, "GL_State: invalid src blend state bits" );
 				break;
 			}
 
@@ -257,7 +257,7 @@ void GL_State( uint32_t stateBits )
 				dstFactor = GL_ONE_MINUS_DST_ALPHA;
 				break;
 			default:
-				ri.Error( ERR_DROP, "GL_State: invalid dst blend state bits" );
+				R_Error( ERR_DROP, "GL_State: invalid dst blend state bits" );
 				break;
 			}
 
@@ -1466,14 +1466,14 @@ void RE_StretchRaw (int x, int y, int w, int h, int cols, int rows, const byte *
 	for ( j = 0 ; ( 1 << j ) < rows ; j++ ) {
 	}
 	if ( ( 1 << i ) != cols || ( 1 << j ) != rows) {
-		ri.Error (ERR_DROP, "Draw_StretchRaw: size not a power of 2: %i by %i", cols, rows);
+		R_Error (ERR_DROP, "Draw_StretchRaw: size not a power of 2: %i by %i", cols, rows);
 	}
 
 	RE_UploadCinematic (cols, rows, data, client, dirty);
 
 	if ( r_speeds->integer ) {
 		end = ri.Milliseconds();
-		ri.Printf( PRINT_ALL, "qglTexSubImage2D %i, %i: %i msec\n", cols, rows, end - start );
+		R_Printf( PRINT_ALL, "qglTexSubImage2D %i, %i: %i msec\n", cols, rows, end - start );
 	}
 
 	// FIXME: HUGE hack
@@ -2282,7 +2282,7 @@ void RB_ShowImages( void ) {
 	qglFinish();
 
 	end = ri.Milliseconds();
-	ri.Printf( PRINT_ALL, "%i msec to draw all images\n", end - start );
+	R_Printf( PRINT_ALL, "%i msec to draw all images\n", end - start );
 
 }
 
@@ -2411,7 +2411,7 @@ static const void	*RB_SwapBuffers( const void *data ) {
 		tr.numFramesToCapture--;
 		if ( !tr.numFramesToCapture )
 		{
-			ri.Printf( PRINT_ALL, "Frames captured\n" );
+			R_Printf( PRINT_ALL, "Frames captured\n" );
 			ri.FS_FCloseFile(tr.debugFile);
 			tr.debugFile = 0;
 		}

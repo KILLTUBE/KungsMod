@@ -834,8 +834,8 @@ static void SV_InitRef( void ) {
 	memset( &ri, 0, sizeof( ri ) );
 
 	//set up the import table
-	ri.Printf = SV_RefPrintf;
-	ri.Error = Com_Error;
+	R_Printf = SV_RefPrintf;
+	R_Error = Com_Error;
 	ri.OPrintf = Com_OPrintf;
 	ri.Milliseconds = Sys_Milliseconds2; //FIXME: unix+mac need this
 	ri.Hunk_AllocateTempMemory = Hunk_AllocateTempMemory;

@@ -59,7 +59,7 @@ void ShaderEntryPtrs_Insert(const char *token, const char *p)
 	}
 	else
 	{
-		ri.Printf( PRINT_DEVELOPER, "Duplicate shader entry %s!\n",token );
+		R_Printf( PRINT_DEVELOPER, "Duplicate shader entry %s!\n",token );
 	}
 }
 

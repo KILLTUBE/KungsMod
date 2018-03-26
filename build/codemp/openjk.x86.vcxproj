@@ -496,9 +496,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\..\codemp\rd-common\tr_image_tga.cpp" />
     <ClCompile Include="..\..\codemp\rd-common\tr_noise.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\compose_images.cpp" />
-    <ClCompile Include="..\..\codemp\rd-rend2\compose_lib.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\compose_lib.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\compose_models.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\G2_API.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\G2_bolts.cpp" />

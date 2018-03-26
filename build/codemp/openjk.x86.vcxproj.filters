@@ -319,135 +319,6 @@
     <ClCompile Include="C:\XycaRend2\shared\sys\con_passive.cpp">
       <Filter>sys</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_world.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\compose_models.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\G2_API.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\G2_bolts.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\G2_bones.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\G2_misc.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\G2_surfaces.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_allocator.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_animation.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_backend.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_bsp.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_cache.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_cmds.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_curve.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_decals.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_extensions.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_extramath.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_fbo.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_flares.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_ghoul2.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_glsl.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_glsl_parse.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_image.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_imgui.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_init.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_light.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_main.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_marks.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_mesh.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_model.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_model_iqm.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_postprocess.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_scene.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_shade.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_shade_calc.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_shader.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_shadows.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_skin.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_sky.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_subs.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_surface.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_vbo.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\tr_weather.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\rd-common\tr_font.cpp">
       <Filter>rend-common</Filter>
     </ClCompile>
@@ -465,21 +336,6 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\rd-common\tr_noise.cpp">
       <Filter>rend-common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\glsl_shaders.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\compose_lib.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\matrix.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\primitives_3d.cpp">
-      <Filter>rend2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\compose_images.cpp">
-      <Filter>rend2</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\rd-rend2\imgui\MagicFile\magicfile.cpp">
       <Filter>rend2\imgui\MagicFile</Filter>
@@ -838,6 +694,150 @@
     <ClCompile Include="..\..\codemp\rd-rend2\utils_opengl\debuglines.cpp">
       <Filter>rend2\utils_opengl</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_world.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\compose_images.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\compose_lib.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\compose_models.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_API.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_bolts.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_bones.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_misc.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\G2_surfaces.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\glsl_shaders.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\matrix.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\primitives_3d.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_allocator.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_backend.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_bsp.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_cache.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_cmds.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_curve.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_decals.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_extensions.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_extramath.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_fbo.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_flares.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_ghoul2.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_glsl.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_glsl_parse.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_image.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_imgui.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_init.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_light.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_main.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_marks.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_mesh.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_model.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_model_iqm.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_postprocess.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_scene.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_shade.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_shade_calc.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_shader.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_shadows.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_skin.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_sky.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_subs.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_surface.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_vbo.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_weather.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\tr_animation.cpp">
+      <Filter>rend2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
@@ -1107,42 +1107,6 @@
     <ClInclude Include="C:\XycaRend2\shared\sys\con_local.h">
       <Filter>sys</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\compose_models.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\glext.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\iqm.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\qgl.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\tr_allocator.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\tr_cache.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\tr_extramath.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\tr_extratypes.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\tr_fbo.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\tr_local.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\tr_postprocess.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\tr_weather.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\codemp\rd-common\mdx_format.h">
       <Filter>rend-common</Filter>
     </ClInclude>
@@ -1157,33 +1121,6 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\rd-common\tr_types.h">
       <Filter>rend-common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\compose_images.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\compose_lib.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\include_ccall.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\include_console.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\include_gl.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\include_glm.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\include_imgui.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\matrix.h">
-      <Filter>rend2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\primitives_3d.h">
-      <Filter>rend2</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\rd-rend2\imgui\MagicFile\magicfile.h">
       <Filter>rend2\imgui\MagicFile</Filter>
@@ -1553,6 +1490,69 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\rd-rend2\utils_opengl\debuglines.h">
       <Filter>rend2\utils_opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\compose_images.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\compose_lib.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\compose_models.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\glext.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\include_ccall.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\include_console.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\include_gl.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\include_glm.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\include_imgui.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\iqm.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\matrix.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\primitives_3d.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\qgl.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_allocator.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_cache.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_extramath.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_extratypes.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_fbo.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_local.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_postprocess.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_weather.h">
+      <Filter>rend2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

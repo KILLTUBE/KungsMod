@@ -95,7 +95,7 @@ qboolean CModelCacheManager::LoadFile( const char *pFileName, void **ppFileBuffe
 		return qfalse;
 	}
 
-	ri.Printf( PRINT_DEVELOPER, "C_LoadFile(): Loaded %s from disk\n", pFileName );
+	R_Printf( PRINT_DEVELOPER, "C_LoadFile(): Loaded %s from disk\n", pFileName );
 
 	return qtrue;
 }
@@ -172,7 +172,7 @@ void CModelCacheManager::DeleteAll( void )
  */
 void CModelCacheManager::DumpNonPure( void )
 {
-	ri.Printf( PRINT_DEVELOPER,  "CCacheManager::DumpNonPure():\n");
+	R_Printf( PRINT_DEVELOPER,  "CCacheManager::DumpNonPure():\n");
 
 	for ( auto it = files.begin(); it != files.end(); /* empty */ )
 	{
@@ -182,7 +182,7 @@ void CModelCacheManager::DumpNonPure( void )
 		if( iInPak == -1 || iChecksum != it->iPAKChecksum )
 		{
 			/* Erase the file because it doesn't match the checksum */
-			ri.Printf( PRINT_DEVELOPER, "Dumping none pure model \"%s\"", it->path );
+			R_Printf( PRINT_DEVELOPER, "Dumping none pure model \"%s\"", it->path );
 
 			if( it->pDiskImage )
 				Z_Free( it->pDiskImage );
@@ -195,7 +195,7 @@ void CModelCacheManager::DumpNonPure( void )
 		}
 	}
 
-	ri.Printf( PRINT_DEVELOPER, "CCacheManager::DumpNonPure(): Ok\n");	
+	R_Printf( PRINT_DEVELOPER, "CCacheManager::DumpNonPure(): Ok\n");	
 }
 
 CModelCacheManager::AssetCache::iterator CModelCacheManager::FindAsset( const char *path )
@@ -234,7 +234,7 @@ qboolean CModelCacheManager::LevelLoadEnd( qboolean deleteUnusedByLevel )
 {
 	qboolean bAtLeastOneModelFreed	= qfalse;
 
-	ri.Printf( PRINT_DEVELOPER, S_COLOR_GREEN "CModelCacheManager::LevelLoadEnd():\n");
+	R_Printf( PRINT_DEVELOPER, S_COLOR_GREEN "CModelCacheManager::LevelLoadEnd():\n");
 
 	for ( auto it = files.begin(); it != files.end(); /* empty */ )
 	{
@@ -247,7 +247,7 @@ qboolean CModelCacheManager::LevelLoadEnd( qboolean deleteUnusedByLevel )
 
 		if( bDeleteThis )
 		{
-			ri.Printf( PRINT_DEVELOPER, S_COLOR_GREEN "Dumping \"%s\"", it->path);
+			R_Printf( PRINT_DEVELOPER, S_COLOR_GREEN "Dumping \"%s\"", it->path);
 			if( it->pDiskImage )
 			{
 				Z_Free( it->pDiskImage );
@@ -262,7 +262,7 @@ qboolean CModelCacheManager::LevelLoadEnd( qboolean deleteUnusedByLevel )
 		}
 	}
 
-	ri.Printf( PRINT_DEVELOPER, S_COLOR_GREEN "CModelCacheManager::LevelLoadEnd(): Ok\n");	
+	R_Printf( PRINT_DEVELOPER, S_COLOR_GREEN "CModelCacheManager::LevelLoadEnd(): Ok\n");	
 
 	return bAtLeastOneModelFreed;
 }

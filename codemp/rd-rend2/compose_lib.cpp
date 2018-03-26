@@ -4,6 +4,8 @@
 
 #if 0
 
+#if 0
+
 void				FS_FreeFile						( void *buffer ) {
 	ri.FS_FreeFile(buffer);
 }
@@ -297,6 +299,9 @@ qboolean			LowPhysicalMemory				( void ) {
 //ojk::ISavedGame* get_saved_game() {
 //	return ri.get_saved_game();
 //}
+
+#endif
+
 
 void R_Printf(int printLevel, const char *fmt, ...) {
 	char buf[4096];

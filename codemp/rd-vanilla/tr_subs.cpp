@@ -33,7 +33,7 @@ void QDECL Com_Printf( const char *msg, ... )
 	Q_vsnprintf(text, sizeof(text), msg, argptr);
 	va_end(argptr);
 
-	ri.Printf(PRINT_ALL, "%s", text);
+	R_Printf(PRINT_ALL, "%s", text);
 }
 
 void QDECL Com_OPrintf( const char *msg, ... )
@@ -57,7 +57,7 @@ void QDECL Com_Error( int level, const char *error, ... )
 	Q_vsnprintf(text, sizeof(text), error, argptr);
 	va_end(argptr);
 
-	ri.Error(level, "%s", text);
+	R_Error(level, "%s", text);
 }
 
 // HUNK

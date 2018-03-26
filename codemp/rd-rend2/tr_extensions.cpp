@@ -448,7 +448,7 @@ void GLimp_InitCoreFunctions()
 		Q_strncpyz( version, (const char *) qglGetString (GL_SHADING_LANGUAGE_VERSION), sizeof( version ) );
 		sscanf(version, "%d.%d", &glRefConfig.glslMajorVersion, &glRefConfig.glslMinorVersion);
 
-		ri.Printf(PRINT_ALL, "...using GLSL version %s\n", version);
+		R_Printf(PRINT_ALL, "...using GLSL version %s\n", version);
 	}
 
 	// Framebuffer and renderbuffers
@@ -555,11 +555,11 @@ void GLimp_InitExtensions()
 		if (r_ext_compressed_textures->integer)
 			glRefConfig.textureCompression |= TCR_LATC;
 
-		ri.Printf(PRINT_ALL, result[r_ext_compressed_textures->integer ? 1 : 0], extension);
+		R_Printf(PRINT_ALL, result[r_ext_compressed_textures->integer ? 1 : 0], extension);
 	}
 	else
 	{
-		ri.Printf(PRINT_ALL, result[2], extension);
+		R_Printf(PRINT_ALL, result[2], extension);
 	}
 
 	// GL_ARB_texture_compression_bptc
@@ -569,11 +569,11 @@ void GLimp_InitExtensions()
 		if (r_ext_compressed_textures->integer >= 2)
 			glRefConfig.textureCompression |= TCR_BPTC;
 
-		ri.Printf(PRINT_ALL, result[(r_ext_compressed_textures->integer >= 2) ? 1 : 0], extension);
+		R_Printf(PRINT_ALL, result[(r_ext_compressed_textures->integer >= 2) ? 1 : 0], extension);
 	}
 	else
 	{
-		ri.Printf(PRINT_ALL, result[2], extension);
+		R_Printf(PRINT_ALL, result[2], extension);
 	}
 
 	// GL_ARB_texture_storage
@@ -589,11 +589,11 @@ void GLimp_InitExtensions()
 
 		glRefConfig.immutableTextures = loaded;
 
-		ri.Printf(PRINT_ALL, result[loaded], extension);
+		R_Printf(PRINT_ALL, result[loaded], extension);
 	}
 	else
 	{
-		ri.Printf(PRINT_ALL, result[2], extension);
+		R_Printf(PRINT_ALL, result[2], extension);
 	}
 
 	// GL_ARB_buffer_storage
@@ -613,11 +613,11 @@ void GLimp_InitExtensions()
 		}
 
 		glRefConfig.immutableBuffers = loaded;
-		ri.Printf(PRINT_ALL, result[loaded], extension);
+		R_Printf(PRINT_ALL, result[loaded], extension);
 	}
 	else
 	{
-		ri.Printf(PRINT_ALL, result[2], extension);
+		R_Printf(PRINT_ALL, result[2], extension);
 	}
 
 	// GL_ARB_debug_output
@@ -639,7 +639,7 @@ void GLimp_InitExtensions()
 		}
 
 		glRefConfig.debugContext = loaded;
-		ri.Printf(PRINT_ALL, result[loaded], extension);
+		R_Printf(PRINT_ALL, result[loaded], extension);
 	}
 
 	// GL_ARB_timer_query
@@ -654,7 +654,7 @@ void GLimp_InitExtensions()
 
 		glRefConfig.timerQuery = loaded;
 
-		ri.Printf(PRINT_ALL, result[loaded], extension);
+		R_Printf(PRINT_ALL, result[loaded], extension);
 	}
 
 	// use float lightmaps?

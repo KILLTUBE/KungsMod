@@ -90,7 +90,7 @@ static CRenderableSurface *AllocGhoul2RenderableSurface()
 {
 	if ( currentRenderSurfIndex >= MAX_RENDERABLE_SURFACES )
 	{
-		ri.Error( ERR_DROP, "AllocRenderableSurface: Reached maximum number of Ghoul2 renderable surfaces (%d)", MAX_RENDERABLE_SURFACES );
+		R_Error( ERR_DROP, "AllocRenderableSurface: Reached maximum number of Ghoul2 renderable surfaces (%d)", MAX_RENDERABLE_SURFACES );
 		return NULL;
 	}
 
