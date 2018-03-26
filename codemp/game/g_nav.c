@@ -22,6 +22,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "b_local.h"
 #include "g_nav.h"
+#include "server/sv_nav.h"
 
 extern qboolean G_EntIsUnlockedDoor( int entityNum );
 extern qboolean G_EntIsDoor( int entityNum );
@@ -374,7 +375,7 @@ NAV_FindClosestWaypointForEnt
 int NAV_FindClosestWaypointForEnt( gentity_t *ent, int targWp )
 {
 	//FIXME: Take the target into account
-	return trap->Nav_GetNearestNode( (sharedEntity_t *)ent, ent->waypoint, NF_CLEAR_PATH, targWp );
+	return SV_Nav_GetNearestNode( (sharedEntity_t *)ent, ent->waypoint, NF_CLEAR_PATH, targWp );
 }
 
 int NAV_FindClosestWaypointForPoint( gentity_t *ent, vec3_t point )
@@ -396,7 +397,7 @@ int NAV_FindClosestWaypointForPoint( gentity_t *ent, vec3_t point )
 	marker->clipmask = ent->clipmask;
 	marker->waypoint = WAYPOINT_NONE;
 
-	bestWP = trap->Nav_GetNearestNode( (sharedEntity_t *)marker, marker->waypoint, NF_CLEAR_PATH, WAYPOINT_NONE );
+	bestWP = SV_Nav_GetNearestNode( (sharedEntity_t *)marker, marker->waypoint, NF_CLEAR_PATH, WAYPOINT_NONE );
 
 	G_FreeEntity( marker );
 
@@ -422,7 +423,7 @@ int NAV_FindClosestWaypointForPoint2( vec3_t point )
 	marker->clipmask = MASK_NPCSOLID;
 	marker->waypoint = WAYPOINT_NONE;
 
-	bestWP = trap->Nav_GetNearestNode( (sharedEntity_t *)marker, marker->waypoint, NF_CLEAR_PATH, WAYPOINT_NONE );
+	bestWP = SV_Nav_GetNearestNode( (sharedEntity_t *)marker, marker->waypoint, NF_CLEAR_PATH, WAYPOINT_NONE );
 
 	G_FreeEntity( marker );
 
@@ -998,7 +999,7 @@ int NAV_TestBestNode( gentity_t *self, int startID, int endID, qboolean failEdge
 	int		clipmask = (NPCS.NPC->clipmask&~CONTENTS_BODY)|CONTENTS_BOTCLIP;
 
 	//get the position for the test choice
-	trap->Nav_GetNodePosition( endID, end );
+	SV_Nav_GetNodePosition( endID, end );
 
 	//Offset the step height
 	VectorSet( mins, self->r.mins[0], self->r.mins[1], self->r.mins[2] + STEPSIZE );
@@ -1062,7 +1063,7 @@ int NAV_TestBestNode( gentity_t *self, int startID, int endID, qboolean failEdge
 				//path is blocked by a locked door, mark it as such if instructed to do so
 				if ( failEdge )
 				{
-					trap->Nav_AddFailedEdge( self->s.number, startID, endID );
+					SV_Nav_AddFailedEdge( self->s.number, startID, endID );
 				}
 			}
 			else if ( G_EntIsBreakable( blocker->s.number ) )
@@ -1070,7 +1071,7 @@ int NAV_TestBestNode( gentity_t *self, int startID, int endID, qboolean failEdge
 				//path is blocked by a breakable, mark it as such if instructed to do so
 				if ( failEdge )
 				{
-					trap->Nav_AddFailedEdge( self->s.number, startID, endID );
+					SV_Nav_AddFailedEdge( self->s.number, startID, endID );
 				}
 			}
 			else if ( G_EntIsRemovableUsable( blocker->s.number ) )
@@ -1078,7 +1079,7 @@ int NAV_TestBestNode( gentity_t *self, int startID, int endID, qboolean failEdge
 				//path is blocked by a removable usable, mark it as such if instructed to do so
 				if ( failEdge )
 				{
-					trap->Nav_AddFailedEdge( self->s.number, startID, endID );
+					SV_Nav_AddFailedEdge( self->s.number, startID, endID );
 				}
 			}
 			else if ( blocker->targetname && blocker->s.solid == SOLID_BMODEL && ((blocker->r.contents&CONTENTS_MONSTERCLIP)|| (blocker->r.contents&CONTENTS_BOTCLIP)) )
@@ -1086,7 +1087,7 @@ int NAV_TestBestNode( gentity_t *self, int startID, int endID, qboolean failEdge
 				//path is blocked by a removable brushent, mark it as such if instructed to do so
 				if ( failEdge )
 				{
-					trap->Nav_AddFailedEdge( self->s.number, startID, endID );
+					SV_Nav_AddFailedEdge( self->s.number, startID, endID );
 				}
 			}
 		}
@@ -1104,7 +1105,7 @@ NAV_GetNearestNode
 
 int NAV_GetNearestNode( gentity_t *self, int lastNode )
 {
-	return trap->Nav_GetNearestNode( (sharedEntity_t *)self, lastNode, NF_CLEAR_PATH, WAYPOINT_NONE );
+	return SV_Nav_GetNearestNode( (sharedEntity_t *)self, lastNode, NF_CLEAR_PATH, WAYPOINT_NONE );
 }
 
 /*
@@ -1161,7 +1162,7 @@ int	NAV_MoveToGoal( gentity_t *self, navInfo_t *info )
 	if ( ( self->waypoint = NAV_GetNearestNode( self, self->lastWaypoint ) ) == WAYPOINT_NONE )
 		return WAYPOINT_NONE;
 
-	bestNode = trap->Nav_GetBestNode( self->waypoint, self->NPC->goalEntity->waypoint, NODE_NONE );
+	bestNode = SV_Nav_GetBestNode( self->waypoint, self->NPC->goalEntity->waypoint, NODE_NONE );
 
 	if ( bestNode == WAYPOINT_NONE )
 	{
@@ -1169,8 +1170,8 @@ int	NAV_MoveToGoal( gentity_t *self, navInfo_t *info )
 		{
 			vec3_t	neworigin, torigin;
 
-			trap->Nav_GetNodePosition( self->NPC->goalEntity->waypoint, torigin );
-			trap->Nav_GetNodePosition( self->waypoint, neworigin );
+			SV_Nav_GetNodePosition( self->NPC->goalEntity->waypoint, torigin );
+			SV_Nav_GetNodePosition( self->waypoint, neworigin );
 
 			G_DrawNode( torigin, NODE_GOAL );
 			G_DrawNode( neworigin, NODE_GOAL );
@@ -1186,8 +1187,8 @@ int	NAV_MoveToGoal( gentity_t *self, navInfo_t *info )
 	//trace_t	trace;
 
 	//Get this position
-	trap->Nav_GetNodePosition( bestNode, origin );
-	trap->Nav_GetNodePosition( self->waypoint, end );
+	SV_Nav_GetNodePosition( bestNode, origin );
+	SV_Nav_GetNodePosition( self->waypoint, end );
 
 	//Basically, see if the path we have isn't helping
 	//if ( NAV_MicroError( origin, end ) )
@@ -1204,7 +1205,7 @@ int	NAV_MoveToGoal( gentity_t *self, navInfo_t *info )
 		{
 			//Just move towards our current waypoint
 			bestNode = self->waypoint;
-			trap->Nav_GetNodePosition( bestNode, origin );
+			SV_Nav_GetNodePosition( bestNode, origin );
 		}
 	}
 
@@ -1221,13 +1222,13 @@ int	NAV_MoveToGoal( gentity_t *self, navInfo_t *info )
 		vec3_t	dest, start;
 
 		//Get the positions
-		trap->Nav_GetNodePosition( self->NPC->goalEntity->waypoint, dest );
-		trap->Nav_GetNodePosition( bestNode, start );
+		SV_Nav_GetNodePosition( self->NPC->goalEntity->waypoint, dest );
+		SV_Nav_GetNodePosition( bestNode, start );
 
 		//Draw the route
 		G_DrawNode( start, NODE_START );
 		G_DrawNode( dest, NODE_GOAL );
-		trap->Nav_ShowPath( self->waypoint, self->NPC->goalEntity->waypoint );
+		SV_Nav_ShowPath( self->waypoint, self->NPC->goalEntity->waypoint );
 	}
 
 	return bestNode;
@@ -1325,7 +1326,7 @@ void SP_waypoint ( gentity_t *ent )
 
 		radius = waypoint_getRadius( ent );
 
-		ent->health = trap->Nav_AddRawPoint( ent->r.currentOrigin, ent->spawnflags, radius );
+		ent->health = SV_Nav_AddRawPoint( ent->r.currentOrigin, ent->spawnflags, radius );
 		NAV_StoreWaypoint( ent );
 		G_FreeEntity(ent);
 		return;
@@ -1364,7 +1365,7 @@ void SP_waypoint_small (gentity_t *ent)
 			}
 		}
 
-		ent->health = trap->Nav_AddRawPoint( ent->r.currentOrigin, ent->spawnflags, 2 );
+		ent->health = SV_Nav_AddRawPoint( ent->r.currentOrigin, ent->spawnflags, 2 );
 		NAV_StoreWaypoint( ent );
 		G_FreeEntity(ent);
 		return;
@@ -1594,14 +1595,14 @@ void Svcmd_Nav_f( void )
 
 		if ( Q_stricmp( cmd, "testgoal" ) == 0 )
 		{
-			NAVDEBUG_curGoal = trap->Nav_GetNearestNode( (sharedEntity_t *)&g_entities[0], g_entities[0].waypoint, NF_CLEAR_PATH, WAYPOINT_NONE );
+			NAVDEBUG_curGoal = SV_Nav_GetNearestNode( (sharedEntity_t *)&g_entities[0], g_entities[0].waypoint, NF_CLEAR_PATH, WAYPOINT_NONE );
 		}
 	}
 	else if ( Q_stricmp( cmd, "totals" ) == 0 )
 	{
 		Com_Printf("Navigation Totals:\n");
 		Com_Printf("------------------\n");
-		Com_Printf("Total Nodes:         %d\n", trap->Nav_GetNumNodes() );
+		Com_Printf("Total Nodes:         %d\n", SV_Nav_GetNumNodes() );
 		Com_Printf("Total Combat Points: %d\n", level.numCombatPoints );
 	}
 	else
@@ -1784,7 +1785,7 @@ void NAV_CalculatePaths( const char *filename, int checksum )
 //			if ( !NAV_WaypointsTooFar( ent, target ) )
 #endif
 			{
-				trap->Nav_HardConnect( tempWaypointList[i].nodeID, tempWaypointList[target].nodeID );
+				SV_Nav_HardConnect( tempWaypointList[i].nodeID, tempWaypointList[target].nodeID );
 			}
 		}
 
@@ -1797,7 +1798,7 @@ void NAV_CalculatePaths( const char *filename, int checksum )
 //			if ( !NAV_WaypointsTooFar( ent, target ) )
 #endif
 			{
-				trap->Nav_HardConnect( tempWaypointList[i].nodeID, tempWaypointList[target].nodeID );
+				SV_Nav_HardConnect( tempWaypointList[i].nodeID, tempWaypointList[target].nodeID );
 			}
 		}
 
@@ -1810,7 +1811,7 @@ void NAV_CalculatePaths( const char *filename, int checksum )
 //			if ( !NAV_WaypointsTooFar( ent, target ) )
 #endif
 			{
-				trap->Nav_HardConnect( tempWaypointList[i].nodeID, tempWaypointList[target].nodeID );
+				SV_Nav_HardConnect( tempWaypointList[i].nodeID, tempWaypointList[target].nodeID );
 			}
 		}
 
@@ -1823,7 +1824,7 @@ void NAV_CalculatePaths( const char *filename, int checksum )
 //			if ( !NAV_WaypointsTooFar( ent, target ) )
 #endif
 			{
-				trap->Nav_HardConnect( tempWaypointList[i].nodeID, tempWaypointList[target].nodeID );
+				SV_Nav_HardConnect( tempWaypointList[i].nodeID, tempWaypointList[target].nodeID );
 			}
 		}
 	}
@@ -1838,17 +1839,17 @@ void NAV_CalculatePaths( const char *filename, int checksum )
 	*/
 
 	//Now check all blocked edges, mark failed ones
-	trap->Nav_CheckBlockedEdges();
+	SV_Nav_CheckBlockedEdges();
 
-	trap->Nav_SetPathsCalculated(qfalse);
+	SV_Nav_SetPathsCalculated(qfalse);
 	//navigator.pathsCalculated = qfalse;
 
 	//Calculate the paths based on the supplied waypoints
-	//trap->Nav_CalculatePaths();
+	//SV_Nav_CalculatePaths();
 
 	//Save the resulting information
 	/*
-	if ( trap->Nav_Save( filename, checksum ) == qfalse )
+	if ( SV_Nav_Save( filename, checksum ) == qfalse )
 	{
 		Com_Printf("Unable to save navigations data for map \"%s\" (checksum:%d)\n", filename, checksum );
 	}
@@ -1870,7 +1871,7 @@ NAV_Shutdown
 
 void NAV_Shutdown( void )
 {
-	trap->Nav_Free();
+	SV_Nav_Free();
 }
 
 /*
@@ -1885,19 +1886,19 @@ void NAV_ShowDebugInfo( void )
 
 	if ( NAVDEBUG_showNodes )
 	{
-		trap->Nav_ShowNodes();
+		SV_Nav_ShowNodes();
 	}
 
 	if ( NAVDEBUG_showEdges )
 	{
-		trap->Nav_ShowEdges();
+		SV_Nav_ShowEdges();
 	}
 
 	if ( NAVDEBUG_showTestPath )
 	{
 		//Get the nearest node to the player
-		int	nearestNode = trap->Nav_GetNearestNode( (sharedEntity_t *)&g_entities[0], g_entities[0].waypoint, NF_ANY, WAYPOINT_NONE );
-		int	testNode = trap->Nav_GetBestNode( nearestNode, NAVDEBUG_curGoal, NODE_NONE );
+		int	nearestNode = SV_Nav_GetNearestNode( (sharedEntity_t *)&g_entities[0], g_entities[0].waypoint, NF_ANY, WAYPOINT_NONE );
+		int	testNode = SV_Nav_GetBestNode( nearestNode, NAVDEBUG_curGoal, NODE_NONE );
 		vec3_t	dest, start;
 
 		nearestNode = NAV_TestBestNode( &g_entities[0], nearestNode, testNode, qfalse );
@@ -1905,12 +1906,12 @@ void NAV_ShowDebugInfo( void )
 		//Show the connection
 
 		//Get the positions
-		trap->Nav_GetNodePosition( NAVDEBUG_curGoal, dest );
-		trap->Nav_GetNodePosition( nearestNode, start );
+		SV_Nav_GetNodePosition( NAVDEBUG_curGoal, dest );
+		SV_Nav_GetNodePosition( nearestNode, start );
 
 		G_DrawNode( start, NODE_START );
 		G_DrawNode( dest, NODE_GOAL );
-		trap->Nav_ShowPath( nearestNode, NAVDEBUG_curGoal );
+		SV_Nav_ShowPath( nearestNode, NAVDEBUG_curGoal );
 	}
 
 	if ( NAVDEBUG_showCombatPoints )
@@ -1935,7 +1936,7 @@ NAV_FindPlayerWaypoint
 
 void NAV_FindPlayerWaypoint( int clNum )
 {
-	g_entities[clNum].waypoint = trap->Nav_GetNearestNode( (sharedEntity_t *)&g_entities[clNum], g_entities[clNum].lastWaypoint, NF_CLEAR_PATH, WAYPOINT_NONE );
+	g_entities[clNum].waypoint = SV_Nav_GetNearestNode( (sharedEntity_t *)&g_entities[clNum], g_entities[clNum].lastWaypoint, NF_CLEAR_PATH, WAYPOINT_NONE );
 }
 
 //

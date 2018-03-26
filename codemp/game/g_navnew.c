@@ -22,6 +22,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "b_local.h"
 #include "g_nav.h"
+#include "server/sv_nav.h"
 
 qboolean NAV_CheckAhead( gentity_t *self, vec3_t end, trace_t *trace, int clipmask );
 qboolean NAV_TestForBlocked( gentity_t *self, gentity_t *goal, gentity_t *blocker, float distance, int *flags );
@@ -554,8 +555,8 @@ qboolean NAVNEW_TestNodeConnectionBlocked( int wp1, int wp2, gentity_t *ignoreEn
 	VectorSet(playerMins, -15, -15, DEFAULT_MINS_2);
 	VectorSet(playerMaxs, 15, 15, DEFAULT_MAXS_2);
 
-	trap->Nav_GetNodePosition( wp1, pos1 );
-	trap->Nav_GetNodePosition( wp2, pos2 );
+	SV_Nav_GetNodePosition( wp1, pos1 );
+	SV_Nav_GetNodePosition( wp2, pos2 );
 
 	if ( !checkWorld )
 	{
@@ -624,10 +625,10 @@ int	NAVNEW_MoveToGoal( gentity_t *self, navInfo_t *info )
 	if ( self->noWaypointTime > level.time &&
 		self->NPC->goalEntity->noWaypointTime > level.time )
 	{//just use current waypoints
-		bestNode = trap->Nav_GetBestNodeAltRoute2( self->waypoint, self->NPC->goalEntity->waypoint, bestNode );
+		bestNode = SV_Nav_GetBestNodeAltRoute2( self->waypoint, self->NPC->goalEntity->waypoint, bestNode );
 	}
 	//FIXME!!!!: this is making them wiggle back and forth between waypoints
-	else if ( (bestNode = trap->Nav_GetBestPathBetweenEnts( (sharedEntity_t *)self, (sharedEntity_t *)self->NPC->goalEntity, NF_CLEAR_PATH )) == NODE_NONE )//!NAVNEW_GetWaypoints( self, qtrue ) )
+	else if ( (bestNode = SV_Nav_GetBestPathBetweenEnts( (sharedEntity_t *)self, (sharedEntity_t *)self->NPC->goalEntity, NF_CLEAR_PATH )) == NODE_NONE )//!NAVNEW_GetWaypoints( self, qtrue ) )
 	{//one of us didn't have a valid waypoint!
 		if ( self->waypoint == NODE_NONE )
 		{//don't even try to find one again for a bit
@@ -651,7 +652,7 @@ int	NAVNEW_MoveToGoal( gentity_t *self, navInfo_t *info )
 	{
 		/*inBestWP = */inGoalWP = qfalse;
 		/*
-		bestNode = trap->Nav_GetBestNodeAltRoute( self->waypoint, self->NPC->goalEntity->waypoint, bestNode );
+		bestNode = SV_Nav_GetBestNodeAltRoute( self->waypoint, self->NPC->goalEntity->waypoint, bestNode );
 		*/
 
 		if ( bestNode == WAYPOINT_NONE )
@@ -670,17 +671,17 @@ int	NAVNEW_MoveToGoal( gentity_t *self, navInfo_t *info )
 			if ( setBlockedInfo )
 			{
 				self->NPC->aiFlags |= NPCAI_BLOCKED;
-				trap->Nav_GetNodePosition( oldBestNode, NPCInfo->blockedDest );
+				SV_Nav_GetNodePosition( oldBestNode, NPCInfo->blockedDest );
 			}
 		}
 		*/
-		trap->Nav_GetNodePosition( bestNode, origin );
+		SV_Nav_GetNodePosition( bestNode, origin );
 		/*
 		if ( !goalWPFailed )
 		{//we haven't already tried to go straight to goal or goal's wp
 			if ( bestNode == self->NPC->goalEntity->waypoint )
 			{//our bestNode is the goal's wp
-				if ( NAV_HitNavGoal( self->r.currentOrigin, self->r.mins, self->r.maxs, origin, trap->Nav_GetNodeRadius( bestNode ), FlyingCreature( self ) ) )
+				if ( NAV_HitNavGoal( self->r.currentOrigin, self->r.mins, self->r.maxs, origin, SV_Nav_GetNodeRadius( bestNode ), FlyingCreature( self ) ) )
 				{//we're in the goal's wp
 					inGoalWP = qtrue;
 					//we're in the goalEntity's waypoint already
@@ -696,9 +697,9 @@ int	NAVNEW_MoveToGoal( gentity_t *self, navInfo_t *info )
 		{//not heading straight for goal
 			if ( bestNode == self->waypoint )
 			{//we know it's clear or architecture
-				//trap->Nav_GetNodePosition( self->waypoint, origin );
+				//SV_Nav_GetNodePosition( self->waypoint, origin );
 				/*
-				if ( NAV_HitNavGoal( self->r.currentOrigin, self->r.mins, self->r.maxs, origin, trap->Nav_GetNodeRadius( bestNode ), FlyingCreature( self ) ) )
+				if ( NAV_HitNavGoal( self->r.currentOrigin, self->r.mins, self->r.maxs, origin, SV_Nav_GetNodeRadius( bestNode ), FlyingCreature( self ) ) )
 				{//we're in the wp we're heading for already
 					inBestWP = qtrue;
 				}
@@ -712,8 +713,8 @@ int	NAVNEW_MoveToGoal( gentity_t *self, navInfo_t *info )
 				if ( bestNode == self->waypoint )
 				{//we fell back to our waypoint, reset the origin
 					self->NPC->aiFlags |= NPCAI_BLOCKED;
-					trap->Nav_GetNodePosition( oldBestNode, NPCS.NPCInfo->blockedDest );
-					trap->Nav_GetNodePosition( bestNode, origin );
+					SV_Nav_GetNodePosition( oldBestNode, NPCS.NPCInfo->blockedDest );
+					SV_Nav_GetNodePosition( bestNode, origin );
 				}
 			}
 		}
@@ -732,7 +733,7 @@ int	NAVNEW_MoveToGoal( gentity_t *self, navInfo_t *info )
 		{//blocked by an ent
 			if ( inGoalWP )
 			{//we were heading straight for the goal, head for the goal's wp instead
-				trap->Nav_GetNodePosition( bestNode, origin );
+				SV_Nav_GetNodePosition( bestNode, origin );
 				foundClearPath = NAVNEW_AvoidCollision( self, self->NPC->goalEntity, &tempInfo, setBlockedInfo, 5 );
 			}
 		}
@@ -758,7 +759,7 @@ int	NAVNEW_MoveToGoal( gentity_t *self, navInfo_t *info )
 			if ( setBlockedInfo )
 			{
 				self->NPC->aiFlags |= NPCAI_BLOCKED;
-				trap->Nav_GetNodePosition( bestNode, NPCS.NPCInfo->blockedDest );
+				SV_Nav_GetNodePosition( bestNode, NPCS.NPCInfo->blockedDest );
 			}
 			//Only set blocked info first time
 			setBlockedInfo = qfalse;
@@ -768,7 +769,7 @@ int	NAVNEW_MoveToGoal( gentity_t *self, navInfo_t *info )
 				if ( self->waypoint == self->NPC->goalEntity->waypoint )
 				{//our waypoint is our goal's waypoint, nothing we can do
 					//remember that this node is blocked
-					trap->Nav_AddFailedNode( (sharedEntity_t *)self, self->waypoint );
+					SV_Nav_AddFailedNode( (sharedEntity_t *)self, self->waypoint );
 					goto failed;
 				}
 				else
@@ -784,10 +785,10 @@ int	NAVNEW_MoveToGoal( gentity_t *self, navInfo_t *info )
 					//			between my waypoint and the bestNode... I could be off
 					//			that path because of collision avoidance...
 					if ( d_patched.integer &&//use patch-style navigation
- 						( !trap->Nav_NodesAreNeighbors( self->waypoint, bestNode )
+ 						( !SV_Nav_NodesAreNeighbors( self->waypoint, bestNode )
 						|| NAVNEW_TestNodeConnectionBlocked( self->waypoint, bestNode, self, self->NPC->goalEntity->s.number, qfalse, qtrue ) ) )
 					{//the direct path between these 2 nodes is blocked by an ent
-						trap->Nav_AddFailedEdge( self->s.number, self->waypoint, bestNode );
+						SV_Nav_AddFailedEdge( self->s.number, self->waypoint, bestNode );
 					}
 					bestNode = self->waypoint;
 				}
@@ -802,10 +803,10 @@ int	NAVNEW_MoveToGoal( gentity_t *self, navInfo_t *info )
 				if ( d_altRoutes.integer )
 				{
 					//remember that this node is blocked
-					trap->Nav_AddFailedNode( (sharedEntity_t *)self, self->waypoint );
+					SV_Nav_AddFailedNode( (sharedEntity_t *)self, self->waypoint );
 					//Now we should get our waypoints again
 					//FIXME: cache the trace-data for subsequent calls as only the route info would have changed
-					//if ( (bestNode = trap->Nav_GetBestPathBetweenEnts( self, self->NPC->goalEntity, NF_CLEAR_PATH )) == NODE_NONE )//!NAVNEW_GetWaypoints( self, qfalse ) )
+					//if ( (bestNode = SV_Nav_GetBestPathBetweenEnts( self, self->NPC->goalEntity, NF_CLEAR_PATH )) == NODE_NONE )//!NAVNEW_GetWaypoints( self, qfalse ) )
 					{//one of our waypoints is WAYPOINT_NONE now
 						goto failed;
 					}
@@ -831,21 +832,21 @@ int	NAVNEW_MoveToGoal( gentity_t *self, navInfo_t *info )
 		vec3_t	dest, start;
 
 		//Get the positions
-		trap->Nav_GetNodePosition( self->NPC->goalEntity->waypoint, dest );
-		trap->Nav_GetNodePosition( bestNode, start );
+		SV_Nav_GetNodePosition( self->NPC->goalEntity->waypoint, dest );
+		SV_Nav_GetNodePosition( bestNode, start );
 
 		//Draw the route
 		G_DrawNode( start, NODE_START );
 		if ( bestNode != self->waypoint )
 		{
 			vec3_t	wpPos;
-			trap->Nav_GetNodePosition( self->waypoint, wpPos );
+			SV_Nav_GetNodePosition( self->waypoint, wpPos );
 			G_DrawNode( wpPos, NODE_NAVGOAL );
 		}
 		G_DrawNode( dest, NODE_GOAL );
 		G_DrawEdge( dest, self->NPC->goalEntity->r.currentOrigin, EDGE_PATH );
 		G_DrawNode( self->NPC->goalEntity->r.currentOrigin, NODE_GOAL );
-		trap->Nav_ShowPath( bestNode, self->NPC->goalEntity->waypoint );
+		SV_Nav_ShowPath( bestNode, self->NPC->goalEntity->waypoint );
 	}
 
 	self->NPC->shoveCount = 0;
@@ -862,7 +863,7 @@ failed:
 	//		closest clearpath waypoints, ranked.  If the first set fails, try the rest
 	//		until there are no alternatives.
 
-	trap->Nav_GetNodePosition( self->waypoint, origin );
+	SV_Nav_GetNodePosition( self->waypoint, origin );
 
 	//do this to avoid ping-ponging?
 	return WAYPOINT_NONE;

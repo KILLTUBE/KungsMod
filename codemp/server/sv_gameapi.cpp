@@ -567,171 +567,171 @@ static int SV_ICARUS_GetVectorVariable( const char *name, const vec3_t value ) {
 	return Q3_GetVectorVariable( name, (float *)value );
 }
 
-static void SV_Nav_Init( void ) {
+CCALL void SV_Nav_Init( void ) {
 	navigator.Init();
 }
 
-static void SV_Nav_Free( void ) {
+CCALL void SV_Nav_Free( void ) {
 	navigator.Free();
 }
 
-static qboolean SV_Nav_Load( const char *filename, int checksum ) {
+CCALL qboolean SV_Nav_Load( const char *filename, int checksum ) {
 	return (qboolean)navigator.Load( filename, checksum );
 }
 
-static qboolean SV_Nav_Save( const char *filename, int checksum ) {
+CCALL qboolean SV_Nav_Save( const char *filename, int checksum ) {
 	return (qboolean)navigator.Save( filename, checksum );
 }
 
-static int SV_Nav_AddRawPoint( vec3_t point, int flags, int radius ) {
+CCALL int SV_Nav_AddRawPoint( vec3_t point, int flags, int radius ) {
 	return navigator.AddRawPoint( point, flags, radius );
 }
 
-static void SV_Nav_CalculatePaths( qboolean recalc ) {
+CCALL void SV_Nav_CalculatePaths( qboolean recalc ) {
 	navigator.CalculatePaths( recalc );
 }
 
-static void SV_Nav_HardConnect( int first, int second ) {
+CCALL void SV_Nav_HardConnect( int first, int second ) {
 	navigator.HardConnect( first, second );
 }
 
-static void SV_Nav_ShowNodes( void ) {
+CCALL void SV_Nav_ShowNodes( void ) {
 	navigator.ShowNodes();
 }
 
-static void SV_Nav_ShowEdges( void ) {
+CCALL void SV_Nav_ShowEdges( void ) {
 	navigator.ShowEdges();
 }
 
-static void SV_Nav_ShowPath( int start, int end ) {
+CCALL void SV_Nav_ShowPath( int start, int end ) {
 	navigator.ShowPath( start, end );
 }
 
-static int SV_Nav_GetNearestNode( sharedEntity_t *ent, int lastID, int flags, int targetID ) {
+CCALL int SV_Nav_GetNearestNode( sharedEntity_t *ent, int lastID, int flags, int targetID ) {
 	return navigator.GetNearestNode( ent, lastID, flags, targetID );
 }
 
-static int SV_Nav_GetBestNode( int startID, int endID, int rejectID ) {
+CCALL int SV_Nav_GetBestNode( int startID, int endID, int rejectID ) {
 	return navigator.GetBestNode( startID, endID, rejectID );
 }
 
-static int SV_Nav_GetNodePosition( int nodeID, vec3_t out ) {
+CCALL int SV_Nav_GetNodePosition( int nodeID, vec3_t out ) {
 	return navigator.GetNodePosition( nodeID, out );
 }
 
-static int SV_Nav_GetNodeNumEdges( int nodeID ) {
+CCALL int SV_Nav_GetNodeNumEdges( int nodeID ) {
 	return navigator.GetNodeNumEdges( nodeID );
 }
 
-static int SV_Nav_GetNodeEdge( int nodeID, int edge ) {
+CCALL int SV_Nav_GetNodeEdge( int nodeID, int edge ) {
 	return navigator.GetNodeEdge( nodeID, edge );
 }
 
-static int SV_Nav_GetNumNodes( void ) {
+CCALL int SV_Nav_GetNumNodes( void ) {
 	return navigator.GetNumNodes();
 }
 
-static qboolean SV_Nav_Connected( int startID, int endID ) {
+CCALL qboolean SV_Nav_Connected( int startID, int endID ) {
 	return (qboolean)navigator.Connected( startID, endID );
 }
 
-static int SV_Nav_GetPathCost( int startID, int endID ) {
+CCALL int SV_Nav_GetPathCost( int startID, int endID ) {
 	return navigator.GetPathCost( startID, endID );
 }
 
-static int SV_Nav_GetEdgeCost( int startID, int endID ) {
+CCALL int SV_Nav_GetEdgeCost( int startID, int endID ) {
 	return navigator.GetEdgeCost( startID, endID );
 }
 
-static int SV_Nav_GetProjectedNode( vec3_t origin, int nodeID ) {
+CCALL int SV_Nav_GetProjectedNode( vec3_t origin, int nodeID ) {
 	return navigator.GetProjectedNode( origin, nodeID );
 }
 
-static void SV_Nav_CheckFailedNodes( sharedEntity_t *ent ) {
+CCALL void SV_Nav_CheckFailedNodes( sharedEntity_t *ent ) {
 	navigator.CheckFailedNodes( ent );
 }
 
-static void SV_Nav_AddFailedNode( sharedEntity_t *ent, int nodeID ) {
+CCALL void SV_Nav_AddFailedNode( sharedEntity_t *ent, int nodeID ) {
 	navigator.AddFailedNode( ent, nodeID );
 }
 
-static qboolean SV_Nav_NodeFailed( sharedEntity_t *ent, int nodeID ) {
+CCALL qboolean SV_Nav_NodeFailed( sharedEntity_t *ent, int nodeID ) {
 	return navigator.NodeFailed( ent, nodeID );
 }
 
-static qboolean SV_Nav_NodesAreNeighbors( int startID, int endID ) {
+CCALL qboolean SV_Nav_NodesAreNeighbors( int startID, int endID ) {
 	return navigator.NodesAreNeighbors( startID, endID );
 }
 
-static void SV_Nav_ClearFailedEdge( failedEdge_t *failedEdge ) {
+CCALL void SV_Nav_ClearFailedEdge( failedEdge_t *failedEdge ) {
 	navigator.ClearFailedEdge( failedEdge );
 }
 
-static void SV_Nav_ClearAllFailedEdges( void ) {
+CCALL void SV_Nav_ClearAllFailedEdges( void ) {
 	navigator.ClearAllFailedEdges();
 }
 
-static int SV_Nav_EdgeFailed( int startID, int endID ) {
+CCALL int SV_Nav_EdgeFailed( int startID, int endID ) {
 	return navigator.EdgeFailed( startID, endID );
 }
 
-static void SV_Nav_AddFailedEdge( int entID, int startID, int endID ) {
+CCALL void SV_Nav_AddFailedEdge( int entID, int startID, int endID ) {
 	navigator.AddFailedEdge( entID, startID, endID );
 }
 
-static qboolean SV_Nav_CheckFailedEdge( failedEdge_t *failedEdge ) {
+CCALL qboolean SV_Nav_CheckFailedEdge( failedEdge_t *failedEdge ) {
 	return navigator.CheckFailedEdge( failedEdge );
 }
 
-static void SV_Nav_CheckAllFailedEdges( void ) {
+CCALL void SV_Nav_CheckAllFailedEdges( void ) {
 	navigator.CheckAllFailedEdges();
 }
 
-static qboolean SV_Nav_RouteBlocked( int startID, int testEdgeID, int endID, int rejectRank ) {
+CCALL qboolean SV_Nav_RouteBlocked( int startID, int testEdgeID, int endID, int rejectRank ) {
 	return navigator.RouteBlocked( startID, testEdgeID, endID, rejectRank );
 }
 
-static int SV_Nav_GetBestNodeAltRoute( int startID, int endID, int *pathCost, int rejectID ) {
+CCALL int SV_Nav_GetBestNodeAltRoute( int startID, int endID, int *pathCost, int rejectID ) {
 	return navigator.GetBestNodeAltRoute( startID, endID, pathCost, rejectID );
 }
 
-static int SV_Nav_GetBestNodeAltRoute2( int startID, int endID, int rejectID ) {
+CCALL int SV_Nav_GetBestNodeAltRoute2( int startID, int endID, int rejectID ) {
 	return navigator.GetBestNodeAltRoute( startID, endID, rejectID );
 }
 
-static int SV_Nav_GetBestPathBetweenEnts( sharedEntity_t *ent, sharedEntity_t *goal, int flags ) {
+CCALL int SV_Nav_GetBestPathBetweenEnts( sharedEntity_t *ent, sharedEntity_t *goal, int flags ) {
 	return navigator.GetBestPathBetweenEnts( ent, goal, flags );
 }
 
-static int SV_Nav_GetNodeRadius( int nodeID ) {
+CCALL int SV_Nav_GetNodeRadius( int nodeID ) {
 	return navigator.GetNodeRadius( nodeID );
 }
 
-static void SV_Nav_CheckBlockedEdges( void ) {
+CCALL void SV_Nav_CheckBlockedEdges( void ) {
 	navigator.CheckBlockedEdges();
 }
 
-static void SV_Nav_ClearCheckedNodes( void ) {
+CCALL void SV_Nav_ClearCheckedNodes( void ) {
 	navigator.ClearCheckedNodes();
 }
 
-static int SV_Nav_CheckedNode( int wayPoint, int ent ) {
+CCALL int SV_Nav_CheckedNode( int wayPoint, int ent ) {
 	return navigator.CheckedNode( wayPoint, ent );
 }
 
-static void SV_Nav_SetCheckedNode( int wayPoint, int ent, int value ) {
+CCALL void SV_Nav_SetCheckedNode( int wayPoint, int ent, int value ) {
 	navigator.SetCheckedNode( wayPoint, ent, value );
 }
 
-static void SV_Nav_FlagAllNodes( int newFlag ) {
+CCALL void SV_Nav_FlagAllNodes( int newFlag ) {
 	navigator.FlagAllNodes( newFlag );
 }
 
-static qboolean SV_Nav_GetPathsCalculated( void ) {
+CCALL qboolean SV_Nav_GetPathsCalculated( void ) {
 	return navigator.pathsCalculated;
 }
 
-static void SV_Nav_SetPathsCalculated( qboolean newVal ) {
+CCALL void SV_Nav_SetPathsCalculated( qboolean newVal ) {
 	navigator.pathsCalculated = newVal;
 }
 
@@ -1655,48 +1655,48 @@ void SV_BindGame( void ) {
 		gi.ICARUS_GetFloatVariable				= Q3_GetFloatVariable;
 		gi.ICARUS_GetStringVariable				= SV_ICARUS_GetStringVariable;
 		gi.ICARUS_GetVectorVariable				= SV_ICARUS_GetVectorVariable;
-		gi.Nav_Init								= SV_Nav_Init;
-		gi.Nav_Free								= SV_Nav_Free;
-		gi.Nav_Load								= SV_Nav_Load;
-		gi.Nav_Save								= SV_Nav_Save;
-		gi.Nav_AddRawPoint						= SV_Nav_AddRawPoint;
-		gi.Nav_CalculatePaths					= SV_Nav_CalculatePaths;
-		gi.Nav_HardConnect						= SV_Nav_HardConnect;
-		gi.Nav_ShowNodes						= SV_Nav_ShowNodes;
-		gi.Nav_ShowEdges						= SV_Nav_ShowEdges;
-		gi.Nav_ShowPath							= SV_Nav_ShowPath;
-		gi.Nav_GetNearestNode					= SV_Nav_GetNearestNode;
-		gi.Nav_GetBestNode						= SV_Nav_GetBestNode;
-		gi.Nav_GetNodePosition					= SV_Nav_GetNodePosition;
-		gi.Nav_GetNodeNumEdges					= SV_Nav_GetNodeNumEdges;
-		gi.Nav_GetNodeEdge						= SV_Nav_GetNodeEdge;
-		gi.Nav_GetNumNodes						= SV_Nav_GetNumNodes;
-		gi.Nav_Connected						= SV_Nav_Connected;
-		gi.Nav_GetPathCost						= SV_Nav_GetPathCost;
-		gi.Nav_GetEdgeCost						= SV_Nav_GetEdgeCost;
-		gi.Nav_GetProjectedNode					= SV_Nav_GetProjectedNode;
-		gi.Nav_CheckFailedNodes					= SV_Nav_CheckFailedNodes;
-		gi.Nav_AddFailedNode					= SV_Nav_AddFailedNode;
-		gi.Nav_NodeFailed						= SV_Nav_NodeFailed;
-		gi.Nav_NodesAreNeighbors				= SV_Nav_NodesAreNeighbors;
-		gi.Nav_ClearFailedEdge					= SV_Nav_ClearFailedEdge;
-		gi.Nav_ClearAllFailedEdges				= SV_Nav_ClearAllFailedEdges;
-		gi.Nav_EdgeFailed						= SV_Nav_EdgeFailed;
-		gi.Nav_AddFailedEdge					= SV_Nav_AddFailedEdge;
-		gi.Nav_CheckFailedEdge					= SV_Nav_CheckFailedEdge;
-		gi.Nav_CheckAllFailedEdges				= SV_Nav_CheckAllFailedEdges;
-		gi.Nav_RouteBlocked						= SV_Nav_RouteBlocked;
-		gi.Nav_GetBestNodeAltRoute				= SV_Nav_GetBestNodeAltRoute;
-		gi.Nav_GetBestNodeAltRoute2				= SV_Nav_GetBestNodeAltRoute2;
-		gi.Nav_GetBestPathBetweenEnts			= SV_Nav_GetBestPathBetweenEnts;
-		gi.Nav_GetNodeRadius					= SV_Nav_GetNodeRadius;
-		gi.Nav_CheckBlockedEdges				= SV_Nav_CheckBlockedEdges;
-		gi.Nav_ClearCheckedNodes				= SV_Nav_ClearCheckedNodes;
-		gi.Nav_CheckedNode						= SV_Nav_CheckedNode;
-		gi.Nav_SetCheckedNode					= SV_Nav_SetCheckedNode;
-		gi.Nav_FlagAllNodes						= SV_Nav_FlagAllNodes;
-		gi.Nav_GetPathsCalculated				= SV_Nav_GetPathsCalculated;
-		gi.Nav_SetPathsCalculated				= SV_Nav_SetPathsCalculated;
+		//gi.Nav_Init								= SV_Nav_Init;
+		//gi.Nav_Free								= SV_Nav_Free;
+		//gi.Nav_Load								= SV_Nav_Load;
+		//gi.Nav_Save								= SV_Nav_Save;
+		//gi.Nav_AddRawPoint						= SV_Nav_AddRawPoint;
+		//gi.Nav_CalculatePaths					= SV_Nav_CalculatePaths;
+		//gi.Nav_HardConnect						= SV_Nav_HardConnect;
+		//gi.Nav_ShowNodes						= SV_Nav_ShowNodes;
+		//gi.Nav_ShowEdges						= SV_Nav_ShowEdges;
+		//gi.Nav_ShowPath							= SV_Nav_ShowPath;
+		//gi.Nav_GetNearestNode					= SV_Nav_GetNearestNode;
+		//gi.Nav_GetBestNode						= SV_Nav_GetBestNode;
+		//gi.Nav_GetNodePosition					= SV_Nav_GetNodePosition;
+		//gi.Nav_GetNodeNumEdges					= SV_Nav_GetNodeNumEdges;
+		//gi.Nav_GetNodeEdge						= SV_Nav_GetNodeEdge;
+		//gi.Nav_GetNumNodes						= SV_Nav_GetNumNodes;
+		//gi.Nav_Connected						= SV_Nav_Connected;
+		//gi.Nav_GetPathCost						= SV_Nav_GetPathCost;
+		//gi.Nav_GetEdgeCost						= SV_Nav_GetEdgeCost;
+		//gi.Nav_GetProjectedNode					= SV_Nav_GetProjectedNode;
+		//gi.Nav_CheckFailedNodes					= SV_Nav_CheckFailedNodes;
+		//gi.Nav_AddFailedNode					= SV_Nav_AddFailedNode;
+		//gi.Nav_NodeFailed						= SV_Nav_NodeFailed;
+		//gi.Nav_NodesAreNeighbors				= SV_Nav_NodesAreNeighbors;
+		//gi.Nav_ClearFailedEdge					= SV_Nav_ClearFailedEdge;
+		//gi.Nav_ClearAllFailedEdges				= SV_Nav_ClearAllFailedEdges;
+		//gi.Nav_EdgeFailed						= SV_Nav_EdgeFailed;
+		//gi.Nav_AddFailedEdge					= SV_Nav_AddFailedEdge;
+		//gi.Nav_CheckFailedEdge					= SV_Nav_CheckFailedEdge;
+		//gi.Nav_CheckAllFailedEdges				= SV_Nav_CheckAllFailedEdges;
+		//gi.Nav_RouteBlocked						= SV_Nav_RouteBlocked;
+		//gi.Nav_GetBestNodeAltRoute				= SV_Nav_GetBestNodeAltRoute;
+		//gi.Nav_GetBestNodeAltRoute2				= SV_Nav_GetBestNodeAltRoute2;
+		//gi.Nav_GetBestPathBetweenEnts			= SV_Nav_GetBestPathBetweenEnts;
+		//gi.Nav_GetNodeRadius					= SV_Nav_GetNodeRadius;
+		//gi.Nav_CheckBlockedEdges				= SV_Nav_CheckBlockedEdges;
+		//gi.Nav_ClearCheckedNodes				= SV_Nav_ClearCheckedNodes;
+		//gi.Nav_CheckedNode						= SV_Nav_CheckedNode;
+		//gi.Nav_SetCheckedNode					= SV_Nav_SetCheckedNode;
+		//gi.Nav_FlagAllNodes						= SV_Nav_FlagAllNodes;
+		//gi.Nav_GetPathsCalculated				= SV_Nav_GetPathsCalculated;
+		//gi.Nav_SetPathsCalculated				= SV_Nav_SetPathsCalculated;
 		gi.BotAllocateClient					= SV_BotAllocateClient;
 		gi.BotFreeClient						= SV_BotFreeClient;
 		gi.BotLoadCharacter						= SV_BotLoadCharacter;

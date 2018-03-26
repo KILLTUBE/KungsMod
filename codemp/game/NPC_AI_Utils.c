@@ -146,7 +146,7 @@ void AI_SortGroupByPathCostToEnemy( AIGroupInfo_t *group )
 			group->member[i].waypoint = NAV_FindClosestWaypointForEnt( group->enemy, WAYPOINT_NONE );
 			if ( group->member[i].waypoint != WAYPOINT_NONE )
 			{
-				group->member[i].pathCostToEnemy = trap->Nav_GetPathCost( group->member[i].waypoint, group->enemyWP );
+				group->member[i].pathCostToEnemy = SV_Nav_GetPathCost( group->member[i].waypoint, group->enemyWP );
 				//at least one of us has a path, so do sorting
 				sort = qtrue;
 			}

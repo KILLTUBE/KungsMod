@@ -28,6 +28,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "g_nav.h"
 #include "bg_saga.h"
 #include "b_local.h"
+#include "server/sv_nav.h"
 
 level_locals_t	level;
 
@@ -312,7 +313,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 	G_CacheMapname( &mapname );
 	trap->Cvar_Register( &ckSum, "sv_mapChecksum", "", CVAR_ROM );
 
-	navCalculatePaths	= ( trap->Nav_Load( mapname.string, ckSum.integer ) == qfalse );
+	navCalculatePaths	= ( SV_Nav_Load( mapname.string, ckSum.integer ) == qfalse );
 
 	// parse the key/value pairs and spawn gentities
 	G_SpawnEntitiesFromString(qfalse);
@@ -374,7 +375,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 		//out whenever you do a savegame since the edges and routes are dynamic...
 		//OR: always do a navigator.CheckBlockedEdges() on map startup after nav-load/calc-paths
 		//navigator.pathsCalculated = qtrue;//just to be safe?  Does this get saved out?  No... assumed
-		trap->Nav_SetPathsCalculated(qtrue);
+		SV_Nav_SetPathsCalculated(qtrue);
 		//need to do this, because combatpoint waypoints aren't saved out...?
 		CP_FindCombatPointWaypoints();
 		navCalcPathTime = 0;
@@ -382,7 +383,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 		/*
 		if ( g_eSavedGameJustLoaded == eNO )
 		{//clear all the failed edges unless we just loaded the game (which would include failed edges)
-			trap->Nav_ClearAllFailedEdges();
+			SV_Nav_ClearAllFailedEdges();
 		}
 		*/
 		//No loading games in MP.
@@ -2860,12 +2861,12 @@ void NAV_CheckCalcPaths( void )
 		trap->Cvar_Register( &ckSum, "sv_mapChecksum", "", CVAR_ROM );
 
 		//clear all the failed edges
-		trap->Nav_ClearAllFailedEdges();
+		SV_Nav_ClearAllFailedEdges();
 
 		//Calculate all paths
 		NAV_CalculatePaths( mapname.string, ckSum.integer );
 
-		trap->Nav_CalculatePaths(qfalse);
+		SV_Nav_CalculatePaths(qfalse);
 
 #ifndef FINAL_BUILD
 		if ( fatalErrors )
@@ -2874,7 +2875,7 @@ void NAV_CheckCalcPaths( void )
 		}
 		else
 #endif
-		if ( trap->Nav_Save( mapname.string, ckSum.integer ) == qfalse )
+		if ( SV_Nav_Save( mapname.string, ckSum.integer ) == qfalse )
 		{
 			Com_Printf("Unable to save navigations data for map \"%s\" (checksum:%d)\n", mapname.string, ckSum.integer );
 		}
@@ -3020,9 +3021,9 @@ void G_RunFrame( int levelTime ) {
 	{
 		if ( d_altRoutes.integer )
 		{
-			trap->Nav_CheckAllFailedEdges();
+			SV_Nav_CheckAllFailedEdges();
 		}
-		trap->Nav_ClearCheckedNodes();
+		SV_Nav_ClearCheckedNodes();
 
 		//remember last waypoint, clear current one
 		for ( i = 0; i < level.num_entities ; i++)
@@ -3040,7 +3041,7 @@ void G_RunFrame( int levelTime ) {
 			}
 			if ( d_altRoutes.integer )
 			{
-				trap->Nav_CheckFailedNodes( (sharedEntity_t *)ent );
+				SV_Nav_CheckFailedNodes( (sharedEntity_t *)ent );
 			}
 		}
 

@@ -31,6 +31,7 @@ we need it...
 #include "b_local.h"
 #include "g_nav.h"
 #include "icarus/Q3_Interface.h"
+#include "server/sv_nav.h"
 
 extern	qboolean	showBBoxes;
 extern vec3_t NPCDEBUG_BLUE;
@@ -1068,7 +1069,7 @@ void NPC_BSSearch (void)
 			{
 				if ( !Q_irand( 0, 30 ) )
 				{
-					int	numEdges = trap->Nav_GetNodeNumEdges( NPCS.NPCInfo->tempGoal->waypoint );
+					int	numEdges = SV_Nav_GetNodeNumEdges( NPCS.NPCInfo->tempGoal->waypoint );
 
 					if ( numEdges != WAYPOINT_NONE )
 					{
@@ -1076,8 +1077,8 @@ void NPC_BSSearch (void)
 
 						vec3_t	branchPos, lookDir;
 
-						int nextWp = trap->Nav_GetNodeEdge( NPCS.NPCInfo->tempGoal->waypoint, branchNum );
-						trap->Nav_GetNodePosition( nextWp, branchPos );
+						int nextWp = SV_Nav_GetNodeEdge( NPCS.NPCInfo->tempGoal->waypoint, branchNum );
+						SV_Nav_GetNodePosition( nextWp, branchPos );
 
 						VectorSubtract( branchPos, NPCS.NPCInfo->tempGoal->r.currentOrigin, lookDir );
 						NPCS.NPCInfo->desiredYaw = AngleNormalize360( vectoyaw( lookDir ) + flrand( -45, 45 ) );
@@ -1102,14 +1103,14 @@ void NPC_BSSearch (void)
 
 			if ( NPCS.NPC->waypoint == NPCS.NPCInfo->homeWp )
 			{
-				int	numEdges = trap->Nav_GetNodeNumEdges( NPCS.NPCInfo->tempGoal->waypoint );
+				int	numEdges = SV_Nav_GetNodeNumEdges( NPCS.NPCInfo->tempGoal->waypoint );
 
 				if ( numEdges != WAYPOINT_NONE )
 				{
 					int branchNum = Q_irand( 0, numEdges - 1 );
 
-					int nextWp = trap->Nav_GetNodeEdge( NPCS.NPCInfo->homeWp, branchNum );
-					trap->Nav_GetNodePosition( nextWp, NPCS.NPCInfo->tempGoal->r.currentOrigin );
+					int nextWp = SV_Nav_GetNodeEdge( NPCS.NPCInfo->homeWp, branchNum );
+					SV_Nav_GetNodePosition( nextWp, NPCS.NPCInfo->tempGoal->r.currentOrigin );
 					NPCS.NPCInfo->tempGoal->waypoint = nextWp;
 				}
 
@@ -1125,7 +1126,7 @@ void NPC_BSSearch (void)
 			}
 			else
 			{//At a branch, so return home
-				trap->Nav_GetNodePosition( NPCS.NPCInfo->homeWp, NPCS.NPCInfo->tempGoal->r.currentOrigin );
+				SV_Nav_GetNodePosition( NPCS.NPCInfo->homeWp, NPCS.NPCInfo->tempGoal->r.currentOrigin );
 				NPCS.NPCInfo->tempGoal->waypoint = NPCS.NPCInfo->homeWp;
 				/*
 				VectorCopy( waypoints[NPCInfo->homeWp].origin, NPCInfo->tempGoal->r.currentOrigin );
@@ -1165,7 +1166,7 @@ void NPC_BSSearchStart( int homeWp, bState_t bState )
 	NPCS.NPCInfo->tempBehavior = bState;
 	NPCS.NPCInfo->aiFlags |= NPCAI_ENROUTE_TO_HOMEWP;
 	NPCS.NPCInfo->investigateDebounceTime = 0;
-	trap->Nav_GetNodePosition( homeWp, NPCS.NPCInfo->tempGoal->r.currentOrigin );
+	SV_Nav_GetNodePosition( homeWp, NPCS.NPCInfo->tempGoal->r.currentOrigin );
 	NPCS.NPCInfo->tempGoal->waypoint = homeWp;
 	//Com_Printf("\nHeading for wp %d...\n", NPCInfo->homeWp);
 }
@@ -1262,7 +1263,7 @@ void NPC_BSWander (void)
 			{
 				if ( !Q_irand( 0, 30 ) )
 				{
-					int	numEdges = trap->Nav_GetNodeNumEdges( NPCS.NPCInfo->tempGoal->waypoint );
+					int	numEdges = SV_Nav_GetNodeNumEdges( NPCS.NPCInfo->tempGoal->waypoint );
 
 					if ( numEdges != WAYPOINT_NONE )
 					{
@@ -1270,8 +1271,8 @@ void NPC_BSWander (void)
 
 						vec3_t	branchPos, lookDir;
 
-						int	nextWp = trap->Nav_GetNodeEdge( NPCS.NPCInfo->tempGoal->waypoint, branchNum );
-						trap->Nav_GetNodePosition( nextWp, branchPos );
+						int	nextWp = SV_Nav_GetNodeEdge( NPCS.NPCInfo->tempGoal->waypoint, branchNum );
+						SV_Nav_GetNodePosition( nextWp, branchPos );
 
 						VectorSubtract( branchPos, NPCS.NPCInfo->tempGoal->r.currentOrigin, lookDir );
 						NPCS.NPCInfo->desiredYaw = AngleNormalize360( vectoyaw( lookDir ) + flrand( -45, 45 ) );
@@ -1285,14 +1286,14 @@ void NPC_BSWander (void)
 
 			if ( NPCS.NPC->waypoint != WAYPOINT_NONE )
 			{
-				int	numEdges = trap->Nav_GetNodeNumEdges( NPCS.NPC->waypoint );
+				int	numEdges = SV_Nav_GetNodeNumEdges( NPCS.NPC->waypoint );
 
 				if ( numEdges != WAYPOINT_NONE )
 				{
 					int branchNum = Q_irand( 0, numEdges - 1 );
 
-					int nextWp = trap->Nav_GetNodeEdge( NPCS.NPC->waypoint, branchNum );
-					trap->Nav_GetNodePosition( nextWp, NPCS.NPCInfo->tempGoal->r.currentOrigin );
+					int nextWp = SV_Nav_GetNodeEdge( NPCS.NPC->waypoint, branchNum );
+					SV_Nav_GetNodePosition( nextWp, NPCS.NPCInfo->tempGoal->r.currentOrigin );
 					NPCS.NPCInfo->tempGoal->waypoint = nextWp;
 				}
 
@@ -1503,7 +1504,7 @@ void NPC_BSFlee( void )
 		}
 		if ( NPCS.NPC->waypoint != WAYPOINT_NONE )
 		{
-			int	numEdges = trap->Nav_GetNodeNumEdges( NPCS.NPC->waypoint );
+			int	numEdges = SV_Nav_GetNodeNumEdges( NPCS.NPC->waypoint );
 
 			if ( numEdges != WAYPOINT_NONE )
 			{
@@ -1518,8 +1519,8 @@ void NPC_BSFlee( void )
 				{
 					vec3_t	branchPos, runDir;
 
-					nextWp = trap->Nav_GetNodeEdge( NPCS.NPC->waypoint, branchNum );
-					trap->Nav_GetNodePosition( nextWp, branchPos );
+					nextWp = SV_Nav_GetNodeEdge( NPCS.NPC->waypoint, branchNum );
+					SV_Nav_GetNodePosition( nextWp, branchPos );
 
 					VectorSubtract( branchPos, NPCS.NPC->r.currentOrigin, runDir );
 					VectorNormalize( runDir );

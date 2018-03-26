@@ -1809,7 +1809,7 @@ void ST_Commander( void )
 			{
 				NPCS.NPCInfo->behaviorState = BS_DEFAULT;//BS_PATROL;
 			}
-			else if ( group->enemy->waypoint == WAYPOINT_NONE || (trap->Nav_GetPathCost( NPCS.NPC->waypoint, group->enemy->waypoint ) >= Q3_INFINITE) )
+			else if ( group->enemy->waypoint == WAYPOINT_NONE || (SV_Nav_GetPathCost( NPCS.NPC->waypoint, group->enemy->waypoint ) >= Q3_INFINITE) )
 			{
 				NPC_BSSearchStart( NPCS.NPC->waypoint, BS_SEARCH );
 			}

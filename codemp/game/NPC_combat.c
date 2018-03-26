@@ -2764,7 +2764,7 @@ int NPC_FindCombatPoint( const vec3_t position, const vec3_t avoidPosition, vec3
 			NAV_FindClosestWaypointForEnt( NPC, level.combatPoints[i].waypoint );
 			if ( NPC->waypoint != WAYPOINT_NONE && NPC->waypoint != level.combatPoints[i].waypoint )
 			{
-				trap->Nav_GetNodePosition( NPC->waypoint, wpOrg );
+				SV_Nav_GetNodePosition( NPC->waypoint, wpOrg );
 			}
 			else
 			*/
@@ -2802,7 +2802,7 @@ int NPC_FindCombatPoint( const vec3_t position, const vec3_t avoidPosition, vec3
 			}
 			*/
 
-			if ( waypoint == WAYPOINT_NONE || level.combatPoints[i].waypoint == WAYPOINT_NONE || trap->Nav_GetBestNodeAltRoute2( waypoint, level.combatPoints[i].waypoint, NODE_NONE ) == WAYPOINT_NONE )
+			if ( waypoint == WAYPOINT_NONE || level.combatPoints[i].waypoint == WAYPOINT_NONE || SV_Nav_GetBestNodeAltRoute2( waypoint, level.combatPoints[i].waypoint, NODE_NONE ) == WAYPOINT_NONE )
 			{//can't possibly have a route to any OR can't possibly have a route to this one OR don't have a route to this one
 				if ( !NAV_ClearPathToPoint( NPCS.NPC, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, level.combatPoints[i].origin, NPCS.NPC->clipmask, ENTITYNUM_NONE ) )
 				{//don't even have a clear straight path to this one
@@ -2814,7 +2814,7 @@ int NPC_FindCombatPoint( const vec3_t position, const vec3_t avoidPosition, vec3
 		//We want the one with the shortest path from current pos
 		if ( flags & CP_NEAREST && waypoint != WAYPOINT_NONE && level.combatPoints[i].waypoint != WAYPOINT_NONE )
 		{
-			cost = trap->Nav_GetPathCost( waypoint, level.combatPoints[i].waypoint );
+			cost = SV_Nav_GetPathCost( waypoint, level.combatPoints[i].waypoint );
 			if ( cost < bestCost )
 			{
 				bestCost = cost;
@@ -2982,8 +2982,8 @@ gentity_t *NPC_SearchForWeapons( void )
 				dist = DistanceSquared( found->r.currentOrigin, NPCS.NPC->r.currentOrigin );
 				if ( dist < bestDist )
 				{
-					if ( !trap->Nav_GetBestPathBetweenEnts( (sharedEntity_t *)NPCS.NPC, (sharedEntity_t *)found, NF_CLEAR_PATH )
-						|| trap->Nav_GetBestNodeAltRoute2( NPCS.NPC->waypoint, found->waypoint, NODE_NONE ) == WAYPOINT_NONE )
+					if ( !SV_Nav_GetBestPathBetweenEnts( (sharedEntity_t *)NPCS.NPC, (sharedEntity_t *)found, NF_CLEAR_PATH )
+						|| SV_Nav_GetBestNodeAltRoute2( NPCS.NPC->waypoint, found->waypoint, NODE_NONE ) == WAYPOINT_NONE )
 					{//can't possibly have a route to any OR can't possibly have a route to this one OR don't have a route to this one
 						if ( NAV_ClearPathToPoint( NPCS.NPC, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, found->r.currentOrigin, NPCS.NPC->clipmask, ENTITYNUM_NONE ) )
 						{//have a clear straight path to this one
@@ -3034,8 +3034,8 @@ void NPC_CheckGetNewWeapon( void )
 			if ( foundWeap )
 			{//try to nav to it
 				/*
-				if ( !trap->Nav_GetBestPathBetweenEnts( NPC, foundWeap, NF_CLEAR_PATH )
-					|| trap->Nav_GetBestNodeAltRoute( NPC->waypoint, foundWeap->waypoint ) == WAYPOINT_NONE )
+				if ( !SV_Nav_GetBestPathBetweenEnts( NPC, foundWeap, NF_CLEAR_PATH )
+					|| SV_Nav_GetBestNodeAltRoute( NPC->waypoint, foundWeap->waypoint ) == WAYPOINT_NONE )
 				{//can't possibly have a route to any OR can't possibly have a route to this one OR don't have a route to this one
 					if ( !NAV_ClearPathToPoint( NPC, NPC->r.mins, NPC->r.maxs, foundWeap->r.currentOrigin, NPC->clipmask, ENTITYNUM_NONE ) )
 					{//don't even have a clear straight path to this one
