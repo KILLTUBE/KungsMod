@@ -111,20 +111,20 @@ void G_LoadArenasFromFile( char *filename ) {
 	fileHandle_t	f;
 	char			buf[MAX_ARENAS_TEXT];
 
-	len = trap->FS_Open( filename, &f, FS_READ );
+	len = FS_FOpenFileByMode( filename, &f, FS_READ );
 	if ( !f ) {
 		trap->Print( S_COLOR_RED "file not found: %s\n", filename );
 		return;
 	}
 	if ( len >= MAX_ARENAS_TEXT ) {
 		trap->Print( S_COLOR_RED "file too large: %s is %i, max allowed is %i\n", filename, len, MAX_ARENAS_TEXT );
-		trap->FS_Close( f );
+		FS_FCloseFile( f );
 		return;
 	}
 
-	trap->FS_Read( buf, len, f );
+	FS_Read( buf, len, f );
 	buf[len] = 0;
-	trap->FS_Close( f );
+	FS_FCloseFile( f );
 
 	level.arenas.num += G_ParseInfos( buf, MAX_ARENAS - level.arenas.num, &level.arenas.infos[level.arenas.num] );
 }
@@ -339,7 +339,7 @@ void G_LoadArenas( void ) {
 	level.arenas.num = 0;
 
 	// get all arenas from .arena files
-	numFiles = trap->FS_GetFileList("scripts", ".arena", filelist, ARRAY_LEN(filelist) );
+	numFiles = FS_GetFileList("scripts", ".arena", filelist, ARRAY_LEN(filelist) );
 
 	fileptr  = filelist;
 	i = 0;
@@ -1190,20 +1190,20 @@ static void G_LoadBotsFromFile( char *filename ) {
 	fileHandle_t	f;
 	char			buf[MAX_BOTS_TEXT];
 
-	len = trap->FS_Open( filename, &f, FS_READ );
+	len = FS_FOpenFileByMode( filename, &f, FS_READ );
 	if ( !f ) {
 		trap->Print( S_COLOR_RED "file not found: %s\n", filename );
 		return;
 	}
 	if ( len >= MAX_BOTS_TEXT ) {
 		trap->Print( S_COLOR_RED "file too large: %s is %i, max allowed is %i\n", filename, len, MAX_BOTS_TEXT );
-		trap->FS_Close( f );
+		FS_FCloseFile( f );
 		return;
 	}
 
-	trap->FS_Read( buf, len, f );
+	FS_Read( buf, len, f );
 	buf[len] = 0;
-	trap->FS_Close( f );
+	FS_FCloseFile( f );
 
 	level.bots.num += G_ParseInfos( buf, MAX_BOTS - level.bots.num, &level.bots.infos[level.bots.num] );
 }
@@ -1238,7 +1238,7 @@ static void G_LoadBots( void ) {
 	}
 
 	// get all bots from .bot files
-	numdirs = trap->FS_GetFileList("scripts", ".bot", dirlist, 1024 );
+	numdirs = FS_GetFileList("scripts", ".bot", dirlist, 1024 );
 	dirptr  = dirlist;
 	for (i = 0; i < numdirs; i++, dirptr += dirlen+1) {
 		dirlen = strlen(dirptr);

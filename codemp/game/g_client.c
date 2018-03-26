@@ -1459,9 +1459,9 @@ void G_DebugWrite(const char *path, const char *text)
 {
 	fileHandle_t f;
 
-	trap->FS_Open( path, &f, FS_APPEND );
-	trap->FS_Write(text, strlen(text), f);
-	trap->FS_Close(f);
+	FS_FOpenFileByMode( path, &f, FS_APPEND );
+	FS_Write(text, strlen(text), f);
+	FS_FCloseFile(f);
 }
 #endif
 

@@ -346,11 +346,11 @@ qboolean CL_OpenAVIForWriting( const char *fileName )
     return qfalse;
   }
 
-  if( ( afd.f = FS_FOpenFileWrite( fileName ) ) <= 0 )
+  if( ( afd.f = FS_FOpenFileWrite( fileName, qtrue ) ) <= 0 )
     return qfalse;
 
   if( ( afd.idxF = FS_FOpenFileWrite(
-          va( "%s" INDEX_FILE_EXTENSION, fileName ) ) ) <= 0 )
+          va( "%s" INDEX_FILE_EXTENSION, fileName ), qtrue ) ) <= 0 )
   {
     FS_FCloseFile( afd.f );
     return qfalse;

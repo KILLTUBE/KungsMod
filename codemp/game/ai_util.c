@@ -641,7 +641,7 @@ void BotUtilizePersonality(bot_state_t *bs)
 	char *buf = (char *)B_TempAlloc(131072);
 	char *readbuf, *group;
 
-	len = trap->FS_Open(bs->settings.personalityfile, &f, FS_READ);
+	len = FS_FOpenFileByMode(bs->settings.personalityfile, &f, FS_READ);
 
 	failed = 0;
 
@@ -659,7 +659,7 @@ void BotUtilizePersonality(bot_state_t *bs)
 		return;
 	}
 
-	trap->FS_Read(buf, len, f);
+	FS_Read(buf, len, f);
 
 	rlen = len;
 
@@ -883,5 +883,5 @@ void BotUtilizePersonality(bot_state_t *bs)
 	B_TempFree(131072); //buf
 	B_TempFree(1024); //readbuf
 	B_TempFree(65536); //group
-	trap->FS_Close(f);
+	FS_FCloseFile(f);
 }

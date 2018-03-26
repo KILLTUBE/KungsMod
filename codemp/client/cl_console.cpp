@@ -195,7 +195,7 @@ void Con_Dump_f (void)
 		return;
 	}
 
-	f = FS_FOpenFileWrite( filename );
+	f = FS_FOpenFileWrite( filename, qtrue );
 	if (!f)
 	{
 		Com_Printf ("ERROR: couldn't open %s.\n", filename);

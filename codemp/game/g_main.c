@@ -220,7 +220,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 
 	if ( g_log.string[0] )
 	{
-		trap->FS_Open( g_log.string, &level.logFile, g_logSync.integer ? FS_APPEND_SYNC : FS_APPEND );
+		FS_FOpenFileByMode( g_log.string, &level.logFile, g_logSync.integer ? FS_APPEND_SYNC : FS_APPEND );
 		if ( level.logFile )
 			trap->Print( "Logging to %s\n", g_log.string );
 		else
@@ -236,9 +236,9 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 	if ( g_securityLog.integer )
 	{
 		if ( g_securityLog.integer == 1 )
-			trap->FS_Open( SECURITY_LOG, &level.security.log, FS_APPEND );
+			FS_FOpenFileByMode( SECURITY_LOG, &level.security.log, FS_APPEND );
 		else if ( g_securityLog.integer == 2 )
-			trap->FS_Open( SECURITY_LOG, &level.security.log, FS_APPEND_SYNC );
+			FS_FOpenFileByMode( SECURITY_LOG, &level.security.log, FS_APPEND_SYNC );
 
 		if ( level.security.log )
 			trap->Print( "Logging to "SECURITY_LOG"\n" );
@@ -488,14 +488,14 @@ void G_ShutdownGame( int restart ) {
 
 	if ( level.logFile ) {
 		G_LogPrintf( "ShutdownGame:\n------------------------------------------------------------\n" );
-		trap->FS_Close( level.logFile );
+		FS_FCloseFile( level.logFile );
 		level.logFile = 0;
 	}
 
 	if ( level.security.log )
 	{
 		G_SecurityLogPrintf( "ShutdownGame\n\n" );
-		trap->FS_Close( level.security.log );
+		FS_FCloseFile( level.security.log );
 		level.security.log = 0;
 	}
 
@@ -1519,7 +1519,7 @@ void QDECL G_LogPrintf( const char *fmt, ... ) {
 	if ( !level.logFile )
 		return;
 
-	trap->FS_Write( string, strlen( string ), level.logFile );
+	FS_Write( string, strlen( string ), level.logFile );
 }
 /*
 =================
@@ -1549,7 +1549,7 @@ void QDECL G_SecurityLogPrintf( const char *fmt, ... ) {
 	if ( !level.security.log )
 		return;
 
-	trap->FS_Write( string, strlen( string ), level.security.log );
+	FS_Write( string, strlen( string ), level.security.log );
 }
 
 /*

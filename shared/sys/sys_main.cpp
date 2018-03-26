@@ -392,7 +392,7 @@ static void *Sys_LoadDllFromPaths( const char *filename, const char *gamedir, co
 			if ( !libDir[0] )
 				continue;
 
-			fn = FS_BuildOSPath( libDir, gamedir, filename );
+			fn = FS_BuildOSPath2( libDir, gamedir, filename );
 			libHandle = Sys_LoadLibrary( fn );
 			if ( libHandle )
 				return libHandle;
@@ -409,7 +409,7 @@ static void *Sys_LoadDllFromPaths( const char *filename, const char *gamedir, co
 			if ( !libDir[0] )
 				continue;
 
-			fn = FS_BuildOSPath( libDir, BASEGAME, filename );
+			fn = FS_BuildOSPath2( libDir, BASEGAME, filename );
 			libHandle = Sys_LoadLibrary( fn );
 			if ( libHandle )
 				return libHandle;
@@ -426,7 +426,7 @@ static void *Sys_LoadDllFromPaths( const char *filename, const char *gamedir, co
 			if ( !libDir[0] )
 				continue;
 
-			fn = FS_BuildOSPath( libDir, OPENJKGAME, filename );
+			fn = FS_BuildOSPath2( libDir, OPENJKGAME, filename );
 			libHandle = Sys_LoadLibrary( fn );
 			if ( libHandle )
 				return libHandle;

@@ -438,7 +438,7 @@ void R_CheckMP3s( const char *psDir )
 
 						// well, time to update the file now...
 						//
-						fileHandle_t f = FS_FOpenFileWrite( sFilename );
+						fileHandle_t f = FS_FOpenFileWrite( sFilename, qtrue );
 						if (f)
 						{
 							// write the file back out, but omitting the tag if there was one...

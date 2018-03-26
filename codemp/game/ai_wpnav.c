@@ -2034,7 +2034,7 @@ int LoadPathData(const char *filename)
 
 	Com_sprintf(routePath, 1024, "botroutes/%s.wnt\0", filename);
 
-	len = trap->FS_Open(routePath, &f, FS_READ);
+	len = FS_FOpenFileByMode(routePath, &f, FS_READ);
 
 	B_TempFree(1024); //routePath
 
@@ -2053,7 +2053,7 @@ int LoadPathData(const char *filename)
 	fileString = (char *)B_TempAlloc(524288);
 	currentVar = (char *)B_TempAlloc(2048);
 
-	trap->FS_Read(fileString, len, f);
+	FS_Read(fileString, len, f);
 
 	if (fileString[i] == 'l')
 	{ //contains a "levelflags" entry..
@@ -2243,7 +2243,7 @@ int LoadPathData(const char *filename)
 	B_TempFree(524288); //fileString
 	B_TempFree(2048); //currentVar
 
-	trap->FS_Close(f);
+	FS_FCloseFile(f);
 
 	if (level.gametype == GT_SIEGE)
 	{
@@ -2402,7 +2402,7 @@ int SavePathData(const char *filename)
 
 	Com_sprintf(routePath, 1024, "botroutes/%s.wnt\0", filename);
 
-	trap->FS_Open(routePath, &f, FS_WRITE);
+	FS_FOpenFileByMode(routePath, &f, FS_WRITE);
 
 	B_TempFree(1024); //routePath
 
@@ -2414,7 +2414,7 @@ int SavePathData(const char *filename)
 
 	if (!RepairPaths(qfalse)) //check if we can see all waypoints from the last. If not, try to branch over.
 	{
-		trap->FS_Close(f);
+		FS_FCloseFile(f);
 		return 0;
 	}
 
@@ -2497,12 +2497,12 @@ int SavePathData(const char *filename)
 		i++;
 	}
 
-	trap->FS_Write(fileString, strlen(fileString), f);
+	FS_Write(fileString, strlen(fileString), f);
 
 	B_TempFree(524288); //fileString
 	B_TempFree(4096); //storeString
 
-	trap->FS_Close(f);
+	FS_FCloseFile(f);
 
 	trap->Print("Path data has been saved and updated. You may need to restart the level for some things to be properly calculated.\n");
 

@@ -169,16 +169,16 @@ void InitSiegeMode(void)
 		goto failure;
 	}
 
-	len = trap->FS_Open(levelname, &f, FS_READ);
+	len = FS_FOpenFileByMode(levelname, &f, FS_READ);
 
 	if (!f || len >= MAX_SIEGE_INFO_SIZE)
 	{
 		goto failure;
 	}
 
-	trap->FS_Read(siege_info, len, f);
+	FS_Read(siege_info, len, f);
 
-	trap->FS_Close(f);
+	FS_FCloseFile(f);
 
 	siege_valid = 1;
 

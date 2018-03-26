@@ -1062,11 +1062,11 @@ static void TranslateSyscalls( void ) {
 	trap->Cvar_VariableStringBuffer			= trap_Cvar_VariableStringBuffer;
 	trap->Argc								= trap_Argc;
 	trap->Argv								= trap_Argv;
-	trap->FS_Close							= trap_FS_FCloseFile;
-	trap->FS_GetFileList					= trap_FS_GetFileList;
-	trap->FS_Open							= trap_FS_FOpenFile;
-	trap->FS_Read							= SVSyscall_FS_Read;
-	trap->FS_Write							= SVSyscall_FS_Write;
+	//trap->FS_Close							= trap_FS_FCloseFile;
+	//trap->FS_GetFileList					= trap_FS_GetFileList;
+	//trap->FS_Open							= trap_FS_FOpenFile;
+	//trap->FS_Read							= SVSyscall_FS_Read;
+	//trap->FS_Write							= SVSyscall_FS_Write;
 	trap->AdjustAreaPortalState				= trap_AdjustAreaPortalState;
 	trap->AreasConnected					= trap_AreasConnected;
 	trap->DebugPolygonCreate				= trap_DebugPolygonCreate;

@@ -2376,7 +2376,7 @@ int BG_ParseAnimationFile(const char *filename, animation_t *animset, qboolean i
 	// load the file
 	if (!BGPAFtextLoaded || !isHumanoid)
 	{ //rww - We are always using the same animation config now. So only load it once.
-		len = trap->FS_Open( filename, &f, FS_READ );
+		len = FS_FOpenFileByMode( filename, &f, FS_READ );
 		if ( (len <= 0) || (len >= sizeof( BGPAFtext ) - 1) )
 		{
 			if (dynAlloc)
@@ -2390,10 +2390,10 @@ int BG_ParseAnimationFile(const char *filename, animation_t *animset, qboolean i
 			return -1;
 		}
 
-		trap->FS_Read( BGPAFtext, len, f );
+		FS_Read( BGPAFtext, len, f );
 
 		BGPAFtext[len] = 0;
-		trap->FS_Close( f );
+		FS_FCloseFile( f );
 	}
 	else
 	{

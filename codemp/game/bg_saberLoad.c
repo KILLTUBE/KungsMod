@@ -2273,13 +2273,13 @@ void WP_SaberLoadParms( void )
 	*marker = 0;
 
 	//now load in the extra .sab extensions
-	fileCnt = trap->FS_GetFileList( "ext_data/sabers", ".sab", saberExtensionListBuf, sizeof( saberExtensionListBuf ) );
+	fileCnt = FS_GetFileList( "ext_data/sabers", ".sab", saberExtensionListBuf, sizeof( saberExtensionListBuf ) );
 
 	holdChar = saberExtensionListBuf;
 	for ( i=0; i<fileCnt; i++, holdChar += saberExtFNLen+1 ) {
 		saberExtFNLen = strlen( holdChar );
 
-		len = trap->FS_Open( va( "ext_data/sabers/%s", holdChar ), &f, FS_READ );
+		len = FS_FOpenFileByMode( va( "ext_data/sabers/%s", holdChar ), &f, FS_READ );
 
 		if ( len == -1 ) {
 			Com_Printf( "WP_SaberLoadParms: error reading file: %s\n", holdChar );
@@ -2294,13 +2294,13 @@ void WP_SaberLoadParms( void )
 #endif
 		}
 
-		trap->FS_Read(bgSaberParseTBuffer, len, f);
+		FS_Read(bgSaberParseTBuffer, len, f);
 		bgSaberParseTBuffer[len] = 0;
 
 		len = COM_Compress( bgSaberParseTBuffer );
 
 		Q_strcat( marker, MAX_SABER_DATA_SIZE-totallen, bgSaberParseTBuffer );
-		trap->FS_Close(f);
+		FS_FCloseFile(f);
 
 		//get around the stupid problem of not having an endline at the bottom
 		//of a sab file -rww

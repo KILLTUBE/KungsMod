@@ -23,6 +23,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "server.h"
 #include "qcommon/cm_public.h"
+#include "qcommon/files.h"
+
 
 /*
 =============================================================================
@@ -784,7 +786,7 @@ void SV_SendClientSnapshot( client_t *client ) {
 
 		MSG_WriteByte (&msg, svc_setgame);
 
-		const char *gamedir = FS_GetCurrentGameDir(true);
+		const char *gamedir = FS_GetCurrentGameDir(qtrue);
 
 		while (gamedir[i])
 		{

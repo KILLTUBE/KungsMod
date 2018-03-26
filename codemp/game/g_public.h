@@ -782,11 +782,11 @@ typedef struct gameImport_s {
 	void		(*Argv)									( int n, char *buffer, int bufferLength );
 
 	// filesystem
-	void		(*FS_Close)								( fileHandle_t f );
-	int			(*FS_GetFileList)						( const char *path, const char *extension, char *listbuf, int bufsize );
-	int			(*FS_Open)								( const char *qpath, fileHandle_t *f, fsMode_t mode );
-	int			(*FS_Read)								( void *buffer, int len, fileHandle_t f );
-	int			(*FS_Write)								( const void *buffer, int len, fileHandle_t f );
+	//void		(*FS_Close)								( fileHandle_t f );
+	//int			(*FS_GetFileList)						( const char *path, const char *extension, char *listbuf, int bufsize );
+	//int			(*FS_Open)								( const char *qpath, fileHandle_t *f, fsMode_t mode );
+	//int			(*FS_Read)								( void *buffer, int len, fileHandle_t f );
+	//int			(*FS_Write)								( const void *buffer, int len, fileHandle_t f );
 
 	// server
 	void		(*AdjustAreaPortalState)				( sharedEntity_t *ent, qboolean open );

@@ -36,6 +36,7 @@ typedef struct gclient_s gclient_t;
 
 //npc stuff
 #include "b_public.h"
+#include "qcommon/files.h"
 
 extern int gPainMOD;
 extern int gPainHitLoc;

@@ -1284,7 +1284,7 @@ void BG_VehWeaponLoadParms( void )
 	*marker = 0;
 
 	//now load in the extra .veh extensions
-	fileCnt = trap->FS_GetFileList("ext_data/vehicles/weapons", ".vwp", vehWeaponExtensionListBuf, sizeof(vehWeaponExtensionListBuf) );
+	fileCnt = FS_GetFileList("ext_data/vehicles/weapons", ".vwp", vehWeaponExtensionListBuf, sizeof(vehWeaponExtensionListBuf) );
 
 	holdChar = vehWeaponExtensionListBuf;
 
@@ -1300,7 +1300,7 @@ void BG_VehWeaponLoadParms( void )
 
 //		Com_Printf( "Parsing %s\n", holdChar );
 
-		len = trap->FS_Open(va( "ext_data/vehicles/weapons/%s", holdChar), &f, FS_READ);
+		len = FS_FOpenFileByMode(va( "ext_data/vehicles/weapons/%s", holdChar), &f, FS_READ);
 
 		if ( len == -1 )
 		{
@@ -1308,7 +1308,7 @@ void BG_VehWeaponLoadParms( void )
 		}
 		else
 		{
-			trap->FS_Read(tempReadBuffer, len, f);
+			FS_Read(tempReadBuffer, len, f);
 			tempReadBuffer[len] = 0;
 
 			// Don't let it end on a } because that should be a stand-alone token.
@@ -1323,7 +1323,7 @@ void BG_VehWeaponLoadParms( void )
 				Com_Error(ERR_DROP, "Vehicle Weapon extensions (*.vwp) are too large" );
 			}
 			strcat( marker, tempReadBuffer );
-			trap->FS_Close( f );
+			FS_FCloseFile( f );
 
 			totallen += len;
 			marker = VehWeaponParms+totallen;
@@ -1350,7 +1350,7 @@ void BG_VehicleLoadParms( void )
 	*marker = 0;
 
 	//now load in the extra .veh extensions
-	fileCnt = trap->FS_GetFileList("ext_data/vehicles", ".veh", vehExtensionListBuf, sizeof(vehExtensionListBuf) );
+	fileCnt = FS_GetFileList("ext_data/vehicles", ".veh", vehExtensionListBuf, sizeof(vehExtensionListBuf) );
 
 	holdChar = vehExtensionListBuf;
 
@@ -1366,7 +1366,7 @@ void BG_VehicleLoadParms( void )
 
 //		Com_Printf( "Parsing %s\n", holdChar );
 
-		len = trap->FS_Open(va( "ext_data/vehicles/%s", holdChar), &f, FS_READ);
+		len = FS_FOpenFileByMode(va( "ext_data/vehicles/%s", holdChar), &f, FS_READ);
 
 		if ( len == -1 )
 		{
@@ -1374,7 +1374,7 @@ void BG_VehicleLoadParms( void )
 		}
 		else
 		{
-			trap->FS_Read(tempReadBuffer, len, f);
+			FS_Read(tempReadBuffer, len, f);
 			tempReadBuffer[len] = 0;
 
 			// Don't let it end on a } because that should be a stand-alone token.
@@ -1389,7 +1389,7 @@ void BG_VehicleLoadParms( void )
 				Com_Error(ERR_DROP, "Vehicle extensions (*.veh) are too large" );
 			}
 			strcat( marker, tempReadBuffer );
-			trap->FS_Close( f );
+			FS_FCloseFile( f );
 
 			totallen += len;
 			marker = VehicleParms+totallen;

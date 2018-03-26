@@ -3573,7 +3573,7 @@ void NPC_LoadParms( void )
 	*marker = 0;
 
 	//now load in the extra .npc extensions
-	fileCnt = trap->FS_GetFileList("ext_data/NPCs", ".npc", npcExtensionListBuf, sizeof(npcExtensionListBuf) );
+	fileCnt = FS_GetFileList("ext_data/NPCs", ".npc", npcExtensionListBuf, sizeof(npcExtensionListBuf) );
 
 	holdChar = npcExtensionListBuf;
 	for ( i = 0; i < fileCnt; i++, holdChar += npcExtFNLen + 1 )
@@ -3582,7 +3582,7 @@ void NPC_LoadParms( void )
 
 //		Com_Printf( "Parsing %s\n", holdChar );
 
-		len = trap->FS_Open(va( "ext_data/NPCs/%s", holdChar), &f, FS_READ);
+		len = FS_FOpenFileByMode(va( "ext_data/NPCs/%s", holdChar), &f, FS_READ);
 
 		if ( len == -1 )
 		{
@@ -3593,7 +3593,7 @@ void NPC_LoadParms( void )
 			if ( totallen + len >= MAX_NPC_DATA_SIZE ) {
 				trap->Error( ERR_DROP, "NPC extensions (*.npc) are too large" );
 			}
-			trap->FS_Read(npcParseBuffer, len, f);
+			FS_Read(npcParseBuffer, len, f);
 			npcParseBuffer[len] = 0;
 
 			len = COM_Compress( npcParseBuffer );
@@ -3601,7 +3601,7 @@ void NPC_LoadParms( void )
 			strcat( marker, npcParseBuffer );
 			strcat(marker, "\n");
 			len++;
-			trap->FS_Close(f);
+			FS_FCloseFile(f);
 
 			totallen += len;
 			marker = NPCParms+totallen;

@@ -165,7 +165,7 @@ void QDECL Com_Printf( const char *fmt, ... ) {
 			time( &aclock );
 			newtime = localtime( &aclock );
 
-			logfile = FS_FOpenFileWrite( "qconsole.log" );
+			logfile = FS_FOpenFileWrite( "qconsole.log", qtrue );
 
 			if ( logfile ) {
 				Com_Printf( "logfile opened on %s\n", asctime( newtime ) );
@@ -714,8 +714,8 @@ void Com_InitJournaling( void ) {
 
 	if ( com_journal->integer == 1 ) {
 		Com_Printf( "Journaling events\n");
-		com_journalFile = FS_FOpenFileWrite( "journal.dat" );
-		com_journalDataFile = FS_FOpenFileWrite( "journaldata.dat" );
+		com_journalFile = FS_FOpenFileWrite( "journal.dat", qtrue );
+		com_journalDataFile = FS_FOpenFileWrite( "journaldata.dat", qtrue );
 	} else if ( com_journal->integer == 2 ) {
 		Com_Printf( "Replaying journaled events\n");
 		FS_FOpenFileRead( "journal.dat", &com_journalFile, qtrue );
@@ -1304,7 +1304,7 @@ void Com_Init( char *commandLine ) {
 void Com_WriteConfigToFile( const char *filename ) {
 	fileHandle_t	f;
 
-	f = FS_FOpenFileWrite( filename );
+	f = FS_FOpenFileWrite( filename, qtrue );
 	if ( !f ) {
 		Com_Printf ("Couldn't write %s.\n", filename );
 		return;
@@ -1884,6 +1884,8 @@ void Field_CompleteKeyname( void )
 Field_CompleteFilename
 ===============
 */
+void FS_FilenameCompletion( const char *dir, const char *ext, qboolean stripExt, callbackFunc_t callback, qboolean allowNonPureFilesOnDisk );
+
 void Field_CompleteFilename( const char *dir, const char *ext, qboolean stripExt, qboolean allowNonPureFilesOnDisk )
 {
 	matchCount = 0;

@@ -26,6 +26,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "qcommon/stringed_ingame.h"
 #include "server/sv_gameapi.h"
 #include "qcommon/game_version.h"
+#include "qcommon/files.h"
 
 /*
 ===============================================================================
@@ -596,7 +597,7 @@ static void SV_RehashBans_f( void )
 	if ( !sv_banFile->string || !*sv_banFile->string )
 		return;
 
-	Com_sprintf( filepath, sizeof( filepath ), "%s/%s", FS_GetCurrentGameDir(), sv_banFile->string );
+	Com_sprintf( filepath, sizeof( filepath ), "%s/%s", FS_GetCurrentGameDir(qfalse), sv_banFile->string );
 
 	if ( (filelen = FS_SV_FOpenFileRead( filepath, &readfrom )) >= 0 )
 	{
@@ -670,7 +671,7 @@ static void SV_WriteBans( void )
 	if ( !sv_banFile->string || !*sv_banFile->string )
 		return;
 
-	Com_sprintf( filepath, sizeof( filepath ), "%s/%s", FS_GetCurrentGameDir(), sv_banFile->string );
+	Com_sprintf( filepath, sizeof( filepath ), "%s/%s", FS_GetCurrentGameDir(qfalse), sv_banFile->string );
 
 	if ( (writeto = FS_SV_FOpenFileWrite( filepath )) )
 	{
@@ -1171,7 +1172,7 @@ static void SV_Status_f( void )
 
 	Com_Printf( "hostname: %s^7\n", hostname );
 	Com_Printf( "version : %s %i\n", VERSION_STRING_DOTTED, PROTOCOL_VERSION );
-	Com_Printf( "game    : %s\n", FS_GetCurrentGameDir() );
+	Com_Printf( "game    : %s\n", FS_GetCurrentGameDir(qfalse) );
 	Com_Printf( "udp/ip  : %s:%i os(%s) type(%s)\n", Cvar_VariableString( "net_ip" ), Cvar_VariableIntegerValue( "net_port" ), STATUS_OS, ded_table[com_dedicated->integer] );
 	Com_Printf( "map     : %s gametype(%i)\n", sv_mapname->string, sv_gametype->integer );
 	Com_Printf( "players : %i humans, %i bots (%i max)\n", humans, bots, sv_maxclients->integer - sv_privateClients->integer );
@@ -1639,7 +1640,7 @@ void SV_RecordDemo( client_t *cl, char *demoName ) {
 	Q_strncpyz( cl->demo.demoName, demoName, sizeof( cl->demo.demoName ) );
 	Com_sprintf( name, sizeof( name ), "demos/%s.dm_%d", cl->demo.demoName, PROTOCOL_VERSION );
 	Com_Printf( "recording to %s.\n", name );
-	cl->demo.demofile = FS_FOpenFileWrite( name );
+	cl->demo.demofile = FS_FOpenFileWrite( name, qtrue );
 	if ( !cl->demo.demofile ) {
 		Com_Printf ("ERROR: couldn't open.\n");
 		return;

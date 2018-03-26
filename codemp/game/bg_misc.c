@@ -328,7 +328,7 @@ qboolean BG_FileExists(const char *fileName)
 	{
 		int fh = 0;
 	#ifdef _GAME
-		trap->FS_Open(fileName, &fh, FS_READ);
+		FS_FOpenFileByMode(fileName, &fh, FS_READ);
 	#elif _CGAME
 		trap->FS_Open(fileName, &fh, FS_READ);
 	#elif UI_BUILD
@@ -337,7 +337,7 @@ qboolean BG_FileExists(const char *fileName)
 		if (fh > 0)
 		{
 		#ifdef _GAME
-			trap->FS_Close(fh);
+			FS_FCloseFile(fh);
 		#elif _CGAME
 			trap->FS_Close(fh);
 		#elif UI_BUILD

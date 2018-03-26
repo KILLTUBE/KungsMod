@@ -780,16 +780,16 @@ void BG_SiegeParseClassFile(const char *filename, siegeClassDesc_t *descBuffer)
 	char classInfo[4096];
 	char parseBuf[4096];
 
-	len = trap->FS_Open( filename, &f, FS_READ );
+	len = FS_FOpenFileByMode( filename, &f, FS_READ );
 
 	if (!f || len >= 4096)
 	{
 		return;
 	}
 
-	trap->FS_Read( classInfo, len, f );
+	FS_Read( classInfo, len, f );
 
-	trap->FS_Close( f );
+	FS_FCloseFile( f );
 
 	classInfo[len] = 0;
 
@@ -1209,7 +1209,7 @@ void BG_SiegeLoadClasses(siegeClassDesc_t *descBuffer)
 
 	bgNumSiegeClasses = 0;
 
-	numFiles = trap->FS_GetFileList("ext_data/Siege/Classes", ".scl", filelist, sizeof( filelist ) );
+	numFiles = FS_GetFileList("ext_data/Siege/Classes", ".scl", filelist, sizeof( filelist ) );
 
 	fileptr = filelist;
 
@@ -1263,15 +1263,15 @@ void BG_SiegeParseTeamFile(const char *filename)
 	int i = 1;
 	qboolean success = qtrue;
 
-	len = trap->FS_Open(filename, &f, FS_READ);
+	len = FS_FOpenFileByMode(filename, &f, FS_READ);
 
 	if (!f || len >= 2048)
 	{
 		return;
 	}
 
-	trap->FS_Read( teamInfo, len, f );
-	trap->FS_Close( f );
+	FS_Read( teamInfo, len, f );
+	FS_FCloseFile( f );
 
 	teamInfo[len] = 0;
 
@@ -1340,7 +1340,7 @@ void BG_SiegeLoadTeams(void)
 
 	bgNumSiegeTeams = 0;
 
-	numFiles = trap->FS_GetFileList("ext_data/Siege/Teams", ".team", filelist, sizeof( filelist ) );
+	numFiles = FS_GetFileList("ext_data/Siege/Teams", ".team", filelist, sizeof( filelist ) );
 
 	fileptr = filelist;
 

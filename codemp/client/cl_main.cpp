@@ -36,6 +36,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "cl_lan.h"
 #include "snd_local.h"
 #include "sys/sys_loadlib.h"
+#include "qcommon/files.h"
 
 cvar_t	*cl_renderer;
 
@@ -313,7 +314,8 @@ void CL_Record_f( void ) {
 	// open the demo file
 
 	Com_Printf ("recording to %s.\n", name);
-	clc.demofile = FS_FOpenFileWrite( name );
+	fileHandle_t FS_FOpenFileWrite( const char *filename, qboolean safe );
+	clc.demofile = FS_FOpenFileWrite( name, qtrue );
 	if ( !clc.demofile ) {
 		Com_Printf ("ERROR: couldn't open.\n");
 		return;
@@ -1421,7 +1423,7 @@ void CL_NextDownload(void) {
 	// A download has finished, check whether this matches a referenced checksum
 	if(*clc.downloadName)
 	{
-		char *zippath = FS_BuildOSPath(Cvar_VariableString("fs_homepath"), clc.downloadName, "");
+		char *zippath = FS_BuildOSPath2(Cvar_VariableString("fs_homepath"), clc.downloadName, "");
 		zippath[strlen(zippath)-1] = '\0';
 
 		if(!FS_CompareZipChecksum(zippath))
@@ -2438,6 +2440,7 @@ void CL_InitRef( void ) {
 	ri.FS_ReadFile = FS_ReadFile;
 	ri.FS_FCloseFile = FS_FCloseFile;
 	ri.FS_FOpenFileRead = FS_FOpenFileRead;
+	fileHandle_t FS_FOpenFileWrite( const char *filename, qboolean safe );
 	ri.FS_FOpenFileWrite = FS_FOpenFileWrite;
 	ri.FS_FOpenFileByMode = FS_FOpenFileByMode;
 	ri.FS_FileExists = FS_FileExists;
@@ -2665,7 +2668,7 @@ static void CL_GenerateQKey(void)
 
 			Com_Printf( "QKEY building random string\n" );
 			Com_RandomBytes( buff, sizeof(buff) );
-
+			fileHandle_t FS_SV_FOpenFileWrite( const char *filename );
 			f = FS_SV_FOpenFileWrite( QKEY_FILE );
 			if( !f ) {
 				Com_Printf( "QKEY could not open %s for write\n",
