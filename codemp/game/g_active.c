@@ -860,7 +860,7 @@ void G_VehicleAttachDroidUnit( gentity_t *vehEnt )
 		mdxaBone_t boltMatrix;
 		vec3_t	fwd;
 
-		trap->G2API_GetBoltMatrix(vehEnt->ghoul2, 0, vehEnt->m_pVehicle->m_iDroidUnitTag, &boltMatrix, vehEnt->r.currentAngles, vehEnt->r.currentOrigin, level.time,
+		SV_G2API_GetBoltMatrix(vehEnt->ghoul2, 0, vehEnt->m_pVehicle->m_iDroidUnitTag, &boltMatrix, vehEnt->r.currentAngles, vehEnt->r.currentOrigin, level.time,
 			NULL, vehEnt->modelScale);
 		BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, droidEnt->r.currentOrigin);
 		BG_GiveMeVectorFromMatrix(&boltMatrix, NEGATIVE_Y, fwd);
@@ -2168,7 +2168,7 @@ void ClientThink_real( gentity_t *ent ) {
 			}
 
 			VectorSet(tAng, 0, ent->client->ps.viewangles[YAW], 0);
-			trap->G2API_GetBoltMatrix(ent->ghoul2, 0, 0, &rhMat, tAng, ent->client->ps.origin, level.time,
+			SV_G2API_GetBoltMatrix(ent->ghoul2, 0, 0, &rhMat, tAng, ent->client->ps.origin, level.time,
 				NULL, ent->modelScale); //0 is always going to be right hand bolt
 			BG_GiveMeVectorFromMatrix(&rhMat, ORIGIN, rhOrg);
 
@@ -2584,11 +2584,11 @@ void ClientThink_real( gentity_t *ent ) {
 			}
 		}
 		else if (thrower->inuse && thrower->client && thrower->ghoul2 &&
-			trap->G2API_HaveWeGhoul2Models(thrower->ghoul2))
+			SV_G2API_HaveWeGhoul2Models(thrower->ghoul2))
 		{
 #if 0
-			int lHandBolt = trap->G2API_AddBolt(thrower->ghoul2, 0, "*l_hand");
-			int pelBolt = trap->G2API_AddBolt(thrower->ghoul2, 0, "pelvis");
+			int lHandBolt = SV_G2API_AddBolt(thrower->ghoul2, 0, "*l_hand");
+			int pelBolt = SV_G2API_AddBolt(thrower->ghoul2, 0, "pelvis");
 
 
 			if (lHandBolt != -1 && pelBolt != -1)
@@ -2614,12 +2614,12 @@ void ClientThink_real( gentity_t *ent ) {
 #if 0
 				mdxaBone_t boltMatrix, pBoltMatrix;
 
-				trap->G2API_GetBoltMatrix(thrower->ghoul2, 0, lHandBolt, &boltMatrix, tAngles, thrower->client->ps.origin, level.time, 0, thrower->modelScale);
+				SV_G2API_GetBoltMatrix(thrower->ghoul2, 0, lHandBolt, &boltMatrix, tAngles, thrower->client->ps.origin, level.time, 0, thrower->modelScale);
 				boltOrg[0] = boltMatrix.matrix[0][3];
 				boltOrg[1] = boltMatrix.matrix[1][3];
 				boltOrg[2] = boltMatrix.matrix[2][3];
 
-				trap->G2API_GetBoltMatrix(thrower->ghoul2, 0, pelBolt, &pBoltMatrix, tAngles, thrower->client->ps.origin, level.time, 0, thrower->modelScale);
+				SV_G2API_GetBoltMatrix(thrower->ghoul2, 0, pelBolt, &pBoltMatrix, tAngles, thrower->client->ps.origin, level.time, 0, thrower->modelScale);
 				pBoltOrg[0] = pBoltMatrix.matrix[0][3];
 				pBoltOrg[1] = pBoltMatrix.matrix[1][3];
 				pBoltOrg[2] = pBoltMatrix.matrix[2][3];
@@ -2864,8 +2864,8 @@ void ClientThink_real( gentity_t *ent ) {
 		else
 		{
 			pmove.ghoul2 = ent->ghoul2;
-			pmove.g2Bolts_LFoot = trap->G2API_AddBolt(ent->ghoul2, 0, "*l_leg_foot");
-			pmove.g2Bolts_RFoot = trap->G2API_AddBolt(ent->ghoul2, 0, "*r_leg_foot");
+			pmove.g2Bolts_LFoot = SV_G2API_AddBolt(ent->ghoul2, 0, "*l_leg_foot");
+			pmove.g2Bolts_RFoot = SV_G2API_AddBolt(ent->ghoul2, 0, "*r_leg_foot");
 		}
 	}
 

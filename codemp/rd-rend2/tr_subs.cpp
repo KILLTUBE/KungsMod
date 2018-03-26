@@ -102,7 +102,8 @@ void *R_Hunk_Alloc(int iSize, qboolean bZeroit) {
 			if ( tex[i] )
 			{
 				extern void R_Free(void *pvAddress);
-				R_Free(tex[i]);
+				// this crashes for some reason on exit
+				//R_Free(tex[i]);
 				tex[i] = 0;
 			}
 		}

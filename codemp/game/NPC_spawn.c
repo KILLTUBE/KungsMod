@@ -251,7 +251,7 @@ void NPC_SetMiscDefaultData( gentity_t *ent )
 			ent->pain = NPC_ATST_Pain;
 		}
 		//turn the damn hatch cover on and LEAVE it on
-		trap->G2API_SetSurfaceOnOff( ent->ghoul2, "head_hatchcover", 0/*TURN_ON*/ );
+		SV_G2API_SetSurfaceOnOff( ent->ghoul2, "head_hatchcover", 0/*TURN_ON*/ );
 	}
 	if ( !Q_stricmp( "wampa", ent->NPC_type ) )
 	{//FIXME: extern this into NPC.cfg?
@@ -2104,13 +2104,13 @@ qboolean NPC_VehiclePrecache( gentity_t *spawner )
 		{
 			skin = trap->R_RegisterSkin(va("models/players/%s/model_%s.skin", pVehInfo->model, pVehInfo->skin));
 		}
-		trap->G2API_InitGhoul2Model(&tempG2, va("models/players/%s/model.glm", pVehInfo->model), 0, skin, 0, 0, 0);
+		SV_G2API_InitGhoul2Model(&tempG2, va("models/players/%s/model.glm", pVehInfo->model), 0, skin, 0, 0, 0);
 		if (tempG2)
 		{ //now, cache the anim config.
 			char GLAName[1024];
 
 			GLAName[0] = 0;
-			trap->G2API_GetGLAName(tempG2, 0, GLAName);
+			SV_G2API_GetGLAName(tempG2, 0, GLAName);
 
 			if (GLAName[0])
 			{
@@ -2122,7 +2122,7 @@ qboolean NPC_VehiclePrecache( gentity_t *spawner )
 					BG_ParseAnimationFile(GLAName, NULL, qfalse);
 				}
 			}
-			trap->G2API_CleanGhoul2Models(&tempG2);
+			SV_G2API_CleanGhoul2Models(&tempG2);
 		}
 	}
 

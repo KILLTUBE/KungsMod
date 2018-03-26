@@ -39,10 +39,10 @@ void Rancor_SetBolts( gentity_t *self )
 	if ( self && self->client )
 	{
 		renderInfo_t *ri = &self->client->renderInfo;
-		ri->handRBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*r_hand" );
-		ri->handLBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*l_hand" );
-		ri->headBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*head_eyes" );
-		ri->torsoBolt = trap->G2API_AddBolt( self->ghoul2, 0, "jaw_bone" );
+		ri->handRBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*r_hand" );
+		ri->handLBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*l_hand" );
+		ri->headBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*head_eyes" );
+		ri->torsoBolt = SV_G2API_AddBolt( self->ghoul2, 0, "jaw_bone" );
 	}
 }
 

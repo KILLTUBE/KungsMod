@@ -173,17 +173,17 @@ void Sentry_Fire (void)
 	switch( which )
 	{
 	case 0:
-		bolt = trap->G2API_AddBolt(NPCS.NPC->ghoul2, 0, "*flash1");
+		bolt = SV_G2API_AddBolt(NPCS.NPC->ghoul2, 0, "*flash1");
 		break;
 	case 1:
-		bolt = trap->G2API_AddBolt(NPCS.NPC->ghoul2, 0, "*flash2");
+		bolt = SV_G2API_AddBolt(NPCS.NPC->ghoul2, 0, "*flash2");
 		break;
 	case 2:
 	default:
-		bolt = trap->G2API_AddBolt(NPCS.NPC->ghoul2, 0, "*flash03");
+		bolt = SV_G2API_AddBolt(NPCS.NPC->ghoul2, 0, "*flash03");
 	}
 
-	trap->G2API_GetBoltMatrix( NPCS.NPC->ghoul2, 0,
+	SV_G2API_GetBoltMatrix( NPCS.NPC->ghoul2, 0,
 				bolt,
 				&boltMatrix, NPCS.NPC->r.currentAngles, NPCS.NPC->r.currentOrigin, level.time,
 				NULL, NPCS.NPC->modelScale );

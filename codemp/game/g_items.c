@@ -1614,7 +1614,7 @@ void EWeb_SetBoneAngles(gentity_t *ent, char *bone, vec3_t angles)
 	//first 3 bits is forward, second 3 bits is right, third 3 bits is up
 	ent->s.boneOrient = ((forward)|(right<<3)|(up<<6));
 
-	trap->G2API_SetBoneAngles( ent->ghoul2,
+	SV_G2API_SetBoneAngles( ent->ghoul2,
 					0,
 					bone,
 					angles,
@@ -1645,7 +1645,7 @@ void EWeb_SetBoneAnim(gentity_t *eweb, int startFrame, int endFrame)
 
 	//now set the animation on the server ghoul2 instance.
 	assert(eweb->ghoul2);
-	trap->G2API_SetBoneAnim(eweb->ghoul2, 0, "model_root", startFrame, endFrame,
+	SV_G2API_SetBoneAnim(eweb->ghoul2, 0, "model_root", startFrame, endFrame,
 		(BONE_ANIM_OVERRIDE_FREEZE|BONE_ANIM_BLEND), 1.0f, level.time, -1, 100);
 }
 
@@ -1664,7 +1664,7 @@ void EWebFire(gentity_t *owner, gentity_t *eweb)
 	}
 
 	//get the muzzle point
-	trap->G2API_GetBoltMatrix(eweb->ghoul2, 0, eweb->genericValue10, &boltMatrix, eweb->s.apos.trBase, eweb->r.currentOrigin, level.time, NULL, eweb->modelScale);
+	SV_G2API_GetBoltMatrix(eweb->ghoul2, 0, eweb->genericValue10, &boltMatrix, eweb->s.apos.trBase, eweb->r.currentOrigin, level.time, NULL, eweb->modelScale);
 	BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, p);
 	BG_GiveMeVectorFromMatrix(&boltMatrix, NEGATIVE_Y, d);
 
@@ -1700,7 +1700,7 @@ void EWebPositionUser(gentity_t *owner, gentity_t *eweb)
 	vec3_t p, d;
 	trace_t tr;
 
-	trap->G2API_GetBoltMatrix(eweb->ghoul2, 0, eweb->genericValue9, &boltMatrix, eweb->s.apos.trBase, eweb->r.currentOrigin, level.time, NULL, eweb->modelScale);
+	SV_G2API_GetBoltMatrix(eweb->ghoul2, 0, eweb->genericValue9, &boltMatrix, eweb->s.apos.trBase, eweb->r.currentOrigin, level.time, NULL, eweb->modelScale);
 	BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, p);
 	BG_GiveMeVectorFromMatrix(&boltMatrix, NEGATIVE_X, d);
 
@@ -1967,7 +1967,7 @@ gentity_t *EWeb_Create(gentity_t *spawner)
 	ent->s.g2radius = 128;
 	ent->s.modelindex = G_ModelIndex((char *)modelName);
 
-	trap->G2API_InitGhoul2Model(&ent->ghoul2, modelName, 0, 0, 0, 0, 0);
+	SV_G2API_InitGhoul2Model(&ent->ghoul2, modelName, 0, 0, 0, 0, 0);
 
 	if (!ent->ghoul2)
 	{ //should not happen, but just to be safe.
@@ -1979,8 +1979,8 @@ gentity_t *EWeb_Create(gentity_t *spawner)
 	EWeb_SetBoneAngles(ent, "cannon_Yrot", vec3_origin);
 	EWeb_SetBoneAngles(ent, "cannon_Xrot", vec3_origin);
 
-	ent->genericValue10 = trap->G2API_AddBolt(ent->ghoul2, 0, "*cannonflash"); //muzzle bolt
-	ent->genericValue9 = trap->G2API_AddBolt(ent->ghoul2, 0, "cannon_Yrot"); //for placing the owner relative to rotation
+	ent->genericValue10 = SV_G2API_AddBolt(ent->ghoul2, 0, "*cannonflash"); //muzzle bolt
+	ent->genericValue9 = SV_G2API_AddBolt(ent->ghoul2, 0, "cannon_Yrot"); //for placing the owner relative to rotation
 
 	//set the constraints for this guy as an emplaced weapon, and his constraint angles
 	ent->s.origin2[0] = 360.0f; //360 degrees in either direction
@@ -2941,7 +2941,7 @@ void FinishSpawningItem( gentity_t *ent ) {
 /*	item = &bg_itemlist[ ent->s.modelindex ];
 	if (!Q_stricmp(&item->world_model[0][strlen(item->world_model[0]) - 4], ".glm"))
 	{
-		trap->G2API_InitGhoul2Model(&ent->s, item->world_model[0], G_ModelIndex(item->world_model[0] ), 0, 0, 0, 0);
+		SV_G2API_InitGhoul2Model(&ent->s, item->world_model[0], G_ModelIndex(item->world_model[0] ), 0, 0, 0, 0);
 		ent->s.radius = 60;
 	}
 */

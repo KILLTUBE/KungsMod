@@ -961,7 +961,7 @@ static QINLINE void G_G2PlayerAngles( gentity_t *ent, matrix3_t legs, vec3_t leg
 
 			if (other && other->inuse && other->client && other->ghoul2)
 			{
-				lHandBolt = trap->G2API_AddBolt(other->ghoul2, 0, "*l_hand");
+				lHandBolt = SV_G2API_AddBolt(other->ghoul2, 0, "*l_hand");
 			}
 			else
 			{ //they left the game, perhaps?
@@ -978,7 +978,7 @@ static QINLINE void G_G2PlayerAngles( gentity_t *ent, matrix3_t legs, vec3_t leg
 				VectorCopy(other->client->ps.viewangles, tAngles);
 				tAngles[PITCH] = tAngles[ROLL] = 0;
 
-				trap->G2API_GetBoltMatrix(other->ghoul2, 0, lHandBolt, &boltMatrix, tAngles, other->client->ps.origin, level.time, 0, other->modelScale);
+				SV_G2API_GetBoltMatrix(other->ghoul2, 0, lHandBolt, &boltMatrix, tAngles, other->client->ps.origin, level.time, 0, other->modelScale);
 				boltOrg[0] = boltMatrix.matrix[0][3];
 				boltOrg[1] = boltMatrix.matrix[1][3];
 				boltOrg[2] = boltMatrix.matrix[2][3];
@@ -993,7 +993,7 @@ static QINLINE void G_G2PlayerAngles( gentity_t *ent, matrix3_t legs, vec3_t leg
 
 			if (ent && ent->inuse && ent->client && ent->ghoul2)
 			{
-				lHandBolt = trap->G2API_AddBolt(ent->ghoul2, 0, "*l_hand");
+				lHandBolt = SV_G2API_AddBolt(ent->ghoul2, 0, "*l_hand");
 			}
 			else
 			{ //This shouldn't happen, but just in case it does, we'll have a failsafe.
@@ -2362,11 +2362,11 @@ static QINLINE qboolean G_G2TraceCollide(trace_t *tr, vec3_t lastValidStart, vec
 			g2Hit->s.NPC_class == CLASS_VEHICLE &&
 			g2Hit->m_pVehicle)
 		{
-			trap->G2API_CollisionDetectCache ( G2Trace, g2Hit->ghoul2, angles, g2HitOrigin, level.time, g2Hit->s.number, lastValidStart, lastValidEnd, g2Hit->modelScale, 0, g_g2TraceLod.integer, fRadius );
+			SV_G2API_CollisionDetectCache ( G2Trace, g2Hit->ghoul2, angles, g2HitOrigin, level.time, g2Hit->s.number, lastValidStart, lastValidEnd, g2Hit->modelScale, 0, g_g2TraceLod.integer, fRadius );
 		}
 		else
 		{
-			trap->G2API_CollisionDetect ( G2Trace, g2Hit->ghoul2, angles, g2HitOrigin, level.time, g2Hit->s.number, lastValidStart, lastValidEnd, g2Hit->modelScale, 0, g_g2TraceLod.integer, fRadius );
+			SV_G2API_CollisionDetect ( G2Trace, g2Hit->ghoul2, angles, g2HitOrigin, level.time, g2Hit->s.number, lastValidStart, lastValidEnd, g2Hit->modelScale, 0, g_g2TraceLod.integer, fRadius );
 		}
 
 		if (G2Trace[0].mEntityNum != g2Hit->s.number)
@@ -6592,7 +6592,7 @@ void WP_SaberRemoveG2Model( gentity_t *saberent )
 {
 	if ( saberent->ghoul2 )
 	{
-		trap->G2API_RemoveGhoul2Models( &saberent->ghoul2 );
+		SV_G2API_RemoveGhoul2Models( &saberent->ghoul2 );
 	}
 }
 
@@ -6608,7 +6608,7 @@ void WP_SaberAddG2Model( gentity_t *saberent, const char *saberModel, qhandle_t 
 		saberent->s.modelindex = G_ModelIndex( "models/weapons2/saber/saber_w.glm" );
 	}
 	//FIXME: use customSkin?
-	trap->G2API_InitGhoul2Model( &saberent->ghoul2, saberModel, saberent->s.modelindex, saberSkin, 0, 0, 0 );
+	SV_G2API_InitGhoul2Model( &saberent->ghoul2, saberModel, saberent->s.modelindex, saberSkin, 0, 0, 0 );
 }
 
 //Make the saber go flying directly out of the owner's hand in the specified direction
@@ -7272,43 +7272,43 @@ void UpdateClientRenderBolts(gentity_t *self, vec3_t renderOrigin, vec3_t render
 	else
 	{
 		//head
-		trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->headBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
+		SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->headBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
 		ri->headPoint[0] = boltMatrix.matrix[0][3];
 		ri->headPoint[1] = boltMatrix.matrix[1][3];
 		ri->headPoint[2] = boltMatrix.matrix[2][3];
 
 		//right hand
-		trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->handRBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
+		SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->handRBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
 		ri->handRPoint[0] = boltMatrix.matrix[0][3];
 		ri->handRPoint[1] = boltMatrix.matrix[1][3];
 		ri->handRPoint[2] = boltMatrix.matrix[2][3];
 
 		//left hand
-		trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->handLBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
+		SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->handLBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
 		ri->handLPoint[0] = boltMatrix.matrix[0][3];
 		ri->handLPoint[1] = boltMatrix.matrix[1][3];
 		ri->handLPoint[2] = boltMatrix.matrix[2][3];
 
 		//chest
-		trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->torsoBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
+		SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->torsoBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
 		ri->torsoPoint[0] = boltMatrix.matrix[0][3];
 		ri->torsoPoint[1] = boltMatrix.matrix[1][3];
 		ri->torsoPoint[2] = boltMatrix.matrix[2][3];
 
 		//crotch
-		trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->crotchBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
+		SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->crotchBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
 		ri->crotchPoint[0] = boltMatrix.matrix[0][3];
 		ri->crotchPoint[1] = boltMatrix.matrix[1][3];
 		ri->crotchPoint[2] = boltMatrix.matrix[2][3];
 
 		//right foot
-		trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->footRBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
+		SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->footRBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
 		ri->footRPoint[0] = boltMatrix.matrix[0][3];
 		ri->footRPoint[1] = boltMatrix.matrix[1][3];
 		ri->footRPoint[2] = boltMatrix.matrix[2][3];
 
 		//left foot
-		trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->footLBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
+		SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->footLBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
 		ri->footLPoint[0] = boltMatrix.matrix[0][3];
 		ri->footLPoint[1] = boltMatrix.matrix[1][3];
 		ri->footLPoint[2] = boltMatrix.matrix[2][3];
@@ -7353,14 +7353,14 @@ void UpdateClientRenderinfo(gentity_t *self, vec3_t renderOrigin, vec3_t renderA
 
 			if (self->localAnimIndex <= 1)
 			{
-				ri->headBolt = trap->G2API_AddBolt(self->ghoul2, 0, "*head_eyes");
-				ri->handRBolt = trap->G2API_AddBolt(self->ghoul2, 0, "*r_hand");
-				ri->handLBolt = trap->G2API_AddBolt(self->ghoul2, 0, "*l_hand");
-				ri->torsoBolt = trap->G2API_AddBolt(self->ghoul2, 0, "thoracic");
-				ri->crotchBolt = trap->G2API_AddBolt(self->ghoul2, 0, "pelvis");
-				ri->footRBolt = trap->G2API_AddBolt(self->ghoul2, 0, "*r_leg_foot");
-				ri->footLBolt = trap->G2API_AddBolt(self->ghoul2, 0, "*l_leg_foot");
-				ri->motionBolt = trap->G2API_AddBolt(self->ghoul2, 0, "Motion");
+				ri->headBolt = SV_G2API_AddBolt(self->ghoul2, 0, "*head_eyes");
+				ri->handRBolt = SV_G2API_AddBolt(self->ghoul2, 0, "*r_hand");
+				ri->handLBolt = SV_G2API_AddBolt(self->ghoul2, 0, "*l_hand");
+				ri->torsoBolt = SV_G2API_AddBolt(self->ghoul2, 0, "thoracic");
+				ri->crotchBolt = SV_G2API_AddBolt(self->ghoul2, 0, "pelvis");
+				ri->footRBolt = SV_G2API_AddBolt(self->ghoul2, 0, "*r_leg_foot");
+				ri->footLBolt = SV_G2API_AddBolt(self->ghoul2, 0, "*l_leg_foot");
+				ri->motionBolt = SV_G2API_AddBolt(self->ghoul2, 0, "Motion");
 			}
 			else
 			{
@@ -7402,43 +7402,43 @@ void UpdateClientRenderinfo(gentity_t *self, vec3_t renderOrigin, vec3_t renderA
 			else
 			{
 				//head
-				trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->headBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
+				SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->headBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
 				ri->headPoint[0] = boltMatrix.matrix[0][3];
 				ri->headPoint[1] = boltMatrix.matrix[1][3];
 				ri->headPoint[2] = boltMatrix.matrix[2][3];
 
 				//right hand
-				trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->handRBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
+				SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->handRBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
 				ri->handRPoint[0] = boltMatrix.matrix[0][3];
 				ri->handRPoint[1] = boltMatrix.matrix[1][3];
 				ri->handRPoint[2] = boltMatrix.matrix[2][3];
 
 				//left hand
-				trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->handLBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
+				SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->handLBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
 				ri->handLPoint[0] = boltMatrix.matrix[0][3];
 				ri->handLPoint[1] = boltMatrix.matrix[1][3];
 				ri->handLPoint[2] = boltMatrix.matrix[2][3];
 
 				//chest
-				trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->torsoBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
+				SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->torsoBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
 				ri->torsoPoint[0] = boltMatrix.matrix[0][3];
 				ri->torsoPoint[1] = boltMatrix.matrix[1][3];
 				ri->torsoPoint[2] = boltMatrix.matrix[2][3];
 
 				//crotch
-				trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->crotchBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
+				SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->crotchBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
 				ri->crotchPoint[0] = boltMatrix.matrix[0][3];
 				ri->crotchPoint[1] = boltMatrix.matrix[1][3];
 				ri->crotchPoint[2] = boltMatrix.matrix[2][3];
 
 				//right foot
-				trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->footRBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
+				SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->footRBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
 				ri->footRPoint[0] = boltMatrix.matrix[0][3];
 				ri->footRPoint[1] = boltMatrix.matrix[1][3];
 				ri->footRPoint[2] = boltMatrix.matrix[2][3];
 
 				//left foot
-				trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->footLBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
+				SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->footLBolt, &boltMatrix, renderAngles, renderOrigin, level.time, NULL, self->modelScale);
 				ri->footLPoint[0] = boltMatrix.matrix[0][3];
 				ri->footLPoint[1] = boltMatrix.matrix[1][3];
 				ri->footLPoint[2] = boltMatrix.matrix[2][3];
@@ -7976,7 +7976,7 @@ static void G_GrabSomeMofos(gentity_t *self)
 	}
 
     VectorSet(flatAng, 0.0f, self->client->ps.viewangles[1], 0.0f);
-	trap->G2API_GetBoltMatrix(self->ghoul2, 0, ri->handRBolt, &boltMatrix, flatAng, self->client->ps.origin,
+	SV_G2API_GetBoltMatrix(self->ghoul2, 0, ri->handRBolt, &boltMatrix, flatAng, self->client->ps.origin,
 		level.time, NULL, self->modelScale);
 	BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, pos);
 
@@ -8377,7 +8377,7 @@ void WP_SaberPositionUpdate( gentity_t *self, usercmd_t *ucmd )
 	//If this is a listen server (client+server running on same machine),
 	//then lets try to steal the skeleton/etc data off the client instance
 	//for this entity to save us processing time.
-	clientOverride = trap->G2API_OverrideServer(self->ghoul2);
+	clientOverride = SV_G2API_OverrideServer(self->ghoul2);
 
 	saberNum = self->client->ps.saberEntityNum;
 
@@ -8559,7 +8559,7 @@ nextStep:
 
 	//We'll get data for blade 0 first no matter what it is and stick them into
 	//the constant ("_Always") values. Later we will handle going through each blade.
-	trap->G2API_GetBoltMatrix(self->ghoul2, 1, 0, &boltMatrix, properAngles, properOrigin, level.time, NULL, self->modelScale);
+	SV_G2API_GetBoltMatrix(self->ghoul2, 1, 0, &boltMatrix, properAngles, properOrigin, level.time, NULL, self->modelScale);
 	BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, boltOrigin);
 	BG_GiveMeVectorFromMatrix(&boltMatrix, NEGATIVE_Y, boltAngles);
 
@@ -8867,7 +8867,7 @@ nextStep:
 							VectorSubtract( self->r.currentOrigin, saberOrg, saberDir );
 							vectoangles( saberDir, saberAngles );
 						}
-						trap->G2API_GetBoltMatrix(saberEnt->ghoul2, 0, rBladeNum, &boltMatrix, saberAngles, saberOrg, level.time, NULL, self->modelScale);
+						SV_G2API_GetBoltMatrix(saberEnt->ghoul2, 0, rBladeNum, &boltMatrix, saberAngles, saberOrg, level.time, NULL, self->modelScale);
 						BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, self->client->saber[rSaberNum].blade[rBladeNum].muzzlePoint);
 						BG_GiveMeVectorFromMatrix(&boltMatrix, NEGATIVE_Y, self->client->saber[rSaberNum].blade[rBladeNum].muzzleDir);
 						VectorCopy( self->client->saber[rSaberNum].blade[rBladeNum].muzzlePoint, boltOrigin );
@@ -8877,7 +8877,7 @@ nextStep:
 				}
 				else
 				{
-					trap->G2API_GetBoltMatrix(self->ghoul2, rSaberNum+1, rBladeNum, &boltMatrix, properAngles, properOrigin, level.time, NULL, self->modelScale);
+					SV_G2API_GetBoltMatrix(self->ghoul2, rSaberNum+1, rBladeNum, &boltMatrix, properAngles, properOrigin, level.time, NULL, self->modelScale);
 					BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, self->client->saber[rSaberNum].blade[rBladeNum].muzzlePoint);
 					BG_GiveMeVectorFromMatrix(&boltMatrix, NEGATIVE_Y, self->client->saber[rSaberNum].blade[rBladeNum].muzzleDir);
 					VectorCopy( self->client->saber[rSaberNum].blade[rBladeNum].muzzlePoint, boltOrigin );

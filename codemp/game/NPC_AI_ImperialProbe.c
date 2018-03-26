@@ -283,10 +283,10 @@ void ImperialProbe_FireBlaster(void)
 	gentity_t	*missile;
 	mdxaBone_t	boltMatrix;
 
-	genBolt1 = trap->G2API_AddBolt(NPCS.NPC->ghoul2, 0, "*flash");
+	genBolt1 = SV_G2API_AddBolt(NPCS.NPC->ghoul2, 0, "*flash");
 
 	//FIXME: use {0, NPC->client->ps.legsYaw, 0}
-	trap->G2API_GetBoltMatrix( NPCS.NPC->ghoul2, 0,
+	SV_G2API_GetBoltMatrix( NPCS.NPC->ghoul2, 0,
 				genBolt1,
 				&boltMatrix, NPCS.NPC->r.currentAngles, NPCS.NPC->r.currentOrigin, level.time,
 				NULL, NPCS.NPC->modelScale );

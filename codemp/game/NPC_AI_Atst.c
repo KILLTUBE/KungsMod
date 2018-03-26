@@ -64,7 +64,7 @@ static void ATST_PlayEffect( gentity_t *self, const int boltID, const char *fx )
 		mdxaBone_t	boltMatrix;
 		vec3_t		org, dir;
 
-		trap->G2API_GetBoltMatrix( self->ghoul2, 0,
+		SV_G2API_GetBoltMatrix( self->ghoul2, 0,
 					boltID,
 					&boltMatrix, self->r.currentAngles, self->r.currentOrigin, level.time,
 					NULL, self->modelScale );
@@ -104,11 +104,11 @@ void G_ATSTCheckPain( gentity_t *self, gentity_t *other, int damage )
 	{
 		if (self->locationDamage[hitLoc] >= LEFT_ARM_HEALTH)	// Blow it up?
 		{
-			newBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*flash3" );
+			newBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*flash3" );
 			if ( newBolt != -1 )
 			{
 //				G_PlayEffect( "small_chunks", self->playerModel, self->genericBolt1, self->s.number);
-				ATST_PlayEffect( self, trap->G2API_AddBolt(self->ghoul2, 0, "*flash3"), "env/med_explode2" );
+				ATST_PlayEffect( self, SV_G2API_AddBolt(self->ghoul2, 0, "*flash3"), "env/med_explode2" );
 				//G_PlayEffectID( G_EffectIndex("blaster/smoke_bolton"), self->playerModel, newBolt, self->s.number);
 				//Maybe bother with this some other time.
 			}
@@ -120,11 +120,11 @@ void G_ATSTCheckPain( gentity_t *self, gentity_t *other, int damage )
 	{
 		if (self->locationDamage[hitLoc] >= RIGHT_ARM_HEALTH)
 		{
-			newBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*flash4" );
+			newBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*flash4" );
 			if ( newBolt != -1 )
 			{
 //				G_PlayEffect( "small_chunks", self->playerModel, self->genericBolt2, self->s.number);
-				ATST_PlayEffect( self, trap->G2API_AddBolt(self->ghoul2, 0, "*flash4"), "env/med_explode2" );
+				ATST_PlayEffect( self, SV_G2API_AddBolt(self->ghoul2, 0, "*flash4"), "env/med_explode2" );
 				//G_PlayEffect( "blaster/smoke_bolton", self->playerModel, newBolt, self->s.number);
 			}
 
@@ -242,8 +242,8 @@ void ATST_Attack( void )
 		//rwwFIXMEFIXME: make atst weaps work.
 
 		// See if the side weapons are there
-		blasterTest = trap->G2API_GetSurfaceRenderStatus( NPCS.NPC->ghoul2, 0, "head_light_blaster_cann" );
-		chargerTest = trap->G2API_GetSurfaceRenderStatus( NPCS.NPC->ghoul2, 0, "head_concussion_charger" );
+		blasterTest = SV_G2API_GetSurfaceRenderStatus( NPCS.NPC->ghoul2, 0, "head_light_blaster_cann" );
+		chargerTest = SV_G2API_GetSurfaceRenderStatus( NPCS.NPC->ghoul2, 0, "head_concussion_charger" );
 
 		// It has both side weapons
 		if ( blasterTest != -1

@@ -1008,7 +1008,7 @@ void NPC_SetBoneAngles(gentity_t *ent, char *bone, vec3_t angles)
 	//first 3 bits is forward, second 3 bits is right, third 3 bits is up
 	ent->s.boneOrient = ((forward)|(right<<3)|(up<<6));
 
-	trap->G2API_SetBoneAngles(ent->ghoul2, 0, bone, angles, flags, up, right, forward, NULL, 100, level.time);
+	SV_G2API_SetBoneAngles(ent->ghoul2, 0, bone, angles, flags, up, right, forward, NULL, 100, level.time);
 }
 
 //rww - and another method of automatically managing surface status for the client and server at once
@@ -1052,7 +1052,7 @@ void NPC_SetSurfaceOnOff(gentity_t *ent, const char *surfaceName, int surfaceFla
 		return;
 	}
 
-	trap->G2API_SetSurfaceOnOff(ent->ghoul2, surfaceName, surfaceFlags);
+	SV_G2API_SetSurfaceOnOff(ent->ghoul2, surfaceName, surfaceFlags);
 }
 
 //rww - cheap check to see if an armed client is looking in our general direction
@@ -1744,7 +1744,7 @@ void G_GetBoltPosition( gentity_t *self, int boltIndex, vec3_t pos, int modelInd
 		return;
 	}
 
-	trap->G2API_GetBoltMatrix( self->ghoul2, modelIndex,
+	SV_G2API_GetBoltMatrix( self->ghoul2, modelIndex,
 				boltIndex,
 				&boltMatrix, angles, self->r.currentOrigin, level.time,
 				NULL, self->modelScale );

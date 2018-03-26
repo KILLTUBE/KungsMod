@@ -181,7 +181,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 	RMG.integer = 0;
 
 	//Clean up any client-server ghoul2 instance attachments that may still exist exe-side
-	trap->G2API_CleanEntAttachments();
+	SV_G2API_CleanEntAttachments();
 
 	BG_InitAnimsets(); //clear it out
 
@@ -448,9 +448,9 @@ void G_ShutdownGame( int restart ) {
 	{ //clean up all the ghoul2 instances
 		ent = &g_entities[i];
 
-		if (ent->ghoul2 && trap->G2API_HaveWeGhoul2Models(ent->ghoul2))
+		if (ent->ghoul2 && SV_G2API_HaveWeGhoul2Models(ent->ghoul2))
 		{
-			trap->G2API_CleanGhoul2Models(&ent->ghoul2);
+			SV_G2API_CleanGhoul2Models(&ent->ghoul2);
 			ent->ghoul2 = NULL;
 		}
 		if (ent->client)
@@ -459,23 +459,23 @@ void G_ShutdownGame( int restart ) {
 
 			while (j < MAX_SABERS)
 			{
-				if (ent->client->weaponGhoul2[j] && trap->G2API_HaveWeGhoul2Models(ent->client->weaponGhoul2[j]))
+				if (ent->client->weaponGhoul2[j] && SV_G2API_HaveWeGhoul2Models(ent->client->weaponGhoul2[j]))
 				{
-					trap->G2API_CleanGhoul2Models(&ent->client->weaponGhoul2[j]);
+					SV_G2API_CleanGhoul2Models(&ent->client->weaponGhoul2[j]);
 				}
 				j++;
 			}
 		}
 		i++;
 	}
-	if (g2SaberInstance && trap->G2API_HaveWeGhoul2Models(g2SaberInstance))
+	if (g2SaberInstance && SV_G2API_HaveWeGhoul2Models(g2SaberInstance))
 	{
-		trap->G2API_CleanGhoul2Models(&g2SaberInstance);
+		SV_G2API_CleanGhoul2Models(&g2SaberInstance);
 		g2SaberInstance = NULL;
 	}
-	if (precachedKyle && trap->G2API_HaveWeGhoul2Models(precachedKyle))
+	if (precachedKyle && SV_G2API_HaveWeGhoul2Models(precachedKyle))
 	{
-		trap->G2API_CleanGhoul2Models(&precachedKyle);
+		SV_G2API_CleanGhoul2Models(&precachedKyle);
 		precachedKyle = NULL;
 	}
 

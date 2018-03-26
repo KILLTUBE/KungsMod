@@ -126,7 +126,7 @@ void G2Tur_SetBoneAngles(gentity_t *ent, char *bone, vec3_t angles)
 	//first 3 bits is forward, second 3 bits is right, third 3 bits is up
 	ent->s.boneOrient = ((forward)|(right<<3)|(up<<6));
 
-	trap->G2API_SetBoneAngles( ent->ghoul2,
+	SV_G2API_SetBoneAngles( ent->ghoul2,
 					0,
 					bone,
 					angles,
@@ -149,11 +149,11 @@ void turretG2_set_models( gentity_t *self, qboolean dying )
 			self->s.modelindex2 = G_ModelIndex( name );
 		}
 
-		trap->G2API_RemoveGhoul2Model( &self->ghoul2, 0 );
+		SV_G2API_RemoveGhoul2Model( &self->ghoul2, 0 );
 		G_KillG2Queue( self->s.number );
 		self->s.modelGhoul2 = 0;
 		/*
-		trap->G2API_InitGhoul2Model( &self->ghoul2,
+		SV_G2API_InitGhoul2Model( &self->ghoul2,
 									name2,
 									0, //base->s.modelindex,
 									//note, this is not the same kind of index - this one's referring to the actual
@@ -172,7 +172,7 @@ void turretG2_set_models( gentity_t *self, qboolean dying )
 			self->s.modelindex = G_ModelIndex( name );
 			self->s.modelindex2 = G_ModelIndex( name2 );
 			//set the new onw
-			trap->G2API_InitGhoul2Model( &self->ghoul2,
+			SV_G2API_InitGhoul2Model( &self->ghoul2,
 										name,
 										0, //base->s.modelindex,
 										//note, this is not the same kind of index - this one's referring to the actual
@@ -187,7 +187,7 @@ void turretG2_set_models( gentity_t *self, qboolean dying )
 		{
 			self->s.modelindex = G_ModelIndex( name3 );
 			//set the new onw
-			trap->G2API_InitGhoul2Model( &self->ghoul2,
+			SV_G2API_InitGhoul2Model( &self->ghoul2,
 										name3,
 										0, //base->s.modelindex,
 										//note, this is not the same kind of index - this one's referring to the actual
@@ -212,13 +212,13 @@ void turretG2_set_models( gentity_t *self, qboolean dying )
 		if ( (self->spawnflags&SPF_TURRETG2_TURBO) )
 		{//different pitch bone and muzzle flash points
 			G2Tur_SetBoneAngles(self, "pitch", vec3_origin);
-			self->genericValue11 = trap->G2API_AddBolt( self->ghoul2, 0, "*muzzle1" );
-			self->genericValue12 = trap->G2API_AddBolt( self->ghoul2, 0, "*muzzle2" );
+			self->genericValue11 = SV_G2API_AddBolt( self->ghoul2, 0, "*muzzle1" );
+			self->genericValue12 = SV_G2API_AddBolt( self->ghoul2, 0, "*muzzle2" );
 		}
 		else
 		{
 			G2Tur_SetBoneAngles(self, "Bone_body", vec3_origin);
-			self->genericValue11 = trap->G2API_AddBolt( self->ghoul2, 0, "*flash03" );
+			self->genericValue11 = SV_G2API_AddBolt( self->ghoul2, 0, "*flash03" );
 		}
 	}
 }
@@ -344,7 +344,7 @@ void TurboLaser_SetBoneAnim(gentity_t *eweb, int startFrame, int endFrame)
 
 	//now set the animation on the server ghoul2 instance.
 	assert(eweb->ghoul2);
-	trap->G2API_SetBoneAnim(eweb->ghoul2, 0, "model_root", startFrame, endFrame,
+	SV_G2API_SetBoneAnim(eweb->ghoul2, 0, "model_root", startFrame, endFrame,
 		(BONE_ANIM_OVERRIDE_FREEZE|BONE_ANIM_BLEND), 1.0f, level.time, -1, 100);
 }
 
@@ -458,7 +458,7 @@ void turretG2_head_think( gentity_t *self )
 		self->setTime = level.time + self->wait;
 
 		// Getting the flash bolt here
-		trap->G2API_GetBoltMatrix( self->ghoul2,
+		SV_G2API_GetBoltMatrix( self->ghoul2,
 					0,
 					(self->alt_fire?self->genericValue12:self->genericValue11),
 					&boltMatrix,
@@ -545,7 +545,7 @@ static void turretG2_aim( gentity_t *self )
 		}
 
 		// Getting the "eye" here
-		trap->G2API_GetBoltMatrix( self->ghoul2,
+		SV_G2API_GetBoltMatrix( self->ghoul2,
 					0,
 					(self->alt_fire?self->genericValue12:self->genericValue11),
 					&boltMatrix,
@@ -625,7 +625,7 @@ static void turretG2_aim( gentity_t *self )
 			G2Tur_SetBoneAngles(self, "Bone_body", desiredAngles);
 		}
 		/*
-		trap->G2API_SetBoneAngles( self->ghoul2,
+		SV_G2API_SetBoneAngles( self->ghoul2,
 						0,
 						"Bone_body",
 						desiredAngles,

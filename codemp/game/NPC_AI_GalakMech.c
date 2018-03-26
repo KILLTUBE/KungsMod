@@ -123,7 +123,7 @@ static void GM_CreateExplosion( gentity_t *self, const int boltID, qboolean doSm
 		mdxaBone_t	boltMatrix;
 		vec3_t		org, dir;
 
-		trap->G2API_GetBoltMatrix( self->ghoul2, 0,
+		SV_G2API_GetBoltMatrix( self->ghoul2, 0,
 					boltID,
 					&boltMatrix, self->r.currentAngles, self->r.currentOrigin, level.time,
 					NULL, self->modelScale );
@@ -162,53 +162,53 @@ void GM_Dying( gentity_t *self )
 			{
 			// Find place to generate explosion
 			case 1:
-				if (!trap->G2API_GetSurfaceRenderStatus( self->ghoul2, 0, "r_hand" ))
+				if (!SV_G2API_GetSurfaceRenderStatus( self->ghoul2, 0, "r_hand" ))
 				{//r_hand still there
-					GM_CreateExplosion( self, trap->G2API_AddBolt(self->ghoul2, 0, "*flasha"), qtrue );
+					GM_CreateExplosion( self, SV_G2API_AddBolt(self->ghoul2, 0, "*flasha"), qtrue );
 					NPC_SetSurfaceOnOff( self, "r_hand", TURN_OFF );
 				}
-				else if (!trap->G2API_GetSurfaceRenderStatus( self->ghoul2, 0, "r_arm_middle" ))
+				else if (!SV_G2API_GetSurfaceRenderStatus( self->ghoul2, 0, "r_arm_middle" ))
 				{//r_arm_middle still there
-					newBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*r_arm_elbow" );
+					newBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*r_arm_elbow" );
 					NPC_SetSurfaceOnOff( self, "r_arm_middle", TURN_OFF );
 				}
 				break;
 			case 2:
 				//FIXME: do only once?
-				if (!trap->G2API_GetSurfaceRenderStatus( self->ghoul2, 0, "l_hand" ))
+				if (!SV_G2API_GetSurfaceRenderStatus( self->ghoul2, 0, "l_hand" ))
 				{//l_hand still there
-					GM_CreateExplosion( self, trap->G2API_AddBolt(self->ghoul2, 0, "*flashc"), qfalse );
+					GM_CreateExplosion( self, SV_G2API_AddBolt(self->ghoul2, 0, "*flashc"), qfalse );
 					NPC_SetSurfaceOnOff( self, "l_hand", TURN_OFF );
 				}
-				else if (!trap->G2API_GetSurfaceRenderStatus( self->ghoul2, 0, "l_arm_wrist" ))
+				else if (!SV_G2API_GetSurfaceRenderStatus( self->ghoul2, 0, "l_arm_wrist" ))
 				{//l_arm_wrist still there
-					newBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*l_arm_cap_l_hand" );
+					newBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*l_arm_cap_l_hand" );
 					NPC_SetSurfaceOnOff( self, "l_arm_wrist", TURN_OFF );
 				}
-				else if (!trap->G2API_GetSurfaceRenderStatus( self->ghoul2, 0, "l_arm_middle" ))
+				else if (!SV_G2API_GetSurfaceRenderStatus( self->ghoul2, 0, "l_arm_middle" ))
 				{//l_arm_middle still there
-					newBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*l_arm_cap_l_hand" );
+					newBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*l_arm_cap_l_hand" );
 					NPC_SetSurfaceOnOff( self, "l_arm_middle", TURN_OFF );
 				}
-				else if (!trap->G2API_GetSurfaceRenderStatus( self->ghoul2, 0, "l_arm_augment" ))
+				else if (!SV_G2API_GetSurfaceRenderStatus( self->ghoul2, 0, "l_arm_augment" ))
 				{//l_arm_augment still there
-					newBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*l_arm_elbow" );
+					newBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*l_arm_elbow" );
 					NPC_SetSurfaceOnOff( self, "l_arm_augment", TURN_OFF );
 				}
 				break;
 			case 3:
 			case 4:
-				newBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*hip_fr" );
+				newBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*hip_fr" );
 				GM_CreateExplosion( self, newBolt, qfalse );
 				break;
 			case 5:
 			case 6:
-				newBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*shldr_l" );
+				newBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*shldr_l" );
 				GM_CreateExplosion( self, newBolt, qfalse );
 				break;
 			case 7:
 			case 8:
-				newBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*uchest_r" );
+				newBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*uchest_r" );
 				GM_CreateExplosion( self, newBolt, qfalse );
 				break;
 			case 9:
@@ -216,19 +216,19 @@ void GM_Dying( gentity_t *self )
 				GM_CreateExplosion( self, self->client->renderInfo.headBolt, qfalse );
 				break;
 			case 11:
-				newBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*l_leg_knee" );
+				newBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*l_leg_knee" );
 				GM_CreateExplosion( self, newBolt, qtrue );
 				break;
 			case 12:
-				newBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*r_leg_knee" );
+				newBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*r_leg_knee" );
 				GM_CreateExplosion( self, newBolt, qtrue );
 				break;
 			case 13:
-				newBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*l_leg_foot" );
+				newBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*l_leg_foot" );
 				GM_CreateExplosion( self, newBolt, qtrue );
 				break;
 			case 14:
-				newBolt = trap->G2API_AddBolt( self->ghoul2, 0, "*r_leg_foot" );
+				newBolt = SV_G2API_AddBolt( self->ghoul2, 0, "*r_leg_foot" );
 				GM_CreateExplosion( self, newBolt, qtrue );
 				break;
 			}

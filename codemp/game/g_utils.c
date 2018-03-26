@@ -973,7 +973,7 @@ void G_FreeEntity( gentity_t *ed ) {
 	//And, free the server instance too, if there is one.
 	if (ed->ghoul2)
 	{
-		trap->G2API_CleanGhoul2Models(&(ed->ghoul2));
+		SV_G2API_CleanGhoul2Models(&(ed->ghoul2));
 	}
 
 	if (ed->s.eType == ET_NPC && ed->m_pVehicle)
@@ -1002,9 +1002,9 @@ void G_FreeEntity( gentity_t *ed ) {
 
 		while (i < MAX_SABERS)
 		{
-			if (ed->client->weaponGhoul2[i] && trap->G2API_HaveWeGhoul2Models(ed->client->weaponGhoul2[i]))
+			if (ed->client->weaponGhoul2[i] && SV_G2API_HaveWeGhoul2Models(ed->client->weaponGhoul2[i]))
 			{
-				trap->G2API_CleanGhoul2Models(&ed->client->weaponGhoul2[i]);
+				SV_G2API_CleanGhoul2Models(&ed->client->weaponGhoul2[i]);
 			}
 			i++;
 		}

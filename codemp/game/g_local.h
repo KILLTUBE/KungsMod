@@ -38,6 +38,8 @@ typedef struct gclient_s gclient_t;
 #include "b_public.h"
 #include "qcommon/files.h"
 
+#include "server/sv_g2api.h"
+
 extern int gPainMOD;
 extern int gPainHitLoc;
 extern vec3_t gPainPoint;

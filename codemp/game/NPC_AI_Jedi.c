@@ -416,7 +416,7 @@ void Boba_FireFlameThrower( gentity_t *self )
 	mdxaBone_t	boltMatrix;
 	vec3_t		start, end, dir, traceMins = {-4, -4, -4}, traceMaxs = {4, 4, 4};
 
-	trap->G2API_GetBoltMatrix( self->ghoul2, 0, self->client->renderInfo.handLBolt,
+	SV_G2API_GetBoltMatrix( self->ghoul2, 0, self->client->renderInfo.handLBolt,
 			&boltMatrix, self->r.currentAngles, self->r.currentOrigin, level.time,
 			NULL, self->modelScale );
 
@@ -478,7 +478,7 @@ void Boba_StartFlameThrower( gentity_t *self )
 	*/
 	G_SoundOnEnt( self, CHAN_WEAPON, "sound/effects/combustfire.mp3" );
 
-	trap->G2API_GetBoltMatrix(NPCS.NPC->ghoul2, 0, NPCS.NPC->client->renderInfo.handRBolt, &boltMatrix, NPCS.NPC->r.currentAngles,
+	SV_G2API_GetBoltMatrix(NPCS.NPC->ghoul2, 0, NPCS.NPC->client->renderInfo.handRBolt, &boltMatrix, NPCS.NPC->r.currentAngles,
 		NPCS.NPC->r.currentOrigin, level.time, NULL, NPCS.NPC->modelScale);
 
 	BG_GiveMeVectorFromMatrix( &boltMatrix, ORIGIN, org );

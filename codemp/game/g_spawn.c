@@ -1418,25 +1418,25 @@ void SP_worldspawn( void )
 	{
 		int defSkin;
 
-		trap->G2API_InitGhoul2Model(&precachedKyle, "models/players/kyle/model.glm", 0, 0, -20, 0, 0);
+		SV_G2API_InitGhoul2Model(&precachedKyle, "models/players/kyle/model.glm", 0, 0, -20, 0, 0);
 
 		if (precachedKyle)
 		{
 			defSkin = trap->R_RegisterSkin("models/players/kyle/model_default.skin");
-			trap->G2API_SetSkin(precachedKyle, 0, defSkin, defSkin);
+			SV_G2API_SetSkin(precachedKyle, 0, defSkin, defSkin);
 		}
 	}
 
 	if (!g2SaberInstance)
 	{
-		trap->G2API_InitGhoul2Model(&g2SaberInstance, "models/weapons2/saber/saber_w.glm", 0, 0, -20, 0, 0);
+		SV_G2API_InitGhoul2Model(&g2SaberInstance, "models/weapons2/saber/saber_w.glm", 0, 0, -20, 0, 0);
 
 		if (g2SaberInstance)
 		{
 			// indicate we will be bolted to model 0 (ie the player) on bolt 0 (always the right hand) when we get copied
-			trap->G2API_SetBoltInfo(g2SaberInstance, 0, 0);
+			SV_G2API_SetBoltInfo(g2SaberInstance, 0, 0);
 			// now set up the gun bolt on it
-			trap->G2API_AddBolt(g2SaberInstance, 0, "*blade1");
+			SV_G2API_AddBolt(g2SaberInstance, 0, "*blade1");
 		}
 	}
 

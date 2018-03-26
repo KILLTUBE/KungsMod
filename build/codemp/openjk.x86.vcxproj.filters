@@ -1554,6 +1554,9 @@
     <ClInclude Include="..\..\codemp\rd-rend2\tr_weather.h">
       <Filter>rend2</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\codemp\server\sv_g2api.h">
+      <Filter>server</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt" />

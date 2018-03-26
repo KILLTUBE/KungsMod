@@ -3065,10 +3065,10 @@ int BG_ModelCache(const char *modelName, const char *skinName)
 			trap->R_RegisterSkin( skinName );
 
 		//I could hook up a precache ghoul2 function, but oh well, this works
-		trap->G2API_InitGhoul2Model( &g2, modelName, 0, 0, 0, 0, 0 );
+		SV_G2API_InitGhoul2Model( &g2, modelName, 0, 0, 0, 0, 0 );
 		//now get rid of it
 		if ( g2 )
-			trap->G2API_CleanGhoul2Models( &g2 );
+			SV_G2API_CleanGhoul2Models( &g2 );
 
 		return 0;
 	#else // !_GAME
