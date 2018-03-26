@@ -108,7 +108,8 @@ static void CMod_LoadShaders( const lump_t *l, clipMap_t &cm )
 	if (count < 1) {
 		Com_Error (ERR_DROP, "Map with no shaders");
 	}
-	cm.shaders = (CCMShader *)Hunk_Alloc( (1+count) * sizeof( *cm.shaders ), h_high );
+
+	cm.shaders = AllocZone<CCMShader>(TAG_BSP, 1 + count);
 	cm.numShaders = count;
 
 	out = cm.shaders;

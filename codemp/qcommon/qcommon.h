@@ -1058,3 +1058,13 @@ const void *PD_Load ( const char *name, size_t *size );
 uint32_t ConvertUTF8ToUTF32( char *utf8CurrentChar, char **utf8NextChar );
 
 #include "sys/sys_public.h"
+
+template <class T>
+T *AllocHunk(int count = 1) {
+	return (T *)Hunk_Alloc( count * sizeof( T ), h_high );
+}
+
+template <class T>
+T *AllocZone(memtag_t mt, int count = 1) {
+	return (T *)Z_Malloc( count * sizeof( T ), mt, qtrue );
+}
