@@ -33,6 +33,10 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 botlib_export_t	*botlib_export;
 
+//extern "C" {
+//	#include "game/g_local.h"
+//}
+
 // game interface
 static gameExport_t *ge; // game export table
 static vm_t *gvm; // game vm, valid for legacy and new api
@@ -41,204 +45,253 @@ static vm_t *gvm; // game vm, valid for legacy and new api
 // game vmMain calls
 //
 
+CCALL void G_InitGame					( int levelTime, int randomSeed, int restart );
+CCALL void G_RunFrame					( int levelTime );
+CCALL void G_ShutdownGame				( int restart );
+CCALL void CheckExitRules				( void );
+
+CCALL char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot );
+CCALL void ClientBegin( int clientNum, qboolean allowTeamReset );
+CCALL qboolean ClientUserinfoChanged( int clientNum );
+
+
+//CCALL void G_ROFF_NotetrackCallback	( gentity_t *cent, const char *notetrack);
+
 void GVM_InitGame( int levelTime, int randomSeed, int restart ) {
 	VMSwap v( gvm );
-	ge->InitGame( levelTime, randomSeed, restart );
+	G_InitGame( levelTime, randomSeed, restart );
 }
 
 void GVM_ShutdownGame( int restart ) {
 	VMSwap v( gvm );
-	ge->ShutdownGame( restart );
+	G_ShutdownGame( restart );
 }
 
 char *GVM_ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 	VMSwap v( gvm );
-	return ge->ClientConnect( clientNum, firstTime, isBot );
+	
+	return ClientConnect( clientNum, firstTime, isBot );
 }
 
 void GVM_ClientBegin( int clientNum ) {
 	VMSwap v( gvm );
-	ge->ClientBegin( clientNum, qtrue );
+	ClientBegin( clientNum, qtrue );
 }
 
 qboolean GVM_ClientUserinfoChanged( int clientNum ) {
 	VMSwap v( gvm );
-	return ge->ClientUserinfoChanged( clientNum );
+	return ClientUserinfoChanged( clientNum );
 }
+
+CCALL void ClientDisconnect( int clientNum );
 
 void GVM_ClientDisconnect( int clientNum ) {
 	VMSwap v( gvm );
-	ge->ClientDisconnect( clientNum );
+	ClientDisconnect( clientNum );
 }
 
+CCALL void ClientCommand( int clientNum );
 void GVM_ClientCommand( int clientNum ) {
 	VMSwap v( gvm );
-	ge->ClientCommand( clientNum );
+	ClientCommand( clientNum );
 }
 
+CCALL void ClientThink( int clientNum, usercmd_t *ucmd );
 void GVM_ClientThink( int clientNum, usercmd_t *ucmd ) {
 	VMSwap v( gvm );
-	ge->ClientThink( clientNum, ucmd );
+	ClientThink( clientNum, ucmd );
 }
 
 void GVM_RunFrame( int levelTime ) {
 	VMSwap v( gvm );
-	ge->RunFrame( levelTime );
+	G_RunFrame( levelTime );
 }
 
+CCALL qboolean	ConsoleCommand( void );
 qboolean GVM_ConsoleCommand( void ) {
 	VMSwap v( gvm );
-	return ge->ConsoleCommand();
+	return ConsoleCommand();
 }
 
+CCALL int			BotAIStartFrame					( int time );
 int GVM_BotAIStartFrame( int time ) {
 	VMSwap v( gvm );
-	return ge->BotAIStartFrame( time );
+	return BotAIStartFrame( time );
 }
 
+
+CCALL void		ROFF_NotetrackCallback			( int entID, const char *notetrack );
 void GVM_ROFF_NotetrackCallback( int entID, const char *notetrack ) {
 	VMSwap v( gvm );
 	ge->ROFF_NotetrackCallback( entID, notetrack );
 }
 
+CCALL void		SpawnRMGEntity					( void );
 void GVM_SpawnRMGEntity( void ) {
 	VMSwap v( gvm );
 	ge->SpawnRMGEntity();
 }
 
+CCALL int			G_ICARUS_PlaySound					( void );
 int GVM_ICARUS_PlaySound( void ) {
 	VMSwap v( gvm );
-	return ge->ICARUS_PlaySound();
+	return G_ICARUS_PlaySound();
 }
 
+CCALL qboolean	G_ICARUS_Set						( void );
 qboolean GVM_ICARUS_Set( void ) {
 	VMSwap v( gvm );
-	return ge->ICARUS_Set();
+	return G_ICARUS_Set();
 }
 
+CCALL void		G_ICARUS_Lerp2Pos					( void );
 void GVM_ICARUS_Lerp2Pos( void ) {
 	VMSwap v( gvm );
-	ge->ICARUS_Lerp2Pos();
+	G_ICARUS_Lerp2Pos();
 }
 
+CCALL void		G_ICARUS_Lerp2Origin				( void );
 void GVM_ICARUS_Lerp2Origin( void ) {
 	VMSwap v( gvm );
-	ge->ICARUS_Lerp2Origin();
+	G_ICARUS_Lerp2Origin();
 }
 
+CCALL void		G_ICARUS_Lerp2Angles				( void );
 void GVM_ICARUS_Lerp2Angles( void ) {
 	VMSwap v( gvm );
-	ge->ICARUS_Lerp2Angles();
+	G_ICARUS_Lerp2Angles();
 }
 
+CCALL int			G_ICARUS_GetTag					( void );
 int GVM_ICARUS_GetTag( void ) {
 	VMSwap v( gvm );
-	return ge->ICARUS_GetTag();
+	return G_ICARUS_GetTag();
 }
 
+CCALL void		G_ICARUS_Lerp2Start				( void );
 void GVM_ICARUS_Lerp2Start( void ) {
 	VMSwap v( gvm );
-	ge->ICARUS_Lerp2Start();
+	G_ICARUS_Lerp2Start();
 }
 
+CCALL void		G_ICARUS_Lerp2End					( void );
 void GVM_ICARUS_Lerp2End( void ) {
 	VMSwap v( gvm );
-	ge->ICARUS_Lerp2End();
+	G_ICARUS_Lerp2End();
 }
 
+CCALL void		G_ICARUS_Use						( void );
 void GVM_ICARUS_Use( void ) {
 	VMSwap v( gvm );
-	ge->ICARUS_Use();
+	G_ICARUS_Use();
 }
 
+CCALL void		G_ICARUS_Kill						( void );
 void GVM_ICARUS_Kill( void ) {
 	VMSwap v( gvm );
-	ge->ICARUS_Kill();
+	G_ICARUS_Kill();
 }
 
+CCALL void		G_ICARUS_Remove					( void );
 void GVM_ICARUS_Remove( void ) {
 	VMSwap v( gvm );
-	ge->ICARUS_Remove();
+	G_ICARUS_Remove();
 }
 
+CCALL void		G_ICARUS_Play						( void );
 void GVM_ICARUS_Play( void ) {
 	VMSwap v( gvm );
-	ge->ICARUS_Play();
+	G_ICARUS_Play();
 }
 
+CCALL int			G_ICARUS_GetFloat					( void );
 int GVM_ICARUS_GetFloat( void ) {
 	VMSwap v( gvm );
-	return ge->ICARUS_GetFloat();
+	return G_ICARUS_GetFloat();
 }
 
+CCALL int			G_ICARUS_GetVector					( void );
 int GVM_ICARUS_GetVector( void ) {
 	VMSwap v( gvm );
-	return ge->ICARUS_GetVector();
+	return G_ICARUS_GetVector();
 }
 
+CCALL int			G_ICARUS_GetString					( void );
 int GVM_ICARUS_GetString( void ) {
 	VMSwap v( gvm );
-	return ge->ICARUS_GetString();
+	return G_ICARUS_GetString();
 }
 
+CCALL void		G_ICARUS_SoundIndex				( void );
 void GVM_ICARUS_SoundIndex( void ) {
 	VMSwap v( gvm );
-	ge->ICARUS_SoundIndex();
+	G_ICARUS_SoundIndex();
 }
 
+CCALL int			G_ICARUS_GetSetIDForString			( void );
 int GVM_ICARUS_GetSetIDForString( void ) {
 	VMSwap v( gvm );
-	return ge->ICARUS_GetSetIDForString();
+	return G_ICARUS_GetSetIDForString();
 }
 
+CCALL qboolean	G_NAV_ClearPathToPoint				( int entID, vec3_t pmins, vec3_t pmaxs, vec3_t point, int clipmask, int okToHitEnt );
 qboolean GVM_NAV_ClearPathToPoint( int entID, vec3_t pmins, vec3_t pmaxs, vec3_t point, int clipmask, int okToHitEnt ) {
 	VMSwap v( gvm );
-	return ge->NAV_ClearPathToPoint( entID, pmins, pmaxs, point, clipmask, okToHitEnt );
+	return G_NAV_ClearPathToPoint( entID, pmins, pmaxs, point, clipmask, okToHitEnt );
 }
 
+CCALL qboolean	G_NPC_ClearLOS2					( int entID, const vec3_t end );
 qboolean GVM_NPC_ClearLOS2( int entID, const vec3_t end ) {
 	VMSwap v( gvm );
-	return ge->NPC_ClearLOS2( entID, end );
+	return G_NPC_ClearLOS2( entID, end );
 }
 
+CCALL int			NAVNEW_ClearPathBetweenPoints	( vec3_t start, vec3_t end, vec3_t mins, vec3_t maxs, int ignore, int clipmask );
 int GVM_NAVNEW_ClearPathBetweenPoints( vec3_t start, vec3_t end, vec3_t mins, vec3_t maxs, int ignore, int clipmask ) {
 	VMSwap v( gvm );
-	return ge->NAVNEW_ClearPathBetweenPoints( start, end, mins, maxs, ignore, clipmask );
+	return NAVNEW_ClearPathBetweenPoints( start, end, mins, maxs, ignore, clipmask );
 }
 
+CCALL qboolean	G_NAV_CheckNodeFailedForEnt		( int entID, int nodeNum );
 qboolean GVM_NAV_CheckNodeFailedForEnt( int entID, int nodeNum ) {
 	VMSwap v( gvm );
-	return ge->NAV_CheckNodeFailedForEnt( entID, nodeNum );
+	return G_NAV_CheckNodeFailedForEnt( entID, nodeNum );
 }
 
+CCALL qboolean	G_EntIsUnlockedDoor			( int entityNum );
 qboolean GVM_NAV_EntIsUnlockedDoor( int entityNum ) {
 	VMSwap v( gvm );
-	return ge->NAV_EntIsUnlockedDoor( entityNum );
+	return G_EntIsUnlockedDoor( entityNum );
 }
 
+CCALL qboolean	G_EntIsDoor					( int entityNum );
 qboolean GVM_NAV_EntIsDoor( int entityNum ) {
 	VMSwap v( gvm );
-	return ge->NAV_EntIsDoor( entityNum );
+	return G_EntIsDoor( entityNum );
 }
 
+CCALL qboolean	G_EntIsBreakable				( int entityNum );
 qboolean GVM_NAV_EntIsBreakable( int entityNum ) {
 	VMSwap v( gvm );
-	return ge->NAV_EntIsBreakable( entityNum );
+	return G_EntIsBreakable( entityNum );
 }
 
+CCALL qboolean	G_EntIsRemovableUsable			( int entNum );
 qboolean GVM_NAV_EntIsRemovableUsable( int entNum ) {
 	VMSwap v( gvm );
-	return ge->NAV_EntIsRemovableUsable( entNum );
+	return G_EntIsRemovableUsable( entNum );
 }
 
+CCALL void		CP_FindCombatPointWaypoints		( void );
 void GVM_NAV_FindCombatPointWaypoints( void ) {
 	VMSwap v( gvm );
-	ge->NAV_FindCombatPointWaypoints();
+	CP_FindCombatPointWaypoints();
 }
 
+CCALL int			BG_GetItemIndexByTag				( int tag, int type );
 int GVM_BG_GetItemIndexByTag( int tag, int type ) {
 	VMSwap v( gvm );
-	return ge->BG_GetItemIndexByTag( tag, type );
+	return BG_GetItemIndexByTag( tag, type );
 }
 
 //

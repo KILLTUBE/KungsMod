@@ -3437,7 +3437,7 @@ void G_RunFrame( int levelTime ) {
 	g_LastFrameTime = level.time;
 }
 
-const char *G_GetStringEdString(char *refSection, char *refName)
+CCALL const char *G_GetStringEdString(char *refSection, char *refName)
 {
 	/*
 	static char text[1024]={0};
@@ -3455,72 +3455,72 @@ const char *G_GetStringEdString(char *refSection, char *refName)
 	return text;
 }
 
-static void G_SpawnRMGEntity( void ) {
+CCALL void G_SpawnRMGEntity( void ) {
 	if ( G_ParseSpawnVars( qfalse ) )
 		G_SpawnGEntityFromSpawnVars( qfalse );
 }
 
-static void _G_ROFF_NotetrackCallback( int entID, const char *notetrack ) {
+CCALL void _G_ROFF_NotetrackCallback( int entID, const char *notetrack ) {
 	G_ROFF_NotetrackCallback( &g_entities[entID], notetrack );
 }
 
-static int G_ICARUS_PlaySound( void ) {
+CCALL int G_ICARUS_PlaySound( void ) {
 	T_G_ICARUS_PLAYSOUND *sharedMem = &gSharedBuffer.playSound;
 	return Q3_PlaySound( sharedMem->taskID, sharedMem->entID, sharedMem->name, sharedMem->channel );
 }
-static qboolean G_ICARUS_Set( void ) {
+CCALL qboolean G_ICARUS_Set( void ) {
 	T_G_ICARUS_SET *sharedMem = &gSharedBuffer.set;
 	return Q3_Set( sharedMem->taskID, sharedMem->entID, sharedMem->type_name, sharedMem->data );
 }
-static void G_ICARUS_Lerp2Pos( void ) {
+CCALL void G_ICARUS_Lerp2Pos( void ) {
 	T_G_ICARUS_LERP2POS *sharedMem = &gSharedBuffer.lerp2Pos;
 	Q3_Lerp2Pos( sharedMem->taskID, sharedMem->entID, sharedMem->origin, sharedMem->nullAngles ? NULL : sharedMem->angles, sharedMem->duration );
 }
-static void G_ICARUS_Lerp2Origin( void ) {
+CCALL void G_ICARUS_Lerp2Origin( void ) {
 	T_G_ICARUS_LERP2ORIGIN *sharedMem = &gSharedBuffer.lerp2Origin;
 	Q3_Lerp2Origin( sharedMem->taskID, sharedMem->entID, sharedMem->origin, sharedMem->duration );
 }
-static void G_ICARUS_Lerp2Angles( void ) {
+CCALL void G_ICARUS_Lerp2Angles( void ) {
 	T_G_ICARUS_LERP2ANGLES *sharedMem = &gSharedBuffer.lerp2Angles;
 	Q3_Lerp2Angles( sharedMem->taskID, sharedMem->entID, sharedMem->angles, sharedMem->duration );
 }
-static int G_ICARUS_GetTag( void ) {
+CCALL int G_ICARUS_GetTag( void ) {
 	T_G_ICARUS_GETTAG *sharedMem = &gSharedBuffer.getTag;
 	return Q3_GetTag( sharedMem->entID, sharedMem->name, sharedMem->lookup, sharedMem->info );
 }
-static void G_ICARUS_Lerp2Start( void ) {
+CCALL void G_ICARUS_Lerp2Start( void ) {
 	T_G_ICARUS_LERP2START *sharedMem = &gSharedBuffer.lerp2Start;
 	Q3_Lerp2Start( sharedMem->entID, sharedMem->taskID, sharedMem->duration );
 }
-static void G_ICARUS_Lerp2End( void ) {
+CCALL void G_ICARUS_Lerp2End( void ) {
 	T_G_ICARUS_LERP2END *sharedMem = &gSharedBuffer.lerp2End;
 	Q3_Lerp2End( sharedMem->entID, sharedMem->taskID, sharedMem->duration );
 }
-static void G_ICARUS_Use( void ) {
+CCALL void G_ICARUS_Use( void ) {
 	T_G_ICARUS_USE *sharedMem = &gSharedBuffer.use;
 	Q3_Use( sharedMem->entID, sharedMem->target );
 }
-static void G_ICARUS_Kill( void ) {
+CCALL void G_ICARUS_Kill( void ) {
 	T_G_ICARUS_KILL *sharedMem = &gSharedBuffer.kill;
 	Q3_Kill( sharedMem->entID, sharedMem->name );
 }
-static void G_ICARUS_Remove( void ) {
+CCALL void G_ICARUS_Remove( void ) {
 	T_G_ICARUS_REMOVE *sharedMem = &gSharedBuffer.remove;
 	Q3_Remove( sharedMem->entID, sharedMem->name );
 }
-static void G_ICARUS_Play( void ) {
+CCALL void G_ICARUS_Play( void ) {
 	T_G_ICARUS_PLAY *sharedMem = &gSharedBuffer.play;
 	Q3_Play( sharedMem->taskID, sharedMem->entID, sharedMem->type, sharedMem->name );
 }
-static int G_ICARUS_GetFloat( void ) {
+CCALL int G_ICARUS_GetFloat( void ) {
 	T_G_ICARUS_GETFLOAT *sharedMem = &gSharedBuffer.getFloat;
 	return Q3_GetFloat( sharedMem->entID, sharedMem->type, sharedMem->name, &sharedMem->value );
 }
-static int G_ICARUS_GetVector( void ) {
+CCALL int G_ICARUS_GetVector( void ) {
 	T_G_ICARUS_GETVECTOR *sharedMem = &gSharedBuffer.getVector;
 	return Q3_GetVector( sharedMem->entID, sharedMem->type, sharedMem->name, sharedMem->value );
 }
-static int G_ICARUS_GetString( void ) {
+CCALL int G_ICARUS_GetString( void ) {
 	T_G_ICARUS_GETSTRING *sharedMem = &gSharedBuffer.getString;
 	char *crap = NULL; //I am sorry for this -rww
 	char **morecrap = &crap; //and this
@@ -3531,21 +3531,21 @@ static int G_ICARUS_GetString( void ) {
 
 	return r;
 }
-static void G_ICARUS_SoundIndex( void ) {
+CCALL void G_ICARUS_SoundIndex( void ) {
 	T_G_ICARUS_SOUNDINDEX *sharedMem = &gSharedBuffer.soundIndex;
 	G_SoundIndex( sharedMem->filename );
 }
-static int G_ICARUS_GetSetIDForString( void ) {
+CCALL int G_ICARUS_GetSetIDForString( void ) {
 	T_G_ICARUS_GETSETIDFORSTRING *sharedMem = &gSharedBuffer.getSetIDForString;
 	return GetIDForString( setTable, sharedMem->string );
 }
-static qboolean G_NAV_ClearPathToPoint( int entID, vec3_t pmins, vec3_t pmaxs, vec3_t point, int clipmask, int okToHitEnt ) {
+CCALL qboolean G_NAV_ClearPathToPoint( int entID, vec3_t pmins, vec3_t pmaxs, vec3_t point, int clipmask, int okToHitEnt ) {
 	return NAV_ClearPathToPoint( &g_entities[entID], pmins, pmaxs, point, clipmask, okToHitEnt );
 }
-static qboolean G_NPC_ClearLOS2( int entID, const vec3_t end ) {
+CCALL qboolean G_NPC_ClearLOS2( int entID, const vec3_t end ) {
 	return NPC_ClearLOS2( &g_entities[entID], end );
 }
-static qboolean	G_NAV_CheckNodeFailedForEnt( int entID, int nodeNum ) {
+CCALL qboolean	G_NAV_CheckNodeFailedForEnt( int entID, int nodeNum ) {
 	return NAV_CheckNodeFailedForEnt( &g_entities[entID], nodeNum );
 }
 

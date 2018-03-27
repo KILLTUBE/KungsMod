@@ -1741,7 +1741,7 @@ int		BG_ParseAnimationEvtFile( const char *as_filename, int animFileIndex, int e
 qboolean BG_HasAnimation(int animIndex, int animation);
 int		BG_PickAnim( int animIndex, int minAnim, int maxAnim );
 
-int BG_GetItemIndexByTag(int tag, int type);
+CCALL int BG_GetItemIndexByTag(int tag, int type);
 
 qboolean BG_IsItemSelectable(playerState_t *ps, int item);
 
