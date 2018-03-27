@@ -119,12 +119,12 @@ static void ProcessMoveCommands( Vehicle_t *pVeh )
 	bgEntity_t *parent = pVeh->m_pParentEntity;
 	playerState_t *parentPS = parent->playerState;
 
-#ifdef _GAME
-	curTime = level.time;
-#elif defined(_CGAME)
-	//FIXME: pass in ucmd?  Not sure if this is reliable...
-	curTime = pm->cmd.serverTime;
-#endif
+	if (isGame())
+		curTime = level.time;
+	else {
+		//FIXME: pass in ucmd?  Not sure if this is reliable...
+		curTime = pm->cmd.serverTime;
+	}
 
 	speedIdleDec = pVeh->m_pVehicleInfo->decelIdle * pVeh->m_fTimeModifier;
 	speedMax = pVeh->m_pVehicleInfo->speedMax;
@@ -650,63 +650,61 @@ static void AnimateRiders( Vehicle_t *pVeh )
 }
 #endif //_GAME
 
-#ifdef _CGAME
 void AttachRidersGeneric( Vehicle_t *pVeh );
-#endif
 
 //on the client this function will only set up the process command funcs
 void G_SetAnimalVehicleFunctions( vehicleInfo_t *pVehInfo )
 {
-#ifdef _GAME
-	pVehInfo->AnimateVehicle			=		AnimateVehicle;
-	pVehInfo->AnimateRiders				=		AnimateRiders;
-//	pVehInfo->ValidateBoard				=		ValidateBoard;
-//	pVehInfo->SetParent					=		SetParent;
-//	pVehInfo->SetPilot					=		SetPilot;
-//	pVehInfo->AddPassenger				=		AddPassenger;
-//	pVehInfo->Animate					=		Animate;
-//	pVehInfo->Board						=		Board;
-//	pVehInfo->Eject						=		Eject;
-//	pVehInfo->EjectAll					=		EjectAll;
-//	pVehInfo->StartDeathDelay			=		StartDeathDelay;
-	pVehInfo->DeathUpdate				=		DeathUpdate;
-//	pVehInfo->RegisterAssets			=		RegisterAssets;
-//	pVehInfo->Initialize				=		Initialize;
-	pVehInfo->Update					=		Update;
-//	pVehInfo->UpdateRider				=		UpdateRider;
-#endif //_GAME
+	if (isGame()) {
+		pVehInfo->AnimateVehicle			=		AnimateVehicle;
+		pVehInfo->AnimateRiders				=		AnimateRiders;
+	//	pVehInfo->ValidateBoard				=		ValidateBoard;
+	//	pVehInfo->SetParent					=		SetParent;
+	//	pVehInfo->SetPilot					=		SetPilot;
+	//	pVehInfo->AddPassenger				=		AddPassenger;
+	//	pVehInfo->Animate					=		Animate;
+	//	pVehInfo->Board						=		Board;
+	//	pVehInfo->Eject						=		Eject;
+	//	pVehInfo->EjectAll					=		EjectAll;
+	//	pVehInfo->StartDeathDelay			=		StartDeathDelay;
+		pVehInfo->DeathUpdate				=		DeathUpdate;
+	//	pVehInfo->RegisterAssets			=		RegisterAssets;
+	//	pVehInfo->Initialize				=		Initialize;
+		pVehInfo->Update					=		Update;
+	//	pVehInfo->UpdateRider				=		UpdateRider;
+	}
 	pVehInfo->ProcessMoveCommands		=		ProcessMoveCommands;
 	pVehInfo->ProcessOrientCommands		=		ProcessOrientCommands;
 
-#ifdef _CGAME //cgame prediction attachment func
-	pVehInfo->AttachRiders				=		AttachRidersGeneric;
-#endif
+	if (isCGame()) { //cgame prediction attachment func
+		pVehInfo->AttachRiders				=		AttachRidersGeneric;
+	}
 //	pVehInfo->AttachRiders				=		AttachRiders;
 //	pVehInfo->Ghost						=		Ghost;
 //	pVehInfo->UnGhost					=		UnGhost;
 //	pVehInfo->Inhabited					=		Inhabited;
 }
 
-#ifdef _GAME
+
 extern void G_AllocateVehicleObject(Vehicle_t **pVeh);
-#endif
+
 
 // Create/Allocate a new Animal Vehicle (initializing it as well).
 //this is a BG function too in MP so don't un-bg-compatibilify it -rww
 void G_CreateAnimalNPC( Vehicle_t **pVeh, const char *strAnimalType )
 {
 	// Allocate the Vehicle.
-#ifdef _GAME
-	//these will remain on entities on the client once allocated because the pointer is
-	//never stomped. on the server, however, when an ent is freed, the entity struct is
-	//memset to 0, so this memory would be lost..
-    G_AllocateVehicleObject(pVeh);
-#else
-	if (!*pVeh)
-	{ //only allocate a new one if we really have to
-		(*pVeh) = (Vehicle_t *) BG_Alloc( sizeof(Vehicle_t) );
+	if (isGame()) {
+		//these will remain on entities on the client once allocated because the pointer is
+		//never stomped. on the server, however, when an ent is freed, the entity struct is
+		//memset to 0, so this memory would be lost..
+		G_AllocateVehicleObject(pVeh);
+	} else {
+		if (!*pVeh)
+		{ //only allocate a new one if we really have to
+			(*pVeh) = (Vehicle_t *) BG_Alloc( sizeof(Vehicle_t) );
+		}
 	}
-#endif
 	memset(*pVeh, 0, sizeof(Vehicle_t));
 	(*pVeh)->m_pVehicleInfo = &g_vehicleInfo[BG_VehicleGetIndex( strAnimalType )];
 }

@@ -603,7 +603,7 @@ void *Sys_LoadGameDll( const char *name, GetModuleAPIProc **moduleAPI )
 
 
 	if (strcmp(name, "jampgame") == 0) {
-		*moduleAPI = (GetModuleAPIProc *)GetModuleAPIGame;
+		//*moduleAPI = (GetModuleAPIProc *)GetModuleAPIGame;
 		return NULL;
 	}
 

@@ -233,47 +233,47 @@ extern	server_t		sv;					// cleared each map
 //FIXME: dedi server probably can't have this..
 extern	refexport_t		*re;					// interface to refresh .dll
 
-extern	cvar_t	*sv_snapsMin;
-extern	cvar_t	*sv_snapsMax;
-extern	cvar_t	*sv_snapsPolicy;
-extern	cvar_t	*sv_fps;
-extern	cvar_t	*sv_timeout;
-extern	cvar_t	*sv_zombietime;
-extern	cvar_t	*sv_rconPassword;
-extern	cvar_t	*sv_privatePassword;
-extern	cvar_t	*sv_allowDownload;
-extern	cvar_t	*sv_maxclients;
-extern	cvar_t	*sv_privateClients;
-extern	cvar_t	*sv_hostname;
-extern	cvar_t	*sv_master[MAX_MASTER_SERVERS];
-extern	cvar_t	*sv_reconnectlimit;
-extern	cvar_t	*sv_showghoultraces;
-extern	cvar_t	*sv_showloss;
-extern	cvar_t	*sv_padPackets;
-extern	cvar_t	*sv_killserver;
-extern	cvar_t	*sv_mapname;
-extern	cvar_t	*sv_mapChecksum;
-extern	cvar_t	*sv_serverid;
-extern	cvar_t	*sv_ratePolicy;
-extern	cvar_t	*sv_clientRate;
-extern	cvar_t	*sv_minRate;
-extern	cvar_t	*sv_maxRate;
-extern	cvar_t	*sv_minPing;
-extern	cvar_t	*sv_maxPing;
-extern	cvar_t	*sv_gametype;
-extern	cvar_t	*sv_pure;
-extern	cvar_t	*sv_floodProtect;
-extern	cvar_t	*sv_lanForceRate;
-extern	cvar_t	*sv_needpass;
-extern	cvar_t	*sv_filterCommands;
-extern	cvar_t	*sv_autoDemo;
-extern	cvar_t	*sv_autoDemoBots;
-extern	cvar_t	*sv_autoDemoMaxMaps;
-extern	cvar_t	*sv_legacyFixes;
-extern	cvar_t	*sv_banFile;
+EXTERNC	cvar_t	*sv_snapsMin;
+EXTERNC	cvar_t	*sv_snapsMax;
+EXTERNC	cvar_t	*sv_snapsPolicy;
+EXTERNC	cvar_t	*sv_fps;
+EXTERNC	cvar_t	*sv_timeout;
+EXTERNC	cvar_t	*sv_zombietime;
+EXTERNC	cvar_t	*sv_rconPassword;
+EXTERNC	cvar_t	*sv_privatePassword;
+EXTERNC	cvar_t	*sv_allowDownload;
+EXTERNC	cvar_t	*sv_maxclients;
+EXTERNC	cvar_t	*sv_privateClients;
+EXTERNC	cvar_t	*sv_hostname;
+EXTERNC	cvar_t	*sv_master[MAX_MASTER_SERVERS];
+EXTERNC	cvar_t	*sv_reconnectlimit;
+EXTERNC	cvar_t	*sv_showghoultraces;
+EXTERNC	cvar_t	*sv_showloss;
+EXTERNC	cvar_t	*sv_padPackets;
+EXTERNC	cvar_t	*sv_killserver;
+EXTERNC	cvar_t	*sv_mapname;
+EXTERNC	cvar_t	*sv_mapChecksum;
+EXTERNC	cvar_t	*sv_serverid;
+EXTERNC	cvar_t	*sv_ratePolicy;
+EXTERNC	cvar_t	*sv_clientRate;
+EXTERNC	cvar_t	*sv_minRate;
+EXTERNC	cvar_t	*sv_maxRate;
+EXTERNC	cvar_t	*sv_minPing;
+EXTERNC	cvar_t	*sv_maxPing;
+EXTERNC	cvar_t	*sv_gametype;
+EXTERNC	cvar_t	*sv_pure;
+EXTERNC	cvar_t	*sv_floodProtect;
+EXTERNC	cvar_t	*sv_lanForceRate;
+EXTERNC	cvar_t	*sv_needpass;
+EXTERNC	cvar_t	*sv_filterCommands;
+EXTERNC	cvar_t	*sv_autoDemo;
+EXTERNC	cvar_t	*sv_autoDemoBots;
+EXTERNC	cvar_t	*sv_autoDemoMaxMaps;
+EXTERNC	cvar_t	*sv_legacyFixes;
+EXTERNC	cvar_t	*sv_banFile;
 
-extern	serverBan_t serverBans[SERVER_MAXBANS];
-extern	int serverBansCount;
+EXTERNC	serverBan_t serverBans[SERVER_MAXBANS];
+EXTERNC	int serverBansCount;
 
 //===========================================================
 

@@ -838,6 +838,21 @@
     <ClCompile Include="..\..\codemp\rd-rend2\tr_animation.cpp">
       <Filter>rend2</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\game\ai_main.c">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\ai_util.c">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\ai_wpnav.c">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\AnimalNPC.c">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_g2_utils.c">
+      <Filter>game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
@@ -1565,6 +1580,12 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\server\sv_icarus.h">
       <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\ai.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\ai_main.h">
+      <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -26,6 +26,40 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "ghoul2/G2.h"
 #include "bg_saga.h"
 
+// kung foo man: i will clean up this header c/c++ fuckup later lol
+typedef enum vmSlots_e {
+	VM_GAME=0,
+	VM_CGAME,
+	VM_UI,
+	MAX_VM
+} vmSlots_t;
+typedef struct vm_s {
+	vmSlots_t	slot; // VM_GAME, VM_CGAME, VM_UI
+    char		name[MAX_QPATH];
+	void		*dllHandle;
+	qboolean	isLegacy; // uses the legacy syscall/vm_call api, is set by VM_CreateLegacy
+
+	// fill the import/export tables
+	void *		(*GetModuleAPI)( int apiVersion, ... );
+
+	// legacy stuff
+	struct {
+		void* main; // module vmMain
+		intptr_t	(QDECL *syscall)( intptr_t *parms );	// engine syscall handler
+	} legacy;
+} vm_t;
+
+extern vm_t *currentVM;
+CCALL qboolean isGame() {
+	return (qboolean)(currentVM->slot == VM_GAME);
+}
+CCALL qboolean isCGame() {
+	return (qboolean)(currentVM->slot == VM_CGAME);
+}
+CCALL qboolean isUI() {
+	return (qboolean)(currentVM->slot == VM_UI);
+}
+
 // g_client.c -- client functions that don't happen every frame
 
 static vec3_t	playerMins = {-15, -15, DEFAULT_MINS_2};
@@ -2315,8 +2349,8 @@ qboolean ClientUserinfoChanged( int clientNum ) {
 		gender = GENDER_MALE;
 
 	s = Info_ValueForKey( userinfo, "snaps" );
-	if ( atoi( s ) < sv_fps.integer )
-		SV_GameSendServerCommand( clientNum, va( "print \"" S_COLOR_YELLOW "Recommend setting /snaps %d or higher to match this server's sv_fps\n\"", sv_fps.integer ) );
+	if ( atoi( s ) < sv_fps->integer )
+		SV_GameSendServerCommand( clientNum, va( "print \"" S_COLOR_YELLOW "Recommend setting /snaps %d or higher to match this server's sv_fps\n\"", sv_fps->integer ) );
 
 	// send over a subset of the userinfo keys so other clients can
 	// print scoreboards, display models, and play custom sounds
@@ -2456,7 +2490,7 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 		if ( g_antiFakePlayer.integer )
 		{// patched, check for > g_maxConnPerIP connections from same IP
 			int count=0, i=0;
-			for ( i=0; i<sv_maxclients.integer; i++ )
+			for ( i=0; i<sv_maxclients->integer; i++ )
 			{
 				#if 0
 					if ( level.clients[i].pers.connected != CON_DISCONNECTED && i != clientNum )

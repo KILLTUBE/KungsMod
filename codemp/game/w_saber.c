@@ -2359,7 +2359,7 @@ static QINLINE qboolean G_G2TraceCollide(trace_t *tr, vec3_t lastValidStart, vec
 			angles[YAW] = g2Hit->r.currentAngles[YAW];
 		}
 
-		if (com_optvehtrace.integer &&
+		if (com_optvehtrace->integer &&
 			g2Hit->s.eType == ET_NPC &&
 			g2Hit->s.NPC_class == CLASS_VEHICLE &&
 			g2Hit->m_pVehicle)
@@ -8490,7 +8490,7 @@ nextStep:
 	}
 
 	//fVSpeed *= 0.08;
-	fVSpeed *= 1.6f/sv_fps.value;
+	fVSpeed *= 1.6f/sv_fps->value;
 
 	//Cap it off at reasonable values so the saber box doesn't go flying ahead of us or
 	//something if we get a big speed boost from something.

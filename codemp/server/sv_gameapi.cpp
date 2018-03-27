@@ -1619,31 +1619,8 @@ void SV_InitGame( qboolean restart ) {
 }
 
 
-CCALL gameExport_t* QDECL GetModuleAPIGame( int apiVersion, gameImport_t *import );
 void SV_BindGame( void ) {
-	static gameImport_t gi;
-	gameExport_t		*ret;
-	GetGameAPI_t		GetGameAPI;
-	char				dllName[MAX_OSPATH] = "jampgame" ARCH_STRING DLL_EXT;
-
-	//memset( &gi, 0, sizeof( gi ) );
-
 	gvm = VM_Create( VM_GAME );
-	//if ( gvm && !gvm->isLegacy ) {
-	//
-	//	GetGameAPI = (GetGameAPI_t)gvm->GetModuleAPI;
-	//	ret = GetGameAPI( GAME_API_VERSION, &gi );
-	//	if ( !ret ) {
-	//		//free VM?
-	//		svs.gameStarted = qfalse;
-	//		Com_Error( ERR_FATAL, "GetGameAPI failed on %s", dllName );
-	//	}
-	//	ge = ret;
-	//	return;
-	//}
-	
-		ge = (gameExport_t*)((GetModuleAPIProc *)GetModuleAPIGame)(GAME_API_VERSION, &gi);
-	//ge = GetGameAPI( GAME_API_VERSION, &gi );
 }
 
 void SV_UnbindGame( void ) {

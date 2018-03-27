@@ -2945,8 +2945,8 @@ Q_EXPORT cgameExport_t* QDECL GetModuleAPI( int apiVersion, cgameImport_t *impor
 
 	assert( import );
 	trap = import;
-	Com_Printf	= trap->Print;
-	Com_Error	= trap->Error;
+	//Com_Printf	= trap->Print;
+	//Com_Error	= trap->Error;
 
 	memset( &cge, 0, sizeof( cge ) );
 

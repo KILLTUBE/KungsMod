@@ -738,8 +738,8 @@ static void TranslateSyscalls( void ) {
 	memset( &import, 0, sizeof( import ) );
 	trap = &import;
 
-	Com_Error								= CG_Error;
-	Com_Printf								= CG_Printf;
+	//Com_Error								= CG_Error;
+	//Com_Printf								= CG_Printf;
 
 	trap->Print								= CG_Printf;
 	trap->Error								= CG_Error;

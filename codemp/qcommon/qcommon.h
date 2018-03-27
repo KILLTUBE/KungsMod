@@ -287,7 +287,11 @@ typedef struct vm_s {
 	} legacy;
 } vm_t;
 
-extern vm_t *currentVM;
+EXTERNC	 vm_t *currentVM;
+
+CCALL qboolean isGame();
+CCALL qboolean isCGame();
+CCALL qboolean isUI();
 
 class VMSwap {
 private:
@@ -637,47 +641,47 @@ CCALL void		Com_StartupVariable( const char *match );
 // only a set with the exact name.  Only used during startup.
 
 
-extern	cvar_t	*com_developer;
-extern	cvar_t	*com_dedicated;
-extern	cvar_t	*com_speeds;
-extern	cvar_t	*com_timescale;
-extern	cvar_t	*com_sv_running;
-extern	cvar_t	*com_cl_running;
-extern	cvar_t	*com_version;
-extern	cvar_t	*com_buildScript;		// for building release pak files
-extern	cvar_t	*com_journal;
-extern	cvar_t	*com_cameraMode;
-extern	cvar_t	*com_homepath;
+EXTERNC		cvar_t	*com_developer;
+EXTERNC		cvar_t	*com_dedicated;
+EXTERNC		cvar_t	*com_speeds;
+EXTERNC		cvar_t	*com_timescale;
+EXTERNC		cvar_t	*com_sv_running;
+EXTERNC		cvar_t	*com_cl_running;
+EXTERNC		cvar_t	*com_version;
+EXTERNC		cvar_t	*com_buildScript;		// for building release pak files
+EXTERNC		cvar_t	*com_journal;
+EXTERNC		cvar_t	*com_cameraMode;
+EXTERNC		cvar_t	*com_homepath;
 #ifndef _WIN32
-extern	cvar_t	*com_ansiColor;
+EXTERNC		cvar_t	*com_ansiColor;
 #endif
 
-extern	cvar_t	*com_optvehtrace;
+EXTERNC	cvar_t	*com_optvehtrace;
 
 #ifdef G2_PERFORMANCE_ANALYSIS
-extern	cvar_t	*com_G2Report;
+EXTERNC		cvar_t	*com_G2Report;
 #endif
 
-extern	cvar_t	*com_affinity;
-extern	cvar_t	*com_busyWait;
+EXTERNC		cvar_t	*com_affinity;
+EXTERNC		cvar_t	*com_busyWait;
 
 // both client and server must agree to pause
-extern	cvar_t	*cl_paused;
-extern	cvar_t	*sv_paused;
+EXTERNC		cvar_t	*cl_paused;
+EXTERNC		cvar_t	*sv_paused;
 
 // com_speeds times
-extern	int		time_game;
-extern	int		time_frontend;
-extern	int		time_backend;		// renderer backend time
+EXTERNC		int		time_game;
+EXTERNC		int		time_frontend;
+EXTERNC		int		time_backend;		// renderer backend time
 
-extern	int		com_frameTime;
+EXTERNC		int		com_frameTime;
 
-extern	qboolean	com_errorEntered;
+EXTERNC		qboolean	com_errorEntered;
 
 
-extern	fileHandle_t	logfile;
-extern	fileHandle_t	com_journalFile;
-extern	fileHandle_t	com_journalDataFile;
+EXTERNC		fileHandle_t	logfile;
+EXTERNC		fileHandle_t	com_journalFile;
+EXTERNC		fileHandle_t	com_journalDataFile;
 
 /*
 typedef enum {

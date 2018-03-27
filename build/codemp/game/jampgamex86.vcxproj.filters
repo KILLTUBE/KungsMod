@@ -1,21 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\XycaRend2\codemp\game\ai_main.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\ai_util.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\ai_wpnav.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\AnimalNPC.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\bg_g2_utils.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\game\bg_misc.c">
       <Filter>game</Filter>
     </ClCompile>
@@ -273,12 +258,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\XycaRend2\codemp\game\ai.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\ai_main.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="C:\XycaRend2\codemp\game\anims.h">
       <Filter>game</Filter>
     </ClInclude>

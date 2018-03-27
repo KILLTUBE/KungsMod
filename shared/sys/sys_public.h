@@ -115,7 +115,7 @@ int		Sys_Milliseconds (bool baseTime = false);
 int		Sys_Milliseconds2(void);
 void	Sys_Sleep( int msec );
 
-extern "C" void	Sys_SnapVector( float *v );
+CCALL void	Sys_SnapVector( float *v );
 
 bool Sys_RandomBytes( byte *string, int len );
 

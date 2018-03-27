@@ -44,7 +44,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 // Engine has its own copy of these (navigator.h)
 
-#ifdef _GAME
+#if /* _GAME &&*/ 1
 	//rww - Rest of defines here are also shared in exe, do not modify.
 	#define	__NEWCOLLECT	1
 

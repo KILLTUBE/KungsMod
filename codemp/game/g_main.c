@@ -261,7 +261,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 	level.gentities = g_entities;
 
 	// initialize all clients for this game
-	level.maxclients = sv_maxclients.integer;
+	level.maxclients = sv_maxclients->integer;
 	memset( g_clients, 0, MAX_CLIENTS * sizeof(g_clients[0]) );
 	level.clients = g_clients;
 
@@ -1380,7 +1380,7 @@ qboolean DuelLimitHit(void)
 	int i;
 	gclient_t *cl;
 
-	for ( i=0 ; i< sv_maxclients.integer ; i++ ) {
+	for ( i=0 ; i< sv_maxclients->integer ; i++ ) {
 		cl = level.clients + i;
 		if ( cl->pers.connected != CON_CONNECTED ) {
 			continue;
@@ -1400,7 +1400,7 @@ void DuelResetWinsLosses(void)
 	int i;
 	gclient_t *cl;
 
-	for ( i=0 ; i< sv_maxclients.integer ; i++ ) {
+	for ( i=0 ; i< sv_maxclients->integer ; i++ ) {
 		cl = level.clients + i;
 		if ( cl->pers.connected != CON_CONNECTED ) {
 			continue;
@@ -1466,7 +1466,7 @@ void ExitLevel (void) {
 	// reset all the scores so we don't enter the intermission again
 	level.teamScores[TEAM_RED] = 0;
 	level.teamScores[TEAM_BLUE] = 0;
-	for ( i=0 ; i< sv_maxclients.integer ; i++ ) {
+	for ( i=0 ; i< sv_maxclients->integer ; i++ ) {
 		cl = level.clients + i;
 		if ( cl->pers.connected != CON_CONNECTED ) {
 			continue;
@@ -1479,7 +1479,7 @@ void ExitLevel (void) {
 
 	// change all client states to connecting, so the early players into the
 	// next level will know the others aren't done reconnecting
-	for (i=0 ; i< sv_maxclients.integer ; i++) {
+	for (i=0 ; i< sv_maxclients->integer ; i++) {
 		if ( level.clients[i].pers.connected == CON_CONNECTED ) {
 			level.clients[i].pers.connected = CON_CONNECTING;
 		}
@@ -1642,7 +1642,7 @@ void CheckIntermissionExit( void ) {
 	ready = 0;
 	notReady = 0;
 	readyMask = 0;
-	for (i=0 ; i< sv_maxclients.integer ; i++) {
+	for (i=0 ; i< sv_maxclients->integer ; i++) {
 		cl = level.clients + i;
 		if ( cl->pers.connected != CON_CONNECTED ) {
 			continue;
@@ -1809,7 +1809,7 @@ void CheckIntermissionExit( void ) {
 			return;
 		}
 
-		for (i=0 ; i< sv_maxclients.integer ; i++)
+		for (i=0 ; i< sv_maxclients->integer ; i++)
 		{ //being in a "ready" state is not necessary here, so clear it for everyone
 		  //yes, I also thinking holding this in a ps value uniquely for each player
 		  //is bad and wrong, but it wasn't my idea.
@@ -1825,7 +1825,7 @@ void CheckIntermissionExit( void ) {
 
 	// copy the readyMask to each player's stats so
 	// it can be displayed on the scoreboard
-	for (i=0 ; i< sv_maxclients.integer ; i++) {
+	for (i=0 ; i< sv_maxclients->integer ; i++) {
 		cl = level.clients + i;
 		if ( cl->pers.connected != CON_CONNECTED ) {
 			continue;
@@ -2163,7 +2163,7 @@ void CheckExitRules( void ) {
 			return;
 		}
 
-		for ( i=0 ; i< sv_maxclients.integer ; i++ ) {
+		for ( i=0 ; i< sv_maxclients->integer ; i++ ) {
 			cl = level.clients + i;
 			if ( cl->pers.connected != CON_CONNECTED ) {
 				continue;
@@ -2539,7 +2539,7 @@ void G_KickAllBots(void)
 	int i;
 	gclient_t	*cl;
 
-	for ( i=0 ; i< sv_maxclients.integer ; i++ )
+	for ( i=0 ; i< sv_maxclients->integer ; i++ )
 	{
 		cl = level.clients + i;
 		if ( cl->pers.connected != CON_CONNECTED )
@@ -3019,7 +3019,7 @@ void G_RunFrame( int levelTime ) {
 
 	if (g_allowNPC.integer)
 	{
-		if ( d_altRoutes.integer )
+		if ( d_altRoutes->integer )
 		{
 			SV_Nav_CheckAllFailedEdges();
 		}
@@ -3039,7 +3039,7 @@ void G_RunFrame( int levelTime ) {
 				ent->lastWaypoint = ent->waypoint;
 				ent->waypoint = WAYPOINT_NONE;
 			}
-			if ( d_altRoutes.integer )
+			if ( d_altRoutes->integer )
 			{
 				SV_Nav_CheckFailedNodes( (sharedEntity_t *)ent );
 			}
@@ -3547,229 +3547,4 @@ CCALL qboolean G_NPC_ClearLOS2( int entID, const vec3_t end ) {
 }
 CCALL qboolean	G_NAV_CheckNodeFailedForEnt( int entID, int nodeNum ) {
 	return NAV_CheckNodeFailedForEnt( &g_entities[entID], nodeNum );
-}
-
-/*
-============
-GetModuleAPI
-============
-*/
-
-gameImport_t *trap = NULL;
-
-Q_EXPORT gameExport_t* QDECL GetModuleAPIGame( int apiVersion, gameImport_t *import )
-{
-	static gameExport_t ge = {0};
-
-	assert( import );
-	trap = import;
-	//Com_Printf	= Com_Printf;
-	//Com_Error	= Com_Error;
-
-	memset( &ge, 0, sizeof( ge ) );
-
-	if ( apiVersion != GAME_API_VERSION ) {
-		Com_Printf( "Mismatched GAME_API_VERSION: expected %i, got %i\n", GAME_API_VERSION, apiVersion );
-		return NULL;
-	}
-
-	ge.InitGame							= G_InitGame;
-	ge.ShutdownGame						= G_ShutdownGame;
-	ge.ClientConnect					= ClientConnect;
-	ge.ClientBegin						= ClientBegin;
-	ge.ClientUserinfoChanged			= ClientUserinfoChanged;
-	ge.ClientDisconnect					= ClientDisconnect;
-	ge.ClientCommand					= ClientCommand;
-	ge.ClientThink						= ClientThink;
-	ge.RunFrame							= G_RunFrame;
-	ge.ConsoleCommand					= ConsoleCommand;
-	ge.BotAIStartFrame					= BotAIStartFrame;
-	ge.ROFF_NotetrackCallback			= _G_ROFF_NotetrackCallback;
-	ge.SpawnRMGEntity					= G_SpawnRMGEntity;
-	ge.ICARUS_PlaySound					= G_ICARUS_PlaySound;
-	ge.ICARUS_Set						= G_ICARUS_Set;
-	ge.ICARUS_Lerp2Pos					= G_ICARUS_Lerp2Pos;
-	ge.ICARUS_Lerp2Origin				= G_ICARUS_Lerp2Origin;
-	ge.ICARUS_Lerp2Angles				= G_ICARUS_Lerp2Angles;
-	ge.ICARUS_GetTag					= G_ICARUS_GetTag;
-	ge.ICARUS_Lerp2Start				= G_ICARUS_Lerp2Start;
-	ge.ICARUS_Lerp2End					= G_ICARUS_Lerp2End;
-	ge.ICARUS_Use						= G_ICARUS_Use;
-	ge.ICARUS_Kill						= G_ICARUS_Kill;
-	ge.ICARUS_Remove					= G_ICARUS_Remove;
-	ge.ICARUS_Play						= G_ICARUS_Play;
-	ge.ICARUS_GetFloat					= G_ICARUS_GetFloat;
-	ge.ICARUS_GetVector					= G_ICARUS_GetVector;
-	ge.ICARUS_GetString					= G_ICARUS_GetString;
-	ge.ICARUS_SoundIndex				= G_ICARUS_SoundIndex;
-	ge.ICARUS_GetSetIDForString			= G_ICARUS_GetSetIDForString;
-	ge.NAV_ClearPathToPoint				= G_NAV_ClearPathToPoint;
-	ge.NPC_ClearLOS2					= G_NPC_ClearLOS2;
-	ge.NAVNEW_ClearPathBetweenPoints	= NAVNEW_ClearPathBetweenPoints;
-	ge.NAV_CheckNodeFailedForEnt		= G_NAV_CheckNodeFailedForEnt;
-	ge.NAV_EntIsUnlockedDoor			= G_EntIsUnlockedDoor;
-	ge.NAV_EntIsDoor					= G_EntIsDoor;
-	ge.NAV_EntIsBreakable				= G_EntIsBreakable;
-	ge.NAV_EntIsRemovableUsable			= G_EntIsRemovableUsable;
-	ge.NAV_FindCombatPointWaypoints		= CP_FindCombatPointWaypoints;
-	ge.BG_GetItemIndexByTag				= BG_GetItemIndexByTag;
-
-	return &ge;
-}
-
-/*
-================
-vmMain
-
-This is the only way control passes into the module.
-This must be the very first function compiled into the .q3vm file
-================
-*/
-Q_EXPORT intptr_t vmMain( int command, intptr_t arg0, intptr_t arg1, intptr_t arg2, intptr_t arg3, intptr_t arg4,
-	intptr_t arg5, intptr_t arg6, intptr_t arg7, intptr_t arg8, intptr_t arg9, intptr_t arg10, intptr_t arg11 )
-{
-	switch ( command ) {
-	case GAME_INIT:
-		G_InitGame( arg0, arg1, arg2 );
-		return 0;
-
-	case GAME_SHUTDOWN:
-		G_ShutdownGame( arg0 );
-		return 0;
-
-	case GAME_CLIENT_CONNECT:
-		return (intptr_t)ClientConnect( arg0, arg1, arg2 );
-
-	case GAME_CLIENT_THINK:
-		ClientThink( arg0, NULL );
-		return 0;
-
-	case GAME_CLIENT_USERINFO_CHANGED:
-		ClientUserinfoChanged( arg0 );
-		return 0;
-
-	case GAME_CLIENT_DISCONNECT:
-		ClientDisconnect( arg0 );
-		return 0;
-
-	case GAME_CLIENT_BEGIN:
-		ClientBegin( arg0, qtrue );
-		return 0;
-
-	case GAME_CLIENT_COMMAND:
-		ClientCommand( arg0 );
-		return 0;
-
-	case GAME_RUN_FRAME:
-		G_RunFrame( arg0 );
-		return 0;
-
-	case GAME_CONSOLE_COMMAND:
-		return ConsoleCommand();
-
-	case BOTAI_START_FRAME:
-		return BotAIStartFrame( arg0 );
-
-	case GAME_ROFF_NOTETRACK_CALLBACK:
-		_G_ROFF_NotetrackCallback( arg0, (const char *)arg1 );
-		return 0;
-
-	case GAME_SPAWN_RMG_ENTITY:
-		G_SpawnRMGEntity();
-		return 0;
-
-	case GAME_ICARUS_PLAYSOUND:
-		return G_ICARUS_PlaySound();
-
-	case GAME_ICARUS_SET:
-		return G_ICARUS_Set();
-
-	case GAME_ICARUS_LERP2POS:
-		G_ICARUS_Lerp2Pos();
-		return 0;
-
-	case GAME_ICARUS_LERP2ORIGIN:
-		G_ICARUS_Lerp2Origin();
-		return 0;
-
-	case GAME_ICARUS_LERP2ANGLES:
-		G_ICARUS_Lerp2Angles();
-		return 0;
-
-	case GAME_ICARUS_GETTAG:
-		return G_ICARUS_GetTag();
-
-	case GAME_ICARUS_LERP2START:
-		G_ICARUS_Lerp2Start();
-		return 0;
-
-	case GAME_ICARUS_LERP2END:
-		G_ICARUS_Lerp2End();
-		return 0;
-
-	case GAME_ICARUS_USE:
-		G_ICARUS_Use();
-		return 0;
-
-	case GAME_ICARUS_KILL:
-		G_ICARUS_Kill();
-		return 0;
-
-	case GAME_ICARUS_REMOVE:
-		G_ICARUS_Remove();
-		return 0;
-
-	case GAME_ICARUS_PLAY:
-		G_ICARUS_Play();
-		return 0;
-
-	case GAME_ICARUS_GETFLOAT:
-		return G_ICARUS_GetFloat();
-
-	case GAME_ICARUS_GETVECTOR:
-		return G_ICARUS_GetVector();
-
-	case GAME_ICARUS_GETSTRING:
-		return G_ICARUS_GetString();
-
-	case GAME_ICARUS_SOUNDINDEX:
-		G_ICARUS_SoundIndex();
-		return 0;
-
-	case GAME_ICARUS_GETSETIDFORSTRING:
-		return G_ICARUS_GetSetIDForString();
-
-	case GAME_NAV_CLEARPATHTOPOINT:
-		return G_NAV_ClearPathToPoint( arg0, (float *)arg1, (float *)arg2, (float *)arg3, arg4, arg5 );
-
-	case GAME_NAV_CLEARLOS:
-		return G_NPC_ClearLOS2( arg0, (const float *)arg1 );
-
-	case GAME_NAV_CLEARPATHBETWEENPOINTS:
-		return NAVNEW_ClearPathBetweenPoints((float *)arg0, (float *)arg1, (float *)arg2, (float *)arg3, arg4, arg5);
-
-	case GAME_NAV_CHECKNODEFAILEDFORENT:
-		return NAV_CheckNodeFailedForEnt(&g_entities[arg0], arg1);
-
-	case GAME_NAV_ENTISUNLOCKEDDOOR:
-		return G_EntIsUnlockedDoor(arg0);
-
-	case GAME_NAV_ENTISDOOR:
-		return G_EntIsDoor(arg0);
-
-	case GAME_NAV_ENTISBREAKABLE:
-		return G_EntIsBreakable(arg0);
-
-	case GAME_NAV_ENTISREMOVABLEUSABLE:
-		return G_EntIsRemovableUsable(arg0);
-
-	case GAME_NAV_FINDCOMBATPOINTWAYPOINTS:
-		CP_FindCombatPointWaypoints();
-		return 0;
-
-	case GAME_GETITEMINDEXBYTAG:
-		return BG_GetItemIndexByTag(arg0, arg1);
-	}
-
-	return -1;
 }

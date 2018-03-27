@@ -23,6 +23,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "qcommon/q_shared.h"
 
 #include <algorithm>
+#include "game/g_local.h"
 
 #include "navigator.h"
 #include "game/g_nav.h"

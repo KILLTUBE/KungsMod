@@ -760,7 +760,7 @@ void NPC_HandleAIFlags (void)
 			NPCS.NPCInfo->ffireFadeDebounce = level.time + 3000;
 		}
 	}
-	if ( d_patched.integer )
+	if ( d_patched->integer )
 	{//use patch-style navigation
 		if ( NPCS.NPCInfo->consecutiveBlockedMoves > 20 )
 		{//been stuck for a while, try again?

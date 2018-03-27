@@ -423,7 +423,7 @@ void G_AddRandomBot( int team ) {
 	for ( n = 0; n < level.bots.num ; n++ ) {
 		value = Info_ValueForKey( level.bots.infos[n], "name" );
 		//
-		for ( i=0 ; i< sv_maxclients.integer ; i++ ) {
+		for ( i=0 ; i< sv_maxclients->integer ; i++ ) {
 			cl = level.clients + i;
 			if ( cl->pers.connected != CON_CONNECTED ) {
 				continue;
@@ -447,7 +447,7 @@ void G_AddRandomBot( int team ) {
 				break;
 			}
 		}
-		if (i >= sv_maxclients.integer) {
+		if (i >= sv_maxclients->integer) {
 			num++;
 		}
 	}
@@ -455,7 +455,7 @@ void G_AddRandomBot( int team ) {
 	for ( n = 0; n < level.bots.num ; n++ ) {
 		value = Info_ValueForKey( level.bots.infos[n], "name" );
 		//
-		for ( i=0 ; i< sv_maxclients.integer ; i++ ) {
+		for ( i=0 ; i< sv_maxclients->integer ; i++ ) {
 			cl = level.clients + i;
 			if ( cl->pers.connected != CON_CONNECTED ) {
 				continue;
@@ -479,7 +479,7 @@ void G_AddRandomBot( int team ) {
 				break;
 			}
 		}
-		if (i >= sv_maxclients.integer) {
+		if (i >= sv_maxclients->integer) {
 			num--;
 			if (num <= 0) {
 				skill = Cvar_VariableIntegerValue( "g_npcspskill" );
@@ -504,7 +504,7 @@ int G_RemoveRandomBot( int team ) {
 	int i;
 	gclient_t	*cl;
 
-	for ( i=0 ; i< sv_maxclients.integer ; i++ ) {
+	for ( i=0 ; i< sv_maxclients->integer ; i++ ) {
 		cl = level.clients + i;
 		if ( cl->pers.connected != CON_CONNECTED ) {
 			continue;
@@ -536,7 +536,7 @@ int G_CountHumanPlayers( int team ) {
 	gclient_t	*cl;
 
 	num = 0;
-	for ( i=0 ; i< sv_maxclients.integer ; i++ ) {
+	for ( i=0 ; i< sv_maxclients->integer ; i++ ) {
 		cl = level.clients + i;
 		if ( cl->pers.connected != CON_CONNECTED ) {
 			continue;
@@ -562,7 +562,7 @@ int G_CountBotPlayers( int team ) {
 	gclient_t	*cl;
 
 	num = 0;
-	for ( i=0 ; i< sv_maxclients.integer ; i++ ) {
+	for ( i=0 ; i< sv_maxclients->integer ; i++ ) {
 		cl = level.clients + i;
 		if ( cl->pers.connected != CON_CONNECTED ) {
 			continue;
@@ -621,9 +621,9 @@ void G_CheckMinimumPlayers( void ) {
 	minplayers = bot_minplayers.integer;
 	if (minplayers <= 0) return;
 
-	if (minplayers > sv_maxclients.integer)
+	if (minplayers > sv_maxclients->integer)
 	{
-		minplayers = sv_maxclients.integer;
+		minplayers = sv_maxclients->integer;
 	}
 
 	humanplayers = G_CountHumanPlayers( -1 );

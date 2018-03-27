@@ -300,7 +300,7 @@ qboolean NPC_GetMoveDirectionAltRoute( vec3_t out, float *distance, qboolean try
 	else
 	{//we have no architectural problems, see if there are ents inthe way and try to go around them
 		//not blocked
-		if ( d_altRoutes.integer )
+		if ( d_altRoutes->integer )
 		{//try macro nav
 			navInfo_t	tempInfo;
 			memcpy( &tempInfo, &frameNavInfo, sizeof( tempInfo ) );
