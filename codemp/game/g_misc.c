@@ -635,9 +635,9 @@ void SP_misc_bsp(gentity_t *ent)
 
 	trap->LinkEntity ((sharedEntity_t *)ent);
 
-	trap->SetActiveSubBSP(ent->s.modelindex);
+	SV_SetActiveSubBSP(ent->s.modelindex);
 	G_SpawnEntitiesFromString(qtrue);
-	trap->SetActiveSubBSP(-1);
+	SV_SetActiveSubBSP(-1);
 
 	level.mBSPInstanceDepth--;
 	//level.mFilter[0] = level.mTeamFilter[0] = 0;

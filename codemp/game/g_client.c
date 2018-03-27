@@ -1597,7 +1597,7 @@ void SetupGameGhoul2Model(gentity_t *ent, char *modelname, char *skinName)
 			return;
 		}
 
-		defSkin = trap->R_RegisterSkin("models/players/kyle/model_default.skin");
+		defSkin = SV_RE_RegisterSkin("models/players/kyle/model_default.skin");
 		SV_G2API_SetSkin(precachedKyle, 0, defSkin, defSkin);
 	}
 
@@ -1628,11 +1628,11 @@ void SetupGameGhoul2Model(gentity_t *ent, char *modelname, char *skinName)
 					&& ent->m_pVehicle->m_pVehicleInfo->skin
 					&& ent->m_pVehicle->m_pVehicleInfo->skin[0] )
 				{
-					skinHandle = trap->R_RegisterSkin(va("models/players/%s/model_%s.skin", realModelName, ent->m_pVehicle->m_pVehicleInfo->skin));
+					skinHandle = SV_RE_RegisterSkin(va("models/players/%s/model_%s.skin", realModelName, ent->m_pVehicle->m_pVehicleInfo->skin));
 				}
 				else
 				{
-					skinHandle = trap->R_RegisterSkin(va("models/players/%s/model_default.skin", realModelName));
+					skinHandle = SV_RE_RegisterSkin(va("models/players/%s/model_default.skin", realModelName));
 				}
 			}
 			else
@@ -1715,7 +1715,7 @@ void SetupGameGhoul2Model(gentity_t *ent, char *modelname, char *skinName)
 					useSkinName = va("models/players/%s/model_%s.skin", truncModelName, skin);
 				}
 
-				skinHandle = trap->R_RegisterSkin(useSkinName);
+				skinHandle = SV_RE_RegisterSkin(useSkinName);
 			}
 
 			strcpy(modelFullPath, va("models/players/%s/model.glm", truncModelName));

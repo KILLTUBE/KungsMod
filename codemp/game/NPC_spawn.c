@@ -2102,7 +2102,7 @@ qboolean NPC_VehiclePrecache( gentity_t *spawner )
 		int skin = 0;
 		if (pVehInfo->skin && pVehInfo->skin[0])
 		{
-			skin = trap->R_RegisterSkin(va("models/players/%s/model_%s.skin", pVehInfo->model, pVehInfo->skin));
+			skin = SV_RE_RegisterSkin(va("models/players/%s/model_%s.skin", pVehInfo->model, pVehInfo->skin));
 		}
 		SV_G2API_InitGhoul2Model(&tempG2, va("models/players/%s/model.glm", pVehInfo->model), 0, skin, 0, 0, 0);
 		if (tempG2)

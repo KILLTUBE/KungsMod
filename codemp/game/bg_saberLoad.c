@@ -545,7 +545,7 @@ static void Saber_ParseCustomSkin( saberInfo_t *saber, const char **p ) {
 	const char *value;
 	if ( COM_ParseString( p, &value ) )
 		return;
-	saber->skin = trap->R_RegisterSkin( value );
+	saber->skin = SV_RE_RegisterSkin( value );
 }
 static void Saber_ParseSoundOn( saberInfo_t *saber, const char **p ) {
 	const char *value;

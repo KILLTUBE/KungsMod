@@ -178,22 +178,22 @@ void BotSelectWeapon(int client, int weapon)
 //		assert(0);
 		return;
 	}
-	trap->EA_SelectWeapon(client, weapon);
+	SV_EA_SelectWeapon(client, weapon);
 }
 
 void BotReportStatus(bot_state_t *bs)
 {
 	if (level.gametype == GT_TEAM)
 	{
-		trap->EA_SayTeam(bs->client, teamplayStateDescriptions[bs->teamplayState]);
+		SV_EA_SayTeam(bs->client, teamplayStateDescriptions[bs->teamplayState]);
 	}
 	else if (level.gametype == GT_SIEGE)
 	{
-		trap->EA_SayTeam(bs->client, siegeStateDescriptions[bs->siegeState]);
+		SV_EA_SayTeam(bs->client, siegeStateDescriptions[bs->siegeState]);
 	}
 	else if (level.gametype == GT_CTF || level.gametype == GT_CTY)
 	{
-		trap->EA_SayTeam(bs->client, ctfStateDescriptions[bs->ctfState]);
+		SV_EA_SayTeam(bs->client, ctfStateDescriptions[bs->ctfState]);
 	}
 }
 
@@ -542,7 +542,7 @@ void BotChangeViewAngles(bot_state_t *bs, float thinktime) {
 		bs->viewanglespeed[i] *= 0.45 * (1 - factor);
 	}
 	if (bs->viewangles[PITCH] > 180) bs->viewangles[PITCH] -= 360;
-	trap->EA_View(bs->client, bs->viewangles);
+	SV_EA_View(bs->client, bs->viewangles);
 }
 
 /*
@@ -672,7 +672,7 @@ void BotUpdateInput(bot_state_t *bs, int time, int elapsed_time) {
 	//change the bot view angles
 	BotChangeViewAngles(bs, (float) elapsed_time / 1000);
 	//retrieve the bot input
-	trap->EA_GetInput(bs->client, (float) time / 1000, &bi);
+	SV_EA_GetInput(bs->client, (float) time / 1000, &bi);
 	//respawn hack
 	if (bi.actionflags & ACTION_RESPAWN) {
 		if (bs->lastucmd.buttons & BUTTON_ATTACK) bi.actionflags &= ~(ACTION_RESPAWN|ACTION_ATTACK);
@@ -733,7 +733,7 @@ int BotAI(int client, float thinktime) {
 	int end = 0;
 #endif
 
-	trap->EA_ResetInput(client);
+	SV_EA_ResetInput(client);
 	//
 	bs = botstates[client];
 	if (!bs || !bs->inuse) {
@@ -6016,11 +6016,11 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 
 			if (bot_getinthecarrr.integer != 2)
 			{
-				trap->EA_MoveForward(bs->client);
+				SV_EA_MoveForward(bs->client);
 
 				if (bot_getinthecarrr.integer == 3)
 				{ //use alt fire
-					trap->EA_Alt_Attack(bs->client);
+					SV_EA_Alt_Attack(bs->client);
 				}
 			}
 		}
@@ -6049,7 +6049,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 				VectorNormalize(v);
 				vectoangles(v, bs->goalAngles);
 				MoveTowardIdealAngles(bs);
-				trap->EA_Move(bs->client, v, 5000.0f);
+				SV_EA_Move(bs->client, v, 5000.0f);
 
 				if (bs->noUseTime < (level.time-400))
 				{
@@ -6071,7 +6071,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 
 		if (bot_forgimmick.integer == 2)
 		{ //for debugging saber stuff, this is handy
-			trap->EA_Attack(bs->client);
+			SV_EA_Attack(bs->client);
 		}
 
 		if (bot_forgimmick.integer == 3)
@@ -6080,8 +6080,8 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 
 			VectorSubtract(bs->origin, vec3_origin, mdir);
 			VectorNormalize(mdir);
-			trap->EA_Attack(bs->client);
-			trap->EA_Move(bs->client, mdir, 5000);
+			SV_EA_Attack(bs->client);
+			SV_EA_Move(bs->client, mdir, 5000);
 		}
 
 		if (bot_forgimmick.integer == 4)
@@ -6092,7 +6092,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 
 				VectorSubtract(g_entities[0].client->ps.origin, bs->origin, mdir);
 				VectorNormalize(mdir);
-				trap->EA_Move(bs->client, mdir, 5000);
+				SV_EA_Move(bs->client, mdir, 5000);
 			}
 		}
 
@@ -6100,27 +6100,27 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 		{
 			if (bs->forceMove_Forward > 0)
 			{
-				trap->EA_MoveForward(bs->client);
+				SV_EA_MoveForward(bs->client);
 			}
 			else
 			{
-				trap->EA_MoveBack(bs->client);
+				SV_EA_MoveBack(bs->client);
 			}
 		}
 		if (bs->forceMove_Right)
 		{
 			if (bs->forceMove_Right > 0)
 			{
-				trap->EA_MoveRight(bs->client);
+				SV_EA_MoveRight(bs->client);
 			}
 			else
 			{
-				trap->EA_MoveLeft(bs->client);
+				SV_EA_MoveLeft(bs->client);
 			}
 		}
 		if (bs->forceMove_Up)
 		{
-			trap->EA_Jump(bs->client);
+			SV_EA_Jump(bs->client);
 		}
 		return;
 	}
@@ -6170,7 +6170,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 		if (rand()%10 < 5 &&
 			(!bs->doChat || bs->chatTime < level.time))
 		{
-			trap->EA_Attack(bs->client);
+			SV_EA_Attack(bs->client);
 		}
 
 		return;
@@ -6366,7 +6366,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 	{
 		if (rand()%10 < 5)
 		{
-			trap->EA_Use(bs->client);
+			SV_EA_Use(bs->client);
 		}
 	}
 
@@ -6810,7 +6810,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 			/*if ((level.time - bs->forceJumpChargeTime) > 3500)
 			{
 				bs->forceJumpChargeTime = level.time + 2000;
-				trap->EA_MoveForward(bs->client);
+				SV_EA_MoveForward(bs->client);
 			}
 			*/
 			bs->jumpTime = level.time + 1500;
@@ -7119,12 +7119,12 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 	{
 		if (bs->chatTeam)
 		{
-			trap->EA_SayTeam(bs->client, bs->currentChat);
+			SV_EA_SayTeam(bs->client, bs->currentChat);
 			bs->chatTeam = 0;
 		}
 		else
 		{
-			trap->EA_Say(bs->client, bs->currentChat);
+			SV_EA_Say(bs->client, bs->currentChat);
 		}
 		if (bs->doChat == 2)
 		{
@@ -7244,12 +7244,12 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 		if (bs->jumpTime > level.time && bs->jDelay < level.time &&
 			level.clients[bs->client].pers.cmd.upmove > 0)
 		{
-		//	trap->EA_Move(bs->client, bs->origin, 5000);
+		//	SV_EA_Move(bs->client, bs->origin, 5000);
 			bs->beStill = level.time + 200;
 		}
 		else
 		{
-			trap->EA_Move(bs->client, bs->goalMovedir, 5000);
+			SV_EA_Move(bs->client, bs->goalMovedir, 5000);
 		}
 
 		if (meleestrafe)
@@ -7259,11 +7259,11 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 
 		if (bs->meleeStrafeDir && meleestrafe && bs->meleeStrafeDisable < level.time)
 		{
-			trap->EA_MoveRight(bs->client);
+			SV_EA_MoveRight(bs->client);
 		}
 		else if (meleestrafe && bs->meleeStrafeDisable < level.time)
 		{
-			trap->EA_MoveLeft(bs->client);
+			SV_EA_MoveLeft(bs->client);
 		}
 
 		if (BotTrace_Jump(bs, bs->goalPosition))
@@ -7281,11 +7281,11 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 
 			if (strafeAround == STRAFEAROUND_RIGHT)
 			{
-				trap->EA_MoveRight(bs->client);
+				SV_EA_MoveRight(bs->client);
 			}
 			else if (strafeAround == STRAFEAROUND_LEFT)
 			{
-				trap->EA_MoveLeft(bs->client);
+				SV_EA_MoveLeft(bs->client);
 			}
 		}
 #endif
@@ -7318,17 +7318,17 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 	{
 		if (bs->jumpHoldTime > level.time)
 		{
-			trap->EA_Jump(bs->client);
+			SV_EA_Jump(bs->client);
 			if (bs->wpCurrent)
 			{
 				if ((bs->wpCurrent->origin[2] - bs->origin[2]) < 64)
 				{
-					trap->EA_MoveForward(bs->client);
+					SV_EA_MoveForward(bs->client);
 				}
 			}
 			else
 			{
-				trap->EA_MoveForward(bs->client);
+				SV_EA_MoveForward(bs->client);
 			}
 			if (g_entities[bs->client].client->ps.groundEntityNum == ENTITYNUM_NONE)
 			{
@@ -7337,13 +7337,13 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 		}
 		else if (!(bs->cur_ps.pm_flags & PMF_JUMP_HELD))
 		{
-			trap->EA_Jump(bs->client);
+			SV_EA_Jump(bs->client);
 		}
 	}
 
 	if (bs->duckTime > level.time)
 	{
-		trap->EA_Crouch(bs->client);
+		SV_EA_Crouch(bs->client);
 	}
 
 	if ( bs->dangerousObject && bs->dangerousObject->inuse && bs->dangerousObject->health > 0 &&
@@ -7481,11 +7481,11 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 
 	if (bs->doAttack)
 	{
-		trap->EA_Attack(bs->client);
+		SV_EA_Attack(bs->client);
 	}
 	else if (bs->doAltAttack)
 	{
-		trap->EA_Alt_Attack(bs->client);
+		SV_EA_Alt_Attack(bs->client);
 	}
 
 	if (useTheForce && forceHostile && bs->botChallengingTime > level.time)
@@ -7499,14 +7499,14 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 		if (bs->forceJumpChargeTime > level.time)
 		{
 			level.clients[bs->client].ps.fd.forcePowerSelected = FP_LEVITATION;
-			trap->EA_ForcePower(bs->client);
+			SV_EA_ForcePower(bs->client);
 		}
 		else
 		{
 #endif
 			if (bot_forcepowers.integer && !g_forcePowerDisable.integer)
 			{
-				trap->EA_ForcePower(bs->client);
+				SV_EA_ForcePower(bs->client);
 			}
 #ifndef FORCEJUMP_INSTANTMETHOD
 		}

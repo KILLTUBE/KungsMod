@@ -1007,44 +1007,44 @@ typedef struct gameImport_s {
 	//int			(*AAS_PointReachabilityAreaIndex)		( vec3_t point );
 
 	// elementary action
-	void		(*EA_Say)								( int client, char *str );
-	void		(*EA_SayTeam)							( int client, char *str );
-	void		(*EA_Command)							( int client, char *command );
-	void		(*EA_Action)							( int client, int action );
-	void		(*EA_Gesture)							( int client );
-	void		(*EA_Talk)								( int client );
-	void		(*EA_Attack)							( int client );
-	void		(*EA_Alt_Attack)						( int client );
-	void		(*EA_ForcePower)						( int client );
-	void		(*EA_Use)								( int client );
-	void		(*EA_Respawn)							( int client );
-	void		(*EA_Crouch)							( int client );
-	void		(*EA_MoveUp)							( int client );
-	void		(*EA_MoveDown)							( int client );
-	void		(*EA_MoveForward)						( int client );
-	void		(*EA_MoveBack)							( int client );
-	void		(*EA_MoveLeft)							( int client );
-	void		(*EA_MoveRight)							( int client );
-	void		(*EA_SelectWeapon)						( int client, int weapon );
-	void		(*EA_Jump)								( int client );
-	void		(*EA_DelayedJump)						( int client );
-	void		(*EA_Move)								( int client, vec3_t dir, float speed );
-	void		(*EA_View)								( int client, vec3_t viewangles );
-	void		(*EA_EndRegular)						( int client, float thinktime );
-	void		(*EA_GetInput)							( int client, float thinktime, void *input );
-	void		(*EA_ResetInput)						( int client );
+	//void		(*EA_Say)								( int client, char *str );
+	//void		(*EA_SayTeam)							( int client, char *str );
+	//void		(*EA_Command)							( int client, char *command );
+	//void		(*EA_Action)							( int client, int action );
+	//void		(*EA_Gesture)							( int client );
+	//void		(*EA_Talk)								( int client );
+	//void		(*EA_Attack)							( int client );
+	//void		(*EA_Alt_Attack)						( int client );
+	//void		(*EA_ForcePower)						( int client );
+	//void		(*EA_Use)								( int client );
+	//void		(*EA_Respawn)							( int client );
+	//void		(*EA_Crouch)							( int client );
+	//void		(*EA_MoveUp)							( int client );
+	//void		(*EA_MoveDown)							( int client );
+	//void		(*EA_MoveForward)						( int client );
+	//void		(*EA_MoveBack)							( int client );
+	//void		(*EA_MoveLeft)							( int client );
+	//void		(*EA_MoveRight)							( int client );
+	//void		(*EA_SelectWeapon)						( int client, int weapon );
+	//void		(*EA_Jump)								( int client );
+	//void		(*EA_DelayedJump)						( int client );
+	//void		(*EA_Move)								( int client, vec3_t dir, float speed );
+	//void		(*EA_View)								( int client, vec3_t viewangles );
+	//void		(*EA_EndRegular)						( int client, float thinktime );
+	//void		(*EA_GetInput)							( int client, float thinktime, void *input );
+	//void		(*EA_ResetInput)						( int client );
 
 	// botlib preprocessor
-	int			(*PC_LoadSource)						( const char *filename );
-	int			(*PC_FreeSource)						( int handle );
-	int			(*PC_ReadToken)							( int handle, pc_token_t *pc_token );
-	int			(*PC_SourceFileAndLine)					( int handle, char *filename, int *line );
-
-	// renderer, terrain
-	qhandle_t	(*R_RegisterSkin)						( const char *name );
-	const char *(*SetActiveSubBSP)						( int index );
-	int			(*CM_RegisterTerrain)					( const char *config );
-	void		(*RMG_Init)								( void );
+	//int			(*PC_LoadSource)						( const char *filename );
+	//int			(*PC_FreeSource)						( int handle );
+	//int			(*PC_ReadToken)							( int handle, pc_token_t *pc_token );
+	//int			(*PC_SourceFileAndLine)					( int handle, char *filename, int *line );
+	//
+	//// renderer, terrain
+	//qhandle_t	(*R_RegisterSkin)						( const char *name );
+	//const char *(*SetActiveSubBSP)						( int index );
+	//int			(*CM_RegisterTerrain)					( const char *config );
+	//void		(*RMG_Init)								( void );
 
 	//void		(*G2API_ListModelBones)					( void *ghlInfo, int frame );
 	//void		(*G2API_ListModelSurfaces)				( void *ghlInfo );

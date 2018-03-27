@@ -435,7 +435,7 @@ static sharedEntity_t *ConvertedEntity( sharedEntity_t *ent ) { //Return an enti
 	return &gLocalModifier;
 }
 
-static const char *SV_SetActiveSubBSP( int index ) {
+CCALL const char *SV_SetActiveSubBSP( int index ) {
 	if ( index >= 0 ) {
 		sv.mLocalSubBSPIndex = CM_FindSubBSP( index );
 		sv.mLocalSubBSPModelOffset = index;
@@ -1167,135 +1167,135 @@ CCALL int SV_AAS_PointReachabilityAreaIndex( vec3_t point ) {
 	return botlib_export->aas.AAS_PointReachabilityAreaIndex( point );
 }
 
-static void SV_EA_Say( int client, char *str ) {
+CCALL void SV_EA_Say( int client, char *str ) {
 	botlib_export->ea.EA_Say( client, str );
 }
 
-static void SV_EA_SayTeam( int client, char *str ) {
+CCALL void SV_EA_SayTeam( int client, char *str ) {
 	botlib_export->ea.EA_SayTeam( client, str );
 }
 
-static void SV_EA_Command( int client, char *command ) {
+CCALL void SV_EA_Command( int client, char *command ) {
 	botlib_export->ea.EA_Command( client, command );
 }
 
-static void SV_EA_Action( int client, int action ) {
+CCALL void SV_EA_Action( int client, int action ) {
 	botlib_export->ea.EA_Action( client, action );
 }
 
-static void SV_EA_Gesture( int client ) {
+CCALL void SV_EA_Gesture( int client ) {
 	botlib_export->ea.EA_Gesture( client );
 }
 
-static void SV_EA_Talk( int client ) {
+CCALL void SV_EA_Talk( int client ) {
 	botlib_export->ea.EA_Talk( client );
 }
 
-static void SV_EA_Attack( int client ) {
+CCALL void SV_EA_Attack( int client ) {
 	botlib_export->ea.EA_Attack( client );
 }
 
-static void SV_EA_Alt_Attack( int client ) {
+CCALL void SV_EA_Alt_Attack( int client ) {
 	botlib_export->ea.EA_Alt_Attack( client );
 }
 
-static void SV_EA_ForcePower( int client ) {
+CCALL void SV_EA_ForcePower( int client ) {
 	botlib_export->ea.EA_ForcePower( client );
 }
 
-static void SV_EA_Use( int client ) {
+CCALL void SV_EA_Use( int client ) {
 	botlib_export->ea.EA_Use( client );
 }
 
-static void SV_EA_Respawn( int client ) {
+CCALL void SV_EA_Respawn( int client ) {
 	botlib_export->ea.EA_Respawn( client );
 }
 
-static void SV_EA_Crouch( int client ) {
+CCALL void SV_EA_Crouch( int client ) {
 	botlib_export->ea.EA_Crouch( client );
 }
 
-static void SV_EA_MoveUp( int client ) {
+CCALL void SV_EA_MoveUp( int client ) {
 	botlib_export->ea.EA_MoveUp( client );
 }
 
-static void SV_EA_MoveDown( int client ) {
+CCALL void SV_EA_MoveDown( int client ) {
 	botlib_export->ea.EA_MoveDown( client );
 }
 
-static void SV_EA_MoveForward( int client ) {
+CCALL void SV_EA_MoveForward( int client ) {
 	botlib_export->ea.EA_MoveForward( client );
 }
 
-static void SV_EA_MoveBack( int client ) {
+CCALL void SV_EA_MoveBack( int client ) {
 	botlib_export->ea.EA_MoveBack( client );
 }
 
-static void SV_EA_MoveLeft( int client ) {
+CCALL void SV_EA_MoveLeft( int client ) {
 	botlib_export->ea.EA_MoveLeft( client );
 }
 
-static void SV_EA_MoveRight( int client ) {
+CCALL void SV_EA_MoveRight( int client ) {
 	botlib_export->ea.EA_MoveRight( client );
 }
 
-static void SV_EA_SelectWeapon( int client, int weapon ) {
+CCALL void SV_EA_SelectWeapon( int client, int weapon ) {
 	botlib_export->ea.EA_SelectWeapon( client, weapon );
 }
 
-static void SV_EA_Jump( int client ) {
+CCALL void SV_EA_Jump( int client ) {
 	botlib_export->ea.EA_Jump( client );
 }
 
-static void SV_EA_DelayedJump( int client ) {
+CCALL void SV_EA_DelayedJump( int client ) {
 	botlib_export->ea.EA_DelayedJump( client );
 }
 
-static void SV_EA_Move( int client, vec3_t dir, float speed ) {
+CCALL void SV_EA_Move( int client, vec3_t dir, float speed ) {
 	botlib_export->ea.EA_Move( client, dir, speed );
 }
 
-static void SV_EA_View( int client, vec3_t viewangles ) {
+CCALL void SV_EA_View( int client, vec3_t viewangles ) {
 	botlib_export->ea.EA_View( client, viewangles );
 }
 
-static void SV_EA_EndRegular( int client, float thinktime ) {
+CCALL void SV_EA_EndRegular( int client, float thinktime ) {
 	botlib_export->ea.EA_EndRegular( client, thinktime );
 }
 
-static void SV_EA_GetInput( int client, float thinktime, void *input ) {
+CCALL void SV_EA_GetInput( int client, float thinktime, void *input ) {
 	botlib_export->ea.EA_GetInput( client, thinktime, (bot_input_t *)input );
 }
 
-static void SV_EA_ResetInput( int client ) {
+CCALL void SV_EA_ResetInput( int client ) {
 	botlib_export->ea.EA_ResetInput( client );
 }
 
-static int SV_PC_LoadSource( const char *filename ) {
+CCALL int SV_PC_LoadSource( const char *filename ) {
 	return botlib_export->PC_LoadSourceHandle( filename );
 }
 
-static int SV_PC_FreeSource( int handle ) {
+CCALL int SV_PC_FreeSource( int handle ) {
 	return botlib_export->PC_FreeSourceHandle( handle );
 }
 
-static int SV_PC_ReadToken( int handle, pc_token_t *pc_token ) {
+CCALL int SV_PC_ReadToken( int handle, pc_token_t *pc_token ) {
 	return botlib_export->PC_ReadTokenHandle( handle, pc_token );
 }
 
-static int SV_PC_SourceFileAndLine( int handle, char *filename, int *line ) {
+CCALL int SV_PC_SourceFileAndLine( int handle, char *filename, int *line ) {
 	return botlib_export->PC_SourceFileAndLine( handle, filename, line );
 }
 
-static qhandle_t SV_RE_RegisterSkin( const char *name ) {
+CCALL qhandle_t SV_RE_RegisterSkin( const char *name ) {
 	return re->RegisterServerSkin( name );
 }
 
-static int SV_CM_RegisterTerrain( const char *config ) {
+CCALL int SV_CM_RegisterTerrain( const char *config ) {
 	return 0;
 }
 
-static void SV_RMG_Init( void ) { }
+CCALL void SV_RMG_Init( void ) { }
 
 static void SV_G2API_ListModelSurfaces( void *ghlInfo ) {
 	re->G2API_ListSurfaces( (CGhoul2Info *)ghlInfo );
@@ -1810,40 +1810,42 @@ void SV_BindGame( void ) {
 		//gi.AAS_AlternativeRouteGoals			= SV_AAS_AlternativeRouteGoals;
 		//gi.AAS_PredictRoute						= SV_AAS_PredictRoute;
 		//gi.AAS_PointReachabilityAreaIndex		= SV_AAS_PointReachabilityAreaIndex;
-		gi.EA_Say								= SV_EA_Say;
-		gi.EA_SayTeam							= SV_EA_SayTeam;
-		gi.EA_Command							= SV_EA_Command;
-		gi.EA_Action							= SV_EA_Action;
-		gi.EA_Gesture							= SV_EA_Gesture;
-		gi.EA_Talk								= SV_EA_Talk;
-		gi.EA_Attack							= SV_EA_Attack;
-		gi.EA_Alt_Attack						= SV_EA_Alt_Attack;
-		gi.EA_ForcePower						= SV_EA_ForcePower;
-		gi.EA_Use								= SV_EA_Use;
-		gi.EA_Respawn							= SV_EA_Respawn;
-		gi.EA_Crouch							= SV_EA_Crouch;
-		gi.EA_MoveUp							= SV_EA_MoveUp;
-		gi.EA_MoveDown							= SV_EA_MoveDown;
-		gi.EA_MoveForward						= SV_EA_MoveForward;
-		gi.EA_MoveBack							= SV_EA_MoveBack;
-		gi.EA_MoveLeft							= SV_EA_MoveLeft;
-		gi.EA_MoveRight							= SV_EA_MoveRight;
-		gi.EA_SelectWeapon						= SV_EA_SelectWeapon;
-		gi.EA_Jump								= SV_EA_Jump;
-		gi.EA_DelayedJump						= SV_EA_DelayedJump;
-		gi.EA_Move								= SV_EA_Move;
-		gi.EA_View								= SV_EA_View;
-		gi.EA_EndRegular						= SV_EA_EndRegular;
-		gi.EA_GetInput							= SV_EA_GetInput;
-		gi.EA_ResetInput						= SV_EA_ResetInput;
-		gi.PC_LoadSource						= SV_PC_LoadSource;
-		gi.PC_FreeSource						= SV_PC_FreeSource;
-		gi.PC_ReadToken							= SV_PC_ReadToken;
-		gi.PC_SourceFileAndLine					= SV_PC_SourceFileAndLine;
-		gi.R_RegisterSkin						= SV_RE_RegisterSkin;
-		gi.SetActiveSubBSP						= SV_SetActiveSubBSP;
-		gi.CM_RegisterTerrain					= SV_CM_RegisterTerrain;
-		gi.RMG_Init								= SV_RMG_Init;
+
+		//gi.EA_Say								= SV_EA_Say;
+		//gi.EA_SayTeam							= SV_EA_SayTeam;
+		//gi.EA_Command							= SV_EA_Command;
+		//gi.EA_Action							= SV_EA_Action;
+		//gi.EA_Gesture							= SV_EA_Gesture;
+		//gi.EA_Talk								= SV_EA_Talk;
+		//gi.EA_Attack							= SV_EA_Attack;
+		//gi.EA_Alt_Attack						= SV_EA_Alt_Attack;
+		//gi.EA_ForcePower						= SV_EA_ForcePower;
+		//gi.EA_Use								= SV_EA_Use;
+		//gi.EA_Respawn							= SV_EA_Respawn;
+		//gi.EA_Crouch							= SV_EA_Crouch;
+		//gi.EA_MoveUp							= SV_EA_MoveUp;
+		//gi.EA_MoveDown							= SV_EA_MoveDown;
+		//gi.EA_MoveForward						= SV_EA_MoveForward;
+		//gi.EA_MoveBack							= SV_EA_MoveBack;
+		//gi.EA_MoveLeft							= SV_EA_MoveLeft;
+		//gi.EA_MoveRight							= SV_EA_MoveRight;
+		//gi.EA_SelectWeapon						= SV_EA_SelectWeapon;
+		//gi.EA_Jump								= SV_EA_Jump;
+		//gi.EA_DelayedJump						= SV_EA_DelayedJump;
+		//gi.EA_Move								= SV_EA_Move;
+		//gi.EA_View								= SV_EA_View;
+		//gi.EA_EndRegular						= SV_EA_EndRegular;
+		//gi.EA_GetInput							= SV_EA_GetInput;
+		//gi.EA_ResetInput						= SV_EA_ResetInput;
+		//gi.PC_LoadSource						= SV_PC_LoadSource;
+		//gi.PC_FreeSource						= SV_PC_FreeSource;
+		//gi.PC_ReadToken							= SV_PC_ReadToken;
+		//gi.PC_SourceFileAndLine					= SV_PC_SourceFileAndLine;
+		//gi.R_RegisterSkin						= SV_RE_RegisterSkin;
+		//gi.SetActiveSubBSP						= SV_SetActiveSubBSP;
+		//gi.CM_RegisterTerrain					= SV_CM_RegisterTerrain;
+		//gi.RMG_Init								= SV_RMG_Init;
+
 		//gi.G2API_ListModelBones					= SV_G2API_ListModelBones;
 		//gi.G2API_ListModelSurfaces				= SV_G2API_ListModelSurfaces;
 		//gi.G2API_HaveWeGhoul2Models				= SV_G2API_HaveWeGhoul2Models;

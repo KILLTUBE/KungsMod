@@ -24,4 +24,40 @@ CCALL int SV_AAS_AreaInfo(int areanum,void *info);
 CCALL int SV_AAS_BBoxAreas(vec3_t absmins,vec3_t absmaxs,int *areas,int maxareas);
 CCALL int SV_AAS_EnableRoutingArea(int areanum,int enable);
 
+
+CCALL void SV_RMG_Init(void);
+CCALL int SV_CM_RegisterTerrain(const char *config);
+CCALL qhandle_t SV_RE_RegisterSkin(const char *name);
+CCALL int SV_PC_SourceFileAndLine(int handle,char *filename,int *line);
+CCALL int SV_PC_ReadToken(int handle,pc_token_t *pc_token);
+CCALL int SV_PC_FreeSource(int handle);
+CCALL int SV_PC_LoadSource(const char *filename);
+CCALL void SV_EA_ResetInput(int client);
+CCALL void SV_EA_GetInput(int client,float thinktime,void *input);
+CCALL void SV_EA_EndRegular(int client,float thinktime);
+CCALL void SV_EA_View(int client,vec3_t viewangles);
+CCALL void SV_EA_Move(int client,vec3_t dir,float speed);
+CCALL void SV_EA_DelayedJump(int client);
+CCALL void SV_EA_Jump(int client);
+CCALL void SV_EA_SelectWeapon(int client,int weapon);
+CCALL void SV_EA_MoveRight(int client);
+CCALL void SV_EA_MoveLeft(int client);
+CCALL void SV_EA_MoveBack(int client);
+CCALL void SV_EA_MoveForward(int client);
+CCALL void SV_EA_MoveDown(int client);
+CCALL void SV_EA_MoveUp(int client);
+CCALL void SV_EA_Crouch(int client);
+CCALL void SV_EA_Respawn(int client);
+CCALL void SV_EA_Use(int client);
+CCALL void SV_EA_ForcePower(int client);
+CCALL void SV_EA_Alt_Attack(int client);
+CCALL void SV_EA_Attack(int client);
+CCALL void SV_EA_Talk(int client);
+CCALL void SV_EA_Gesture(int client);
+CCALL void SV_EA_Action(int client,int action);
+CCALL void SV_EA_Command(int client,char *command);
+CCALL void SV_EA_SayTeam(int client,char *str);
+CCALL void SV_EA_Say(int client,char *str);
+CCALL const char *SV_SetActiveSubBSP( int index );
+
 #endif
