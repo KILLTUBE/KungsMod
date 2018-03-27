@@ -983,28 +983,28 @@ typedef struct gameImport_s {
 	//void		(*BotCalculatePaths)					( int rmg );
 
 	// area awareness system
-	int			(*AAS_EnableRoutingArea)				( int areanum, int enable );
-	int			(*AAS_BBoxAreas)						( vec3_t absmins, vec3_t absmaxs, int *areas, int maxareas );
-	int			(*AAS_AreaInfo)							( int areanum, void *info );
-	void		(*AAS_EntityInfo)						( int entnum, void *info );
-	int			(*AAS_Initialized)						( void );
-	void		(*AAS_PresenceTypeBoundingBox)			( int presencetype, vec3_t mins, vec3_t maxs );
-	float		(*AAS_Time)								( void );
-	int			(*AAS_PointAreaNum)						( vec3_t point );
-	int			(*AAS_TraceAreas)						( vec3_t start, vec3_t end, int *areas, vec3_t *points, int maxareas );
-	int			(*AAS_PointContents)					( vec3_t point );
-	int			(*AAS_NextBSPEntity)					( int ent );
-	int			(*AAS_ValueForBSPEpairKey)				( int ent, char *key, char *value, int size );
-	int			(*AAS_VectorForBSPEpairKey)				( int ent, char *key, vec3_t v );
-	int			(*AAS_FloatForBSPEpairKey)				( int ent, char *key, float *value );
-	int			(*AAS_IntForBSPEpairKey)				( int ent, char *key, int *value );
-	int			(*AAS_AreaReachability)					( int areanum );
-	int			(*AAS_AreaTravelTimeToGoalArea)			( int areanum, vec3_t origin, int goalareanum, int travelflags );
-	int			(*AAS_Swimming)							( vec3_t origin );
-	int			(*AAS_PredictClientMovement)			( void *move, int entnum, vec3_t origin, int presencetype, int onground, vec3_t velocity, vec3_t cmdmove, int cmdframes, int maxframes, float frametime, int stopevent, int stopareanum, int visualize );
-	int			(*AAS_AlternativeRouteGoals)			( vec3_t start, int startareanum, vec3_t goal, int goalareanum, int travelflags, void *altroutegoals, int maxaltroutegoals, int type );
-	int			(*AAS_PredictRoute)						( void *route, int areanum, vec3_t origin, int goalareanum, int travelflags, int maxareas, int maxtime, int stopevent, int stopcontents, int stoptfl, int stopareanum );
-	int			(*AAS_PointReachabilityAreaIndex)		( vec3_t point );
+	//int			(*AAS_EnableRoutingArea)				( int areanum, int enable );
+	//int			(*AAS_BBoxAreas)						( vec3_t absmins, vec3_t absmaxs, int *areas, int maxareas );
+	//int			(*AAS_AreaInfo)							( int areanum, void *info );
+	//void		(*AAS_EntityInfo)						( int entnum, void *info );
+	//int			(*AAS_Initialized)						( void );
+	//void		(*AAS_PresenceTypeBoundingBox)			( int presencetype, vec3_t mins, vec3_t maxs );
+	//float		(*AAS_Time)								( void );
+	//int			(*AAS_PointAreaNum)						( vec3_t point );
+	//int			(*AAS_TraceAreas)						( vec3_t start, vec3_t end, int *areas, vec3_t *points, int maxareas );
+	//int			(*AAS_PointContents)					( vec3_t point );
+	//int			(*AAS_NextBSPEntity)					( int ent );
+	//int			(*AAS_ValueForBSPEpairKey)				( int ent, char *key, char *value, int size );
+	//int			(*AAS_VectorForBSPEpairKey)				( int ent, char *key, vec3_t v );
+	//int			(*AAS_FloatForBSPEpairKey)				( int ent, char *key, float *value );
+	//int			(*AAS_IntForBSPEpairKey)				( int ent, char *key, int *value );
+	//int			(*AAS_AreaReachability)					( int areanum );
+	//int			(*AAS_AreaTravelTimeToGoalArea)			( int areanum, vec3_t origin, int goalareanum, int travelflags );
+	//int			(*AAS_Swimming)							( vec3_t origin );
+	//int			(*AAS_PredictClientMovement)			( void *move, int entnum, vec3_t origin, int presencetype, int onground, vec3_t velocity, vec3_t cmdmove, int cmdframes, int maxframes, float frametime, int stopevent, int stopareanum, int visualize );
+	//int			(*AAS_AlternativeRouteGoals)			( vec3_t start, int startareanum, vec3_t goal, int goalareanum, int travelflags, void *altroutegoals, int maxaltroutegoals, int type );
+	//int			(*AAS_PredictRoute)						( void *route, int areanum, vec3_t origin, int goalareanum, int travelflags, int maxareas, int maxtime, int stopevent, int stopcontents, int stoptfl, int stopareanum );
+	//int			(*AAS_PointReachabilityAreaIndex)		( vec3_t point );
 
 	// elementary action
 	void		(*EA_Say)								( int client, char *str );

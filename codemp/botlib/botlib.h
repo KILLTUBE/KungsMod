@@ -530,3 +530,4 @@ name:						default:			module(s):			description:
 */
 
 #include "server/sv_bot.h"
+#include "server/sv_aas.h"

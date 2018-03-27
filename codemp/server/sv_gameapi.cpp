@@ -1079,91 +1079,91 @@ CCALL void SV_BotUserCommand( int clientNum, usercmd_t *ucmd ) {
 	SV_ClientThink( &svs.clients[clientNum], ucmd );
 }
 
-static int SV_AAS_EnableRoutingArea( int areanum, int enable ) {
+CCALL int SV_AAS_EnableRoutingArea( int areanum, int enable ) {
 	return botlib_export->aas.AAS_EnableRoutingArea( areanum, enable );
 }
 
-static int SV_AAS_BBoxAreas( vec3_t absmins, vec3_t absmaxs, int *areas, int maxareas ) {
+CCALL int SV_AAS_BBoxAreas( vec3_t absmins, vec3_t absmaxs, int *areas, int maxareas ) {
 	return botlib_export->aas.AAS_BBoxAreas( absmins, absmaxs, areas, maxareas );
 }
 
-static int SV_AAS_AreaInfo( int areanum, void *info ) {
+CCALL int SV_AAS_AreaInfo( int areanum, void *info ) {
 	return botlib_export->aas.AAS_AreaInfo( areanum, (aas_areainfo_s *)info );
 }
 
-static void SV_AAS_EntityInfo( int entnum, void *info ) {
+CCALL void SV_AAS_EntityInfo( int entnum, void *info ) {
 	botlib_export->aas.AAS_EntityInfo( entnum, (aas_entityinfo_s *)info );
 }
 
-static int SV_AAS_Initialized( void ) {
+CCALL int SV_AAS_Initialized( void ) {
 	return botlib_export->aas.AAS_Initialized();
 }
 
-static void SV_AAS_PresenceTypeBoundingBox( int presencetype, vec3_t mins, vec3_t maxs ) {
+CCALL void SV_AAS_PresenceTypeBoundingBox( int presencetype, vec3_t mins, vec3_t maxs ) {
 	botlib_export->aas.AAS_PresenceTypeBoundingBox( presencetype, mins, maxs );
 }
 
-static float SV_AAS_Time( void ) {
+CCALL float SV_AAS_Time( void ) {
 	return botlib_export->aas.AAS_Time();
 }
 
-static int SV_AAS_PointAreaNum( vec3_t point ) {
+CCALL int SV_AAS_PointAreaNum( vec3_t point ) {
 	return botlib_export->aas.AAS_PointAreaNum( point );
 }
 
-static int SV_AAS_TraceAreas( vec3_t start, vec3_t end, int *areas, vec3_t *points, int maxareas ) {
+CCALL int SV_AAS_TraceAreas( vec3_t start, vec3_t end, int *areas, vec3_t *points, int maxareas ) {
 	return botlib_export->aas.AAS_TraceAreas( start, end, areas, points, maxareas );
 }
 
-static int SV_AAS_PointContents( vec3_t point ) {
+CCALL int SV_AAS_PointContents( vec3_t point ) {
 	return botlib_export->aas.AAS_PointContents( point );
 }
 
-static int SV_AAS_NextBSPEntity( int ent ) {
+CCALL int SV_AAS_NextBSPEntity( int ent ) {
 	return botlib_export->aas.AAS_NextBSPEntity( ent );
 }
 
-static int SV_AAS_ValueForBSPEpairKey( int ent, char *key, char *value, int size ) {
+CCALL int SV_AAS_ValueForBSPEpairKey( int ent, char *key, char *value, int size ) {
 	return botlib_export->aas.AAS_ValueForBSPEpairKey( ent, key, value, size );
 }
 
-static int SV_AAS_VectorForBSPEpairKey( int ent, char *key, vec3_t v ) {
+CCALL int SV_AAS_VectorForBSPEpairKey( int ent, char *key, vec3_t v ) {
 	return botlib_export->aas.AAS_VectorForBSPEpairKey( ent, key, v );
 }
 
-static int SV_AAS_FloatForBSPEpairKey( int ent, char *key, float *value ) {
+CCALL int SV_AAS_FloatForBSPEpairKey( int ent, char *key, float *value ) {
 	return botlib_export->aas.AAS_FloatForBSPEpairKey( ent, key, value );
 }
 
-static int SV_AAS_IntForBSPEpairKey( int ent, char *key, int *value ) {
+CCALL int SV_AAS_IntForBSPEpairKey( int ent, char *key, int *value ) {
 	return botlib_export->aas.AAS_IntForBSPEpairKey( ent, key, value );
 }
 
-static int SV_AAS_AreaReachability( int areanum ) {
+CCALL int SV_AAS_AreaReachability( int areanum ) {
 	return botlib_export->aas.AAS_AreaReachability( areanum );
 }
 
-static int SV_AAS_AreaTravelTimeToGoalArea( int areanum, vec3_t origin, int goalareanum, int travelflags ) {
+CCALL int SV_AAS_AreaTravelTimeToGoalArea( int areanum, vec3_t origin, int goalareanum, int travelflags ) {
 	return botlib_export->aas.AAS_AreaTravelTimeToGoalArea( areanum, origin, goalareanum, travelflags );
 }
 
-static int SV_AAS_Swimming( vec3_t origin ) {
+CCALL int SV_AAS_Swimming( vec3_t origin ) {
 	return botlib_export->aas.AAS_Swimming( origin );
 }
 
-static int SV_AAS_PredictClientMovement( void *move, int entnum, vec3_t origin, int presencetype, int onground, vec3_t velocity, vec3_t cmdmove, int cmdframes, int maxframes, float frametime, int stopevent, int stopareanum, int visualize ) {
+CCALL int SV_AAS_PredictClientMovement( void *move, int entnum, vec3_t origin, int presencetype, int onground, vec3_t velocity, vec3_t cmdmove, int cmdframes, int maxframes, float frametime, int stopevent, int stopareanum, int visualize ) {
 	return botlib_export->aas.AAS_PredictClientMovement( (aas_clientmove_s *)move, entnum, origin, presencetype, onground, velocity, cmdmove, cmdframes, maxframes, frametime, stopevent, stopareanum, visualize );
 }
 
-static int SV_AAS_AlternativeRouteGoals( vec3_t start, int startareanum, vec3_t goal, int goalareanum, int travelflags, void *altroutegoals, int maxaltroutegoals, int type ) {
+CCALL int SV_AAS_AlternativeRouteGoals( vec3_t start, int startareanum, vec3_t goal, int goalareanum, int travelflags, void *altroutegoals, int maxaltroutegoals, int type ) {
 	return botlib_export->aas.AAS_AlternativeRouteGoals( start, startareanum, goal, goalareanum, travelflags, (aas_altroutegoal_s *)altroutegoals, maxaltroutegoals, type );
 }
 
-static int SV_AAS_PredictRoute( void *route, int areanum, vec3_t origin, int goalareanum, int travelflags, int maxareas, int maxtime, int stopevent, int stopcontents, int stoptfl, int stopareanum ) {
+CCALL int SV_AAS_PredictRoute( void *route, int areanum, vec3_t origin, int goalareanum, int travelflags, int maxareas, int maxtime, int stopevent, int stopcontents, int stoptfl, int stopareanum ) {
 	return botlib_export->aas.AAS_PredictRoute( (aas_predictroute_s *)route, areanum, origin, goalareanum, travelflags, maxareas, maxtime, stopevent, stopcontents, stoptfl, stopareanum );
 }
 
-static int SV_AAS_PointReachabilityAreaIndex( vec3_t point ) {
+CCALL int SV_AAS_PointReachabilityAreaIndex( vec3_t point ) {
 	return botlib_export->aas.AAS_PointReachabilityAreaIndex( point );
 }
 
@@ -1788,28 +1788,28 @@ void SV_BindGame( void ) {
 		//gi.BotUserCommand						= SV_BotUserCommand;
 		//gi.BotUpdateWaypoints					= SV_BotWaypointReception;
 		//gi.BotCalculatePaths					= SV_BotCalculatePaths;
-		gi.AAS_EnableRoutingArea				= SV_AAS_EnableRoutingArea;
-		gi.AAS_BBoxAreas						= SV_AAS_BBoxAreas;
-		gi.AAS_AreaInfo							= SV_AAS_AreaInfo;
-		gi.AAS_EntityInfo						= SV_AAS_EntityInfo;
-		gi.AAS_Initialized						= SV_AAS_Initialized;
-		gi.AAS_PresenceTypeBoundingBox			= SV_AAS_PresenceTypeBoundingBox;
-		gi.AAS_Time								= SV_AAS_Time;
-		gi.AAS_PointAreaNum						= SV_AAS_PointAreaNum;
-		gi.AAS_TraceAreas						= SV_AAS_TraceAreas;
-		gi.AAS_PointContents					= SV_AAS_PointContents;
-		gi.AAS_NextBSPEntity					= SV_AAS_NextBSPEntity;
-		gi.AAS_ValueForBSPEpairKey				= SV_AAS_ValueForBSPEpairKey;
-		gi.AAS_VectorForBSPEpairKey				= SV_AAS_VectorForBSPEpairKey;
-		gi.AAS_FloatForBSPEpairKey				= SV_AAS_FloatForBSPEpairKey;
-		gi.AAS_IntForBSPEpairKey				= SV_AAS_IntForBSPEpairKey;
-		gi.AAS_AreaReachability					= SV_AAS_AreaReachability;
-		gi.AAS_AreaTravelTimeToGoalArea			= SV_AAS_AreaTravelTimeToGoalArea;
-		gi.AAS_Swimming							= SV_AAS_Swimming;
-		gi.AAS_PredictClientMovement			= SV_AAS_PredictClientMovement;
-		gi.AAS_AlternativeRouteGoals			= SV_AAS_AlternativeRouteGoals;
-		gi.AAS_PredictRoute						= SV_AAS_PredictRoute;
-		gi.AAS_PointReachabilityAreaIndex		= SV_AAS_PointReachabilityAreaIndex;
+		//gi.AAS_EnableRoutingArea				= SV_AAS_EnableRoutingArea;
+		//gi.AAS_BBoxAreas						= SV_AAS_BBoxAreas;
+		//gi.AAS_AreaInfo							= SV_AAS_AreaInfo;
+		//gi.AAS_EntityInfo						= SV_AAS_EntityInfo;
+		//gi.AAS_Initialized						= SV_AAS_Initialized;
+		//gi.AAS_PresenceTypeBoundingBox			= SV_AAS_PresenceTypeBoundingBox;
+		//gi.AAS_Time								= SV_AAS_Time;
+		//gi.AAS_PointAreaNum						= SV_AAS_PointAreaNum;
+		//gi.AAS_TraceAreas						= SV_AAS_TraceAreas;
+		//gi.AAS_PointContents					= SV_AAS_PointContents;
+		//gi.AAS_NextBSPEntity					= SV_AAS_NextBSPEntity;
+		//gi.AAS_ValueForBSPEpairKey				= SV_AAS_ValueForBSPEpairKey;
+		//gi.AAS_VectorForBSPEpairKey				= SV_AAS_VectorForBSPEpairKey;
+		//gi.AAS_FloatForBSPEpairKey				= SV_AAS_FloatForBSPEpairKey;
+		//gi.AAS_IntForBSPEpairKey				= SV_AAS_IntForBSPEpairKey;
+		//gi.AAS_AreaReachability					= SV_AAS_AreaReachability;
+		//gi.AAS_AreaTravelTimeToGoalArea			= SV_AAS_AreaTravelTimeToGoalArea;
+		//gi.AAS_Swimming							= SV_AAS_Swimming;
+		//gi.AAS_PredictClientMovement			= SV_AAS_PredictClientMovement;
+		//gi.AAS_AlternativeRouteGoals			= SV_AAS_AlternativeRouteGoals;
+		//gi.AAS_PredictRoute						= SV_AAS_PredictRoute;
+		//gi.AAS_PointReachabilityAreaIndex		= SV_AAS_PointReachabilityAreaIndex;
 		gi.EA_Say								= SV_EA_Say;
 		gi.EA_SayTeam							= SV_EA_SayTeam;
 		gi.EA_Command							= SV_EA_Command;

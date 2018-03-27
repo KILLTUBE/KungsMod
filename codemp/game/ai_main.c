@@ -421,7 +421,7 @@ BotEntityInfo
 ==============
 */
 void BotEntityInfo(int entnum, aas_entityinfo_t *info) {
-	trap->AAS_EntityInfo(entnum, info);
+	SV_AAS_EntityInfo(entnum, info);
 }
 
 /*
