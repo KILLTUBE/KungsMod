@@ -758,28 +758,29 @@ typedef enum gameExportLegacy_e {
 } gameExportLegacy_t;
 
 typedef struct gameImport_s {
+	int asd;
 	// misc
-	void		(*Print)								( const char *msg, ... );
-	NORETURN_PTR void (*Error)( int level, const char *fmt, ... );
-	int			(*Milliseconds)							( void );
-	void		(*PrecisionTimerStart)					( void **timer );
-	int			(*PrecisionTimerEnd)					( void *timer );
-	void		(*SV_RegisterSharedMemory)				( char *memory );
-	int			(*RealTime)								( qtime_t *qtime );
-	void		(*TrueMalloc)							( void **ptr, int size );
-	void		(*TrueFree)								( void **ptr );
-	void		(*SnapVector)							( float *v );
-
-	// cvar
-	void		(*Cvar_Register)						( vmCvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags );
-	void		(*Cvar_Set)								( const char *var_name, const char *value );
-	void		(*Cvar_Update)							( vmCvar_t *vmCvar );
-	int			(*Cvar_VariableIntegerValue)			( const char *var_name );
-	void		(*Cvar_VariableStringBuffer)			( const char *var_name, char *buffer, int bufsize );
-
-	// cmd
-	int			(*Argc)									( void );
-	void		(*Argv)									( int n, char *buffer, int bufferLength );
+	//void		(*Print)								( const char *msg, ... );
+	//NORETURN_PTR void (*Error)( int level, const char *fmt, ... );
+	//int			(*Milliseconds)							( void );
+	//void		(*PrecisionTimerStart)					( void **timer );
+	//int			(*PrecisionTimerEnd)					( void *timer );
+	//void		(*SV_RegisterSharedMemory)				( char *memory );
+	//int			(*RealTime)								( qtime_t *qtime );
+	//void		(*TrueMalloc)							( void **ptr, int size );
+	//void		(*TrueFree)								( void **ptr );
+	//void		(*SnapVector)							( float *v );
+	//
+	//// cvar
+	//void		(*Cvar_Register)						( vmCvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags );
+	//void		(*Cvar_Set)								( const char *var_name, const char *value );
+	//void		(*Cvar_Update)							( vmCvar_t *vmCvar );
+	//int			(*Cvar_VariableIntegerValue)			( const char *var_name );
+	//void		(*Cvar_VariableStringBuffer)			( const char *var_name, char *buffer, int bufsize );
+	//
+	//// cmd
+	//int			(*Argc)									( void );
+	//void		(*Argv)									( int n, char *buffer, int bufferLength );
 
 
 	//// server

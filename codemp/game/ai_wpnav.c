@@ -353,7 +353,7 @@ checkprint:
 	{
 		flagstr = GetFlagStr(gWPArray[bestindex]->flags);
 		gLastPrintedIndex = bestindex;
-		trap->Print(S_COLOR_YELLOW "Waypoint %i\nFlags - %i (%s) (w%f)\nOrigin - (%i %i %i)\n", (int)(gWPArray[bestindex]->index), (int)(gWPArray[bestindex]->flags), flagstr, gWPArray[bestindex]->weight, (int)(gWPArray[bestindex]->origin[0]), (int)(gWPArray[bestindex]->origin[1]), (int)(gWPArray[bestindex]->origin[2]));
+		Com_Printf(S_COLOR_YELLOW "Waypoint %i\nFlags - %i (%s) (w%f)\nOrigin - (%i %i %i)\n", (int)(gWPArray[bestindex]->index), (int)(gWPArray[bestindex]->flags), flagstr, gWPArray[bestindex]->weight, (int)(gWPArray[bestindex]->origin[0]), (int)(gWPArray[bestindex]->origin[1]), (int)(gWPArray[bestindex]->origin[2]));
 		//GetFlagStr allocates 128 bytes for this, if it's changed then obviously this must be as well
 		B_TempFree(128); //flagstr
 
@@ -376,7 +376,7 @@ void TransferWPData(int from, int to)
 
 	if (!gWPArray[to])
 	{
-		trap->Print(S_COLOR_RED "FATAL ERROR: Could not allocated memory for waypoint\n");
+		Com_Printf(S_COLOR_RED "FATAL ERROR: Could not allocated memory for waypoint\n");
 	}
 
 	gWPArray[to]->flags = gWPArray[from]->flags;
@@ -395,7 +395,7 @@ void CreateNewWP(vec3_t origin, int flags)
 	{
 		if (!RMG.integer)
 		{
-			trap->Print(S_COLOR_YELLOW "Warning: Waypoint limit hit (%i)\n", MAX_WPARRAY_SIZE);
+			Com_Printf(S_COLOR_YELLOW "Warning: Waypoint limit hit (%i)\n", MAX_WPARRAY_SIZE);
 		}
 		return;
 	}
@@ -407,7 +407,7 @@ void CreateNewWP(vec3_t origin, int flags)
 
 	if (!gWPArray[gWPNum])
 	{
-		trap->Print(S_COLOR_RED "ERROR: Could not allocated memory for waypoint\n");
+		Com_Printf(S_COLOR_RED "ERROR: Could not allocated memory for waypoint\n");
 	}
 
 	gWPArray[gWPNum]->flags = flags;
@@ -437,7 +437,7 @@ void CreateNewWP_FromObject(wpobject_t *wp)
 
 	if (!gWPArray[gWPNum])
 	{
-		trap->Print(S_COLOR_RED "ERROR: Could not allocated memory for waypoint\n");
+		Com_Printf(S_COLOR_RED "ERROR: Could not allocated memory for waypoint\n");
 	}
 
 	gWPArray[gWPNum]->flags = wp->flags;
@@ -523,7 +523,7 @@ void RemoveWP_InTrail(int afterindex)
 
 	if (afterindex < 0 || afterindex >= gWPNum)
 	{
-		trap->Print(S_COLOR_YELLOW "Waypoint number %i does not exist\n", afterindex);
+		Com_Printf(S_COLOR_YELLOW "Waypoint number %i does not exist\n", afterindex);
 		return;
 	}
 
@@ -541,7 +541,7 @@ void RemoveWP_InTrail(int afterindex)
 
 	if (!foundanindex)
 	{
-		trap->Print(S_COLOR_YELLOW "Waypoint index %i should exist, but does not (?)\n", afterindex);
+		Com_Printf(S_COLOR_YELLOW "Waypoint index %i should exist, but does not (?)\n", afterindex);
 		return;
 	}
 
@@ -591,14 +591,14 @@ int CreateNewWP_InTrail(vec3_t origin, int flags, int afterindex)
 	{
 		if (!RMG.integer)
 		{
-			trap->Print(S_COLOR_YELLOW "Warning: Waypoint limit hit (%i)\n", MAX_WPARRAY_SIZE);
+			Com_Printf(S_COLOR_YELLOW "Warning: Waypoint limit hit (%i)\n", MAX_WPARRAY_SIZE);
 		}
 		return 0;
 	}
 
 	if (afterindex < 0 || afterindex >= gWPNum)
 	{
-		trap->Print(S_COLOR_YELLOW "Waypoint number %i does not exist\n", afterindex);
+		Com_Printf(S_COLOR_YELLOW "Waypoint number %i does not exist\n", afterindex);
 		return 0;
 	}
 
@@ -616,7 +616,7 @@ int CreateNewWP_InTrail(vec3_t origin, int flags, int afterindex)
 
 	if (!foundanindex)
 	{
-		trap->Print(S_COLOR_YELLOW "Waypoint index %i should exist, but does not (?)\n", afterindex);
+		Com_Printf(S_COLOR_YELLOW "Waypoint index %i should exist, but does not (?)\n", afterindex);
 		return 0;
 	}
 
@@ -669,14 +669,14 @@ int CreateNewWP_InsertUnder(vec3_t origin, int flags, int afterindex)
 	{
 		if (!RMG.integer)
 		{
-			trap->Print(S_COLOR_YELLOW "Warning: Waypoint limit hit (%i)\n", MAX_WPARRAY_SIZE);
+			Com_Printf(S_COLOR_YELLOW "Warning: Waypoint limit hit (%i)\n", MAX_WPARRAY_SIZE);
 		}
 		return 0;
 	}
 
 	if (afterindex < 0 || afterindex >= gWPNum)
 	{
-		trap->Print(S_COLOR_YELLOW "Waypoint number %i does not exist\n", afterindex);
+		Com_Printf(S_COLOR_YELLOW "Waypoint number %i does not exist\n", afterindex);
 		return 0;
 	}
 
@@ -694,7 +694,7 @@ int CreateNewWP_InsertUnder(vec3_t origin, int flags, int afterindex)
 
 	if (!foundanindex)
 	{
-		trap->Print(S_COLOR_YELLOW "Waypoint index %i should exist, but does not (?)\n", afterindex);
+		Com_Printf(S_COLOR_YELLOW "Waypoint index %i should exist, but does not (?)\n", afterindex);
 		return 0;
 	}
 
@@ -751,7 +751,7 @@ void TeleportToWP(gentity_t *pl, int afterindex)
 
 	if (afterindex < 0 || afterindex >= gWPNum)
 	{
-		trap->Print(S_COLOR_YELLOW "Waypoint number %i does not exist\n", afterindex);
+		Com_Printf(S_COLOR_YELLOW "Waypoint number %i does not exist\n", afterindex);
 		return;
 	}
 
@@ -769,7 +769,7 @@ void TeleportToWP(gentity_t *pl, int afterindex)
 
 	if (!foundanindex)
 	{
-		trap->Print(S_COLOR_YELLOW "Waypoint index %i should exist, but does not (?)\n", afterindex);
+		Com_Printf(S_COLOR_YELLOW "Waypoint index %i should exist, but does not (?)\n", afterindex);
 		return;
 	}
 
@@ -782,7 +782,7 @@ void WPFlagsModify(int wpnum, int flags)
 {
 	if (wpnum < 0 || wpnum >= gWPNum || !gWPArray[wpnum] || !gWPArray[wpnum]->inuse)
 	{
-		trap->Print(S_COLOR_YELLOW "WPFlagsModify: Waypoint %i does not exist\n", wpnum);
+		Com_Printf(S_COLOR_YELLOW "WPFlagsModify: Waypoint %i does not exist\n", wpnum);
 		return;
 	}
 
@@ -1097,7 +1097,7 @@ int ConnectTrail(int startindex, int endindex, qboolean behindTheScenes)
 
 	if (!behindTheScenes)
 	{
-		trap->Print(S_COLOR_YELLOW "Point %i is not connected to %i - Repairing...\n", startindex, endindex);
+		Com_Printf(S_COLOR_YELLOW "Point %i is not connected to %i - Repairing...\n", startindex, endindex);
 	}
 
 	VectorCopy(gWPArray[startindex]->origin, startplace);
@@ -1309,13 +1309,13 @@ int ConnectTrail(int startindex, int endindex, qboolean behindTheScenes)
 		if (!behindTheScenes)
 #endif
 		{
-			trap->Print(S_COLOR_RED "Could not link %i to %i, unreachable by node branching.\n", startindex, endindex);
+			Com_Printf(S_COLOR_RED "Could not link %i to %i, unreachable by node branching.\n", startindex, endindex);
 		}
 		gWPArray[startindex]->flags |= WPFLAG_ONEWAY_FWD;
 		gWPArray[endindex]->flags |= WPFLAG_ONEWAY_BACK;
 		if (!behindTheScenes)
 		{
-			trap->Print(S_COLOR_YELLOW "Since points cannot be connected, point %i has been flagged as only-forward and point %i has been flagged as only-backward.\n", startindex, endindex);
+			Com_Printf(S_COLOR_YELLOW "Since points cannot be connected, point %i has been flagged as only-forward and point %i has been flagged as only-backward.\n", startindex, endindex);
 		}
 
 		/*while (nodenum >= 0)
@@ -1392,7 +1392,7 @@ int ConnectTrail(int startindex, int endindex, qboolean behindTheScenes)
 			{
 				if (!behindTheScenes)
 				{
-					trap->Print(S_COLOR_RED "Could not link %i to %i, waypoint limit hit.\n", startindex, endindex);
+					Com_Printf(S_COLOR_RED "Could not link %i to %i, waypoint limit hit.\n", startindex, endindex);
 				}
 				return 0;
 			}
@@ -1412,7 +1412,7 @@ int ConnectTrail(int startindex, int endindex, qboolean behindTheScenes)
 
 	if (!behindTheScenes)
 	{
-		trap->Print(S_COLOR_YELLOW "Finished connecting %i to %i.\n", startindex, endindex);
+		Com_Printf(S_COLOR_YELLOW "Finished connecting %i to %i.\n", startindex, endindex);
 	}
 
 	return 1;
@@ -1500,8 +1500,8 @@ int RepairPaths(qboolean behindTheScenes)
 
 	i = 0;
 
-	trap->Cvar_Update(&bot_wp_distconnect);
-	trap->Cvar_Update(&bot_wp_visconnect);
+	Cvar_Update(&bot_wp_distconnect);
+	Cvar_Update(&bot_wp_visconnect);
 
 	while (i < gWPNum)
 	{
@@ -1876,7 +1876,7 @@ void CalculateWeightGoals(void)
 	gentity_t *ent;
 	float weight;
 
-	trap->Cvar_Update(&bot_wp_clearweight);
+	Cvar_Update(&bot_wp_clearweight);
 
 	if (bot_wp_clearweight.integer)
 	{ //if set then flush out all weight/goal values before calculating them again
@@ -2042,13 +2042,13 @@ int LoadPathData(const char *filename)
 
 	if (!f)
 	{
-		trap->Print(S_COLOR_YELLOW "Bot route data not found for %s\n", filename);
+		Com_Printf(S_COLOR_YELLOW "Bot route data not found for %s\n", filename);
 		return 2;
 	}
 
 	if (len >= 524288)
 	{
-		trap->Print(S_COLOR_RED "Route file exceeds maximum length\n");
+		Com_Printf(S_COLOR_RED "Route file exceeds maximum length\n");
 		return 0;
 	}
 
@@ -2410,7 +2410,7 @@ int SavePathData(const char *filename)
 
 	if (!f)
 	{
-		trap->Print(S_COLOR_RED "ERROR: Could not open file to write path data\n");
+		Com_Printf(S_COLOR_RED "ERROR: Could not open file to write path data\n");
 		return 0;
 	}
 
@@ -2506,7 +2506,7 @@ int SavePathData(const char *filename)
 
 	FS_FCloseFile(f);
 
-	trap->Print("Path data has been saved and updated. You may need to restart the level for some things to be properly calculated.\n");
+	Com_Printf("Path data has been saved and updated. You may need to restart the level for some things to be properly calculated.\n");
 
 	return 1;
 }
@@ -3070,12 +3070,12 @@ void G_RMGPathing(void)
 
 	if (!terrain || !terrain->inuse || terrain->s.eType != ET_TERRAIN)
 	{
-		trap->Print("Error: RMG with no terrain!\n");
+		Com_Printf("Error: RMG with no terrain!\n");
 		return;
 	}
 
 #ifdef PATH_TIME_DEBUG
-	startTime = trap->Milliseconds();
+	startTime = Com_Milliseconds();
 #endif
 
 	nodenum = 0;
@@ -3209,9 +3209,9 @@ void G_RMGPathing(void)
 	RepairPaths(qtrue); //this has different behaviour for RMG and will just flag all points one way that don't trace to each other.
 
 #ifdef PATH_TIME_DEBUG
-	endTime = trap->Milliseconds();
+	endTime = Com_Milliseconds();
 
-	trap->Print("Total routing time taken: %ims\n", (endTime - startTime));
+	Com_Printf("Total routing time taken: %ims\n", (endTime - startTime));
 #endif
 
 #ifdef ASCII_ART_DEBUG
@@ -3286,11 +3286,11 @@ void LoadPath_ThisLevel(void)
 	int			i = 0;
 	gentity_t	*ent = NULL;
 
-	trap->Cvar_Register( &mapname, "mapname", "", CVAR_SERVERINFO | CVAR_ROM );
+	Cvar_Register( &mapname, "mapname", "", CVAR_SERVERINFO | CVAR_ROM );
 
 	if (RMG.integer)
 	{ //If RMG, generate the path on-the-fly
-		trap->Cvar_Register(&bot_normgpath, "bot_normgpath", "1", CVAR_CHEAT);
+		Cvar_Register(&bot_normgpath, "bot_normgpath", "1", CVAR_CHEAT);
 		//note: This is disabled for now as I'm using standard bot nav
 		//on premade terrain levels.
 
@@ -3313,7 +3313,7 @@ void LoadPath_ThisLevel(void)
 		}
 	}
 
-	trap->Cvar_Update(&bot_wp_edit);
+	Cvar_Update(&bot_wp_edit);
 
 	if (bot_wp_edit.value)
 	{
@@ -3454,13 +3454,13 @@ int AcceptBotCommand(char *cmd, gentity_t *pl)
 
 	if (Q_stricmp (cmd, "bot_wp_cmdlist") == 0) //lists all the bot waypoint commands.
 	{
-		trap->Print(S_COLOR_YELLOW "bot_wp_add" S_COLOR_WHITE " - Add a waypoint (optional int parameter will insert the point after the specified waypoint index in a trail)\n\n");
-		trap->Print(S_COLOR_YELLOW "bot_wp_rem" S_COLOR_WHITE " - Remove a waypoint (removes last unless waypoint index is specified as a parameter)\n\n");
-		trap->Print(S_COLOR_YELLOW "bot_wp_addflagged" S_COLOR_WHITE " - Same as wp_add, but adds a flagged point (type bot_wp_addflagged for help)\n\n");
-		trap->Print(S_COLOR_YELLOW "bot_wp_switchflags" S_COLOR_WHITE " - Switches flags on an existing waypoint (type bot_wp_switchflags for help)\n\n");
-		trap->Print(S_COLOR_YELLOW "bot_wp_tele" S_COLOR_WHITE " - Teleport yourself to the specified waypoint's location\n");
-		trap->Print(S_COLOR_YELLOW "bot_wp_killoneways" S_COLOR_WHITE " - Removes oneway (backward and forward) flags on all waypoints in the level\n\n");
-		trap->Print(S_COLOR_YELLOW "bot_wp_save" S_COLOR_WHITE " - Saves all waypoint data into a file for later use\n");
+		Com_Printf(S_COLOR_YELLOW "bot_wp_add" S_COLOR_WHITE " - Add a waypoint (optional int parameter will insert the point after the specified waypoint index in a trail)\n\n");
+		Com_Printf(S_COLOR_YELLOW "bot_wp_rem" S_COLOR_WHITE " - Remove a waypoint (removes last unless waypoint index is specified as a parameter)\n\n");
+		Com_Printf(S_COLOR_YELLOW "bot_wp_addflagged" S_COLOR_WHITE " - Same as wp_add, but adds a flagged point (type bot_wp_addflagged for help)\n\n");
+		Com_Printf(S_COLOR_YELLOW "bot_wp_switchflags" S_COLOR_WHITE " - Switches flags on an existing waypoint (type bot_wp_switchflags for help)\n\n");
+		Com_Printf(S_COLOR_YELLOW "bot_wp_tele" S_COLOR_WHITE " - Teleport yourself to the specified waypoint's location\n");
+		Com_Printf(S_COLOR_YELLOW "bot_wp_killoneways" S_COLOR_WHITE " - Removes oneway (backward and forward) flags on all waypoints in the level\n\n");
+		Com_Printf(S_COLOR_YELLOW "bot_wp_save" S_COLOR_WHITE " - Saves all waypoint data into a file for later use\n");
 
 		return 1;
 	}
@@ -3525,7 +3525,7 @@ int AcceptBotCommand(char *cmd, gentity_t *pl)
 		}
 		else
 		{
-			trap->Print(S_COLOR_YELLOW "You didn't specify an index. Assuming last.\n");
+			Com_Printf(S_COLOR_YELLOW "You didn't specify an index. Assuming last.\n");
 			TeleportToWP(pl, gWPNum-1);
 		}
 		return 1;
@@ -3557,7 +3557,7 @@ int AcceptBotCommand(char *cmd, gentity_t *pl)
 
 		if (!RequiredSArgument || !RequiredSArgument[0])
 		{
-			trap->Print(S_COLOR_YELLOW "Flag string needed for bot_wp_addflagged\nj - Jump point\nd - Duck point\nc - Snipe or camp standing\nf - Wait for func\nm - Do not move to when func is under\ns - Snipe or camp\nx - Oneway, forward\ny - Oneway, back\ng - Mission goal\nn - No visibility\nExample (for a point the bot would jump at, and reverse on when traveling a trail backwards):\nbot_wp_addflagged jx\n");
+			Com_Printf(S_COLOR_YELLOW "Flag string needed for bot_wp_addflagged\nj - Jump point\nd - Duck point\nc - Snipe or camp standing\nf - Wait for func\nm - Do not move to when func is under\ns - Snipe or camp\nx - Oneway, forward\ny - Oneway, back\ng - Mission goal\nn - No visibility\nExample (for a point the bot would jump at, and reverse on when traveling a trail backwards):\nbot_wp_addflagged jx\n");
 			return 1;
 		}
 
@@ -3633,7 +3633,7 @@ int AcceptBotCommand(char *cmd, gentity_t *pl)
 
 		if (!RequiredSArgument || !RequiredSArgument[0])
 		{
-			trap->Print(S_COLOR_YELLOW "Flag string needed for bot_wp_switchflags\nType bot_wp_addflagged for a list of flags and their corresponding characters, or use 0 for no flags.\nSyntax: bot_wp_switchflags <flags> <n>\n");
+			Com_Printf(S_COLOR_YELLOW "Flag string needed for bot_wp_switchflags\nType bot_wp_addflagged for a list of flags and their corresponding characters, or use 0 for no flags.\nSyntax: bot_wp_switchflags <flags> <n>\n");
 			return 1;
 		}
 
@@ -3696,7 +3696,7 @@ int AcceptBotCommand(char *cmd, gentity_t *pl)
 		}
 		else
 		{
-			trap->Print(S_COLOR_YELLOW "Waypoint number (to modify) needed for bot_wp_switchflags\nSyntax: bot_wp_switchflags <flags> <n>\n");
+			Com_Printf(S_COLOR_YELLOW "Waypoint number (to modify) needed for bot_wp_switchflags\nSyntax: bot_wp_switchflags <flags> <n>\n");
 		}
 		return 1;
 	}
@@ -3728,7 +3728,7 @@ int AcceptBotCommand(char *cmd, gentity_t *pl)
 	if (Q_stricmp (cmd, "bot_wp_save") == 0)
 	{
 		gDeactivated = 0;
-		trap->Cvar_Register( &mapname, "mapname", "", CVAR_SERVERINFO | CVAR_ROM );
+		Cvar_Register( &mapname, "mapname", "", CVAR_SERVERINFO | CVAR_ROM );
 		SavePathData(mapname.string);
 		return 1;
 	}

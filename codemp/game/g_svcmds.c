@@ -86,7 +86,7 @@ static qboolean StringToFilter( char *s, ipFilter_t *f ) {
 				s++;
 				continue;
 			}
-			trap->Print( "Bad filter address: %s\n", s );
+			Com_Printf( "Bad filter address: %s\n", s );
 			return qfalse;
 		}
 
@@ -143,7 +143,7 @@ static void UpdateIPBans( void ) {
 		}
 	}
 
-	trap->Cvar_Set( "g_banIPs", iplist_final );
+	Cvar_Set( "g_banIPs", iplist_final );
 }
 
 /*
@@ -194,7 +194,7 @@ static void AddIP( char *str ) {
 	}
 	if ( i == numIPFilters ) {
 		if ( numIPFilters == MAX_IPFILTERS ) {
-			trap->Print( "IP filter list is full\n" );
+			Com_Printf( "IP filter list is full\n" );
 			return;
 		}
 		numIPFilters++;
@@ -238,12 +238,12 @@ void Svcmd_AddIP_f (void)
 {
 	char		str[MAX_TOKEN_CHARS];
 
-	if ( trap->Argc() < 2 ) {
-		trap->Print("Usage: addip <ip-mask>\n");
+	if ( Cmd_Argc() < 2 ) {
+		Com_Printf("Usage: addip <ip-mask>\n");
 		return;
 	}
 
-	trap->Argv( 1, str, sizeof( str ) );
+	Cmd_ArgvBuffer( 1, str, sizeof( str ) );
 
 	AddIP( str );
 }
@@ -259,12 +259,12 @@ void Svcmd_RemoveIP_f (void)
 	int			i;
 	char		str[MAX_TOKEN_CHARS];
 
-	if ( trap->Argc() < 2 ) {
-		trap->Print("Usage: removeip <ip-mask>\n");
+	if ( Cmd_Argc() < 2 ) {
+		Com_Printf("Usage: removeip <ip-mask>\n");
 		return;
 	}
 
-	trap->Argv( 1, str, sizeof( str ) );
+	Cmd_ArgvBuffer( 1, str, sizeof( str ) );
 
 	if (!StringToFilter (str, &f))
 		return;
@@ -273,14 +273,14 @@ void Svcmd_RemoveIP_f (void)
 		if (ipFilters[i].mask == f.mask	&&
 			ipFilters[i].compare == f.compare) {
 			ipFilters[i].compare = 0xffffffffu;
-			trap->Print ("Removed.\n");
+			Com_Printf ("Removed.\n");
 
 			UpdateIPBans();
 			return;
 		}
 	}
 
-	trap->Print ( "Didn't find %s.\n", str );
+	Com_Printf ( "Didn't find %s.\n", str );
 }
 
 void Svcmd_ListIP_f (void)
@@ -293,10 +293,10 @@ void Svcmd_ListIP_f (void)
 			continue;
 
 		b.ui = ipFilters[i].compare;
-		trap->Print ("%i.%i.%i.%i\n", b.b[0], b.b[1], b.b[2], b.b[3]);
+		Com_Printf ("%i.%i.%i.%i\n", b.b[0], b.b[1], b.b[2], b.b[3]);
 		count++;
 	}
-	trap->Print ("%i bans.\n", count);
+	Com_Printf ("%i bans.\n", count);
 }
 
 /*
@@ -313,68 +313,68 @@ void	Svcmd_EntityList_f (void) {
 		if ( !check->inuse ) {
 			continue;
 		}
-		trap->Print("%3i:", e);
+		Com_Printf("%3i:", e);
 		switch ( check->s.eType ) {
 		case ET_GENERAL:
-			trap->Print("ET_GENERAL          ");
+			Com_Printf("ET_GENERAL          ");
 			break;
 		case ET_PLAYER:
-			trap->Print("ET_PLAYER           ");
+			Com_Printf("ET_PLAYER           ");
 			break;
 		case ET_ITEM:
-			trap->Print("ET_ITEM             ");
+			Com_Printf("ET_ITEM             ");
 			break;
 		case ET_MISSILE:
-			trap->Print("ET_MISSILE          ");
+			Com_Printf("ET_MISSILE          ");
 			break;
 		case ET_SPECIAL:
-			trap->Print("ET_SPECIAL          ");
+			Com_Printf("ET_SPECIAL          ");
 			break;
 		case ET_HOLOCRON:
-			trap->Print("ET_HOLOCRON         ");
+			Com_Printf("ET_HOLOCRON         ");
 			break;
 		case ET_MOVER:
-			trap->Print("ET_MOVER            ");
+			Com_Printf("ET_MOVER            ");
 			break;
 		case ET_BEAM:
-			trap->Print("ET_BEAM             ");
+			Com_Printf("ET_BEAM             ");
 			break;
 		case ET_PORTAL:
-			trap->Print("ET_PORTAL           ");
+			Com_Printf("ET_PORTAL           ");
 			break;
 		case ET_SPEAKER:
-			trap->Print("ET_SPEAKER          ");
+			Com_Printf("ET_SPEAKER          ");
 			break;
 		case ET_PUSH_TRIGGER:
-			trap->Print("ET_PUSH_TRIGGER     ");
+			Com_Printf("ET_PUSH_TRIGGER     ");
 			break;
 		case ET_TELEPORT_TRIGGER:
-			trap->Print("ET_TELEPORT_TRIGGER ");
+			Com_Printf("ET_TELEPORT_TRIGGER ");
 			break;
 		case ET_INVISIBLE:
-			trap->Print("ET_INVISIBLE        ");
+			Com_Printf("ET_INVISIBLE        ");
 			break;
 		case ET_NPC:
-			trap->Print("ET_NPC              ");
+			Com_Printf("ET_NPC              ");
 			break;
 		case ET_BODY:
-			trap->Print("ET_BODY             ");
+			Com_Printf("ET_BODY             ");
 			break;
 		case ET_TERRAIN:
-			trap->Print("ET_TERRAIN          ");
+			Com_Printf("ET_TERRAIN          ");
 			break;
 		case ET_FX:
-			trap->Print("ET_FX               ");
+			Com_Printf("ET_FX               ");
 			break;
 		default:
-			trap->Print("%-3i                ", check->s.eType);
+			Com_Printf("%-3i                ", check->s.eType);
 			break;
 		}
 
 		if ( check->classname ) {
-			trap->Print("%s", check->classname);
+			Com_Printf("%s", check->classname);
 		}
-		trap->Print("\n");
+		Com_Printf("\n");
 	}
 }
 
@@ -413,7 +413,7 @@ gclient_t	*ClientForString( const char *s ) {
 		}
 	}
 
-	trap->Print( "User %s is not on the server\n", s );
+	Com_Printf( "User %s is not on the server\n", s );
 	return NULL;
 }
 
@@ -428,20 +428,20 @@ void	Svcmd_ForceTeam_f( void ) {
 	gclient_t	*cl;
 	char		str[MAX_TOKEN_CHARS];
 
-	if ( trap->Argc() < 3 ) {
-		trap->Print("Usage: forceteam <player> <team>\n");
+	if ( Cmd_Argc() < 3 ) {
+		Com_Printf("Usage: forceteam <player> <team>\n");
 		return;
 	}
 
 	// find the player
-	trap->Argv( 1, str, sizeof( str ) );
+	Cmd_ArgvBuffer( 1, str, sizeof( str ) );
 	cl = ClientForString( str );
 	if ( !cl ) {
 		return;
 	}
 
 	// set the team
-	trap->Argv( 2, str, sizeof( str ) );
+	Cmd_ArgvBuffer( 2, str, sizeof( str ) );
 	SetTeam( &g_entities[cl - level.clients], str );
 }
 
@@ -451,7 +451,7 @@ void Svcmd_Say_f( void ) {
 	// don't let text be too long for malicious reasons
 	char text[MAX_SAY_TEXT] = {0};
 
-	if ( trap->Argc () < 2 )
+	if ( Cmd_Argc () < 2 )
 		return;
 
 	p = ConcatArgs( 1 );
@@ -503,7 +503,7 @@ qboolean	ConsoleCommand( void ) {
 	char	cmd[MAX_TOKEN_CHARS] = {0};
 	svcmd_t	*command = NULL;
 
-	trap->Argv( 0, cmd, sizeof( cmd ) );
+	Cmd_ArgvBuffer( 0, cmd, sizeof( cmd ) );
 
 	command = (svcmd_t *)Q_LinearSearch( cmd, svcmds, numsvcmds, sizeof( svcmds[0] ), svcmdcmp );
 	if ( !command )

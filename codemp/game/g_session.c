@@ -84,7 +84,7 @@ void G_WriteClientSessionData( gclient_t *client )
 
 	var = va( "session%i", client - level.clients );
 
-	trap->Cvar_Set( var, s );
+	Cvar_Set( var, s );
 }
 
 /*
@@ -101,7 +101,7 @@ void G_ReadSessionData( gclient_t *client )
 	int			i=0, tempSessionTeam=0, tempSpectatorState, tempTeamLeader;
 
 	var = va( "session%i", client - level.clients );
-	trap->Cvar_VariableStringBuffer( var, s, sizeof(s) );
+	Cvar_VariableStringBuffer( var, s, sizeof(s) );
 
 	sscanf( s, "%i %i %i %i %i %i %i %i %i %i %i %i %s %s",
 		&tempSessionTeam, //&client->sess.sessionTeam,
@@ -256,14 +256,14 @@ void G_InitWorldSession( void ) {
 	char	s[MAX_STRING_CHARS];
 	int			gt;
 
-	trap->Cvar_VariableStringBuffer( "session", s, sizeof(s) );
+	Cvar_VariableStringBuffer( "session", s, sizeof(s) );
 	gt = atoi( s );
 
 	// if the gametype changed since the last session, don't use any
 	// client sessions
 	if ( level.gametype != gt ) {
 		level.newSession = qtrue;
-		trap->Print( "Gametype changed, clearing session data.\n" );
+		Com_Printf( "Gametype changed, clearing session data.\n" );
 	}
 }
 
@@ -276,7 +276,7 @@ G_WriteSessionData
 void G_WriteSessionData( void ) {
 	int		i;
 
-	trap->Cvar_Set( "session", va("%i", level.gametype) );
+	Cvar_Set( "session", va("%i", level.gametype) );
 
 	for ( i = 0 ; i < level.maxclients ; i++ ) {
 		if ( level.clients[i].pers.connected == CON_CONNECTED ) {

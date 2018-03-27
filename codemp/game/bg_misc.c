@@ -2512,7 +2512,7 @@ void BG_AddPredictableEventToPlayerstate( int newEvent, int eventParm, playerSta
 
 		if (!isRegistered)
 		{
-			trap->Cvar_Register(&showEvents, "showevents", "0", 0);
+			Cvar_Register(&showEvents, "showevents", "0", 0);
 			isRegistered = qtrue;
 		}
 

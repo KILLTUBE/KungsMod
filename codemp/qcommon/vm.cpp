@@ -181,7 +181,6 @@ vm_t *VM_Create( vmSlots_t vmSlot ) {
 	FS_FindPureDLL( vm->name );
 	vm->dllHandle = Sys_LoadGameDll( vm->name, &vm->GetModuleAPI );
 	if (vmSlot == VM_GAME) {
-		Com_Printf("asd");
 		return vm;
 	}
 	Com_Printf( "VM_Create: %s" ARCH_STRING DLL_EXT, vm->name );

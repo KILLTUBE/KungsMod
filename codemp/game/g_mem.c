@@ -51,16 +51,16 @@ void *G_Alloc( int size ) {
 	char	*p;
 
 	if ( size <= 0 ) {
-		trap->Error( ERR_DROP, "G_Alloc: zero-size allocation\n", size );
+		Com_Error( ERR_DROP, "G_Alloc: zero-size allocation\n", size );
 		return NULL;
 	}
 
 	if ( g_debugAlloc.integer ) {
-		trap->Print( "G_Alloc of %i bytes (%i left)\n", size, POOLSIZE - allocPoint - ( ( size + 31 ) & ~31 ) );
+		Com_Printf( "G_Alloc of %i bytes (%i left)\n", size, POOLSIZE - allocPoint - ( ( size + 31 ) & ~31 ) );
 	}
 
 	if ( allocPoint + size > POOLSIZE ) {
-		trap->Error( ERR_DROP, "G_Alloc: failed on allocation of %i bytes\n", size ); // bk010103 - was %u, but is signed
+		Com_Error( ERR_DROP, "G_Alloc: failed on allocation of %i bytes\n", size ); // bk010103 - was %u, but is signed
 		return NULL;
 	}
 
@@ -79,5 +79,5 @@ void Svcmd_GameMem_f( void ) {
 	float f = allocPoint;
 	f /= POOLSIZE;
 	f *= 100;
-	trap->Print("Game Memory Pool is %.1f%% full, %i bytes out of %i used.\n", f, allocPoint, POOLSIZE);
+	Com_Printf("Game Memory Pool is %.1f%% full, %i bytes out of %i used.\n", f, allocPoint, POOLSIZE);
 }

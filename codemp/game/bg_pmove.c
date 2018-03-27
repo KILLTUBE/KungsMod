@@ -11134,7 +11134,7 @@ void PmoveSingle (pmove_t *pmove) {
 
 	// snap velocity to integer coordinates to save network bandwidth
 	if ( !pm->pmove_float )
-		trap->SnapVector( pm->ps->velocity );
+		Sys_SnapVector( pm->ps->velocity );
 
  	if (pm->ps->pm_type == PM_JETPACK || gPMDoSlowFall )
 	{

@@ -1605,4 +1605,6 @@ CCALL void SV_RegisterSharedMemory( char *memory );
 CCALL void SV_BotFreeClient( int clientNum );
 CCALL int SV_BotAllocateClient(void);
 
+CCALL void Sys_SnapVector(float *v);
+
 #include "server/sv_nav.h"

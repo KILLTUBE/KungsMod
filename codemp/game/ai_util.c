@@ -69,7 +69,7 @@ void *B_Alloc(int size)
 		i++;
 	}
 
-	trap->Print("Allocations used: %i\nFree allocation slots: %i\n", used, free);
+	Com_Printf("Allocations used: %i\nFree allocation slots: %i\n", used, free);
 
 	i = 0;
 #endif
@@ -90,7 +90,7 @@ void *B_Alloc(int size)
 	{
 		//If this happens we'll have to rely on this chunk being freed manually with B_Free, which it hopefully will be
 #ifdef DEBUG
-		trap->Print("WARNING: MAXIMUM B_ALLOC ALLOCATIONS EXCEEDED\n");
+		Com_Printf("WARNING: MAXIMUM B_ALLOC ALLOCATIONS EXCEEDED\n");
 #endif
 	}
 
@@ -125,7 +125,7 @@ void B_Free(void *ptr)
 		i++;
 	}
 
-	trap->Print("Allocations used: %i\nFree allocation slots: %i\n", used, free);
+	Com_Printf("Allocations used: %i\nFree allocation slots: %i\n", used, free);
 
 	i = 0;
 #endif
@@ -145,7 +145,7 @@ void B_Free(void *ptr)
 	{
 		//Likely because the limit was exceeded and we're now freeing the chunk manually as we hoped would happen
 #ifdef DEBUG
-		trap->Print("WARNING: Freeing allocation which is not in the allocation structure\n");
+		Com_Printf("WARNING: Freeing allocation which is not in the allocation structure\n");
 #endif
 	}
 
@@ -367,7 +367,7 @@ int BotDoChat(bot_state_t *bs, char *section, int always)
 		return 0;
 	}
 
-	if (trap->Cvar_VariableIntegerValue("se_language"))
+	if (Cvar_VariableIntegerValue("se_language"))
 	{ //no chatting unless English.
 		return 0;
 	}
@@ -606,7 +606,7 @@ int ReadChatGroups(bot_state_t *bs, char *buf)
 
 	if (strlen(cgroupbegin) >= MAX_CHAT_BUFFER_SIZE)
 	{
-		trap->Print(S_COLOR_RED "Error: Personality chat section exceeds max size\n");
+		Com_Printf(S_COLOR_RED "Error: Personality chat section exceeds max size\n");
 		return 0;
 	}
 
@@ -647,14 +647,14 @@ void BotUtilizePersonality(bot_state_t *bs)
 
 	if (!f)
 	{
-		trap->Print(S_COLOR_RED "Error: Specified personality not found\n");
+		Com_Printf(S_COLOR_RED "Error: Specified personality not found\n");
 		B_TempFree(131072); //buf
 		return;
 	}
 
 	if (len >= 131072)
 	{
-		trap->Print(S_COLOR_RED "Personality file exceeds maximum length\n");
+		Com_Printf(S_COLOR_RED "Personality file exceeds maximum length\n");
 		B_TempFree(131072); //buf
 		return;
 	}
@@ -676,7 +676,7 @@ void BotUtilizePersonality(bot_state_t *bs)
 
 	if (!GetValueGroup(buf, "GeneralBotInfo", group))
 	{
-		trap->Print(S_COLOR_RED "Personality file contains no GeneralBotInfo group\n");
+		Com_Printf(S_COLOR_RED "Personality file contains no GeneralBotInfo group\n");
 		failed = 1; //set failed so we know to set everything to default values
 	}
 
