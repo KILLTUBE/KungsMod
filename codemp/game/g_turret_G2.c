@@ -356,7 +356,7 @@ static void turretG2_fire ( gentity_t *ent, vec3_t start, vec3_t dir )
 	vec3_t		org, ang;
 	gentity_t	*bolt;
 
-	if ( (trap->PointContents( start, ent->s.number )&MASK_SHOT) )
+	if ( (SV_PointContents( start, ent->s.number )&MASK_SHOT) )
 	{
 		return;
 	}
@@ -763,7 +763,7 @@ static qboolean turretG2_find_enemies( gentity_t *self )
 				continue;
 			}
 		}
-		if ( !trap->InPVS( org2, target->r.currentOrigin ))
+		if ( !SV_inPVS( org2, target->r.currentOrigin ))
 		{
 			continue;
 		}
@@ -786,7 +786,7 @@ static qboolean turretG2_find_enemies( gentity_t *self )
 			org[2] += 5;
 		}
 
-		trap->Trace( &tr, org2, NULL, NULL, org, self->s.number, MASK_SHOT, qfalse, 0, 0 );
+		SV_Trace( &tr, org2, NULL, NULL, org, self->s.number, MASK_SHOT, qfalse, 0, 0 );
 
 		if ( !tr.allsolid && !tr.startsolid && ( tr.fraction == 1.0 || tr.entityNum == target->s.number ))
 		{
@@ -918,7 +918,7 @@ void turretG2_base_think( gentity_t *self )
 			if ( enemyDist < self->radius * self->radius )
 			{
 				// was in valid radius
-				if ( trap->InPVS( self->r.currentOrigin, self->enemy->r.currentOrigin ) )
+				if ( SV_inPVS( self->r.currentOrigin, self->enemy->r.currentOrigin ) )
 				{
 					// Every now and again, check to see if we can even trace to the enemy
 					trace_t tr;
@@ -940,7 +940,7 @@ void turretG2_base_think( gentity_t *self )
 					{
 						org2[2] -= 10;
 					}
-					trap->Trace( &tr, org2, NULL, NULL, org, self->s.number, MASK_SHOT, qfalse, 0, 0 );
+					SV_Trace( &tr, org2, NULL, NULL, org, self->s.number, MASK_SHOT, qfalse, 0, 0 );
 
 					if ( !tr.allsolid && !tr.startsolid && tr.entityNum == self->enemy->s.number )
 					{
@@ -1310,5 +1310,5 @@ void finish_spawning_turretG2( gentity_t *base )
 	// But set us as a turret so that we can be identified as a turret
 	base->s.weapon = WP_TURRET;
 
-	trap->LinkEntity( (sharedEntity_t *)base );
+	SV_LinkEntity( (sharedEntity_t *)base );
 }

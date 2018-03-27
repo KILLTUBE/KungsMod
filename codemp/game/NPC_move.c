@@ -520,5 +520,5 @@ void NPC_ApplyRoff(void)
 	//rwwFIXMEFIXME: Any significance to this?
 
 	// use the precise origin for linking
-	trap->LinkEntity((sharedEntity_t *)NPCS.NPC);
+	SV_LinkEntity((sharedEntity_t *)NPCS.NPC);
 }

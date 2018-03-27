@@ -255,18 +255,18 @@ int CM_ModelContents( clipHandle_t model, int subBSPIndex );
 int CM_LoadSubBSP( const char *name, qboolean clientload );
 int CM_FindSubBSP( int modelIndex );
 char *CM_SubBSPEntityString( int index );
-qboolean Q3_TaskIDPending( sharedEntity_t *ent, taskID_t taskType );
-void Q3_TaskIDSet( sharedEntity_t *ent, taskID_t taskType, int taskID );
-void Q3_TaskIDComplete( sharedEntity_t *ent, taskID_t taskType );
-void Q3_SetVar( int taskID, int entID, const char *type_name, const char *data );
-int Q3_VariableDeclared( const char *name );
-int Q3_GetFloatVariable( const char *name, float *value );
-int Q3_GetStringVariable( const char *name, const char **value );
-int Q3_GetVectorVariable( const char *name, vec3_t value );
+CCALL qboolean Q3_TaskIDPending( sharedEntity_t *ent, taskID_t taskType );
+CCALL void Q3_TaskIDSet( sharedEntity_t *ent, taskID_t taskType, int taskID );
+CCALL void Q3_TaskIDComplete( sharedEntity_t *ent, taskID_t taskType );
+CCALL void Q3_SetVar( int taskID, int entID, const char *type_name, const char *data );
+CCALL int Q3_VariableDeclared( const char *name );
+CCALL int Q3_GetFloatVariable( const char *name, float *value );
+CCALL int Q3_GetStringVariable( const char *name, const char **value );
+CCALL int Q3_GetVectorVariable( const char *name, vec3_t value );
 void SV_BotWaypointReception( int wpnum, wpobject_t **wps );
 void SV_BotCalculatePaths( int rmg );
 
-static void SV_LocateGameData( sharedEntity_t *gEnts, int numGEntities, int sizeofGEntity_t, playerState_t *clients, int sizeofGameClient ) {
+CCALL void SV_LocateGameData( sharedEntity_t *gEnts, int numGEntities, int sizeofGEntity_t, playerState_t *clients, int sizeofGameClient ) {
 	sv.gentities = gEnts;
 	sv.gentitySize = sizeofGEntity_t;
 	sv.num_entities = numGEntities;
@@ -275,14 +275,14 @@ static void SV_LocateGameData( sharedEntity_t *gEnts, int numGEntities, int size
 	sv.gameClientSize = sizeofGameClient;
 }
 
-static void SV_GameDropClient( int clientNum, const char *reason ) {
+CCALL void SV_GameDropClient( int clientNum, const char *reason ) {
 	if ( clientNum < 0 || clientNum >= sv_maxclients->integer ) {
 		return;
 	}
 	SV_DropClient( svs.clients + clientNum, reason );
 }
 
-static void SV_GameSendServerCommand( int clientNum, const char *text ) {
+CCALL void SV_GameSendServerCommand( int clientNum, const char *text ) {
 	if ( clientNum == -1 ) {
 		SV_SendServerCommand( NULL, "%s", text );
 	} else {
@@ -293,7 +293,7 @@ static void SV_GameSendServerCommand( int clientNum, const char *text ) {
 	}
 }
 
-static qboolean SV_EntityContact( const vec3_t mins, const vec3_t maxs, const sharedEntity_t *gEnt, int capsule ) {
+CCALL qboolean SV_EntityContact( const vec3_t mins, const vec3_t maxs, const sharedEntity_t *gEnt, int capsule ) {
 	const float	*origin, *angles;
 	clipHandle_t	ch;
 	trace_t			trace;
@@ -309,7 +309,7 @@ static qboolean SV_EntityContact( const vec3_t mins, const vec3_t maxs, const sh
 	return (qboolean)trace.startsolid;
 }
 
-static void SV_SetBrushModel( sharedEntity_t *ent, const char *name ) {
+CCALL void SV_SetBrushModel( sharedEntity_t *ent, const char *name ) {
 	clipHandle_t	h;
 	vec3_t			mins, maxs;
 
@@ -357,7 +357,7 @@ static void SV_SetBrushModel( sharedEntity_t *ent, const char *name ) {
 	}
 }
 
-static qboolean SV_inPVSIgnorePortals( const vec3_t p1, const vec3_t p2 ) {
+CCALL qboolean SV_inPVSIgnorePortals( const vec3_t p1, const vec3_t p2 ) {
 	int		leafnum, cluster;
 //	int		area1, area2;
 	byte	*mask;
@@ -377,15 +377,14 @@ static qboolean SV_inPVSIgnorePortals( const vec3_t p1, const vec3_t p2 ) {
 	return qtrue;
 }
 
-static void SV_GetServerinfo( char *buffer, int bufferSize ) {
+CCALL void SV_GetServerinfo( char *buffer, int bufferSize ) {
 	if ( bufferSize < 1 ) {
 		Com_Error( ERR_DROP, "SV_GetServerinfo: bufferSize == %i", bufferSize );
 		return;
 	}
 	Q_strncpyz( buffer, Cvar_InfoString( CVAR_SERVERINFO ), bufferSize );
 }
-
-static void SV_AdjustAreaPortalState( sharedEntity_t *ent, qboolean open ) {
+CCALL void SV_AdjustAreaPortalState( sharedEntity_t *ent, qboolean open ) {
 	svEntity_t	*svEnt;
 
 	svEnt = SV_SvEntityForGentity( ent );
@@ -395,7 +394,7 @@ static void SV_AdjustAreaPortalState( sharedEntity_t *ent, qboolean open ) {
 	CM_AdjustAreaPortalState( svEnt->areanum, svEnt->areanum2, open );
 }
 
-static void SV_GetUsercmd( int clientNum, usercmd_t *cmd ) {
+CCALL void SV_GetUsercmd( int clientNum, usercmd_t *cmd ) {
 	if ( clientNum < 0 || clientNum >= sv_maxclients->integer ) {
 		Com_Error( ERR_DROP, "SV_GetUsercmd: bad clientNum:%i", clientNum );
 		return;
@@ -404,7 +403,7 @@ static void SV_GetUsercmd( int clientNum, usercmd_t *cmd ) {
 }
 
 static sharedEntity_t gLocalModifier;
-static sharedEntity_t *ConvertedEntity( sharedEntity_t *ent ) { //Return an entity with the memory shifted around to allow reading/modifying VM memory
+CCALL sharedEntity_t *ConvertedEntity( sharedEntity_t *ent ) { //Return an entity with the memory shifted around to allow reading/modifying VM memory
 	int i = 0;
 
 	assert(ent);
@@ -435,19 +434,7 @@ static sharedEntity_t *ConvertedEntity( sharedEntity_t *ent ) { //Return an enti
 	return &gLocalModifier;
 }
 
-CCALL const char *SV_SetActiveSubBSP( int index ) {
-	if ( index >= 0 ) {
-		sv.mLocalSubBSPIndex = CM_FindSubBSP( index );
-		sv.mLocalSubBSPModelOffset = index;
-		sv.mLocalSubBSPEntityParsePoint = CM_SubBSPEntityString( sv.mLocalSubBSPIndex );
-		return sv.mLocalSubBSPEntityParsePoint;
-	}
-
-	sv.mLocalSubBSPIndex = -1;
-	return NULL;
-}
-
-static qboolean SV_GetEntityToken( char *buffer, int bufferSize ) {
+CCALL qboolean SV_GetEntityToken( char *buffer, int bufferSize ) {
 	char *s;
 
 	if ( sv.mLocalSubBSPIndex == -1 ) {
@@ -468,13 +455,13 @@ static qboolean SV_GetEntityToken( char *buffer, int bufferSize ) {
 	}
 }
 
-static void SV_PrecisionTimerStart( void **timer ) {
+CCALL void SV_PrecisionTimerStart( void **timer ) {
 	timing_c *newTimer = new timing_c; //create the new timer
 	*timer = newTimer; //assign the pointer within the pointer to point at the mem addr of our new timer
 	newTimer->Start(); //start the timer
 }
 
-static int SV_PrecisionTimerEnd( void *timer ) {
+CCALL int SV_PrecisionTimerEnd( void *timer ) {
 	int r;
 	timing_c *theTimer = (timing_c *)timer; //this is the pointer we assigned in start, so we can directly cast it back
 	r = theTimer->End(); //get the result
@@ -482,58 +469,50 @@ static int SV_PrecisionTimerEnd( void *timer ) {
 	return r; //return the result
 }
 
-static void SV_RegisterSharedMemory( char *memory ) {
+CCALL void SV_RegisterSharedMemory( char *memory ) {
 	sv.mSharedMemory = memory;
 }
 
-static void SV_SetServerCull( float cullDistance ) {
+CCALL void SV_SetServerCull( float cullDistance ) {
 	g_svCullDist = cullDistance;
 }
 
-static void SV_SiegePersSet( siegePers_t *siegePers ) {
+CCALL void SV_SiegePersSet( siegePers_t *siegePers ) {
 	sv_siegePersData = *siegePers;
 }
 
-static void SV_SiegePersGet( siegePers_t *siegePers ) {
+CCALL void SV_SiegePersGet( siegePers_t *siegePers ) {
 	*siegePers = sv_siegePersData;
 }
 
-qboolean SV_ROFF_Clean( void ) {
+CCALL qboolean SV_ROFF_Clean( void ) {
 	return theROFFSystem.Clean( qfalse );
 }
 
-void SV_ROFF_UpdateEntities( void ) {
+CCALL void SV_ROFF_UpdateEntities( void ) {
 	theROFFSystem.UpdateEntities( qfalse );
 }
 
-int SV_ROFF_Cache( char *file ) {
+CCALL int SV_ROFF_Cache( char *file ) {
 	return theROFFSystem.Cache( file, qfalse );
 }
 
-qboolean SV_ROFF_Play( int entID, int roffID, qboolean doTranslation ) {
+CCALL qboolean SV_ROFF_Play( int entID, int roffID, qboolean doTranslation ) {
 	return theROFFSystem.Play( entID, roffID, doTranslation, qfalse );
 }
 
-qboolean SV_ROFF_Purge_Ent( int entID ) {
+CCALL qboolean SV_ROFF_Purge_Ent( int entID ) {
 	return theROFFSystem.PurgeEnt( entID, qfalse );
 }
 
-static qboolean SV_ICARUS_RegisterScript( const char *name, qboolean bCalledDuringInterrogate ) {
-	return (qboolean)ICARUS_RegisterScript( name, bCalledDuringInterrogate );
-}
-
-static qboolean SV_ICARUS_ValidEnt( sharedEntity_t *ent ) {
-	return (qboolean)ICARUS_ValidEnt( ent );
-}
-
-static qboolean ICARUS_IsInitialized( int entID ) {
+CCALL qboolean ICARUS_IsInitialized( int entID ) {
 	if ( !gSequencers[entID] || !gTaskManagers[entID] )
 		return qfalse;
 
 	return qtrue;
 }
 
-static qboolean ICARUS_MaintainTaskManager( int entID ) {
+CCALL qboolean ICARUS_MaintainTaskManager( int entID ) {
 	if ( gTaskManagers[entID] ) {
 		gTaskManagers[entID]->Update();
 		return qtrue;
@@ -541,31 +520,45 @@ static qboolean ICARUS_MaintainTaskManager( int entID ) {
 	return qfalse;
 }
 
-static qboolean ICARUS_IsRunning( int entID ) {
+CCALL qboolean ICARUS_IsRunning( int entID ) {
 	if ( !gTaskManagers[entID] || !gTaskManagers[entID]->IsRunning() )
 		return qfalse;
 	return qtrue;
 }
 
-static qboolean ICARUS_TaskIDPending( sharedEntity_t *ent, int taskID ) {
+CCALL qboolean ICARUS_TaskIDPending( sharedEntity_t *ent, int taskID ) {
 	return Q3_TaskIDPending( ent, (taskID_t)taskID );
 }
 
-static void SV_ICARUS_TaskIDSet( sharedEntity_t *ent, int taskType, int taskID ) {
+CCALL void ICARUS_TaskIDSet( sharedEntity_t *ent, int taskType, int taskID ) {
 	Q3_TaskIDSet( ent, (taskID_t)taskType, taskID );
 }
 
-static void SV_ICARUS_TaskIDComplete( sharedEntity_t *ent, int taskType ) {
+CCALL void ICARUS_TaskIDComplete( sharedEntity_t *ent, int taskType ) {
 	Q3_TaskIDComplete( ent, (taskID_t)taskType );
 }
 
-static int SV_ICARUS_GetStringVariable( const char *name, const char *value ) {
+CCALL int ICARUS_GetStringVariable( const char *name, const char *value ) {
 	const char *rec = (const char *)value;
 	return Q3_GetStringVariable( name, (const char **)&rec );
 }
-static int SV_ICARUS_GetVectorVariable( const char *name, const vec3_t value ) {
+CCALL int ICARUS_GetVectorVariable( const char *name, const vec3_t value ) {
 	return Q3_GetVectorVariable( name, (float *)value );
 }
+
+CCALL const char *SV_SetActiveSubBSP( int index ) {
+	if ( index >= 0 ) {
+		sv.mLocalSubBSPIndex = CM_FindSubBSP( index );
+		sv.mLocalSubBSPModelOffset = index;
+		sv.mLocalSubBSPEntityParsePoint = CM_SubBSPEntityString( sv.mLocalSubBSPIndex );
+		return sv.mLocalSubBSPEntityParsePoint;
+	}
+
+	sv.mLocalSubBSPIndex = -1;
+	return NULL;
+}
+
+
 
 CCALL void SV_Nav_Init( void ) {
 	navigator.Init();
@@ -1604,57 +1597,57 @@ void SV_BindGame( void ) {
 		//gi.FS_Open								= FS_FOpenFileByMode;
 		//gi.FS_Read								= FS_Read;
 		//gi.FS_Write								= FS_Write;
-		gi.AdjustAreaPortalState				= SV_AdjustAreaPortalState;
-		gi.AreasConnected						= CM_AreasConnected;
-		gi.DebugPolygonCreate					= BotImport_DebugPolygonCreate;
-		gi.DebugPolygonDelete					= BotImport_DebugPolygonDelete;
-		gi.DropClient							= SV_GameDropClient;
-		gi.EntitiesInBox						= SV_AreaEntities;
-		gi.EntityContact						= SV_EntityContact;
-		gi.Trace								= SV_Trace;
-		gi.GetConfigstring						= SV_GetConfigstring;
-		gi.GetEntityToken						= SV_GetEntityToken;
-		gi.GetServerinfo						= SV_GetServerinfo;
-		gi.GetUsercmd							= SV_GetUsercmd;
-		gi.GetUserinfo							= SV_GetUserinfo;
-		gi.InPVS								= SV_inPVS;
-		gi.InPVSIgnorePortals					= SV_inPVSIgnorePortals;
-		gi.LinkEntity							= SV_LinkEntity;
-		gi.LocateGameData						= SV_LocateGameData;
-		gi.PointContents						= SV_PointContents;
-		gi.SendConsoleCommand					= Cbuf_ExecuteText;
-		gi.SendServerCommand					= SV_GameSendServerCommand;
-		gi.SetBrushModel						= SV_SetBrushModel;
-		gi.SetConfigstring						= SV_SetConfigstring;
-		gi.SetServerCull						= SV_SetServerCull;
-		gi.SetUserinfo							= SV_SetUserinfo;
-		gi.SiegePersSet							= SV_SiegePersSet;
-		gi.SiegePersGet							= SV_SiegePersGet;
-		gi.UnlinkEntity							= SV_UnlinkEntity;
-		gi.ROFF_Clean							= SV_ROFF_Clean;
-		gi.ROFF_UpdateEntities					= SV_ROFF_UpdateEntities;
-		gi.ROFF_Cache							= SV_ROFF_Cache;
-		gi.ROFF_Play							= SV_ROFF_Play;
-		gi.ROFF_Purge_Ent						= SV_ROFF_Purge_Ent;
-		gi.ICARUS_RunScript						= ICARUS_RunScript;
-		gi.ICARUS_RegisterScript				= SV_ICARUS_RegisterScript;
-		gi.ICARUS_Init							= ICARUS_Init;
-		gi.ICARUS_ValidEnt						= SV_ICARUS_ValidEnt;
-		gi.ICARUS_IsInitialized					= ICARUS_IsInitialized;
-		gi.ICARUS_MaintainTaskManager			= ICARUS_MaintainTaskManager;
-		gi.ICARUS_IsRunning						= ICARUS_IsRunning;
-		gi.ICARUS_TaskIDPending					= ICARUS_TaskIDPending;
-		gi.ICARUS_InitEnt						= ICARUS_InitEnt;
-		gi.ICARUS_FreeEnt						= ICARUS_FreeEnt;
-		gi.ICARUS_AssociateEnt					= ICARUS_AssociateEnt;
-		gi.ICARUS_Shutdown						= ICARUS_Shutdown;
-		gi.ICARUS_TaskIDSet						= SV_ICARUS_TaskIDSet;
-		gi.ICARUS_TaskIDComplete				= SV_ICARUS_TaskIDComplete;
-		gi.ICARUS_SetVar						= Q3_SetVar;
-		gi.ICARUS_VariableDeclared				= Q3_VariableDeclared;
-		gi.ICARUS_GetFloatVariable				= Q3_GetFloatVariable;
-		gi.ICARUS_GetStringVariable				= SV_ICARUS_GetStringVariable;
-		gi.ICARUS_GetVectorVariable				= SV_ICARUS_GetVectorVariable;
+		//gi.AdjustAreaPortalState				= SV_AdjustAreaPortalState;
+		//gi.AreasConnected						= CM_AreasConnected;
+		//gi.DebugPolygonCreate					= BotImport_DebugPolygonCreate;
+		//gi.DebugPolygonDelete					= BotImport_DebugPolygonDelete;
+		//gi.DropClient							= SV_GameDropClient;
+		//gi.EntitiesInBox						= SV_AreaEntities;
+		//gi.EntityContact						= SV_EntityContact;
+		//gi.Trace								= SV_Trace;
+		//gi.GetConfigstring						= SV_GetConfigstring;
+		//gi.GetEntityToken						= SV_GetEntityToken;
+		//gi.GetServerinfo						= SV_GetServerinfo;
+		//gi.GetUsercmd							= SV_GetUsercmd;
+		//gi.GetUserinfo							= SV_GetUserinfo;
+		//gi.InPVS								= SV_inPVS;
+		//gi.InPVSIgnorePortals					= SV_inPVSIgnorePortals;
+		//gi.LinkEntity							= SV_LinkEntity;
+		//gi.LocateGameData						= SV_LocateGameData;
+		//gi.PointContents						= SV_PointContents;
+		//gi.SendConsoleCommand					= Cbuf_ExecuteText;
+		//gi.SendServerCommand					= SV_GameSendServerCommand;
+		//gi.SetBrushModel						= SV_SetBrushModel;
+		//gi.SetConfigstring						= SV_SetConfigstring;
+		//gi.SetServerCull						= SV_SetServerCull;
+		//gi.SetUserinfo							= SV_SetUserinfo;
+		//gi.SiegePersSet							= SV_SiegePersSet;
+		//gi.SiegePersGet							= SV_SiegePersGet;
+		//gi.UnlinkEntity							= SV_UnlinkEntity;
+		//gi.ROFF_Clean							= SV_ROFF_Clean;
+		//gi.ROFF_UpdateEntities					= SV_ROFF_UpdateEntities;
+		//gi.ROFF_Cache							= SV_ROFF_Cache;
+		//gi.ROFF_Play							= SV_ROFF_Play;
+		//gi.ROFF_Purge_Ent						= SV_ROFF_Purge_Ent;
+		//gi.ICARUS_RunScript						= ICARUS_RunScript;
+		//gi.ICARUS_RegisterScript				= ICARUS_RegisterScript;
+		//gi.ICARUS_Init							= ICARUS_Init;
+		//gi.ICARUS_ValidEnt						= ICARUS_ValidEnt;
+		//gi.ICARUS_IsInitialized					= ICARUS_IsInitialized;
+		//gi.ICARUS_MaintainTaskManager			= ICARUS_MaintainTaskManager;
+		//gi.ICARUS_IsRunning						= ICARUS_IsRunning;
+		//gi.ICARUS_TaskIDPending					= ICARUS_TaskIDPending;
+		//gi.ICARUS_InitEnt						= ICARUS_InitEnt;
+		//gi.ICARUS_FreeEnt						= ICARUS_FreeEnt;
+		//gi.ICARUS_AssociateEnt					= ICARUS_AssociateEnt;
+		//gi.ICARUS_Shutdown						= ICARUS_Shutdown;
+		//gi.ICARUS_TaskIDSet						= ICARUS_TaskIDSet;
+		//gi.ICARUS_TaskIDComplete				= ICARUS_TaskIDComplete;
+		//gi.ICARUS_SetVar						= Q3_SetVar;
+		//gi.ICARUS_VariableDeclared				= Q3_VariableDeclared;
+		//gi.ICARUS_GetFloatVariable				= Q3_GetFloatVariable;
+		//gi.ICARUS_GetStringVariable				= ICARUS_GetStringVariable;
+		//gi.ICARUS_GetVectorVariable				= ICARUS_GetVectorVariable;
 		//gi.Nav_Init								= SV_Nav_Init;
 		//gi.Nav_Free								= SV_Nav_Free;
 		//gi.Nav_Load								= SV_Nav_Load;

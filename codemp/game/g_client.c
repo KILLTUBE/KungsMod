@@ -307,7 +307,7 @@ void ThrowSaberToAttacker(gentity_t *self, gentity_t *attacker)
 		self->client->ps.saberIndex = ent->s.number;
 	}
 
-	trap->SetConfigstring ( CS_CLIENT_JEDIMASTER, "-1" );
+	SV_SetConfigstring ( CS_CLIENT_JEDIMASTER, "-1" );
 
 	if (attacker && attacker->client && self->client->ps.saberInFlight)
 	{ //someone killed us and we had the saber thrown, so actually move this saber to the saber location
@@ -343,7 +343,7 @@ void ThrowSaberToAttacker(gentity_t *self, gentity_t *attacker)
 		VectorCopy(ent->s.origin2, ent->s.origin);
 		VectorCopy(ent->s.origin2, ent->r.currentOrigin);
 		ent->pos2[0] = 0;
-		trap->LinkEntity((sharedEntity_t *)ent);
+		SV_LinkEntity((sharedEntity_t *)ent);
 		return;
 	}
 
@@ -362,7 +362,7 @@ void ThrowSaberToAttacker(gentity_t *self, gentity_t *attacker)
 		ent->s.pos.trDelta[2] = 256;
 	}
 
-	trap->LinkEntity((sharedEntity_t *)ent);
+	SV_LinkEntity((sharedEntity_t *)ent);
 }
 
 void JMSaberThink(gentity_t *ent)
@@ -384,7 +384,7 @@ void JMSaberThink(gentity_t *ent)
 
 			ent->pos2[0] = 1;
 			ent->pos2[1] = 0; //respawn next think
-			trap->LinkEntity((sharedEntity_t *)ent);
+			SV_LinkEntity((sharedEntity_t *)ent);
 		}
 		else
 		{
@@ -397,7 +397,7 @@ void JMSaberThink(gentity_t *ent)
 		VectorCopy(ent->s.origin2, ent->s.origin);
 		VectorCopy(ent->s.origin2, ent->r.currentOrigin);
 		ent->pos2[0] = 0;
-		trap->LinkEntity((sharedEntity_t *)ent);
+		SV_LinkEntity((sharedEntity_t *)ent);
 	}
 
 	ent->nextthink = level.time + 50;
@@ -442,7 +442,7 @@ void JMSaberTouch(gentity_t *self, gentity_t *other, trace_t *trace)
 	G_AddEvent(other, EV_BECOME_JEDIMASTER, 0);
 
 	// Track the jedi master
-	trap->SetConfigstring ( CS_CLIENT_JEDIMASTER, va("%i", other->s.number ) );
+	SV_SetConfigstring ( CS_CLIENT_JEDIMASTER, va("%i", other->s.number ) );
 
 	if (g_spawnInvulnerability.integer)
 	{
@@ -450,7 +450,7 @@ void JMSaberTouch(gentity_t *self, gentity_t *other, trace_t *trace)
 		other->client->invulnerableTimer = level.time + g_spawnInvulnerability.integer;
 	}
 
-	trap->SendServerCommand( -1, va("cp \"%s %s\n\"", other->client->pers.netname, G_GetStringEdString("MP_SVGAME", "BECOMEJM")) );
+	SV_GameSendServerCommand( -1, va("cp \"%s %s\n\"", other->client->pers.netname, G_GetStringEdString("MP_SVGAME", "BECOMEJM")) );
 
 	other->client->ps.isJediMaster = qtrue;
 	other->client->ps.saberIndex = self->s.number;
@@ -532,7 +532,7 @@ void SP_info_jedimaster_start(gentity_t *ent)
 
 	ent->touch = JMSaberTouch;
 
-	trap->LinkEntity((sharedEntity_t *)ent);
+	SV_LinkEntity((sharedEntity_t *)ent);
 
 	ent->think = JMSaberThink;
 	ent->nextthink = level.time + 50;
@@ -560,7 +560,7 @@ qboolean SpotWouldTelefrag( gentity_t *spot ) {
 
 	VectorAdd( spot->s.origin, playerMins, mins );
 	VectorAdd( spot->s.origin, playerMaxs, maxs );
-	num = trap->EntitiesInBox( mins, maxs, touch, MAX_GENTITIES );
+	num = SV_AreaEntities( mins, maxs, touch, MAX_GENTITIES );
 
 	for (i=0 ; i<num ; i++) {
 		hit = &g_entities[touch[i]];
@@ -583,7 +583,7 @@ qboolean SpotWouldTelefrag2( gentity_t *mover, vec3_t dest )
 
 	VectorAdd( dest, mover->r.mins, mins );
 	VectorAdd( dest, mover->r.maxs, maxs );
-	num = trap->EntitiesInBox( mins, maxs, touch, MAX_GENTITIES );
+	num = SV_AreaEntities( mins, maxs, touch, MAX_GENTITIES );
 
 	for (i=0 ; i<num ; i++)
 	{
@@ -782,7 +782,7 @@ gentity_t *SelectRandomFurthestSpawnPoint ( vec3_t avoidPoint, vec3_t origin, ve
 		if (!numSpots) {
 			spot = G_Find( NULL, FOFS(classname), "info_player_deathmatch");
 			if (!spot)
-				trap->Error( ERR_DROP, "Couldn't find a spawn point" );
+				Com_Error( ERR_DROP, "Couldn't find a spawn point" );
 			VectorCopy (spot->s.origin, origin);
 			origin[2] += 9;
 			VectorCopy (spot->s.angles, angles);
@@ -876,7 +876,7 @@ tryAgain:
 		//If we got here we found no free duel or DM spots, just try the first DM spot
 		spot = G_Find( NULL, FOFS(classname), "info_player_deathmatch");
 		if (!spot)
-			trap->Error( ERR_DROP, "Couldn't find a spawn point" );
+			Com_Error( ERR_DROP, "Couldn't find a spawn point" );
 		VectorCopy (spot->s.origin, origin);
 		origin[2] += 9;
 		VectorCopy (spot->s.angles, angles);
@@ -921,7 +921,7 @@ gentity_t *SelectSpawnPoint ( vec3_t avoidPoint, vec3_t origin, vec3_t angles, t
 
 	// find a single player start spot
 	if (!spot) {
-		trap->Error( ERR_DROP, "Couldn't find a spawn point" );
+		Com_Error( ERR_DROP, "Couldn't find a spawn point" );
 	}
 
 	VectorCopy (spot->s.origin, origin);
@@ -1028,7 +1028,7 @@ After sitting around for five seconds, fall into the ground and disappear
 void BodySink( gentity_t *ent ) {
 	if ( level.time - ent->timestamp > BODY_SINK_TIME + 2500 ) {
 		// the body ques are never actually freed, they are just unlinked
-		trap->UnlinkEntity( (sharedEntity_t *)ent );
+		SV_UnlinkEntity( (sharedEntity_t *)ent );
 		ent->physicsObject = qfalse;
 		return;
 	}
@@ -1058,10 +1058,10 @@ static qboolean CopyToBodyQue( gentity_t *ent ) {
 		return qfalse;
 	}
 
-	trap->UnlinkEntity ((sharedEntity_t *)ent);
+	SV_UnlinkEntity ((sharedEntity_t *)ent);
 
 	// if client is in a nodrop area, don't leave the body
-	contents = trap->PointContents( ent->s.origin, -1 );
+	contents = SV_PointContents( ent->s.origin, -1 );
 	if ( contents & CONTENTS_NODROP ) {
 		return qfalse;
 	}
@@ -1075,7 +1075,7 @@ static qboolean CopyToBodyQue( gentity_t *ent ) {
 	body = level.bodyQue[ level.bodyQueIndex ];
 	level.bodyQueIndex = (level.bodyQueIndex + 1) % BODY_QUEUE_SIZE;
 
-	trap->UnlinkEntity ((sharedEntity_t *)body);
+	SV_UnlinkEntity ((sharedEntity_t *)body);
 	body->s = ent->s;
 
 	//avoid oddly angled corpses floating around
@@ -1122,7 +1122,7 @@ static qboolean CopyToBodyQue( gentity_t *ent ) {
 	{
 		islight = 1;
 	}
-	trap->SendServerCommand(-1, va("ircg %i %i %i %i", ent->s.number, body->s.number, body->s.weapon, islight));
+	SV_GameSendServerCommand(-1, va("ircg %i %i %i %i", ent->s.number, body->s.number, body->s.weapon, islight));
 
 	body->r.svFlags = ent->r.svFlags | SVF_BROADCAST;
 	VectorCopy (ent->r.mins, body->r.mins);
@@ -1154,7 +1154,7 @@ static qboolean CopyToBodyQue( gentity_t *ent ) {
 	}
 
 	VectorCopy ( body->s.pos.trBase, body->r.currentOrigin );
-	trap->LinkEntity ((sharedEntity_t *)body);
+	SV_LinkEntity ((sharedEntity_t *)body);
 
 	return qtrue;
 }
@@ -1209,7 +1209,7 @@ void MaintainBodyQueue(gentity_t *ent)
 
 	if (doRCG)
 	{ //bodyque func didn't manage to call ircg so call this to assure our limbs and ragdoll states are proper on the client.
-		trap->SendServerCommand(-1, va("rcg %i", ent->s.clientNum));
+		SV_GameSendServerCommand(-1, va("rcg %i", ent->s.clientNum));
 	}
 }
 
@@ -1235,7 +1235,7 @@ void ClientRespawn( gentity_t *ent ) {
 		return;
 	}
 
-	trap->UnlinkEntity ((sharedEntity_t *)ent);
+	SV_UnlinkEntity ((sharedEntity_t *)ent);
 
 	if (level.gametype == GT_SIEGE)
 	{
@@ -1256,7 +1256,7 @@ void ClientRespawn( gentity_t *ent ) {
 				ent->client->ps.stats[STAT_HOLDABLE_ITEMS] = 0;
 				ent->client->ps.stats[STAT_HOLDABLE_ITEM] = 0;
 				ent->takedamage = qfalse;
-				trap->LinkEntity((sharedEntity_t *)ent);
+				SV_LinkEntity((sharedEntity_t *)ent);
 
 				// Respawn time.
 				if ( ent->s.number < MAX_CLIENTS )
@@ -1947,7 +1947,7 @@ ClientUserInfoChanged
 Called from ClientConnect when the player first connects and
 directly by the server system when the player updates a userinfo variable.
 
-The game can override any of the settings and call trap->SetUserinfo
+The game can override any of the settings and call SV_SetUserinfo
 if desired.
 ============
 */
@@ -1994,15 +1994,15 @@ static const char *userinfoValidateExtra[USERINFO_VALIDATION_MAX] = {
 };
 
 void Svcmd_ToggleUserinfoValidation_f( void ) {
-	if ( trap->Argc() == 1 ) {
+	if ( Cmd_Argc() == 1 ) {
 		int i=0;
 		for ( i=0; i<numUserinfoFields; i++ ) {
-			if ( (g_userinfoValidate.integer & (1<<i)) )	trap->Print( "%2d [X] %s\n", i, userinfoFields[i].fieldClean );
-			else											trap->Print( "%2d [ ] %s\n", i, userinfoFields[i].fieldClean );
+			if ( (g_userinfoValidate.integer & (1<<i)) )	Com_Printf( "%2d [X] %s\n", i, userinfoFields[i].fieldClean );
+			else											Com_Printf( "%2d [ ] %s\n", i, userinfoFields[i].fieldClean );
 		}
 		for ( ; i<numUserinfoFields+USERINFO_VALIDATION_MAX; i++ ) {
-			if ( (g_userinfoValidate.integer & (1<<i)) )	trap->Print( "%2d [X] %s\n", i, userinfoValidateExtra[i-numUserinfoFields] );
-			else											trap->Print( "%2d [ ] %s\n", i, userinfoValidateExtra[i-numUserinfoFields] );
+			if ( (g_userinfoValidate.integer & (1<<i)) )	Com_Printf( "%2d [X] %s\n", i, userinfoValidateExtra[i-numUserinfoFields] );
+			else											Com_Printf( "%2d [ ] %s\n", i, userinfoValidateExtra[i-numUserinfoFields] );
 		}
 		return;
 	}
@@ -2010,7 +2010,7 @@ void Svcmd_ToggleUserinfoValidation_f( void ) {
 		char arg[8]={0};
 		int index;
 
-		trap->Argv( 1, arg, sizeof( arg ) );
+		Cmd_ArgvBuffer( 1, arg, sizeof( arg ) );
 		index = atoi( arg );
 
 		if ( index < 0 || index > numUserinfoFields+USERINFO_VALIDATION_MAX-1 ) {
@@ -2018,8 +2018,8 @@ void Svcmd_ToggleUserinfoValidation_f( void ) {
 			return;
 		}
 
-		trap->Cvar_Set( "g_userinfoValidate", va( "%i", (1 << index) ^ (g_userinfoValidate.integer & ((1 << (numUserinfoFields + USERINFO_VALIDATION_MAX)) - 1)) ) );
-		trap->Cvar_Update( &g_userinfoValidate );
+		Cvar_Set( "g_userinfoValidate", va( "%i", (1 << index) ^ (g_userinfoValidate.integer & ((1 << (numUserinfoFields + USERINFO_VALIDATION_MAX)) - 1)) ) );
+		Cvar_Update( &g_userinfoValidate );
 
 		if ( index < numUserinfoFields )	Com_Printf( "%s %s\n", userinfoFields[index].fieldClean,				((g_userinfoValidate.integer & (1<<index)) ? "Validated" : "Ignored") );
 		else								Com_Printf( "%s %s\n", userinfoValidateExtra[index-numUserinfoFields],	((g_userinfoValidate.integer & (1<<index)) ? "Validated" : "Ignored") );
@@ -2116,13 +2116,13 @@ qboolean ClientUserinfoChanged( int clientNum ) {
 	qboolean modelChanged = qfalse;
 	gender_t gender = GENDER_MALE;
 
-	trap->GetUserinfo( clientNum, userinfo, sizeof( userinfo ) );
+	SV_GetUserinfo( clientNum, userinfo, sizeof( userinfo ) );
 
 	// check for malformed or illegal info strings
 	s = G_ValidateUserinfo( userinfo );
 	if ( s && *s ) {
 		G_SecurityLogPrintf( "Client %d (%s) failed userinfo validation: %s [IP: %s]\n", clientNum, ent->client->pers.netname, s, client->sess.IP );
-		trap->DropClient( clientNum, va( "Failed userinfo validation: %s", s ) );
+		SV_GameDropClient( clientNum, va( "Failed userinfo validation: %s", s ) );
 		G_LogPrintf( "Userinfo: %s\n", userinfo );
 		return qfalse;
 	}
@@ -2151,16 +2151,16 @@ qboolean ClientUserinfoChanged( int clientNum ) {
 
 	if ( client->pers.connected == CON_CONNECTED && strcmp( oldname, client->pers.netname ) ) {
 		if ( client->pers.netnameTime > level.time ) {
-			trap->SendServerCommand( clientNum, va( "print \"%s\n\"", G_GetStringEdString( "MP_SVGAME", "NONAMECHANGE" ) ) );
+			SV_GameSendServerCommand( clientNum, va( "print \"%s\n\"", G_GetStringEdString( "MP_SVGAME", "NONAMECHANGE" ) ) );
 
 			Info_SetValueForKey( userinfo, "name", oldname );
-			trap->SetUserinfo( clientNum, userinfo );
+			SV_SetUserinfo( clientNum, userinfo );
 			Q_strncpyz( client->pers.netname, oldname, sizeof( client->pers.netname ) );
 			Q_strncpyz( client->pers.netname_nocolor, oldname, sizeof( client->pers.netname_nocolor ) );
 			Q_StripColor( client->pers.netname_nocolor );
 		}
 		else {
-			trap->SendServerCommand( -1, va( "print \"%s" S_COLOR_WHITE " %s %s\n\"", oldname, G_GetStringEdString( "MP_SVGAME", "PLRENAME" ), client->pers.netname ) );
+			SV_GameSendServerCommand( -1, va( "print \"%s" S_COLOR_WHITE " %s %s\n\"", oldname, G_GetStringEdString( "MP_SVGAME", "PLRENAME" ), client->pers.netname ) );
 			G_LogPrintf( "ClientRename: %i [%s] (%s) \"%s^7\" -> \"%s^7\"\n", clientNum, ent->client->sess.IP, ent->client->pers.guid, oldname, ent->client->pers.netname );
 			client->pers.netnameTime = level.time + 5000;
 		}
@@ -2316,7 +2316,7 @@ qboolean ClientUserinfoChanged( int clientNum ) {
 
 	s = Info_ValueForKey( userinfo, "snaps" );
 	if ( atoi( s ) < sv_fps.integer )
-		trap->SendServerCommand( clientNum, va( "print \"" S_COLOR_YELLOW "Recommend setting /snaps %d or higher to match this server's sv_fps\n\"", sv_fps.integer ) );
+		SV_GameSendServerCommand( clientNum, va( "print \"" S_COLOR_YELLOW "Recommend setting /snaps %d or higher to match this server's sv_fps\n\"", sv_fps.integer ) );
 
 	// send over a subset of the userinfo keys so other clients can
 	// print scoreboards, display models, and play custom sounds
@@ -2348,8 +2348,8 @@ qboolean ClientUserinfoChanged( int clientNum ) {
 		Q_strcat( buf, sizeof( buf ), va( "sdt\\%i\\", className ) );
 	}
 
-	trap->GetConfigstring( CS_PLAYERS+clientNum, oldClientinfo, sizeof( oldClientinfo ) );
-	trap->SetConfigstring( CS_PLAYERS+clientNum, buf );
+	SV_GetConfigstring( CS_PLAYERS+clientNum, oldClientinfo, sizeof( oldClientinfo ) );
+	SV_SetConfigstring( CS_PLAYERS+clientNum, buf );
 
 	// only going to be true for allowable server-side custom skeleton cases
 	if ( modelChanged ) {
@@ -2423,7 +2423,7 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 	ent->s.number = clientNum;
 	ent->classname = "connecting";
 
-	trap->GetUserinfo( clientNum, userinfo, sizeof( userinfo ) );
+	SV_GetUserinfo( clientNum, userinfo, sizeof( userinfo ) );
 
 	value = Info_ValueForKey( userinfo, "ja_guid" );
 	if( value[0] )
@@ -2515,7 +2515,7 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 	{ //if this is the first time then auto-assign a desired siege team and show briefing for that team
 		client->sess.siegeDesiredTeam = 0;//PickTeam(ent->s.number);
 		/*
-		trap->SendServerCommand(ent->s.number, va("sb %i", client->sess.siegeDesiredTeam));
+		SV_GameSendServerCommand(ent->s.number, va("sb %i", client->sess.siegeDesiredTeam));
 		*/
 		//don't just show it - they'll see it if they switch to a team on purpose.
 	}
@@ -2563,7 +2563,7 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 
 	// don't do the "xxx connected" messages if they were caried over from previous level
 	if ( firstTime ) {
-		trap->SendServerCommand( -1, va("print \"%s" S_COLOR_WHITE " %s\n\"", client->pers.netname, G_GetStringEdString("MP_SVGAME", "PLCONNECT")) );
+		SV_GameSendServerCommand( -1, va("print \"%s" S_COLOR_WHITE " %s\n\"", client->pers.netname, G_GetStringEdString("MP_SVGAME", "PLCONNECT")) );
 	}
 
 	if ( level.gametype >= GT_TEAM &&
@@ -2581,7 +2581,7 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 	// for statistics
 //	client->areabits = areabits;
 //	if ( !client->areabits )
-//		client->areabits = G_Alloc( (trap->AAS_PointReachabilityAreaIndex( NULL ) + 7) / 8 );
+//		client->areabits = G_Alloc( (SV_AAS_PointReachabilityAreaIndex( NULL ) + 7) / 8 );
 
 	return NULL;
 }
@@ -2621,7 +2621,7 @@ void ClientBegin( int clientNum, qboolean allowTeamReset ) {
 
 			//SetTeam(ent, "");
 			ent->client->sess.sessionTeam = PickTeam(-1);
-			trap->GetUserinfo(clientNum, userinfo, MAX_INFO_STRING);
+			SV_GetUserinfo(clientNum, userinfo, MAX_INFO_STRING);
 
 			if (ent->client->sess.sessionTeam == TEAM_SPECTATOR)
 			{
@@ -2639,7 +2639,7 @@ void ClientBegin( int clientNum, qboolean allowTeamReset ) {
 
 			Info_SetValueForKey( userinfo, "team", team );
 
-			trap->SetUserinfo( clientNum, userinfo );
+			SV_SetUserinfo( clientNum, userinfo );
 
 			ent->client->ps.persistant[ PERS_TEAM ] = ent->client->sess.sessionTeam;
 
@@ -2657,7 +2657,7 @@ void ClientBegin( int clientNum, qboolean allowTeamReset ) {
 	client = level.clients + clientNum;
 
 	if ( ent->r.linked ) {
-		trap->UnlinkEntity( (sharedEntity_t *)ent );
+		SV_UnlinkEntity( (sharedEntity_t *)ent );
 	}
 	G_InitGentity( ent );
 	ent->touch = 0;
@@ -2715,7 +2715,7 @@ void ClientBegin( int clientNum, qboolean allowTeamReset ) {
 	WP_SaberInitBladeData( ent );
 
 	// First time model setup for that player.
-	trap->GetUserinfo( clientNum, userinfo, sizeof(userinfo) );
+	SV_GetUserinfo( clientNum, userinfo, sizeof(userinfo) );
 	modelname = Info_ValueForKey (userinfo, "model");
 	SetupGameGhoul2Model(ent, modelname, NULL);
 
@@ -2735,7 +2735,7 @@ void ClientBegin( int clientNum, qboolean allowTeamReset ) {
 
 	if ( client->sess.sessionTeam != TEAM_SPECTATOR ) {
 		if ( level.gametype != GT_DUEL || level.gametype == GT_POWERDUEL ) {
-			trap->SendServerCommand( -1, va("print \"%s" S_COLOR_WHITE " %s\n\"", client->pers.netname, G_GetStringEdString("MP_SVGAME", "PLENTER")) );
+			SV_GameSendServerCommand( -1, va("print \"%s" S_COLOR_WHITE " %s\n\"", client->pers.netname, G_GetStringEdString("MP_SVGAME", "PLENTER")) );
 		}
 	}
 	G_LogPrintf( "ClientBegin: %i\n", clientNum );
@@ -2975,7 +2975,7 @@ tryTorso:
 			armAnimSpeed = 50.0f / armAnim->frameLerp;
 			armFlags = (BONE_ANIM_OVERRIDE_LOOP|BONE_ANIM_BLEND);
 
-			trap->G2API_SetBoneAnim(self->ghoul2, 0, brokenBone, armFirstFrame, armLastFrame, armFlags, armAnimSpeed, level.time, -1, 150);
+			SV_G2API_SetBoneAnim(self->ghoul2, 0, brokenBone, armFirstFrame, armLastFrame, armFlags, armAnimSpeed, level.time, -1, 150);
 		}
 		else if (self->localAnimIndex <= 1 && self->client->ps.brokenLimbs &&
 			(self->client->ps.brokenLimbs & (1 << BROKENLIMB_RARM)))
@@ -3011,11 +3011,11 @@ tryTorso:
 					armAnimSpeed = 50.0f / armAnim->frameLerp;
 					armFlags = (BONE_ANIM_OVERRIDE_LOOP|BONE_ANIM_BLEND);
 
-					trap->G2API_SetBoneAnim(self->ghoul2, 0, brokenBone, armFirstFrame, armLastFrame, armFlags, armAnimSpeed, level.time, -1, 150);
+					SV_G2API_SetBoneAnim(self->ghoul2, 0, brokenBone, armFirstFrame, armLastFrame, armFlags, armAnimSpeed, level.time, -1, 150);
 				}
 				else
 				{ //we want to keep the broken bone updated for some cases
-					trap->G2API_SetBoneAnim(self->ghoul2, 0, brokenBone, firstFrame, lastFrame, aFlags, lAnimSpeedScale, level.time, -1, 150);
+					SV_G2API_SetBoneAnim(self->ghoul2, 0, brokenBone, firstFrame, lastFrame, aFlags, lAnimSpeedScale, level.time, -1, 150);
 				}
 
 				if (self->client->ps.torsoAnim != BOTH_MELEE1 &&
@@ -3029,17 +3029,17 @@ tryTorso:
 					armAnimSpeed = 50.0f / armAnim->frameLerp;
 					armFlags = (BONE_ANIM_OVERRIDE_LOOP|BONE_ANIM_BLEND);
 
-					trap->G2API_SetBoneAnim(self->ghoul2, 0, supportBone, armFirstFrame, armLastFrame, armFlags, armAnimSpeed, level.time, -1, 150);
+					SV_G2API_SetBoneAnim(self->ghoul2, 0, supportBone, armFirstFrame, armLastFrame, armFlags, armAnimSpeed, level.time, -1, 150);
 				}
 				else
 				{ //we want to keep the support bone updated for some cases
-					trap->G2API_SetBoneAnim(self->ghoul2, 0, supportBone, firstFrame, lastFrame, aFlags, lAnimSpeedScale, level.time, -1, 150);
+					SV_G2API_SetBoneAnim(self->ghoul2, 0, supportBone, firstFrame, lastFrame, aFlags, lAnimSpeedScale, level.time, -1, 150);
 				}
 			}
 			else
 			{ //otherwise, keep it set to the same as the torso
-				trap->G2API_SetBoneAnim(self->ghoul2, 0, brokenBone, firstFrame, lastFrame, aFlags, lAnimSpeedScale, level.time, -1, 150);
-				trap->G2API_SetBoneAnim(self->ghoul2, 0, supportBone, firstFrame, lastFrame, aFlags, lAnimSpeedScale, level.time, -1, 150);
+				SV_G2API_SetBoneAnim(self->ghoul2, 0, brokenBone, firstFrame, lastFrame, aFlags, lAnimSpeedScale, level.time, -1, 150);
+				SV_G2API_SetBoneAnim(self->ghoul2, 0, supportBone, firstFrame, lastFrame, aFlags, lAnimSpeedScale, level.time, -1, 150);
 			}
 		}
 		else if (self->client->brokenLimbs)
@@ -3060,17 +3060,17 @@ tryTorso:
 				broken |= (1<<BROKENLIMB_RARM);
 
 				//want to remove the support bone too then
-				trap->G2API_SetBoneAnim(self->ghoul2, 0, "lhumerus", 0, 1, 0, 0, level.time, -1, 0);
-				trap->G2API_RemoveBone(self->ghoul2, "lhumerus", 0);
+				SV_G2API_SetBoneAnim(self->ghoul2, 0, "lhumerus", 0, 1, 0, 0, level.time, -1, 0);
+				SV_G2API_RemoveBone(self->ghoul2, "lhumerus", 0);
 			}
 
 			assert(brokenBone);
 
 			//Set the flags and stuff to 0, so that the remove will succeed
-			trap->G2API_SetBoneAnim(self->ghoul2, 0, brokenBone, 0, 1, 0, 0, level.time, -1, 0);
+			SV_G2API_SetBoneAnim(self->ghoul2, 0, brokenBone, 0, 1, 0, 0, level.time, -1, 0);
 
 			//Now remove it
-			trap->G2API_RemoveBone(self->ghoul2, brokenBone, 0);
+			SV_G2API_RemoveBone(self->ghoul2, brokenBone, 0);
 			self->client->brokenLimbs &= ~broken;
 		}
 	}
@@ -3106,7 +3106,7 @@ void ClientSpawn(gentity_t *ent) {
 	client = ent->client;
 
 	//first we want the userinfo so we can see if we should update this client's saber -rww
-	trap->GetUserinfo( index, userinfo, sizeof( userinfo ) );
+	SV_GetUserinfo( index, userinfo, sizeof( userinfo ) );
 
 	for ( i=0; i<MAX_SABERS; i++ )
 	{
@@ -3140,7 +3140,7 @@ void ClientSpawn(gentity_t *ent) {
 			if ( Q_stricmp( value, saber ) )
 			{// they don't match up, force the user info
 				Info_SetValueForKey( userinfo, key, saber );
-				trap->SetUserinfo( ent->s.number, userinfo );
+				SV_SetUserinfo( ent->s.number, userinfo );
 			}
 		}
 
@@ -3469,8 +3469,8 @@ void ClientSpawn(gentity_t *ent) {
 	}
 	else
 	{//jediVmerc is incompatible with this gametype, turn it off!
-		trap->Cvar_Set( "g_jediVmerc", "0" );
-		trap->Cvar_Update( &g_jediVmerc );
+		Cvar_Set( "g_jediVmerc", "0" );
+		Cvar_Update( &g_jediVmerc );
 		if (level.gametype == GT_HOLOCRON)
 		{
 			//always get free saber level 1 in holocron
@@ -3734,7 +3734,7 @@ void ClientSpawn(gentity_t *ent) {
 	// the respawned flag will be cleared after the attack and jump keys come up
 	client->ps.pm_flags |= PMF_RESPAWNED;
 
-	trap->GetUsercmd( client - level.clients, &ent->client->pers.cmd );
+	SV_GetUsercmd( client - level.clients, &ent->client->pers.cmd );
 	SetClientViewAngle( ent, spawn_angles );
 	// don't allow full run speed for a bit
 	client->ps.pm_flags |= PMF_TIME_KNOCKBACK;
@@ -3784,7 +3784,7 @@ void ClientSpawn(gentity_t *ent) {
 			tent = G_TempEntity(ent->client->ps.origin, EV_PLAYER_TELEPORT_IN);
 			tent->s.clientNum = ent->s.clientNum;
 
-			trap->LinkEntity ((sharedEntity_t *)ent);
+			SV_LinkEntity ((sharedEntity_t *)ent);
 		}
 	} else {
 		// move players to intermission
@@ -3837,8 +3837,8 @@ void ClientSpawn(gentity_t *ent) {
 	BG_PlayerStateToEntityState( &client->ps, &ent->s, qtrue );
 
 	//rww - make sure client has a valid icarus instance
-	trap->ICARUS_FreeEnt( (sharedEntity_t *)ent );
-	trap->ICARUS_InitEnt( (sharedEntity_t *)ent );
+	ICARUS_FreeEnt( (sharedEntity_t *)ent );
+	ICARUS_InitEnt( (sharedEntity_t *)ent );
 }
 
 
@@ -3850,7 +3850,7 @@ Called when a player drops from the server.
 Will not be called between levels.
 
 This should NOT be called directly by any game logic,
-call trap->DropClient(), which will call this and do
+call SV_GameDropClient(), which will call this and do
 server system housekeeping.
 ============
 */
@@ -3861,11 +3861,11 @@ void G_ClearVote( gentity_t *ent ) {
 		if ( ent->client->mGameFlags & PSG_VOTED ) {
 			if ( ent->client->pers.vote == 1 ) {
 				level.voteYes--;
-				trap->SetConfigstring( CS_VOTE_YES, va( "%i", level.voteYes ) );
+				SV_SetConfigstring( CS_VOTE_YES, va( "%i", level.voteYes ) );
 			}
 			else if ( ent->client->pers.vote == 2 ) {
 				level.voteNo--;
-				trap->SetConfigstring( CS_VOTE_NO, va( "%i", level.voteNo ) );
+				SV_SetConfigstring( CS_VOTE_NO, va( "%i", level.voteNo ) );
 			}
 		}
 		ent->client->mGameFlags &= ~(PSG_VOTED);
@@ -3883,11 +3883,11 @@ void G_ClearTeamVote( gentity_t *ent, int team ) {
 		if ( ent->client->mGameFlags & PSG_TEAMVOTED ) {
 			if ( ent->client->pers.teamvote == 1 ) {
 				level.teamVoteYes[voteteam]--;
-				trap->SetConfigstring( CS_TEAMVOTE_YES, va( "%i", level.teamVoteYes[voteteam] ) );
+				SV_SetConfigstring( CS_TEAMVOTE_YES, va( "%i", level.teamVoteYes[voteteam] ) );
 			}
 			else if ( ent->client->pers.teamvote == 2 ) {
 				level.teamVoteNo[voteteam]--;
-				trap->SetConfigstring( CS_TEAMVOTE_NO, va( "%i", level.teamVoteNo[voteteam] ) );
+				SV_SetConfigstring( CS_TEAMVOTE_NO, va( "%i", level.teamVoteNo[voteteam] ) );
 			}
 		}
 		ent->client->mGameFlags &= ~(PSG_TEAMVOTED);
@@ -3981,7 +3981,7 @@ void ClientDisconnect( int clientNum ) {
 	}
 
 	if ( level.gametype == GT_DUEL && ent->client->sess.sessionTeam == TEAM_FREE && level.intermissiontime ) {
-		trap->SendConsoleCommand( EXEC_APPEND, "map_restart 0\n" );
+		Cbuf_ExecuteText( EXEC_APPEND, "map_restart 0\n" );
 		level.restarted = qtrue;
 		level.changemap = NULL;
 		level.intermissiontime = 0;
@@ -4004,7 +4004,7 @@ void ClientDisconnect( int clientNum ) {
 	G_ClearVote( ent );
 	G_ClearTeamVote( ent, ent->client->sess.sessionTeam );
 
-	trap->UnlinkEntity ((sharedEntity_t *)ent);
+	SV_UnlinkEntity ((sharedEntity_t *)ent);
 	ent->s.modelindex = 0;
 	ent->inuse = qfalse;
 	ent->classname = "disconnected";
@@ -4023,7 +4023,7 @@ void ClientDisconnect( int clientNum ) {
 		}
 	}
 
-	trap->SetConfigstring( CS_PLAYERS + clientNum, "");
+	SV_SetConfigstring( CS_PLAYERS + clientNum, "");
 
 	CalculateRanks();
 

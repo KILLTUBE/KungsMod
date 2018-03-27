@@ -111,7 +111,7 @@ SV_ShutdownGameProgs
 Called every time a map changes
 ===============
 */
-void SV_ShutdownGameProgs( void ) {
+CCALL void SV_ShutdownGameProgsVoid( void ) {
 	if ( !svs.gameStarted ) {
 		return;
 	}

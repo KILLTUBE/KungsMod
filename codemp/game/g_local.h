@@ -1530,3 +1530,79 @@ void G_RegisterCvars( void );
 void G_UpdateCvars( void );
 
 extern gameImport_t *trap;
+
+#include "server/sv_icarus.h"
+
+CCALL qboolean SV_inPVS (const vec3_t p1, const vec3_t p2);
+CCALL void SV_LinkEntity( sharedEntity_t *ent );
+CCALL void SV_UnlinkEntity( sharedEntity_t *ent );
+CCALL void SV_Trace( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int passEntityNum, int contentmask, int capsule, int traceFlags, int useLod );
+CCALL int SV_AreaEntities( const vec3_t mins, const vec3_t maxs, int *entityList, int maxcount );
+
+CCALL void	Cvar_Update( vmCvar_t *vmCvar );
+CCALL int Cvar_VariableIntegerValue( const char *var_name );
+CCALL void Cvar_VariableStringBuffer( const char *var_name, char *buffer, int bufsize );
+CCALL int		Cmd_Argc( void );
+CCALL void	Cmd_ArgvBuffer( int arg, char *buffer, int bufferLength );
+CCALL cvar_t *Cvar_Set( const char *var_name, const char *value);
+CCALL void SV_GameSendServerCommand( int clientNum, const char *text );
+CCALL void SV_GameDropClient( int clientNum, const char *reason );
+CCALL void SV_GetUserinfo( int index, char *buffer, int bufferSize );
+
+
+CCALL qboolean SV_ROFF_Purge_Ent(int entID);
+CCALL qboolean SV_ROFF_Play(int entID,int roffID,qboolean doTranslation);
+CCALL int SV_ROFF_Cache(char *file);
+CCALL void SV_ROFF_UpdateEntities(void);
+CCALL qboolean SV_ROFF_Clean(void);
+CCALL void ICARUS_SoundPrecache(const char *filename);
+CCALL int ICARUS_GetIDForString( const char *string );
+CCALL void ICARUS_InterrogateScript( const char *filename );
+CCALL void ICARUS_PrecacheEnt( sharedEntity_t *ent );
+CCALL void Q3_TaskIDClear( int *taskID );
+CCALL void ICARUS_InitEnt( sharedEntity_t *ent );
+CCALL qhandle_t SV_RE_RegisterSkin( const char *name );
+CCALL const char *SV_SetActiveSubBSP( int index );
+CCALL void SV_SetBrushModel( sharedEntity_t *ent, const char *name );
+CCALL qboolean SV_EntityContact( const vec3_t mins, const vec3_t maxs, const sharedEntity_t *gEnt, int capsule );
+CCALL qboolean SV_inPVSIgnorePortals( const vec3_t p1, const vec3_t p2 );
+CCALL void SV_GetServerinfo( char *buffer, int bufferSize );
+CCALL int SV_PointContents( const vec3_t p, int passEntityNum );
+
+CCALL int ICARUS_GetStringVariable( const char *name, const char *value );
+CCALL int ICARUS_GetVectorVariable( const char *name, const vec3_t value );
+
+CCALL qboolean ICARUS_IsRunning( int entID );
+CCALL qboolean ICARUS_TaskIDPending( sharedEntity_t *ent, int taskID );
+CCALL void ICARUS_TaskIDSet( sharedEntity_t *ent, int taskType, int taskID );
+CCALL void ICARUS_TaskIDComplete( sharedEntity_t *ent, int taskType );
+
+CCALL void SV_SetConfigstring( int index, const char *val );
+CCALL void SV_GetConfigstring( int index, char *buffer, int bufferSize );
+//CCALL void SV_UpdateConfigstrings( client_t *client );
+CCALL void SV_SetUserinfo( int index, const char *val );
+CCALL void SV_GetUserinfo( int index, char *buffer, int bufferSize );
+CCALL void SV_ChangeMaxClients( void );
+CCALL void SV_SpawnServer( char *server, qboolean killBots, ForceReload_e eForceReload );
+
+void Cbuf_ExecuteText( int exec_when, const char *text );
+
+CCALL void ICARUS_TaskIDSet( sharedEntity_t *ent, int taskType, int taskID );
+CCALL void Q3_TaskIDSet( sharedEntity_t *ent, taskID_t taskType, int taskID );
+CCALL void Q3_TaskIDComplete( sharedEntity_t *ent, taskID_t taskType );
+CCALL void Q3_SetVar( int taskID, int entID, const char *type_name, const char *data );
+CCALL int Q3_VariableDeclared( const char *name );
+CCALL int Q3_GetFloatVariable( const char *name, float *value );
+CCALL int Q3_GetStringVariable( const char *name, const char **value );
+CCALL int Q3_GetVectorVariable( const char *name, vec3_t value );
+
+
+CCALL void ICARUS_FreeEnt( sharedEntity_t *ent );
+CCALL void SV_LocateGameData( sharedEntity_t *gEnts, int numGEntities, int sizeofGEntity_t, playerState_t *clients, int sizeofGameClient );
+CCALL int BotImport_DebugPolygonCreate(int color, int numPoints, vec3_t *points);
+CCALL void	Cvar_Register( vmCvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags );
+CCALL void SV_RegisterSharedMemory( char *memory );
+CCALL void SV_BotFreeClient( int clientNum );
+CCALL int SV_BotAllocateClient(void);
+
+#include "server/sv_nav.h"

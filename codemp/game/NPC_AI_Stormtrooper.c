@@ -309,7 +309,7 @@ static void ST_HoldPosition( void )
 	TIMER_Set( NPCS.NPC, "verifyCP", Q_irand( 1000, 3000 ) );//don't look for another one for a few seconds
 	NPC_FreeCombatPoint( NPCS.NPCInfo->combatPoint, qtrue );
 	//NPCInfo->combatPoint = -1;//???
-	if ( !trap->ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
+	if ( !ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
 	{//don't have a script waiting for me to get to my point, okay to stop trying and stand
 		AI_GroupUpdateSquadstates( NPCS.NPCInfo->group, NPCS.NPC, SQUAD_STAND_AND_SHOOT );
 		NPCS.NPCInfo->goalEntity = NULL;
@@ -382,7 +382,7 @@ static qboolean ST_Move( void )
 	//If our move failed, then reset
 	if ( moved == qfalse )
 	{//FIXME: if we're going to a combat point, need to pick a different one
-		if ( !trap->ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
+		if ( !ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
 		{//can't transfer movegoal or stop when a script we're running is waiting to complete
 			if ( info.blocker && info.blocker->NPC && NPCS.NPCInfo->group != NULL && info.blocker->NPC->group == NPCS.NPCInfo->group )//(NPCInfo->aiFlags&NPCAI_BLOCKED) && NPCInfo->group != NULL )
 			{//dammit, something is in our way
@@ -647,10 +647,10 @@ qboolean NPC_CheckEnemyStealth( gentity_t *target )
 		target_rating		= dist_influence + fov_influence + light_influence;
 
 		//Now award any final bonuses to this number
-		contents = trap->PointContents( targ_org, target->s.number );
+		contents = SV_PointContents( targ_org, target->s.number );
 		if ( contents&CONTENTS_WATER )
 		{
-			int myContents = trap->PointContents( NPCS.NPC->client->renderInfo.eyePoint, NPCS.NPC->s.number );
+			int myContents = SV_PointContents( NPCS.NPC->client->renderInfo.eyePoint, NPCS.NPC->s.number );
 			if ( !(myContents&CONTENTS_WATER) )
 			{//I'm not in water
 				if ( NPCS.NPC->client->NPC_class == CLASS_SWAMPTROOPER )
@@ -869,7 +869,7 @@ static qboolean NPC_ST_InvestigateEvent( int eventID, qboolean extraSuspicious )
 			trace_t	trace;
 			VectorCopy( NPCS.NPCInfo->investigateGoal, end );
 			end[2] -= 512;//FIXME: not always right?  What if it's even higher, somehow?
-			trap->Trace( &trace, NPCS.NPCInfo->investigateGoal, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, end, ENTITYNUM_NONE, ((NPCS.NPC->clipmask&~CONTENTS_BODY)|CONTENTS_BOTCLIP), qfalse, 0, 0 );
+			SV_Trace( &trace, NPCS.NPCInfo->investigateGoal, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, end, ENTITYNUM_NONE, ((NPCS.NPC->clipmask&~CONTENTS_BODY)|CONTENTS_BOTCLIP), qfalse, 0, 0 );
 			if ( trace.fraction >= 1.0f )
 			{//too high to even bother
 				//FIXME: look at them???
@@ -1205,7 +1205,7 @@ void NPC_BSST_Patrol( void )
 			/*
 			if ( NPC->weaponModel[0] > 0 )
 			{
-				trap->G2API_RemoveGhoul2Model( NPC->ghoul2, NPC->weaponModel[0] );
+				SV_G2API_RemoveGhoul2Model( NPC->ghoul2, NPC->weaponModel[0] );
 				NPC->weaponModel[0] = -1;
 			}
 			*/
@@ -1246,7 +1246,7 @@ ST_CheckMoveState
 static void ST_CheckMoveState( void )
 {
 
-	if ( trap->ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
+	if ( ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
 	{//moving toward a goal that a script is waiting on, so don't stop for anything!
 		move = qtrue;
 	}
@@ -1357,7 +1357,7 @@ static void ST_CheckMoveState( void )
 	{
 		//Did we make it?
 		if ( NAV_HitNavGoal( NPCS.NPC->r.currentOrigin, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, NPCS.NPCInfo->goalEntity->r.currentOrigin, 16, FlyingCreature( NPCS.NPC ) ) ||
-			( !trap->ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) && NPCS.NPCInfo->squadState == SQUAD_SCOUT && enemyLOS && enemyDist <= 10000 ) )
+			( !ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) && NPCS.NPCInfo->squadState == SQUAD_SCOUT && enemyLOS && enemyDist <= 10000 ) )
 		{//either hit our navgoal or our navgoal was not a crucial (scripted) one (maybe a combat point) and we're scouting and found our enemy
 			int	newSquadState = SQUAD_STAND_AND_SHOOT;
 			//we got where we wanted to go, set timers based on why we were running
@@ -1489,7 +1489,7 @@ static void ST_CheckFireState( void )
 					vec3_t	forward, end;
 					AngleVectors( NPCS.NPC->client->ps.viewangles, forward, NULL, NULL );
 					VectorMA( muzzle, 8192, forward, end );
-					trap->Trace( &tr, muzzle, vec3_origin, vec3_origin, end, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
+					SV_Trace( &tr, muzzle, vec3_origin, vec3_origin, end, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
 					VectorCopy( tr.endpos, impactPos );
 				}
 
@@ -1630,7 +1630,7 @@ void ST_TransferTimers( gentity_t *self, gentity_t *other )
 
 void ST_TransferMoveGoal( gentity_t *self, gentity_t *other )
 {
-	if ( trap->ICARUS_TaskIDPending( (sharedEntity_t *)self, TID_MOVE_NAV ) )
+	if ( ICARUS_TaskIDPending( (sharedEntity_t *)self, TID_MOVE_NAV ) )
 	{//can't transfer movegoal when a script we're running is waiting to complete
 		return;
 	}
@@ -1794,7 +1794,7 @@ void ST_Commander( void )
 		{
 			member = &g_entities[group->member[i].number];
 			SetNPCGlobals( member );
-			if ( trap->ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
+			if ( ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
 			{//running somewhere that a script requires us to go, don't break from that
 				continue;
 			}
@@ -1920,7 +1920,7 @@ void ST_Commander( void )
 			continue;
 		}
 
-		if ( trap->ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
+		if ( ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
 		{//running somewhere that a script requires us to go
 			continue;
 		}
@@ -1964,7 +1964,7 @@ void ST_Commander( void )
 				}
 				continue;
 			}
-			if ( TIMER_Done( NPCS.NPC, "roamTime" ) && TIMER_Done( NPCS.NPC, "hideTime" ) && NPCS.NPC->health > 10 && !trap->InPVS( group->enemy->r.currentOrigin, NPCS.NPC->r.currentOrigin ) )
+			if ( TIMER_Done( NPCS.NPC, "roamTime" ) && TIMER_Done( NPCS.NPC, "hideTime" ) && NPCS.NPC->health > 10 && !SV_inPVS( group->enemy->r.currentOrigin, NPCS.NPC->r.currentOrigin ) )
 			{//cant even see enemy
 				//better go after him
 				cpFlags |= (CP_CLEAR|CP_COVER);
@@ -2000,7 +2000,7 @@ void ST_Commander( void )
 			}
 			else
 			{//not hit, see if there are other reasons we should run
-				if ( trap->InPVS( NPCS.NPC->r.currentOrigin, group->enemy->r.currentOrigin ) )
+				if ( SV_inPVS( NPCS.NPC->r.currentOrigin, group->enemy->r.currentOrigin ) )
 				{//in the same room as enemy
 					if ( NPCS.NPC->client->ps.weapon == WP_ROCKET_LAUNCHER &&
 						DistanceSquared( group->enemy->r.currentOrigin, NPCS.NPC->r.currentOrigin ) < MIN_ROCKET_DIST_SQUARED &&
@@ -2494,15 +2494,15 @@ void NPC_BSST_Attack( void )
 			int commTime = GetTime ( startTime );
 			if ( commTime > 20 )
 			{
-				trap->Printf( S_COLOR_RED"ERROR: Commander time: %d\n", commTime );
+				Com_Printff( S_COLOR_RED"ERROR: Commander time: %d\n", commTime );
 			}
 			else if ( commTime > 10 )
 			{
-				trap->Printf( S_COLOR_YELLOW"WARNING: Commander time: %d\n", commTime );
+				Com_Printff( S_COLOR_YELLOW"WARNING: Commander time: %d\n", commTime );
 			}
 			else if ( commTime > 2 )
 			{
-				trap->Printf( S_COLOR_GREEN"Commander time: %d\n", commTime );
+				Com_Printff( S_COLOR_GREEN"Commander time: %d\n", commTime );
 			}
 #endif//	AI_TIMERS
 		}
@@ -2614,7 +2614,7 @@ void NPC_BSST_Attack( void )
 			}
 		}
 	}
-	else if ( trap->InPVS( NPCS.NPC->enemy->r.currentOrigin, NPCS.NPC->r.currentOrigin ) )
+	else if ( SV_inPVS( NPCS.NPC->enemy->r.currentOrigin, NPCS.NPC->r.currentOrigin ) )
 	{
 		NPCS.NPCInfo->enemyLastSeenTime = level.time;
 		faceEnemy = qtrue;

@@ -832,7 +832,7 @@ int CanGetToVector(vec3_t org1, vec3_t org2, vec3_t mins, vec3_t maxs)
 {
 	trace_t tr;
 
-	trap->Trace(&tr, org1, mins, maxs, org2, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
+	SV_Trace(&tr, org1, mins, maxs, org2, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
 
 	if (tr.fraction == 1 && !tr.startsolid && !tr.allsolid)
 	{
@@ -935,7 +935,7 @@ int CanGetToVectorTravel(vec3_t org1, vec3_t moveTo, vec3_t mins, vec3_t maxs)
 		stepGoal[1] = workingOrg[1] + stepSub[1]*stepSize;
 		stepGoal[2] = workingOrg[2] + stepSub[2]*stepSize;
 
-		trap->Trace(&tr, workingOrg, mins, maxs, stepGoal, ENTITYNUM_NONE, traceMask, qfalse, 0, 0);
+		SV_Trace(&tr, workingOrg, mins, maxs, stepGoal, ENTITYNUM_NONE, traceMask, qfalse, 0, 0);
 
 		if (!tr.startsolid && !tr.allsolid && tr.fraction)
 		{
@@ -972,7 +972,7 @@ int CanGetToVectorTravel(vec3_t org1, vec3_t moveTo, vec3_t mins, vec3_t maxs)
 
 			if (VectorLength(vecMeasure) > 1)
 			{
-				trap->Trace(&tr, trFrom, mins, maxs, trTo, ENTITYNUM_NONE, traceMask, qfalse, 0, 0);
+				SV_Trace(&tr, trFrom, mins, maxs, trTo, ENTITYNUM_NONE, traceMask, qfalse, 0, 0);
 
 				if (!tr.startsolid && !tr.allsolid && tr.fraction == 1)
 				{ //clear trace here, probably up a step
@@ -982,7 +982,7 @@ int CanGetToVectorTravel(vec3_t org1, vec3_t moveTo, vec3_t mins, vec3_t maxs)
 					VectorCopy(tr.endpos, trDown);
 					trDown[2] -= 16;
 
-					trap->Trace(&tr, trFrom, mins, maxs, trTo, ENTITYNUM_NONE, traceMask, qfalse, 0, 0);
+					SV_Trace(&tr, trFrom, mins, maxs, trTo, ENTITYNUM_NONE, traceMask, qfalse, 0, 0);
 
 					if (!tr.startsolid && !tr.allsolid)
 					{ //plop us down on the step after moving up
@@ -1106,7 +1106,7 @@ int ConnectTrail(int startindex, int endindex, qboolean behindTheScenes)
 
 	starttrace[2] -= 4096;
 
-	trap->Trace(&tr, startplace, NULL, NULL, starttrace, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
+	SV_Trace(&tr, startplace, NULL, NULL, starttrace, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
 
 	baseheight = startplace[2] - tr.endpos[2];
 
@@ -1179,7 +1179,7 @@ int ConnectTrail(int startindex, int endindex, qboolean behindTheScenes)
 
 				starttrace[2] -= 4096;
 
-				trap->Trace(&tr, testspot, NULL, NULL, starttrace, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
+				SV_Trace(&tr, testspot, NULL, NULL, starttrace, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
 
 				testspot[2] = tr.endpos[2]+baseheight;
 
@@ -1210,7 +1210,7 @@ int ConnectTrail(int startindex, int endindex, qboolean behindTheScenes)
 
 				starttrace[2] -= 4096;
 
-				trap->Trace(&tr, testspot, NULL, NULL, starttrace, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
+				SV_Trace(&tr, testspot, NULL, NULL, starttrace, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
 
 				testspot[2] = tr.endpos[2]+baseheight;
 
@@ -1241,7 +1241,7 @@ int ConnectTrail(int startindex, int endindex, qboolean behindTheScenes)
 
 				starttrace[2] -= 4096;
 
-				trap->Trace(&tr, testspot, NULL, NULL, starttrace, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
+				SV_Trace(&tr, testspot, NULL, NULL, starttrace, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
 
 				testspot[2] = tr.endpos[2]+baseheight;
 
@@ -1272,7 +1272,7 @@ int ConnectTrail(int startindex, int endindex, qboolean behindTheScenes)
 
 				starttrace[2] -= 4096;
 
-				trap->Trace(&tr, testspot, NULL, NULL, starttrace, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
+				SV_Trace(&tr, testspot, NULL, NULL, starttrace, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
 
 				testspot[2] = tr.endpos[2]+baseheight;
 
@@ -1445,7 +1445,7 @@ int DoorBlockingSection(int start, int end)
 		return 0;
 	}
 
-	trap->Trace(&tr, gWPArray[start]->origin, NULL, NULL, gWPArray[end]->origin, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
+	SV_Trace(&tr, gWPArray[start]->origin, NULL, NULL, gWPArray[end]->origin, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
 
 	if (tr.fraction == 1)
 	{
@@ -1466,7 +1466,7 @@ int DoorBlockingSection(int start, int end)
 
 	start_trace_index = tr.entityNum;
 
-	trap->Trace(&tr, gWPArray[end]->origin, NULL, NULL, gWPArray[start]->origin, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
+	SV_Trace(&tr, gWPArray[end]->origin, NULL, NULL, gWPArray[start]->origin, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
 
 	if (tr.fraction == 1)
 	{
@@ -1545,11 +1545,11 @@ int OrgVisibleCurve(vec3_t org1, vec3_t mins, vec3_t maxs, vec3_t org2, int igno
 	VectorCopy(org1, evenorg1);
 	evenorg1[2] = org2[2];
 
-	trap->Trace(&tr, evenorg1, mins, maxs, org2, ignore, MASK_SOLID, qfalse, 0, 0);
+	SV_Trace(&tr, evenorg1, mins, maxs, org2, ignore, MASK_SOLID, qfalse, 0, 0);
 
 	if (tr.fraction == 1 && !tr.startsolid && !tr.allsolid)
 	{
-		trap->Trace(&tr, evenorg1, mins, maxs, org1, ignore, MASK_SOLID, qfalse, 0, 0);
+		SV_Trace(&tr, evenorg1, mins, maxs, org1, ignore, MASK_SOLID, qfalse, 0, 0);
 
 		if (tr.fraction == 1 && !tr.startsolid && !tr.allsolid)
 		{
@@ -1856,7 +1856,7 @@ int GetNearestVisibleWPToItem(vec3_t org, int ignore)
 			VectorSubtract(org, gWPArray[i]->origin, a);
 			flLen = VectorLength(a);
 
-			if (flLen < bestdist && trap->InPVS(org, gWPArray[i]->origin) && OrgVisibleBox(org, mins, maxs, gWPArray[i]->origin, ignore))
+			if (flLen < bestdist && SV_inPVS(org, gWPArray[i]->origin) && OrgVisibleBox(org, mins, maxs, gWPArray[i]->origin, ignore))
 			{
 				bestdist = flLen;
 				bestindex = i;
@@ -2321,7 +2321,7 @@ void FlagObjects(void)
 
 			if (tlen < bestdist)
 			{
-				trap->Trace(&tr, flag_red->s.pos.trBase, mins, maxs, gWPArray[i]->origin, flag_red->s.number, MASK_SOLID, qfalse, 0, 0);
+				SV_Trace(&tr, flag_red->s.pos.trBase, mins, maxs, gWPArray[i]->origin, flag_red->s.number, MASK_SOLID, qfalse, 0, 0);
 
 				if (tr.fraction == 1 || tr.entityNum == flag_red->s.number)
 				{
@@ -2358,7 +2358,7 @@ void FlagObjects(void)
 
 			if (tlen < bestdist)
 			{
-				trap->Trace(&tr, flag_blue->s.pos.trBase, mins, maxs, gWPArray[i]->origin, flag_blue->s.number, MASK_SOLID, qfalse, 0, 0);
+				SV_Trace(&tr, flag_blue->s.pos.trBase, mins, maxs, gWPArray[i]->origin, flag_blue->s.number, MASK_SOLID, qfalse, 0, 0);
 
 				if (tr.fraction == 1 || tr.entityNum == flag_blue->s.number)
 				{
@@ -2670,7 +2670,7 @@ int G_RecursiveConnection(int start, int end, int weight, qboolean traceCheck, f
 
 		if (indexDirections[i] != -1 && traceCheck)
 		{ //if we care about trace visibility between nodes, perform the check and mark as not valid if the trace isn't clear.
-			trap->Trace(&tr, nodetable[start].origin, NULL, NULL, nodetable[indexDirections[i]].origin, ENTITYNUM_NONE, CONTENTS_SOLID, qfalse, 0, 0);
+			SV_Trace(&tr, nodetable[start].origin, NULL, NULL, nodetable[indexDirections[i]].origin, ENTITYNUM_NONE, CONTENTS_SOLID, qfalse, 0, 0);
 
 			if (tr.fraction != 1)
 			{
@@ -3110,7 +3110,7 @@ void G_RMGPathing(void)
 
 			VectorCopy(nodetable[nodenum].origin, downVec);
 			downVec[2] -= 3000;
-			trap->Trace(&tr, nodetable[nodenum].origin, trMins, trMaxs, downVec, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
+			SV_Trace(&tr, nodetable[nodenum].origin, trMins, trMaxs, downVec, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
 
 			if ((tr.entityNum >= ENTITYNUM_WORLD || g_entities[tr.entityNum].s.eType == ET_TERRAIN) && tr.endpos[2] < terrain->r.absmin[2]+750)
 			{ //only drop nodes on terrain directly

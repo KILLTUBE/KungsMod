@@ -1563,6 +1563,9 @@
     <ClInclude Include="..\..\codemp\server\sv_aas.h">
       <Filter>server</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\codemp\server\sv_icarus.h">
+      <Filter>server</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt" />

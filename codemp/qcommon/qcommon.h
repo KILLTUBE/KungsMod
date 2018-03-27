@@ -355,16 +355,16 @@ files can be execed.
 
 */
 
-void Cbuf_Init (void);
+CCALL void Cbuf_Init (void);
 // allocates an initial text buffer that will grow as needed
 
-void Cbuf_AddText( const char *text );
+CCALL void Cbuf_AddText( const char *text );
 // Adds command text at the end of the buffer, does NOT add a final \n
 
-void Cbuf_ExecuteText( int exec_when, const char *text );
+CCALL void Cbuf_ExecuteText( int exec_when, const char *text );
 // this can be used in place of either Cbuf_AddText or Cbuf_InsertText
 
-void Cbuf_Execute (void);
+CCALL void Cbuf_Execute (void);
 // Pulls off \n terminated lines of text from the command buffer and sends
 // them through Cmd_ExecuteString.  Stops when the buffer is empty.
 // Normally called once per frame, but may be explicitly invoked.
@@ -383,17 +383,17 @@ typedef void (*xcommand_t) (void);
 
 typedef void ( *callbackFunc_t )( const char *s );
 
-void	Cmd_Init (void);
+CCALL void	Cmd_Init (void);
 
-void	Cmd_AddCommand( const char *cmd_name, xcommand_t function, const char *cmd_desc=NULL );
+CCALL void	Cmd_AddCommand( const char *cmd_name, xcommand_t function, const char *cmd_desc=NULL );
 // called by the init functions of other parts of the program to
 // register commands and functions to call for them.
 // The cmd_name is referenced later, so it should not be in temp memory
 // if function is NULL, the command will be forwarded to the server
 // as a clc_clientCommand instead of executed locally
 
-void	Cmd_RemoveCommand( const char *cmd_name );
-void	Cmd_VM_RemoveCommand( const char *cmd_name, vmSlots_t vmslot );
+CCALL void	Cmd_RemoveCommand( const char *cmd_name );
+CCALL void	Cmd_VM_RemoveCommand( const char *cmd_name, vmSlots_t vmslot );
 typedef void (*completionFunc_t)( char *args, int argNum );
 
 typedef struct cmdList_s
@@ -404,34 +404,34 @@ typedef struct cmdList_s
 	completionFunc_t complete;
 } cmdList_t;
 
-void Cmd_AddCommandList( const cmdList_t *cmdList );
-void Cmd_RemoveCommandList( const cmdList_t *cmdList );
+CCALL void Cmd_AddCommandList( const cmdList_t *cmdList );
+CCALL void Cmd_RemoveCommandList( const cmdList_t *cmdList );
 
-void	Cmd_CommandCompletion( callbackFunc_t callback );
+CCALL void	Cmd_CommandCompletion( callbackFunc_t callback );
 // callback with each valid string
-void Cmd_SetCommandCompletionFunc( const char *command, completionFunc_t complete );
-void Cmd_CompleteArgument( const char *command, char *args, int argNum );
-void Cmd_CompleteCfgName( char *args, int argNum );
+CCALL void Cmd_SetCommandCompletionFunc( const char *command, completionFunc_t complete );
+CCALL void Cmd_CompleteArgument( const char *command, char *args, int argNum );
+CCALL void Cmd_CompleteCfgName( char *args, int argNum );
 
-int		Cmd_Argc (void);
-char	*Cmd_Argv (int arg);
-void	Cmd_ArgvBuffer( int arg, char *buffer, int bufferLength );
-char	*Cmd_Args (void);
-char	*Cmd_ArgsFrom( int arg );
-void	Cmd_ArgsBuffer( char *buffer, int bufferLength );
-void	Cmd_ArgsFromBuffer( int arg, char *buffer, int bufferLength );
-char	*Cmd_Cmd (void);
-void	Cmd_Args_Sanitize( size_t length = MAX_CVAR_VALUE_STRING, const char *strip = "\n\r;", const char *repl = "   " );
+CCALL int		Cmd_Argc (void);
+CCALL char	*Cmd_Argv (int arg);
+CCALL void	Cmd_ArgvBuffer( int arg, char *buffer, int bufferLength );
+CCALL char	*Cmd_Args (void);
+CCALL char	*Cmd_ArgsFrom( int arg );
+CCALL void	Cmd_ArgsBuffer( char *buffer, int bufferLength );
+CCALL void	Cmd_ArgsFromBuffer( int arg, char *buffer, int bufferLength );
+CCALL char	*Cmd_Cmd (void);
+CCALL void	Cmd_Args_Sanitize( size_t length = MAX_CVAR_VALUE_STRING, const char *strip = "\n\r;", const char *repl = "   " );
 // The functions that execute commands get their parameters with these
 // functions. Cmd_Argv () will return an empty string, not a NULL
 // if arg > argc, so string operations are allways safe.
 
-void	Cmd_TokenizeString( const char *text );
-void	Cmd_TokenizeStringIgnoreQuotes( const char *text_in );
+CCALL void	Cmd_TokenizeString( const char *text );
+CCALL void	Cmd_TokenizeStringIgnoreQuotes( const char *text_in );
 // Takes a null terminated string.  Does not need to be /n terminated.
 // breaks the string up into arg tokens.
 
-void	Cmd_ExecuteString( const char *text );
+CCALL void	Cmd_ExecuteString( const char *text );
 // Parses a single line of text into arguments and tries to execute it
 // as if it was typed at the console
 
@@ -463,83 +463,83 @@ modules of the program.
 
 */
 
-cvar_t *Cvar_Get( const char *var_name, const char *value, uint32_t flags, const char *var_desc=NULL );
+CCALL cvar_t *Cvar_Get( const char *var_name, const char *value, uint32_t flags, const char *var_desc=NULL );
 // creates the variable if it doesn't exist, or returns the existing one
 // if it exists, the value will not be changed, but flags will be ORed in
 // that allows variables to be unarchived without needing bitflags
 // if value is "", the value will not override a previously set value.
 
-void	Cvar_Register( vmCvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags );
+CCALL void	Cvar_Register( vmCvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags );
 // basically a slightly modified Cvar_Get for the interpreted modules
 
-void	Cvar_Update( vmCvar_t *vmCvar );
+CCALL void	Cvar_Update( vmCvar_t *vmCvar );
 // updates an interpreted modules' version of a cvar
 
-cvar_t	*Cvar_Set2(const char *var_name, const char *value, uint32_t defaultFlags, qboolean force);
+CCALL cvar_t	*Cvar_Set2(const char *var_name, const char *value, uint32_t defaultFlags, qboolean force);
 //
 
-cvar_t	*Cvar_Set( const char *var_name, const char *value );
+CCALL cvar_t	*Cvar_Set( const char *var_name, const char *value );
 // will create the variable with no flags if it doesn't exist
 
-cvar_t	*Cvar_SetSafe( const char *var_name, const char *value );
+CCALL cvar_t	*Cvar_SetSafe( const char *var_name, const char *value );
 // same as Cvar_Set, but doesn't force setting the value (respects CVAR_ROM, etc)
 
-cvar_t	*Cvar_User_Set( const char *var_name, const char *value );
+CCALL cvar_t	*Cvar_User_Set( const char *var_name, const char *value );
 // same as Cvar_SetSafe, but defaults to CVAR_USER_CREATED
 
-void	Cvar_Server_Set( const char *var_name, const char *value );
-void	Cvar_VM_Set( const char *var_name, const char *value, vmSlots_t vmslot );
+CCALL void	Cvar_Server_Set( const char *var_name, const char *value );
+CCALL void	Cvar_VM_Set( const char *var_name, const char *value, vmSlots_t vmslot );
 // sometimes we set variables from an untrusted source: fail if flags & CVAR_PROTECTED
 
-cvar_t	*Cvar_SetValue( const char *var_name, float value );
-void	Cvar_User_SetValue( const char *var_name, float value );
-void	Cvar_VM_SetValue( const char *var_name, float value, vmSlots_t vmslot );
+CCALL cvar_t	*Cvar_SetValue( const char *var_name, float value );
+CCALL void	Cvar_User_SetValue( const char *var_name, float value );
+CCALL void	Cvar_VM_SetValue( const char *var_name, float value, vmSlots_t vmslot );
 // expands value to a string and calls Cvar_Set/Cvar_User_Set/Cvar_VM_Set
 
-float	Cvar_VariableValue( const char *var_name );
-int		Cvar_VariableIntegerValue( const char *var_name );
+CCALL float	Cvar_VariableValue( const char *var_name );
+CCALL int		Cvar_VariableIntegerValue( const char *var_name );
 // returns 0 if not defined or non numeric
 
-char	*Cvar_VariableString( const char *var_name );
-void	Cvar_VariableStringBuffer( const char *var_name, char *buffer, int bufsize );
+CCALL char	*Cvar_VariableString( const char *var_name );
+CCALL void	Cvar_VariableStringBuffer( const char *var_name, char *buffer, int bufsize );
 // returns an empty string if not defined
 
-uint32_t	Cvar_Flags(const char *var_name);
+CCALL uint32_t	Cvar_Flags(const char *var_name);
 // returns CVAR_NONEXISTENT if cvar doesn't exist or the flags of that particular CVAR.
 
-void	Cvar_CommandCompletion( callbackFunc_t callback );
+CCALL void	Cvar_CommandCompletion( callbackFunc_t callback );
 // callback with each valid string
 
-void 	Cvar_Reset( const char *var_name );
-void 	Cvar_ForceReset( const char *var_name );
+CCALL void 	Cvar_Reset( const char *var_name );
+CCALL void 	Cvar_ForceReset( const char *var_name );
 
-void	Cvar_SetCheatState( void );
+CCALL void	Cvar_SetCheatState( void );
 // reset all testing vars to a safe value
 
-qboolean Cvar_Command( void );
+CCALL qboolean Cvar_Command( void );
 // called by Cmd_ExecuteString when Cmd_Argv(0) doesn't match a known
 // command.  Returns true if the command was a variable reference that
 // was handled. (print or change)
 
-void 	Cvar_WriteVariables( fileHandle_t f );
+CCALL void 	Cvar_WriteVariables( fileHandle_t f );
 // writes lines containing "set variable value" for all variables
 // with the archive flag set to true.
 
-cvar_t *Cvar_Unset(cvar_t *cv);
+CCALL cvar_t *Cvar_Unset(cvar_t *cv);
 
-void	Cvar_Init( void );
+CCALL void	Cvar_Init( void );
 
-char	*Cvar_InfoString( int bit );
-char	*Cvar_InfoString_Big( int bit );
+CCALL char	*Cvar_InfoString( int bit );
+CCALL char	*Cvar_InfoString_Big( int bit );
 // returns an info string containing all the cvars that have the given bit set
 // in their flags ( CVAR_USERINFO, CVAR_SERVERINFO, CVAR_SYSTEMINFO, etc )
-void	Cvar_InfoStringBuffer( int bit, char *buff, int buffsize );
-void Cvar_CheckRange( cvar_t *cv, float minVal, float maxVal, qboolean shouldBeIntegral );
+CCALL void	Cvar_InfoStringBuffer( int bit, char *buff, int buffsize );
+CCALL void Cvar_CheckRange( cvar_t *cv, float minVal, float maxVal, qboolean shouldBeIntegral );
 
-void	Cvar_Restart(qboolean unsetVM);
-void	Cvar_Restart_f( void );
+CCALL void	Cvar_Restart(qboolean unsetVM);
+CCALL void	Cvar_Restart_f( void );
 
-void Cvar_CompleteCvarName( char *args, int argNum );
+CCALL void Cvar_CompleteCvarName( char *args, int argNum );
 
 extern uint32_t cvar_modifiedFlags;
 // whenever a cvar is modifed, its flags will be OR'd into this, so
@@ -595,11 +595,11 @@ typedef struct field_s {
 	char	buffer[MAX_EDIT_LINE];
 } field_t;
 
-void Field_Clear( field_t *edit );
-void Field_AutoComplete( field_t *edit );
-void Field_CompleteKeyname( void );
-void Field_CompleteFilename( const char *dir, const char *ext, qboolean stripExt, qboolean allowNonPureFilesOnDisk );
-void Field_CompleteCommand( char *cmd, qboolean doCommands, qboolean doCvars );
+CCALL void Field_Clear( field_t *edit );
+CCALL void Field_AutoComplete( field_t *edit );
+CCALL void Field_CompleteKeyname( void );
+CCALL void Field_CompleteFilename( const char *dir, const char *ext, qboolean stripExt, qboolean allowNonPureFilesOnDisk );
+CCALL void Field_CompleteCommand( char *cmd, qboolean doCommands, qboolean doCvars );
 
 /*
 ==============================================================
@@ -612,28 +612,26 @@ MISC
 #define RoundUp(N, M) ((N) + ((unsigned int)(M)) - (((unsigned int)(N)) % ((unsigned int)(M))))
 #define RoundDown(N, M) ((N) - (((unsigned int)(N)) % ((unsigned int)(M))))
 
-char		*CopyString( const char *in );
-void		Info_Print( const char *s );
-
-void		Com_BeginRedirect (char *buffer, int buffersize, void (*flush)(char *));
-void		Com_EndRedirect( void );
-void 		QDECL Com_Printf( const char *fmt, ... );
-void 		QDECL Com_DPrintf( const char *fmt, ... );
-void		QDECL Com_OPrintf( const char *fmt, ...); // Outputs to the VC / Windows Debug window (only in debug compile)
-void 		NORETURN QDECL Com_Error( int code, const char *fmt, ... );
-void 		NORETURN Com_Quit_f( void );
-int			Com_EventLoop( void );
-int			Com_Milliseconds( void );	// will be journaled properly
-uint32_t	Com_BlockChecksum( const void *buffer, int length );
-char		*Com_MD5File(const char *filename, int length, const char *prefix, int prefix_len);
-int      Com_HashKey(char *string, int maxlen);
-int			Com_Filter(char *filter, char *name, int casesensitive);
-int			Com_FilterPath(char *filter, char *name, int casesensitive);
-int			Com_RealTime(qtime_t *qtime);
-qboolean	Com_SafeMode( void );
-void		Com_RunAndTimeServerPacket(netadr_t *evFrom, msg_t *buf);
-
-void		Com_StartupVariable( const char *match );
+CCALL char		*CopyString( const char *in );
+CCALL void		Info_Print( const char *s );
+CCALL void		Com_BeginRedirect (char *buffer, int buffersize, void (*flush)(char *));
+CCALL void		Com_EndRedirect( void );
+CCALL void 		Com_Printf( const char *fmt, ... );
+CCALL void 		Com_DPrintf( const char *fmt, ... );
+CCALL void		Com_OPrintf( const char *fmt, ...); // Outputs to the VC / Windows Debug window (only in debug compile)
+CCALL void 		Com_Error( int code, const char *fmt, ... );
+CCALL void 		Com_Quit_f( void );
+CCALL int		Com_EventLoop( void );
+CCALL int		Com_Milliseconds( void );	// will be journaled properly
+CCALL uint32_t	Com_BlockChecksum( const void *buffer, int length );
+CCALL char		*Com_MD5File(const char *filename, int length, const char *prefix, int prefix_len);
+CCALL int      Com_HashKey(char *string, int maxlen);
+CCALL int			Com_Filter(char *filter, char *name, int casesensitive);
+CCALL int			Com_FilterPath(char *filter, char *name, int casesensitive);
+CCALL int			Com_RealTime(qtime_t *qtime);
+CCALL qboolean	Com_SafeMode( void );
+CCALL void		Com_RunAndTimeServerPacket(netadr_t *evFrom, msg_t *buf);
+CCALL void		Com_StartupVariable( const char *match );
 // checks for and removes command line "+set var arg" constructs
 // if match is NULL, all set commands will be executed, otherwise
 // only a set with the exact name.  Only used during startup.
@@ -743,35 +741,34 @@ void *S_Malloc	( int iSize );					// NOT 0 filled memory only for small allocati
 void *Z_Malloc  ( int iSize, memtag_t eTag, qboolean bZeroit = qfalse, int iAlign = 4);	// return memory NOT zero-filled by default
 void *S_Malloc	( int iSize );					// NOT 0 filled memory only for small allocations
 #endif
-void  Z_MorphMallocTag( void *pvBuffer, memtag_t eDesiredTag );
-void  Z_Validate( void );
-int   Z_MemSize	( memtag_t eTag );
-void  Z_TagFree	( memtag_t eTag );
-void  Z_Free	( void *ptr );
-int	  Z_Size	( void *pvAddress);
-void Com_InitZoneMemory(void);
-void Com_InitZoneMemoryVars(void);
-void Com_InitHunkMemory(void);
-void Com_ShutdownZoneMemory(void);
-void Com_ShutdownHunkMemory(void);
+CCALL void  Z_MorphMallocTag( void *pvBuffer, memtag_t eDesiredTag );
+CCALL void  Z_Validate( void );
+CCALL int   Z_MemSize	( memtag_t eTag );
+CCALL void  Z_TagFree	( memtag_t eTag );
+CCALL void  Z_Free	( void *ptr );
+CCALL int	  Z_Size	( void *pvAddress);
+CCALL void Com_InitZoneMemory(void);
+CCALL void Com_InitZoneMemoryVars(void);
+CCALL void Com_InitHunkMemory(void);
+CCALL void Com_ShutdownZoneMemory(void);
+CCALL void Com_ShutdownHunkMemory(void);
+CCALL void Hunk_Clear( void );
+CCALL void Hunk_ClearToMark( void );
+CCALL void Hunk_SetMark( void );
+CCALL qboolean Hunk_CheckMark( void );
+CCALL void Hunk_ClearTempMemory( void );
+CCALL void *Hunk_AllocateTempMemory( int size );
+CCALL void Hunk_FreeTempMemory( void *buf );
+CCALL int	Hunk_MemoryRemaining( void );
+CCALL void Hunk_Log( void);
+CCALL void Hunk_Trash( void );
 
-void Hunk_Clear( void );
-void Hunk_ClearToMark( void );
-void Hunk_SetMark( void );
-qboolean Hunk_CheckMark( void );
-void Hunk_ClearTempMemory( void );
-void *Hunk_AllocateTempMemory( int size );
-void Hunk_FreeTempMemory( void *buf );
-int	Hunk_MemoryRemaining( void );
-void Hunk_Log( void);
-void Hunk_Trash( void );
-
-void Com_TouchMemory( void );
+CCALL void Com_TouchMemory( void );
 
 // commandLine should not include the executable name (argv[0])
-void Com_Init( char *commandLine );
-void Com_Frame( void );
-void Com_Shutdown( void );
+CCALL void Com_Init( char *commandLine );
+CCALL void Com_Frame( void );
+CCALL void Com_Shutdown( void );
 
 
 /*
@@ -785,46 +782,46 @@ CLIENT / SERVER SYSTEMS
 //
 // client interface
 //
-void CL_InitKeyCommands( void );
+CCALL void CL_InitKeyCommands( void );
 // the keyboard binding interface must be setup before execing
 // config files, but the rest of client startup will happen later
 
-void CL_Init( void );
-void CL_Disconnect( qboolean showMainMenu );
-void CL_Shutdown( void );
-void CL_Frame( int msec );
-qboolean CL_GameCommand( void );
-void CL_KeyEvent (int key, qboolean down, unsigned time);
+CCALL void CL_Init( void );
+CCALL void CL_Disconnect( qboolean showMainMenu );
+CCALL void CL_Shutdown( void );
+CCALL void CL_Frame( int msec );
+CCALL qboolean CL_GameCommand( void );
+CCALL void CL_KeyEvent (int key, qboolean down, unsigned time);
 
-void CL_CharEvent( int key );
+CCALL void CL_CharEvent( int key );
 // char events are for field typing, not game control
 
-void CL_MouseEvent( int dx, int dy, int time );
+CCALL void CL_MouseEvent( int dx, int dy, int time );
 
-void CL_JoystickEvent( int axis, int value, int time );
+CCALL void CL_JoystickEvent( int axis, int value, int time );
 
-void CL_PacketEvent( netadr_t from, msg_t *msg );
+CCALL void CL_PacketEvent( netadr_t from, msg_t *msg );
 
-void CL_ConsolePrint( const char *text );
+CCALL void CL_ConsolePrint( const char *text );
 
-void CL_MapLoading( void );
+CCALL void CL_MapLoading( void );
 // do a screen update before starting to load a map
 // when the server is going to load a new map, the entire hunk
 // will be cleared, so the client must shutdown cgame, ui, and
 // the renderer
 
-void	CL_ForwardCommandToServer( const char *string );
+CCALL void	CL_ForwardCommandToServer( const char *string );
 // adds the current command line as a clc_clientCommand to the client message.
 // things like godmode, noclip, etc, are commands directed to the server,
 // so when they are typed in at the console, they will need to be forwarded.
 
-void CL_ShutdownAll( qboolean shutdownRef );
+CCALL void CL_ShutdownAll( qboolean shutdownRef );
 // shutdown all the client stuff
 
-void CL_FlushMemory( void );
+CCALL void CL_FlushMemory( void );
 // dump all memory on an error
 
-void CL_StartHunkUsers( void );
+CCALL void CL_StartHunkUsers( void );
 // start all the client stuff using the hunk
 
 qboolean CL_ConnectedToRemoteServer( void );
@@ -848,18 +845,18 @@ void SCR_DebugGraph (float value, int color);	// FIXME: move logging to common?
 //
 // server interface
 //
-void SV_Init( void );
-void SV_Shutdown( char *finalmsg );
-void SV_Frame( int msec );
-void SV_PacketEvent( netadr_t from, msg_t *msg );
-int SV_FrameMsec( void );
-qboolean SV_GameCommand( void );
+CCALL void SV_Init( void );
+CCALL void SV_Shutdown( char *finalmsg );
+CCALL void SV_Frame( int msec );
+CCALL void SV_PacketEvent( netadr_t from, msg_t *msg );
+CCALL int SV_FrameMsec( void );
+CCALL qboolean SV_GameCommand( void );
 
 
 //
 // UI interface
 //
-qboolean UI_GameCommand( void );
+CCALL qboolean UI_GameCommand( void );
 
 /* This is based on the Adaptive Huffman algorithm described in Sayood's Data
  * Compression book.  The ranks are not actually stored, but implicitly defined
@@ -897,16 +894,16 @@ typedef struct huffman_s {
 	huff_t		decompressor;
 } huffman_t;
 
-void	Huff_Compress(msg_t *buf, int offset);
-void	Huff_Decompress(msg_t *buf, int offset);
-void	Huff_Init(huffman_t *huff);
-void	Huff_addRef(huff_t* huff, byte ch);
-int		Huff_Receive (node_t *node, int *ch, byte *fin);
-void	Huff_transmit (huff_t *huff, int ch, byte *fout);
-void	Huff_offsetReceive (node_t *node, int *ch, byte *fin, int *offset);
-void	Huff_offsetTransmit (huff_t *huff, int ch, byte *fout, int *offset);
-void	Huff_putBit( int bit, byte *fout, int *offset);
-int		Huff_getBit( byte *fout, int *offset);
+CCALL void	Huff_Compress(msg_t *buf, int offset);
+CCALL void	Huff_Decompress(msg_t *buf, int offset);
+CCALL void	Huff_Init(huffman_t *huff);
+CCALL void	Huff_addRef(huff_t* huff, byte ch);
+CCALL int		Huff_Receive (node_t *node, int *ch, byte *fin);
+CCALL void	Huff_transmit (huff_t *huff, int ch, byte *fout);
+CCALL void	Huff_offsetReceive (node_t *node, int *ch, byte *fin, int *offset);
+CCALL void	Huff_offsetTransmit (huff_t *huff, int ch, byte *fout, int *offset);
+CCALL void	Huff_putBit( int bit, byte *fout, int *offset);
+CCALL int		Huff_getBit( byte *fout, int *offset);
 
 extern huffman_t clientHuffTables;
 

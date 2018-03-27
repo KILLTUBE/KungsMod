@@ -252,7 +252,7 @@ void G_ExplodeMissile( gentity_t *ent ) {
 		}
 	}
 
-	trap->LinkEntity( (sharedEntity_t *)ent );
+	SV_LinkEntity( (sharedEntity_t *)ent );
 }
 
 void G_RunStuckMissile( gentity_t *ent )
@@ -406,7 +406,7 @@ void G_MissileImpact( gentity_t *ent, trace_t *trace ) {
 		{
 			G_MissileAddAlerts( ent );
 		}
-		//trap->linkentity( ent );
+		//SV_linkentity( ent );
 		return;
 	}
 	*/
@@ -804,7 +804,7 @@ killProj:
 		ent->freeAfterEvent = qfalse; //it will free itself
 	}
 
-	trap->LinkEntity( (sharedEntity_t *)ent );
+	SV_LinkEntity( (sharedEntity_t *)ent );
 }
 
 /*
@@ -847,7 +847,7 @@ void G_RunMissile( gentity_t *ent ) {
 	// trace a line from the previous position to the current position
 	if (d_projectileGhoul2Collision.integer)
 	{
-		trap->Trace( &tr, ent->r.currentOrigin, ent->r.mins, ent->r.maxs, origin, passent, ent->clipmask, qfalse, G2TRFLAG_DOGHOULTRACE|G2TRFLAG_GETSURFINDEX|G2TRFLAG_THICK|G2TRFLAG_HITCORPSES, g_g2TraceLod.integer );
+		SV_Trace( &tr, ent->r.currentOrigin, ent->r.mins, ent->r.maxs, origin, passent, ent->clipmask, qfalse, G2TRFLAG_DOGHOULTRACE|G2TRFLAG_GETSURFINDEX|G2TRFLAG_THICK|G2TRFLAG_HITCORPSES, g_g2TraceLod.integer );
 
 		if (tr.fraction != 1.0 && tr.entityNum < ENTITYNUM_WORLD)
 		{
@@ -867,12 +867,12 @@ void G_RunMissile( gentity_t *ent ) {
 	}
 	else
 	{
-		trap->Trace( &tr, ent->r.currentOrigin, ent->r.mins, ent->r.maxs, origin, passent, ent->clipmask, qfalse, 0, 0 );
+		SV_Trace( &tr, ent->r.currentOrigin, ent->r.mins, ent->r.maxs, origin, passent, ent->clipmask, qfalse, 0, 0 );
 	}
 
 	if ( tr.startsolid || tr.allsolid ) {
 		// make sure the tr.entityNum is set to the entity we're stuck in
-		trap->Trace( &tr, ent->r.currentOrigin, ent->r.mins, ent->r.maxs, ent->r.currentOrigin, passent, ent->clipmask, qfalse, 0, 0 );
+		SV_Trace( &tr, ent->r.currentOrigin, ent->r.mins, ent->r.maxs, ent->r.currentOrigin, passent, ent->clipmask, qfalse, 0, 0 );
 		tr.fraction = 0;
 	}
 	else {
@@ -882,11 +882,11 @@ void G_RunMissile( gentity_t *ent ) {
 	if (ent->passThroughNum && tr.entityNum == (ent->passThroughNum-1))
 	{
 		VectorCopy( origin, ent->r.currentOrigin );
-		trap->LinkEntity( (sharedEntity_t *)ent );
+		SV_LinkEntity( (sharedEntity_t *)ent );
 		goto passthrough;
 	}
 
-	trap->LinkEntity( (sharedEntity_t *)ent );
+	SV_LinkEntity( (sharedEntity_t *)ent );
 
 	if (ent->s.weapon == G2_MODEL_PART && !ent->bounceCount)
 	{
@@ -895,7 +895,7 @@ void G_RunMissile( gentity_t *ent ) {
 
 		VectorCopy(ent->r.currentOrigin, lowerOrg);
 		lowerOrg[2] -= 1;
-		trap->Trace( &trG, ent->r.currentOrigin, ent->r.mins, ent->r.maxs, lowerOrg, passent, ent->clipmask, qfalse, 0, 0 );
+		SV_Trace( &trG, ent->r.currentOrigin, ent->r.mins, ent->r.maxs, lowerOrg, passent, ent->clipmask, qfalse, 0, 0 );
 
 		VectorCopy(trG.endpos, groundSpot);
 

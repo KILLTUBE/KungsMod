@@ -269,7 +269,7 @@ void NPC_GM_Pain(gentity_t *self, gentity_t *attacker, int damage)
 		/*
 		if ( (hitLoc==HL_GENERIC1) && (self->locationDamage[HL_GENERIC1] > GENERATOR_HEALTH) )
 		{
-			int newBolt = trap->G2API_AddBolt( &self->ghoul2[self->playerModel], "*antenna_base" );
+			int newBolt = SV_G2API_AddBolt( &self->ghoul2[self->playerModel], "*antenna_base" );
 			if ( newBolt != -1 )
 			{
 				GM_CreateExplosion( self, newBolt, qfalse );
@@ -382,7 +382,7 @@ GM_HoldPosition
 static void GM_HoldPosition( void )
 {
 	NPC_FreeCombatPoint( NPCS.NPCInfo->combatPoint, qtrue );
-	if ( !trap->ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
+	if ( !ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
 	{//don't have a script waiting for me to get to my point, okay to stop trying and stand
 		NPCS.NPCInfo->goalEntity = NULL;
 	}
@@ -418,7 +418,7 @@ static qboolean GM_Move( void )
 	//If our move failed, then reset
 	if ( moved == qfalse )
 	{//FIXME: if we're going to a combat point, need to pick a different one
-		if ( !trap->ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
+		if ( !ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
 		{//can't transfer movegoal or stop when a script we're running is waiting to complete
 			GM_HoldPosition();
 		}
@@ -459,7 +459,7 @@ GM_CheckMoveState
 
 static void GM_CheckMoveState( void )
 {
-	if ( trap->ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
+	if ( ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
 	{//moving toward a goal that a script is waiting on, so don't stop for anything!
 		move4 = qtrue;
 	}
@@ -469,7 +469,7 @@ static void GM_CheckMoveState( void )
 	{
 		//Did we make it?
 		if ( NAV_HitNavGoal( NPCS.NPC->r.currentOrigin, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, NPCS.NPCInfo->goalEntity->r.currentOrigin, 16, qfalse ) ||
-			( !trap->ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) && enemyLOS4 && enemyDist4 <= 10000 ) )
+			( !ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) && enemyLOS4 && enemyDist4 <= 10000 ) )
 		{//either hit our navgoal or our navgoal was not a crucial (scripted) one (maybe a combat point) and we're scouting and found our enemy
 			NPC_ReachedGoal();
 			//don't attack right away
@@ -519,7 +519,7 @@ static void GM_CheckFireState( void )
 					vec3_t	forward, end;
 					AngleVectors( NPCS.NPC->client->ps.viewangles, forward, NULL, NULL );
 					VectorMA( muzzle, 8192, forward, end );
-					trap->Trace( &tr, muzzle, vec3_origin, vec3_origin, end, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
+					SV_Trace( &tr, muzzle, vec3_origin, vec3_origin, end, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
 					VectorCopy( tr.endpos, impactPos4 );
 				}
 
@@ -797,7 +797,7 @@ void NPC_BSGM_Attack( void )
 				trace_t	trace;
 				vec3_t	end, mins={-3,-3,-3}, maxs={3,3,3};
 				VectorMA( NPCS.NPC->client->renderInfo.muzzlePoint, 1024, NPCS.NPC->client->renderInfo.muzzleDir, end );
-				trap->Trace( &trace, NPCS.NPC->client->renderInfo.muzzlePoint, mins, maxs, end, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
+				SV_Trace( &trace, NPCS.NPC->client->renderInfo.muzzlePoint, mins, maxs, end, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
 				if ( trace.allsolid || trace.startsolid )
 				{//oops, in a wall
 					if ( NPCS.NPCInfo->coverTarg )
@@ -955,7 +955,7 @@ void NPC_BSGM_Attack( void )
 			}
 		}
 	}
-	else if ( trap->InPVS( NPCS.NPC->enemy->r.currentOrigin, NPCS.NPC->r.currentOrigin ) )
+	else if ( SV_inPVS( NPCS.NPC->enemy->r.currentOrigin, NPCS.NPC->r.currentOrigin ) )
 	{
 		int hit;
 		gentity_t *hitEnt;
@@ -1282,7 +1282,7 @@ void NPC_BSGM_Default( void )
 		{//armor regenerated, turn shield back on
 			//do a trace and make sure we can turn this back on?
 			trace_t	tr;
-			trap->Trace( &tr, NPCS.NPC->r.currentOrigin, shieldMins, shieldMaxs, NPCS.NPC->r.currentOrigin, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
+			SV_Trace( &tr, NPCS.NPC->r.currentOrigin, shieldMins, shieldMaxs, NPCS.NPC->r.currentOrigin, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
 			if ( !tr.startsolid )
 			{
 				VectorCopy( shieldMins, NPCS.NPC->r.mins );

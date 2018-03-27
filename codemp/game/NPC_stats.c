@@ -2303,7 +2303,7 @@ qboolean NPC_ParseParms( const char *NPCName, gentity_t *NPC )
 					VectorCopy(NPC->s.origin, NPC->client->ps.origin);
 					VectorCopy(NPC->s.origin, NPC->r.currentOrigin);
 					G_SetOrigin( NPC, NPC->s.origin );
-					trap->LinkEntity((sharedEntity_t *)NPC);
+					SV_LinkEntity((sharedEntity_t *)NPC);
 					//now trace down
 					/*
 					VectorCopy( NPC->s.origin, bottom );

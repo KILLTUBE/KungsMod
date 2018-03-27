@@ -462,7 +462,7 @@ void SV_SpawnServer( char *server, qboolean killBots, ForceReload_e eForceReload
 	re->RegisterMedia_LevelLoadBegin(server, eForceReload);
 
 	// shut down the existing game if it is running
-	SV_ShutdownGameProgs();
+	SV_ShutdownGameProgsVoid();
 	svs.gameStarted = qfalse;
 
 	Com_Printf ("------ Server Initialization ------\n");
@@ -1082,7 +1082,7 @@ void SV_Shutdown( char *finalmsg )
 	SV_RemoveOperatorCommands();
 	SV_MasterShutdown();
 	SV_ChallengeShutdown();
-	SV_ShutdownGameProgs();
+	SV_ShutdownGameProgsVoid();
 	svs.gameStarted = qfalse;
 /*
 Ghoul2 Insert Start

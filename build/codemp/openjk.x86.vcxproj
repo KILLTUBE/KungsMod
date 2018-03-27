@@ -480,6 +480,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\codemp\server\sv_aas.h" />
     <ClInclude Include="..\..\codemp\server\sv_bot.h" />
     <ClInclude Include="..\..\codemp\server\sv_g2api.h" />
+    <ClInclude Include="..\..\codemp\server\sv_icarus.h" />
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h" />
     <ClInclude Include="C:\XycaRend2\codemp\client\client.h" />
     <ClInclude Include="C:\XycaRend2\codemp\client\keys.h" />

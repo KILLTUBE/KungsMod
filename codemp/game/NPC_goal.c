@@ -146,7 +146,7 @@ void NPC_ReachedGoal( void )
 	NPCS.NPCInfo->aiFlags &= ~NPCAI_MOVING;
 	NPCS.ucmd.forwardmove = 0;
 	//Return that the goal was reached
-	trap->ICARUS_TaskIDComplete( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV );
+	ICARUS_TaskIDComplete( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV );
 //MCG - End
 }
 /*

@@ -59,7 +59,7 @@ void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime )
 		return;
 	}
 
-	if ( trap->ICARUS_TaskIDPending( (sharedEntity_t *)self, TID_CHAN_VOICE ) )
+	if ( ICARUS_TaskIDPending( (sharedEntity_t *)self, TID_CHAN_VOICE ) )
 	{
 		return;
 	}

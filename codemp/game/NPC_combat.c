@@ -867,7 +867,7 @@ void NPC_ChangeWeapon( int newWeapon )
 	}
 	if ( changing && NPC->weaponModel[0] > 9 )
 	{
-		trap->G2API_RemoveGhoul2Model( NPC->ghoul2, NPC->weaponModel[0] );
+		SV_G2API_RemoveGhoul2Model( NPC->ghoul2, NPC->weaponModel[0] );
 	}
 	ChangeWeapon( NPC, newWeapon );
 	if ( changing && NPC->client->ps.weapon != WP_NONE )
@@ -1101,7 +1101,7 @@ qboolean ShotThroughGlass (trace_t *tr, gentity_t *target, vec3_t spot, int mask
 		vec3_t		muzzle;
 
 		VectorCopy(tr->endpos, muzzle);
-		trap->Trace (tr, muzzle, NULL, NULL, spot, skip, mask, qfalse, 0, 0 );
+		SV_Trace (tr, muzzle, NULL, NULL, spot, skip, mask, qfalse, 0, 0 );
 		return qtrue;
 	}
 
@@ -1126,7 +1126,7 @@ qboolean CanShoot ( gentity_t *ent, gentity_t *shooter )
 	CalcEntitySpot( shooter, SPOT_WEAPON, muzzle );
 	CalcEntitySpot( ent, SPOT_ORIGIN, spot );		//FIXME preferred target locations for some weapons (feet for R/L)
 
-	trap->Trace ( &tr, muzzle, NULL, NULL, spot, shooter->s.number, MASK_SHOT, qfalse, 0, 0 );
+	SV_Trace ( &tr, muzzle, NULL, NULL, spot, shooter->s.number, MASK_SHOT, qfalse, 0, 0 );
 	traceEnt = &g_entities[ tr.entityNum ];
 
 	// point blank, baby!
@@ -1149,7 +1149,7 @@ qboolean CanShoot ( gentity_t *ent, gentity_t *shooter )
 	else
 	{//ok, can't hit them in center, try their head
 		CalcEntitySpot( ent, SPOT_HEAD, spot );
-		trap->Trace ( &tr, muzzle, NULL, NULL, spot, shooter->s.number, MASK_SHOT, qfalse, 0, 0 );
+		SV_Trace ( &tr, muzzle, NULL, NULL, spot, shooter->s.number, MASK_SHOT, qfalse, 0, 0 );
 		traceEnt = &g_entities[ tr.entityNum ];
 		if ( traceEnt == ent)
 		{
@@ -1507,7 +1507,7 @@ gentity_t *NPC_PickEnemy( gentity_t *closestTo, int enemyTeam, qboolean checkVis
 				{//FIXME:  check for range and FOV or vis?
 					if( newenemy != NPCS.NPC->lastEnemy )
 					{//Make sure we're not just going back and forth here
-						if ( trap->InPVS(newenemy->r.currentOrigin, NPCS.NPC->r.currentOrigin) )
+						if ( SV_inPVS(newenemy->r.currentOrigin, NPCS.NPC->r.currentOrigin) )
 						{
 							if(NPCS.NPCInfo->behaviorState == BS_INVESTIGATE ||	NPCS.NPCInfo->behaviorState == BS_PATROL)
 							{
@@ -1648,7 +1648,7 @@ gentity_t *NPC_PickEnemy( gentity_t *closestTo, int enemyTeam, qboolean checkVis
 
 					if ( newenemy != NPCS.NPC->lastEnemy )
 					{//Make sure we're not just going back and forth here
-						if(!trap->InPVS(newenemy->r.currentOrigin, NPCS.NPC->r.currentOrigin))
+						if(!SV_inPVS(newenemy->r.currentOrigin, NPCS.NPC->r.currentOrigin))
 						{
 							continue;
 						}
@@ -1801,7 +1801,7 @@ gentity_t *NPC_PickAlly ( qboolean facingEachOther, float range, qboolean ignore
 						}
 					}
 
-					if(!trap->InPVS(ally->r.currentOrigin, NPCS.NPC->r.currentOrigin))
+					if(!SV_inPVS(ally->r.currentOrigin, NPCS.NPC->r.currentOrigin))
 					{
 						continue;
 					}
@@ -1926,7 +1926,7 @@ gentity_t *NPC_CheckEnemy( qboolean findNew, qboolean tooFarOk, qboolean setEnem
 				}
 			}
 		}
-		else if ( !trap->InPVS(NPCS.NPC->r.currentOrigin, NPCS.NPC->enemy->r.currentOrigin ) )
+		else if ( !SV_inPVS(NPCS.NPC->r.currentOrigin, NPCS.NPC->enemy->r.currentOrigin ) )
 		{//FIXME: should this be a line-of site check?
 			//FIXME: a lot of things check PVS AGAIN when deciding whether
 			//or not to shoot, redundant!
@@ -2091,11 +2091,11 @@ qboolean NPC_ClearShot( gentity_t *ent )
 		vec3_t	mins = { -2, -2, -2 };
 		vec3_t	maxs = {  2,  2,  2 };
 
-		trap->Trace ( &tr, muzzle, mins, maxs, ent->r.currentOrigin, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
+		SV_Trace ( &tr, muzzle, mins, maxs, ent->r.currentOrigin, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
 	}
 	else
 	{
-		trap->Trace ( &tr, muzzle, NULL, NULL, ent->r.currentOrigin, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
+		SV_Trace ( &tr, muzzle, NULL, NULL, ent->r.currentOrigin, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
 	}
 
 	if ( tr.startsolid || tr.allsolid )
@@ -2134,7 +2134,7 @@ int NPC_ShotEntity( gentity_t *ent, vec3_t impactPos )
 		AngleVectors( angles, forward, NULL, NULL );
 		VectorMA( muzzle, 8, forward, end );
 		end[2] += 24;
-		trap->Trace ( &tr, muzzle, vec3_origin, vec3_origin, end, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
+		SV_Trace ( &tr, muzzle, vec3_origin, vec3_origin, end, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
 		VectorCopy( tr.endpos, muzzle );
 	}
 	else
@@ -2151,11 +2151,11 @@ int NPC_ShotEntity( gentity_t *ent, vec3_t impactPos )
 		vec3_t	mins = { -2, -2, -2 };
 		vec3_t	maxs = {  2,  2,  2 };
 
-		trap->Trace ( &tr, muzzle, mins, maxs, targ, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
+		SV_Trace ( &tr, muzzle, mins, maxs, targ, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
 	}
 	else
 	{
-		trap->Trace ( &tr, muzzle, NULL, NULL, targ, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
+		SV_Trace ( &tr, muzzle, NULL, NULL, targ, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
 	}
 	//FIXME: if using a bouncing weapon like the bowcaster, should we check the reflection of the wall, too?
 	if ( impactPos )
@@ -2313,11 +2313,11 @@ qboolean NPC_CheckCanAttack (float attack_scale, qboolean stationary)
 			//NEW: use actual forward facing
 			AngleVectors( NPCS.client->ps.viewangles, forward, NULL, NULL );
 			VectorMA( muzzle, distanceToEnemy, forward, hitspot );
-			trap->Trace( &tr, muzzle, NULL, NULL, hitspot, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
+			SV_Trace( &tr, muzzle, NULL, NULL, hitspot, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
 			ShotThroughGlass( &tr, NPCS.NPC->enemy, hitspot, MASK_SHOT );
 			/*
 			//OLD: trace regardless of facing
-			trap->Trace ( &tr, muzzle, NULL, NULL, enemy_org, NPC->s.number, MASK_SHOT );
+			SV_Trace ( &tr, muzzle, NULL, NULL, enemy_org, NPC->s.number, MASK_SHOT );
 			ShotThroughGlass(&tr, NPC->enemy, enemy_org, MASK_SHOT);
 			*/
 
@@ -2333,7 +2333,7 @@ qboolean NPC_CheckCanAttack (float attack_scale, qboolean stationary)
 				enemy_org[2] -= NPC->enemy->r.maxs[2]*Q_flrand(0.0f, 1.0f);
 
 				attack_scale *= 0.75;
-				trap->Trace ( &tr, muzzle, NULL, NULL, enemy_org, NPC->s.number, MASK_SHOT );
+				SV_Trace ( &tr, muzzle, NULL, NULL, enemy_org, NPC->s.number, MASK_SHOT );
 				ShotThroughGlass(&tr, NPC->enemy, enemy_org, MASK_SHOT);
 				traceEnt = &g_entities[tr.entityNum];
 			}
@@ -2488,7 +2488,7 @@ void SP_point_combat( gentity_t *self )
 
 	self->s.origin[2] += 0.125;
 	G_SetOrigin(self, self->s.origin);
-	trap->LinkEntity((sharedEntity_t *)self);
+	SV_LinkEntity((sharedEntity_t *)self);
 
 	if ( G_CheckInSolid( self, qtrue ) )
 	{
@@ -2571,7 +2571,7 @@ static int NPC_CollectCombatPoints( const vec3_t origin, const float radius, com
 
 		if ( flags&CP_NO_PVS )
 		{//must not be within PVS of mu current origin
-			if ( trap->InPVS( origin, level.combatPoints[i].origin ) )
+			if ( SV_inPVS( origin, level.combatPoints[i].origin ) )
 			{
 				continue;
 			}
@@ -2786,7 +2786,7 @@ int NPC_FindCombatPoint( const vec3_t position, const vec3_t avoidPosition, vec3
 		}
 
 		//Okay, now make sure it's not blocked
-		trap->Trace( &tr, level.combatPoints[i].origin, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, level.combatPoints[i].origin, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
+		SV_Trace( &tr, level.combatPoints[i].origin, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, level.combatPoints[i].origin, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
 		if ( tr.allsolid || tr.startsolid )
 		{
 			continue;
@@ -2977,7 +2977,7 @@ gentity_t *NPC_SearchForWeapons( void )
 		}
 		if ( CheckItemCanBePickedUpByNPC( found, NPCS.NPC ) )
 		{
-			if ( trap->InPVS( found->r.currentOrigin, NPCS.NPC->r.currentOrigin ) )
+			if ( SV_inPVS( found->r.currentOrigin, NPCS.NPC->r.currentOrigin ) )
 			{
 				dist = DistanceSquared( found->r.currentOrigin, NPCS.NPC->r.currentOrigin );
 				if ( dist < bestDist )

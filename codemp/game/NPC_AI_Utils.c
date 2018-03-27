@@ -58,7 +58,7 @@ int	AI_GetGroupSize( vec3_t origin, int radius, team_t playerTeam, gentity_t *av
 	}
 
 	//Get the number of entities in a given space
-	numEnts = trap->EntitiesInBox( mins, maxs, radiusEnts, MAX_RADIUS_ENTS );
+	numEnts = SV_AreaEntities( mins, maxs, radiusEnts, MAX_RADIUS_ENTS );
 
 	//Cull this list
 	for ( j = 0; j < numEnts; j++ )
@@ -320,7 +320,7 @@ qboolean AI_ValidateNoEnemyGroupMember( AIGroupInfo_t *group, gentity_t *member 
 	{
 		return qfalse;
 	}
-	if ( !trap->InPVS( member->r.currentOrigin, center ) )
+	if ( !SV_inPVS( member->r.currentOrigin, center ) )
 	{//not within PVS of the group enemy
 		return qfalse;
 	}
@@ -403,7 +403,7 @@ qboolean AI_ValidateGroupMember( AIGroupInfo_t *group, gentity_t *member )
 		{//he's fighting someone else, leave him out
 			return qfalse;
 		}
-		if ( !trap->InPVS( member->r.currentOrigin, group->enemy->r.currentOrigin ) )
+		if ( !SV_inPVS( member->r.currentOrigin, group->enemy->r.currentOrigin ) )
 		{//not within PVS of the group enemy
 			return qfalse;
 		}
@@ -520,7 +520,7 @@ void AI_GetGroup( gentity_t *self )
 		{
 			member = &g_entities[self->NPC->group->member[j];
 
-			if ( trap->InPVS( waiter->r.currentOrigin, member->r.currentOrigin ) )
+			if ( SV_inPVS( waiter->r.currentOrigin, member->r.currentOrigin ) )
 			{//this waiter is within PVS of a current member
 			}
 		}
@@ -797,7 +797,7 @@ qboolean AI_RefreshGroup( AIGroupInfo_t *group )
 		}
 		if ( j < group->numGroup )
 		{//found a dupe!
-			trap->Printf( S_COLOR_RED"ERROR: member %s(%d) a duplicate group member!!!\n", g_entities[group->member[i].number].targetname, group->member[i].number );
+			Com_Printff( S_COLOR_RED"ERROR: member %s(%d) a duplicate group member!!!\n", g_entities[group->member[i].number].targetname, group->member[i].number );
 			AI_DeleteGroupMember( group, i );
 			i--;
 			continue;
@@ -1092,7 +1092,7 @@ gentity_t *AI_DistributeAttack( gentity_t *attacker, gentity_t *enemy, team_t te
 	}
 
 	//Get the number of entities in a given space
-	numEnts = trap->EntitiesInBox( mins, maxs, radiusEnts, MAX_RADIUS_ENTS );
+	numEnts = SV_AreaEntities( mins, maxs, radiusEnts, MAX_RADIUS_ENTS );
 
 	//Cull this list
 	for ( j = 0; j < numEnts; j++ )

@@ -48,7 +48,7 @@ gets the named script from the cache or disk if not already loaded
 =============
 */
 
-int ICARUS_GetScript( const char *name, char **buf )
+CCALL int ICARUS_GetScript( const char *name, char **buf )
 {
 	bufferlist_t::iterator		ei;
 	//Make sure the caller is valid
@@ -84,7 +84,7 @@ ICARUS_RunScript
 Runs the script by the given name
 =============
 */
-int ICARUS_RunScript( sharedEntity_t *ent, const char *name )
+CCALL int ICARUS_RunScript( sharedEntity_t *ent, const char *name )
 {
 	char *buf;
 	int len;
@@ -158,7 +158,7 @@ Allocates a new ICARUS instance
 =================
 */
 
-void ICARUS_Init( void )
+CCALL void ICARUS_Init( void )
 {
 	//Link all interface functions
 	Interface_Init( &interface_export );
@@ -181,7 +181,7 @@ Frees up ICARUS resources from all entities
 =================
 */
 
-void ICARUS_Shutdown( void )
+CCALL void ICARUS_Shutdown( void )
 {
 	bufferlist_t::iterator	ei;
 	sharedEntity_t				*ent = SV_GentityNum(0);
@@ -235,7 +235,7 @@ FIXME: shouldn't ICARUS handle this internally?
 
 ==============
 */
-void ICARUS_FreeEnt( sharedEntity_t *ent )
+CCALL void ICARUS_FreeEnt( sharedEntity_t *ent )
 {
 	assert( iICARUS );
 
@@ -283,7 +283,7 @@ Determines whether or not an entity needs ICARUS information
 ==============
 */
 
-bool ICARUS_ValidEnt( sharedEntity_t *ent )
+CCALL bool ICARUS_ValidEnt( sharedEntity_t *ent )
 {
 	int i;
 
@@ -322,7 +322,7 @@ Associate the entity's id and name so that it can be referenced later
 ==============
 */
 
-void ICARUS_AssociateEnt( sharedEntity_t *ent )
+CCALL void ICARUS_AssociateEnt( sharedEntity_t *ent )
 {
 	char	temp[1024];
 
@@ -343,7 +343,7 @@ Loads and caches a script
 ==============
 */
 
-bool ICARUS_RegisterScript( const char *name, qboolean bCalledDuringInterrogate /* = false */ )
+CCALL qboolean ICARUS_RegisterScript( const char *name, qboolean bCalledDuringInterrogate /* = false */ )
 {
 	bufferlist_t::iterator	ei;
 	pscript_t	*pscript;
@@ -359,7 +359,7 @@ bool ICARUS_RegisterScript( const char *name, qboolean bCalledDuringInterrogate 
 	//	script recursion bug which could lock the program in an infinite loop...   Return TRUE for normal though!
 	//
 	if ( ei != ICARUS_BufferList.end() )
-		return (bCalledDuringInterrogate)?false:true;
+		return (bCalledDuringInterrogate)?qfalse:qtrue;
 
 	Com_sprintf( newname, sizeof(newname), "%s%s", name, IBI_EXT );
 
@@ -399,7 +399,7 @@ bool ICARUS_RegisterScript( const char *name, qboolean bCalledDuringInterrogate 
 		{
 			Com_Printf(S_COLOR_RED"Could not open file '%s'\n", newname );
 		}
-		return false;
+		return qfalse;
 	}
 
 	pscript = new pscript_t;
@@ -412,10 +412,10 @@ bool ICARUS_RegisterScript( const char *name, qboolean bCalledDuringInterrogate 
 
 	ICARUS_BufferList[ name ] = pscript;
 
-	return true;
+	return qtrue;
 }
 
-void ICARUS_SoundPrecache(const char *filename)
+CCALL void ICARUS_SoundPrecache(const char *filename)
 {
 	T_G_ICARUS_SOUNDINDEX *sharedMem = (T_G_ICARUS_SOUNDINDEX *)sv.mSharedMemory;
 
@@ -424,7 +424,7 @@ void ICARUS_SoundPrecache(const char *filename)
 	GVM_ICARUS_SoundIndex();
 }
 
-int ICARUS_GetIDForString( const char *string )
+CCALL int ICARUS_GetIDForString( const char *string )
 {
 	T_G_ICARUS_GETSETIDFORSTRING *sharedMem = (T_G_ICARUS_GETSETIDFORSTRING *)sv.mSharedMemory;
 
@@ -441,7 +441,7 @@ ICARUS_InterrogateScript
 
 // at this point the filename should have had the "scripts" (Q3_SCRIPT_DIR) added to it (but not the IBI extension)
 //
-void ICARUS_InterrogateScript( const char *filename )
+CCALL void ICARUS_InterrogateScript( const char *filename )
 {
 	CBlockStream	stream;
 	CBlockMember	*blockMember;
@@ -628,7 +628,7 @@ Precache all scripts being used by the entity
 ==============
 */
 
-void ICARUS_PrecacheEnt( sharedEntity_t *ent )
+CCALL void ICARUS_PrecacheEnt( sharedEntity_t *ent )
 {
 	char	newname[MAX_FILENAME_LENGTH];
 	int		i;
@@ -657,7 +657,7 @@ Allocates a sequencer and task manager only if an entity is a potential script u
 */
 
 void Q3_TaskIDClear( int *taskID );
-void ICARUS_InitEnt( sharedEntity_t *ent )
+CCALL void ICARUS_InitEnt( sharedEntity_t *ent )
 {
 	//Make sure this is a fresh ent
 	assert( iICARUS );
@@ -690,7 +690,7 @@ ICARUS_LinkEntity
 -------------------------
 */
 
-int ICARUS_LinkEntity( int entID, CSequencer *sequencer, CTaskManager *taskManager )
+CCALL int ICARUS_LinkEntity( int entID, CSequencer *sequencer, CTaskManager *taskManager )
 {
 	sharedEntity_t	*ent = SV_GentityNum(entID);
 

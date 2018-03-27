@@ -123,12 +123,12 @@ void G_RunObject( gentity_t *ent )
 	}
 	// trace a line from the previous position to the current position,
 	// ignoring interactions with the missile owner
-	trap->Trace( &tr, ent->r.currentOrigin, ent->r.mins, ent->r.maxs, origin, ent->parent ? ent->parent->s.number : ent->s.number, ent->clipmask, qfalse, 0, 0 );
+	SV_Trace( &tr, ent->r.currentOrigin, ent->r.mins, ent->r.maxs, origin, ent->parent ? ent->parent->s.number : ent->s.number, ent->clipmask, qfalse, 0, 0 );
 
 	if ( !tr.startsolid && !tr.allsolid && tr.fraction )
 	{
 		VectorCopy( tr.endpos, ent->r.currentOrigin );
-		trap->LinkEntity( (sharedEntity_t *)ent );
+		SV_LinkEntity( (sharedEntity_t *)ent );
 	}
 	else
 	//if ( tr.startsolid )

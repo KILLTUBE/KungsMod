@@ -688,7 +688,7 @@ void GibEntity( gentity_t *self, int killer ) {
 
 void BodyRid(gentity_t *ent)
 {
-	trap->UnlinkEntity( (sharedEntity_t *)ent );
+	SV_UnlinkEntity( (sharedEntity_t *)ent );
 	ent->physicsObject = qfalse;
 }
 
@@ -1803,7 +1803,7 @@ void G_AlertTeam( gentity_t *victim, gentity_t *attacker, float radius, float so
 	}
 
 	//Get the number of entities in a given space
-	numEnts = trap->EntitiesInBox( mins, maxs, radiusEnts, 128 );
+	numEnts = SV_AreaEntities( mins, maxs, radiusEnts, 128 );
 
 	//Cull this list
 	for ( i = 0; i < numEnts; i++ )
@@ -1853,7 +1853,7 @@ void G_AlertTeam( gentity_t *victim, gentity_t *attacker, float radius, float so
 		if ( check->enemy == NULL )
 		{//only do this if they're not already mad at someone
 			distSq = DistanceSquared( check->r.currentOrigin, victim->r.currentOrigin );
-			if ( distSq > 16384 /*128 squared*/ && !trap->InPVS( victim->r.currentOrigin, check->r.currentOrigin ) )
+			if ( distSq > 16384 /*128 squared*/ && !SV_inPVS( victim->r.currentOrigin, check->r.currentOrigin ) )
 			{//not even potentially visible/hearable
 				continue;
 			}
@@ -2238,7 +2238,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 	if (self->client->ps.weapon == WP_SABER && self->client->saberKnockedTime)
 	{
 		gentity_t *saberEnt = &g_entities[self->client->ps.saberEntityNum];
-		//trap->Print("DEBUG: Running saber cleanup for %s\n", self->client->pers.netname);
+		//Com_Printf("DEBUG: Running saber cleanup for %s\n", self->client->pers.netname);
 		self->client->saberKnockedTime = 0;
 		saberReactivate(saberEnt, self);
 		saberEnt->r.contents = CONTENTS_LIGHTSABER;
@@ -2880,7 +2880,7 @@ extern void RunEmplacedWeapon( gentity_t *ent, usercmd_t **ucmd );
 	// Free up any timers we may have on us.
 	TIMER_Clear2( self );
 
-	trap->LinkEntity ((sharedEntity_t *)self);
+	SV_LinkEntity ((sharedEntity_t *)self);
 
 	if ( self->NPC )
 	{
@@ -3560,7 +3560,7 @@ void G_Dismember( gentity_t *ent, gentity_t *enemy, vec3_t point, int limbType, 
 		limb->s.customRGBA[3] = ent->s.customRGBA[3];
 	}
 
-	trap->LinkEntity( (sharedEntity_t *)limb );
+	SV_LinkEntity( (sharedEntity_t *)limb );
 }
 
 void DismembermentTest(gentity_t *self)
@@ -5211,7 +5211,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker, vec3_
 	}
 
 	if ( g_debugDamage.integer ) {
-		trap->Print( "%i: client:%i health:%i damage:%i armor:%i\n", level.time, targ->s.number,
+		Com_Printf( "%i: client:%i health:%i damage:%i armor:%i\n", level.time, targ->s.number,
 			targ->health, take, asave );
 	}
 
@@ -5580,7 +5580,7 @@ qboolean CanDamage (gentity_t *targ, vec3_t origin) {
 	VectorScale (midpoint, 0.5, midpoint);
 
 	VectorCopy (midpoint, dest);
-	trap->Trace ( &tr, origin, vec3_origin, vec3_origin, dest, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
+	SV_Trace ( &tr, origin, vec3_origin, vec3_origin, dest, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
 	if (tr.fraction == 1.0 || tr.entityNum == targ->s.number)
 		return qtrue;
 
@@ -5589,28 +5589,28 @@ qboolean CanDamage (gentity_t *targ, vec3_t origin) {
 	VectorCopy (midpoint, dest);
 	dest[0] += 15.0;
 	dest[1] += 15.0;
-	trap->Trace ( &tr, origin, vec3_origin, vec3_origin, dest, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
+	SV_Trace ( &tr, origin, vec3_origin, vec3_origin, dest, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
 	if (tr.fraction == 1.0)
 		return qtrue;
 
 	VectorCopy (midpoint, dest);
 	dest[0] += 15.0;
 	dest[1] -= 15.0;
-	trap->Trace ( &tr, origin, vec3_origin, vec3_origin, dest, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
+	SV_Trace ( &tr, origin, vec3_origin, vec3_origin, dest, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
 	if (tr.fraction == 1.0)
 		return qtrue;
 
 	VectorCopy (midpoint, dest);
 	dest[0] -= 15.0;
 	dest[1] += 15.0;
-	trap->Trace ( &tr, origin, vec3_origin, vec3_origin, dest, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
+	SV_Trace ( &tr, origin, vec3_origin, vec3_origin, dest, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
 	if (tr.fraction == 1.0)
 		return qtrue;
 
 	VectorCopy (midpoint, dest);
 	dest[0] -= 15.0;
 	dest[1] -= 15.0;
-	trap->Trace ( &tr, origin, vec3_origin, vec3_origin, dest, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
+	SV_Trace ( &tr, origin, vec3_origin, vec3_origin, dest, ENTITYNUM_NONE, MASK_SOLID, qfalse, 0, 0);
 	if (tr.fraction == 1.0)
 		return qtrue;
 
@@ -5667,7 +5667,7 @@ qboolean G_RadiusDamage ( vec3_t origin, gentity_t *attacker, float damage, floa
 		maxs[i] = origin[i] + radius;
 	}
 
-	numListedEntities = trap->EntitiesInBox( mins, maxs, entityList, MAX_GENTITIES );
+	numListedEntities = SV_AreaEntities( mins, maxs, entityList, MAX_GENTITIES );
 
 	for ( e = 0 ; e < numListedEntities ; e++ ) {
 		ent = &g_entities[entityList[ e ]];

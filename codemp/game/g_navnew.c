@@ -83,12 +83,12 @@ int NAVNEW_ClearPathBetweenPoints(vec3_t start, vec3_t end, vec3_t mins, vec3_t 
 	trace_t	trace;
 
 	//Test if they're even conceivably close to one another
-	if ( !trap->InPVS( start, end ) )
+	if ( !SV_inPVS( start, end ) )
 	{
 		return ENTITYNUM_WORLD;
 	}
 
-	trap->Trace( &trace, start, mins, maxs, end, ignore, clipmask, qfalse, 0, 0 );
+	SV_Trace( &trace, start, mins, maxs, end, ignore, clipmask, qfalse, 0, 0 );
 
 	//if( ( ( trace.startsolid == false ) && ( trace.allsolid == false ) ) && ( trace.fraction < 1.0f ) )
 	//{//FIXME: check for drops?
@@ -131,7 +131,7 @@ void NAVNEW_PushBlocker( gentity_t *self, gentity_t *blocker, vec3_t right, qboo
 	moveamt = (self->r.maxs[1] + blocker->r.maxs[1]) * 1.2;//yes, magic number
 
 	VectorMA( blocker->r.currentOrigin, -moveamt, right, end );
-	trap->Trace( &tr, blocker->r.currentOrigin, mins, blocker->r.maxs, end, blocker->s.number, blocker->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0);
+	SV_Trace( &tr, blocker->r.currentOrigin, mins, blocker->r.maxs, end, blocker->s.number, blocker->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0);
 	if ( !tr.startsolid && !tr.allsolid )
 	{
 		leftSucc = tr.fraction;
@@ -149,7 +149,7 @@ void NAVNEW_PushBlocker( gentity_t *self, gentity_t *blocker, vec3_t right, qboo
 	else
 	{
 		VectorMA( blocker->r.currentOrigin, moveamt, right, end );
-		trap->Trace( &tr, blocker->r.currentOrigin, mins, blocker->r.maxs, end, blocker->s.number, blocker->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0 );
+		SV_Trace( &tr, blocker->r.currentOrigin, mins, blocker->r.maxs, end, blocker->s.number, blocker->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0 );
 		if ( !tr.startsolid && !tr.allsolid )
 		{
 			rightSucc = tr.fraction;
@@ -282,7 +282,7 @@ qboolean NAVNEW_SidestepBlocker( gentity_t *self, gentity_t *blocker, vec3_t blo
 		avoidAngles[YAW] = AngleNormalize360( yaw + arcAngle );
 		AngleVectors( avoidAngles, movedir, NULL, NULL );
 		VectorMA( self->r.currentOrigin, blocked_dist, movedir, block_pos );
-		trap->Trace( &tr, self->r.currentOrigin, mins, self->r.maxs, block_pos, self->s.number, self->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0 );
+		SV_Trace( &tr, self->r.currentOrigin, mins, self->r.maxs, block_pos, self->s.number, self->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0 );
 		return (tr.fraction==1.0&&!tr.allsolid&&!tr.startsolid);
 	}
 
@@ -292,7 +292,7 @@ qboolean NAVNEW_SidestepBlocker( gentity_t *self, gentity_t *blocker, vec3_t blo
 
 	VectorMA( self->r.currentOrigin, blocked_dist, avoidRight_dir, block_pos );
 
-	trap->Trace( &tr, self->r.currentOrigin, mins, self->r.maxs, block_pos, self->s.number, self->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0 );
+	SV_Trace( &tr, self->r.currentOrigin, mins, self->r.maxs, block_pos, self->s.number, self->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0 );
 
 	if ( !tr.allsolid && !tr.startsolid )
 	{
@@ -318,7 +318,7 @@ qboolean NAVNEW_SidestepBlocker( gentity_t *self, gentity_t *blocker, vec3_t blo
 
 	VectorMA( self->r.currentOrigin, blocked_dist, avoidLeft_dir, block_pos );
 
-	trap->Trace( &tr, self->r.currentOrigin, mins, self->r.maxs, block_pos, self->s.number, self->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0 );
+	SV_Trace( &tr, self->r.currentOrigin, mins, self->r.maxs, block_pos, self->s.number, self->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0 );
 
 	if ( !tr.allsolid && !tr.startsolid )
 	{
@@ -585,7 +585,7 @@ qboolean NAVNEW_TestNodeConnectionBlocked( int wp1, int wp2, gentity_t *ignoreEn
 		mins[2] = maxs[2];
 	}
 
-	trap->Trace( &trace, pos1, mins, maxs, pos2, ignoreEntNum, clipmask, qfalse, 0, 0 );
+	SV_Trace( &trace, pos1, mins, maxs, pos2, ignoreEntNum, clipmask, qfalse, 0, 0 );
 	if ( trace.fraction >= 1.0f || trace.entityNum == goalEntNum )
 	{//clear or hit goal
 		return qfalse;

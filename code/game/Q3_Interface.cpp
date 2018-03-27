@@ -507,7 +507,7 @@ void Q3_SetTaskID( gentity_t *ent, taskID_t taskType, int taskID )
 -------------------------
 */
 
-static void Q3_TaskIDSet( gentity_t *ent, taskID_t taskType, int taskID )
+CCALL void Q3_TaskIDSet( gentity_t *ent, taskID_t taskType, int taskID )
 {
 	if ( taskType < TID_CHAN_VOICE || taskType >= NUM_TIDS )
 	{

@@ -254,7 +254,7 @@ void WP_ResistForcePush( gentity_t *self, gentity_t *pusher, qboolean noPenalty 
 		char buf[128];
 		float tFVal = 0;
 
-		trap->Cvar_VariableStringBuffer("timescale", buf, sizeof(buf));
+		Cvar_VariableStringBuffer("timescale", buf, sizeof(buf));
 
 		tFVal = atof(buf);
 
@@ -425,7 +425,7 @@ void Boba_FireFlameThrower( gentity_t *self )
 	//G_PlayEffect( "boba/fthrw", start, dir );
 	VectorMA( start, 128, dir, end );
 
-	trap->Trace( &tr, start, traceMins, traceMaxs, end, self->s.number, MASK_SHOT, qfalse, 0, 0 );
+	SV_Trace( &tr, start, traceMins, traceMaxs, end, self->s.number, MASK_SHOT, qfalse, 0, 0 );
 
 	traceEnt = &g_entities[tr.entityNum];
 	if ( tr.entityNum < ENTITYNUM_WORLD && traceEnt->takedamage )
@@ -454,12 +454,12 @@ void Boba_StartFlameThrower( gentity_t *self )
 	{
 		mdxaBone_t	boltMatrix;
 		vec3_t		org, dir, ang;
-		trap->G2API_GetBoltMatrix( NPC->ghoul2, NPC->playerModel, NPC->handRBolt,
+		SV_G2API_GetBoltMatrix( NPC->ghoul2, NPC->playerModel, NPC->handRBolt,
 				&boltMatrix, NPC->r.currentAngles, NPC->r.currentOrigin, (cg.time?cg.time:level.time),
 				NULL, NPC->s.modelScale );
 
-		trap->G2API_GiveMeVectorFromMatrix( boltMatrix, ORIGIN, org );
-		trap->G2API_GiveMeVectorFromMatrix( boltMatrix, NEGATIVE_Y, dir );
+		SV_G2API_GiveMeVectorFromMatrix( boltMatrix, ORIGIN, org );
+		SV_G2API_GiveMeVectorFromMatrix( boltMatrix, NEGATIVE_Y, dir );
 		vectoangles( dir, ang );
 
 		VectorCopy( org, fire->s.origin );
@@ -642,7 +642,7 @@ void Boba_FireDecide( void )
 				}
 			}
 		}
-		else if ( trap->InPVS( NPCS.NPC->enemy->r.currentOrigin, NPCS.NPC->r.currentOrigin ) )
+		else if ( SV_inPVS( NPCS.NPC->enemy->r.currentOrigin, NPCS.NPC->r.currentOrigin ) )
 		{
 			NPCS.NPCInfo->enemyLastSeenTime = level.time;
 			//NPC_AimAdjust( -1 );//adjust aim worse longer we cannot see enemy
@@ -687,7 +687,7 @@ void Boba_FireDecide( void )
 							vec3_t	forward, end;
 							AngleVectors( NPCS.NPC->client->ps.viewangles, forward, NULL, NULL );
 							VectorMA( muzzle, 8192, forward, end );
-							trap->Trace( &tr, muzzle, vec3_origin, vec3_origin, end, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
+							SV_Trace( &tr, muzzle, vec3_origin, vec3_origin, end, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
 							VectorCopy( tr.endpos, impactPos );
 						}
 
@@ -1031,7 +1031,7 @@ static qboolean Jedi_ClearPathToSpot( vec3_t dest, int impactEntNum )
 	//Offset the step height
 	VectorSet( mins, NPCS.NPC->r.mins[0], NPCS.NPC->r.mins[1], NPCS.NPC->r.mins[2] + STEPSIZE );
 
-	trap->Trace( &trace, NPCS.NPC->r.currentOrigin, mins, NPCS.NPC->r.maxs, dest, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
+	SV_Trace( &trace, NPCS.NPC->r.currentOrigin, mins, NPCS.NPC->r.maxs, dest, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
 
 	//Do a simple check
 	if ( trace.allsolid || trace.startsolid )
@@ -1068,7 +1068,7 @@ static qboolean Jedi_ClearPathToSpot( vec3_t dest, int impactEntNum )
 		VectorMA( NPCS.NPC->r.currentOrigin, i, dir, start );
 		VectorCopy( start, end );
 		end[2] -= drop;
-		trap->Trace( &trace, start, mins, NPCS.NPC->r.maxs, end, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );//NPC->r.mins?
+		SV_Trace( &trace, start, mins, NPCS.NPC->r.maxs, end, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );//NPC->r.mins?
 		if ( trace.fraction < 1.0f || trace.allsolid || trace.startsolid )
 		{//good to go
 			continue;
@@ -1129,7 +1129,7 @@ qboolean NPC_MoveDirClear( int forwardmove, int rightmove, qboolean reset )
 	rtDist = ((float)rightmove)/2.0f;
 	VectorMA( NPCS.NPC->r.currentOrigin, fwdDist, forward, testPos );
 	VectorMA( testPos, rtDist, right, testPos );
-	trap->Trace( &trace, NPCS.NPC->r.currentOrigin, mins, NPCS.NPC->r.maxs, testPos, NPCS.NPC->s.number, NPCS.NPC->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0 );
+	SV_Trace( &trace, NPCS.NPC->r.currentOrigin, mins, NPCS.NPC->r.maxs, testPos, NPCS.NPC->s.number, NPCS.NPC->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0 );
 	if ( trace.allsolid || trace.startsolid )
 	{//hmm, trace started inside this brush... how do we decide if we should continue?
 		//FIXME: what do we do if we start INSIDE a CONTENTS_BOTCLIP? Try the trace again without that in the clipmask?
@@ -1167,7 +1167,7 @@ qboolean NPC_MoveDirClear( int forwardmove, int rightmove, qboolean reset )
 	VectorCopy( trace.endpos, testPos );
 	testPos[2] += bottom_max;
 
-	trap->Trace( &trace, trace.endpos, mins, NPCS.NPC->r.maxs, testPos, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
+	SV_Trace( &trace, trace.endpos, mins, NPCS.NPC->r.maxs, testPos, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
 
 	//FIXME:Should we try to see if we can still get to our goal using the waypoint network from this trace.endpos?
 	//OR: just put NPC clip brushes on these edges (still fall through when die)
@@ -2100,7 +2100,7 @@ evasionType_t Jedi_CheckFlipEvasions( gentity_t *self, float rightdot, float zdi
 		}
 		//trace in the dir that we want to go
 		VectorMA( self->r.currentOrigin, checkDist, right, traceto );
-		trap->Trace( &trace, self->r.currentOrigin, mins, maxs, traceto, self->s.number, CONTENTS_SOLID|CONTENTS_MONSTERCLIP|CONTENTS_BOTCLIP, qfalse, 0, 0 );
+		SV_Trace( &trace, self->r.currentOrigin, mins, maxs, traceto, self->s.number, CONTENTS_SOLID|CONTENTS_MONSTERCLIP|CONTENTS_BOTCLIP, qfalse, 0, 0 );
 		if ( trace.fraction >= 1.0f && allowCartWheels )
 		{//it's clear, let's do it
 			//FIXME: check for drops?
@@ -2151,7 +2151,7 @@ evasionType_t Jedi_CheckFlipEvasions( gentity_t *self, float rightdot, float zdi
 						checkDist *= -1.0f;
 						VectorMA( self->r.currentOrigin, checkDist, right, traceto );
 						//trace in the dir that we want to go
-						trap->Trace( &trace, self->r.currentOrigin, mins, maxs, traceto, self->s.number, CONTENTS_SOLID|CONTENTS_MONSTERCLIP|CONTENTS_BOTCLIP, qfalse, 0, 0 );
+						SV_Trace( &trace, self->r.currentOrigin, mins, maxs, traceto, self->s.number, CONTENTS_SOLID|CONTENTS_MONSTERCLIP|CONTENTS_BOTCLIP, qfalse, 0, 0 );
 						if ( trace.fraction >= 1.0f )
 						{//it's clear, let's do it
 							if ( allowWallFlips )
@@ -2208,7 +2208,7 @@ evasionType_t Jedi_CheckFlipEvasions( gentity_t *self, float rightdot, float zdi
 						checkDist *= -1.0f;
 						VectorMA( self->r.currentOrigin, checkDist, right, traceto );
 						//trace in the dir that we want to go
-						trap->Trace( &trace, self->r.currentOrigin, mins, maxs, traceto, self->s.number, CONTENTS_SOLID|CONTENTS_MONSTERCLIP|CONTENTS_BOTCLIP, qfalse, 0, 0 );
+						SV_Trace( &trace, self->r.currentOrigin, mins, maxs, traceto, self->s.number, CONTENTS_SOLID|CONTENTS_MONSTERCLIP|CONTENTS_BOTCLIP, qfalse, 0, 0 );
 						if ( (trace.fraction*checkDist) <= 32 )
 						{//wall on this side is close enough
 							bestCheckDist = checkDist;
@@ -3155,7 +3155,7 @@ static qboolean Jedi_SaberBlock( int saberNum, int bladeNum ) //saberNum = 0, bl
 
 	//get the actual point of impact
 	trace_t	tr;
-	trap->Trace( &tr, saberPoint, vec3_origin, vec3_origin, axisPoint, NPC->enemy->s.number, MASK_SHOT, G2_RETURNONHIT, 10 );
+	SV_Trace( &tr, saberPoint, vec3_origin, vec3_origin, axisPoint, NPC->enemy->s.number, MASK_SHOT, G2_RETURNONHIT, 10 );
 	if ( tr.allsolid || tr.startsolid )
 	{//estimate
 		VectorSubtract( saberPoint, axisPoint, dir );
@@ -3227,7 +3227,7 @@ static qboolean Jedi_SaberBlock( int saberNum, int bladeNum ) //saberNum = 0, bl
 	VectorMA( saberPoint, 200, dir, hitloc );
 
 	//get the actual point of impact
-	trap->Trace( &tr, saberPoint, saberMins, saberMaxs, hitloc, NPCS.NPC->enemy->s.number, CONTENTS_BODY, qfalse, 0, 0 );//, G2_RETURNONHIT, 10 );
+	SV_Trace( &tr, saberPoint, saberMins, saberMaxs, hitloc, NPCS.NPC->enemy->s.number, CONTENTS_BODY, qfalse, 0, 0 );//, G2_RETURNONHIT, 10 );
 	if ( tr.allsolid || tr.startsolid || tr.fraction >= 1.0f )
 	{//estimate
 		vec3_t	dir2Me;
@@ -3650,7 +3650,7 @@ gentity_t *Jedi_FindEnemyInCone( gentity_t *self, gentity_t *fallback, float min
 		mins[e] = self->r.currentOrigin[e] - 1024;
 		maxs[e] = self->r.currentOrigin[e] + 1024;
 	}
-	numListedEntities = trap->EntitiesInBox( mins, maxs, entityList, MAX_GENTITIES );
+	numListedEntities = SV_AreaEntities( mins, maxs, entityList, MAX_GENTITIES );
 
 	for ( e = 0 ; e < numListedEntities ; e++ )
 	{
@@ -3676,7 +3676,7 @@ gentity_t *Jedi_FindEnemyInCone( gentity_t *self, gentity_t *fallback, float min
 			continue;
 		}
 
-		if ( !trap->InPVS( check->r.currentOrigin, self->r.currentOrigin ) )
+		if ( !SV_inPVS( check->r.currentOrigin, self->r.currentOrigin ) )
 		{//can't potentially see them
 			continue;
 		}
@@ -3690,7 +3690,7 @@ gentity_t *Jedi_FindEnemyInCone( gentity_t *self, gentity_t *fallback, float min
 		}
 
 		//really should have a clear LOS to this thing...
-		trap->Trace( &tr, self->r.currentOrigin, vec3_origin, vec3_origin, check->r.currentOrigin, self->s.number, MASK_SHOT, qfalse, 0, 0 );
+		SV_Trace( &tr, self->r.currentOrigin, vec3_origin, vec3_origin, check->r.currentOrigin, self->s.number, MASK_SHOT, qfalse, 0, 0 );
 		if ( tr.fraction < 1.0f && tr.entityNum != check->s.number )
 		{//must have clear shot
 			continue;
@@ -4511,11 +4511,11 @@ static qboolean Jedi_Jump( vec3_t dest, int goalEntNum )
 					BG_EvaluateTrajectory( &tr, level.time + elapsedTime, testPos );
 					if ( testPos[2] < lastPos[2] )
 					{//going down, ignore botclip
-						trap->Trace( &trace, lastPos, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, testPos, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
+						SV_Trace( &trace, lastPos, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, testPos, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
 					}
 					else
 					{//going up, check for botclip
-						trap->Trace( &trace, lastPos, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, testPos, NPCS.NPC->s.number, NPCS.NPC->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0 );
+						SV_Trace( &trace, lastPos, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, testPos, NPCS.NPC->s.number, NPCS.NPC->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0 );
 					}
 
 					if ( trace.allsolid || trace.startsolid )
@@ -4561,7 +4561,7 @@ static qboolean Jedi_Jump( vec3_t dest, int goalEntNum )
 							//FIXME: do we care how far below ourselves or our dest we'll land?
 							VectorCopy( trace.endpos, bottom );
 							bottom[2] -= 128;
-							trap->Trace( &trace, trace.endpos, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, bottom, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
+							SV_Trace( &trace, trace.endpos, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, bottom, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
 							if ( trace.fraction >= 1.0f )
 							{//would fall too far
 								blocked = qtrue;
@@ -4760,7 +4760,7 @@ static qboolean Jedi_TryJump( gentity_t *goal )
 									}
 									VectorCopy( dest, bottom );
 									bottom[2] -= 128;
-									trap->Trace( &trace, dest, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, bottom, goal->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
+									SV_Trace( &trace, dest, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, bottom, goal->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
 									if ( trace.fraction < 1.0f )
 									{//hit floor, okay to land here
 										break;
@@ -5065,11 +5065,11 @@ static void Jedi_CheckJumps( void )
 		//FIXME: account for PM_AirMove if ucmd.forwardmove and/or ucmd.rightmove is non-zero...
 		if ( testPos[2] < lastPos[2] )
 		{//going down, don't check for BOTCLIP
-			trap->Trace( &trace, lastPos, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, testPos, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );//FIXME: include CONTENTS_BOTCLIP?
+			SV_Trace( &trace, lastPos, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, testPos, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );//FIXME: include CONTENTS_BOTCLIP?
 		}
 		else
 		{//going up, check for BOTCLIP
-			trap->Trace( &trace, lastPos, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, testPos, NPCS.NPC->s.number, NPCS.NPC->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0 );
+			SV_Trace( &trace, lastPos, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, testPos, NPCS.NPC->s.number, NPCS.NPC->clipmask|CONTENTS_BOTCLIP, qfalse, 0, 0 );
 		}
 		if ( trace.allsolid || trace.startsolid )
 		{//WTF?
@@ -5099,7 +5099,7 @@ static void Jedi_CheckJumps( void )
 		goto jump_unsafe;
 	}
 	bottom[2] -= 128;
-	trap->Trace( &trace, trace.endpos, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, bottom, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
+	SV_Trace( &trace, trace.endpos, NPCS.NPC->r.mins, NPCS.NPC->r.maxs, bottom, NPCS.NPC->s.number, NPCS.NPC->clipmask, qfalse, 0, 0 );
 	if ( trace.allsolid || trace.startsolid || trace.fraction < 1.0f )
 	{//hit ground!
 		if ( trace.entityNum < ENTITYNUM_WORLD )
@@ -5148,7 +5148,7 @@ static void Jedi_Combat( void )
 				vec3_t end;
 				VectorCopy( NPC->r.currentOrigin, end );
 				end[2] += 36;
-				trap->Trace( &trace, NPC->r.currentOrigin, NPC->r.mins, NPC->r.maxs, end, NPC->s.number, NPC->clipmask|CONTENTS_BOTCLIP );
+				SV_Trace( &trace, NPC->r.currentOrigin, NPC->r.mins, NPC->r.maxs, end, NPC->s.number, NPC->clipmask|CONTENTS_BOTCLIP );
 				if ( !trace.allsolid && !trace.startsolid && trace.fraction >= 1.0 )
 				{
 					vec3_t angles, forward;
@@ -5156,7 +5156,7 @@ static void Jedi_Combat( void )
 					angles[0] = 0;
 					AngleVectors( angles, forward, NULL, NULL );
 					VectorMA( end, 64, forward, end );
-					trap->Trace( &trace, NPC->r.currentOrigin, NPC->r.mins, NPC->r.maxs, end, NPC->s.number, NPC->clipmask|CONTENTS_BOTCLIP );
+					SV_Trace( &trace, NPC->r.currentOrigin, NPC->r.mins, NPC->r.maxs, end, NPC->s.number, NPC->clipmask|CONTENTS_BOTCLIP );
 					if ( !trace.allsolid && !trace.startsolid )
 					{
 						if ( trace.fraction >= 1.0 || trace.plane.normal[2] > 0 )
@@ -5210,7 +5210,7 @@ static void Jedi_Combat( void )
 				{//try to jump to the blockedDest
 					gentity_t *tempGoal = G_Spawn();//ugh, this is NOT good...?
 					G_SetOrigin( tempGoal, NPCS.NPCInfo->blockedDest );
-					trap->LinkEntity( (sharedEntity_t *)tempGoal );
+					SV_LinkEntity( (sharedEntity_t *)tempGoal );
 					if ( Jedi_TryJump( tempGoal ) )
 					{//going to jump to the dest
 						G_FreeEntity( tempGoal );
@@ -5455,7 +5455,7 @@ qboolean Jedi_CheckAmbushPlayer( void )
 //		if ( NPC->client->ps.powerups[PW_CLOAKED] || g_crosshairEntNum != NPC->s.number )
 		if (NPCS.NPC->client->ps.powerups[PW_CLOAKED] || !NPC_SomeoneLookingAtMe(NPCS.NPC)) //rwwFIXMEFIXME: Need to pay attention to who is under crosshair for each player or something.
 		{//if I'm not cloaked and the player's crosshair is on me, I will wake up, otherwise do this stuff down here...
-			if ( !trap->InPVS( player->r.currentOrigin, NPCS.NPC->r.currentOrigin ) )
+			if ( !SV_inPVS( player->r.currentOrigin, NPCS.NPC->r.currentOrigin ) )
 			{//must be in same room
 				continue;
 			}
@@ -5569,7 +5569,7 @@ static void Jedi_Patrol( void )
 			float	enemy_dist;
 			if ( enemy && enemy->client && NPC_ValidEnemy( enemy ) && enemy->client->playerTeam == NPCS.NPC->client->enemyTeam )
 			{
-				if ( trap->InPVS( NPCS.NPC->r.currentOrigin, enemy->r.currentOrigin ) )
+				if ( SV_inPVS( NPCS.NPC->r.currentOrigin, enemy->r.currentOrigin ) )
 				{//we could potentially see him
 					enemy_dist = DistanceSquared( NPCS.NPC->r.currentOrigin, enemy->r.currentOrigin );
 					if ( enemy->s.eType == ET_PLAYER || enemy_dist < best_enemy_dist )
@@ -5789,7 +5789,7 @@ void NPC_BSJedi_FollowLeader( void )
 			{
 				gentity_t *tempGoal = G_Spawn();//ugh, this is NOT good...?
 				G_SetOrigin( tempGoal, NPCS.NPCInfo->blockedDest );
-				trap->LinkEntity( (sharedEntity_t *)tempGoal );
+				SV_LinkEntity( (sharedEntity_t *)tempGoal );
 				TIMER_Set( NPCS.NPC, "jumpChaseDebounce", -1 );
 				if ( Jedi_TryJump( tempGoal ) )
 				{//going to jump to the dest

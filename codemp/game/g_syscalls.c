@@ -265,14 +265,14 @@ void trap_ICARUS_TaskIDSet(sharedEntity_t *ent, int taskType, int taskID) {
 void trap_ICARUS_TaskIDComplete(sharedEntity_t *ent, int taskType) {
 	Q_syscall(G_ICARUS_TASKIDCOMPLETE, ent, taskType);
 }
-void trap_ICARUS_SetVar(int taskID, int entID, const char *type_name, const char *data) {
+void trap_Q3_SetVar(int taskID, int entID, const char *type_name, const char *data) {
 	Q_syscall(G_ICARUS_SETVAR, taskID, entID, type_name, data);
 }
-int trap_ICARUS_VariableDeclared(const char *type_name) {
-	return Q_syscall(G_ICARUS_VARIABLEDECLARED, type_name);
+int trap_Q3_VariableDeclared(const char *type_name) {
+	return Q_syscall(G_Q3_VariableDeclared, type_name);
 }
-int trap_ICARUS_GetFloatVariable( const char *name, float *value ) {
-	return Q_syscall(G_ICARUS_GETFLOATVARIABLE, name, value);
+int trap_Q3_GetFloatVariable( const char *name, float *value ) {
+	return Q_syscall(G_Q3_GetFloatVariable, name, value);
 }
 int trap_ICARUS_GetStringVariable( const char *name, const char *value ) {
 	return Q_syscall(G_ICARUS_GETSTRINGVARIABLE, name, value);

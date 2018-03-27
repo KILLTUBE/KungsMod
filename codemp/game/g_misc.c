@@ -113,19 +113,19 @@ static void misc_lightstyle_set ( gentity_t *ent)
 		if (mLightOffStyle)	//i have a light style i'd like to use when off
 		{
 			char lightstyle[32];
-			trap->GetConfigstring(CS_LIGHT_STYLES + (mLightOffStyle*3)+0, lightstyle, 32);
-			trap->SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+0, lightstyle);
+			SV_GetConfigstring(CS_LIGHT_STYLES + (mLightOffStyle*3)+0, lightstyle, 32);
+			SV_SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+0, lightstyle);
 
-			trap->GetConfigstring(CS_LIGHT_STYLES + (mLightOffStyle*3)+1, lightstyle, 32);
-			trap->SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+1, lightstyle);
+			SV_GetConfigstring(CS_LIGHT_STYLES + (mLightOffStyle*3)+1, lightstyle, 32);
+			SV_SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+1, lightstyle);
 
-			trap->GetConfigstring(CS_LIGHT_STYLES + (mLightOffStyle*3)+2, lightstyle, 32);
-			trap->SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+2, lightstyle);
+			SV_GetConfigstring(CS_LIGHT_STYLES + (mLightOffStyle*3)+2, lightstyle, 32);
+			SV_SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+2, lightstyle);
 		}else
 		{
-			trap->SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+0, "a");
-			trap->SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+1, "a");
-			trap->SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+2, "a");
+			SV_SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+0, "a");
+			SV_SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+1, "a");
+			SV_SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+2, "a");
 		}
 	}
 	else
@@ -133,20 +133,20 @@ static void misc_lightstyle_set ( gentity_t *ent)
 		if (mLightSwitchStyle)	//i have a light style i'd like to use when on
 		{
 			char lightstyle[32];
-			trap->GetConfigstring(CS_LIGHT_STYLES + (mLightSwitchStyle*3)+0, lightstyle, 32);
-			trap->SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+0, lightstyle);
+			SV_GetConfigstring(CS_LIGHT_STYLES + (mLightSwitchStyle*3)+0, lightstyle, 32);
+			SV_SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+0, lightstyle);
 
-			trap->GetConfigstring(CS_LIGHT_STYLES + (mLightSwitchStyle*3)+1, lightstyle, 32);
-			trap->SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+1, lightstyle);
+			SV_GetConfigstring(CS_LIGHT_STYLES + (mLightSwitchStyle*3)+1, lightstyle, 32);
+			SV_SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+1, lightstyle);
 
-			trap->GetConfigstring(CS_LIGHT_STYLES + (mLightSwitchStyle*3)+2, lightstyle, 32);
-			trap->SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+2, lightstyle);
+			SV_GetConfigstring(CS_LIGHT_STYLES + (mLightSwitchStyle*3)+2, lightstyle, 32);
+			SV_SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+2, lightstyle);
 		}
 		else
 		{
-			trap->SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+0, "z");
-			trap->SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+1, "z");
-			trap->SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+2, "z");
+			SV_SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+0, "z");
+			SV_SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+1, "z");
+			SV_SetConfigstring(CS_LIGHT_STYLES + (mLightStyle*3)+2, "z");
 		}
 	}
 }
@@ -170,7 +170,7 @@ void SP_light( gentity_t *self ) {
 	G_SpawnInt( "switch_style", "0", &self->bounceCount );
 	G_SpawnInt( "style_off", "0", &self->fly_sound_debounce_time );
 	G_SetOrigin( self, self->s.origin );
-	trap->LinkEntity( (sharedEntity_t *)self );
+	SV_LinkEntity( (sharedEntity_t *)self );
 
 	self->use = misc_dlight_use;
 
@@ -216,7 +216,7 @@ void TeleportPlayer( gentity_t *player, vec3_t origin, vec3_t angles ) {
 	}
 
 	// unlink to make sure it can't possibly interfere with G_KillBox
-	trap->UnlinkEntity ((sharedEntity_t *)player);
+	SV_UnlinkEntity ((sharedEntity_t *)player);
 
 	VectorCopy ( origin, player->client->ps.origin );
 	player->client->ps.origin[2] += 1;
@@ -251,7 +251,7 @@ void TeleportPlayer( gentity_t *player, vec3_t origin, vec3_t angles ) {
 	VectorCopy( player->client->ps.origin, player->r.currentOrigin );
 
 	if ( player->client->sess.sessionTeam != TEAM_SPECTATOR ) {
-		trap->LinkEntity ((sharedEntity_t *)player);
+		SV_LinkEntity ((sharedEntity_t *)player);
 	}
 }
 
@@ -277,7 +277,7 @@ void SP_misc_model( gentity_t *ent ) {
 	ent->s.modelindex = G_ModelIndex( ent->model );
 	VectorSet (ent->r.mins, -16, -16, -16);
 	VectorSet (ent->r.maxs, 16, 16, 16);
-	trap->LinkEntity ((sharedEntity_t *)ent);
+	SV_LinkEntity ((sharedEntity_t *)ent);
 
 	G_SetOrigin( ent, ent->s.origin );
 	VectorCopy( ent->s.angles, ent->s.apos.trBase );
@@ -378,7 +378,7 @@ void SP_misc_model_breakable( gentity_t *ent )
 
 	G_SetOrigin( ent, ent->s.origin );
 	G_SetAngles( ent, ent->s.angles );
-	trap->LinkEntity ((sharedEntity_t *)ent);
+	SV_LinkEntity ((sharedEntity_t *)ent);
 
 	if ( ent->spawnflags & 128 )
 	{//Can be used by the player's BUTTON_USE
@@ -414,17 +414,17 @@ void misc_model_breakable_gravity_init( gentity_t *ent, qboolean dropToFloor )
 		top[2] += 1;
 		VectorCopy( ent->r.currentOrigin, bottom );
 		bottom[2] = MIN_WORLD_COORD;
-		trap->Trace( &tr, top, ent->r.mins, ent->r.maxs, bottom, ent->s.number, MASK_NPCSOLID, qfalse, 0, 0 );
+		SV_Trace( &tr, top, ent->r.mins, ent->r.maxs, bottom, ent->s.number, MASK_NPCSOLID, qfalse, 0, 0 );
 		if ( !tr.allsolid && !tr.startsolid && tr.fraction < 1.0 )
 		{
 			G_SetOrigin( ent, tr.endpos );
-			trap->LinkEntity( (sharedEntity_t *)ent );
+			SV_LinkEntity( (sharedEntity_t *)ent );
 		}
 	}
 	else
 	{
 		G_SetOrigin( ent, ent->r.currentOrigin );
-		trap->LinkEntity( (sharedEntity_t *)ent );
+		SV_LinkEntity( (sharedEntity_t *)ent );
 	}
 	//set up for object thinking
 	if ( VectorCompare( ent->s.pos.trDelta, vec3_origin ) )
@@ -454,7 +454,7 @@ void misc_model_breakable_gravity_init( gentity_t *ent, qboolean dropToFloor )
 void misc_model_breakable_init( gentity_t *ent )
 {
 	if (!ent->model) {
-		trap->Error( ERR_DROP, "no model set on %s at (%.1f %.1f %.1f)\n", ent->classname, ent->s.origin[0],ent->s.origin[1],ent->s.origin[2] );
+		Com_Error( ERR_DROP, "no model set on %s at (%.1f %.1f %.1f)\n", ent->classname, ent->s.origin[0],ent->s.origin[1],ent->s.origin[2] );
 	}
 
 	//Main model
@@ -481,12 +481,12 @@ void SP_misc_G2model( gentity_t *ent ) {
 
 #if 0
 	char name1[200] = "models/players/kyle/modelmp.glm";
-	trap->G2API_InitGhoul2Model(&ent->s, name1, G_ModelIndex( name1 ), 0, 0, 0, 0);
-	trap->G2API_SetBoneAnim(ent->s.ghoul2, 0, "model_root", 0, 12, BONE_ANIM_OVERRIDE_LOOP, 1.0f, level.time, -1, -1);
+	SV_G2API_InitGhoul2Model(&ent->s, name1, G_ModelIndex( name1 ), 0, 0, 0, 0);
+	SV_G2API_SetBoneAnim(ent->s.ghoul2, 0, "model_root", 0, 12, BONE_ANIM_OVERRIDE_LOOP, 1.0f, level.time, -1, -1);
 	ent->s.radius = 150;
 //	VectorSet (ent->r.mins, -16, -16, -16);
 //	VectorSet (ent->r.maxs, 16, 16, 16);
-	trap->LinkEntity ((sharedEntity_t *)ent);
+	SV_LinkEntity ((sharedEntity_t *)ent);
 
 	G_SetOrigin( ent, ent->s.origin );
 	VectorCopy( ent->s.angles, ent->s.apos.trBase );
@@ -504,7 +504,7 @@ void locateCamera( gentity_t *ent ) {
 
 	owner = G_PickTarget( ent->target );
 	if ( !owner ) {
-		trap->Print( "Couldn't find target for misc_partal_surface\n" );
+		Com_Printf( "Couldn't find target for misc_partal_surface\n" );
 		G_FreeEntity( ent );
 		return;
 	}
@@ -550,7 +550,7 @@ This must be within 64 world units of the surface!
 void SP_misc_portal_surface(gentity_t *ent) {
 	VectorClear( ent->r.mins );
 	VectorClear( ent->r.maxs );
-	trap->LinkEntity ((sharedEntity_t *)ent);
+	SV_LinkEntity ((sharedEntity_t *)ent);
 
 	ent->r.svFlags = SVF_PORTAL;
 	ent->s.eType = ET_PORTAL;
@@ -572,7 +572,7 @@ void SP_misc_portal_camera(gentity_t *ent) {
 
 	VectorClear( ent->r.mins );
 	VectorClear( ent->r.maxs );
-	trap->LinkEntity ((sharedEntity_t *)ent);
+	SV_LinkEntity ((sharedEntity_t *)ent);
 
 	G_SpawnFloat( "roll", "0", &roll );
 
@@ -609,7 +609,7 @@ void SP_misc_bsp(gentity_t *ent)
 	ent->s.time = tempint;
 
 	Com_sprintf(temp, MAX_QPATH, "#%s", out);
-	trap->SetBrushModel( (sharedEntity_t *)ent, temp );  // SV_SetBrushModel -- sets mins and maxs
+	SV_SetBrushModel( (sharedEntity_t *)ent, temp );  // SV_SetBrushModel -- sets mins and maxs
 	G_BSPIndex(temp);
 
 	level.mNumBSPInstances++;
@@ -633,7 +633,7 @@ void SP_misc_bsp(gentity_t *ent)
 
 	ent->s.eType = ET_MOVER;
 
-	trap->LinkEntity ((sharedEntity_t *)ent);
+	SV_LinkEntity ((sharedEntity_t *)ent);
 
 	SV_SetActiveSubBSP(ent->s.modelindex);
 	G_SpawnEntitiesFromString(qtrue);
@@ -695,11 +695,11 @@ void G_PortalifyEntities(gentity_t *ent)
 	{
 		scan = &g_entities[i];
 
-		if (scan && scan->inuse && scan->s.number != ent->s.number && trap->InPVS(ent->s.origin, scan->r.currentOrigin))
+		if (scan && scan->inuse && scan->s.number != ent->s.number && SV_inPVS(ent->s.origin, scan->r.currentOrigin))
 		{
 			trace_t tr;
 
-			trap->Trace(&tr, ent->s.origin, vec3_origin, vec3_origin, scan->r.currentOrigin, ent->s.number, CONTENTS_SOLID, qfalse, 0, 0);
+			SV_Trace(&tr, ent->s.origin, vec3_origin, vec3_origin, scan->r.currentOrigin, ent->s.number, CONTENTS_SOLID, qfalse, 0, 0);
 
 			if (tr.fraction == 1.0 || (tr.entityNum == scan->s.number && tr.entityNum != ENTITYNUM_NONE && tr.entityNum != ENTITYNUM_WORLD))
 			{
@@ -759,7 +759,7 @@ void SP_misc_skyportal (gentity_t *ent)
 	isfog += G_SpawnInt ("fognear", "0", &fogn);
 	isfog += G_SpawnInt ("fogfar", "300", &fogf);
 
-	trap->SetConfigstring( CS_SKYBOXORG, va("%.2f %.2f %.2f %.1f %i %.2f %.2f %.2f %i %i", ent->s.origin[0], ent->s.origin[1], ent->s.origin[2], fov_x, (int)isfog, fogv[0], fogv[1], fogv[2], fogn, fogf ) );
+	SV_SetConfigstring( CS_SKYBOXORG, va("%.2f %.2f %.2f %.1f %i %.2f %.2f %.2f %i %i", ent->s.origin[0], ent->s.origin[1], ent->s.origin[2], fov_x, (int)isfog, fogv[0], fogv[1], fogv[2], fogn, fogf ) );
 
 	ent->think = G_PortalifyEntities;
 	ent->nextthink = level.time + 1050; //give it some time first so that all other entities are spawned.
@@ -894,7 +894,7 @@ void HolocronTouch(gentity_t *self, gentity_t *other, trace_t *trace)
 
 	if (hasall)
 	{ //once we pick up this holocron we'll have all of them, so give us super special best prize!
-		//trap->Print("You deserve a pat on the back.\n");
+		//Com_Printf("You deserve a pat on the back.\n");
 	}
 
 	if (!(other->client->ps.fd.forcePowersActive & (1 << other->client->ps.fd.forcePowerSelected)))
@@ -952,7 +952,7 @@ void HolocronTouch(gentity_t *self, gentity_t *other, trace_t *trace)
 		G_AddEvent(other, EV_NOAMMO, forceReselect);
 	}
 
-	//trap->Print("DON'T TOUCH ME\n");
+	//Com_Printf("DON'T TOUCH ME\n");
 }
 
 void HolocronThink(gentity_t *ent)
@@ -1013,7 +1013,7 @@ void HolocronThink(gentity_t *ent)
 
 			ent->pos2[0] = 0;
 
-			trap->LinkEntity((sharedEntity_t *)ent);
+			SV_LinkEntity((sharedEntity_t *)ent);
 
 			goto justthink;
 		}
@@ -1029,7 +1029,7 @@ void HolocronThink(gentity_t *ent)
 
 		ent->pos2[0] = 0;
 
-		trap->LinkEntity((sharedEntity_t *)ent);
+		SV_LinkEntity((sharedEntity_t *)ent);
 	}
 
 justthink:
@@ -1072,10 +1072,10 @@ void SP_misc_holocron(gentity_t *ent)
 	ent->r.maxs[2] -= 0.1f;
 
 	VectorSet( dest, ent->s.origin[0], ent->s.origin[1], ent->s.origin[2] - 4096 );
-	trap->Trace( &tr, ent->s.origin, ent->r.mins, ent->r.maxs, dest, ent->s.number, MASK_SOLID, qfalse, 0, 0 );
+	SV_Trace( &tr, ent->s.origin, ent->r.mins, ent->r.maxs, dest, ent->s.number, MASK_SOLID, qfalse, 0, 0 );
 	if ( tr.startsolid )
 	{
-		trap->Print ("SP_misc_holocron: misc_holocron startsolid at %s\n", vtos(ent->s.origin));
+		Com_Printf ("SP_misc_holocron: misc_holocron startsolid at %s\n", vtos(ent->s.origin));
 		G_FreeEntity( ent );
 		return;
 	}
@@ -1141,7 +1141,7 @@ void SP_misc_holocron(gentity_t *ent)
 
 	ent->touch = HolocronTouch;
 
-	trap->LinkEntity((sharedEntity_t *)ent);
+	SV_LinkEntity((sharedEntity_t *)ent);
 
 	ent->think = HolocronThink;
 	ent->nextthink = level.time + 50;
@@ -1213,7 +1213,7 @@ void InitShooter( gentity_t *ent, int weapon ) {
 		ent->think = InitShooter_Finish;
 		ent->nextthink = level.time + 500;
 	}
-	trap->LinkEntity( (sharedEntity_t *)ent );
+	SV_LinkEntity( (sharedEntity_t *)ent );
 }
 
 /*QUAKED shooter_blaster (1 0 0) (-16 -16 -16) (16 16 16)
@@ -1575,10 +1575,10 @@ void SP_misc_ammo_floor_unit(gentity_t *ent)
 	ent->r.maxs[2] -= 0.1f;
 
 	VectorSet( dest, ent->s.origin[0], ent->s.origin[1], ent->s.origin[2] - 4096 );
-	trap->Trace( &tr, ent->s.origin, ent->r.mins, ent->r.maxs, dest, ent->s.number, MASK_SOLID, qfalse, 0, 0 );
+	SV_Trace( &tr, ent->s.origin, ent->r.mins, ent->r.maxs, dest, ent->s.number, MASK_SOLID, qfalse, 0, 0 );
 	if ( tr.startsolid )
 	{
-		trap->Print ("SP_misc_ammo_floor_unit: misc_ammo_floor_unit startsolid at %s\n", vtos(ent->s.origin));
+		Com_Printf ("SP_misc_ammo_floor_unit: misc_ammo_floor_unit startsolid at %s\n", vtos(ent->s.origin));
 		G_FreeEntity( ent );
 		return;
 	}
@@ -1628,7 +1628,7 @@ void SP_misc_ammo_floor_unit(gentity_t *ent)
 	ent->use = ammo_generic_power_converter_use;
 
 	VectorCopy( ent->s.angles, ent->s.apos.trBase );
-	trap->LinkEntity ((sharedEntity_t *)ent);
+	SV_LinkEntity ((sharedEntity_t *)ent);
 
 	G_SoundIndex("sound/interface/ammocon_run");
 	ent->genericValue7 = G_SoundIndex("sound/interface/ammocon_done");
@@ -1670,10 +1670,10 @@ void SP_misc_shield_floor_unit( gentity_t *ent )
 	ent->r.maxs[2] -= 0.1f;
 
 	VectorSet( dest, ent->s.origin[0], ent->s.origin[1], ent->s.origin[2] - 4096 );
-	trap->Trace( &tr, ent->s.origin, ent->r.mins, ent->r.maxs, dest, ent->s.number, MASK_SOLID, qfalse, 0, 0 );
+	SV_Trace( &tr, ent->s.origin, ent->r.mins, ent->r.maxs, dest, ent->s.number, MASK_SOLID, qfalse, 0, 0 );
 	if ( tr.startsolid )
 	{
-		trap->Print ("SP_misc_shield_floor_unit: misc_shield_floor_unit startsolid at %s\n", vtos(ent->s.origin));
+		Com_Printf ("SP_misc_shield_floor_unit: misc_shield_floor_unit startsolid at %s\n", vtos(ent->s.origin));
 		G_FreeEntity( ent );
 		return;
 	}
@@ -1723,7 +1723,7 @@ void SP_misc_shield_floor_unit( gentity_t *ent )
 	ent->use = shield_power_converter_use;
 
 	VectorCopy( ent->s.angles, ent->s.apos.trBase );
-	trap->LinkEntity ((sharedEntity_t *)ent);
+	SV_LinkEntity ((sharedEntity_t *)ent);
 
 	G_SoundIndex("sound/interface/shieldcon_run");
 	ent->genericValue7 = G_SoundIndex("sound/interface/shieldcon_done");
@@ -1778,7 +1778,7 @@ void SP_misc_model_shield_power_converter( gentity_t *ent )
 
 	G_SetOrigin( ent, ent->s.origin );
 	VectorCopy( ent->s.angles, ent->s.apos.trBase );
-	trap->LinkEntity ((sharedEntity_t *)ent);
+	SV_LinkEntity ((sharedEntity_t *)ent);
 
 	//G_SoundIndex("sound/movers/objects/useshieldstation.wav");
 
@@ -1946,7 +1946,7 @@ void SP_misc_model_ammo_power_converter( gentity_t *ent )
 
 	G_SetOrigin( ent, ent->s.origin );
 	VectorCopy( ent->s.angles, ent->s.apos.trBase );
-	trap->LinkEntity ((sharedEntity_t *)ent);
+	SV_LinkEntity ((sharedEntity_t *)ent);
 
 	//G_SoundIndex("sound/movers/objects/useshieldstation.wav");
 }
@@ -2060,7 +2060,7 @@ void SP_misc_model_health_power_converter( gentity_t *ent )
 
 	G_SetOrigin( ent, ent->s.origin );
 	VectorCopy( ent->s.angles, ent->s.apos.trBase );
-	trap->LinkEntity ((sharedEntity_t *)ent);
+	SV_LinkEntity ((sharedEntity_t *)ent);
 
 	//G_SoundIndex("sound/movers/objects/useshieldstation.wav");
 	G_SoundIndex("sound/player/pickuphealth.wav");
@@ -2114,7 +2114,7 @@ void DmgBoxUpdateSelf(gentity_t *self)
 
 	//G_TestLine(self->r.currentOrigin, owner->client->ps.origin, 0x0000ff, 100);
 
-	trap->LinkEntity((sharedEntity_t *)self);
+	SV_LinkEntity((sharedEntity_t *)self);
 
 	self->nextthink = level.time;
 	return;
@@ -2545,7 +2545,7 @@ void SP_fx_runner( gentity_t *ent )
 	VectorSet( ent->r.maxs, FX_ENT_RADIUS, FX_ENT_RADIUS, FX_ENT_RADIUS );
 	VectorScale( ent->r.maxs, -1, ent->r.mins );
 
-	trap->LinkEntity( (sharedEntity_t *)ent );
+	SV_LinkEntity( (sharedEntity_t *)ent );
 }
 
 /*QUAKED fx_wind (0 .5 .8) (-16 -16 -16) (16 16 16) NORMAL CONSTANT GUSTING SWIRLING x  FOG LIGHT_FOG
@@ -2820,7 +2820,7 @@ void maglock_link( gentity_t *self )
 	VectorMA( self->s.origin, 128, forward, end );
 	VectorMA( self->s.origin, -4, forward, start );
 
-	trap->Trace( &trace, start, vec3_origin, vec3_origin, end, self->s.number, MASK_SHOT, qfalse, 0, 0 );
+	SV_Trace( &trace, start, vec3_origin, vec3_origin, end, self->s.number, MASK_SHOT, qfalse, 0, 0 );
 
 	if ( trace.allsolid || trace.startsolid )
 	{
@@ -2877,7 +2877,7 @@ void maglock_link( gentity_t *self )
 	self->die = maglock_die;
 	//self->fxID = G_EffectIndex( "maglock/explosion" );
 
-	trap->LinkEntity( (sharedEntity_t *)self );
+	SV_LinkEntity( (sharedEntity_t *)self );
 }
 
 void faller_touch(gentity_t *self, gentity_t *other, trace_t *trace)
@@ -2977,7 +2977,7 @@ void misc_faller_create( gentity_t *ent, gentity_t *other, gentity_t *activator 
 	faller->epVelocity[0] = flrand(-256.0f, 256.0f);
 	faller->epVelocity[1] = flrand(-256.0f, 256.0f);
 
-	trap->LinkEntity((sharedEntity_t *)faller);
+	SV_LinkEntity((sharedEntity_t *)faller);
 }
 
 void misc_faller_think(gentity_t *ent)
@@ -3026,7 +3026,7 @@ void SP_misc_faller(gentity_t *ent)
 #define MAX_TAGS 256
 #define MAX_TAG_OWNERS 16
 
-//Maybe I should use my trap->TrueMalloc/trap->TrueFree stuff with this.
+//Maybe I should use my SV_TrueMalloc/SV_TrueFree stuff with this.
 //But I am not yet confident that it can be used without exploding at some point.
 
 typedef struct tagOwner_s
@@ -3595,7 +3595,7 @@ void SP_misc_weapon_shooter( gentity_t *self )
 	char *s;
 
 	//alloc a client just for the weapon code to use
-	self->client = G_ClientForShooter();//(gclient_s *)trap->Malloc(sizeof(gclient_s), TAG_G_ALLOC, qtrue);
+	self->client = G_ClientForShooter();//(gclient_s *)SV_Malloc(sizeof(gclient_s), TAG_G_ALLOC, qtrue);
 
 	G_SpawnString("weapon", "", &s);
 

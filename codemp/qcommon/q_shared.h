@@ -109,6 +109,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include <errno.h>
 #include <stddef.h>
 
+#include "rd-rend2/include_ccall.h"
+
 //Ignore __attribute__ on non-gcc platforms
 #if !defined(__GNUC__) && !defined(__attribute__)
 	#define __attribute__(x)
@@ -687,11 +689,11 @@ qboolean Info_NextPair( const char **s, char *key, char *value );
 
 // this is only here so the functions in q_shared.c and bg_*.c can link
 #if defined( _GAME ) || defined( _CGAME ) || defined( UI_BUILD )
-	NORETURN_PTR void (*Com_Error)( int level, const char *error, ... );
-	void (*Com_Printf)( const char *msg, ... );
+	CCALL void Com_Error( int level, const char *error, ... );
+	CCALL void Com_Printf( const char *msg, ... );
 #else
-	void NORETURN QDECL Com_Error( int level, const char *error, ... );
-	void QDECL Com_Printf( const char *msg, ... );
+	CCALL void Com_Error( int level, const char *error, ... );
+	CCALL void Com_Printf( const char *msg, ... );
 #endif
 
 

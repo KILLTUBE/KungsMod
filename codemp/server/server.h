@@ -298,18 +298,14 @@ struct leakyBucket_s {
 
 extern leakyBucket_t outboundLeakyBucket;
 
-qboolean SVC_RateLimit( leakyBucket_t *bucket, int burst, int period );
-qboolean SVC_RateLimitAddress( netadr_t from, int burst, int period );
-void SV_FinalMessage (char *message);
-void QDECL SV_SendServerCommand( client_t *cl, const char *fmt, ...);
-
-
-void SV_AddOperatorCommands (void);
-void SV_RemoveOperatorCommands (void);
-
-
-void SV_MasterHeartbeat (void);
-void SV_MasterShutdown (void);
+CCALL qboolean SVC_RateLimit( leakyBucket_t *bucket, int burst, int period );
+CCALL qboolean SVC_RateLimitAddress( netadr_t from, int burst, int period );
+CCALL void SV_FinalMessage (char *message);
+CCALL void SV_SendServerCommand( client_t *cl, const char *fmt, ...);
+CCALL void SV_AddOperatorCommands (void);
+CCALL void SV_RemoveOperatorCommands (void);
+CCALL void SV_MasterHeartbeat (void);
+CCALL void SV_MasterShutdown (void);
 
 
 
@@ -317,76 +313,69 @@ void SV_MasterShutdown (void);
 //
 // sv_init.c
 //
-void SV_SetConfigstring( int index, const char *val );
-void SV_GetConfigstring( int index, char *buffer, int bufferSize );
-void SV_UpdateConfigstrings( client_t *client );
-
-void SV_SetUserinfo( int index, const char *val );
-void SV_GetUserinfo( int index, char *buffer, int bufferSize );
-
-void SV_ChangeMaxClients( void );
-void SV_SpawnServer( char *server, qboolean killBots, ForceReload_e eForceReload );
+CCALL void SV_SetConfigstring( int index, const char *val );
+CCALL void SV_GetConfigstring( int index, char *buffer, int bufferSize );
+CCALL void SV_UpdateConfigstrings( client_t *client );
+CCALL void SV_SetUserinfo( int index, const char *val );
+CCALL void SV_GetUserinfo( int index, char *buffer, int bufferSize );
+CCALL void SV_ChangeMaxClients( void );
+CCALL void SV_SpawnServer( char *server, qboolean killBots, ForceReload_e eForceReload );
 
 
 
 //
 // sv_challenge.cpp
 //
-void SV_ChallengeInit();
-void SV_ChallengeShutdown();
-int SV_CreateChallenge(netadr_t from);
-qboolean SV_VerifyChallenge(int receivedChallenge, netadr_t from);
+CCALL void SV_ChallengeInit();
+CCALL void SV_ChallengeShutdown();
+CCALL int SV_CreateChallenge(netadr_t from);
+CCALL qboolean SV_VerifyChallenge(int receivedChallenge, netadr_t from);
 
 //
 // sv_client.c
 //
-void SV_GetChallenge( netadr_t from );
-
-void SV_DirectConnect( netadr_t from );
-
-void SV_SendClientMapChange( client_t *client );
-void SV_ExecuteClientMessage( client_t *cl, msg_t *msg );
-void SV_UserinfoChanged( client_t *cl );
-
-void SV_ClientEnterWorld( client_t *client, usercmd_t *cmd );
-void SV_DropClient( client_t *drop, const char *reason );
-
-void SV_ExecuteClientCommand( client_t *cl, const char *s, qboolean clientOK );
-void SV_ClientThink (client_t *cl, usercmd_t *cmd);
-
-void SV_WriteDownloadToClient( client_t *cl , msg_t *msg );
+CCALL void SV_GetChallenge( netadr_t from );
+CCALL void SV_DirectConnect( netadr_t from );
+CCALL void SV_SendClientMapChange( client_t *client );
+CCALL void SV_ExecuteClientMessage( client_t *cl, msg_t *msg );
+CCALL void SV_UserinfoChanged( client_t *cl );
+CCALL void SV_ClientEnterWorld( client_t *client, usercmd_t *cmd );
+CCALL void SV_DropClient( client_t *drop, const char *reason );
+CCALL void SV_ExecuteClientCommand( client_t *cl, const char *s, qboolean clientOK );
+CCALL void SV_ClientThink (client_t *cl, usercmd_t *cmd);
+CCALL void SV_WriteDownloadToClient( client_t *cl , msg_t *msg );
 
 //
 // sv_ccmds.c
 //
-void SV_Heartbeat_f( void );
-void SV_RecordDemo( client_t *cl, char *demoName );
-void SV_StopRecordDemo( client_t *cl );
-void SV_AutoRecordDemo( client_t *cl );
-void SV_StopAutoRecordDemos();
-void SV_BeginAutoRecordDemos();
+CCALL void SV_Heartbeat_f( void );
+CCALL void SV_RecordDemo( client_t *cl, char *demoName );
+CCALL void SV_StopRecordDemo( client_t *cl );
+CCALL void SV_AutoRecordDemo( client_t *cl );
+CCALL void SV_StopAutoRecordDemos();
+CCALL void SV_BeginAutoRecordDemos();
 
 //
 // sv_snapshot.c
 //
-void SV_AddServerCommand( client_t *client, const char *cmd );
-void SV_UpdateServerCommandsToClient( client_t *client, msg_t *msg );
-void SV_WriteFrameToClient (client_t *client, msg_t *msg);
-void SV_SendMessageToClient( msg_t *msg, client_t *client );
-void SV_SendClientMessages( void );
-void SV_SendClientSnapshot( client_t *client );
+CCALL void SV_AddServerCommand( client_t *client, const char *cmd );
+CCALL void SV_UpdateServerCommandsToClient( client_t *client, msg_t *msg );
+CCALL void SV_WriteFrameToClient (client_t *client, msg_t *msg);
+CCALL void SV_SendMessageToClient( msg_t *msg, client_t *client );
+CCALL void SV_SendClientMessages( void );
+CCALL void SV_SendClientSnapshot( client_t *client );
 
 //
 // sv_game.c
 //
-int	SV_NumForGentity( sharedEntity_t *ent );
-sharedEntity_t *SV_GentityNum( int num );
-playerState_t *SV_GameClientNum( int num );
-svEntity_t	*SV_SvEntityForGentity( sharedEntity_t *gEnt );
-sharedEntity_t *SV_GEntityForSvEntity( svEntity_t *svEnt );
-void		SV_InitGameProgs ( void );
-void		SV_ShutdownGameProgs ( void );
-qboolean	SV_inPVS (const vec3_t p1, const vec3_t p2);
+CCALL int	SV_NumForGentity( sharedEntity_t *ent );
+CCALL sharedEntity_t *SV_GentityNum( int num );
+CCALL playerState_t *SV_GameClientNum( int num );
+CCALL svEntity_t	*SV_SvEntityForGentity( sharedEntity_t *gEnt );
+CCALL sharedEntity_t *SV_GEntityForSvEntity( svEntity_t *svEnt );
+CCALL void		SV_InitGameProgs ( void );
+CCALL void		SV_ShutdownGameProgsVoid ( void );
+CCALL qboolean	SV_inPVS (const vec3_t p1, const vec3_t p2);
 
 
 
@@ -395,14 +384,14 @@ qboolean	SV_inPVS (const vec3_t p1, const vec3_t p2);
 // high level object sorting to reduce interaction tests
 //
 
-void SV_ClearWorld (void);
+CCALL void SV_ClearWorld (void);
 // called after the world model has been loaded, before linking any entities
 
-void SV_UnlinkEntity( sharedEntity_t *ent );
+CCALL void SV_UnlinkEntity( sharedEntity_t *ent );
 // call before removing an entity, and before trying to move one,
 // so it doesn't clip against itself
 
-void SV_LinkEntity( sharedEntity_t *ent );
+CCALL void SV_LinkEntity( sharedEntity_t *ent );
 // Needs to be called any time an entity changes origin, mins, maxs,
 // or solid.  Automatically unlinks if needed.
 // sets ent->v.absmin and ent->v.absmax
@@ -410,13 +399,13 @@ void SV_LinkEntity( sharedEntity_t *ent );
 // is not solid
 
 
-clipHandle_t SV_ClipHandleForEntity( const sharedEntity_t *ent );
+CCALL clipHandle_t SV_ClipHandleForEntity( const sharedEntity_t *ent );
 
 
-void SV_SectorList_f( void );
+CCALL void SV_SectorList_f( void );
 
 
-int SV_AreaEntities( const vec3_t mins, const vec3_t maxs, int *entityList, int maxcount );
+CCALL int SV_AreaEntities( const vec3_t mins, const vec3_t maxs, int *entityList, int maxcount );
 // fills in a table of entity numbers with entities that have bounding boxes
 // that intersect the given area.  It is possible for a non-axial bmodel
 // to be returned that doesn't actually intersect the area on an exact
@@ -425,11 +414,11 @@ int SV_AreaEntities( const vec3_t mins, const vec3_t maxs, int *entityList, int 
 // The world entity is never returned in this list.
 
 
-int SV_PointContents( const vec3_t p, int passEntityNum );
+CCALL int SV_PointContents( const vec3_t p, int passEntityNum );
 // returns the CONTENTS_* value from the world and all entities at the given point.
 
 
-void SV_Trace( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int passEntityNum, int contentmask, int capsule, int traceFlags, int useLod );
+CCALL void SV_Trace( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int passEntityNum, int contentmask, int capsule, int traceFlags, int useLod );
 // mins and maxs are relative
 
 // if the entire move stays in a solid volume, trace.allsolid will be set,
@@ -441,12 +430,16 @@ void SV_Trace( trace_t *results, const vec3_t start, const vec3_t mins, const ve
 // passEntityNum is explicitly excluded from clipping checks (normally ENTITYNUM_NONE)
 
 
-void SV_ClipToEntity( trace_t *trace, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int entityNum, int contentmask, int capsule );
+CCALL void SV_ClipToEntity( trace_t *trace, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int entityNum, int contentmask, int capsule );
 // clip to a specific entity
 
 //
 // sv_net_chan.c
 //
-void SV_Netchan_Transmit( client_t *client, msg_t *msg);	//int length, const byte *data );
-void SV_Netchan_TransmitNextFragment( netchan_t *chan );
-qboolean SV_Netchan_Process( client_t *client, msg_t *msg );
+CCALL void SV_Netchan_Transmit( client_t *client, msg_t *msg);	//int length, const byte *data );
+CCALL void SV_Netchan_TransmitNextFragment( netchan_t *chan );
+CCALL qboolean SV_Netchan_Process( client_t *client, msg_t *msg );
+
+
+CCALL void Com_Printf( const char *fmt, ... );
+CCALL void Com_Error( int code, const char *fmt, ... );

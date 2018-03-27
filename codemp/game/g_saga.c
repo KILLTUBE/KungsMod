@@ -110,7 +110,7 @@ void G_SiegeRegisterWeaponsAndHoldables(int team)
 //or whatever.
 void SiegeSetCompleteData(int team)
 {
-	trap->SetConfigstring(CS_SIEGE_WINTEAM, va("%i", team));
+	SV_SetConfigstring(CS_SIEGE_WINTEAM, va("%i", team));
 }
 
 void InitSiegeMode(void)
@@ -142,25 +142,25 @@ void InitSiegeMode(void)
 	//get pers data in case it existed from last level
 	if (g_siegeTeamSwitch.integer)
 	{
-		trap->SiegePersGet(&g_siegePersistant);
+		SV_SiegePersGet(&g_siegePersistant);
 		if (g_siegePersistant.beatingTime)
 		{
-			trap->SetConfigstring(CS_SIEGE_TIMEOVERRIDE, va("%i", g_siegePersistant.lastTime));
+			SV_SetConfigstring(CS_SIEGE_TIMEOVERRIDE, va("%i", g_siegePersistant.lastTime));
 		}
 		else
 		{
-			trap->SetConfigstring(CS_SIEGE_TIMEOVERRIDE, "0");
+			SV_SetConfigstring(CS_SIEGE_TIMEOVERRIDE, "0");
 		}
 	}
 	else
 	{ //hmm, ok, nothing.
-		trap->SetConfigstring(CS_SIEGE_TIMEOVERRIDE, "0");
+		SV_SetConfigstring(CS_SIEGE_TIMEOVERRIDE, "0");
 	}
 
 	imperial_goals_completed = 0;
 	rebel_goals_completed = 0;
 
-	trap->Cvar_Register( &mapname, "mapname", "", CVAR_SERVERINFO | CVAR_ROM );
+	Cvar_Register( &mapname, "mapname", "", CVAR_SERVERINFO | CVAR_ROM );
 
 	Com_sprintf(levelname, sizeof(levelname), "maps/%s.siege\0", mapname.string);
 
@@ -213,14 +213,14 @@ void InitSiegeMode(void)
 	}
 	else
 	{
-		trap->Error( ERR_DROP, "Siege teams not defined" );
+		Com_Error( ERR_DROP, "Siege teams not defined" );
 	}
 
 	if (BG_SiegeGetValueGroup(siege_info, team2, gParseObjectives))
 	{
 		if (BG_SiegeGetPairedValue(gParseObjectives, "TeamIcon", teamIcon))
 		{
-			trap->Cvar_Set( "team2_icon", teamIcon);
+			Cvar_Set( "team2_icon", teamIcon);
 		}
 
 		if (BG_SiegeGetPairedValue(gParseObjectives, "RequiredObjectives", goalreq))
@@ -251,7 +251,7 @@ void InitSiegeMode(void)
 
 		if (BG_SiegeGetPairedValue(gParseObjectives, "TeamIcon", teamIcon))
 		{
-			trap->Cvar_Set( "team1_icon", teamIcon);
+			Cvar_Set( "team1_icon", teamIcon);
 		}
 
 		if (BG_SiegeGetPairedValue(gParseObjectives, "RequiredObjectives", goalreq))
@@ -289,7 +289,7 @@ void InitSiegeMode(void)
 
 	if (!bgNumSiegeClasses)
 	{ //We didn't find any?!
-		trap->Error( ERR_DROP, "Couldn't find any player classes for Siege" );
+		Com_Error( ERR_DROP, "Couldn't find any player classes for Siege" );
 	}
 
 	/*
@@ -323,7 +323,7 @@ void InitSiegeMode(void)
 
 	if (!bgNumSiegeTeams)
 	{ //React same as with classes.
-		trap->Error( ERR_DROP, "Couldn't find any player teams for Siege" );
+		Com_Error( ERR_DROP, "Couldn't find any player teams for Siege" );
 	}
 
 	//Get and set the team themes for each team. This will control which classes can be
@@ -379,7 +379,7 @@ void InitSiegeMode(void)
 	}
 
 	//And finally set the actual config string
-	trap->SetConfigstring(CS_SIEGE_OBJECTIVES, gObjectiveCfgStr);
+	SV_SetConfigstring(CS_SIEGE_OBJECTIVES, gObjectiveCfgStr);
 
 	//precache saber data for classes that use sabers on both teams
 	BG_PrecacheSabersForSiegeTeam(SIEGETEAM_TEAM1);
@@ -445,7 +445,7 @@ void G_SiegeSetObjectiveComplete(int team, int objective, qboolean failIt)
 	}
 
 	//Now re-update the configstring.
-	trap->SetConfigstring(CS_SIEGE_OBJECTIVES, gObjectiveCfgStr);
+	SV_SetConfigstring(CS_SIEGE_OBJECTIVES, gObjectiveCfgStr);
 }
 
 //Returns qtrue if objective complete currently, otherwise qfalse
@@ -530,7 +530,7 @@ void UseSiegeTarget(gentity_t *other, gentity_t *en, char *target)
 	{
 		if ( t == ent )
 		{
-			trap->Print ("WARNING: Entity used itself.\n");
+			Com_Printf ("WARNING: Entity used itself.\n");
 		}
 		else
 		{
@@ -541,7 +541,7 @@ void UseSiegeTarget(gentity_t *other, gentity_t *en, char *target)
 		}
 		if ( !ent->inuse )
 		{
-			trap->Print("entity was removed while using targets\n");
+			Com_Printf("entity was removed while using targets\n");
 			return;
 		}
 	}
@@ -582,7 +582,7 @@ void BroadcastObjectiveCompletion(int team, int objective, int final, int client
 	}
 
 	SiegeBroadcast_OBJECTIVECOMPLETE(team, client, objective);
-	//trap->Print("Broadcast goal completion team %i objective %i final %i\n", team, objective, final);
+	//Com_Printf("Broadcast goal completion team %i objective %i final %i\n", team, objective, final);
 }
 
 void AddSiegeWinningTeamPoints(int team, int winner)
@@ -613,7 +613,7 @@ void AddSiegeWinningTeamPoints(int team, int winner)
 void SiegeClearSwitchData(void)
 {
 	memset(&g_siegePersistant, 0, sizeof(g_siegePersistant));
-	trap->SiegePersSet(&g_siegePersistant);
+	SV_SiegePersSet(&g_siegePersistant);
 }
 
 void SiegeDoTeamAssign(void)
@@ -653,7 +653,7 @@ void SiegeDoTeamAssign(void)
 
 void SiegeTeamSwitch(int winTeam, int winTime)
 {
-	trap->SiegePersGet(&g_siegePersistant);
+	SV_SiegePersGet(&g_siegePersistant);
 	if (g_siegePersistant.beatingTime)
 	{ //was already in "switched" mode, change back
 		//announce the winning team.
@@ -669,7 +669,7 @@ void SiegeTeamSwitch(int winTeam, int winTime)
         g_siegePersistant.lastTeam = winTeam;
 		g_siegePersistant.lastTime = winTime;
 
-		trap->SiegePersSet(&g_siegePersistant);
+		SV_SiegePersSet(&g_siegePersistant);
 	}
 }
 
@@ -679,7 +679,7 @@ void SiegeRoundComplete(int winningteam, int winningclient)
 	char teamstr[1024];
 	int originalWinningClient = winningclient;
 
-	//trap->Print("Team %i won\n", winningteam);
+	//Com_Printf("Team %i won\n", winningteam);
 
 	if (winningclient != ENTITYNUM_NONE && g_entities[winningclient].client &&
 		g_entities[winningclient].client->sess.sessionTeam != winningteam)
@@ -704,7 +704,7 @@ void SiegeRoundComplete(int winningteam, int winningclient)
 		Com_sprintf(teamstr, sizeof(teamstr), team2);
 	}
 
-	trap->SetConfigstring(CS_SIEGE_STATE, va("3|%i", level.time)); //ended
+	SV_SetConfigstring(CS_SIEGE_STATE, va("3|%i", level.time)); //ended
 	gSiegeRoundBegun = qfalse;
 	gSiegeRoundEnded = qtrue;
 	gSiegeRoundWinningTeam = winningteam;
@@ -810,7 +810,7 @@ void SetTeamQuick(gentity_t *ent, int team, qboolean doBegin)
 {
 	char userinfo[MAX_INFO_STRING];
 
-	trap->GetUserinfo( ent->s.number, userinfo, sizeof( userinfo ) );
+	SV_GetUserinfo( ent->s.number, userinfo, sizeof( userinfo ) );
 
 	if (level.gametype == GT_SIEGE)
 	{
@@ -841,7 +841,7 @@ void SetTeamQuick(gentity_t *ent, int team, qboolean doBegin)
 		}
 	}
 
-	trap->SetUserinfo( ent->s.number, userinfo );
+	SV_SetUserinfo( ent->s.number, userinfo );
 
 	ent->client->sess.spectatorClient = 0;
 
@@ -917,7 +917,7 @@ void SiegeBeginRound(int entNum)
 		}
 	}
 
-	trap->SetConfigstring(CS_SIEGE_STATE, va("0|%i", level.time)); //we're ready to g0g0g0
+	SV_SetConfigstring(CS_SIEGE_STATE, va("0|%i", level.time)); //we're ready to g0g0g0
 }
 
 void SiegeCheckTimers(void)
@@ -1012,7 +1012,7 @@ void SiegeCheckTimers(void)
 		if (!numTeam1 || !numTeam2)
 		{ //don't have people on both teams yet.
 			gSiegeBeginTime = level.time + SIEGE_ROUND_BEGIN_TIME;
-			trap->SetConfigstring(CS_SIEGE_STATE, "1"); //"waiting for players on both teams"
+			SV_SetConfigstring(CS_SIEGE_STATE, "1"); //"waiting for players on both teams"
 		}
 		else if (gSiegeBeginTime < level.time)
 		{ //mark the round as having begun
@@ -1025,7 +1025,7 @@ void SiegeCheckTimers(void)
 		}
 		else
 		{
-			trap->SetConfigstring(CS_SIEGE_STATE, va("2|%i", gSiegeBeginTime - SIEGE_ROUND_BEGIN_TIME)); //getting ready to begin
+			SV_SetConfigstring(CS_SIEGE_STATE, va("2|%i", gSiegeBeginTime - SIEGE_ROUND_BEGIN_TIME)); //getting ready to begin
 		}
 	}
 }
@@ -1171,7 +1171,7 @@ void SP_info_siege_objective (gentity_t *ent)
 	if (!ent->objective || !ent->side)
 	{ //j00 fux0red something up
 		G_FreeEntity(ent);
-		trap->Print("ERROR: info_siege_objective without an objective or side value\n");
+		Com_Printf("ERROR: info_siege_objective without an objective or side value\n");
 		return;
 	}
 
@@ -1195,7 +1195,7 @@ void SP_info_siege_objective (gentity_t *ent)
 
 	ent->s.brokenLimbs = ent->side;
 	ent->s.frame = ent->objective;
-	trap->LinkEntity((sharedEntity_t *)ent);
+	SV_LinkEntity((sharedEntity_t *)ent);
 }
 
 
@@ -1250,7 +1250,7 @@ void SP_info_siege_radaricon (gentity_t *ent)
 
 	ent->s.genericenemyindex = G_IconIndex(s);
 
-	trap->LinkEntity((sharedEntity_t *)ent);
+	SV_LinkEntity((sharedEntity_t *)ent);
 }
 
 void decompTriggerUse(gentity_t *ent, gentity_t *other, gentity_t *activator)
@@ -1331,7 +1331,7 @@ void SP_info_siege_decomplete (gentity_t *ent)
 	if (!ent->objective || !ent->side)
 	{ //j00 fux0red something up
 		G_FreeEntity(ent);
-		trap->Print("ERROR: info_siege_objective_decomplete without an objective or side value\n");
+		Com_Printf("ERROR: info_siege_objective_decomplete without an objective or side value\n");
 		return;
 	}
 }
@@ -1425,7 +1425,7 @@ void SiegeItemThink(gentity_t *ent)
 		if (carrier->inuse && carrier->client)
 		{
 			VectorCopy(carrier->client->ps.origin, ent->r.currentOrigin);
-			trap->LinkEntity((sharedEntity_t *)ent);
+			SV_LinkEntity((sharedEntity_t *)ent);
 		}
 	}
 	else if (ent->genericValue1)
@@ -1460,7 +1460,7 @@ void SiegeItemThink(gentity_t *ent)
 				G_UseTargets2(ent, ent, ent->target6);
 			}
 
-			if ( trap->PointContents(carrier->client->ps.origin, carrier->s.number) & CONTENTS_NODROP )
+			if ( SV_PointContents(carrier->client->ps.origin, carrier->s.number) & CONTENTS_NODROP )
 			{ //In nodrop land, go back to the original spot.
 				SiegeItemRespawnOnOriginalSpot(ent, carrier);
 			}
@@ -1469,14 +1469,14 @@ void SiegeItemThink(gentity_t *ent)
 				//perform a startsolid check to make sure the seige item doesn't get stuck
 				//in a wall or something
 				trace_t tr;
-				trap->Trace(&tr, carrier->client->ps.origin, ent->r.mins, ent->r.maxs, carrier->client->ps.origin, ent->s.number, ent->clipmask, qfalse, 0, 0);
+				SV_Trace(&tr, carrier->client->ps.origin, ent->r.mins, ent->r.maxs, carrier->client->ps.origin, ent->s.number, ent->clipmask, qfalse, 0, 0);
 
 				if(tr.startsolid)
 				{//bad spawning area, try again with the trace up a bit.
 					vec3_t TracePoint;
 					VectorCopy(carrier->client->ps.origin, TracePoint);
 					TracePoint[2] += 30;
-					trap->Trace(&tr, TracePoint, ent->r.mins, ent->r.maxs, TracePoint, ent->s.number, ent->clipmask, qfalse, 0, 0);
+					SV_Trace(&tr, TracePoint, ent->r.mins, ent->r.maxs, TracePoint, ent->s.number, ent->clipmask, qfalse, 0, 0);
 
 					if(tr.startsolid)
 					{//hmm, well that didn't work. try one last time with the item back
@@ -1485,7 +1485,7 @@ void SiegeItemThink(gentity_t *ent)
 						vec3_t fwd;
 						AngleVectors(carrier->client->ps.viewangles,fwd, NULL, NULL);
 						VectorMA(TracePoint, -30, fwd, TracePoint);
-						trap->Trace(&tr, TracePoint, ent->r.mins, ent->r.maxs, TracePoint, ent->s.number, ent->clipmask, qfalse, 0, 0);
+						SV_Trace(&tr, TracePoint, ent->r.mins, ent->r.maxs, TracePoint, ent->s.number, ent->clipmask, qfalse, 0, 0);
 
 						if(tr.startsolid)
 						{
@@ -1676,12 +1676,12 @@ void SiegeItemUse(gentity_t *ent, gentity_t *other, gentity_t *activator)
 			trace_t tr;
 			vec3_t TracePoint;
 			VectorCopy(targ->r.currentOrigin, TracePoint);
-			trap->Trace(&tr, targ->r.currentOrigin, ent->r.mins, ent->r.maxs, targ->r.currentOrigin, targ->s.number, ent->clipmask, qfalse, 0, 0);
+			SV_Trace(&tr, targ->r.currentOrigin, ent->r.mins, ent->r.maxs, targ->r.currentOrigin, targ->s.number, ent->clipmask, qfalse, 0, 0);
 
 			if(tr.startsolid)
 			{//bad spawning area, try again with the trace up a bit.
 				TracePoint[2] += 30;
-				trap->Trace(&tr, TracePoint, ent->r.mins, ent->r.maxs, TracePoint, ent->s.number, ent->clipmask, qfalse, 0, 0);
+				SV_Trace(&tr, TracePoint, ent->r.mins, ent->r.maxs, TracePoint, ent->s.number, ent->clipmask, qfalse, 0, 0);
 
 				if(tr.startsolid)
 				{//hmm, well that didn't work. try one last time with the item back
@@ -1697,7 +1697,7 @@ void SiegeItemUse(gentity_t *ent, gentity_t *other, gentity_t *activator)
 						AngleVectors(targ->r.currentAngles,fwd, NULL, NULL);
 					}
 					VectorMA(TracePoint, -30, fwd, TracePoint);
-					trap->Trace(&tr, TracePoint, ent->r.mins, ent->r.maxs, TracePoint, ent->s.number, ent->clipmask, qfalse, 0, 0);
+					SV_Trace(&tr, TracePoint, ent->r.mins, ent->r.maxs, TracePoint, ent->s.number, ent->clipmask, qfalse, 0, 0);
 
 					if(tr.startsolid)
 					{//crap, that's all we got.  just spawn at the defualt location.
@@ -1707,7 +1707,7 @@ void SiegeItemUse(gentity_t *ent, gentity_t *other, gentity_t *activator)
 			}
 			G_SetOrigin(ent, TracePoint);
 			//G_SetOrigin(ent, targ->r.currentOrigin);
-			trap->LinkEntity((sharedEntity_t *)ent);
+			SV_LinkEntity((sharedEntity_t *)ent);
 		}
 	}
 }
@@ -1777,7 +1777,7 @@ void SP_misc_siege_item (gentity_t *ent)
 
 	if (!ent->model || !ent->model[0])
 	{
-		trap->Error( ERR_DROP, "You must specify a model for misc_siege_item types." );
+		Com_Error( ERR_DROP, "You must specify a model for misc_siege_item types." );
 	}
 
 	G_SpawnInt("canpickup", "1", &canpickup);
@@ -1921,7 +1921,7 @@ void SP_misc_siege_item (gentity_t *ent)
 
 	ent->neverFree = qtrue; //never free us unless we specifically request it.
 
-	trap->LinkEntity((sharedEntity_t *)ent);
+	SV_LinkEntity((sharedEntity_t *)ent);
 }
 
 //sends extra data about other client's in this client's PVS
@@ -1946,7 +1946,7 @@ void G_SiegeClientExData(gentity_t *msgTarg)
 
 		if (ent->inuse && ent->client && msgTarg->s.number != ent->s.number &&
 			ent->s.eType == ET_PLAYER && msgTarg->client->sess.sessionTeam == ent->client->sess.sessionTeam &&
-			trap->InPVS(msgTarg->client->ps.origin, ent->client->ps.origin))
+			SV_inPVS(msgTarg->client->ps.origin, ent->client->ps.origin))
 		{ //another client in the same pvs, send his jive
             if (count)
 			{ //append a separating space if we are not the first in the list
@@ -1972,5 +1972,5 @@ void G_SiegeClientExData(gentity_t *msgTarg)
 	}
 
 	//send the string to him
-	trap->SendServerCommand(msgTarg-g_entities, str);
+	SV_GameSendServerCommand(msgTarg-g_entities, str);
 }

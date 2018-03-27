@@ -23,7 +23,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "game/g_public.h"
 #include "Q3_Registers.h"
 
-extern	void	Q3_DebugPrint( int level, const char *format, ... );
+CCALL void	Q3_DebugPrint( int level, const char *format, ... );
 
 varString_m		varStrings;
 varFloat_m		varFloats;
@@ -166,7 +166,7 @@ Q3_GetStringVariable
 -------------------------
 */
 
-int Q3_GetStringVariable( const char *name, const char **value )
+CCALL int Q3_GetStringVariable( const char *name, const char **value )
 {
 	//Check the strings
 	varString_m::iterator	vsi = varStrings.find( name );
@@ -186,7 +186,7 @@ Q3_GetVectorVariable
 -------------------------
 */
 
-int Q3_GetVectorVariable( const char *name, vec3_t value )
+CCALL int Q3_GetVectorVariable( const char *name, vec3_t value )
 {
 	//Check the strings
 	varString_m::iterator	vvi = varVectors.find( name );

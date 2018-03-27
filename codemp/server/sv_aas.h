@@ -60,4 +60,14 @@ CCALL void SV_EA_SayTeam(int client,char *str);
 CCALL void SV_EA_Say(int client,char *str);
 CCALL const char *SV_SetActiveSubBSP( int index );
 
+//struct sharedEntity_s;
+//typedef struct sharedEntity_s sharedEntity_t;
+
+//#include "game/g_public.h"
+
+
+//qboolean	SV_inPVS (const vec3_t p1, const vec3_t p2);
+//CCALL void SV_Trace( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int passEntityNum, int contentmask, int capsule, int traceFlags, int useLod );
+
+
 #endif

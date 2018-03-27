@@ -295,22 +295,22 @@ const	int	Q3_TIME_SCALE	= 1;	//MILLISECONDS
 extern char	cinematicSkipScript[1024];
 
 //General
-extern	void		Q3_TaskIDClear( int *taskID );
-extern	qboolean	Q3_TaskIDPending( sharedEntity_t *ent, taskID_t taskType );
-extern	void		Q3_TaskIDComplete( sharedEntity_t *ent, taskID_t taskType );
-extern	void		Q3_DPrintf( const char *, ... );
+CCALL	void		Q3_TaskIDClear( int *taskID );
+CCALL	qboolean	Q3_TaskIDPending( sharedEntity_t *ent, taskID_t taskType );
+CCALL	void		Q3_TaskIDComplete( sharedEntity_t *ent, taskID_t taskType );
+CCALL	void		Q3_DPrintf( const char *, ... );
 
-extern	void		Q3_CameraRoll( float angle, float duration );
-extern  void		Q3_CameraFollow( const char *name, float speed, float initLerp );
-extern  void		Q3_CameraTrack( const char *name, float speed, float initLerp );
-extern  void		Q3_CameraDistance( float distance, float initLerp );
+CCALL	void		Q3_CameraRoll( float angle, float duration );
+CCALL  void		Q3_CameraFollow( const char *name, float speed, float initLerp );
+CCALL  void		Q3_CameraTrack( const char *name, float speed, float initLerp );
+CCALL  void		Q3_CameraDistance( float distance, float initLerp );
 
 //Not referenced directly as script function - all are called through Q3_Set
-extern	void		Q3_SetAnimBoth( int entID, const char *anim_name );
-extern	void		Q3_SetVelocity( int entID, vec3_t angles );
+CCALL	void		Q3_SetAnimBoth( int entID, const char *anim_name );
+CCALL	void		Q3_SetVelocity( int entID, vec3_t angles );
 
-extern	void		Q3_DeclareVariable ( int type, const char *name );
-extern	void		Q3_FreeVariable( const char *name );
+CCALL	void		Q3_DeclareVariable ( int type, const char *name );
+CCALL	void		Q3_FreeVariable( const char *name );
 
-extern	void		Q3_DebugPrint( int level, const char *format, ... );
+CCALL	void		Q3_DebugPrint( int level, const char *format, ... );
 #endif //__cplusplus

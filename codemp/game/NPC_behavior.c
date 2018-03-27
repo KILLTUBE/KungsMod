@@ -111,13 +111,13 @@ void NPC_BSAdvanceFight (void)
 					trace_t		tr;
 					gentity_t	*traceEnt;
 					//are we gonna hit him if we shoot at his center?
-					trap->Trace ( &tr, muzzle, NULL, NULL, enemy_org, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
+					SV_Trace ( &tr, muzzle, NULL, NULL, enemy_org, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
 					traceEnt = &g_entities[tr.entityNum];
 					if( traceEnt != NPCS.NPC->enemy &&
 						(!traceEnt || !traceEnt->client || !NPCS.NPC->client->enemyTeam || NPCS.NPC->client->enemyTeam != traceEnt->client->playerTeam) )
 					{//no, so shoot for the head
 						attack_scale *= 0.75;
-						trap->Trace ( &tr, muzzle, NULL, NULL, enemy_head, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
+						SV_Trace ( &tr, muzzle, NULL, NULL, enemy_head, NPCS.NPC->s.number, MASK_SHOT, qfalse, 0, 0 );
 						traceEnt = &g_entities[tr.entityNum];
 					}
 
@@ -194,9 +194,9 @@ void NPC_BSAdvanceFight (void)
 
 	if(!NPCS.ucmd.forwardmove && !NPCS.ucmd.rightmove)
 	{//We reached our captureGoal
-		if(trap->ICARUS_IsInitialized(NPCS.NPC->s.number))
+		if(ICARUS_IsInitialized(NPCS.NPC->s.number))
 		{
-			trap->ICARUS_TaskIDComplete( (sharedEntity_t *)NPCS.NPC, TID_BSTATE );
+			ICARUS_TaskIDComplete( (sharedEntity_t *)NPCS.NPC, TID_BSTATE );
 		}
 	}
 }
@@ -461,8 +461,8 @@ qboolean NPC_CheckInvestigate( int alertEventNum )
 		return qfalse;
 	}
 
-	//if(!trap->InPVSIgnorePortals(ent->r.currentOrigin, NPC->r.currentOrigin))//should we be able to hear through areaportals?
-	if ( !trap->InPVS( soundPos, NPCS.NPC->r.currentOrigin ) )
+	//if(!SV_inPVSIgnorePortals(ent->r.currentOrigin, NPC->r.currentOrigin))//should we be able to hear through areaportals?
+	if ( !SV_inPVS( soundPos, NPCS.NPC->r.currentOrigin ) )
 	{//can hear through doors?
 		return qfalse;
 	}
@@ -917,7 +917,7 @@ void NPC_BSJump (void)
 			NPCS.ucmd.forwardmove = 0;
 			NPCS.NPC->flags &= ~FL_NO_KNOCKBACK;
 			//Return that the goal was reached
-			trap->ICARUS_TaskIDComplete( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV );
+			ICARUS_TaskIDComplete( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV );
 
 			//Or should we keep jumping until reached goal?
 
@@ -943,7 +943,7 @@ void NPC_BSRemove (void)
 {
 	NPC_UpdateAngles ( qtrue, qtrue );
 	//OJKFIXME: clientnum 0
-	if( !trap->InPVS( NPCS.NPC->r.currentOrigin, g_entities[0].r.currentOrigin ) )//FIXME: use cg.vieworg?
+	if( !SV_inPVS( NPCS.NPC->r.currentOrigin, g_entities[0].r.currentOrigin ) )//FIXME: use cg.vieworg?
 	{ //rwwFIXMEFIXME: Care about all clients instead of just 0?
 		G_UseTargets2( NPCS.NPC, NPCS.NPC, NPCS.NPC->target3 );
 		NPCS.NPC->s.eFlags |= EF_NODRAW;
@@ -1363,7 +1363,7 @@ void NPC_Surrender( void )
 
 qboolean NPC_CheckSurrender( void )
 {
-	if ( !trap->ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV )
+	if ( !ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV )
 		&& NPCS.NPC->client->ps.groundEntityNum != ENTITYNUM_NONE
 		&& !NPCS.NPC->client->ps.weaponTime && !PM_InKnockDown( &NPCS.NPC->client->ps )
 		&& NPCS.NPC->enemy && NPCS.NPC->enemy->client && NPCS.NPC->enemy->enemy == NPCS.NPC && NPCS.NPC->enemy->s.weapon != WP_NONE && NPCS.NPC->enemy->s.weapon != WP_STUN_BATON
@@ -1398,7 +1398,7 @@ qboolean NPC_CheckSurrender( void )
 					{//they're not close
 						return qfalse;
 					}
-					else if ( !trap->InPVS( NPCS.NPC->r.currentOrigin, NPCS.NPC->enemy->r.currentOrigin ) )
+					else if ( !SV_inPVS( NPCS.NPC->r.currentOrigin, NPCS.NPC->enemy->r.currentOrigin ) )
 					{//they're not in the same room
 						return qfalse;
 					}
@@ -1429,7 +1429,7 @@ qboolean NPC_CheckSurrender( void )
 							{//they're looking at me
 								if ( DistanceSquared( NPC->r.currentOrigin, NPC->enemy->r.currentOrigin ) < 16384 )
 								{//they're close
-									if ( trap->InPVS( NPC->r.currentOrigin, NPC->enemy->r.currentOrigin ) )
+									if ( SV_inPVS( NPC->r.currentOrigin, NPC->enemy->r.currentOrigin ) )
 									{//they're in the same room
 										NPC_Surrender();
 										NPC_UpdateAngles( qtrue, qtrue );
@@ -1446,7 +1446,7 @@ qboolean NPC_CheckSurrender( void )
 						{//they're looking at me
 							if ( DistanceSquared( NPC->r.currentOrigin, NPC->enemy->r.currentOrigin ) < 4096 )
 							{//they're close
-								if ( trap->InPVS( NPC->r.currentOrigin, NPC->enemy->r.currentOrigin ) )
+								if ( SV_inPVS( NPC->r.currentOrigin, NPC->enemy->r.currentOrigin ) )
 								{//they're in the same room
 									//FIXME: should player-team NPCs not fire on surrendered NPCs?
 									NPC_Surrender();
@@ -1583,7 +1583,7 @@ void NPC_StartFlee( gentity_t *enemy, vec3_t dangerPoint, int dangerLevel, int f
 {
 	int cp = -1;
 
-	if ( trap->ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
+	if ( ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_MOVE_NAV ) )
 	{//running somewhere that a script requires us to go, don't interrupt that!
 		return;
 	}
@@ -1722,7 +1722,7 @@ void NPC_BSEmplaced( void )
 		}
 	}
 /*
-	else if ( trap->InPVS( NPC->enemy->r.currentOrigin, NPC->r.currentOrigin ) )
+	else if ( SV_inPVS( NPC->enemy->r.currentOrigin, NPC->r.currentOrigin ) )
 	{
 		NPCInfo->enemyLastSeenTime = level.time;
 		faceEnemy = qtrue;

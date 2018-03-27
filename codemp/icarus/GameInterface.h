@@ -37,9 +37,9 @@ typedef std::map < std::string, pscript_t* >	bufferlist_t;
 //ICARUS includes
 extern	interface_export_t	interface_export;
 
-extern	void Interface_Init( interface_export_t *pe );
-extern	int ICARUS_RunScript( sharedEntity_t *ent, const char *name );
-extern	bool ICARUS_RegisterScript( const char *name, qboolean bCalledDuringInterrogate = qfalse);
+CCALL void Interface_Init( interface_export_t *pe );
+CCALL int ICARUS_RunScript( sharedEntity_t *ent, const char *name );
+CCALL qboolean ICARUS_RegisterScript( const char *name, qboolean bCalledDuringInterrogate = qfalse);
 extern ICARUS_Instance	*iICARUS;
 extern bufferlist_t		ICARUS_BufferList;
 extern entlist_t		ICARUS_EntList;
@@ -47,12 +47,12 @@ extern entlist_t		ICARUS_EntList;
 //
 //	g_ICARUS.cpp
 //
-void ICARUS_Init( void );
-bool ICARUS_ValidEnt( sharedEntity_t *ent );
-void ICARUS_InitEnt( sharedEntity_t *ent );
-void ICARUS_FreeEnt( sharedEntity_t *ent );
-void ICARUS_AssociateEnt( sharedEntity_t *ent );
-void ICARUS_Shutdown( void );
-void Svcmd_ICARUS_f( void );
+CCALL void ICARUS_Init( void );
+CCALL bool ICARUS_ValidEnt( sharedEntity_t *ent );
+CCALL void ICARUS_InitEnt( sharedEntity_t *ent );
+CCALL void ICARUS_FreeEnt( sharedEntity_t *ent );
+CCALL void ICARUS_AssociateEnt( sharedEntity_t *ent );
+CCALL void ICARUS_Shutdown( void );
+CCALL void Svcmd_ICARUS_f( void );
 
 extern int		ICARUS_entFilter;

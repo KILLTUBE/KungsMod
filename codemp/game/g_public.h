@@ -450,8 +450,8 @@ typedef enum gameImportLegacy_e {
 	G_ICARUS_TASKIDSET,
 	G_ICARUS_TASKIDCOMPLETE,
 	G_ICARUS_SETVAR,
-	G_ICARUS_VARIABLEDECLARED,
-	G_ICARUS_GETFLOATVARIABLE,
+	G_Q3_VariableDeclared,
+	G_Q3_GetFloatVariable,
 	G_ICARUS_GETSTRINGVARIABLE,
 	G_ICARUS_GETVECTORVARIABLE,
 	G_SET_SHARED_BUFFER,
@@ -781,318 +781,65 @@ typedef struct gameImport_s {
 	int			(*Argc)									( void );
 	void		(*Argv)									( int n, char *buffer, int bufferLength );
 
-	// filesystem
-	//void		(*FS_Close)								( fileHandle_t f );
-	//int			(*FS_GetFileList)						( const char *path, const char *extension, char *listbuf, int bufsize );
-	//int			(*FS_Open)								( const char *qpath, fileHandle_t *f, fsMode_t mode );
-	//int			(*FS_Read)								( void *buffer, int len, fileHandle_t f );
-	//int			(*FS_Write)								( const void *buffer, int len, fileHandle_t f );
 
-	// server
-	void		(*AdjustAreaPortalState)				( sharedEntity_t *ent, qboolean open );
-	qboolean	(*AreasConnected)						( int area1, int area2 );
-	int			(*DebugPolygonCreate)					( int color, int numPoints, vec3_t *points );
-	void		(*DebugPolygonDelete)					( int id );
-	void		(*DropClient)							( int clientNum, const char *reason );
-	int			(*EntitiesInBox)						( const vec3_t mins, const vec3_t maxs, int *list, int maxcount );
-	qboolean	(*EntityContact)						( const vec3_t mins, const vec3_t maxs, const sharedEntity_t *ent, int capsule );
-	void		(*GetConfigstring)						( int num, char *buffer, int bufferSize );
-	qboolean	(*GetEntityToken)						( char *buffer, int bufferSize );
-	void		(*GetServerinfo)						( char *buffer, int bufferSize );
-	void		(*GetUsercmd)							( int clientNum, usercmd_t *cmd );
-	void		(*GetUserinfo)							( int num, char *buffer, int bufferSize );
-	qboolean	(*InPVS)								( const vec3_t p1, const vec3_t p2 );
-	qboolean	(*InPVSIgnorePortals)					( const vec3_t p1, const vec3_t p2 );
-	void		(*LinkEntity)							( sharedEntity_t *ent );
-	void		(*LocateGameData)						( sharedEntity_t *gEnts, int numGEntities, int sizeofGEntity_t, playerState_t *clients, int sizeofGClient );
-	int			(*PointContents)						( const vec3_t point, int passEntityNum );
-	void		(*SendConsoleCommand)					( int exec_when, const char *text );
-	void		(*SendServerCommand)					( int clientNum, const char *text );
-	void		(*SetBrushModel)						( sharedEntity_t *ent, const char *name );
-	void		(*SetConfigstring)						( int num, const char *string );
-	void		(*SetServerCull)						( float cullDistance );
-	void		(*SetUserinfo)							( int num, const char *buffer );
-	void		(*SiegePersSet)							( siegePers_t *pers );
-	void		(*SiegePersGet)							( siegePers_t *pers );
-	void		(*Trace)								( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int passEntityNum, int contentmask, int capsule, int traceFlags, int useLod );
-	void		(*UnlinkEntity)							( sharedEntity_t *ent );
-
-	// ROFF
-	qboolean	(*ROFF_Clean)							( void );
-	void		(*ROFF_UpdateEntities)					( void );
-	int			(*ROFF_Cache)							( char *file );
-	qboolean	(*ROFF_Play)							( int entID, int roffID, qboolean doTranslation );
-	qboolean	(*ROFF_Purge_Ent)						( int entID );
-
-	// ICARUS
-	int			(*ICARUS_RunScript)						( sharedEntity_t *ent, const char *name );
-	qboolean	(*ICARUS_RegisterScript)				( const char *name, qboolean bCalledDuringInterrogate );
-	void		(*ICARUS_Init)							( void );
-	qboolean	(*ICARUS_ValidEnt)						( sharedEntity_t *ent );
-	qboolean	(*ICARUS_IsInitialized)					( int entID );
-	qboolean	(*ICARUS_MaintainTaskManager)			( int entID );
-	qboolean	(*ICARUS_IsRunning)						( int entID );
-	qboolean	(*ICARUS_TaskIDPending)					( sharedEntity_t *ent, int taskID );
-	void		(*ICARUS_InitEnt)						( sharedEntity_t *ent );
-	void		(*ICARUS_FreeEnt)						( sharedEntity_t *ent );
-	void		(*ICARUS_AssociateEnt)					( sharedEntity_t *ent );
-	void		(*ICARUS_Shutdown)						( void );
-	void		(*ICARUS_TaskIDSet)						( sharedEntity_t *ent, int taskType, int taskID );
-	void		(*ICARUS_TaskIDComplete)				( sharedEntity_t *ent, int taskType );
-	void		(*ICARUS_SetVar)						( int taskID, int entID, const char *type_name, const char *data );
-	int			(*ICARUS_VariableDeclared)				( const char *type_name );
-	int			(*ICARUS_GetFloatVariable)				( const char *name, float *value );
-	int			(*ICARUS_GetStringVariable)				( const char *name, const char *value );
-	int			(*ICARUS_GetVectorVariable)				( const char *name, const vec3_t value );
-
-	// navigation
-	//void		(*Nav_Init)								( void );
-	//void		(*Nav_Free)								( void );
-	//qboolean	(*Nav_Load)								( const char *filename, int checksum );
-	//qboolean	(*Nav_Save)								( const char *filename, int checksum );
-	//int			(*Nav_AddRawPoint)						( vec3_t point, int flags, int radius );
-	//void		(*Nav_CalculatePaths)					( qboolean recalc );
-	//void		(*Nav_HardConnect)						( int first, int second );
-	//void		(*Nav_ShowNodes)						( void );
-	//void		(*Nav_ShowEdges)						( void );
-	//void		(*Nav_ShowPath)							( int start, int end );
-	//int			(*Nav_GetNearestNode)					( sharedEntity_t *ent, int lastID, int flags, int targetID );
-	//int			(*Nav_GetBestNode)						( int startID, int endID, int rejectID );
-	//int			(*Nav_GetNodePosition)					( int nodeID, vec3_t out );
-	//int			(*Nav_GetNodeNumEdges)					( int nodeID );
-	//int			(*Nav_GetNodeEdge)						( int nodeID, int edge );
-	//int			(*Nav_GetNumNodes)						( void );
-	//qboolean	(*Nav_Connected)						( int startID, int endID );
-	//int			(*Nav_GetPathCost)						( int startID, int endID );
-	//int			(*Nav_GetEdgeCost)						( int startID, int endID );
-	//int			(*Nav_GetProjectedNode)					( vec3_t origin, int nodeID );
-	//void		(*Nav_CheckFailedNodes)					( sharedEntity_t *ent );
-	//void		(*Nav_AddFailedNode)					( sharedEntity_t *ent, int nodeID );
-	//qboolean	(*Nav_NodeFailed)						( sharedEntity_t *ent, int nodeID );
-	//qboolean	(*Nav_NodesAreNeighbors)				( int startID, int endID );
-	//void		(*Nav_ClearFailedEdge)					( failedEdge_t *failedEdge );
-	//void		(*Nav_ClearAllFailedEdges)				( void );
-	//int			(*Nav_EdgeFailed)						( int startID, int endID );
-	//void		(*Nav_AddFailedEdge)					( int entID, int startID, int endID );
-	//qboolean	(*Nav_CheckFailedEdge)					( failedEdge_t *failedEdge );
-	//void		(*Nav_CheckAllFailedEdges)				( void );
-	//qboolean	(*Nav_RouteBlocked)						( int startID, int testEdgeID, int endID, int rejectRank );
-	//int			(*Nav_GetBestNodeAltRoute)				( int startID, int endID, int *pathCost, int rejectID );
-	//int			(*Nav_GetBestNodeAltRoute2)				( int startID, int endID, int rejectID );
-	//int			(*Nav_GetBestPathBetweenEnts)			( sharedEntity_t *ent, sharedEntity_t *goal, int flags );
-	//int			(*Nav_GetNodeRadius)					( int nodeID );
-	//void		(*Nav_CheckBlockedEdges)				( void );
-	//void		(*Nav_ClearCheckedNodes)				( void );
-	//int			(*Nav_CheckedNode)						( int wayPoint, int ent );
-	//void		(*Nav_SetCheckedNode)					( int wayPoint, int ent, int value );
-	//void		(*Nav_FlagAllNodes)						( int newFlag );
-	//qboolean	(*Nav_GetPathsCalculated)				( void );
-	//void		(*Nav_SetPathsCalculated)				( qboolean newVal );
-
-	// botlib
-	//int			(*BotAllocateClient)					( void );
-	//void		(*BotFreeClient)						( int clientNum );
-	//int			(*BotLoadCharacter)						( char *charfile, float skill );
-	//void		(*BotFreeCharacter)						( int character );
-	//float		(*Characteristic_Float)					( int character, int index );
-	//float		(*Characteristic_BFloat)				( int character, int index, float min, float max );
-	//int			(*Characteristic_Integer)				( int character, int index );
-	//int			(*Characteristic_BInteger)				( int character, int index, int min, int max );
-	//void		(*Characteristic_String)				( int character, int index, char *buf, int size );
-	//int			(*BotAllocChatState)					( void );
-	//void		(*BotFreeChatState)						( int handle );
-	//void		(*BotQueueConsoleMessage)				( int chatstate, int type, char *message );
-	//void		(*BotRemoveConsoleMessage)				( int chatstate, int handle );
-	//int			(*BotNextConsoleMessage)				( int chatstate, void *cm );
-	//int			(*BotNumConsoleMessages)				( int chatstate );
-	//void		(*BotInitialChat)						( int chatstate, char *type, int mcontext, char *var0, char *var1, char *var2, char *var3, char *var4, char *var5, char *var6, char *var7 );
-	//int			(*BotReplyChat)							( int chatstate, char *message, int mcontext, int vcontext, char *var0, char *var1, char *var2, char *var3, char *var4, char *var5, char *var6, char *var7 );
-	//int			(*BotChatLength)						( int chatstate );
-	//void		(*BotEnterChat)							( int chatstate, int client, int sendto );
-	//int			(*StringContains)						( char *str1, char *str2, int casesensitive );
-	//int			(*BotFindMatch)							( char *str, void *match, unsigned long int context );
-	//void		(*BotMatchVariable)						( void *match, int variable, char *buf, int size );
-	//void		(*UnifyWhiteSpaces)						( char *string );
-	//void		(*BotReplaceSynonyms)					( char *string, unsigned long int context );
-	//int			(*BotLoadChatFile)						( int chatstate, char *chatfile, char *chatname );
-	//void		(*BotSetChatGender)						( int chatstate, int gender );
-	//void		(*BotSetChatName)						( int chatstate, char *name, int client );
-	//void		(*BotResetGoalState)					( int goalstate );
-	//void		(*BotResetAvoidGoals)					( int goalstate );
-	//void		(*BotPushGoal)							( int goalstate, void *goal );
-	//void		(*BotPopGoal)							( int goalstate );
-	//void		(*BotEmptyGoalStack)					( int goalstate );
-	//void		(*BotDumpAvoidGoals)					( int goalstate );
-	//void		(*BotDumpGoalStack)						( int goalstate );
-	//void		(*BotGoalName)							( int number, char *name, int size );
-	//int			(*BotGetTopGoal)						( int goalstate, void *goal );
-	//int			(*BotGetSecondGoal)						( int goalstate, void *goal );
-	//int			(*BotChooseLTGItem)						( int goalstate, vec3_t origin, int *inventory, int travelflags );
-	//int			(*BotChooseNBGItem)						( int goalstate, vec3_t origin, int *inventory, int travelflags, void *ltg, float maxtime );
-	//int			(*BotTouchingGoal)						( vec3_t origin, void *goal );
-	//int			(*BotItemGoalInVisButNotVisible)		( int viewer, vec3_t eye, vec3_t viewangles, void *goal );
-	//int			(*BotGetLevelItemGoal)					( int index, char *classname, void *goal );
-	//float		(*BotAvoidGoalTime)						( int goalstate, int number );
-	//void		(*BotInitLevelItems)					( void );
-	//void		(*BotUpdateEntityItems)					( void );
-	//int			(*BotLoadItemWeights)					( int goalstate, char *filename );
-	//void		(*BotFreeItemWeights)					( int goalstate );
-	//void		(*BotSaveGoalFuzzyLogic)				( int goalstate, char *filename );
-	//int			(*BotAllocGoalState)					( int state );
-	//void		(*BotFreeGoalState)						( int handle );
-	//void		(*BotResetMoveState)					( int movestate );
-	//void		(*BotMoveToGoal)						( void *result, int movestate, void *goal, int travelflags );
-	//int			(*BotMoveInDirection)					( int movestate, vec3_t dir, float speed, int type );
-	//void		(*BotResetAvoidReach)					( int movestate );
-	//void		(*BotResetLastAvoidReach)				( int movestate );
-	//int			(*BotReachabilityArea)					( vec3_t origin, int testground );
-	//int			(*BotMovementViewTarget)				( int movestate, void *goal, int travelflags, float lookahead, vec3_t target );
-	//int			(*BotAllocMoveState)					( void );
-	//void		(*BotFreeMoveState)						( int handle );
-	//void		(*BotInitMoveState)						( int handle, void *initmove );
-	//int			(*BotChooseBestFightWeapon)				( int weaponstate, int *inventory );
-	//void		(*BotGetWeaponInfo)						( int weaponstate, int weapon, void *weaponinfo );
-	//int			(*BotLoadWeaponWeights)					( int weaponstate, char *filename );
-	//int			(*BotAllocWeaponState)					( void );
-	//void		(*BotFreeWeaponState)					( int weaponstate );
-	//void		(*BotResetWeaponState)					( int weaponstate );
-	//int			(*GeneticParentsAndChildSelection)		( int numranks, float *ranks, int *parent1, int *parent2, int *child );
-	//void		(*BotInterbreedGoalFuzzyLogic)			( int parent1, int parent2, int child );
-	//void		(*BotMutateGoalFuzzyLogic)				( int goalstate, float range );
-	//int			(*BotGetNextCampSpotGoal)				( int num, void *goal );
-	//int			(*BotGetMapLocationGoal)				( char *name, void *goal );
-	//int			(*BotNumInitialChats)					( int chatstate, char *type );
-	//void		(*BotGetChatMessage)					( int chatstate, char *buf, int size );
-	//void		(*BotRemoveFromAvoidGoals)				( int goalstate, int number );
-	//int			(*BotPredictVisiblePosition)			( vec3_t origin, int areanum, void *goal, int travelflags, vec3_t target );
-	//void		(*BotSetAvoidGoalTime)					( int goalstate, int number, float avoidtime );
-	//void		(*BotAddAvoidSpot)						( int movestate, vec3_t origin, float radius, int type );
-	//int			(*BotLibSetup)							( void );
-	//int			(*BotLibShutdown)						( void );
-	//int			(*BotLibVarSet)							( char *var_name, char *value );
-	//int			(*BotLibVarGet)							( char *var_name, char *value, int size );
-	//int			(*BotLibDefine)							( char *string );
-	//int			(*BotLibStartFrame)						( float time );
-	//int			(*BotLibLoadMap)						( const char *mapname );
-	//int			(*BotLibUpdateEntity)					( int ent, void *bue );
-	//int			(*BotLibTest)							( int parm0, char *parm1, vec3_t parm2, vec3_t parm3 );
-	//int			(*BotGetSnapshotEntity)					( int clientNum, int sequence );
-	//int			(*BotGetServerCommand)					( int clientNum, char *message, int size );
-	//void		(*BotUserCommand)						( int clientNum, usercmd_t *ucmd );
-	//void		(*BotUpdateWaypoints)					( int wpnum, wpobject_t **wps );
-	//void		(*BotCalculatePaths)					( int rmg );
-
-	// area awareness system
-	//int			(*AAS_EnableRoutingArea)				( int areanum, int enable );
-	//int			(*AAS_BBoxAreas)						( vec3_t absmins, vec3_t absmaxs, int *areas, int maxareas );
-	//int			(*AAS_AreaInfo)							( int areanum, void *info );
-	//void		(*AAS_EntityInfo)						( int entnum, void *info );
-	//int			(*AAS_Initialized)						( void );
-	//void		(*AAS_PresenceTypeBoundingBox)			( int presencetype, vec3_t mins, vec3_t maxs );
-	//float		(*AAS_Time)								( void );
-	//int			(*AAS_PointAreaNum)						( vec3_t point );
-	//int			(*AAS_TraceAreas)						( vec3_t start, vec3_t end, int *areas, vec3_t *points, int maxareas );
-	//int			(*AAS_PointContents)					( vec3_t point );
-	//int			(*AAS_NextBSPEntity)					( int ent );
-	//int			(*AAS_ValueForBSPEpairKey)				( int ent, char *key, char *value, int size );
-	//int			(*AAS_VectorForBSPEpairKey)				( int ent, char *key, vec3_t v );
-	//int			(*AAS_FloatForBSPEpairKey)				( int ent, char *key, float *value );
-	//int			(*AAS_IntForBSPEpairKey)				( int ent, char *key, int *value );
-	//int			(*AAS_AreaReachability)					( int areanum );
-	//int			(*AAS_AreaTravelTimeToGoalArea)			( int areanum, vec3_t origin, int goalareanum, int travelflags );
-	//int			(*AAS_Swimming)							( vec3_t origin );
-	//int			(*AAS_PredictClientMovement)			( void *move, int entnum, vec3_t origin, int presencetype, int onground, vec3_t velocity, vec3_t cmdmove, int cmdframes, int maxframes, float frametime, int stopevent, int stopareanum, int visualize );
-	//int			(*AAS_AlternativeRouteGoals)			( vec3_t start, int startareanum, vec3_t goal, int goalareanum, int travelflags, void *altroutegoals, int maxaltroutegoals, int type );
-	//int			(*AAS_PredictRoute)						( void *route, int areanum, vec3_t origin, int goalareanum, int travelflags, int maxareas, int maxtime, int stopevent, int stopcontents, int stoptfl, int stopareanum );
-	//int			(*AAS_PointReachabilityAreaIndex)		( vec3_t point );
-
-	// elementary action
-	//void		(*EA_Say)								( int client, char *str );
-	//void		(*EA_SayTeam)							( int client, char *str );
-	//void		(*EA_Command)							( int client, char *command );
-	//void		(*EA_Action)							( int client, int action );
-	//void		(*EA_Gesture)							( int client );
-	//void		(*EA_Talk)								( int client );
-	//void		(*EA_Attack)							( int client );
-	//void		(*EA_Alt_Attack)						( int client );
-	//void		(*EA_ForcePower)						( int client );
-	//void		(*EA_Use)								( int client );
-	//void		(*EA_Respawn)							( int client );
-	//void		(*EA_Crouch)							( int client );
-	//void		(*EA_MoveUp)							( int client );
-	//void		(*EA_MoveDown)							( int client );
-	//void		(*EA_MoveForward)						( int client );
-	//void		(*EA_MoveBack)							( int client );
-	//void		(*EA_MoveLeft)							( int client );
-	//void		(*EA_MoveRight)							( int client );
-	//void		(*EA_SelectWeapon)						( int client, int weapon );
-	//void		(*EA_Jump)								( int client );
-	//void		(*EA_DelayedJump)						( int client );
-	//void		(*EA_Move)								( int client, vec3_t dir, float speed );
-	//void		(*EA_View)								( int client, vec3_t viewangles );
-	//void		(*EA_EndRegular)						( int client, float thinktime );
-	//void		(*EA_GetInput)							( int client, float thinktime, void *input );
-	//void		(*EA_ResetInput)						( int client );
-
-	// botlib preprocessor
-	//int			(*PC_LoadSource)						( const char *filename );
-	//int			(*PC_FreeSource)						( int handle );
-	//int			(*PC_ReadToken)							( int handle, pc_token_t *pc_token );
-	//int			(*PC_SourceFileAndLine)					( int handle, char *filename, int *line );
+	//// server
+	//void		(*AdjustAreaPortalState)				( sharedEntity_t *ent, qboolean open );
+	//qboolean	(*AreasConnected)						( int area1, int area2 );
+	//int			(*DebugPolygonCreate)					( int color, int numPoints, vec3_t *points );
+	//void		(*DebugPolygonDelete)					( int id );
+	//void		(*DropClient)							( int clientNum, const char *reason );
+	//int			(*EntitiesInBox)						( const vec3_t mins, const vec3_t maxs, int *list, int maxcount );
+	//qboolean	(*EntityContact)						( const vec3_t mins, const vec3_t maxs, const sharedEntity_t *ent, int capsule );
+	//void		(*GetConfigstring)						( int num, char *buffer, int bufferSize );
+	//qboolean	(*GetEntityToken)						( char *buffer, int bufferSize );
+	//void		(*GetServerinfo)						( char *buffer, int bufferSize );
+	//void		(*GetUsercmd)							( int clientNum, usercmd_t *cmd );
+	//void		(*GetUserinfo)							( int num, char *buffer, int bufferSize );
+	//qboolean	(*InPVS)								( const vec3_t p1, const vec3_t p2 );
+	//qboolean	(*InPVSIgnorePortals)					( const vec3_t p1, const vec3_t p2 );
+	//void		(*LinkEntity)							( sharedEntity_t *ent );
+	//void		(*LocateGameData)						( sharedEntity_t *gEnts, int numGEntities, int sizeofGEntity_t, playerState_t *clients, int sizeofGClient );
+	//int			(*PointContents)						( const vec3_t point, int passEntityNum );
+	//void		(*SendConsoleCommand)					( int exec_when, const char *text );
+	//void		(*SendServerCommand)					( int clientNum, const char *text );
+	//void		(*SetBrushModel)						( sharedEntity_t *ent, const char *name );
+	//void		(*SetConfigstring)						( int num, const char *string );
+	//void		(*SetServerCull)						( float cullDistance );
+	//void		(*SetUserinfo)							( int num, const char *buffer );
+	//void		(*SiegePersSet)							( siegePers_t *pers );
+	//void		(*SiegePersGet)							( siegePers_t *pers );
+	//void		(*Trace)								( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int passEntityNum, int contentmask, int capsule, int traceFlags, int useLod );
+	//void		(*UnlinkEntity)							( sharedEntity_t *ent );
 	//
-	//// renderer, terrain
-	//qhandle_t	(*R_RegisterSkin)						( const char *name );
-	//const char *(*SetActiveSubBSP)						( int index );
-	//int			(*CM_RegisterTerrain)					( const char *config );
-	//void		(*RMG_Init)								( void );
+	//// ROFF
+	//qboolean	(*ROFF_Clean)							( void );
+	//void		(*ROFF_UpdateEntities)					( void );
+	//int			(*ROFF_Cache)							( char *file );
+	//qboolean	(*ROFF_Play)							( int entID, int roffID, qboolean doTranslation );
+	//qboolean	(*ROFF_Purge_Ent)						( int entID );
+	//
+	//// ICARUS
+	//int			(*ICARUS_RunScript)						( sharedEntity_t *ent, const char *name );
+	//qboolean	(*ICARUS_RegisterScript)				( const char *name, qboolean bCalledDuringInterrogate );
+	//void		(*ICARUS_Init)							( void );
+	//qboolean	(*ICARUS_ValidEnt)						( sharedEntity_t *ent );
+	//qboolean	(*ICARUS_IsInitialized)					( int entID );
+	//qboolean	(*ICARUS_MaintainTaskManager)			( int entID );
+	//qboolean	(*ICARUS_IsRunning)						( int entID );
+	//qboolean	(*ICARUS_TaskIDPending)					( sharedEntity_t *ent, int taskID );
+	//void		(*ICARUS_InitEnt)						( sharedEntity_t *ent );
+	//void		(*ICARUS_FreeEnt)						( sharedEntity_t *ent );
+	//void		(*ICARUS_AssociateEnt)					( sharedEntity_t *ent );
+	//void		(*ICARUS_Shutdown)						( void );
+	//void		(*ICARUS_TaskIDSet)						( sharedEntity_t *ent, int taskType, int taskID );
+	//void		(*ICARUS_TaskIDComplete)				( sharedEntity_t *ent, int taskType );
+	//void		(*Q3_SetVar)						( int taskID, int entID, const char *type_name, const char *data );
+	//int			(*Q3_VariableDeclared)				( const char *type_name );
+	//int			(*Q3_GetFloatVariable)				( const char *name, float *value );
+	//int			(*ICARUS_GetStringVariable)				( const char *name, const char *value );
+	//int			(*ICARUS_GetVectorVariable)				( const char *name, const vec3_t value );
 
-	//void		(*G2API_ListModelBones)					( void *ghlInfo, int frame );
-	//void		(*G2API_ListModelSurfaces)				( void *ghlInfo );
-	//qboolean	(*G2API_HaveWeGhoul2Models)				( void *ghoul2 );
-	//void		(*G2API_SetGhoul2ModelIndexes)			( void *ghoul2, qhandle_t *modelList, qhandle_t *skinList );
-	//qboolean	(*G2API_GetBoltMatrix)					( void *ghoul2, const int modelIndex, const int boltIndex, mdxaBone_t *matrix, const vec3_t angles, const vec3_t position, const int frameNum, qhandle_t *modelList, vec3_t scale );
-	//qboolean	(*G2API_GetBoltMatrix_NoReconstruct)	( void *ghoul2, const int modelIndex, const int boltIndex, mdxaBone_t *matrix, const vec3_t angles, const vec3_t position, const int frameNum, qhandle_t *modelList, vec3_t scale );
-	//qboolean	(*G2API_GetBoltMatrix_NoRecNoRot)		( void *ghoul2, const int modelIndex, const int boltIndex, mdxaBone_t *matrix, const vec3_t angles, const vec3_t position, const int frameNum, qhandle_t *modelList, vec3_t scale );
-	//int			(*G2API_InitGhoul2Model)				( void **ghoul2Ptr, const char *fileName, int modelIndex, qhandle_t customSkin, qhandle_t customShader, int modelFlags, int lodBias );
-	//qboolean	(*G2API_SetSkin)						( void *ghoul2, int modelIndex, qhandle_t customSkin, qhandle_t renderSkin );
-	//int			(*G2API_Ghoul2Size)						( void *ghlInfo );
-	//int			(*G2API_AddBolt)						( void *ghoul2, int modelIndex, const char *boneName );
-	//void		(*G2API_SetBoltInfo)					( void *ghoul2, int modelIndex, int boltInfo );
-	//qboolean	(*G2API_SetBoneAngles)					( void *ghoul2, int modelIndex, const char *boneName, const vec3_t angles, const int flags, const int up, const int right, const int forward, qhandle_t *modelList, int blendTime , int currentTime );
-	//qboolean	(*G2API_SetBoneAnim)					( void *ghoul2, const int modelIndex, const char *boneName, const int startFrame, const int endFrame, const int flags, const float animSpeed, const int currentTime, const float setFrame, const int blendTime );
-	//qboolean	(*G2API_GetBoneAnim)					( void *ghoul2, const char *boneName, const int currentTime, float *currentFrame, int *startFrame, int *endFrame, int *flags, float *animSpeed, int *modelList, const int modelIndex );
-	//void		(*G2API_GetGLAName)						( void *ghoul2, int modelIndex, char *fillBuf );
-	//int			(*G2API_CopyGhoul2Instance)				( void *g2From, void *g2To, int modelIndex );
-	//void		(*G2API_CopySpecificGhoul2Model)		( void *g2From, int modelFrom, void *g2To, int modelTo );
-	//void		(*G2API_DuplicateGhoul2Instance)		( void *g2From, void **g2To );
-	//qboolean	(*G2API_HasGhoul2ModelOnIndex)			( void *ghlInfo, int modelIndex );
-	//qboolean	(*G2API_RemoveGhoul2Model)				( void *ghlInfo, int modelIndex );
-	//qboolean	(*G2API_RemoveGhoul2Models)				( void *ghlInfo );
-	//void		(*G2API_CleanGhoul2Models)				( void **ghoul2Ptr );
-	//void		(*G2API_CollisionDetect)				( CollisionRecord_t *collRecMap, void *ghoul2, const vec3_t angles, const vec3_t position, int frameNumber, int entNum, vec3_t rayStart, vec3_t rayEnd, vec3_t scale, int traceFlags, int useLod, float fRadius );
-	//void		(*G2API_CollisionDetectCache)			( CollisionRecord_t *collRecMap, void* ghoul2, const vec3_t angles, const vec3_t position, int frameNumber, int entNum, vec3_t rayStart, vec3_t rayEnd, vec3_t scale, int traceFlags, int useLod, float fRadius );
-	//qboolean	(*G2API_SetRootSurface)					( void *ghoul2, const int modelIndex, const char *surfaceName );
-	//qboolean	(*G2API_SetSurfaceOnOff)				( void *ghoul2, const char *surfaceName, const int flags );
-	//qboolean	(*G2API_SetNewOrigin)					( void *ghoul2, const int boltIndex );
-	//qboolean	(*G2API_DoesBoneExist)					( void *ghoul2, int modelIndex, const char *boneName );
-	//int			(*G2API_GetSurfaceRenderStatus)			( void *ghoul2, const int modelIndex, const char *surfaceName );
-	//void		(*G2API_AbsurdSmoothing)				( void *ghoul2, qboolean status );
-	//void		(*G2API_SetRagDoll)						( void *ghoul2, sharedRagDollParams_t *params );
-	//void		(*G2API_AnimateG2Models)				( void *ghoul2, int time, sharedRagDollUpdateParams_t *params );
-	//qboolean	(*G2API_RagPCJConstraint)				( void *ghoul2, const char *boneName, vec3_t min, vec3_t max );
-	//qboolean	(*G2API_RagPCJGradientSpeed)			( void *ghoul2, const char *boneName, const float speed );
-	//qboolean	(*G2API_RagEffectorGoal)				( void *ghoul2, const char *boneName, vec3_t pos );
-	//qboolean	(*G2API_GetRagBonePos)					( void *ghoul2, const char *boneName, vec3_t pos, vec3_t entAngles, vec3_t entPos, vec3_t entScale );
-	//qboolean	(*G2API_RagEffectorKick)				( void *ghoul2, const char *boneName, vec3_t velocity );
-	//qboolean	(*G2API_RagForceSolve)					( void *ghoul2, qboolean force );
-	//qboolean	(*G2API_SetBoneIKState)					( void *ghoul2, int time, const char *boneName, int ikState, sharedSetBoneIKStateParams_t *params );
-	//qboolean	(*G2API_IKMove)							( void *ghoul2, int time, sharedIKMoveParams_t *params );
-	//qboolean	(*G2API_RemoveBone)						( void *ghoul2, const char *boneName, int modelIndex );
-	//void		(*G2API_AttachInstanceToEntNum)			( void *ghoul2, int entityNum, qboolean server );
-	//void		(*G2API_ClearAttachedInstance)			( int entityNum );
-	//void		(*G2API_CleanEntAttachments)			( void );
-	//qboolean	(*G2API_OverrideServer)					( void *serverInstance );
-	//void		(*G2API_GetSurfaceName)					( void *ghoul2, int surfNumber, int modelIndex, char *fillBuf );
+
 } gameImport_t;
 
 typedef struct gameExport_s {

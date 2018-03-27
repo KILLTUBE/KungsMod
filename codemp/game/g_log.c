@@ -354,7 +354,7 @@ void G_LogWeaponOutput(void)
 	}
 
 	// Write out the level name
-	trap->GetServerinfo(info, sizeof(info));
+	SV_GetServerinfo(info, sizeof(info));
 	Q_strncpyz(mapname, Info_ValueForKey( info, "mapname" ), sizeof(mapname));
 
 	Com_sprintf(string, sizeof(string), "\n\n\nLevel:\t%s\n\n\n", mapname);

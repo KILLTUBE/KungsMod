@@ -172,7 +172,7 @@ void CalcEntitySpot ( const gentity_t *ent, const spot_t spot, vec3_t point )
 		start[2] = ent->r.absmin[2];
 		VectorCopy( start, end );
 		end[2] -= 64;
-		trap->Trace( &tr, start, ent->r.mins, ent->r.maxs, end, ent->s.number, MASK_PLAYERSOLID, qfalse, 0, 0 );
+		SV_Trace( &tr, start, ent->r.mins, ent->r.maxs, end, ent->s.number, MASK_PLAYERSOLID, qfalse, 0, 0 );
 		if ( tr.fraction < 1.0 )
 		{
 			VectorCopy( tr.endpos, point);
@@ -255,7 +255,7 @@ qboolean NPC_UpdateAngles ( qboolean doPitch, qboolean doYaw )
 		char buf[128];
 		float tFVal = 0;
 
-		trap->Cvar_VariableStringBuffer("timescale", buf, sizeof(buf));
+		Cvar_VariableStringBuffer("timescale", buf, sizeof(buf));
 
 		tFVal = atof(buf);
 
@@ -335,9 +335,9 @@ qboolean NPC_UpdateAngles ( qboolean doPitch, qboolean doYaw )
 
 	NPCS.ucmd.angles[ROLL] = ANGLE2SHORT ( NPCS.NPC->client->ps.viewangles[ROLL] ) - NPCS.client->ps.delta_angles[ROLL];
 
-	if ( exact && trap->ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_ANGLE_FACE ) )
+	if ( exact && ICARUS_TaskIDPending( (sharedEntity_t *)NPCS.NPC, TID_ANGLE_FACE ) )
 	{
-		trap->ICARUS_TaskIDComplete( (sharedEntity_t *)NPCS.NPC, TID_ANGLE_FACE );
+		ICARUS_TaskIDComplete( (sharedEntity_t *)NPCS.NPC, TID_ANGLE_FACE );
 	}
 	return exact;
 
@@ -910,7 +910,7 @@ qboolean G_ActivateBehavior (gentity_t *self, int bset )
 		{
 			G_DebugPrint( WL_VERBOSE, "%s attempting to run bSet %s (%s)\n", self->targetname, GetStringForID( BSETTable, bset ), bs_name );
 		}
-		trap->ICARUS_RunScript( (sharedEntity_t *)self, va( "%s/%s", Q3_SCRIPT_DIR, bs_name ) );
+		ICARUS_RunScript( (sharedEntity_t *)self, va( "%s/%s", Q3_SCRIPT_DIR, bs_name ) );
 	}
 	return qtrue;
 }
@@ -1068,7 +1068,7 @@ qboolean NPC_SomeoneLookingAtMe(gentity_t *ent)
 		if (pEnt && pEnt->inuse && pEnt->client && pEnt->client->sess.sessionTeam != TEAM_SPECTATOR &&
 			pEnt->client->tempSpectate < level.time && !(pEnt->client->ps.pm_flags & PMF_FOLLOW) && pEnt->s.weapon != WP_NONE)
 		{
-			if (trap->InPVS(ent->r.currentOrigin, pEnt->r.currentOrigin))
+			if (SV_inPVS(ent->r.currentOrigin, pEnt->r.currentOrigin))
 			{
 				if (InFOV( ent, pEnt, 30, 30 ))
 				{ //I'm in a 30 fov or so cone from this player.. that's enough I guess.
@@ -1285,7 +1285,7 @@ int NPC_FindNearestEnemy( gentity_t *ent )
 	}
 
 	//Get a number of entities in a given space
-	numEnts = trap->EntitiesInBox( mins, maxs, iradiusEnts, MAX_RADIUS_ENTS );
+	numEnts = SV_AreaEntities( mins, maxs, iradiusEnts, MAX_RADIUS_ENTS );
 
 	for ( i = 0; i < numEnts; i++ )
 	{
@@ -1794,5 +1794,5 @@ int NPC_GetEntsNearBolt( int *radiusEnts, float radius, int boltIndex, vec3_t bo
 	}
 
 	//Get the number of entities in a given space
-	return (trap->EntitiesInBox( mins, maxs, radiusEnts, 128 ));
+	return (SV_AreaEntities( mins, maxs, radiusEnts, 128 ));
 }
