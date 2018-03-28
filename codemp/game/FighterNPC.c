@@ -23,21 +23,26 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "bg_public.h"
 #include "bg_vehicles.h"
 
-#ifdef _GAME
+//#ifdef _GAME
 	#include "g_local.h"
-#elif _CGAME
+//#elif _CGAME
 	#include "cgame/cg_local.h"
-#endif
+//#endif
+
+// just needing it right now because the isCGame() clause could potentially use it... but cgame isnt merged atm, still a .dll
+cgameImport_t *trap = NULL;
 
 extern float DotToSpot( vec3_t spot, vec3_t from, vec3_t fromAngles );
-#ifdef _GAME //SP or gameside MP
+
+
+// only used by GAME
 	extern vmCvar_t	cg_thirdPersonAlpha;
 	extern vec3_t playerMins;
 	extern vec3_t playerMaxs;
 	extern void ChangeWeapon( gentity_t *ent, int newWeapon );
 	extern int PM_AnimLength( int index, animNumber_t anim );
 	extern void G_VehicleTrace( trace_t *results, const vec3_t start, const vec3_t tMins, const vec3_t tMaxs, const vec3_t end, int passEntityNum, int contentmask );
-#endif
+
 
 extern qboolean BG_UnrestrainedPitchRoll( playerState_t *ps, Vehicle_t *pVeh );
 extern void BG_SetAnim(playerState_t *ps, animation_t *animations, int setAnimParts,int anim,int setAnimFlags);
@@ -49,16 +54,16 @@ qboolean BG_FighterUpdate(Vehicle_t *pVeh, const usercmd_t *pUcmd, vec3_t trMins
 	vec3_t		bottom;
 	playerState_t *parentPS;
 	//qboolean	isDead = qfalse;
-#ifdef _GAME //don't do this on client
-	int i;
 
-	// Make sure the riders are not visible or collidable.
-	pVeh->m_pVehicleInfo->Ghost( pVeh, pVeh->m_pPilot );
-	for ( i = 0; i < pVeh->m_pVehicleInfo->maxPassengers; i++ )
-	{
-		pVeh->m_pVehicleInfo->Ghost( pVeh, pVeh->m_ppPassengers[i] );
+	if (isGame()) {
+		int i;
+		// Make sure the riders are not visible or collidable.
+		pVeh->m_pVehicleInfo->Ghost( pVeh, pVeh->m_pPilot );
+		for ( i = 0; i < pVeh->m_pVehicleInfo->maxPassengers; i++ )
+		{
+			pVeh->m_pVehicleInfo->Ghost( pVeh, pVeh->m_ppPassengers[i] );
+		}
 	}
-#endif
 
 
 	parentPS = pVeh->m_pParentEntity->playerState;
@@ -114,7 +119,6 @@ qboolean BG_FighterUpdate(Vehicle_t *pVeh, const usercmd_t *pUcmd, vec3_t trMins
 	return qtrue;
 }
 
-#ifdef _GAME //ONLY in SP or on server, not cgame
 
 // Like a think or move command, this updates various vehicle properties.
 static qboolean Update( Vehicle_t *pVeh, const usercmd_t *pUcmd )
@@ -159,7 +163,6 @@ static qboolean Eject( Vehicle_t *pVeh, bgEntity_t *pEnt, qboolean forceEject )
 	return qfalse;
 }
 
-#endif //end game-side only
 
 //method of decrementing the given angle based on the given taking variable frame times into account
 static float PredictedAngularDecrement(float scale, float timeMod, float originalAngle)
@@ -200,7 +203,7 @@ static float PredictedAngularDecrement(float scale, float timeMod, float origina
 	return r;
 }
 
-#ifdef _GAME//only do this check on game side, because if it's cgame, it's being predicted, and it's only predicted if the local client is the driver
+//only do this check on game side, because if it's cgame, it's being predicted, and it's only predicted if the local client is the driver
 qboolean FighterIsInSpace( gentity_t *gParent )
 {
 	if ( gParent
@@ -212,7 +215,6 @@ qboolean FighterIsInSpace( gentity_t *gParent )
 	}
 	return qfalse;
 }
-#endif
 
 qboolean FighterOverValidLandingSurface( Vehicle_t *pVeh )
 {
@@ -239,9 +241,9 @@ qboolean FighterIsLanding( Vehicle_t *pVeh, playerState_t *parentPS )
 {
 
 	if ( FighterOverValidLandingSurface( pVeh )
-#ifdef _GAME//only do this check on game side, because if it's cgame, it's being predicted, and it's only predicted if the local client is the driver
-		&& pVeh->m_pVehicleInfo->Inhabited( pVeh )//has to have a driver in order to be capable of landing
-#endif
+//only do this check on game side, because if it's cgame, it's being predicted, and it's only predicted if the local client is the driver
+		&& (isGame() ? pVeh->m_pVehicleInfo->Inhabited( pVeh ) : qtrue)//has to have a driver in order to be capable of landing
+
 		&& (pVeh->m_ucmd.forwardmove < 0||pVeh->m_ucmd.upmove<0) //decelerating or holding crouch button
 		&& parentPS->speed <= MIN_LANDING_SPEED )//going slow enough to start landing - was using pVeh->m_pVehicleInfo->speedIdle, but that's still too fast
 	{
@@ -254,9 +256,8 @@ qboolean FighterIsLaunching( Vehicle_t *pVeh, playerState_t *parentPS )
 {
 
 	if ( FighterOverValidLandingSurface( pVeh )
-#ifdef _GAME//only do this check on game side, because if it's cgame, it's being predicted, and it's only predicted if the local client is the driver
-		&& pVeh->m_pVehicleInfo->Inhabited( pVeh )//has to have a driver in order to be capable of landing
-#endif
+		//only do this check on game side, because if it's cgame, it's being predicted, and it's only predicted if the local client is the driver
+		&& (isGame() ? pVeh->m_pVehicleInfo->Inhabited( pVeh ) : qtrue)//has to have a driver in order to be capable of landing
 		&& pVeh->m_ucmd.upmove > 0 //trying to take off
 		&& parentPS->speed <= 200.0f )//going slow enough to start landing - was using pVeh->m_pVehicleInfo->speedIdle, but that's still too fast
 	{
@@ -267,19 +268,19 @@ qboolean FighterIsLaunching( Vehicle_t *pVeh, playerState_t *parentPS )
 
 qboolean FighterSuspended( Vehicle_t *pVeh, playerState_t *parentPS )
 {
-#ifdef _GAME//only do this check on game side, because if it's cgame, it's being predicted, and it's only predicted if the local client is the driver
-	if (!pVeh->m_pPilot//empty
-		&& !parentPS->speed//not moving
-		&& pVeh->m_ucmd.forwardmove <= 0//not trying to go forward for whatever reason
-		&& pVeh->m_pParentEntity != NULL
-		&& (((gentity_t *)pVeh->m_pParentEntity)->spawnflags&2) )//SUSPENDED spawnflag is on
-	{
-		return qtrue;
+	if (isGame()) {//only do this check on game side, because if it's cgame, it's being predicted, and it's only predicted if the local client is the driver
+		if (!pVeh->m_pPilot//empty
+			&& !parentPS->speed//not moving
+			&& pVeh->m_ucmd.forwardmove <= 0//not trying to go forward for whatever reason
+			&& pVeh->m_pParentEntity != NULL
+			&& (((gentity_t *)pVeh->m_pParentEntity)->spawnflags&2) )//SUSPENDED spawnflag is on
+		{
+			return qtrue;
+		}
+		return qfalse;
+	} else {
+		return qfalse;
 	}
-	return qfalse;
-#elif _CGAME
-	return qfalse;
-#endif
 }
 
 //MP RULE - ALL PROCESSMOVECOMMANDS FUNCTIONS MUST BE BG-COMPATIBLE!!!
@@ -323,11 +324,11 @@ static void ProcessMoveCommands( Vehicle_t *pVeh )
 				{//just started hyperspace
 //MIKE: This is going to play the sound twice for the predicting client, I suggest using
 //a predicted event or only doing it game-side. -rich
-#ifdef _GAME
+if (isGame()) {
 					//G_EntitySound( ((gentity_t *)(pVeh->m_pParentEntity)), CHAN_LOCAL, pVeh->m_pVehicleInfo->soundHyper );
-#elif _CGAME
+} else {
 					trap->S_StartSound( NULL, pm->ps->clientNum, CHAN_LOCAL, pVeh->m_pVehicleInfo->soundHyper );
-#endif
+}
 				}
 
 				parentPS->speed = HYPERSPACE_SPEED;
@@ -365,9 +366,9 @@ static void ProcessMoveCommands( Vehicle_t *pVeh )
 			if ( parentPS->velocity[2] <= 0
 				&& pVeh->m_pVehicleInfo->soundTakeOff )
 			{//taking off for the first time
-				#ifdef _GAME//MP GAME-side
+				if (isGame())
 					G_EntitySound( ((gentity_t *)(pVeh->m_pParentEntity)), CHAN_AUTO, pVeh->m_pVehicleInfo->soundTakeOff );
-				#endif
+				
 			}
 			parentPS->velocity[2] += pVeh->m_pVehicleInfo->acceleration * pVeh->m_fTimeModifier;// * ( /*fInvFrac **/ 1.5f );
 		}
@@ -410,13 +411,13 @@ static void ProcessMoveCommands( Vehicle_t *pVeh )
 		{
 			pVeh->m_iTurboTime = (curTime + pVeh->m_pVehicleInfo->turboDuration);
 
-#ifdef _GAME//MP GAME-side
+if (isGame()) {
 			//NOTE: turbo sound can't be part of effect if effect is played on every muzzle!
 			if ( pVeh->m_pVehicleInfo->soundTurbo )
 			{
 				G_EntitySound( ((gentity_t *)(pVeh->m_pParentEntity)), CHAN_AUTO, pVeh->m_pVehicleInfo->soundTurbo );
 			}
-#endif
+}
 		}
 	}
 	speedInc = pVeh->m_pVehicleInfo->acceleration * pVeh->m_fTimeModifier;
@@ -469,20 +470,17 @@ static void ProcessMoveCommands( Vehicle_t *pVeh )
 		//Why set forwardmove?  PMove code doesn't use it... does it?
 		pVeh->m_ucmd.forwardmove = 127;
 	}
-#ifdef _GAME //well, the thing is always going to be inhabited if it's being predicted!
-	else if ( FighterSuspended( pVeh, parentPS ) )
+ //well, the thing is always going to be inhabited if it's being predicted!
+	else if (isGame() && FighterSuspended( pVeh, parentPS ) )
 	{
 		parentPS->speed = 0;
 		pVeh->m_ucmd.forwardmove = 0;
 	}
-	else if ( !pVeh->m_pVehicleInfo->Inhabited( pVeh )
-		&& parentPS->speed > 0 )
+	else if (isGame() && !pVeh->m_pVehicleInfo->Inhabited( pVeh ) && parentPS->speed > 0 )
 	{//pilot jumped out while we were moving forward (not landing or landed) so just keep the throttle locked
 		//Why set forwardmove?  PMove code doesn't use it... does it?
 		pVeh->m_ucmd.forwardmove = 127;
-	}
-#endif
-	else if ( ( parentPS->speed || parentPS->groundEntityNum == ENTITYNUM_NONE  ||
+	} else if ( ( parentPS->speed || parentPS->groundEntityNum == ENTITYNUM_NONE  ||
 		 pVeh->m_ucmd.forwardmove || pVeh->m_ucmd.upmove > 0 ) && pVeh->m_LandTrace.fraction >= 0.05f )
 	{
 		if ( pVeh->m_ucmd.forwardmove > 0 && speedInc )
@@ -619,9 +617,9 @@ static void ProcessMoveCommands( Vehicle_t *pVeh )
 #if 1//This is working now, but there are some transitional jitters... Rich?
 //STRAFING==============================================================================
 	if ( pVeh->m_pVehicleInfo->strafePerc
-#ifdef _GAME//only do this check on game side, because if it's cgame, it's being predicted, and it's only predicted if the local client is the driver
-		&& pVeh->m_pVehicleInfo->Inhabited( pVeh )//has to have a driver in order to be capable of landing
-#endif
+//only do this check on game side, because if it's cgame, it's being predicted, and it's only predicted if the local client is the driver
+		&& (isGame() ? pVeh->m_pVehicleInfo->Inhabited( pVeh ) : qtrue)//has to have a driver in order to be capable of landing
+
 		&& !pVeh->m_iRemovedSurfaces
 		&& parentPS->electrifyTime<curTime
 		&& (pVeh->m_LandTrace.fraction >= 1.0f//no grounf
@@ -703,7 +701,7 @@ static void ProcessMoveCommands( Vehicle_t *pVeh )
 		parentPS->speed = speedMin;
 	}
 
-#ifdef _GAME//FIXME: get working in game and cgame
+if (isGame()) {//FIXME: get working in game and cgame
 	if ((pVeh->m_vOrientation[PITCH]*0.1f) > 10.0f)
 	{ //pitched downward, increase speed more and more based on our tilt
 		if ( FighterIsInSpace( (gentity_t *)parent ) )
@@ -770,9 +768,9 @@ static void ProcessMoveCommands( Vehicle_t *pVeh )
 	{
 		parentPS->gravity = 0;
 	}
-#else//FIXME: get above checks working in game and cgame
+} else { //FIXME: get above checks working in game and cgame
 	parentPS->gravity = 0;
-#endif
+}
 
 	/********************************************************************************/
 	/*	END Here is where we move the vehicle (forward or back or whatever). END	*/
@@ -911,24 +909,25 @@ static void FighterDamageRoutine( Vehicle_t *pVeh, bgEntity_t *parent, playerSta
 			//else: just keep going forward
 		}
 	}
-#ifdef _GAME
-	if ( pVeh->m_LandTrace.fraction < 1.0f )
-	{ //if you land at all when pieces of your ship are missing, then die
-		gentity_t *vparent = (gentity_t *)pVeh->m_pParentEntity;
-		gentity_t *killer = vparent;
-		if (vparent->client->ps.otherKiller < ENTITYNUM_WORLD &&
-			vparent->client->ps.otherKillerTime > level.time)
-		{
-			gentity_t *potentialKiller = &g_entities[vparent->client->ps.otherKiller];
 
-			if (potentialKiller->inuse && potentialKiller->client)
-			{ //he's valid I guess
-				killer = potentialKiller;
+	if (isGame()) {
+		if ( pVeh->m_LandTrace.fraction < 1.0f )
+		{ //if you land at all when pieces of your ship are missing, then die
+			gentity_t *vparent = (gentity_t *)pVeh->m_pParentEntity;
+			gentity_t *killer = vparent;
+			if (vparent->client->ps.otherKiller < ENTITYNUM_WORLD &&
+				vparent->client->ps.otherKillerTime > level.time)
+			{
+				gentity_t *potentialKiller = &g_entities[vparent->client->ps.otherKiller];
+
+				if (potentialKiller->inuse && potentialKiller->client)
+				{ //he's valid I guess
+					killer = potentialKiller;
+				}
 			}
+			G_Damage(vparent, killer, killer, vec3_origin, vparent->client->ps.origin, 99999, DAMAGE_NO_ARMOR, MOD_SUICIDE);
 		}
-		G_Damage(vparent, killer, killer, vec3_origin, vparent->client->ps.origin, 99999, DAMAGE_NO_ARMOR, MOD_SUICIDE);
 	}
-#endif
 
 	if ( ((pVeh->m_iRemovedSurfaces & SHIPSURF_BROKEN_C) ||
 		(pVeh->m_iRemovedSurfaces & SHIPSURF_BROKEN_D)) &&
@@ -1282,18 +1281,19 @@ static void ProcessOrientCommands( Vehicle_t *pVeh )
 	bgEntity_t *parent = pVeh->m_pParentEntity;
 	playerState_t *parentPS, *riderPS;
 	float angleTimeMod;
-#ifdef _GAME
+	// used by Game only
 	const float groundFraction = 0.1f;
-#endif
+
 	float	curRoll = 0.0f;
 	qboolean isDead = qfalse;
 	qboolean isLandingOrLanded = qfalse;
-#ifdef _GAME
-	int curTime = level.time;
-#elif _CGAME
+	int curTime;
+	if (isGame())
+		curTime = level.time;
+	else
 	//FIXME: pass in ucmd?  Not sure if this is reliable...
-	int curTime = pm->cmd.serverTime;
-#endif
+		curTime = pm->cmd.serverTime;
+
 
 	bgEntity_t *rider = NULL;
 	if (parent->s.owner != ENTITYNUM_NONE)
@@ -1608,24 +1608,24 @@ static void ProcessOrientCommands( Vehicle_t *pVeh )
 	}
 */
 	// If no one is in this vehicle and it's up in the sky, pitch it forward as it comes tumbling down.
-#ifdef _GAME //never gonna happen on client anyway, we can't be getting predicted unless the predicting client is boarded
- 	if ( !pVeh->m_pVehicleInfo->Inhabited( pVeh )
-		&& pVeh->m_LandTrace.fraction >= groundFraction
-		&& !FighterIsInSpace( (gentity_t *)parent )
-		&& !FighterSuspended( pVeh, parentPS ) )
-	{
-		pVeh->m_ucmd.upmove = 0;
-		//pVeh->m_ucmd.forwardmove = 0;
-		pVeh->m_vOrientation[PITCH] += pVeh->m_fTimeModifier;
-		if ( !BG_UnrestrainedPitchRoll( riderPS, pVeh ) )
+	if (isGame()) { //never gonna happen on client anyway, we can't be getting predicted unless the predicting client is boarded
+ 		if ( !pVeh->m_pVehicleInfo->Inhabited( pVeh )
+			&& pVeh->m_LandTrace.fraction >= groundFraction
+			&& !FighterIsInSpace( (gentity_t *)parent )
+			&& !FighterSuspended( pVeh, parentPS ) )
 		{
-			if ( pVeh->m_vOrientation[PITCH] > 60.0f )
+			pVeh->m_ucmd.upmove = 0;
+			//pVeh->m_ucmd.forwardmove = 0;
+			pVeh->m_vOrientation[PITCH] += pVeh->m_fTimeModifier;
+			if ( !BG_UnrestrainedPitchRoll( riderPS, pVeh ) )
 			{
-				pVeh->m_vOrientation[PITCH] = 60.0f;
+				if ( pVeh->m_vOrientation[PITCH] > 60.0f )
+				{
+					pVeh->m_vOrientation[PITCH] = 60.0f;
+				}
 			}
 		}
 	}
-#endif
 
 	if ( !parentPS->hackingTime )
 	{//use that roll
@@ -1680,7 +1680,7 @@ static void ProcessOrientCommands( Vehicle_t *pVeh )
 	/********************************************************************************/
 }
 
-#ifdef _GAME //ONLY on server, not cgame
+
 
 // This function makes sure that the vehicle is properly animated.
 static void AnimateVehicle( Vehicle_t *pVeh )
@@ -1767,38 +1767,38 @@ static void AnimateRiders( Vehicle_t *pVeh )
 {
 }
 
-#endif //game-only
+//#endif //game-only
 
-#ifdef _CGAME
+//#ifdef _CGAME
 void AttachRidersGeneric( Vehicle_t *pVeh );
-#endif
+//#endif
 
 void G_SetFighterVehicleFunctions( vehicleInfo_t *pVehInfo )
 {
-#ifdef _GAME //ONLY in SP or on server, not cgame
-	pVehInfo->AnimateVehicle			=		AnimateVehicle;
-	pVehInfo->AnimateRiders				=		AnimateRiders;
-//	pVehInfo->ValidateBoard				=		ValidateBoard;
-//	pVehInfo->SetParent					=		SetParent;
-//	pVehInfo->SetPilot					=		SetPilot;
-//	pVehInfo->AddPassenger				=		AddPassenger;
-//	pVehInfo->Animate					=		Animate;
-	pVehInfo->Board						=		Board;
-	pVehInfo->Eject						=		Eject;
-//	pVehInfo->EjectAll					=		EjectAll;
-//	pVehInfo->StartDeathDelay			=		StartDeathDelay;
-//	pVehInfo->DeathUpdate				=		DeathUpdate;
-//	pVehInfo->RegisterAssets			=		RegisterAssets;
-//	pVehInfo->Initialize				=		Initialize;
-	pVehInfo->Update					=		Update;
-//	pVehInfo->UpdateRider				=		UpdateRider;
-#endif //game-only
+	if (isGame()) { //ONLY in SP or on server, not cgame
+		pVehInfo->AnimateVehicle			=		AnimateVehicle;
+		pVehInfo->AnimateRiders				=		AnimateRiders;
+	//	pVehInfo->ValidateBoard				=		ValidateBoard;
+	//	pVehInfo->SetParent					=		SetParent;
+	//	pVehInfo->SetPilot					=		SetPilot;
+	//	pVehInfo->AddPassenger				=		AddPassenger;
+	//	pVehInfo->Animate					=		Animate;
+		pVehInfo->Board						=		Board;
+		pVehInfo->Eject						=		Eject;
+	//	pVehInfo->EjectAll					=		EjectAll;
+	//	pVehInfo->StartDeathDelay			=		StartDeathDelay;
+	//	pVehInfo->DeathUpdate				=		DeathUpdate;
+	//	pVehInfo->RegisterAssets			=		RegisterAssets;
+	//	pVehInfo->Initialize				=		Initialize;
+		pVehInfo->Update					=		Update;
+	//	pVehInfo->UpdateRider				=		UpdateRider;
+	}
 	pVehInfo->ProcessMoveCommands		=		ProcessMoveCommands;
 	pVehInfo->ProcessOrientCommands		=		ProcessOrientCommands;
 
-#ifdef _CGAME //cgame prediction attachment func
-	pVehInfo->AttachRiders				=		AttachRidersGeneric;
-#endif
+	if (isCGame()) {//cgame prediction attachment func
+		pVehInfo->AttachRiders				=		AttachRidersGeneric;
+	}
 //	pVehInfo->AttachRiders				=		AttachRiders;
 //	pVehInfo->Ghost						=		Ghost;
 //	pVehInfo->UnGhost					=		UnGhost;
@@ -1806,25 +1806,23 @@ void G_SetFighterVehicleFunctions( vehicleInfo_t *pVehInfo )
 }
 
 // Following is only in game, not in namespace
-#ifdef _GAME
 extern void G_AllocateVehicleObject(Vehicle_t **pVeh);
-#endif
 
 // Create/Allocate a new Animal Vehicle (initializing it as well).
 void G_CreateFighterNPC( Vehicle_t **pVeh, const char *strType )
 {
 	// Allocate the Vehicle.
-#ifdef _GAME
-	//these will remain on entities on the client once allocated because the pointer is
-	//never stomped. on the server, however, when an ent is freed, the entity struct is
-	//memset to 0, so this memory would be lost..
-    G_AllocateVehicleObject(pVeh);
-#else
-	if (!*pVeh)
-	{ //only allocate a new one if we really have to
-		(*pVeh) = (Vehicle_t *) BG_Alloc( sizeof(Vehicle_t) );
+	if (isGame()) {
+		//these will remain on entities on the client once allocated because the pointer is
+		//never stomped. on the server, however, when an ent is freed, the entity struct is
+		//memset to 0, so this memory would be lost..
+		G_AllocateVehicleObject(pVeh);
+	} else {
+		if (!*pVeh)
+		{ //only allocate a new one if we really have to
+			(*pVeh) = (Vehicle_t *) BG_Alloc( sizeof(Vehicle_t) );
+		}
 	}
-#endif
 	memset(*pVeh, 0, sizeof(Vehicle_t));
 	(*pVeh)->m_pVehicleInfo = &g_vehicleInfo[BG_VehicleGetIndex( strType )];
 }

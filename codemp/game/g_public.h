@@ -757,92 +757,6 @@ typedef enum gameExportLegacy_e {
 	GAME_GETITEMINDEXBYTAG
 } gameExportLegacy_t;
 
-typedef struct gameImport_s {
-	int asd;
-	// misc
-	//void		(*Print)								( const char *msg, ... );
-	//NORETURN_PTR void (*Error)( int level, const char *fmt, ... );
-	//int			(*Milliseconds)							( void );
-	//void		(*PrecisionTimerStart)					( void **timer );
-	//int			(*PrecisionTimerEnd)					( void *timer );
-	//void		(*SV_RegisterSharedMemory)				( char *memory );
-	//int			(*RealTime)								( qtime_t *qtime );
-	//void		(*TrueMalloc)							( void **ptr, int size );
-	//void		(*TrueFree)								( void **ptr );
-	//void		(*SnapVector)							( float *v );
-	//
-	//// cvar
-	//void		(*Cvar_Register)						( vmCvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags );
-	//void		(*Cvar_Set)								( const char *var_name, const char *value );
-	//void		(*Cvar_Update)							( vmCvar_t *vmCvar );
-	//int			(*Cvar_VariableIntegerValue)			( const char *var_name );
-	//void		(*Cvar_VariableStringBuffer)			( const char *var_name, char *buffer, int bufsize );
-	//
-	//// cmd
-	//int			(*Argc)									( void );
-	//void		(*Argv)									( int n, char *buffer, int bufferLength );
-
-
-	//// server
-	//void		(*AdjustAreaPortalState)				( sharedEntity_t *ent, qboolean open );
-	//qboolean	(*AreasConnected)						( int area1, int area2 );
-	//int			(*DebugPolygonCreate)					( int color, int numPoints, vec3_t *points );
-	//void		(*DebugPolygonDelete)					( int id );
-	//void		(*DropClient)							( int clientNum, const char *reason );
-	//int			(*EntitiesInBox)						( const vec3_t mins, const vec3_t maxs, int *list, int maxcount );
-	//qboolean	(*EntityContact)						( const vec3_t mins, const vec3_t maxs, const sharedEntity_t *ent, int capsule );
-	//void		(*GetConfigstring)						( int num, char *buffer, int bufferSize );
-	//qboolean	(*GetEntityToken)						( char *buffer, int bufferSize );
-	//void		(*GetServerinfo)						( char *buffer, int bufferSize );
-	//void		(*GetUsercmd)							( int clientNum, usercmd_t *cmd );
-	//void		(*GetUserinfo)							( int num, char *buffer, int bufferSize );
-	//qboolean	(*InPVS)								( const vec3_t p1, const vec3_t p2 );
-	//qboolean	(*InPVSIgnorePortals)					( const vec3_t p1, const vec3_t p2 );
-	//void		(*LinkEntity)							( sharedEntity_t *ent );
-	//void		(*LocateGameData)						( sharedEntity_t *gEnts, int numGEntities, int sizeofGEntity_t, playerState_t *clients, int sizeofGClient );
-	//int			(*PointContents)						( const vec3_t point, int passEntityNum );
-	//void		(*SendConsoleCommand)					( int exec_when, const char *text );
-	//void		(*SendServerCommand)					( int clientNum, const char *text );
-	//void		(*SetBrushModel)						( sharedEntity_t *ent, const char *name );
-	//void		(*SetConfigstring)						( int num, const char *string );
-	//void		(*SetServerCull)						( float cullDistance );
-	//void		(*SetUserinfo)							( int num, const char *buffer );
-	//void		(*SiegePersSet)							( siegePers_t *pers );
-	//void		(*SiegePersGet)							( siegePers_t *pers );
-	//void		(*Trace)								( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int passEntityNum, int contentmask, int capsule, int traceFlags, int useLod );
-	//void		(*UnlinkEntity)							( sharedEntity_t *ent );
-	//
-	//// ROFF
-	//qboolean	(*ROFF_Clean)							( void );
-	//void		(*ROFF_UpdateEntities)					( void );
-	//int			(*ROFF_Cache)							( char *file );
-	//qboolean	(*ROFF_Play)							( int entID, int roffID, qboolean doTranslation );
-	//qboolean	(*ROFF_Purge_Ent)						( int entID );
-	//
-	//// ICARUS
-	//int			(*ICARUS_RunScript)						( sharedEntity_t *ent, const char *name );
-	//qboolean	(*ICARUS_RegisterScript)				( const char *name, qboolean bCalledDuringInterrogate );
-	//void		(*ICARUS_Init)							( void );
-	//qboolean	(*ICARUS_ValidEnt)						( sharedEntity_t *ent );
-	//qboolean	(*ICARUS_IsInitialized)					( int entID );
-	//qboolean	(*ICARUS_MaintainTaskManager)			( int entID );
-	//qboolean	(*ICARUS_IsRunning)						( int entID );
-	//qboolean	(*ICARUS_TaskIDPending)					( sharedEntity_t *ent, int taskID );
-	//void		(*ICARUS_InitEnt)						( sharedEntity_t *ent );
-	//void		(*ICARUS_FreeEnt)						( sharedEntity_t *ent );
-	//void		(*ICARUS_AssociateEnt)					( sharedEntity_t *ent );
-	//void		(*ICARUS_Shutdown)						( void );
-	//void		(*ICARUS_TaskIDSet)						( sharedEntity_t *ent, int taskType, int taskID );
-	//void		(*ICARUS_TaskIDComplete)				( sharedEntity_t *ent, int taskType );
-	//void		(*Q3_SetVar)						( int taskID, int entID, const char *type_name, const char *data );
-	//int			(*Q3_VariableDeclared)				( const char *type_name );
-	//int			(*Q3_GetFloatVariable)				( const char *name, float *value );
-	//int			(*ICARUS_GetStringVariable)				( const char *name, const char *value );
-	//int			(*ICARUS_GetVectorVariable)				( const char *name, const vec3_t value );
-
-
-} gameImport_t;
-
 typedef struct gameExport_s {
 	void		(*InitGame)							( int levelTime, int randomSeed, int restart );
 	void		(*ShutdownGame)						( int restart );
@@ -885,7 +799,3 @@ typedef struct gameExport_s {
 	void		(*NAV_FindCombatPointWaypoints)		( void );
 	int			(*BG_GetItemIndexByTag)				( int tag, int type );
 } gameExport_t;
-
-
-//linking of game library
-typedef gameExport_t* (QDECL *GetGameAPI_t)( int apiVersion, gameImport_t *import );

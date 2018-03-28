@@ -1529,8 +1529,6 @@ void Svcmd_ToggleAllowVote_f( void );
 void G_RegisterCvars( void );
 void G_UpdateCvars( void );
 
-extern gameImport_t *trap;
-
 #include "server/sv_icarus.h"
 
 CCALL qboolean SV_inPVS (const vec3_t p1, const vec3_t p2);
@@ -1653,3 +1651,7 @@ EXTERNC cvar_t		*d_altRoutes;
 EXTERNC cvar_t		*d_patched;
 
 EXTERNC	cvar_t	*com_optvehtrace;
+
+CCALL qboolean isGame();
+CCALL qboolean isCGame();
+CCALL qboolean isUI();

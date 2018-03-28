@@ -593,8 +593,6 @@ void *Sys_LoadSPGameDll( const char *name, GetGameAPIProc **GetGameAPI )
 }
 
 #include "game/g_public.h"
-extern "C" gameExport_t* QDECL GetModuleAPIGame( int apiVersion, gameImport_t *import );
-
 
 void *Sys_LoadGameDll( const char *name, GetModuleAPIProc **moduleAPI )
 {
