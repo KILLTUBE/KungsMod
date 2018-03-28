@@ -1066,6 +1066,12 @@
     <ClCompile Include="..\..\codemp\game\bg_panimate.c">
       <Filter>gamecgamemix</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_saga.c">
+      <Filter>gamecgamemix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_saberLoad.c">
+      <Filter>gamecgamemix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
@@ -1814,6 +1820,9 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\game\w_saber.h">
       <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\bg_saga.h">
+      <Filter>gamecgamemix</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

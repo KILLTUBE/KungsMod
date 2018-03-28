@@ -28,22 +28,20 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "bg_local.h"
 #include "w_saber.h"
 
-#ifdef _GAME
-	#include "g_local.h"
-#elif _CGAME
-	#include "cgame/cg_local.h"
-#elif UI_BUILD
-	#include "ui/ui_local.h"
-#endif
+
+#include "g_local.h"
+#include "cgame/cg_local.h"
+//#elif UI_BUILD
+//	#include "ui/ui_local.h"
+//#endif
 
 extern stringID_table_t animTable[MAX_ANIMATIONS+1];
 
 int BG_SoundIndex( const char *sound ) {
-#ifdef _GAME
-	return G_SoundIndex( sound );
-#elif defined(_CGAME) || defined(UI_BUILD)
-	return trap->S_RegisterSound( sound );
-#endif
+	if (isGame())
+		return G_SoundIndex( sound );
+	else
+		return trap->S_RegisterSound( sound );
 }
 
 extern stringID_table_t FPTable[];

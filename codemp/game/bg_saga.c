@@ -34,13 +34,12 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "bg_saga.h"
 #include "bg_weapons.h"
 
-#ifdef _GAME
-	#include "g_local.h"
-#elif _CGAME
-	#include "cgame/cg_local.h"
-#elif UI_BUILD
-	#include "ui/ui_local.h"
-#endif
+
+#include "g_local.h"
+#include "cgame/cg_local.h"
+//#elif UI_BUILD
+//	#include "ui/ui_local.h"
+//#endif
 
 #define SIEGECHAR_TAB 9 //perhaps a bit hacky, but I don't think there's any define existing for "tab"
 
@@ -991,16 +990,16 @@ void BG_SiegeParseClassFile(const char *filename, siegeClassDesc_t *descBuffer)
 	//Parse shader for ui to use
 	if (BG_SiegeGetPairedValue(classInfo, "uishader", parseBuf))
 	{
-		#if defined(_GAME)
+		if (isGame()) {
 			bgSiegeClasses[bgNumSiegeClasses].uiPortraitShader = 0;
 			memset(bgSiegeClasses[bgNumSiegeClasses].uiPortrait,0,sizeof(bgSiegeClasses[bgNumSiegeClasses].uiPortrait));
-		#elif defined(_CGAME)
+		} else if (isCGame()) {
 			bgSiegeClasses[bgNumSiegeClasses].uiPortraitShader = 0;
 			memset(bgSiegeClasses[bgNumSiegeClasses].uiPortrait,0,sizeof(bgSiegeClasses[bgNumSiegeClasses].uiPortrait));
-		#elif defined(UI_BUILD) //ui
+		} else if (isUI()) {
 			bgSiegeClasses[bgNumSiegeClasses].uiPortraitShader = trap->R_RegisterShaderNoMip(parseBuf);
 			memcpy(bgSiegeClasses[bgNumSiegeClasses].uiPortrait,parseBuf,sizeof(bgSiegeClasses[bgNumSiegeClasses].uiPortrait));
-		#endif
+		}
 	}
 	else
 	{ //I guess this is an essential.. we don't want to render bad shaders or anything.
@@ -1010,23 +1009,22 @@ void BG_SiegeParseClassFile(const char *filename, siegeClassDesc_t *descBuffer)
 	//Parse shader for ui to use
 	if (BG_SiegeGetPairedValue(classInfo, "class_shader", parseBuf))
 	{
-	#ifdef _GAME
-		bgSiegeClasses[bgNumSiegeClasses].classShader = 0;
-	#else //cgame, ui
-		#if defined(_CGAME)
+		if (isGame()) {
+			bgSiegeClasses[bgNumSiegeClasses].classShader = 0;
+		} else {
 			bgSiegeClasses[bgNumSiegeClasses].classShader = trap->R_RegisterShaderNoMip(parseBuf);
-		#elif defined(UI_BUILD)
-			bgSiegeClasses[bgNumSiegeClasses].classShader = trap->R_RegisterShaderNoMip(parseBuf);
-		#endif
-		assert( bgSiegeClasses[bgNumSiegeClasses].classShader );
-		if ( !bgSiegeClasses[bgNumSiegeClasses].classShader )
-		{
-			//Com_Error( ERR_DROP, "ERROR: could not find class_shader %s for class %s\n", parseBuf, bgSiegeClasses[bgNumSiegeClasses].name );
-			Com_Printf( "ERROR: could not find class_shader %s for class %s\n", parseBuf, bgSiegeClasses[bgNumSiegeClasses].name );
+		
+			assert( bgSiegeClasses[bgNumSiegeClasses].classShader );
+			if ( !bgSiegeClasses[bgNumSiegeClasses].classShader )
+			{
+				//Com_Error( ERR_DROP, "ERROR: could not find class_shader %s for class %s\n", parseBuf, bgSiegeClasses[bgNumSiegeClasses].name );
+				Com_Printf( "ERROR: could not find class_shader %s for class %s\n", parseBuf, bgSiegeClasses[bgNumSiegeClasses].name );
+			}
+			// A very hacky way to determine class . . .
+		
 		}
-		// A very hacky way to determine class . . .
-		else
-	#endif
+
+		if (isGame() || bgSiegeClasses[bgNumSiegeClasses].classShader)
 		{
 			// Find the base player class based on the icon name - very bad, I know.
 			int titleLength, arrayTitleLength;
@@ -1374,7 +1372,7 @@ siegeTeam_t *BG_SiegeFindThemeForTeam(int team)
     return NULL;
 }
 
-#if defined(_GAME) || defined(_CGAME) //only for game/cgame
+
 //precache all the sabers for the active classes for the team
 extern qboolean WP_SaberParseParms( const char *saberName, saberInfo_t *saber ); //bg_saberLoad.cpp
 extern int BG_ModelCache(const char *modelName, const char *skinName); //bg_misc.c
@@ -1430,7 +1428,6 @@ void BG_PrecacheSabersForSiegeTeam(int team)
 		}
 	}
 }
-#endif
 
 qboolean BG_SiegeCheckClassLegality(int team, char *classname)
 {

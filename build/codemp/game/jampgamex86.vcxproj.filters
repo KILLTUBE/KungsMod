@@ -7,12 +7,6 @@
     <ClCompile Include="C:\XycaRend2\codemp\game\bg_saber.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\bg_saberLoad.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\bg_saga.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\game\bg_slidemove.c">
       <Filter>game</Filter>
     </ClCompile>
@@ -49,9 +43,6 @@
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="C:\XycaRend2\codemp\game\bg_public.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\bg_saga.h">
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="C:\XycaRend2\codemp\game\bg_vehicles.h">
