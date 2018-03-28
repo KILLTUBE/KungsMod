@@ -30,7 +30,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 //#endif
 
 // just needing it right now because the isCGame() clause could potentially use it... but cgame isnt merged atm, still a .dll
-cgameImport_t *trap = NULL;
+//cgameImport_t *trap = NULL;
 
 extern float DotToSpot( vec3_t spot, vec3_t from, vec3_t fromAngles );
 

@@ -29,20 +29,18 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "bg_local.h"
 #include "ghoul2/G2.h"
 
-#ifdef _GAME
-	#include "g_local.h"
-#elif _CGAME
-	#include "cgame/cg_local.h"
-#elif UI_BUILD
-	#include "ui/ui_local.h"
-#endif
+#include "g_local.h"
+#include "cgame/cg_local.h"
+//#elif UI_BUILD
+//	#include "ui/ui_local.h"
+//#endif
 
 #define MAX_WEAPON_CHARGE_TIME 5000
 
-#ifdef _GAME
-	extern void G_CheapWeaponFire(int entNum, int ev);
-	extern qboolean TryGrapple(gentity_t *ent); //g_cmds.c
-#endif // _GAME
+// game only
+extern void G_CheapWeaponFire(int entNum, int ev);
+extern qboolean TryGrapple(gentity_t *ent); //g_cmds.c
+
 
 extern qboolean BG_FullBodyTauntAnim( int anim );
 extern float PM_WalkableGroundDistance(void);
@@ -678,15 +676,7 @@ void BG_VehicleTurnRateForSpeed( Vehicle_t *pVeh, float speed, float *mPitchOver
 	}
 }
 
-
-// Following couple things don't belong in the DLL namespace!
-#ifdef _GAME
-	#if !defined(MACOS_X) && !defined(__GCC__) && !defined(__GNUC__)
-		typedef struct gentity_s gentity_t;
-	#endif
-	gentity_t *G_PlayEffectID( const int fxID, vec3_t org, vec3_t ang );
-#endif
-
+gentity_t *G_PlayEffectID( const int fxID, vec3_t org, vec3_t ang );
 
 static void PM_GroundTraceMissed( void );
 void PM_HoverTrace( void )
@@ -746,14 +736,14 @@ void PM_HoverTrace( void )
 					{
 						wakeOrg[2] = pm->ps->origin[2];
 					}
-					#ifdef _GAME //yeah, this is kind of crappy and makes no use of prediction whatsoever
+					if (isGame()) { //yeah, this is kind of crappy and makes no use of prediction whatsoever
 						if ( pVeh->m_pVehicleInfo->iWakeFX )
 						{
 							//G_PlayEffectID( pVeh->m_pVehicleInfo->iWakeFX, wakeOrg, fxAxis[0] );
 							//tempent use bad!
 							G_AddEvent((gentity_t *)pEnt, EV_PLAY_EFFECT_ID, pVeh->m_pVehicleInfo->iWakeFX);
 						}
-					#endif
+					}
 				}
 			}
 		}
@@ -811,12 +801,11 @@ void PM_HoverTrace( void )
 							vAng[PITCH] = vAng[ROLL] = 0;
 							vAng[YAW] = pVeh->m_vOrientation[YAW];
 							AngleVectors( vAng, fxAxis[2], fxAxis[1], fxAxis[0] );
-#ifdef _GAME
-							if ( pVeh->m_pVehicleInfo->iWakeFX )
+							
+							if (isGame() && pVeh->m_pVehicleInfo->iWakeFX )
 							{
 								G_PlayEffectID( pVeh->m_pVehicleInfo->iWakeFX, trace->endpos, fxAxis[0] );
 							}
-#endif
 						}
 					}
 				}
@@ -3650,7 +3639,7 @@ static int PM_TryRoll( void )
 	return 0;
 }
 
-#ifdef _GAME
+
 static void PM_CrashLandEffect( void )
 {
 	float delta;
@@ -3690,7 +3679,7 @@ static void PM_CrashLandEffect( void )
 		}
 	}
 }
-#endif
+
 /*
 =================
 PM_CrashLand
@@ -3725,9 +3714,9 @@ static void PM_CrashLand( void ) {
 	delta = vel + t * acc;
 	delta = delta*delta * 0.0001;
 
-#ifdef _GAME
-	PM_CrashLandEffect();
-#endif
+	if (isGame())
+		PM_CrashLandEffect();
+
 	// ducking while falling doubles damage
 	if ( pm->ps->pm_flags & PMF_DUCKED ) {
 		delta *= 2;
@@ -4199,36 +4188,36 @@ static void PM_GroundTrace( void ) {
 
 		PM_CrashLand();
 
-#ifdef _GAME
-		if (pm->ps->clientNum < MAX_CLIENTS &&
-			!pm->ps->m_iVehicleNum &&
-			trace.entityNum < ENTITYNUM_WORLD &&
-			trace.entityNum >= MAX_CLIENTS &&
-			!pm->ps->zoomMode &&
-			pm_entSelf)
-		{ //check if we landed on a vehicle
-			gentity_t *trEnt = &g_entities[trace.entityNum];
-			if (trEnt->inuse && trEnt->client && trEnt->s.eType == ET_NPC && trEnt->s.NPC_class == CLASS_VEHICLE &&
-				!trEnt->client->ps.m_iVehicleNum &&
-				trEnt->m_pVehicle &&
-				trEnt->m_pVehicle->m_pVehicleInfo->type != VH_WALKER &&
-				trEnt->m_pVehicle->m_pVehicleInfo->type != VH_FIGHTER)
-			{ //it's a vehicle alright, let's board it.. if it's not an atst or ship
-				if (!BG_SaberInSpecial(pm->ps->saberMove) &&
-					pm->ps->forceHandExtend == HANDEXTEND_NONE &&
-					pm->ps->weaponTime <= 0)
-				{
-					gentity_t *servEnt = (gentity_t *)pm_entSelf;
-					if (level.gametype < GT_TEAM ||
-						!trEnt->alliedTeam ||
-						(trEnt->alliedTeam == servEnt->client->sess.sessionTeam))
-					{ //not belonging to a team, or client is on same team
-						trEnt->m_pVehicle->m_pVehicleInfo->Board(trEnt->m_pVehicle, pm_entSelf);
+		if (isGame()) {
+			if (pm->ps->clientNum < MAX_CLIENTS &&
+				!pm->ps->m_iVehicleNum &&
+				trace.entityNum < ENTITYNUM_WORLD &&
+				trace.entityNum >= MAX_CLIENTS &&
+				!pm->ps->zoomMode &&
+				pm_entSelf)
+			{ //check if we landed on a vehicle
+				gentity_t *trEnt = &g_entities[trace.entityNum];
+				if (trEnt->inuse && trEnt->client && trEnt->s.eType == ET_NPC && trEnt->s.NPC_class == CLASS_VEHICLE &&
+					!trEnt->client->ps.m_iVehicleNum &&
+					trEnt->m_pVehicle &&
+					trEnt->m_pVehicle->m_pVehicleInfo->type != VH_WALKER &&
+					trEnt->m_pVehicle->m_pVehicleInfo->type != VH_FIGHTER)
+				{ //it's a vehicle alright, let's board it.. if it's not an atst or ship
+					if (!BG_SaberInSpecial(pm->ps->saberMove) &&
+						pm->ps->forceHandExtend == HANDEXTEND_NONE &&
+						pm->ps->weaponTime <= 0)
+					{
+						gentity_t *servEnt = (gentity_t *)pm_entSelf;
+						if (level.gametype < GT_TEAM ||
+							!trEnt->alliedTeam ||
+							(trEnt->alliedTeam == servEnt->client->sess.sessionTeam))
+						{ //not belonging to a team, or client is on same team
+							trEnt->m_pVehicle->m_pVehicleInfo->Board(trEnt->m_pVehicle, pm_entSelf);
+						}
 					}
 				}
 			}
 		}
-#endif
 
 		// don't do landing time if we were just going down a slope
 		if ( pml.previous_velocity[2] < -200 ) {
@@ -4445,15 +4434,14 @@ static void PM_CheckDuck (void)
 			{ //whoops, can't fit here. Down to 0!
 				VectorClear(pm->mins);
 				VectorClear(pm->maxs);
-#ifdef _GAME
-				{
+
+				if (isGame()) {
 					gentity_t *me = &g_entities[pm->ps->clientNum];
 					if (me->inuse && me->client)
 					{ //yeah, this is a really terrible hack.
 						me->client->solidHack = level.time + 200;
 					}
 				}
-#endif
 			}
 		}
 	}
@@ -5418,8 +5406,8 @@ static void PM_Footsteps( void ) {
 					desiredAnim = BOTH_WALK1;
 				}
 			}
-#ifdef _GAME
-			else if ( pm->ps->clientNum >= MAX_CLIENTS &&
+
+			else if ( isGame() && pm->ps->clientNum >= MAX_CLIENTS &&
 				pm_entSelf &&
 				pm_entSelf->s.NPC_class == CLASS_JAWA)
 			{
@@ -5427,7 +5415,7 @@ static void PM_Footsteps( void ) {
 				desiredAnim = BOTH_RUN4;
 				bobmove = 0.2f;
 			}
-#endif
+
 			else if ( pm->ps->pm_flags & PMF_BACKWARDS_RUN )
 			{
 #ifndef BASE_COMPAT
@@ -5706,19 +5694,19 @@ Generate sound events for entering and leaving water
 ==============
 */
 static void PM_WaterEvents( void ) {		// FIXME?
-#ifdef _GAME
-	qboolean impact_splash = qfalse;
-#endif
+
+	qboolean impact_splash = qfalse; // GAME only
+
 	//
 	// if just entered a water volume, play a sound
 	//
 	if (!pml.previous_waterlevel && pm->waterlevel) {
-#ifdef _GAME
-		if ( VectorLengthSquared( pm->ps->velocity ) > 40000 )
+	
+		if ( isGame() && VectorLengthSquared( pm->ps->velocity ) > 40000 )
 		{
 			impact_splash = qtrue;
 		}
-#endif
+
 		PM_AddEvent( EV_WATER_TOUCH );
 	}
 
@@ -5726,17 +5714,17 @@ static void PM_WaterEvents( void ) {		// FIXME?
 	// if just completely exited a water volume, play a sound
 	//
 	if (pml.previous_waterlevel && !pm->waterlevel) {
-#ifdef _GAME
-		if ( VectorLengthSquared( pm->ps->velocity ) > 40000 )
+
+		if (isGame()  && VectorLengthSquared( pm->ps->velocity ) > 40000 )
 		{
 			impact_splash = qtrue;
 		}
-#endif
+
 		PM_AddEvent( EV_WATER_LEAVE );
 	}
 
-#ifdef _GAME
-	if ( impact_splash )
+
+	if ( isGame() && impact_splash )
 	{
 		//play the splash effect
 		trace_t	tr;
@@ -5768,7 +5756,7 @@ static void PM_WaterEvents( void ) {		// FIXME?
 			}
 		}
 	}
-#endif
+
 
 	//
 	// check for head just going under water
@@ -5862,11 +5850,9 @@ void PM_FinishWeaponChange( void ) {
 	pm->ps->weaponTime += 250;
 }
 
-#ifdef _GAME
 extern void WP_GetVehicleCamPos( gentity_t *ent, gentity_t *pilot, vec3_t camPos );
-#else
 extern void CG_GetVehicleCamPos( vec3_t camPos );
-#endif
+
 #define MAX_XHAIR_DIST_ACCURACY	20000.0f
 int BG_VehTraceFromCamPos( trace_t *camTrace, bgEntity_t *bgEnt, const vec3_t entOrg, const vec3_t shotStart, const vec3_t end, vec3_t newEnd, vec3_t shotDir, float bestDist )
 {
@@ -6671,22 +6657,22 @@ static void PM_Weapon( void )
 	bgEntity_t *veh = NULL;
 	qboolean vehicleRocketLock = qfalse;
 
-#ifdef _GAME
-	if (pm->ps->clientNum >= MAX_CLIENTS &&
-		pm->ps->weapon == WP_NONE &&
-		pm->cmd.weapon == WP_NONE &&
-		pm_entSelf)
-	{ //npc with no weapon
-		gentity_t *gent = (gentity_t *)pm_entSelf;
-		if (gent->inuse && gent->client &&
-			!gent->localAnimIndex)
-		{ //humanoid
-			pm->ps->torsoAnim = pm->ps->legsAnim;
-			pm->ps->torsoTimer = pm->ps->legsTimer;
-			return;
+	if (isGame()) {
+		if (pm->ps->clientNum >= MAX_CLIENTS &&
+			pm->ps->weapon == WP_NONE &&
+			pm->cmd.weapon == WP_NONE &&
+			pm_entSelf)
+		{ //npc with no weapon
+			gentity_t *gent = (gentity_t *)pm_entSelf;
+			if (gent->inuse && gent->client &&
+				!gent->localAnimIndex)
+			{ //humanoid
+				pm->ps->torsoAnim = pm->ps->legsAnim;
+				pm->ps->torsoTimer = pm->ps->legsTimer;
+				return;
+			}
 		}
 	}
-#endif
 
 	if (!pm->ps->emplacedIndex &&
 		pm->ps->weapon == WP_EMPLACED_GUN)
@@ -6720,9 +6706,9 @@ static void PM_Weapon( void )
 		{//riding a walker/fighter
 			//keep saber off, do no weapon stuff at all!
 			pm->ps->saberHolstered = 2;
-#ifdef _GAME
-			pm->cmd.buttons &= ~(BUTTON_ATTACK|BUTTON_ALT_ATTACK);
-#else
+			if (isGame())
+				pm->cmd.buttons &= ~(BUTTON_ATTACK|BUTTON_ALT_ATTACK);
+
 			if ( g_vehWeaponInfo[veh->m_pVehicle->m_pVehicleInfo->weapon[0].ID].fHoming
 				||  g_vehWeaponInfo[veh->m_pVehicle->m_pVehicleInfo->weapon[1].ID].fHoming )
 			{//our vehicle uses a rocket launcher, so do the normal checks
@@ -6733,7 +6719,7 @@ static void PM_Weapon( void )
 			{
 				pm->cmd.buttons &= ~(BUTTON_ATTACK|BUTTON_ALT_ATTACK);
 			}
-#endif
+
 		}
 	}
 
@@ -7419,16 +7405,16 @@ static void PM_Weapon( void )
 	{ //a vehicle NPC that has a pilot
 		pm->ps->weaponstate = WEAPON_FIRING;
 		pm->ps->weaponTime += 100;
-#ifdef _GAME //hack, only do it game-side. vehicle weapons don't really need predicting I suppose.
-		if ( (pm->cmd.buttons & BUTTON_ALT_ATTACK) )
-		{
-			G_CheapWeaponFire(pm->ps->clientNum, EV_ALT_FIRE);
+		if (isGame()) { //hack, only do it game-side. vehicle weapons don't really need predicting I suppose.
+			if ( (pm->cmd.buttons & BUTTON_ALT_ATTACK) )
+			{
+				G_CheapWeaponFire(pm->ps->clientNum, EV_ALT_FIRE);
+			}
+			else
+			{
+				G_CheapWeaponFire(pm->ps->clientNum, EV_FIRE_WEAPON);
+			}
 		}
-		else
-		{
-			G_CheapWeaponFire(pm->ps->clientNum, EV_FIRE_WEAPON);
-		}
-#endif
 		/*
 		addTime = weaponData[WP_EMPLACED_GUN].fireTime;
 		pm->ps->weaponTime += addTime;
@@ -7502,7 +7488,7 @@ static void PM_Weapon( void )
 					}
 				}
 #else
-	#ifdef _GAME
+	if (isGame()) {
 				if (pm_entSelf)
 				{
 					if (TryGrapple((gentity_t *)pm_entSelf))
@@ -7510,9 +7496,9 @@ static void PM_Weapon( void )
 						return;
 					}
 				}
-	#else
+	} else {
 				return;
-	#endif
+	}
 #endif
 			}
 			else if (pm->debugMelee &&
@@ -10894,8 +10880,8 @@ void PmoveSingle (pmove_t *pmove) {
 				pm->cmd.upmove = 127;
 			}
 		}
-#ifdef _GAME
-		else if ( !pm->ps->zoomMode &&
+
+		else if ( isGame() && !pm->ps->zoomMode &&
 			pm_entSelf //I exist
 			&& pEnt->m_pVehicle )//ent has a vehicle
 		{
@@ -10908,7 +10894,6 @@ void PmoveSingle (pmove_t *pmove) {
 				pEnt->m_pVehicle->m_pVehicleInfo->Board( pEnt->m_pVehicle, (bgEntity_t *)pm_entSelf );
 			}
 		}
-#endif
 	}
 
 	if (pm->ps->clientNum >= MAX_CLIENTS &&
@@ -10926,17 +10911,16 @@ void PmoveSingle (pmove_t *pmove) {
 
 		if (!pm->ps->m_iVehicleNum)
 		{ //no one is driving, just update and get out
-#ifdef _GAME
-			veh->m_pVehicle->m_pVehicleInfo->Update(veh->m_pVehicle, &pm->cmd);
-		    veh->m_pVehicle->m_pVehicleInfo->Animate(veh->m_pVehicle);
-#endif
+			if (isGame()) {
+				veh->m_pVehicle->m_pVehicleInfo->Update(veh->m_pVehicle, &pm->cmd);
+				veh->m_pVehicle->m_pVehicleInfo->Animate(veh->m_pVehicle);
+			}
 		}
 		else
 		{
 			bgEntity_t *self = pm_entVeh;
-#ifdef _GAME
+
 			int i = 0;
-#endif
 
 			assert(self && self->playerState && self->s.number < MAX_CLIENTS);
 
@@ -10951,7 +10935,7 @@ void PmoveSingle (pmove_t *pmove) {
 				PM_VehicleViewAngles(self->playerState, veh, &veh->m_pVehicle->m_ucmd);
 			}
 
-#ifdef _GAME
+if (isGame()) {
 			veh->m_pVehicle->m_pVehicleInfo->Update(veh->m_pVehicle, &veh->m_pVehicle->m_ucmd);
 			veh->m_pVehicle->m_pVehicleInfo->Animate(veh->m_pVehicle);
 
@@ -10969,7 +10953,7 @@ void PmoveSingle (pmove_t *pmove) {
 				}
 				i++;
 			}
-#else
+} else {
 			if (!veh->playerState->vehBoarding )//|| veh->m_pVehicle->m_pVehicleInfo->type == VH_FIGHTER)
 			{
 				if (veh->m_pVehicle->m_pVehicleInfo->type == VH_FIGHTER)
@@ -11026,7 +11010,7 @@ void PmoveSingle (pmove_t *pmove) {
 					PM_SetPMViewAngle(veh->playerState, veh->m_pVehicle->m_vOrientation, &pm->cmd);
 				}
 			}
-#endif
+}
 		}
 		noAnimate = qtrue;
 	}

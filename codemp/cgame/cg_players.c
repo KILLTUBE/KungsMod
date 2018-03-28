@@ -22,6 +22,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 // cg_players.c -- handle the media and animation for player entities
+#include "game/g_local.h"
 #include "cg_local.h"
 #include "ghoul2/G2.h"
 #include "game/bg_saga.h"
@@ -5698,7 +5699,7 @@ qboolean CG_G2TraceCollide(trace_t *tr, vec3_t const mins, vec3_t const maxs, co
 		angles[ROLL] = angles[PITCH] = 0;
 		angles[YAW] = g2Hit->lerpAngles[YAW];
 
-		if (com_optvehtrace.integer &&
+		if (com_optvehtrace->integer &&
 			g2Hit->currentState.eType == ET_NPC &&
 			g2Hit->currentState.NPC_class == CLASS_VEHICLE &&
 			g2Hit->m_pVehicle)

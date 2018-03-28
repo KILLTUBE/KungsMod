@@ -1,53 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\XycaRend2\codemp\game\bg_pmove.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\bg_saber.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\bg_slidemove.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\bg_vehicleLoad.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\FighterNPC.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_navnew.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\SpeederNPC.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\WalkerNPC.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\string.cpp">
-      <Filter>common/safe</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="C:\XycaRend2\codemp\game\anims.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\b_local.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\b_public.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\bg_local.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\bg_public.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\bg_vehicles.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h">
       <Filter>common/safe</Filter>
     </ClInclude>

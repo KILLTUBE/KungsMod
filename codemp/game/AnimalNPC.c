@@ -20,13 +20,11 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#ifdef _GAME //including game headers on cgame is FORBIDDEN ^_^
-	#include "g_local.h"
-#endif
+
+#include "g_local.h"
 #include "bg_public.h"
 #include "bg_vehicles.h"
 
-#ifdef _GAME //we only want a few of these functions for BG
 
 extern float DotToSpot( vec3_t spot, vec3_t from, vec3_t fromAngles );
 extern vec3_t playerMins;
@@ -97,7 +95,7 @@ static qboolean Update( Vehicle_t *pVeh, const usercmd_t *pUcmd )
 {
 	return g_vehicleInfo[VEHICLE_BASE].Update( pVeh, pUcmd );
 }
-#endif //_GAME
+
 
 //MP RULE - ALL PROCESSMOVECOMMANDS FUNCTIONS MUST BE BG-COMPATIBLE!!!
 //If you really need to violate this rule for SP, then use ifdefs.
@@ -349,7 +347,7 @@ void AnimalProcessOri(Vehicle_t *pVeh)
 	ProcessOrientCommands(pVeh);
 }
 
-#ifdef _GAME //back to our game-only functions
+
 static void AnimateVehicle( Vehicle_t *pVeh )
 {
 	animNumber_t	Anim = BOTH_VT_IDLE;
@@ -648,7 +646,6 @@ static void AnimateRiders( Vehicle_t *pVeh )
 
 	Vehicle_SetAnim( pilot, SETANIM_BOTH, Anim, iFlags, iBlend );
 }
-#endif //_GAME
 
 void AttachRidersGeneric( Vehicle_t *pVeh );
 

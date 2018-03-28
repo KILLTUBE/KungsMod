@@ -1072,6 +1072,27 @@
     <ClCompile Include="..\..\codemp\game\bg_saberLoad.c">
       <Filter>gamecgamemix</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_pmove.c">
+      <Filter>gamecgamemix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_vehicleLoad.c">
+      <Filter>gamecgamemix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_slidemove.c">
+      <Filter>gamecgamemix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_saber.c">
+      <Filter>gamecgamemix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\FighterNPC.c">
+      <Filter>gamecgamemix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\SpeederNPC.c">
+      <Filter>gamecgamemix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\WalkerNPC.c">
+      <Filter>gamecgamemix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
