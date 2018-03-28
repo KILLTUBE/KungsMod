@@ -579,24 +579,23 @@ typedef struct wpobject_s
 
 //=============================================
 
-char	*COM_SkipPath( char *pathname );
-const char	*COM_GetExtension( const char *name );
-void	COM_StripExtension( const char *in, char *out, int destsize );
-qboolean COM_CompareExtension(const char *in, const char *ext);
-void	COM_DefaultExtension( char *path, int maxSize, const char *extension );
-
-void	COM_BeginParseSession( const char *name );
-int		COM_GetCurrentParseLine( void );
-const char	*SkipWhitespace( const char *data, qboolean *hasNewLines );
-char	*COM_Parse( const char **data_p );
-char	*COM_ParseExt( const char **data_p, qboolean allowLineBreak );
-int		COM_Compress( char *data_p );
-void	COM_ParseError( char *format, ... );
-void	COM_ParseWarning( char *format, ... );
-qboolean COM_ParseString( const char **data, const char **s );
-qboolean COM_ParseInt( const char **data, int *i );
-qboolean COM_ParseFloat( const char **data, float *f );
-qboolean COM_ParseVec4( const char **buffer, vec4_t *c);
+CCALL char	*COM_SkipPath( char *pathname );
+CCALL const char	*COM_GetExtension( const char *name );
+CCALL void	COM_StripExtension( const char *in, char *out, int destsize );
+CCALL qboolean COM_CompareExtension(const char *in, const char *ext);
+CCALL void	COM_DefaultExtension( char *path, int maxSize, const char *extension );
+CCALL void	COM_BeginParseSession( const char *name );
+CCALL int		COM_GetCurrentParseLine( void );
+CCALL const char	*SkipWhitespace( const char *data, qboolean *hasNewLines );
+CCALL char	*COM_Parse( const char **data_p );
+CCALL char	*COM_ParseExt( const char **data_p, qboolean allowLineBreak );
+CCALL int		COM_Compress( char *data_p );
+CCALL void	COM_ParseError( char *format, ... );
+CCALL void	COM_ParseWarning( char *format, ... );
+CCALL qboolean COM_ParseString( const char **data, const char **s );
+CCALL qboolean COM_ParseInt( const char **data, int *i );
+CCALL qboolean COM_ParseFloat( const char **data, float *f );
+CCALL qboolean COM_ParseVec4( const char **buffer, vec4_t *c);
 //int		COM_ParseInfos( char *buf, int max, char infos[][MAX_INFO_STRING] );
 
 #define MAX_TOKENLENGTH		1024
@@ -621,22 +620,17 @@ typedef struct pc_token_s
 
 // data is an in/out parm, returns a parsed out token
 
-void	COM_MatchToken( const char**buf_p, char *match );
-
-qboolean SkipBracedSection (const char **program, int depth);
-void SkipRestOfLine ( const char **data );
-
-void Parse1DMatrix (const char **buf_p, int x, float *m);
-void Parse2DMatrix (const char **buf_p, int y, int x, float *m);
-void Parse3DMatrix (const char **buf_p, int z, int y, int x, float *m);
-int Com_HexStrToInt( const char *str );
-
-int	QDECL Com_sprintf (char *dest, int size, const char *fmt, ...);
-
-char *Com_SkipTokens( char *s, int numTokens, char *sep );
-char *Com_SkipCharset( char *s, char *sep );
-
-void Com_RandomBytes( byte *string, int len );
+CCALL void	COM_MatchToken( const char**buf_p, char *match );
+CCALL qboolean SkipBracedSection (const char **program, int depth);
+CCALL void SkipRestOfLine ( const char **data );
+CCALL void Parse1DMatrix (const char **buf_p, int x, float *m);
+CCALL void Parse2DMatrix (const char **buf_p, int y, int x, float *m);
+CCALL void Parse3DMatrix (const char **buf_p, int z, int y, int x, float *m);
+CCALL int Com_HexStrToInt( const char *str );
+CCALL int	Com_sprintf (char *dest, int size, const char *fmt, ...);
+CCALL char *Com_SkipTokens( char *s, int numTokens, char *sep );
+CCALL char *Com_SkipCharset( char *s, char *sep );
+CCALL void Com_RandomBytes( byte *string, int len );
 
 // mode parm for FS_FOpenFile
 typedef enum {
@@ -667,25 +661,25 @@ typedef struct qint64_s {
 	byte	b7;
 } qint64;
 
-int FloatAsInt( float f );
+CCALL int FloatAsInt( float f );
 
-char	* QDECL va(const char *format, ...);
+CCALL char *va(const char *format, ...);
 
 #define TRUNCATE_LENGTH	64
-void Com_TruncateLongString( char *buffer, const char *s );
+CCALL void Com_TruncateLongString( char *buffer, const char *s );
 
 //=============================================
 
 //
 // key / value info strings
 //
-char *Info_ValueForKey( const char *s, const char *key );
-void Info_RemoveKey( char *s, const char *key );
-void Info_RemoveKey_Big( char *s, const char *key );
-void Info_SetValueForKey( char *s, const char *key, const char *value );
-void Info_SetValueForKey_Big( char *s, const char *key, const char *value );
-qboolean Info_Validate( const char *s );
-qboolean Info_NextPair( const char **s, char *key, char *value );
+CCALL char *Info_ValueForKey( const char *s, const char *key );
+CCALL void Info_RemoveKey( char *s, const char *key );
+CCALL void Info_RemoveKey_Big( char *s, const char *key );
+CCALL void Info_SetValueForKey( char *s, const char *key, const char *value );
+CCALL void Info_SetValueForKey_Big( char *s, const char *key, const char *value );
+CCALL qboolean Info_Validate( const char *s );
+CCALL qboolean Info_NextPair( const char **s, char *key, char *value );
 
 
 	CCALL void Com_Error( int level, const char *error, ... );
@@ -1872,8 +1866,8 @@ typedef struct stringID_table_s
 	int		id;
 } stringID_table_t;
 
-int GetIDForString ( stringID_table_t *table, const char *string );
-const char *GetStringForID( stringID_table_t *table, int id );
+CCALL int GetIDForString ( stringID_table_t *table, const char *string );
+CCALL const char *GetStringForID( stringID_table_t *table, int id );
 
 
 // stuff to help out during development process, force reloading/uncacheing of certain filetypes...
@@ -1896,13 +1890,12 @@ enum {
 	FONT_SMALL2
 };
 
-void NET_AddrToString( char *out, size_t size, void *addr );
-
-qboolean Q_InBitflags( const uint32_t *bits, int index, uint32_t bitsPerByte );
-void Q_AddToBitflags( uint32_t *bits, int index, uint32_t bitsPerByte );
-void Q_RemoveFromBitflags( uint32_t *bits, int index, uint32_t bitsPerByte );
+CCALL void NET_AddrToString( char *out, size_t size, void *addr );
+CCALL qboolean Q_InBitflags( const uint32_t *bits, int index, uint32_t bitsPerByte );
+CCALL void Q_AddToBitflags( uint32_t *bits, int index, uint32_t bitsPerByte );
+CCALL void Q_RemoveFromBitflags( uint32_t *bits, int index, uint32_t bitsPerByte );
 
 typedef int( *cmpFunc_t )(const void *a, const void *b);
 
-void *Q_LinearSearch( const void *key, const void *ptr, size_t count,
+CCALL void *Q_LinearSearch( const void *key, const void *ptr, size_t count,
 	size_t size, cmpFunc_t cmp );

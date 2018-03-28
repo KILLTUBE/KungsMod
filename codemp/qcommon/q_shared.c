@@ -686,7 +686,7 @@ int Com_HexStrToInt( const char *str )
 ============================================================================
 */
 
-int QDECL Com_sprintf( char *dest, int size, const char *fmt, ...) {
+CCALL int Com_sprintf( char *dest, int size, const char *fmt, ...) {
 	int		len;
 	va_list		argptr;
 

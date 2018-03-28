@@ -25,170 +25,20 @@
     <ClCompile Include="C:\XycaRend2\codemp\game\bg_vehicleLoad.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\bg_weapons.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\game\FighterNPC.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_mover.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_nav.c">
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\game\g_navnew.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_object.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_saga.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_session.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_spawn.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_svcmds.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_syscalls.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_target.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_team.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_timer.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_trigger.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_turret.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_turret_G2.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_utils.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_vehicles.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_vehicleTurret.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\g_weapon.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Atst.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Default.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Droid.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_GalakMech.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Grenadier.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Howler.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_ImperialProbe.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Interrogator.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Jedi.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Mark1.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Mark2.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_MineMonster.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Rancor.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Remote.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Seeker.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Sentry.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Sniper.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Stormtrooper.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Utils.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_AI_Wampa.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_behavior.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_combat.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\NPC_goal.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\game\SpeederNPC.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\tri_coll_test.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\w_force.c">
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\game\WalkerNPC.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\q_shared.c">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c">
-      <Filter>common</Filter>
-    </ClCompile>
     <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\string.cpp">
       <Filter>common/safe</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\codemp\game\w_saber.c">
-      <Filter>game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -213,66 +63,6 @@
     <ClInclude Include="C:\XycaRend2\codemp\game\bg_vehicles.h">
       <Filter>game</Filter>
     </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\bg_weapons.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\chars.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\g_nav.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\g_public.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\g_team.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\g_xcvar.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\inv.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\match.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\npc_headers.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\say.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\surfaceflags.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\teams.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\w_saber.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\disablewarnings.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\q_shared.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\tags.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h">
-      <Filter>common</Filter>
-    </ClInclude>
     <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h">
       <Filter>common/safe</Filter>
     </ClInclude>
@@ -285,54 +75,6 @@
     <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\limited_vector.h">
       <Filter>common/safe</Filter>
     </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\cgame\animtable.h">
-      <Filter>cgame</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
-      <Filter>cgame</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_types.h">
-      <Filter>rd-common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ai_char.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ai_chat.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ai_gen.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ai_goal.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ai_move.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ai_weap.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ea.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\botlib.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\G2.h">
-      <Filter>ghoul2</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\icarus\interpreter.h">
-      <Filter>icarus</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\icarus\Q3_Interface.h">
-      <Filter>icarus</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\ui\menudef.h">
-      <Filter>ui</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\XycaRend2\codemp\game\CMakeLists.txt" />
@@ -341,29 +83,8 @@
     <Filter Include="game">
       <UniqueIdentifier>{7549D124-61E6-3E9C-8374-1BF9AD7AA9DC}</UniqueIdentifier>
     </Filter>
-    <Filter Include="common">
-      <UniqueIdentifier>{31E8F33F-C00E-303B-BEEA-6DF39804EF66}</UniqueIdentifier>
-    </Filter>
     <Filter Include="common/safe">
       <UniqueIdentifier>{3C6DA5D0-2005-35E2-A21E-7E6AB39C9220}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cgame">
-      <UniqueIdentifier>{DAAAF9C2-59CC-3EF7-B764-E8B26E9A8262}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="rd-common">
-      <UniqueIdentifier>{FB72095E-03A3-3F61-B545-5C751757D4D9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="botlib">
-      <UniqueIdentifier>{6DC137B8-188D-34B5-BE18-E4E18DA9E527}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ghoul2">
-      <UniqueIdentifier>{BCEF1A1C-2E3D-3214-8221-133CD34F5221}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="icarus">
-      <UniqueIdentifier>{6561F42C-A6CA-3C34-9156-FDFB5DAB885B}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ui">
-      <UniqueIdentifier>{87046E3E-1C66-3D90-96FE-53BD197D747E}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

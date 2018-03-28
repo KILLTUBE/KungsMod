@@ -1655,3 +1655,4 @@ EXTERNC	cvar_t	*com_optvehtrace;
 CCALL qboolean isGame();
 CCALL qboolean isCGame();
 CCALL qboolean isUI();
+CCALL int Com_sprintf( char *dest, int size, const char *fmt, ...);
