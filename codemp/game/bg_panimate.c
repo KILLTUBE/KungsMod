@@ -29,13 +29,11 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "anims.h"
 #include "cgame/animtable.h"
 
-#ifdef _GAME
-	#include "g_local.h"
-#elif _CGAME
-	#include "cgame/cg_local.h"
-#elif UI_BUILD
-	#include "ui/ui_local.h"
-#endif
+#include "g_local.h"
+#include "cgame/cg_local.h"
+//#elif UI_BUILD
+//	#include "ui/ui_local.h"
+//#endif
 
 extern saberInfo_t *BG_MySaber( int clientNum, int saberNum );
 /*
@@ -2572,13 +2570,12 @@ static void BG_StartLegsAnim( playerState_t *ps, int anim )
 	{
 		BG_FlipPart(ps, SETANIM_LEGS);
 	}
-#ifdef _GAME
-	else if (g_entities[ps->clientNum].s.legsAnim == anim)
+	else if (isGame() && g_entities[ps->clientNum].s.legsAnim == anim)
 	{ //toggled anim to one anim then back to the one we were at previously in
 		//one frame, indicating that anim should be restarted.
 		BG_FlipPart(ps, SETANIM_LEGS);
 	}
-#endif
+
 	ps->legsAnim = anim;
 
 	/*
@@ -2637,13 +2634,11 @@ void BG_StartTorsoAnim( playerState_t *ps, int anim )
 	{
 		BG_FlipPart(ps, SETANIM_TORSO);
 	}
-#ifdef _GAME
-	else if (g_entities[ps->clientNum].s.torsoAnim == anim)
+	else if (isGame() && g_entities[ps->clientNum].s.torsoAnim == anim)
 	{ //toggled anim to one anim then back to the one we were at previously in
 		//one frame, indicating that anim should be restarted.
 		BG_FlipPart(ps, SETANIM_TORSO);
 	}
-#endif
 	ps->torsoAnim = anim;
 }
 

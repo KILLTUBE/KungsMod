@@ -26,13 +26,13 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "qcommon/q_shared.h"
 #include "bg_public.h"
 
-#if defined(_GAME)
-	#include "g_local.h"
-#elif defined(_CGAME)
-	#include "cgame/cg_local.h"
-#elif defined(UI_BUILD)
-	#include "ui/ui_local.h"
-#endif
+
+#include "g_local.h"
+#include "cgame/cg_local.h"
+//#elif defined(UI_BUILD)
+// meh now cgame and ui still conflict...
+	//#include "ui/ui_local.h"
+//#endif
 
 const char *bgToggleableSurfaces[BG_NUM_TOGGLEABLE_SURFACES] =
 {
@@ -327,22 +327,20 @@ qboolean BG_FileExists(const char *fileName)
 	if (fileName && fileName[0])
 	{
 		int fh = 0;
-	#ifdef _GAME
+	if (isGame()) {
 		FS_FOpenFileByMode(fileName, &fh, FS_READ);
-	#elif _CGAME
+	} else if (isCGame()) {
 		trap->FS_Open(fileName, &fh, FS_READ);
-	#elif UI_BUILD
+	} else if (isUI()) {
 		trap->FS_Open(fileName, &fh, FS_READ);
-	#endif
+	}
 		if (fh > 0)
 		{
-		#ifdef _GAME
-			FS_FCloseFile(fh);
-		#elif _CGAME
-			trap->FS_Close(fh);
-		#elif UI_BUILD
-			trap->FS_Close(fh);
-		#endif
+			if (isGame()) {
+				FS_FCloseFile(fh);
+			} else {
+				trap->FS_Close(fh);
+			}
 			return qtrue;
 		}
 	}
@@ -2267,11 +2265,11 @@ void BG_EvaluateTrajectory( const trajectory_t *tr, int atTime, vec3_t result ) 
 		result[2] -= 0.5 * DEFAULT_GRAVITY * deltaTime * deltaTime;		// FIXME: local gravity...
 		break;
 	default:
-#ifdef _GAME
-		Com_Error( ERR_DROP, "BG_EvaluateTrajectory: [ GAME] unknown trType: %i", tr->trType );
-#else
-		Com_Error( ERR_DROP, "BG_EvaluateTrajectory: [CGAME] unknown trType: %i", tr->trType );
-#endif
+		if (isGame()) {
+			Com_Error( ERR_DROP, "BG_EvaluateTrajectory: [ GAME] unknown trType: %i", tr->trType );
+		} else {
+			Com_Error( ERR_DROP, "BG_EvaluateTrajectory: [CGAME] unknown trType: %i", tr->trType );
+		}
 		break;
 	}
 }
@@ -2323,11 +2321,11 @@ void BG_EvaluateTrajectoryDelta( const trajectory_t *tr, int atTime, vec3_t resu
 		result[2] -= DEFAULT_GRAVITY * deltaTime;		// FIXME: local gravity...
 		break;
 	default:
-#ifdef _GAME
-		Com_Error( ERR_DROP, "BG_EvaluateTrajectoryDelta: [ GAME] unknown trType: %i", tr->trType );
-#else
-		Com_Error( ERR_DROP, "BG_EvaluateTrajectoryDelta: [CGAME] unknown trType: %i", tr->trType );
-#endif
+		if (isGame()) {
+			Com_Error( ERR_DROP, "BG_EvaluateTrajectoryDelta: [ GAME] unknown trType: %i", tr->trType );
+		} else {
+			Com_Error( ERR_DROP, "BG_EvaluateTrajectoryDelta: [CGAME] unknown trType: %i", tr->trType );
+		}
 		break;
 	}
 }
@@ -2517,11 +2515,10 @@ void BG_AddPredictableEventToPlayerstate( int newEvent, int eventParm, playerSta
 		}
 
 		if ( showEvents.integer != 0 ) {
-#ifdef _GAME
-			Com_Printf(" game event svt %5d -> %5d: num = %20s parm %d\n", ps->pmove_framecount/*ps->commandTime*/, ps->eventSequence, eventnames[newEvent], eventParm);
-#else
-			Com_Printf("Cgame event svt %5d -> %5d: num = %20s parm %d\n", ps->pmove_framecount/*ps->commandTime*/, ps->eventSequence, eventnames[newEvent], eventParm);
-#endif
+			if (isGame())
+				Com_Printf(" game event svt %5d -> %5d: num = %20s parm %d\n", ps->pmove_framecount/*ps->commandTime*/, ps->eventSequence, eventnames[newEvent], eventParm);
+			else
+				Com_Printf("Cgame event svt %5d -> %5d: num = %20s parm %d\n", ps->pmove_framecount/*ps->commandTime*/, ps->eventSequence, eventnames[newEvent], eventParm);
 		}
 	}
 #endif
@@ -3058,7 +3055,7 @@ PLAYER ANGLES
 
 int BG_ModelCache(const char *modelName, const char *skinName)
 {
-	#ifdef _GAME
+	if (isGame()) {
 		void *g2 = NULL;
 
 		if ( VALIDSTRING( skinName ) )
@@ -3071,7 +3068,7 @@ int BG_ModelCache(const char *modelName, const char *skinName)
 			SV_G2API_CleanGhoul2Models( &g2 );
 
 		return 0;
-	#else // !_GAME
+	} else {
 		if ( VALIDSTRING( skinName ) )
 		{
 			#ifdef _CGAME
@@ -3085,16 +3082,19 @@ int BG_ModelCache(const char *modelName, const char *skinName)
 		#else // !_CGAME
 			return trap->R_RegisterModel( modelName );
 		#endif // _CGAME
-	#endif // _GAME
+	}
 }
 
-#if defined(_GAME)
-	#define MAX_POOL_SIZE	3000000 //1024000
-#elif defined(_CGAME) //don't need as much for cgame stuff. 2mb will be fine.
-	#define MAX_POOL_SIZE	2048000
-#elif defined(UI_BUILD) //And for the ui the only thing we'll be using this for anyway is allocating anim data for g2 menu models
-	#define MAX_POOL_SIZE	512000
-#endif
+//#if defined(_GAME)
+//	#define MAX_POOL_SIZE	3000000 //1024000
+//#elif defined(_CGAME) //don't need as much for cgame stuff. 2mb will be fine.
+//	#define MAX_POOL_SIZE	2048000
+//#elif defined(UI_BUILD) //And for the ui the only thing we'll be using this for anyway is allocating anim data for g2 menu models
+//	#define MAX_POOL_SIZE	512000
+//#endif
+
+// kung foo man: no clue, since im using everything combined... lets just add the upper nums?
+#define MAX_POOL_SIZE 3000000 + 2048000 + 512000
 
 //I am using this for all the stuff like NPC client structures on server/client and
 //non-humanoid animations as well until/if I can get dynamic memory working properly

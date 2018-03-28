@@ -1060,6 +1060,12 @@
     <ClCompile Include="..\..\codemp\game\bg_weapons.c">
       <Filter>game</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_misc.c">
+      <Filter>gamecgamemix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_panimate.c">
+      <Filter>gamecgamemix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
@@ -1904,6 +1910,9 @@
     </Filter>
     <Filter Include="rend2\utils_opengl">
       <UniqueIdentifier>{9669c53c-15c3-46d3-889f-aa043f191621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gamecgamemix">
+      <UniqueIdentifier>{e1b5a8d4-e227-4ada-8c6d-319094731b26}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
