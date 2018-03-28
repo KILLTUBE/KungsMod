@@ -1589,7 +1589,7 @@ typedef struct serverCommand_s {
 	void		(*func)(void);
 } serverCommand_t;
 
-int svcmdcmp( const void *a, const void *b ) {
+int svcmdcmp_cg( const void *a, const void *b ) {
 	return Q_stricmp( (const char *)a, ((serverCommand_t*)b)->cmd );
 }
 
@@ -1639,7 +1639,7 @@ static void CG_ServerCommand( void ) {
 		return;
 	}
 
-	command = (serverCommand_t *)Q_LinearSearch( cmd, commands, numCommands, sizeof( commands[0] ), svcmdcmp );
+	command = (serverCommand_t *)Q_LinearSearch( cmd, commands, numCommands, sizeof( commands[0] ), svcmdcmp_cg );
 
 	if ( command ) {
 		command->func();

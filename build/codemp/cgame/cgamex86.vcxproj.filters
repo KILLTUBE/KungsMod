@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="C:\XycaRend2\codemp\game\AnimalNPC.c">
@@ -8,9 +8,6 @@
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\game\bg_misc.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\bg_panimate.c">
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\game\bg_pmove.c">

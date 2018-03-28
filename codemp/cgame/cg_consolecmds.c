@@ -288,7 +288,7 @@ typedef struct consoleCommand_s {
 	void		(*func)(void);
 } consoleCommand_t;
 
-int cmdcmp( const void *a, const void *b ) {
+int cmdcmp_cg( const void *a, const void *b ) {
 	return Q_stricmp( (const char *)a, ((consoleCommand_t*)b)->cmd );
 }
 
@@ -337,7 +337,7 @@ Cmd_Argc() / Cmd_Argv()
 qboolean CG_ConsoleCommand( void ) {
 	consoleCommand_t	*command = NULL;
 
-	command = (consoleCommand_t *)Q_LinearSearch( CG_Argv( 0 ), commands, numCommands, sizeof( commands[0] ), cmdcmp );
+	command = (consoleCommand_t *)Q_LinearSearch( CG_Argv( 0 ), commands, numCommands, sizeof( commands[0] ), cmdcmp_cg );
 
 	if ( !command || !command->func )
 		return qfalse;

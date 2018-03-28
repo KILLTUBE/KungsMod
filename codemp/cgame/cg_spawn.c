@@ -146,28 +146,9 @@ qboolean CG_SpawnVector( const char *key, const char *defaultString, float *out 
 	}
 	return present;
 }
-/*
-=============
-VectorToString
 
-This is just a convenience function
-for printing vectors
-=============
-*/
-char    *vtos( const vec3_t v ) {
-	static int index;
-	static char str[8][32];
-	char *s;
 
-	// use an array so that multiple vtos won't collide
-	s	= str[index];
-	index	= ( index + 1 ) & 7;
-
-	Com_sprintf( s, 32, "(%i %i %i)", (int)v[0], (int)v[1], (int)v[2] );
-
-	return s;
-}
-void SP_misc_model_static( void ) {
+void SP_misc_model_static_cg( void ) {
 	char* model;
 	float angle;
 	vec3_t angles;
@@ -235,7 +216,7 @@ void SP_misc_model_static( void ) {
 	}
 }
 qboolean cg_noFogOutsidePortal = qfalse;
-void SP_misc_skyportal( void ) {
+void SP_misc_skyportal_cg( void ) {
 	qboolean onlyfoghere;
 
 	CG_SpawnBoolean( "onlyfoghere", "0", &onlyfoghere );
@@ -246,7 +227,7 @@ void SP_misc_skyportal( void ) {
 qboolean cg_skyOri = qfalse;
 vec3_t cg_skyOriPos;
 float cg_skyOriScale = 0.0f;
-void SP_misc_skyportal_orient( void ) {
+void SP_misc_skyportal_orient_cg( void ) {
 	if( cg_skyOri )
 		trap->Print( S_COLOR_YELLOW "WARNING: multiple misc_skyportal_orients found.\n" );
 
@@ -254,7 +235,7 @@ void SP_misc_skyportal_orient( void ) {
 	CG_SpawnVector( "origin", "0 0 0", cg_skyOriPos );
 	CG_SpawnFloat( "modelscale", "0", &cg_skyOriScale );
 }
-void SP_misc_weather_zone( void ) {
+void SP_misc_weather_zone_cg( void ) {
 	char *model;
 	vec3_t mins, maxs;
 
@@ -274,11 +255,11 @@ typedef struct spawn_s {
 	void		(*spawn)( void );
 } spawn_t;
 
-spawn_t spawns [] = {
-	{ "misc_model_static",		SP_misc_model_static		},
-	{ "misc_skyportal",			SP_misc_skyportal			},
-	{ "misc_skyportal_orient",	SP_misc_skyportal_orient	},
-	{ "misc_weather_zone",		SP_misc_weather_zone		},
+spawn_t spawns_cg [] = {
+	{ "misc_model_static",		SP_misc_model_static_cg		},
+	{ "misc_skyportal",			SP_misc_skyportal_cg			},
+	{ "misc_skyportal_orient",	SP_misc_skyportal_orient_cg	},
+	{ "misc_weather_zone",		SP_misc_weather_zone_cg		},
 };
 
 /*
@@ -334,7 +315,7 @@ void CG_ParseEntityFromSpawnVars( void ) {
 	}
 
 	if( CG_SpawnString( "classname", "", &classname ) ) {
-		s = (spawn_t *)Q_LinearSearch( classname, spawns, ARRAY_LEN( spawns ), sizeof( spawn_t ), spawncmp );
+		s = (spawn_t *)Q_LinearSearch( classname, spawns_cg, ARRAY_LEN( spawns_cg ), sizeof( spawn_t ), spawncmp );
 		if ( s )
 			s->spawn();
 	}
@@ -420,12 +401,12 @@ qboolean CG_ParseSpawnVars( void ) {
 }
 extern float cg_linearFogOverride;      // cg_view.c
 extern float cg_radarRange;             // cg_draw.c
-void SP_worldspawn( void ) {
+void SP_worldspawn_cg( void ) {
 	char *s;
 
 	CG_SpawnString( "classname", "", &s );
 	if( Q_stricmp( s, "worldspawn" ) ) {
-		trap->Error( ERR_DROP, "SP_worldspawn: The first entity isn't 'worldspawn'" );
+		trap->Error( ERR_DROP, "SP_worldspawn_cg: The first entity isn't 'worldspawn'" );
 	}
 
 	CG_SpawnFloat( "fogstart", "0", &cg_linearFogOverride );
@@ -453,7 +434,7 @@ void CG_ParseEntitiesFromString( void ) {
 		trap->Error( ERR_DROP, "ParseEntities: no entities" );
 	}
 
-	SP_worldspawn();
+	SP_worldspawn_cg();
 
 	// parse ents
 	while( CG_ParseSpawnVars() ) {

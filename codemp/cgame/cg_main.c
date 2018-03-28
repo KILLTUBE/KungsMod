@@ -406,12 +406,6 @@ const char *CG_Argv( int arg ) {
 
 //========================================================================
 
-//so shared code can get the local time depending on the side it's executed on
-int BG_GetTime(void)
-{
-	return cg.time;
-}
-
 /*
 =================
 CG_RegisterItemSounds

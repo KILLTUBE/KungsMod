@@ -1736,7 +1736,7 @@ void BG_AnimsetFree(animation_t *animset)
 	*/
 }
 
-#ifdef _CGAME //none of this is actually needed serverside. Could just be moved to cgame code but it's here since it used to tie in a lot with the anim loading stuff.
+//#ifdef _CGAME //none of this is actually needed serverside. Could just be moved to cgame code but it's here since it used to tie in a lot with the anim loading stuff.
 stringID_table_t animEventTypeTable[MAX_ANIM_EVENTS+1] =
 {
 	ENUM2STRING(AEV_SOUND),			//# animID AEV_SOUND framenum soundpath randomlow randomhi chancetoplay
@@ -2290,7 +2290,7 @@ fin:
 
 	return usedIndex;
 }
-#endif
+
 
 /*
 ======================
