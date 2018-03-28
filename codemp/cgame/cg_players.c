@@ -264,7 +264,7 @@ sfxHandle_t	CG_CustomSound( int clientNum, const char *soundName ) {
 		}
 	}
 
-    if (cgs.gametype >= GT_TEAM || com_buildScript.integer)
+    if (cgs.gametype >= GT_TEAM || com_buildScript->integer)
 	{ //siege only
 		for (i = 0; i < MAX_CUSTOM_SIEGE_SOUNDS; i++)
 		{
@@ -278,7 +278,7 @@ sfxHandle_t	CG_CustomSound( int clientNum, const char *soundName ) {
 
     if (cgs.gametype == GT_DUEL
 		|| cgs.gametype == GT_POWERDUEL
-		|| com_buildScript.integer)
+		|| com_buildScript->integer)
 	{ //Duel only
 		for (i = 0; i < MAX_CUSTOM_SOUNDS; i++)
 		{
@@ -296,11 +296,11 @@ sfxHandle_t	CG_CustomSound( int clientNum, const char *soundName ) {
 		{
 			return ci->sounds[i];
 		}
-		else if ( (cgs.gametype >= GT_TEAM || com_buildScript.integer) && i < numCSiegeSounds && !strcmp( lSoundName, bg_customSiegeSoundNames[i] ) )
+		else if ( (cgs.gametype >= GT_TEAM || com_buildScript->integer) && i < numCSiegeSounds && !strcmp( lSoundName, bg_customSiegeSoundNames[i] ) )
 		{ //siege only
 			return ci->siegeSounds[i];
 		}
-		else if ( (cgs.gametype == GT_DUEL || cgs.gametype == GT_POWERDUEL || com_buildScript.integer) && i < numCDuelSounds && !strcmp( lSoundName, cg_customDuelSoundNames[i] ) )
+		else if ( (cgs.gametype == GT_DUEL || cgs.gametype == GT_POWERDUEL || com_buildScript->integer) && i < numCDuelSounds && !strcmp( lSoundName, cg_customDuelSoundNames[i] ) )
 		{ //siege only
 			return ci->duelSounds[i];
 		}
@@ -937,7 +937,7 @@ void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded)
 		}
 	}
 
-	if (cgs.gametype >= GT_TEAM || com_buildScript.integer)
+	if (cgs.gametype >= GT_TEAM || com_buildScript->integer)
 	{ //load the siege sounds then
 		for ( i = 0 ; i < MAX_CUSTOM_SIEGE_SOUNDS; i++ )
 		{
@@ -983,7 +983,7 @@ void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded)
 
 	if (cgs.gametype == GT_DUEL
 		||cgs.gametype == GT_POWERDUEL
-		|| com_buildScript.integer)
+		|| com_buildScript->integer)
 	{ //load the Duel sounds then
 		for ( i = 0 ; i < MAX_CUSTOM_DUEL_SOUNDS; i++ )
 		{
@@ -1852,7 +1852,7 @@ void CG_NewClientInfo( int clientNum, qboolean entitiesInitialized ) {
 		{ //rww - don't defer your own client info ever
 			CG_LoadClientInfo( &newInfo );
 		}
-		else if (  cg_deferPlayers.integer && cgs.gametype != GT_SIEGE && !com_buildScript.integer && !cg.loading ) {
+		else if (  cg_deferPlayers.integer && cgs.gametype != GT_SIEGE && !com_buildScript->integer && !cg.loading ) {
 			// keep whatever they had if it won't violate team skins
 			CG_SetDeferredClientInfo( &newInfo );
 		} else {
@@ -8912,7 +8912,7 @@ void CG_Player( centity_t *cent ) {
 				renderfx = RF_THIRD_PERSON;			// only draw in mirrors
 			}
 		} else {
-			if (com_cameraMode.integer) {
+			if (com_cameraMode->integer) {
 				iwantout = 1;
 
 

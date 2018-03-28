@@ -2072,3 +2072,9 @@ Ghoul2 Insert End
 */
 
 extern cgameImport_t *trap;
+
+EXTERNC		cvar_t	*cl_paused;
+EXTERNC		cvar_t	*com_buildScript;		// for building release pak files
+EXTERNC		cvar_t	*com_cameraMode;
+//EXTERNC cvar_t	*g_gravity = NULL;
+EXTERNC vmCvar_t g_gravity;

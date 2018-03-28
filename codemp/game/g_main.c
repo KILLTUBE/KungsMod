@@ -29,9 +29,16 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "bg_saga.h"
 #include "b_local.h"
 #include "server/sv_nav.h"
+
+
 #include "cgame/cg_local.h"
+// trap and cg are not used, just to resolve missing linking imports, since game.dll has no trap-> anymore but the if(isCGame()) part accesses traps
+cgameImport_t *trap;
+cg_t cg;
 
 level_locals_t	level;
+
+
 
 int		eventClearTime = 0;
 static int navCalcPathTime = 0;
@@ -2885,13 +2892,7 @@ void NAV_CheckCalcPaths( void )
 }
 
 //so shared code can get the local time depending on the side it's executed on
-int BG_GetTime(void)
-{
-	if (isGame())
-		return level.time;
-	else
-		return cg.time;
-}
+
 
 /*
 ================

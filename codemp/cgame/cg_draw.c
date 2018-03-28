@@ -8156,7 +8156,7 @@ static void CG_Draw2D( void ) {
 	CG_DrawLagometer();
 
 
-	if (!cl_paused.integer) {
+	if (!cl_paused->integer) {
 		CG_DrawBracketedEntities();
 		CG_DrawUpperRight();
 	}

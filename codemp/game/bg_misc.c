@@ -2501,20 +2501,13 @@ Handles the sequence numbers
 ===============
 */
 
+EXTERNC cvar_t *bg_showevents;
+
 void BG_AddPredictableEventToPlayerstate( int newEvent, int eventParm, playerState_t *ps ) {
 
 #ifdef _DEBUG
 	{
-		static vmCvar_t		showEvents;
-		static qboolean		isRegistered = qfalse;
-
-		if (!isRegistered)
-		{
-			Cvar_Register(&showEvents, "showevents", "0", 0);
-			isRegistered = qtrue;
-		}
-
-		if ( showEvents.integer != 0 ) {
+		if ( bg_showevents->integer != 0 ) {
 			if (isGame())
 				Com_Printf(" game event svt %5d -> %5d: num = %20s parm %d\n", ps->pmove_framecount/*ps->commandTime*/, ps->eventSequence, eventnames[newEvent], eventParm);
 			else

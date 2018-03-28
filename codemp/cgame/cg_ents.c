@@ -418,7 +418,7 @@ void FX_DrawPortableShield(centity_t *cent)
 	vec3_t			start, end, normal;
 	qhandle_t		shader;
 
-	if ( cl_paused.integer )
+	if ( cl_paused->integer )
 	{ //rww - fix to keep from rendering repeatedly while HUD menu is up
 		return;
 	}

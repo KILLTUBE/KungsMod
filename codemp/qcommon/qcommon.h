@@ -652,6 +652,9 @@ EXTERNC		cvar_t	*com_buildScript;		// for building release pak files
 EXTERNC		cvar_t	*com_journal;
 EXTERNC		cvar_t	*com_cameraMode;
 EXTERNC		cvar_t	*com_homepath;
+
+EXTERNC cvar_t *bg_showevents;
+
 #ifndef _WIN32
 EXTERNC		cvar_t	*com_ansiColor;
 #endif

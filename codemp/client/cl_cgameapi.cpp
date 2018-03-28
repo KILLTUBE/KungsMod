@@ -832,6 +832,13 @@ static void CGVM_Cmd_RemoveCommand( const char *cmd_name ) {
 // Stub function for old RMG system.
 static void RE_InitRendererTerrain ( const char * /*info*/ ) {}
 
+
+
+//typedef int cgameExport_t;
+//typedef int cgameImport_t;
+
+//CCALL cgameExport_t* QDECL GetModuleAPI( int apiVersion, cgameImport_t *import );
+
 void CL_BindCGame( void ) {
 	static cgameImport_t cgi;
 	cgameExport_t		*ret;
@@ -857,6 +864,7 @@ void CL_BindCGame( void ) {
 		cgi.Cvar_Set							= CGVM_Cvar_Set;
 		cgi.Cvar_Update							= Cvar_Update;
 		cgi.Cvar_VariableStringBuffer			= Cvar_VariableStringBuffer;
+		cgi.GetRealCvar = Cvar_Get;
 		cgi.AddCommand							= CL_AddCgameCommand;
 		cgi.Cmd_Argc							= Cmd_Argc;
 		cgi.Cmd_Args							= Cmd_ArgsBuffer;
@@ -1050,7 +1058,13 @@ void CL_BindCGame( void ) {
 		cgi.ext.R_Font_StrLenPixels				= re->ext.Font_StrLenPixels;
 
 		GetCGameAPI = (GetCGameAPI_t)cgvm->GetModuleAPI;
-		ret = GetCGameAPI( CGAME_API_VERSION, &cgi );
+
+		#if 0
+			ret = GetModuleAPI( CGAME_API_VERSION, &cgi );
+		#else
+			ret = GetCGameAPI( CGAME_API_VERSION, &cgi );
+		#endif
+
 		if ( !ret ) {
 			//free VM?
 			cls.cgameStarted = qfalse;

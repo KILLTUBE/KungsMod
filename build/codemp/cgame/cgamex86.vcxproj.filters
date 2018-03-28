@@ -163,6 +163,12 @@
     <ClCompile Include="C:\XycaRend2\codemp\ui\ui_shared.c">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\codemp\game\bg_panimate.c">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\shared\sys\snapvector.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\game\anims.h">

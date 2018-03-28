@@ -64,6 +64,8 @@ cvar_t	*cl_paused;
 cvar_t	*sv_paused;
 cvar_t	*com_cameraMode;
 cvar_t  *com_homepath;
+
+cvar_t *bg_showevents = NULL;
 #ifndef _WIN32
 cvar_t	*com_ansiColor = NULL;
 #endif
@@ -1228,6 +1230,10 @@ void Com_Init( char *commandLine ) {
 		com_sv_running = Cvar_Get ("sv_running", "0", CVAR_ROM, "Is a server running?" );
 		com_cl_running = Cvar_Get ("cl_running", "0", CVAR_ROM, "Is the client running?" );
 		com_buildScript = Cvar_Get( "com_buildScript", "0", 0 );
+		
+		bg_showevents = Cvar_Get( "bg_showevents", "0", 0 );
+
+
 #ifndef _WIN32
 		com_ansiColor = Cvar_Get( "com_ansiColor", "0", CVAR_ARCHIVE_ND );
 #endif

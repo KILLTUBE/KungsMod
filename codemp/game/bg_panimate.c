@@ -47,6 +47,14 @@ BEGIN: Animation utility functions (sequence checking)
 // need multiple copies of this, but it's much easier (and less likely to
 // break in the future) if I keep separate namespace versions now.
 
+int BG_GetTime(void)
+{
+	if (isGame())
+		return level.time;
+	else
+		return cg.time;
+}
+
 qboolean BG_SaberStanceAnim( int anim )
 {
 	switch ( anim )
@@ -1548,7 +1556,7 @@ qboolean BG_SaberLockBreakAnim( int anim )
 		return qtrue;
 		break;
 	}
-	return (BG_SuperBreakLoseAnim(anim)||BG_SuperBreakWinAnim(anim));
+	return (qboolean)(BG_SuperBreakLoseAnim(anim)||BG_SuperBreakWinAnim(anim));
 }
 
 
