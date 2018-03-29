@@ -749,16 +749,6 @@ typedef struct cvar_s {
 
 typedef int	cvarHandle_t;
 
-// the modules that run in the virtual machine can't access the cvar_t directly,
-// so they must ask for structured updates
-typedef struct vmCvar_s {
-	cvarHandle_t	handle;
-	int			modificationCount;
-	float		value;
-	int			integer;
-	char		string[MAX_CVAR_VALUE_STRING];
-} vmCvar_t;
-
 /*
 ==============================================================
 

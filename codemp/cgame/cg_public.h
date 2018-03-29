@@ -490,9 +490,9 @@ typedef struct cgameImport_s {
 	int				(*PrecisionTimerEnd)					( void *timer );
 
 	// cvar
-	void			(*Cvar_Register)						( vmCvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags );
+	void			(*Cvar_Register)						( cvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags );
 	void			(*Cvar_Set)								( const char *var_name, const char *value );
-	void			(*Cvar_Update)							( vmCvar_t *vmCvar );
+	void			(*Cvar_Update)							( cvar_t *vmCvar );
 	void			(*Cvar_VariableStringBuffer)			( const char *var_name, char *buffer, int bufsize );
 
 	cvar_t *(*GetRealCvar)(const char *var_name, const char *var_value, uint32_t flags, const char *var_desc);

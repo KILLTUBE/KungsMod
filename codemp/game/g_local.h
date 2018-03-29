@@ -1536,7 +1536,7 @@ CCALL void SV_UnlinkEntity( sharedEntity_t *ent );
 CCALL void SV_Trace( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int passEntityNum, int contentmask, int capsule, int traceFlags, int useLod );
 CCALL int SV_AreaEntities( const vec3_t mins, const vec3_t maxs, int *entityList, int maxcount );
 
-CCALL void	Cvar_Update( vmCvar_t *vmCvar );
+CCALL void	Cvar_Update( cvar_t *vmCvar );
 CCALL int Cvar_VariableIntegerValue( const char *var_name );
 CCALL void Cvar_VariableStringBuffer( const char *var_name, char *buffer, int bufsize );
 CCALL int		Cmd_Argc( void );
@@ -1597,7 +1597,7 @@ CCALL int Q3_GetVectorVariable( const char *name, vec3_t value );
 CCALL void ICARUS_FreeEnt( sharedEntity_t *ent );
 CCALL void SV_LocateGameData( sharedEntity_t *gEnts, int numGEntities, int sizeofGEntity_t, playerState_t *clients, int sizeofGameClient );
 CCALL int BotImport_DebugPolygonCreate(int color, int numPoints, vec3_t *points);
-CCALL void	Cvar_Register( vmCvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags );
+CCALL void	Cvar_Register( cvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags );
 CCALL void SV_RegisterSharedMemory( char *memory );
 CCALL void SV_BotFreeClient( int clientNum );
 CCALL int SV_BotAllocateClient(void);

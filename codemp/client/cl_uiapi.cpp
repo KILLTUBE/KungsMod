@@ -801,11 +801,11 @@ intptr_t CL_UISystemCalls( intptr_t *args ) {
 		return Sys_Milliseconds();
 
 	case UI_CVAR_REGISTER:
-		Cvar_Register( (vmCvar_t *)VMA(1), (const char *)VMA(2), (const char *)VMA(3), args[4] );
+		Cvar_Register( (cvar_t *)VMA(1), (const char *)VMA(2), (const char *)VMA(3), args[4] );
 		return 0;
 
 	case UI_CVAR_UPDATE:
-		Cvar_Update( (vmCvar_t *)VMA(1) );
+		Cvar_Update( (cvar_t *)VMA(1) );
 		return 0;
 
 	case UI_CVAR_SET:

@@ -58,21 +58,21 @@ static void CG_TeamOverlayChange( void ) {
 // Cvar table
 //
 
-typedef struct cvarTable_s {
-	vmCvar_t	*vmCvar;
-	char		*cvarName;
-	char		*defaultString;
-	void		(*update)( void );
-	uint32_t	cvarFlags;
-} cvarTable_t;
+//typedef struct cvarTable_s {
+//	vmCvar_t	*vmCvar;
+//	char		*cvarName;
+//	char		*defaultString;
+//	void		(*update)( void );
+//	uint32_t	cvarFlags;
+//} cvarTable_t;
 
 #define XCVAR_DECL
 	#include "cg_xcvar.h"
 #undef XCVAR_DECL
 
 void CG_RegisterCvars( void ) {
-	size_t i = 0;
-	const cvarTable_t *cv = NULL;
+	//size_t i = 0;
+	//const cvarTable_t *cv = NULL;
 
 
 	#define XCVAR_LIST
@@ -88,7 +88,7 @@ void CG_RegisterCvars( void ) {
 
 void CG_UpdateCvars( void ) {
 	size_t i = 0;
-	const cvarTable_t *cv = NULL;
+	//const cvarTable_t *cv = NULL;
 
 	//for ( i=0, cv=cvarTable; i<cvarTableSize; i++, cv++ ) {
 	//	if ( cv->vmCvar ) {

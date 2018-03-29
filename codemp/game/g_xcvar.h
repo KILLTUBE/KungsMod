@@ -200,6 +200,7 @@ XCVAR_DEF( bot_wp_clearweight, "1", NULL,          0, qfalse);
 XCVAR_DEF( bot_wp_distconnect, "1", NULL,          0, qfalse);
 XCVAR_DEF( bot_wp_visconnect , "1", NULL,          0, qfalse);
 XCVAR_DEF( bot_normgpath     , "1", NULL, CVAR_CHEAT, qfalse);
+XCVAR_DEF( g_botsFile     , "", NULL, CVAR_INIT|CVAR_ROM, qfalse);
 
 
 XCVAR_DEF( mapname           , "", NULL, CVAR_SERVERINFO | CVAR_ROM, qfalse); // false or true?

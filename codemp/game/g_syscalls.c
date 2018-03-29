@@ -56,10 +56,10 @@ void trap_PrecisionTimer_Start(void **theNewTimer) {
 int trap_PrecisionTimer_End(void *theTimer) {
 	return Q_syscall(G_PRECISIONTIMER_END, theTimer);
 }
-void trap_Cvar_Register( vmCvar_t *cvar, const char *var_name, const char *value, uint32_t flags ) {
+void trap_Cvar_Register( cvar_t *cvar, const char *var_name, const char *value, uint32_t flags ) {
 	Q_syscall( G_CVAR_REGISTER, cvar, var_name, value, flags );
 }
-void trap_Cvar_Update( vmCvar_t *cvar ) {
+void trap_Cvar_Update( cvar_t *cvar ) {
 	Q_syscall( G_CVAR_UPDATE, cvar );
 }
 void trap_Cvar_Set( const char *var_name, const char *value ) {

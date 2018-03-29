@@ -136,7 +136,7 @@ CCALL qhandle_t SV_RE_RegisterSkin( const char *name ) {
 	return 0;
 }
 
-CCALL void	Cvar_Register( vmCvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags ) {
+CCALL void	Cvar_Register( cvar_t *cvar, const char *varName, const char *defaultValue, uint32_t flags ) {
 	assert(0);
 }
 

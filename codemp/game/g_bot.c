@@ -223,7 +223,6 @@ const char *G_RefreshNextMap(int gametype, qboolean forced)
 	int			n = 0;
 	char		*type = NULL;
 	qboolean	loopingUp = qfalse;
-	vmCvar_t	mapname;
 
 	if (!g_autoMapCycle->integer && !forced)
 	{
@@ -235,12 +234,11 @@ const char *G_RefreshNextMap(int gametype, qboolean forced)
 		return NULL;
 	}
 
-	Cvar_Register( &mapname, "mapname", "", CVAR_SERVERINFO | CVAR_ROM );
 	for( n = 0; n < level.arenas.num; n++ )
 	{
 		type = Info_ValueForKey( level.arenas.infos[n], "map" );
 
-		if (Q_stricmp(mapname.string, type) == 0)
+		if (Q_stricmp(mapname->string, type) == 0)
 		{
 			thisLevel = n;
 			break;
@@ -1213,7 +1211,6 @@ G_LoadBots
 ===============
 */
 static void G_LoadBots( void ) {
-	vmCvar_t	botsFile;
 	int			numdirs;
 	char		filename[128];
 	char		dirlist[1024];
@@ -1227,9 +1224,8 @@ static void G_LoadBots( void ) {
 
 	level.bots.num = 0;
 
-	Cvar_Register( &botsFile, "g_botsFile", "", CVAR_INIT|CVAR_ROM );
-	if( *botsFile.string ) {
-		G_LoadBotsFromFile(botsFile.string);
+	if( *g_botsFile->string ) {
+		G_LoadBotsFromFile(g_botsFile->string);
 	}
 	else {
 		//G_LoadBotsFromFile("scripts/bots.txt");

@@ -38,14 +38,14 @@ static void CVU_Derpity( void ) {
 // Cvar table
 //
 
-typedef struct cvarTable_s {
-	vmCvar_t	*vmCvar;
-	char		*cvarName;
-	char		*defaultString;
-	void		(*update)( void );
-	uint32_t	cvarFlags;
-	qboolean	trackChange; // announce if value changes
-} cvarTable_t;
+//typedef struct cvarTable_s {
+//	cvar_t	*vmCvar;
+//	char		*cvarName;
+//	char		*defaultString;
+//	void		(*update)( void );
+//	uint32_t	cvarFlags;
+//	qboolean	trackChange; // announce if value changes
+//} cvarTable_t;
 
 #define XCVAR_DECL
 	#include "g_xcvar.h"
@@ -69,8 +69,8 @@ void G_RegisterCvars( void ) {
 }
 
 void G_UpdateCvars( void ) {
-	size_t i = 0;
-	const cvarTable_t *cv = NULL;
+	//size_t i = 0;
+	//const cvarTable_t *cv = NULL;
 
 	//for ( i=0, cv=gameCvarTable; i<gameCvarTableSize; i++, cv++ ) {
 	//	if ( cv->vmCvar ) {

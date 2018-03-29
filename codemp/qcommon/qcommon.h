@@ -473,10 +473,10 @@ CCALL cvar_t *Cvar_Get( const char *var_name, const char *value, uint32_t flags,
 // that allows variables to be unarchived without needing bitflags
 // if value is "", the value will not override a previously set value.
 
-CCALL void	Cvar_Register( vmCvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags );
+CCALL void	Cvar_Register( cvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags );
 // basically a slightly modified Cvar_Get for the interpreted modules
 
-CCALL void	Cvar_Update( vmCvar_t *vmCvar );
+CCALL void	Cvar_Update( cvar_t *vmCvar );
 // updates an interpreted modules' version of a cvar
 
 CCALL cvar_t	*Cvar_Set2(const char *var_name, const char *value, uint32_t defaultFlags, qboolean force);

@@ -3280,11 +3280,9 @@ void BeginAutoPathRoutine(void)
 
 void LoadPath_ThisLevel(void)
 {
-	vmCvar_t	mapname;
 	int			i = 0;
 	gentity_t	*ent = NULL;
 
-	Cvar_Register( &mapname, "mapname", "", CVAR_SERVERINFO | CVAR_ROM );
 
 	if (RMG->integer)
 	{ //If RMG, generate the path on-the-fly
@@ -3298,14 +3296,14 @@ void LoadPath_ThisLevel(void)
 		}
 		else
 		{ //try loading standard nav data
-			LoadPathData(mapname.string);
+			LoadPathData(mapname->string);
 		}
 
 		gLevelFlags |= LEVELFLAG_NOPOINTPREDICTION;
 	}
 	else
 	{
-		if (LoadPathData(mapname.string) == 2)
+		if (LoadPathData(mapname->string) == 2)
 		{
 			//enter "edit" mode if cheats enabled?
 		}
@@ -3429,7 +3427,6 @@ int AcceptBotCommand(char *cmd, gentity_t *pl)
 	int OptionalArgument, i;
 	int FlagsFromArgument;
 	char *OptionalSArgument, *RequiredSArgument;
-	vmCvar_t mapname;
 
 	if (!gBotEdit)
 	{
@@ -3726,8 +3723,7 @@ int AcceptBotCommand(char *cmd, gentity_t *pl)
 	if (Q_stricmp (cmd, "bot_wp_save") == 0)
 	{
 		gDeactivated = 0;
-		Cvar_Register( &mapname, "mapname", "", CVAR_SERVERINFO | CVAR_ROM );
-		SavePathData(mapname.string);
+		SavePathData(mapname->string);
 		return 1;
 	}
 
