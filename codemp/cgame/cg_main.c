@@ -131,10 +131,6 @@ qboolean TryGrapple(gentity_t *ent) {
 	return qfalse;
 }
 
-CCALL qhandle_t SV_RE_RegisterSkin( const char *name ) {
-	assert(0);
-	return 0;
-}
 
 CCALL void	Cvar_Register( cvar_t *cvar, const char *varName, const char *defaultValue, uint32_t flags ) {
 	assert(0);

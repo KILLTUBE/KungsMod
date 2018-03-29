@@ -283,7 +283,7 @@ UI_LoadBots
 ===============
 */
 void UI_LoadBots( void ) {
-	vmCvar_t	botsFile;
+	cvar_t	*botsFile;
 	int			numdirs;
 	char		filename[128];
 	char		dirlist[1024];
@@ -293,9 +293,9 @@ void UI_LoadBots( void ) {
 
 	ui_numBots = 0;
 
-	trap->Cvar_Register( &botsFile, "g_botsFile", "", CVAR_INIT|CVAR_ROM );
-	if( *botsFile.string ) {
-		UI_LoadBotsFromFile(botsFile.string);
+	botsFile = trap->GetRealCvar( "g_botsFile", "", CVAR_INIT|CVAR_ROM, 0 );
+	if( *botsFile->string ) {
+		UI_LoadBotsFromFile(botsFile->string);
 	}
 	else {
 		UI_LoadBotsFromFile("botfiles/bots.txt");

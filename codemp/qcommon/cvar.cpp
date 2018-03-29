@@ -1504,7 +1504,10 @@ basically a slightly modified Cvar_Get for the interpreted modules
 =====================
 */
 CCALL void	Cvar_Register( cvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags ) {
-	assert(0);
+
+
+	Cvar_Get(varName, defaultValue, flags, 0);
+
 	//cvar_t	*cv;
 	//
 	//// There is code in Cvar_Get to prevent CVAR_ROM cvars being changed by the user. In other words CVAR_ARCHIVE and
@@ -1533,7 +1536,7 @@ updates an interpreted modules' version of a cvar
 =====================
 */
 void	Cvar_Update( cvar_t *vmCvar ) {
-	assert(0);
+	//__debugbreak();
 	//cvar_t	*cv = NULL;
 	//assert(vmCvar);
 	//

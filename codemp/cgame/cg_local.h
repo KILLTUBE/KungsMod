@@ -2070,8 +2070,9 @@ void	CG_SetLightstyle (int i);
 /*
 Ghoul2 Insert End
 */
-
+#ifdef _CGAME
 EXTERNC cgameImport_t *trap;
+#endif
 
 EXTERNC		cvar_t	*cl_paused;
 EXTERNC		cvar_t	*com_buildScript;		// for building release pak files

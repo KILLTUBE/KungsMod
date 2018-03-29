@@ -22,15 +22,16 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 #ifdef XCVAR_PROTO
-	#define XCVAR_DEF( name, defVal, update, flags ) extern vmCvar_t name;
+	#define XCVAR_DEF( name, defVal, update, flags ) EXTERNC cvar_t * name;
 #endif
 
 #ifdef XCVAR_DECL
-	#define XCVAR_DEF( name, defVal, update, flags ) vmCvar_t name;
+	#define XCVAR_DEF( name, defVal, update, flags ) cvar_t * name;
 #endif
 
 #ifdef XCVAR_LIST
-	#define XCVAR_DEF( name, defVal, update, flags ) { & name , #name , defVal , update , flags },
+	//#define XCVAR_DEF( name, defVal, update, flags ) { & name , #name , defVal , update , flags },
+	#define XCVAR_DEF( name, defVal, update, flags, announce ) name  = Cvar_Get( #name , defVal , flags , "" );
 #endif
 
 XCVAR_DEF( capturelimit,					"0",					NULL,				CVAR_ARCHIVE|CVAR_NORESTART|CVAR_SERVERINFO ) // fixme init'd to 8 in game module

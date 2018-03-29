@@ -54,74 +54,6 @@ void UI_LoadForceConfig_List( void );
 // ui_players.c
 //
 
-//FIXME ripped from cg_local.h
-typedef struct lerpFrame_s {
-	int			oldFrame;
-	int			oldFrameTime;		// time when ->oldFrame was exactly on
-
-	int			frame;
-	int			frameTime;			// time when ->frame will be exactly on
-
-	float		backlerp;
-
-	float		yawAngle;
-	qboolean	yawing;
-	float		pitchAngle;
-	qboolean	pitching;
-
-	int			animationNumber;
-	animation_t	*animation;
-	int			animationTime;		// time when the first frame of the animation will be exact
-} lerpFrame_t;
-
-typedef struct playerInfo_s {
-	// model info
-	qhandle_t		legsModel;
-	qhandle_t		legsSkin;
-	lerpFrame_t		legs;
-
-	qhandle_t		torsoModel;
-	qhandle_t		torsoSkin;
-	lerpFrame_t		torso;
-
-//	qhandle_t		headModel;
-//	qhandle_t		headSkin;
-
-	animation_t		animations[MAX_TOTALANIMATIONS];
-
-	qhandle_t		weaponModel;
-	qhandle_t		barrelModel;
-	qhandle_t		flashModel;
-	vec3_t			flashDlightColor;
-	int				muzzleFlashTime;
-
-	// currently in use drawing parms
-	vec3_t			viewAngles;
-	vec3_t			moveAngles;
-	weapon_t		currentWeapon;
-	int				legsAnim;
-	int				torsoAnim;
-
-	// animation vars
-	weapon_t		weapon;
-	weapon_t		lastWeapon;
-	weapon_t		pendingWeapon;
-	int				weaponTimer;
-	int				pendingLegsAnim;
-	int				torsoAnimationTimer;
-
-	int				pendingTorsoAnim;
-	int				legsAnimationTimer;
-
-	qboolean		chat;
-	qboolean		newModel;
-
-	qboolean		barrelSpinning;
-	float			barrelAngle;
-	int				barrelTime;
-
-	int				realWeapon;
-} playerInfo_t;
 
 // new ui stuff
 #define MAX_ALIASES				64
@@ -413,4 +345,6 @@ qboolean UI_SaberTypeForSaber( const char *saberName, char *saberType );
 
 // new ui
 
-extern uiImport_t *trap;
+#ifdef UI_BUILD
+EXTERNC uiImport_t *trap;
+#endif

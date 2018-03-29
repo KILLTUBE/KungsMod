@@ -32,11 +32,13 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 
 #include "../cgame/cg_tempwrappers.h"
+#include "ui/ui_local.h"
 
-//#elif defined(UI_BUILD)
-// meh now cgame and ui still conflict...
-	//#include "ui/ui_local.h"
-//#endif
+
+// we need something to fake-link to, even if it should never be called...
+#ifdef _GAME
+extern cgameImport_t *trap;
+#endif
 
 const char *bgToggleableSurfaces[BG_NUM_TOGGLEABLE_SURFACES] =
 {

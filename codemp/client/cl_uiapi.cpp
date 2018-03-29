@@ -1339,6 +1339,7 @@ void CL_BindUI( void ) {
 		uii.Cvar_Update							= Cvar_Update;
 		uii.Cvar_VariableStringBuffer			= Cvar_VariableStringBuffer;
 		uii.Cvar_VariableValue					= Cvar_VariableValue;
+		uii.GetRealCvar = Cvar_Get;
 
 		uii.Cmd_Argc							= Cmd_Argc;
 		uii.Cmd_Argv							= Cmd_ArgvBuffer;

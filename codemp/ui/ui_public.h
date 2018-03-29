@@ -242,6 +242,8 @@ typedef struct uiImport_s {
 	void			(*Cvar_Update)							( cvar_t *cvar );
 	void			(*Cvar_VariableStringBuffer)			( const char *var_name, char *buffer, int bufsize );
 	float			(*Cvar_VariableValue)					( const char *var_name );
+	cvar_t *(*GetRealCvar)(const char *var_name, const char *var_value, uint32_t flags, const char *var_desc);
+
 
 	int				(*Cmd_Argc)								( void );
 	void			(*Cmd_Argv)								( int n, char *buffer, int bufferLength );

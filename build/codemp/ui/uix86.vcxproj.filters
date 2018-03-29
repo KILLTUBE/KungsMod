@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="C:\XycaRend2\codemp\game\bg_misc.c">
@@ -53,6 +53,12 @@
       <Filter>ui</Filter>
     </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\ui\ui_syscalls.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\codemp\ui\ui_tempwrappers.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\codemp\ui\ui_tempwrappers_g2.c">
       <Filter>ui</Filter>
     </ClCompile>
   </ItemGroup>
@@ -137,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_types.h">
       <Filter>rd-common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\codemp\ui\ui_tempwrappers.h">
+      <Filter>ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

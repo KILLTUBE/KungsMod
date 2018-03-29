@@ -29,6 +29,13 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 	#include "cgame/cg_local.h"
 //#endif
 
+
+
+// we need something to fake-link to, even if it should never be called...
+#ifdef _GAME
+extern cgameImport_t *trap;
+#endif
+
 // just needing it right now because the isCGame() clause could potentially use it... but cgame isnt merged atm, still a .dll
 //cgameImport_t *trap = NULL;
 

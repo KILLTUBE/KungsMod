@@ -580,7 +580,7 @@ static const char *GetMonthAbbrevString( int iMonth )
 
 // Convert ui's net source to AS_* used by trap calls.
 int UI_SourceForLAN( void ) {
-	switch ( ui_netSource.integer ) {
+	switch ( ui_netSource->integer ) {
 	default:
 	case UIAS_LOCAL:
 		return AS_LOCAL;
@@ -926,7 +926,7 @@ void UI_SetActiveMenu( uiMenuCommand_t menu ) {
 
 				if (buf[0])
 				{
-					if (!ui_singlePlayerActive.integer)
+					if (!ui_singlePlayerActive->integer)
 					{
 						Menus_ActivateByName("error_popmenu");
 					}
@@ -1582,19 +1582,19 @@ static const char* UI_GetGameTypeName(int gtEnum)
 // ui_gameType assumes gametype 0 is -1 ALL and will not show
 static void UI_DrawGameType(rectDef_t *rect, float scale, vec4_t color, int textStyle, int iMenuFont)
 {
-	Text_Paint(rect->x, rect->y, scale, color, UI_GetGameTypeName(uiInfo.gameTypes[ui_gametype.integer].gtEnum), 0, 0, textStyle, iMenuFont);
+	Text_Paint(rect->x, rect->y, scale, color, UI_GetGameTypeName(uiInfo.gameTypes[ui_gametype->integer].gtEnum), 0, 0, textStyle, iMenuFont);
 }
 
 static void UI_DrawNetGameType(rectDef_t *rect, float scale, vec4_t color, int textStyle, int iMenuFont)
 {
-	if (ui_netGametype.integer < 0 || ui_netGametype.integer >= uiInfo.numGameTypes)
+	if (ui_netGametype->integer < 0 || ui_netGametype->integer >= uiInfo.numGameTypes)
 	{
 		trap->Cvar_Set("ui_netGametype", "0");
 		trap->Cvar_Update(&ui_netGametype);
 		trap->Cvar_Set("ui_actualNetGametype", "0");
 		trap->Cvar_Update(&ui_actualNetGametype);
 	}
-	Text_Paint(rect->x, rect->y, scale, color, UI_GetGameTypeName(uiInfo.gameTypes[ui_netGametype.integer].gtEnum) , 0, 0, textStyle, iMenuFont);
+	Text_Paint(rect->x, rect->y, scale, color, UI_GetGameTypeName(uiInfo.gameTypes[ui_netGametype->integer].gtEnum) , 0, 0, textStyle, iMenuFont);
 }
 
 static void UI_DrawAutoSwitch(rectDef_t *rect, float scale, vec4_t color, int textStyle, int iMenuFont) {
@@ -1627,13 +1627,13 @@ static void UI_DrawAutoSwitch(rectDef_t *rect, float scale, vec4_t color, int te
 
 static void UI_DrawJoinGameType(rectDef_t *rect, float scale, vec4_t color, int textStyle, int iMenuFont)
 {
-	if (ui_joinGametype.integer < 0 || ui_joinGametype.integer > uiInfo.numJoinGameTypes)
+	if (ui_joinGametype->integer < 0 || ui_joinGametype->integer > uiInfo.numJoinGameTypes)
 	{
 		trap->Cvar_Set("ui_joinGametype", "0");
 		trap->Cvar_Update(&ui_joinGametype);
 	}
 
-	Text_Paint(rect->x, rect->y, scale, color, UI_GetGameTypeName(uiInfo.joinGameTypes[ui_joinGametype.integer].gtEnum) , 0, 0, textStyle, iMenuFont);
+	Text_Paint(rect->x, rect->y, scale, color, UI_GetGameTypeName(uiInfo.joinGameTypes[ui_joinGametype->integer].gtEnum) , 0, 0, textStyle, iMenuFont);
 }
 
 static int UI_TeamIndexFromName(const char *name) {
@@ -1813,7 +1813,7 @@ static void UI_DrawForceSide(rectDef_t *rect, float scale, vec4_t color, int tex
 			Menu_ShowItemByName(menu, "darkpowers", qfalse);
 			Menu_ShowItemByName(menu, "darkpowers_team", qfalse);
 
-			Menu_ShowItemByName(menu, "lightpowers_team", qtrue);//(ui_gameType.integer >= GT_TEAM));
+			Menu_ShowItemByName(menu, "lightpowers_team", qtrue);//(ui_gameType->integer >= GT_TEAM));
 
 		}
 		menu = Menus_FindByName("ingame_playerforce");
@@ -1823,7 +1823,7 @@ static void UI_DrawForceSide(rectDef_t *rect, float scale, vec4_t color, int tex
 			Menu_ShowItemByName(menu, "darkpowers", qfalse);
 			Menu_ShowItemByName(menu, "darkpowers_team", qfalse);
 
-			Menu_ShowItemByName(menu, "lightpowers_team", qtrue);//(ui_gameType.integer >= GT_TEAM));
+			Menu_ShowItemByName(menu, "lightpowers_team", qtrue);//(ui_gameType->integer >= GT_TEAM));
 		}
 	}
 	else
@@ -1836,7 +1836,7 @@ static void UI_DrawForceSide(rectDef_t *rect, float scale, vec4_t color, int tex
 			Menu_ShowItemByName(menu, "lightpowers_team", qfalse);
 			Menu_ShowItemByName(menu, "darkpowers", qtrue);
 
-			Menu_ShowItemByName(menu, "darkpowers_team", qtrue);//(ui_gameType.integer >= GT_TEAM));
+			Menu_ShowItemByName(menu, "darkpowers_team", qtrue);//(ui_gameType->integer >= GT_TEAM));
 		}
 		menu = Menus_FindByName("ingame_playerforce");
 		if (menu)
@@ -1845,7 +1845,7 @@ static void UI_DrawForceSide(rectDef_t *rect, float scale, vec4_t color, int tex
 			Menu_ShowItemByName(menu, "lightpowers_team", qfalse);
 			Menu_ShowItemByName(menu, "darkpowers", qtrue);
 
-			Menu_ShowItemByName(menu, "darkpowers_team", qtrue);//(ui_gameType.integer >= GT_TEAM));
+			Menu_ShowItemByName(menu, "darkpowers_team", qtrue);//(ui_gameType->integer >= GT_TEAM));
 		}
 	}
 
@@ -1914,7 +1914,7 @@ qboolean UI_TrueJediEnabled( void )
 	trap->GetConfigString( CS_SERVERINFO, info, sizeof(info) );
 
 	//already have serverinfo at this point for stuff below. Don't bother trying to use ui_forcePowerDisable.
-	//if (ui_forcePowerDisable.integer)
+	//if (ui_forcePowerDisable->integer)
 	//if (atoi(Info_ValueForKey(info, "g_forcePowerDisable")))
 	disabledForce = atoi(Info_ValueForKey(info, "g_forcePowerDisable"));
 	allForceDisabled = UI_AllForceDisabled(disabledForce);
@@ -2005,7 +2005,7 @@ static void UI_DrawTeamMember(rectDef_t *rect, float scale, vec4_t color, qboole
 		value = -1;
 	}
 
-	if (uiInfo.gameTypes[ui_netGametype.integer].gtEnum == GT_SIEGE)
+	if (uiInfo.gameTypes[ui_netGametype->integer].gtEnum == GT_SIEGE)
 	{
 		if (value > 1 )
 		{
@@ -2036,7 +2036,7 @@ static void UI_DrawTeamMember(rectDef_t *rect, float scale, vec4_t color, qboole
 }
 
 static void UI_DrawMapPreview(rectDef_t *rect, float scale, vec4_t color, qboolean net) {
-	int map = (net) ? ui_currentNetMap.integer : ui_currentMap.integer;
+	int map = (net) ? ui_currentNetMap->integer : ui_currentMap->integer;
 	if (map < 0 || map > uiInfo.mapCount) {
 		if (net) {
 			trap->Cvar_Set("ui_currentNetMap", "0");
@@ -2060,7 +2060,7 @@ static void UI_DrawMapPreview(rectDef_t *rect, float scale, vec4_t color, qboole
 }
 
 static void UI_DrawMapCinematic(rectDef_t *rect, float scale, vec4_t color, qboolean net) {
-	int map = (net) ? ui_currentNetMap.integer : ui_currentMap.integer;
+	int map = (net) ? ui_currentNetMap->integer : ui_currentMap->integer;
 	if (map < 0 || map > uiInfo.mapCount) {
 		if (net) {
 			trap->Cvar_Set("ui_currentNetMap", "0");
@@ -2146,7 +2146,7 @@ void UpdateBotButtons(void)
 		return;
 	}
 
-	if (uiInfo.gameTypes[ui_netGametype.integer].gtEnum == GT_SIEGE)
+	if (uiInfo.gameTypes[ui_netGametype->integer].gtEnum == GT_SIEGE)
 	{
 		Menu_ShowItemByName(menu, "humanbotfield", qfalse);
 		Menu_ShowItemByName(menu, "humanbotnonfield", qtrue);
@@ -2164,7 +2164,7 @@ void UpdateForceStatus()
 	menuDef_t *menu;
 
 	// Currently we don't make a distinction between those that wish to play Jedi of lower than maximum skill.
-/*	if (ui_forcePowerDisable.integer)
+/*	if (ui_forcePowerDisable->integer)
 	{
 		uiForceRank = 0;
 		uiForceAvailable = 0;
@@ -2187,7 +2187,7 @@ void UpdateForceStatus()
 		trap->GetConfigString( CS_SERVERINFO, info, sizeof(info) );
 
 		//already have serverinfo at this point for stuff below. Don't bother trying to use ui_forcePowerDisable.
-		//if (ui_forcePowerDisable.integer)
+		//if (ui_forcePowerDisable->integer)
 		//if (atoi(Info_ValueForKey(info, "g_forcePowerDisable")))
 		disabledForce = atoi(Info_ValueForKey(info, "g_forcePowerDisable"));
 		allForceDisabled = UI_AllForceDisabled(disabledForce);
@@ -2216,7 +2216,7 @@ void UpdateForceStatus()
 		}
 
 		//Moved this to happen after it's done with force power disabling stuff
-		if (uiForcePowersRank[FP_SABER_OFFENSE] > 0 || ui_freeSaber.integer)
+		if (uiForcePowersRank[FP_SABER_OFFENSE] > 0 || ui_freeSaber->integer)
 		{	// Show lightsaber stuff.
 			Menu_ShowItemByName(menu, "nosaber", qfalse);
 			Menu_ShowItemByName(menu, "yessaber", qtrue);
@@ -2310,14 +2310,14 @@ void UpdateForceStatus()
 
 static void UI_DrawNetSource(rectDef_t *rect, float scale, vec4_t color, int textStyle, int iMenuFont)
 {
-	if (ui_netSource.integer < 0 || ui_netSource.integer >= numNetSources) {
+	if (ui_netSource->integer < 0 || ui_netSource->integer >= numNetSources) {
 		trap->Cvar_Set("ui_netSource", "0");
 		trap->Cvar_Update(&ui_netSource);
 	}
 
 	trap->SE_GetStringTextString("MENUS_SOURCE", holdSPString, sizeof(holdSPString) );
 	Text_Paint(rect->x, rect->y, scale, color, va("%s %s",holdSPString,
-		GetNetSourceString(ui_netSource.integer)), 0, 0, textStyle, iMenuFont);
+		GetNetSourceString(ui_netSource->integer)), 0, 0, textStyle, iMenuFont);
 }
 
 static void UI_DrawNetMapPreview(rectDef_t *rect, float scale, vec4_t color) {
@@ -2329,7 +2329,7 @@ static void UI_DrawNetMapPreview(rectDef_t *rect, float scale, vec4_t color) {
 }
 
 static void UI_DrawNetMapCinematic(rectDef_t *rect, float scale, vec4_t color) {
-	if (ui_currentNetMap.integer < 0 || ui_currentNetMap.integer > uiInfo.mapCount) {
+	if (ui_currentNetMap->integer < 0 || ui_currentNetMap->integer > uiInfo.mapCount) {
 		trap->Cvar_Set("ui_currentNetMap", "0");
 		trap->Cvar_Update(&ui_currentNetMap);
 	}
@@ -2347,7 +2347,7 @@ static void UI_DrawNetFilter(rectDef_t *rect, float scale, vec4_t color, int tex
 {
 	trap->SE_GetStringTextString("MENUS_GAME", holdSPString, sizeof(holdSPString));
 
-	Text_Paint(rect->x, rect->y, scale, color, va("%s %s",holdSPString, UI_FilterDescription( ui_serverFilterType.integer )), 0, 0, textStyle, iMenuFont);
+	Text_Paint(rect->x, rect->y, scale, color, va("%s %s",holdSPString, UI_FilterDescription( ui_serverFilterType->integer )), 0, 0, textStyle, iMenuFont);
 }
 
 static void UI_DrawTier(rectDef_t *rect, float scale, vec4_t color, int textStyle, int iMenuFont) {
@@ -2563,7 +2563,7 @@ static void	UI_DrawOpponentLogoName(rectDef_t *rect, vec3_t color) {
 }
 
 static void UI_DrawAllMapsSelection(rectDef_t *rect, float scale, vec4_t color, int textStyle, qboolean net, int iMenuFont) {
-	int map = (net) ? ui_currentNetMap.integer : ui_currentMap.integer;
+	int map = (net) ? ui_currentNetMap->integer : ui_currentMap->integer;
 	if (map >= 0 && map < uiInfo.mapCount) {
 		Text_Paint(rect->x, rect->y, scale, color, uiInfo.mapList[map].mapName, 0, 0, textStyle, iMenuFont);
 	}
@@ -2677,7 +2677,7 @@ static int UI_OwnerDrawWidth(int ownerDraw, float scale) {
 		s = UI_Cvar_VariableString("ui_teamName");
       break;
     case UI_GAMETYPE:
-		s = uiInfo.gameTypes[ui_gametype.integer].gameType;
+		s = uiInfo.gameTypes[ui_gametype->integer].gameType;
       break;
     case UI_SKILL:
 		i = trap->Cvar_VariableValue( "g_spSkill" );
@@ -2757,16 +2757,16 @@ static int UI_OwnerDrawWidth(int ownerDraw, float scale) {
 			s = va("%i. %s", iUse, text);
       break;
 		case UI_NETSOURCE:
-			if (ui_netSource.integer < 0 || ui_netSource.integer >= numNetSources) {
+			if (ui_netSource->integer < 0 || ui_netSource->integer >= numNetSources) {
 				trap->Cvar_Set("ui_netSource", "0");
 				trap->Cvar_Update(&ui_netSource);
 			}
 			trap->SE_GetStringTextString("MENUS_SOURCE", holdSPString, sizeof(holdSPString));
-			s = va("%s %s", holdSPString, GetNetSourceString(ui_netSource.integer));
+			s = va("%s %s", holdSPString, GetNetSourceString(ui_netSource->integer));
 			break;
 		case UI_NETFILTER:
 			trap->SE_GetStringTextString("MENUS_GAME", holdSPString, sizeof(holdSPString));
-			s = va("%s %s", holdSPString, UI_FilterDescription( ui_serverFilterType.integer ) );
+			s = va("%s %s", holdSPString, UI_FilterDescription( ui_serverFilterType->integer ) );
 			break;
 		case UI_TIER:
 			break;
@@ -2786,7 +2786,7 @@ static int UI_OwnerDrawWidth(int ownerDraw, float scale) {
 			}
 			break;
 		case UI_SERVERREFRESHDATE:
-			s = UI_Cvar_VariableString(va("ui_lastServerRefresh_%i", ui_netSource.integer));
+			s = UI_Cvar_VariableString(va("ui_lastServerRefresh_%i", ui_netSource->integer));
 			break;
     default:
       break;
@@ -2860,7 +2860,7 @@ static void UI_DrawServerRefreshDate(rectDef_t *rect, float scale, vec4_t color,
 	else
 	{
 		char buff[64];
-		Q_strncpyz(buff, UI_Cvar_VariableString(va("ui_lastServerRefresh_%i", ui_netSource.integer)), sizeof(buff));
+		Q_strncpyz(buff, UI_Cvar_VariableString(va("ui_lastServerRefresh_%i", ui_netSource->integer)), sizeof(buff));
 		trap->SE_GetStringTextString("MP_INGAME_SERVER_REFRESHTIME", holdSPString, sizeof(holdSPString));
 
 		Text_Paint(rect->x, rect->y, scale, color, va("%s: %s", holdSPString, buff), 0, 0, textStyle, iMenuFont);
@@ -3280,7 +3280,7 @@ static qboolean UI_OwnerDrawVisible(int flags) {
 				vis = qfalse;
 			} else {
 				// if showing yourself
-				if (cg_selectedPlayer.integer < uiInfo.myTeamCount && uiInfo.teamClientNums[cg_selectedPlayer.integer] == uiInfo.playerNumber) {
+				if (cg_selectedPlayer->integer < uiInfo.myTeamCount && uiInfo.teamClientNums[cg_selectedPlayer->integer] == uiInfo.playerNumber) {
 					vis = qfalse;
 				}
 			}
@@ -3290,7 +3290,7 @@ static qboolean UI_OwnerDrawVisible(int flags) {
 			// these need to show when this client is assigning their own status or they are NOT the leader
 			if (uiInfo.teamLeader) {
 				// if not showing yourself
-				if (!(cg_selectedPlayer.integer < uiInfo.myTeamCount && uiInfo.teamClientNums[cg_selectedPlayer.integer] == uiInfo.playerNumber)) {
+				if (!(cg_selectedPlayer->integer < uiInfo.myTeamCount && uiInfo.teamClientNums[cg_selectedPlayer->integer] == uiInfo.playerNumber)) {
 					vis = qfalse;
 				}
 				// these need to show when this client can give orders to a player or a group
@@ -3299,38 +3299,38 @@ static qboolean UI_OwnerDrawVisible(int flags) {
 		}
 		if (flags & UI_SHOW_FAVORITESERVERS) {
 			// this assumes you only put this type of display flag on something showing in the proper context
-			if (ui_netSource.integer != UIAS_FAVORITES) {
+			if (ui_netSource->integer != UIAS_FAVORITES) {
 				vis = qfalse;
 			}
 			flags &= ~UI_SHOW_FAVORITESERVERS;
 		}
 		if (flags & UI_SHOW_NOTFAVORITESERVERS) {
 			// this assumes you only put this type of display flag on something showing in the proper context
-			if (ui_netSource.integer == UIAS_FAVORITES) {
+			if (ui_netSource->integer == UIAS_FAVORITES) {
 				vis = qfalse;
 			}
 			flags &= ~UI_SHOW_NOTFAVORITESERVERS;
 		}
 		if (flags & UI_SHOW_ANYTEAMGAME) {
-			if (uiInfo.gameTypes[ui_gametype.integer].gtEnum <= GT_TEAM ) {
+			if (uiInfo.gameTypes[ui_gametype->integer].gtEnum <= GT_TEAM ) {
 				vis = qfalse;
 			}
 			flags &= ~UI_SHOW_ANYTEAMGAME;
 		}
 		if (flags & UI_SHOW_ANYNONTEAMGAME) {
-			if (uiInfo.gameTypes[ui_gametype.integer].gtEnum > GT_TEAM ) {
+			if (uiInfo.gameTypes[ui_gametype->integer].gtEnum > GT_TEAM ) {
 				vis = qfalse;
 			}
 			flags &= ~UI_SHOW_ANYNONTEAMGAME;
 		}
 		if (flags & UI_SHOW_NETANYTEAMGAME) {
-			if (uiInfo.gameTypes[ui_netGametype.integer].gtEnum <= GT_TEAM ) {
+			if (uiInfo.gameTypes[ui_netGametype->integer].gtEnum <= GT_TEAM ) {
 				vis = qfalse;
 			}
 			flags &= ~UI_SHOW_NETANYTEAMGAME;
 		}
 		if (flags & UI_SHOW_NETANYNONTEAMGAME) {
-			if (uiInfo.gameTypes[ui_netGametype.integer].gtEnum > GT_TEAM ) {
+			if (uiInfo.gameTypes[ui_netGametype->integer].gtEnum > GT_TEAM ) {
 				vis = qfalse;
 			}
 			flags &= ~UI_SHOW_NETANYNONTEAMGAME;
@@ -3688,7 +3688,7 @@ static qboolean UI_Chat_Tactical_HandleKey(int key)
 static qboolean UI_GameType_HandleKey(int flags, float *special, int key, qboolean resetMap) {
 	if (key == A_MOUSE1 || key == A_MOUSE2 || key == A_ENTER || key == A_KP_ENTER) {
 		int oldCount = UI_MapCountByGameType(qtrue);
-		int value = ui_gametype.integer;
+		int value = ui_gametype->integer;
 
 		// hard coded mess here
 		if (key == A_MOUSE2) {
@@ -3747,7 +3747,7 @@ static qboolean UI_NetGameType_HandleKey(int flags, float *special, int key)
 {
 	if (key == A_MOUSE1 || key == A_MOUSE2 || key == A_ENTER || key == A_KP_ENTER)
 	{
-		int value = ui_netGametype.integer;
+		int value = ui_netGametype->integer;
 
 		if (key == A_MOUSE2)
 		{
@@ -3783,7 +3783,7 @@ static qboolean UI_NetGameType_HandleKey(int flags, float *special, int key)
 
 		trap->Cvar_Set( "ui_netGametype", va("%d", value));
 		trap->Cvar_Update(&ui_netGametype);
-		trap->Cvar_Set( "ui_actualNetGametype", va("%d", uiInfo.gameTypes[ui_netGametype.integer].gtEnum));
+		trap->Cvar_Set( "ui_actualNetGametype", va("%d", uiInfo.gameTypes[ui_netGametype->integer].gtEnum));
 		trap->Cvar_Update(&ui_actualNetGametype);
 		trap->Cvar_Set( "ui_currentNetMap", "0");
 		trap->Cvar_Update(&ui_currentNetMap);
@@ -3821,7 +3821,7 @@ static qboolean UI_AutoSwitch_HandleKey(int flags, float *special, int key) {
 
 static qboolean UI_JoinGameType_HandleKey(int flags, float *special, int key) {
 	if (key == A_MOUSE1 || key == A_MOUSE2 || key == A_ENTER || key == A_KP_ENTER) {
-		int value = ui_joinGametype.integer;
+		int value = ui_joinGametype->integer;
 
 		if (key == A_MOUSE2) {
 			value--;
@@ -3923,7 +3923,7 @@ static qboolean UI_TeamMember_HandleKey(int flags, float *special, int key, qboo
 			value++;
 		}
 
-		/*if (ui_actualNetGameType.integer >= GT_TEAM) {
+		/*if (ui_actualNetGameType->integer >= GT_TEAM) {
 		if (value >= uiInfo.characterCount + 2) {
 		value = 0;
 		} else if (value < 0) {
@@ -3945,7 +3945,7 @@ static qboolean UI_TeamMember_HandleKey(int flags, float *special, int key, qboo
 
 static qboolean UI_NetSource_HandleKey(int flags, float *special, int key) {
 	if (key == A_MOUSE1 || key == A_MOUSE2 || key == A_ENTER || key == A_KP_ENTER) {
-		int value = ui_netSource.integer;
+		int value = ui_netSource->integer;
 
 		if (key == A_MOUSE2) {
 			value--;
@@ -3982,7 +3982,7 @@ static qboolean UI_NetSource_HandleKey(int flags, float *special, int key) {
 		trap->Cvar_Update(&ui_netSource);
 
 		UI_BuildServerDisplayList(qtrue);
-		if (!(ui_netSource.integer >= UIAS_GLOBAL1 && ui_netSource.integer <= UIAS_GLOBAL5)) {
+		if (!(ui_netSource->integer >= UIAS_GLOBAL1 && ui_netSource->integer <= UIAS_GLOBAL5)) {
 			UI_StartServerRefresh(qtrue);
 		}
 		return qtrue;
@@ -3992,7 +3992,7 @@ static qboolean UI_NetSource_HandleKey(int flags, float *special, int key) {
 
 static qboolean UI_NetFilter_HandleKey(int flags, float *special, int key) {
 	if (key == A_MOUSE1 || key == A_MOUSE2 || key == A_ENTER || key == A_KP_ENTER) {
-		int value = ui_serverFilterType.integer;
+		int value = ui_serverFilterType->integer;
 
 		if (key == A_MOUSE2) {
 			value--;
@@ -4584,11 +4584,11 @@ static void UI_StartSkirmish(qboolean next) {
 		}
 	}
 
-	g = uiInfo.gameTypes[ui_gametype.integer].gtEnum;
+	g = uiInfo.gameTypes[ui_gametype->integer].gtEnum;
 	trap->Cvar_SetValue( "g_gametype", g );
-	trap->Cmd_ExecuteText( EXEC_APPEND, va( "wait ; wait ; map %s\n", uiInfo.mapList[ui_currentMap.integer].mapLoadName) );
+	trap->Cmd_ExecuteText( EXEC_APPEND, va( "wait ; wait ; map %s\n", uiInfo.mapList[ui_currentMap->integer].mapLoadName) );
 	skill = trap->Cvar_VariableValue( "g_spSkill" );
-	trap->Cvar_Set("ui_scoreMap", uiInfo.mapList[ui_currentMap.integer].mapName);
+	trap->Cvar_Set("ui_scoreMap", uiInfo.mapList[ui_currentMap->integer].mapName);
 
 	k = UI_TeamIndexFromName(UI_Cvar_VariableString("ui_opponentName"));
 
@@ -4619,41 +4619,41 @@ static void UI_StartSkirmish(qboolean next) {
 //	trap->Cvar_Set("g_blueTeam", UI_Cvar_VariableString("ui_opponentName"));
 
 	if (trap->Cvar_VariableValue("ui_recordSPDemo")) {
-		Com_sprintf(buff, MAX_STRING_CHARS, "%s_%i", uiInfo.mapList[ui_currentMap.integer].mapLoadName, g);
+		Com_sprintf(buff, MAX_STRING_CHARS, "%s_%i", uiInfo.mapList[ui_currentMap->integer].mapLoadName, g);
 		trap->Cvar_Set("ui_recordSPDemoName", buff);
 	}
 
 	delay = 500;
 
 	if (g == GT_DUEL || g == GT_POWERDUEL) {
-		temp = uiInfo.mapList[ui_currentMap.integer].teamMembers * 2;
+		temp = uiInfo.mapList[ui_currentMap->integer].teamMembers * 2;
 		trap->Cvar_Set("sv_maxClients", va("%d", temp));
-		Com_sprintf( buff, sizeof(buff), "wait ; addbot %s %f "", %i \n", uiInfo.mapList[ui_currentMap.integer].opponentName, skill, delay);
+		Com_sprintf( buff, sizeof(buff), "wait ; addbot %s %f "", %i \n", uiInfo.mapList[ui_currentMap->integer].opponentName, skill, delay);
 		trap->Cmd_ExecuteText( EXEC_APPEND, buff );
 	} else if (g == GT_HOLOCRON || g == GT_JEDIMASTER) {
-		temp = uiInfo.mapList[ui_currentMap.integer].teamMembers * 2;
+		temp = uiInfo.mapList[ui_currentMap->integer].teamMembers * 2;
 		trap->Cvar_Set("sv_maxClients", va("%d", temp));
-		for (i =0; i < uiInfo.mapList[ui_currentMap.integer].teamMembers; i++) {
+		for (i =0; i < uiInfo.mapList[ui_currentMap->integer].teamMembers; i++) {
 			Com_sprintf( buff, sizeof(buff), "addbot \"%s\" %f %s %i %s\n", UI_AIFromName(uiInfo.teamList[k].teamMembers[i]), skill, (g == GT_HOLOCRON) ? "" : "Blue", delay, uiInfo.teamList[k].teamMembers[i]);
 			trap->Cmd_ExecuteText( EXEC_APPEND, buff );
 			delay += 500;
 		}
 		k = UI_TeamIndexFromName(UI_Cvar_VariableString("ui_teamName"));
-		for (i =0; i < uiInfo.mapList[ui_currentMap.integer].teamMembers-1; i++) {
+		for (i =0; i < uiInfo.mapList[ui_currentMap->integer].teamMembers-1; i++) {
 			Com_sprintf( buff, sizeof(buff), "addbot \"%s\" %f %s %i %s\n", UI_AIFromName(uiInfo.teamList[k].teamMembers[i]), skill, (g == GT_HOLOCRON) ? "" : "Red", delay, uiInfo.teamList[k].teamMembers[i]);
 			trap->Cmd_ExecuteText( EXEC_APPEND, buff );
 			delay += 500;
 		}
 	} else {
-		temp = uiInfo.mapList[ui_currentMap.integer].teamMembers * 2;
+		temp = uiInfo.mapList[ui_currentMap->integer].teamMembers * 2;
 		trap->Cvar_Set("sv_maxClients", va("%d", temp));
-		for (i =0; i < uiInfo.mapList[ui_currentMap.integer].teamMembers; i++) {
+		for (i =0; i < uiInfo.mapList[ui_currentMap->integer].teamMembers; i++) {
 			Com_sprintf( buff, sizeof(buff), "addbot \"%s\" %f %s %i %s\n", UI_AIFromName(uiInfo.teamList[k].teamMembers[i]), skill, (g == GT_FFA) ? "" : "Blue", delay, uiInfo.teamList[k].teamMembers[i]);
 			trap->Cmd_ExecuteText( EXEC_APPEND, buff );
 			delay += 500;
 		}
 		k = UI_TeamIndexFromName(UI_Cvar_VariableString("ui_teamName"));
-		for (i =0; i < uiInfo.mapList[ui_currentMap.integer].teamMembers-1; i++) {
+		for (i =0; i < uiInfo.mapList[ui_currentMap->integer].teamMembers-1; i++) {
 			Com_sprintf( buff, sizeof(buff), "addbot \"%s\" %f %s %i %s\n", UI_AIFromName(uiInfo.teamList[k].teamMembers[i]), skill, (g == GT_FFA) ? "" : "Red", delay, uiInfo.teamList[k].teamMembers[i]);
 			trap->Cmd_ExecuteText( EXEC_APPEND, buff );
 			delay += 500;
@@ -5551,7 +5551,7 @@ static void UI_UpdateCharacter( qboolean changedModel )
 		Com_Error( ERR_FATAL, "UI_UpdateCharacter: Could not find item (character) in menu (%s)", menu->window.name);
 	}
 
-	ItemParse_model_g2anim_go( item, ui_char_anim.string );
+	ItemParse_model_g2anim_go( item, ui_char_anim->string );
 
 	Com_sprintf( modelPath, sizeof( modelPath ), "models/players/%s/model.glm", UI_Cvar_VariableString ( "ui_char_model" ) );
 	ItemParse_asset_model_go( item, modelPath, &animRunLength );
@@ -5653,7 +5653,7 @@ static void UI_JoinServer( void )
 	trap->Cvar_Set("ui_singlePlayerActive", "0");
 	if (uiInfo.serverStatus.currentServer >= 0 && uiInfo.serverStatus.currentServer < uiInfo.serverStatus.numDisplayServers)
 	{
-		trap->LAN_GetServerAddressString(UI_SourceForLAN()/*ui_netSource.integer*/, uiInfo.serverStatus.displayServers[uiInfo.serverStatus.currentServer], buff, sizeof( buff ) );
+		trap->LAN_GetServerAddressString(UI_SourceForLAN()/*ui_netSource->integer*/, uiInfo.serverStatus.displayServers[uiInfo.serverStatus.currentServer], buff, sizeof( buff ) );
 		trap->Cmd_ExecuteText( EXEC_APPEND, va( "connect %s\n", buff ) );
 	}
 
@@ -5869,13 +5869,13 @@ void UI_UpdateCvarsForClass(const int team,const int baseClass,const int index)
 
 void UI_ClampMaxPlayers( void ) {
 	// duel requires 2 players
-	if ( uiInfo.gameTypes[ui_netGametype.integer].gtEnum == GT_DUEL ) {
+	if ( uiInfo.gameTypes[ui_netGametype->integer].gtEnum == GT_DUEL ) {
 		if ( (int)trap->Cvar_VariableValue( "sv_maxClients" ) < 2 )
 			trap->Cvar_Set( "sv_maxClients", "2" );
 	}
 
 	// power duel requires 3 players
-	else if ( uiInfo.gameTypes[ui_netGametype.integer].gtEnum == GT_POWERDUEL ) {
+	else if ( uiInfo.gameTypes[ui_netGametype->integer].gtEnum == GT_POWERDUEL ) {
 		if ( (int)trap->Cvar_VariableValue( "sv_maxClients" ) < 3 )
 			trap->Cvar_Set( "sv_maxClients", "3" );
 	}
@@ -5925,12 +5925,12 @@ static void UI_RunMenuScript(char **args)
 			}
 			else
 			{
-				trap->Cvar_SetValue( "dedicated", Com_Clamp( 0, 2, ui_dedicated.integer ) );
+				trap->Cvar_SetValue( "dedicated", Com_Clamp( 0, 2, ui_dedicated->integer ) );
 			}
-			trap->Cvar_SetValue( "g_gametype", Com_Clamp( 0, GT_MAX_GAME_TYPE, uiInfo.gameTypes[ui_netGametype.integer].gtEnum ) );
+			trap->Cvar_SetValue( "g_gametype", Com_Clamp( 0, GT_MAX_GAME_TYPE, uiInfo.gameTypes[ui_netGametype->integer].gtEnum ) );
 			//trap->Cvar_Set("g_redTeam", UI_Cvar_VariableString("ui_teamName"));
 			//trap->Cvar_Set("g_blueTeam", UI_Cvar_VariableString("ui_opponentName"));
-			trap->Cmd_ExecuteText( EXEC_APPEND, va( "wait ; wait ; map %s\n", uiInfo.mapList[ui_currentNetMap.integer].mapLoadName ) );
+			trap->Cmd_ExecuteText( EXEC_APPEND, va( "wait ; wait ; map %s\n", uiInfo.mapList[ui_currentNetMap->integer].mapLoadName ) );
 			skill = trap->Cvar_VariableValue( "g_spSkill" );
 
 			//Cap the warmup values in case the user tries a dumb setting.
@@ -5972,7 +5972,7 @@ static void UI_RunMenuScript(char **args)
 
 					if (numval <= maxcl)
 					{
-						if (ui_actualNetGametype.integer >= GT_TEAM) {
+						if (ui_actualNetGametype->integer >= GT_TEAM) {
 							Com_sprintf( buff, sizeof(buff), "addbot \"%s\" %f %s\n", UI_GetBotNameByNumber(bot-2), skill, "Blue");
 						} else {
 							Com_sprintf( buff, sizeof(buff), "addbot \"%s\" %f \n", UI_GetBotNameByNumber(bot-2), skill);
@@ -5989,7 +5989,7 @@ static void UI_RunMenuScript(char **args)
 
 					if (numval <= maxcl)
 					{
-						if (ui_actualNetGametype.integer >= GT_TEAM) {
+						if (ui_actualNetGametype->integer >= GT_TEAM) {
 							Com_sprintf( buff, sizeof(buff), "addbot \"%s\" %f %s\n", UI_GetBotNameByNumber(bot-2), skill, "Red");
 						} else {
 							Com_sprintf( buff, sizeof(buff), "addbot \"%s\" %f \n", UI_GetBotNameByNumber(bot-2), skill);
@@ -6007,9 +6007,9 @@ static void UI_RunMenuScript(char **args)
 		} else if (Q_stricmp(name, "updateSPMenu") == 0) {
 			UI_SetCapFragLimits(qtrue);
 			UI_MapCountByGameType(qtrue);
-			trap->Cvar_SetValue("ui_mapIndex", UI_GetIndexFromSelection(ui_currentMap.integer));
+			trap->Cvar_SetValue("ui_mapIndex", UI_GetIndexFromSelection(ui_currentMap->integer));
 			trap->Cvar_Update(&ui_mapIndex);
-			Menu_SetFeederSelection(NULL, FEEDER_MAPS, ui_mapIndex.integer, "skirmish");
+			Menu_SetFeederSelection(NULL, FEEDER_MAPS, ui_mapIndex->integer, "skirmish");
 			UI_GameType_HandleKey(0, 0, A_MOUSE1, qfalse);
 			UI_GameType_HandleKey(0, 0, A_MOUSE2, qfalse);
 		} else if (Q_stricmp(name, "resetDefaults") == 0) {
@@ -6074,7 +6074,7 @@ static void UI_RunMenuScript(char **args)
 			uiInfo.nextFindPlayerRefresh = 0;
 		} else if (Q_stricmp(name, "UpdateFilter") == 0) {
 			trap->Cvar_Update( &ui_netSource );
-			if (ui_netSource.integer == UIAS_LOCAL || !uiInfo.serverStatus.numDisplayServers) {
+			if (ui_netSource->integer == UIAS_LOCAL || !uiInfo.serverStatus.numDisplayServers) {
 				UI_StartServerRefresh(qtrue);
 			}
 			UI_BuildServerDisplayList(qtrue);
@@ -6141,7 +6141,7 @@ static void UI_RunMenuScript(char **args)
 		// On the solo game creation screen, we can't see siege maps
 		else if (Q_stricmp(name, "checkforsiege") == 0)
 		{
-			if (uiInfo.gameTypes[ui_netGametype.integer].gtEnum == GT_SIEGE)
+			if (uiInfo.gameTypes[ui_netGametype->integer].gtEnum == GT_SIEGE)
 			{
 				// fake out the handler to advance to the next game type
 				UI_NetGameType_HandleKey(0, NULL, A_MOUSE1);
@@ -6172,8 +6172,8 @@ static void UI_RunMenuScript(char **args)
 			trap->Cvar_Set( "cl_paused", "0" );
 			Menus_CloseAll();
 		} else if (Q_stricmp(name, "voteMap") == 0) {
-			if (ui_currentNetMap.integer >=0 && ui_currentNetMap.integer < uiInfo.mapCount) {
-				trap->Cmd_ExecuteText( EXEC_APPEND, va("callvote map %s\n",uiInfo.mapList[ui_currentNetMap.integer].mapLoadName) );
+			if (ui_currentNetMap->integer >=0 && ui_currentNetMap->integer < uiInfo.mapCount) {
+				trap->Cmd_ExecuteText( EXEC_APPEND, va("callvote map %s\n",uiInfo.mapList[ui_currentNetMap->integer].mapLoadName) );
 			}
 		} else if (Q_stricmp(name, "voteKick") == 0) {
 			if (uiInfo.playerIndex >= 0 && uiInfo.playerIndex < uiInfo.playerCount) {
@@ -6181,8 +6181,8 @@ static void UI_RunMenuScript(char **args)
 				trap->Cmd_ExecuteText( EXEC_APPEND, va("callvote clientkick \"%i\"\n",uiInfo.playerIndexes[uiInfo.playerIndex]) );
 			}
 		} else if (Q_stricmp(name, "voteGame") == 0) {
-			if (ui_netGametype.integer >= 0 && ui_netGametype.integer < uiInfo.numGameTypes) {
-				trap->Cmd_ExecuteText( EXEC_APPEND, va("callvote g_gametype %i\n",uiInfo.gameTypes[ui_netGametype.integer].gtEnum) );
+			if (ui_netGametype->integer >= 0 && ui_netGametype->integer < uiInfo.numGameTypes) {
+				trap->Cmd_ExecuteText( EXEC_APPEND, va("callvote g_gametype %i\n",uiInfo.gameTypes[ui_netGametype->integer].gtEnum) );
 			}
 		} else if (Q_stricmp(name, "voteLeader") == 0) {
 			if (uiInfo.teamIndex >= 0 && uiInfo.teamIndex < uiInfo.myTeamCount) {
@@ -6196,7 +6196,7 @@ static void UI_RunMenuScript(char **args)
 			}
 		} else if (Q_stricmp(name, "addFavorite") == 0)
 		{
-			if (ui_netSource.integer != UIAS_FAVORITES)
+			if (ui_netSource->integer != UIAS_FAVORITES)
 			{
 				char name[MAX_HOSTNAMELENGTH] = {0};
 				char addr[MAX_ADDRESSLENGTH] = {0};
@@ -6229,7 +6229,7 @@ static void UI_RunMenuScript(char **args)
 		}
 		else if (Q_stricmp(name, "deleteFavorite") == 0)
 		{
-			if (ui_netSource.integer == UIAS_FAVORITES)
+			if (ui_netSource->integer == UIAS_FAVORITES)
 			{
 				char addr[MAX_ADDRESSLENGTH] = {0};
 				trap->LAN_GetServerInfo(AS_FAVORITES, uiInfo.serverStatus.displayServers[uiInfo.serverStatus.currentServer], buff, MAX_STRING_CHARS);
@@ -6243,7 +6243,7 @@ static void UI_RunMenuScript(char **args)
 		}
 		else if (Q_stricmp(name, "createFavorite") == 0)
 		{
-			//	if (ui_netSource.integer == UIAS_FAVORITES)
+			//	if (ui_netSource->integer == UIAS_FAVORITES)
 			//rww - don't know why this check was here.. why would you want to only add new favorites when the filter was favorites?
 			{
 				char name[MAX_HOSTNAMELENGTH] = {0};
@@ -6596,8 +6596,8 @@ static void UI_RunMenuScript(char **args)
 			int	weaponDisable,i;
 			const char *cvarString;
 
-			if (uiInfo.gameTypes[ui_netGameType.integer].gtEnum == GT_DUEL ||
-				uiInfo.gameTypes[ui_netGameType.integer].gtEnum == GT_POWERDUEL)
+			if (uiInfo.gameTypes[ui_netGameType->integer].gtEnum == GT_DUEL ||
+				uiInfo.gameTypes[ui_netGameType->integer].gtEnum == GT_POWERDUEL)
 			{
 				cvarString = "g_duelWeaponDisable";
 			}
@@ -6629,7 +6629,7 @@ static void UI_RunMenuScript(char **args)
 		{
 			int blueValue,redValue,i;
 
-			if (uiInfo.gameTypes[ui_netGametype.integer].gtEnum == GT_SIEGE)
+			if (uiInfo.gameTypes[ui_netGametype->integer].gtEnum == GT_SIEGE)
 			{
 				//hmm, I guess I'll set bot_minplayers to 0 here too. -rww
 				trap->Cvar_Set("bot_minplayers", "0");
@@ -7215,7 +7215,7 @@ UI_MapCountByGameType
 static int UI_MapCountByGameType(qboolean singlePlayer) {
 	int i, c, game;
 	c = 0;
-	game = singlePlayer ? uiInfo.gameTypes[ui_gametype.integer].gtEnum : uiInfo.gameTypes[ui_netGametype.integer].gtEnum;
+	game = singlePlayer ? uiInfo.gameTypes[ui_gametype->integer].gtEnum : uiInfo.gameTypes[ui_netGametype->integer].gtEnum;
 	if (game == GT_TEAM)
 		game = GT_FFA;
 
@@ -7447,7 +7447,7 @@ static void UI_BuildServerDisplayList(int force) {
 
 	// get the server count (comes from the master)
 	count = trap->LAN_GetServerCount(lanSource);
-	if (count == -1 || (ui_netSource.integer == UIAS_LOCAL && count == 0) ) {
+	if (count == -1 || (ui_netSource->integer == UIAS_LOCAL && count == 0) ) {
 		// still waiting on a response from the master
 		uiInfo.serverStatus.numDisplayServers = 0;
 		uiInfo.serverStatus.numPlayersOnServers = 0;
@@ -7471,12 +7471,12 @@ static void UI_BuildServerDisplayList(int force) {
 //		visible = qtrue;
 		// get the ping for this server
 		ping = trap->LAN_GetServerPing(lanSource, i);
-		if (ping > 0 || ui_netSource.integer == UIAS_FAVORITES) {
+		if (ping > 0 || ui_netSource->integer == UIAS_FAVORITES) {
 
 			trap->LAN_GetServerInfo(lanSource, i, info, MAX_STRING_CHARS);
 
 			// don't list servers with invalid info
-			if ( ui_browserFilterInvalidInfo.integer != 0 && !UI_ServerInfoIsValid( info ) ) {
+			if ( ui_browserFilterInvalidInfo->integer != 0 && !UI_ServerInfoIsValid( info ) ) {
 				trap->LAN_MarkServerVisible( lanSource, i, qfalse );
 				continue;
 			}
@@ -7484,14 +7484,14 @@ static void UI_BuildServerDisplayList(int force) {
 			clients = atoi(Info_ValueForKey(info, "clients"));
 			uiInfo.serverStatus.numPlayersOnServers += clients;
 
-			if (ui_browserShowEmpty.integer == 0) {
+			if (ui_browserShowEmpty->integer == 0) {
 				if (clients == 0) {
 					trap->LAN_MarkServerVisible(lanSource, i, qfalse);
 					continue;
 				}
 			}
 
-			if (ui_browserShowFull.integer == 0) {
+			if (ui_browserShowFull->integer == 0) {
 				maxClients = atoi(Info_ValueForKey(info, "sv_maxclients"));
 				if (clients == maxClients) {
 					trap->LAN_MarkServerVisible(lanSource, i, qfalse);
@@ -7499,30 +7499,30 @@ static void UI_BuildServerDisplayList(int force) {
 				}
 			}
 
-			if ( ui_browserShowPasswordProtected.integer == 0 ) {
+			if ( ui_browserShowPasswordProtected->integer == 0 ) {
 				passw = atoi(Info_ValueForKey(info, "needpass"));
-				if (passw && !ui_browserShowPasswordProtected.integer) {
+				if (passw && !ui_browserShowPasswordProtected->integer) {
 					trap->LAN_MarkServerVisible(lanSource, i, qfalse);
 					continue;
 				}
 			}
 
-			if (uiInfo.joinGameTypes[ui_joinGametype.integer].gtEnum != -1) {
+			if (uiInfo.joinGameTypes[ui_joinGametype->integer].gtEnum != -1) {
 				game = atoi(Info_ValueForKey(info, "gametype"));
-				if (game != uiInfo.joinGameTypes[ui_joinGametype.integer].gtEnum) {
+				if (game != uiInfo.joinGameTypes[ui_joinGametype->integer].gtEnum) {
 					trap->LAN_MarkServerVisible(lanSource, i, qfalse);
 					continue;
 				}
 			}
 
-			if (ui_serverFilterType.integer > 0 && ui_serverFilterType.integer <= uiInfo.modCount) {
-				if (Q_stricmp(Info_ValueForKey(info, "game"), UI_FilterDir( ui_serverFilterType.integer ) ) != 0) {
+			if (ui_serverFilterType->integer > 0 && ui_serverFilterType->integer <= uiInfo.modCount) {
+				if (Q_stricmp(Info_ValueForKey(info, "game"), UI_FilterDir( ui_serverFilterType->integer ) ) != 0) {
 					trap->LAN_MarkServerVisible(lanSource, i, qfalse);
 					continue;
 				}
 			}
 			// make sure we never add a favorite server twice
-			if (ui_netSource.integer == UIAS_FAVORITES) {
+			if (ui_netSource->integer == UIAS_FAVORITES) {
 				UI_RemoveServerFromDisplayList(i);
 			}
 			// insert the server into the list
@@ -7724,7 +7724,7 @@ static void UI_BuildFindPlayerList(qboolean force) {
 			return;
 		}
 		// set resend time
-		resend = ui_serverStatusTimeOut.integer / 2 - 10;
+		resend = ui_serverStatusTimeOut->integer / 2 - 10;
 		if (resend < 50) {
 			resend = 50;
 		}
@@ -7789,7 +7789,7 @@ static void UI_BuildFindPlayerList(qboolean force) {
 		}
 		// if empty pending slot or timed out
 		if (!uiInfo.pendingServerStatus.server[i].valid ||
-			uiInfo.pendingServerStatus.server[i].startTime < uiInfo.uiDC.realTime - ui_serverStatusTimeOut.integer) {
+			uiInfo.pendingServerStatus.server[i].startTime < uiInfo.uiDC.realTime - ui_serverStatusTimeOut->integer) {
 			if (uiInfo.pendingServerStatus.server[i].valid) {
 				numTimeOuts++;
 			}
@@ -8353,7 +8353,7 @@ static const char *UI_FeederItemText(float feederID, int index, int column,
 								}
 							}
 						}
-						if ( ui_netSource.integer == UIAS_LOCAL ) {
+						if ( ui_netSource->integer == UIAS_LOCAL ) {
 							int nettype = atoi(Info_ValueForKey(info, "nettype"));
 
 							if (nettype < 0 || nettype >= numNetNames) {
@@ -8953,7 +8953,7 @@ qboolean UI_FeederSelection(float feederFloat, int index, itemDef_t *item)
 		int actual, map;
 		const char *checkValid = NULL;
 
-		map = (feederID == FEEDER_ALLMAPS) ? ui_currentNetMap.integer : ui_currentMap.integer;
+		map = (feederID == FEEDER_ALLMAPS) ? ui_currentNetMap->integer : ui_currentMap->integer;
 		if (uiInfo.mapList[map].cinematic >= 0) {
 		  trap->CIN_StopCinematic(uiInfo.mapList[map].cinematic);
 		  uiInfo.mapList[map].cinematic = -1;
@@ -8962,24 +8962,24 @@ qboolean UI_FeederSelection(float feederFloat, int index, itemDef_t *item)
 
 		if (!checkValid || !checkValid[0])
 		{ //this isn't a valid map to select, so reselect the current
-			index = ui_mapIndex.integer;
+			index = ui_mapIndex->integer;
 			UI_SelectedMap(index, &actual);
 		}
 
 		trap->Cvar_Set("ui_mapIndex", va("%d", index));
 		gUISelectedMap = index;
-		ui_mapIndex.integer = index;
+		ui_mapIndex->integer = index;
 
 		if (feederID == FEEDER_MAPS) {
 			trap->Cvar_Set("ui_currentMap", va("%d", actual));
 			trap->Cvar_Update(&ui_currentMap);
-			uiInfo.mapList[ui_currentMap.integer].cinematic = trap->CIN_PlayCinematic(va("%s.roq", uiInfo.mapList[ui_currentMap.integer].mapLoadName), 0, 0, 0, 0, (CIN_loop | CIN_silent) );
-			//trap->Cvar_Set("ui_opponentModel", uiInfo.mapList[ui_currentMap.integer].opponentName);
+			uiInfo.mapList[ui_currentMap->integer].cinematic = trap->CIN_PlayCinematic(va("%s.roq", uiInfo.mapList[ui_currentMap->integer].mapLoadName), 0, 0, 0, 0, (CIN_loop | CIN_silent) );
+			//trap->Cvar_Set("ui_opponentModel", uiInfo.mapList[ui_currentMap->integer].opponentName);
 			//updateOpponentModel = qtrue;
 		} else {
 			trap->Cvar_Set("ui_currentNetMap", va("%d", actual));
 			trap->Cvar_Update(&ui_currentNetMap);
-			uiInfo.mapList[ui_currentNetMap.integer].cinematic = trap->CIN_PlayCinematic(va("%s.roq", uiInfo.mapList[ui_currentNetMap.integer].mapLoadName), 0, 0, 0, 0, (CIN_loop | CIN_silent) );
+			uiInfo.mapList[ui_currentNetMap->integer].cinematic = trap->CIN_PlayCinematic(va("%s.roq", uiInfo.mapList[ui_currentNetMap->integer].mapLoadName), 0, 0, 0, 0, (CIN_loop | CIN_silent) );
 		}
 
 	} else if (feederID == FEEDER_SERVERS) {
@@ -9295,9 +9295,9 @@ static void UI_StopCinematic(int handle) {
 	} else {
 		handle = abs(handle);
 		if (handle == UI_MAPCINEMATIC) {
-			if (uiInfo.mapList[ui_currentMap.integer].cinematic >= 0) {
-				trap->CIN_StopCinematic(uiInfo.mapList[ui_currentMap.integer].cinematic);
-				uiInfo.mapList[ui_currentMap.integer].cinematic = -1;
+			if (uiInfo.mapList[ui_currentMap->integer].cinematic >= 0) {
+				trap->CIN_StopCinematic(uiInfo.mapList[ui_currentMap->integer].cinematic);
+				uiInfo.mapList[ui_currentMap->integer].cinematic = -1;
 			}
 		} else if (handle == UI_NETMAPCINEMATIC) {
 			if (uiInfo.serverStatus.currentServerCinematic >= 0) {
@@ -9790,7 +9790,7 @@ static void UI_BuildPlayerModel_List( qboolean inGameLoad )
 				continue;
 			}
 			uiInfo.playerSpeciesCount++;
-			if (!inGameLoad && ui_PrecacheModels.integer)
+			if (!inGameLoad && ui_PrecacheModels->integer)
 			{
 				int g2Model;
 				void *ghoul2 = 0;
@@ -9836,6 +9836,8 @@ void UI_Init( qboolean inGameLoad ) {
 	uiInfo.languageCount = trap->SE_GetNumLanguages();	// this does a dir scan, so use carefully
 
 	uiInfo.inGameLoad = inGameLoad;
+	
+	UI_RegisterCvars();
 
 	//initialize all these cvars to "0"
 	UI_SiegeSetCvarsForClass( NULL );
@@ -9844,7 +9846,6 @@ void UI_Init( qboolean inGameLoad ) {
 
 	UI_UpdateForcePowers();
 
-	UI_RegisterCvars();
 	UI_InitMemory();
 
 	// cache redundant calulations
@@ -9950,7 +9951,7 @@ void UI_Init( qboolean inGameLoad ) {
 	{
 		UI_LoadMenus("ui/jampingame.txt", qtrue);
 	}
-	else if (!ui_bypassMainMenuLoad.integer)
+	else if (!ui_bypassMainMenuLoad->integer)
 	{
 		UI_LoadMenus(menuSet, qtrue);
 	}
@@ -9986,7 +9987,7 @@ void UI_Init( qboolean inGameLoad ) {
 
 	trap->Cvar_Register(NULL, "debug_protocol", "", 0 );
 
-	trap->Cvar_Set("ui_actualNetGameType", va("%d", ui_netGametype.integer));
+	trap->Cvar_Set("ui_actualNetGameType", va("%d", ui_netGametype->integer));
 	trap->Cvar_Update(&ui_actualNetGametype);
 }
 
@@ -10041,11 +10042,11 @@ void UI_Refresh( int realtime )
 		//UI_DrawHandlePic( uiInfo.uiDC.cursorx, uiInfo.uiDC.cursory, 48, 48, uiInfo.uiDC.Assets.cursor);
 	}
 
-	if (ui_rankChange.integer)
+	if (ui_rankChange->integer)
 	{
 		FPMessageTime = realtime + 3000;
 
-		if (!parsedFPMessage[0] /*&& uiMaxRank > ui_rankChange.integer*/)
+		if (!parsedFPMessage[0] /*&& uiMaxRank > ui_rankChange->integer*/)
 		{
 			const char *printMessage = UI_GetStringEdString("MP_INGAME", "SET_NEW_RANK");
 
@@ -10070,9 +10071,9 @@ void UI_Refresh( int realtime )
 			parsedFPMessage[p] = '\0';
 		}
 
-		//if (uiMaxRank > ui_rankChange.integer)
+		//if (uiMaxRank > ui_rankChange->integer)
 		{
-			uiMaxRank = ui_rankChange.integer;
+			uiMaxRank = ui_rankChange->integer;
 			uiForceRank = uiMaxRank;
 
 			/*
@@ -10090,11 +10091,11 @@ void UI_Refresh( int realtime )
 			UI_ReadLegalForce();
 		}
 
-		if (ui_freeSaber.integer && uiForcePowersRank[FP_SABER_OFFENSE] < 1)
+		if (ui_freeSaber->integer && uiForcePowersRank[FP_SABER_OFFENSE] < 1)
 		{
 			uiForcePowersRank[FP_SABER_OFFENSE] = 1;
 		}
-		if (ui_freeSaber.integer && uiForcePowersRank[FP_SABER_DEFENSE] < 1)
+		if (ui_freeSaber->integer && uiForcePowersRank[FP_SABER_DEFENSE] < 1)
 		{
 			uiForcePowersRank[FP_SABER_DEFENSE] = 1;
 		}
@@ -10104,7 +10105,7 @@ void UI_Refresh( int realtime )
 		UpdateForceUsed();
 	}
 
-	if (ui_freeSaber.integer)
+	if (ui_freeSaber->integer)
 	{
 		bgForcePowerCost[FP_SABER_OFFENSE][FORCE_LEVEL_1] = 0;
 		bgForcePowerCost[FP_SABER_DEFENSE][FORCE_LEVEL_1] = 0;
@@ -10459,8 +10460,8 @@ static void UI_DoServerRefresh( void )
 	if (!uiInfo.serverStatus.refreshActive) {
 		return;
 	}
-	if (ui_netSource.integer != UIAS_FAVORITES) {
-		if (ui_netSource.integer == UIAS_LOCAL) {
+	if (ui_netSource->integer != UIAS_FAVORITES) {
+		if (ui_netSource->integer == UIAS_LOCAL) {
 			if (!trap->LAN_GetServerCount(AS_LOCAL)) {
 				wait = qtrue;
 			}
@@ -10502,7 +10503,7 @@ static void UI_StartServerRefresh(qboolean full)
 
 	qtime_t q;
 	trap->RealTime(&q);
- 	trap->Cvar_Set( va("ui_lastServerRefresh_%i", ui_netSource.integer), va("%s-%i, %i @ %i:%02i", GetMonthAbbrevString(q.tm_mon),q.tm_mday, 1900+q.tm_year,q.tm_hour,q.tm_min));
+ 	trap->Cvar_Set( va("ui_lastServerRefresh_%i", ui_netSource->integer), va("%s-%i, %i @ %i:%02i", GetMonthAbbrevString(q.tm_mon),q.tm_mday, 1900+q.tm_year,q.tm_hour,q.tm_min));
 
 	if (!full) {
 		UI_UpdatePendingPings();
@@ -10520,20 +10521,20 @@ static void UI_StartServerRefresh(qboolean full)
 	// reset all the pings
 	trap->LAN_ResetPings(lanSource);
 	//
-	if( ui_netSource.integer == UIAS_LOCAL ) {
+	if( ui_netSource->integer == UIAS_LOCAL ) {
 		trap->Cmd_ExecuteText( EXEC_NOW, "localservers\n" );
 		uiInfo.serverStatus.refreshtime = uiInfo.uiDC.realTime + 1000;
 		return;
 	}
 
 	uiInfo.serverStatus.refreshtime = uiInfo.uiDC.realTime + 5000;
-	if( ui_netSource.integer >= UIAS_GLOBAL1 && ui_netSource.integer <= UIAS_GLOBAL5 ) {
+	if( ui_netSource->integer >= UIAS_GLOBAL1 && ui_netSource->integer <= UIAS_GLOBAL5 ) {
 		ptr = UI_Cvar_VariableString("debug_protocol");
 		if (strlen(ptr)) {
-			trap->Cmd_ExecuteText( EXEC_NOW, va( "globalservers %d %s full empty\n", ui_netSource.integer-1, ptr));
+			trap->Cmd_ExecuteText( EXEC_NOW, va( "globalservers %d %s full empty\n", ui_netSource->integer-1, ptr));
 		}
 		else {
-			trap->Cmd_ExecuteText( EXEC_NOW, va( "globalservers %d %d full empty\n", ui_netSource.integer-1, (int)trap->Cvar_VariableValue( "protocol" ) ) );
+			trap->Cmd_ExecuteText( EXEC_NOW, va( "globalservers %d %d full empty\n", ui_netSource->integer-1, (int)trap->Cvar_VariableValue( "protocol" ) ) );
 		}
 	}
 }
@@ -10552,8 +10553,8 @@ Q_EXPORT uiExport_t* QDECL GetModuleAPI( int apiVersion, uiImport_t *import )
 
 	assert( import );
 	trap = import;
-	Com_Printf	= trap->Print;
-	Com_Error	= trap->Error;
+	//Com_Printf	= trap->Print;
+	//Com_Error	= trap->Error;
 
 	memset( &uie, 0, sizeof( uie ) );
 

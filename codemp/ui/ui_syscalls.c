@@ -50,10 +50,10 @@ NORETURN void trap_Error( const char *string ) {
 int trap_Milliseconds( void ) {
 	return Q_syscall( UI_MILLISECONDS );
 }
-void trap_Cvar_Register( vmCvar_t *cvar, const char *var_name, const char *value, uint32_t flags ) {
+void trap_Cvar_Register( cvar_t *cvar, const char *var_name, const char *value, uint32_t flags ) {
 	Q_syscall( UI_CVAR_REGISTER, cvar, var_name, value, flags );
 }
-void trap_Cvar_Update( vmCvar_t *cvar ) {
+void trap_Cvar_Update( cvar_t *cvar ) {
 	Q_syscall( UI_CVAR_UPDATE, cvar );
 }
 void trap_Cvar_Set( const char *var_name, const char *value ) {
@@ -501,8 +501,8 @@ static void TranslateSyscalls( void ) {
 	memset( &import, 0, sizeof( import ) );
 	trap = &import;
 
-	Com_Error								= UI_Error;
-	Com_Printf								= UI_Printf;
+	//Com_Error								= UI_Error;
+	//Com_Printf								= UI_Printf;
 
 	trap->Print								= UI_Printf;
 	trap->Error								= UI_Error;
