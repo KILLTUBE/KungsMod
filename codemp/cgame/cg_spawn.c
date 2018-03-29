@@ -185,7 +185,7 @@ void SP_misc_model_static_cg( void ) {
 		}
 	}
 
-	modelIndex = trap->R_RegisterModel( model );
+	modelIndex = R_RegisterModel( model );
 	if( modelIndex == 0 ) {
 		trap->Error( ERR_DROP, "misc_model_static failed to load model '%s'", model );
 		return;
@@ -246,7 +246,7 @@ void SP_misc_weather_zone_cg( void ) {
 		return;
 	}
 
-	trap->R_ModelBounds( trap->R_RegisterModel( model ), mins, maxs );
+	trap->R_ModelBounds( R_RegisterModel( model ), mins, maxs );
 
 	trap->WE_AddWeatherZone( mins, maxs );
 }

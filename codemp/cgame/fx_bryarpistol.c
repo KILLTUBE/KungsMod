@@ -247,13 +247,13 @@ void FX_ConcAltShot( vec3_t start, vec3_t end )
 	trap->FX_AddLine( start, end, 0.1f, 10.0f, 0.0f,
 							1.0f, 0.0f, 0.0f,
 							WHITE, WHITE, 0.0f,
-							175, trap->R_RegisterShader( "gfx/effects/blueLine" ),
+							175, R_RegisterShader( "gfx/effects/blueLine" ),
 							FX_SIZE_LINEAR | FX_ALPHA_LINEAR );
 
 	// add some beef
 	trap->FX_AddLine( start, end, 0.1f, 7.0f, 0.0f,
 						1.0f, 0.0f, 0.0f,
 						BRIGHT, BRIGHT, 0.0f,
-						150, trap->R_RegisterShader( "gfx/misc/whiteline2" ),
+						150, R_RegisterShader( "gfx/misc/whiteline2" ),
 						FX_SIZE_LINEAR | FX_ALPHA_LINEAR );
 }

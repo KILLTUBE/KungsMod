@@ -1093,6 +1093,9 @@
     <ClCompile Include="..\..\codemp\game\WalkerNPC.c">
       <Filter>gamecgamemix</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_tempwrappers.c">
+      <Filter>game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">

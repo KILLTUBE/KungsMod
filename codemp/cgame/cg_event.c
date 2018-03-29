@@ -2253,7 +2253,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 				//old jk2mp method
 				/*
 				trap->S_StartSound(es->origin, es->number, CHAN_AUTO, S_RegisterSound("sound/weapons/saber/saberhit.wav"));
-				trap->FX_PlayEffectID( trap->FX_RegisterEffect("saber/spark.efx"), es->origin, fxDir, -1, -1, qfalse );
+				trap->FX_PlayEffectID( FX_RegisterEffect("saber/spark.efx"), es->origin, fxDir, -1, -1, qfalse );
 				*/
 
 				trap->FX_PlayEffectID( hitOtherFxID, es->origin, fxDir, -1, -1, qfalse );
@@ -3068,7 +3068,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 				s = CG_ConfigString( CS_EFFECTS + es->eventParm );
 				if (s && s[0])
 				{
-					efxIndex = trap->FX_RegisterEffect(s);
+					efxIndex = FX_RegisterEffect(s);
 				}
 			}
 

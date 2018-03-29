@@ -350,7 +350,7 @@ static void CG_DrawZoomMask( void )
 			cx = 320 + sin( (t*10+45)/57.296f ) * 192;
 			cy = 240 + cos( (t*10+45)/57.296f ) * 192;
 
-			CG_DrawRotatePic2( cx, cy, 24, 38, 45 - t * 10, trap->R_RegisterShader( va("gfx/2d/char%d",val[4-t] )));
+			CG_DrawRotatePic2( cx, cy, 24, 38, 45 - t * 10, R_RegisterShader( va("gfx/2d/char%d",val[4-t] )));
 		}
 */
 		//max = ( cg_entities[0].gent->health / 100.0f );
@@ -3610,7 +3610,7 @@ float CG_DrawRadar ( float y )
 						}
 
 						trap->R_SetColor ( asteroidColor );
-						CG_DrawPic ( x - 4 + xOffset, ly - 4, arrowBaseScale, arrowBaseScale, trap->R_RegisterShaderNoMip( "gfx/menus/radar/asteroid" ) );
+						CG_DrawPic ( x - 4 + xOffset, ly - 4, arrowBaseScale, arrowBaseScale, R_RegisterShaderNoMip( "gfx/menus/radar/asteroid" ) );
 					}
 				}
 				break;
@@ -3985,7 +3985,7 @@ static float CG_DrawTeamOverlay( float y, qboolean right, qboolean upper ) {
 
 					if (item) {
 						CG_DrawPic( xx + xOffset, y, TINYCHAR_WIDTH, TINYCHAR_HEIGHT,
-						trap->R_RegisterShader( item->icon ) );
+						R_RegisterShader( item->icon ) );
 						if (right) {
 							xx -= TINYCHAR_WIDTH;
 						} else {
@@ -4036,16 +4036,16 @@ static void CG_DrawPowerupIcons(int y)
 				{
 					if (j == PW_REDFLAG)
 					{
-						icoShader = trap->R_RegisterShaderNoMip( "gfx/hud/mpi_rflag_ys" );
+						icoShader = R_RegisterShaderNoMip( "gfx/hud/mpi_rflag_ys" );
 					}
 					else
 					{
-						icoShader = trap->R_RegisterShaderNoMip( "gfx/hud/mpi_bflag_ys" );
+						icoShader = R_RegisterShaderNoMip( "gfx/hud/mpi_bflag_ys" );
 					}
 				}
 				else
 				{
-					icoShader = trap->R_RegisterShader( item->icon );
+					icoShader = R_RegisterShader( item->icon );
 				}
 
 				CG_DrawPic( (640-(ico_size*1.1)) + xOffset, y, ico_size, ico_size, icoShader );
@@ -4282,7 +4282,7 @@ static void CG_DrawDisconnect( void ) {
 	x = 640 - 48;
 	y = 480 - 48;
 
-	CG_DrawPic( x, y, 48, 48, trap->R_RegisterShader("gfx/2d/net.tga" ) );
+	CG_DrawPic( x, y, 48, 48, R_RegisterShader("gfx/2d/net.tga" ) );
 }
 
 
@@ -5396,7 +5396,7 @@ void CG_SaberClashFlare( void )
 
 	CG_DrawPic( x - ( v * 300 ), y - ( v * 300 ),
 				v * 600, v * 600,
-				trap->R_RegisterShader( "gfx/effects/saberFlare" ));
+				R_RegisterShader( "gfx/effects/saberFlare" ));
 }
 
 void CG_DottedLine( float x1, float y1, float x2, float y2, float dotSize, int numDots, vec4_t color, float alpha )
@@ -5604,7 +5604,7 @@ void CG_BracketEntity( centity_t *cent, float radius )
 								CG_DottedLine( x, y, leadX, leadY, 1, 10, g_color_table[ColorIndex(COLOR_RED)], 0.5f );
 								//now draw the lead indicator
 								trap->R_SetColor ( g_color_table[ColorIndex(COLOR_RED)] );
-								CG_DrawPic( leadX-8, leadY-8, 16, 16, trap->R_RegisterShader( "gfx/menus/radar/lead" ) );
+								CG_DrawPic( leadX-8, leadY-8, 16, 16, R_RegisterShader( "gfx/menus/radar/lead" ) );
 							}
 						}
 					}
@@ -5951,7 +5951,7 @@ static void CG_DrawRocketLocking( int lockEntNum, int lockTime )
 			trap->R_SetColor( color );
 
 			// our slices are offset by about 45 degrees.
-			CG_DrawRotatePic( cx - sz, cy - sz, sz, sz, i * 45.0f, trap->R_RegisterShaderNoMip( "gfx/2d/wedge" ));
+			CG_DrawRotatePic( cx - sz, cy - sz, sz, sz, i * 45.0f, R_RegisterShaderNoMip( "gfx/2d/wedge" ));
 		}
 
 		// we are locked and loaded baby
@@ -5962,7 +5962,7 @@ static void CG_DrawRocketLocking( int lockEntNum, int lockTime )
 
 			trap->R_SetColor( color );
 
-			CG_DrawPic( cx - sz, cy - sz * 2, sz * 2, sz * 2, trap->R_RegisterShaderNoMip( "gfx/2d/lock" ));
+			CG_DrawPic( cx - sz, cy - sz * 2, sz * 2, sz * 2, R_RegisterShaderNoMip( "gfx/2d/lock" ));
 		}
 	}
 }
@@ -6955,26 +6955,26 @@ void CG_DrawFlagStatus()
 	{
 		if (team == TEAM_RED)
 		{
-			myFlagTakenShader = trap->R_RegisterShaderNoMip( "gfx/hud/mpi_rflag_x" );
-			theirFlagShader = trap->R_RegisterShaderNoMip( "gfx/hud/mpi_bflag_ys" );
+			myFlagTakenShader = R_RegisterShaderNoMip( "gfx/hud/mpi_rflag_x" );
+			theirFlagShader = R_RegisterShaderNoMip( "gfx/hud/mpi_bflag_ys" );
 		}
 		else
 		{
-			myFlagTakenShader = trap->R_RegisterShaderNoMip( "gfx/hud/mpi_bflag_x" );
-			theirFlagShader = trap->R_RegisterShaderNoMip( "gfx/hud/mpi_rflag_ys" );
+			myFlagTakenShader = R_RegisterShaderNoMip( "gfx/hud/mpi_bflag_x" );
+			theirFlagShader = R_RegisterShaderNoMip( "gfx/hud/mpi_rflag_ys" );
 		}
 	}
 	else
 	{
 		if (team == TEAM_RED)
 		{
-			myFlagTakenShader = trap->R_RegisterShaderNoMip( "gfx/hud/mpi_rflag_x" );
-			theirFlagShader = trap->R_RegisterShaderNoMip( "gfx/hud/mpi_bflag" );
+			myFlagTakenShader = R_RegisterShaderNoMip( "gfx/hud/mpi_rflag_x" );
+			theirFlagShader = R_RegisterShaderNoMip( "gfx/hud/mpi_bflag" );
 		}
 		else
 		{
-			myFlagTakenShader = trap->R_RegisterShaderNoMip( "gfx/hud/mpi_bflag_x" );
-			theirFlagShader = trap->R_RegisterShaderNoMip( "gfx/hud/mpi_rflag" );
+			myFlagTakenShader = R_RegisterShaderNoMip( "gfx/hud/mpi_bflag_x" );
+			theirFlagShader = R_RegisterShaderNoMip( "gfx/hud/mpi_rflag" );
 		}
 	}
 

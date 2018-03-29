@@ -112,7 +112,7 @@ static void CG_DrawClientScore( int y, score_t *score, float *color, float fade,
 
 	else if ( cgs.gametype == GT_POWERDUEL && (ci->duelTeam == DUELTEAM_LONE || ci->duelTeam == DUELTEAM_DOUBLE) )
 	{
-		CG_DrawPic( iconx, y, iconSize, iconSize, trap->R_RegisterShaderNoMip(
+		CG_DrawPic( iconx, y, iconSize, iconSize, R_RegisterShaderNoMip(
 			(ci->duelTeam == DUELTEAM_LONE) ? "gfx/mp/pduel_icon_lone" : "gfx/mp/pduel_icon_double" ) );
 	}
 
@@ -466,7 +466,7 @@ qboolean CG_DrawOldScoreboard( void ) {
 	// scoreboard
 	y = SB_HEADER;
 
-	CG_DrawPic ( SB_SCORELINE_X - 40, y - 5, SB_SCORELINE_WIDTH + 80, 40, trap->R_RegisterShaderNoMip ( "gfx/menus/menu_buttonback.tga" ) );
+	CG_DrawPic ( SB_SCORELINE_X - 40, y - 5, SB_SCORELINE_WIDTH + 80, 40, R_RegisterShaderNoMip ( "gfx/menus/menu_buttonback.tga" ) );
 
 	CG_Text_Paint ( SB_NAME_X, y, 1.0f, colorWhite, CG_GetStringEdString("MP_INGAME", "NAME"),0, 0, ITEM_TEXTSTYLE_OUTLINED, FONT_MEDIUM );
 	if (cgs.gametype == GT_DUEL || cgs.gametype == GT_POWERDUEL)

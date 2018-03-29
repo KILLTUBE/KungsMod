@@ -835,7 +835,7 @@ static void CG_ConfigStringModified( void ) {
 
 		if (modelName[0] != '$' && modelName[0] != '@')
 		{ //don't register vehicle names and saber names as models.
-			cgs.gameModels[ num-CS_MODELS ] = trap->R_RegisterModel( modelName );
+			cgs.gameModels[ num-CS_MODELS ] = R_RegisterModel( modelName );
 		}
 		else
 		{
@@ -864,7 +864,7 @@ static void CG_ConfigStringModified( void ) {
 		}
 		else
 		{
-			cgs.gameEffects[ num-CS_EFFECTS] = trap->FX_RegisterEffect( str );
+			cgs.gameEffects[ num-CS_EFFECTS] = FX_RegisterEffect( str );
 		}
 	}
 	else if ( num >= CS_SIEGE_STATE && num < CS_SIEGE_STATE+1 )

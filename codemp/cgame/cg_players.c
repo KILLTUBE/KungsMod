@@ -698,7 +698,7 @@ retryModel:
 	Q_strncpyz (ci->teamName, teamName, sizeof(ci->teamName));
 
 	// Model icon for drawing the portrait on screen
-	ci->modelIcon = trap->R_RegisterShaderNoMip ( va ( "models/players/%s/icon_%s", modelName, skinName ) );
+	ci->modelIcon = R_RegisterShaderNoMip ( va ( "models/players/%s/icon_%s", modelName, skinName ) );
 	if (!ci->modelIcon)
 	{
         int i = 0;
@@ -715,7 +715,7 @@ retryModel:
 		iconName[j] = 0;
 		if (skinName[i] == '|')
 		{ //looks like it actually may be a custom model skin, let's try getting the icon...
-			ci->modelIcon = trap->R_RegisterShaderNoMip ( va ( "models/players/%s/%s", modelName, iconName ) );
+			ci->modelIcon = R_RegisterShaderNoMip ( va ( "models/players/%s/%s", modelName, iconName ) );
 		}
 	}
 	return qtrue;
@@ -4854,7 +4854,7 @@ static void CG_ForcePushBlur( vec3_t org, centity_t *cent )
 		ex->color[0] = 24;
 		ex->color[1] = 32;
 		ex->color[2] = 40;
-		ex->refEntity.customShader = trap->R_RegisterShader( "gfx/effects/forcePush" );
+		ex->refEntity.customShader = R_RegisterShader( "gfx/effects/forcePush" );
 
 		ex = CG_AllocLocalEntity();
 		ex->leType = LE_PUFF;
@@ -4871,7 +4871,7 @@ static void CG_ForcePushBlur( vec3_t org, centity_t *cent )
 		ex->color[0] = 24;
 		ex->color[1] = 32;
 		ex->color[2] = 40;
-		ex->refEntity.customShader = trap->R_RegisterShader( "gfx/effects/forcePush" );
+		ex->refEntity.customShader = R_RegisterShader( "gfx/effects/forcePush" );
 	}
 	else
 	{ //superkewl "refraction" (well sort of) effect -rww
@@ -5059,7 +5059,7 @@ static void CG_ForceGripEffect( vec3_t org )
 	}
 	ex->color[1] = 0;
 	ex->color[2] = 0;
-	ex->refEntity.customShader = trap->R_RegisterShader( "gfx/effects/forcePush" );
+	ex->refEntity.customShader = R_RegisterShader( "gfx/effects/forcePush" );
 
 	ex = CG_AllocLocalEntity();
 	ex->leType = LE_PUFF;
@@ -5083,7 +5083,7 @@ static void CG_ForceGripEffect( vec3_t org )
 	ex->color[0] = 255;
 	ex->color[1] = 255;
 	ex->color[2] = 255;
-	ex->refEntity.customShader = cgs.media.redSaberGlowShader;//trap->R_RegisterShader( "gfx/effects/forcePush" );
+	ex->refEntity.customShader = cgs.media.redSaberGlowShader;//R_RegisterShader( "gfx/effects/forcePush" );
 }
 
 
@@ -6675,7 +6675,7 @@ void CG_DrawPlayerSphere(centity_t *cent, vec3_t origin, float scale, int shader
 
 	VectorMA(ent.origin, 40.0f, viewDir, ent.origin);
 
-	ent.customShader = trap->R_RegisterShader("effects/refract_2");
+	ent.customShader = R_RegisterShader("effects/refract_2");
 	trap->R_AddRefEntityToScene( &ent );
 }
 
@@ -6744,7 +6744,7 @@ void CG_AddLightningBeam(vec3_t start, vec3_t end)
 
 	b.rgbParm = 0.0f;
 	b.killTime = 50;
-	b.shader = trap->R_RegisterShader( "gfx/misc/electric2" );
+	b.shader = R_RegisterShader( "gfx/misc/electric2" );
 	b.flags = 0x00000001; //FX_ALPHA_LINEAR
 
 	trap->FX_AddBezier(&b);
@@ -6995,44 +6995,44 @@ static void CG_RegisterVehicleAssets( Vehicle_t *pVeh )
 	/*
 	if ( pVeh->m_pVehicleInfo->exhaustFX )
 	{
-		pVeh->m_pVehicleInfo->iExhaustFX = trap->FX_RegisterEffect( pVeh->m_pVehicleInfo->exhaustFX );
+		pVeh->m_pVehicleInfo->iExhaustFX = FX_RegisterEffect( pVeh->m_pVehicleInfo->exhaustFX );
 	}
 	if ( pVeh->m_pVehicleInfo->trailFX )
 	{
-		pVeh->m_pVehicleInfo->iTrailFX = trap->FX_RegisterEffect( pVeh->m_pVehicleInfo->trailFX );
+		pVeh->m_pVehicleInfo->iTrailFX = FX_RegisterEffect( pVeh->m_pVehicleInfo->trailFX );
 	}
 	if ( pVeh->m_pVehicleInfo->impactFX )
 	{
-		pVeh->m_pVehicleInfo->iImpactFX = trap->FX_RegisterEffect( pVeh->m_pVehicleInfo->impactFX );
+		pVeh->m_pVehicleInfo->iImpactFX = FX_RegisterEffect( pVeh->m_pVehicleInfo->impactFX );
 	}
 	if ( pVeh->m_pVehicleInfo->explodeFX )
 	{
-		pVeh->m_pVehicleInfo->iExplodeFX = trap->FX_RegisterEffect( pVeh->m_pVehicleInfo->explodeFX );
+		pVeh->m_pVehicleInfo->iExplodeFX = FX_RegisterEffect( pVeh->m_pVehicleInfo->explodeFX );
 	}
 	if ( pVeh->m_pVehicleInfo->wakeFX )
 	{
-		pVeh->m_pVehicleInfo->iWakeFX = trap->FX_RegisterEffect( pVeh->m_pVehicleInfo->wakeFX );
+		pVeh->m_pVehicleInfo->iWakeFX = FX_RegisterEffect( pVeh->m_pVehicleInfo->wakeFX );
 	}
 
 	if ( pVeh->m_pVehicleInfo->dmgFX )
 	{
-		pVeh->m_pVehicleInfo->iDmgFX = trap->FX_RegisterEffect( pVeh->m_pVehicleInfo->dmgFX );
+		pVeh->m_pVehicleInfo->iDmgFX = FX_RegisterEffect( pVeh->m_pVehicleInfo->dmgFX );
 	}
 	if ( pVeh->m_pVehicleInfo->wpn1FX )
 	{
-		pVeh->m_pVehicleInfo->iWpn1FX = trap->FX_RegisterEffect( pVeh->m_pVehicleInfo->wpn1FX );
+		pVeh->m_pVehicleInfo->iWpn1FX = FX_RegisterEffect( pVeh->m_pVehicleInfo->wpn1FX );
 	}
 	if ( pVeh->m_pVehicleInfo->wpn2FX )
 	{
-		pVeh->m_pVehicleInfo->iWpn2FX = trap->FX_RegisterEffect( pVeh->m_pVehicleInfo->wpn2FX );
+		pVeh->m_pVehicleInfo->iWpn2FX = FX_RegisterEffect( pVeh->m_pVehicleInfo->wpn2FX );
 	}
 	if ( pVeh->m_pVehicleInfo->wpn1FireFX )
 	{
-		pVeh->m_pVehicleInfo->iWpn1FireFX = trap->FX_RegisterEffect( pVeh->m_pVehicleInfo->wpn1FireFX );
+		pVeh->m_pVehicleInfo->iWpn1FireFX = FX_RegisterEffect( pVeh->m_pVehicleInfo->wpn1FireFX );
 	}
 	if ( pVeh->m_pVehicleInfo->wpn2FireFX )
 	{
-		pVeh->m_pVehicleInfo->iWpn2FireFX = trap->FX_RegisterEffect( pVeh->m_pVehicleInfo->wpn2FireFX );
+		pVeh->m_pVehicleInfo->iWpn2FireFX = FX_RegisterEffect( pVeh->m_pVehicleInfo->wpn2FireFX );
 	}
 	*/
 }
@@ -8320,7 +8320,7 @@ static QINLINE void CG_VehicleEffects(centity_t *cent)
 				{//flaming!
 					VectorMA( cent->lerpOrigin, flrand(-64, 64), fwd, org );
 					VectorScale( fwd, -1, fwd );
-					trap->FX_PlayEffectID( trap->FX_RegisterEffect("ships/fire"), org, fwd, -1, -1, qfalse );
+					trap->FX_PlayEffectID( FX_RegisterEffect("ships/fire"), org, fwd, -1, -1, qfalse );
 					nextFXDelay = 50;
 				}
 			}
@@ -9190,7 +9190,7 @@ void CG_Player( centity_t *cent ) {
 
 		AnglesToAxis( angles, seeker.axis );
 
-		seeker.hModel = trap->R_RegisterModel("models/items/remote.md3");
+		seeker.hModel = R_RegisterModel("models/items/remote.md3");
 		trap->R_AddRefEntityToScene( &seeker );
 	}
 
@@ -9618,7 +9618,7 @@ void CG_Player( centity_t *cent ) {
 
 				regrip_arm.radius = 64;
 
-				regrip_arm.customShader = trap->R_RegisterShader( "gfx/misc/red_portashield" );
+				regrip_arm.customShader = R_RegisterShader( "gfx/misc/red_portashield" );
 
 				regrip_arm.renderfx |= RF_RGB_TINT;
 				regrip_arm.shaderRGBA[0] = 255 - (wv*900);
@@ -9714,7 +9714,7 @@ void CG_Player( centity_t *cent ) {
 
 			legs.shaderRGBA[3] = ((cent->teamPowerEffectTime - cg.time)/8);
 
-			legs.customShader = trap->R_RegisterShader( "powerups/ysalimarishell" );
+			legs.customShader = R_RegisterShader( "powerups/ysalimarishell" );
 			trap->R_AddRefEntityToScene(&legs);
 
 			legs.customShader = 0;
@@ -9759,7 +9759,7 @@ void CG_Player( centity_t *cent ) {
  			axis[2][1] = boltMatrix.matrix[1][2];
 		 	axis[2][2] = boltMatrix.matrix[2][2];
 
-			//trap->FX_PlayEntityEffectID(trap->FX_RegisterEffect("force/confusion.efx"), efOrg, axis, cent->boltInfo, cent->currentState.number);
+			//trap->FX_PlayEntityEffectID(FX_RegisterEffect("force/confusion.efx"), efOrg, axis, cent->boltInfo, cent->currentState.number);
 			trap->FX_PlayEntityEffectID(cgs.effects.mForceConfustionOld, efOrg, axis, -1, -1, -1, -1);
 		}
 	}
@@ -9901,7 +9901,7 @@ void CG_Player( centity_t *cent ) {
 					}
 				}
 
-				holoRef.hModel = trap->R_RegisterModel(forceHolocronModels[i]);
+				holoRef.hModel = R_RegisterModel(forceHolocronModels[i]);
 				trap->R_AddRefEntityToScene( &holoRef );
 
 				renderedHolos++;

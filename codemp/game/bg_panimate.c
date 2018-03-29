@@ -2051,7 +2051,7 @@ void ParseAnimationEvtBlock(const char *aeb_filename, animevent_t *animEvents, a
 			{
 				break;
 			}
-			animEvents[curAnimEvent].eventData[AED_EFFECTINDEX] = trap->FX_RegisterEffect( token );
+			animEvents[curAnimEvent].eventData[AED_EFFECTINDEX] = FX_RegisterEffect( token );
 			//get bolt index
 			token = COM_Parse( text_p );
 			if ( !token )

@@ -462,22 +462,22 @@ void FX_DrawPortableShield(centity_t *cent)
 	{
 		if (cent->currentState.trickedentindex)
 		{
-			shader = trap->R_RegisterShader( "gfx/misc/red_dmgshield" );
+			shader = R_RegisterShader( "gfx/misc/red_dmgshield" );
 		}
 		else
 		{
-			shader = trap->R_RegisterShader( "gfx/misc/red_portashield" );
+			shader = R_RegisterShader( "gfx/misc/red_portashield" );
 		}
 	}
 	else
 	{
 		if (cent->currentState.trickedentindex)
 		{
-			shader = trap->R_RegisterShader( "gfx/misc/blue_dmgshield" );
+			shader = R_RegisterShader( "gfx/misc/blue_dmgshield" );
 		}
 		else
 		{
-			shader = trap->R_RegisterShader( "gfx/misc/blue_portashield" );
+			shader = R_RegisterShader( "gfx/misc/blue_portashield" );
 		}
 	}
 
@@ -542,7 +542,7 @@ void CG_CreateBBRefEnts(entityState_t *s1, vec3_t origin )
 		memset (&point[i], 0, sizeof(refEntity_t));
 		point[i].reType = RT_SPRITE;
 		point[i].radius = 1;
-		point[i].customShader = trap->R_RegisterShader("textures/tests/circle");
+		point[i].customShader = R_RegisterShader("textures/tests/circle");
 		point[i].shaderRGBA[0] = 255;
 		point[i].shaderRGBA[1] = 255;
 		point[i].shaderRGBA[2] = 255;
@@ -1436,7 +1436,7 @@ Ghoul2 Insert End
 	if (s1->eType == ET_HOLOCRON && s1->modelindex < -100)
 	{ //special render, it's a holocron
 		//Using actual models now:
-		ent.hModel = trap->R_RegisterModel(forceHolocronModels[s1->modelindex+128]);
+		ent.hModel = R_RegisterModel(forceHolocronModels[s1->modelindex+128]);
 
 		//Rotate them
 		VectorCopy( cg.autoAngles, cent->lerpAngles );
@@ -1471,7 +1471,7 @@ Ghoul2 Insert End
 		// make the gun pulse red to warn about it exploding
 		val = (1.0f - (float)(cent->currentState.time - cg.time) / 3200.0f ) * 0.3f;
 
-		ent.customShader = trap->R_RegisterShader( "gfx/effects/turretflashdie" );
+		ent.customShader = R_RegisterShader( "gfx/effects/turretflashdie" );
 		ent.shaderRGBA[0] = (sin( cg.time * 0.04f ) * val * 0.4f + val) * 255;
 		ent.shaderRGBA[1] = ent.shaderRGBA[2] = 0;
 
@@ -1481,7 +1481,7 @@ Ghoul2 Insert End
 	}
 	else if ( cent->currentState.time == -1 && cent->currentState.weapon == WP_EMPLACED_GUN)
 	{
-		ent.customShader = trap->R_RegisterShader( "models/map_objects/imp_mine/turret_chair_dmg.tga" );
+		ent.customShader = R_RegisterShader( "models/map_objects/imp_mine/turret_chair_dmg.tga" );
 		//trap->R_AddRefEntityToScene( &ent );
 	}
 
@@ -2005,11 +2005,11 @@ Ghoul2 Insert End
 
 			if (item->giTag == PW_FORCE_ENLIGHTENED_LIGHT)
 			{
-				ent.customShader = trap->R_RegisterShader("gfx/misc/mp_light_enlight_disable");
+				ent.customShader = R_RegisterShader("gfx/misc/mp_light_enlight_disable");
 			}
 			else
 			{
-				ent.customShader = trap->R_RegisterShader("gfx/misc/mp_dark_enlight_disable");
+				ent.customShader = R_RegisterShader("gfx/misc/mp_dark_enlight_disable");
 			}
 		}
 		trap->R_AddRefEntityToScene(&ent);
@@ -2173,11 +2173,11 @@ Ghoul2 Insert End
 
 		if (item->giTag == PW_FORCE_ENLIGHTENED_LIGHT)
 		{
-			ent.customShader = trap->R_RegisterShader("gfx/misc/mp_light_enlight_disable");
+			ent.customShader = R_RegisterShader("gfx/misc/mp_light_enlight_disable");
 		}
 		else
 		{
-			ent.customShader = trap->R_RegisterShader("gfx/misc/mp_dark_enlight_disable");
+			ent.customShader = R_RegisterShader("gfx/misc/mp_dark_enlight_disable");
 		}
 
 		trap->R_AddRefEntityToScene( &ent );
@@ -2380,7 +2380,7 @@ void CG_CreateDistortionTrailPart(centity_t *cent, float scale, vec3_t pos)
 	ent.modelScale[2] = scale*16.0f;
 	ScaleModelAxis(&ent);
 
-	ent.hModel = trap->R_RegisterModel("models/weapons2/merr_sonn/trailmodel.md3");
+	ent.hModel = R_RegisterModel("models/weapons2/merr_sonn/trailmodel.md3");
 	ent.customShader = cgs.media.itemRespawningRezOut;//cgs.media.cloakedShader;//cgs.media.halfShieldShader;
 
 #if 1
@@ -3257,7 +3257,7 @@ static void CG_FX( centity_t *cent )
 		s = CG_ConfigString( CS_EFFECTS + s1->modelindex );
 		if (s && s[0])
 		{
-			efxIndex = trap->FX_RegisterEffect(s);
+			efxIndex = FX_RegisterEffect(s);
 			cgs.gameEffects[s1->modelindex] = efxIndex;
 		}
 	}
@@ -3638,7 +3638,7 @@ void CG_ROFF_NotetrackCallback( centity_t *cent, const char *notetrack)
 
 defaultoffsetposition:
 
-		objectID = trap->FX_RegisterEffect(argument);
+		objectID = FX_RegisterEffect(argument);
 
 		if (objectID)
 		{

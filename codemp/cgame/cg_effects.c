@@ -198,7 +198,7 @@ void CG_TestLine( vec3_t start, vec3_t end, int time, unsigned int color, int ra
 
 	re->reType = RT_LINE;
 	re->radius = 0.5*radius;
-	re->customShader = cgs.media.whiteShader; //trap->R_RegisterShaderNoMip("textures/colombia/canvas_doublesided");
+	re->customShader = cgs.media.whiteShader; //R_RegisterShaderNoMip("textures/colombia/canvas_doublesided");
 
 	re->shaderTexCoord[0] = re->shaderTexCoord[1] = 1.0f;
 
@@ -757,12 +757,12 @@ void CG_MiscModelExplosion( vec3_t mins, vec3_t maxs, int size, material_t chunk
 	// FIXME: real precache .. VERify that these need to be here...don't think they would because the effects should be registered in g_breakable
 	//rww - No they don't.. indexed effects gameside get precached on load clientside, as server objects are setup before client asset load time.
 	//However, we need to index them, so..
-	eID1 = trap->FX_RegisterEffect( effect );
+	eID1 = FX_RegisterEffect( effect );
 
 	if ( effect2 && effect2[0] )
 	{
 		// FIXME: real precache
-		eID2 = trap->FX_RegisterEffect( effect2 );
+		eID2 = FX_RegisterEffect( effect2 );
 	}
 
 	// spawn chunk roughly in the bbox of the thing..

@@ -113,14 +113,14 @@ void FX_DEMP2_AltBeam( vec3_t start, vec3_t end, vec3_t normal, //qboolean spark
 						5.0f + s1 * 2, 8.0f, 0.0f,
 						1.0f, 0.0f, 0.0f,
 						chaos, chaos, 0.0f,
-						1.0f, trap->R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
+						1.0f, R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
 
 	FX_AddBezier( start, targ1,
 						c2, v2, c1, v1,
 						3.0f + s3, 3.0f, 0.0f,
 						1.0f, 0.0f, 0.0f,
 						chaos, chaos, 0.0f,
-						1.0f, trap->R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
+						1.0f, R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
 
 	s1 = sin( cg.time * 0.0005f ) + Q_flrand(-1.0f, 1.0f) * 0.1f;
 	s2 = sin( cg.time * 0.0025f );
@@ -148,27 +148,27 @@ void FX_DEMP2_AltBeam( vec3_t start, vec3_t end, vec3_t normal, //qboolean spark
 						4.0f + s3, 8.0f, 0.0f,
 						1.0f, 0.0f, 0.0f,
 						chaos, chaos, 0.0f,
-						1.0f, trap->R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
+						1.0f, R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
 
 	FX_AddBezier( start, targ1,
 						c2, v1, c1, v2,
 						5.0f + s1 * 2, 8.0f, 0.0f,
 						1.0f, 0.0f, 0.0f,
 						chaos, chaos, 0.0f,
-						1.0f, trap->R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
+						1.0f, R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
 
 
 	VectorMA( start, 14.0f, dir, c1 );
 
 	FX_AddSprite( c1, NULL, NULL, 12.0f + Q_flrand(-1.0f, 1.0f) * 4, 0.0f, 1.0f, 1.0f, Q_flrand(0.0f, 1.0f) * 360, 0.0f, 1.0f,
-						trap->R_RegisterShader( "gfx/misc/lightningFlash" ));
+						R_RegisterShader( "gfx/misc/lightningFlash" ));
 	FX_AddSprite( c1, NULL, NULL, 6.0f + Q_flrand(-1.0f, 1.0f) * 2, 0.0f, 1.0f, 1.0f, Q_flrand(0.0f, 1.0f) * 360, 0.0f, 1.0f,
-						trap->R_RegisterShader( "gfx/misc/lightningFlash" ));
+						R_RegisterShader( "gfx/misc/lightningFlash" ));
 
 	FX_AddSprite( targ1, NULL, NULL, 4.0f + Q_flrand(-1.0f, 1.0f), 0.0f, 1.0f, 0.0f, chaos, chaos, Q_flrand(0.0f, 1.0f) * 360, 0.0f, 10,
-						trap->R_RegisterShader( "gfx/misc/lightningFlash" ));
+						R_RegisterShader( "gfx/misc/lightningFlash" ));
 	FX_AddSprite( targ1, NULL, NULL, 8.0f + Q_flrand(-1.0f, 1.0f) * 2, 0.0f, 1.0f, 0.0f, chaos, chaos, Q_flrand(0.0f, 1.0f) * 360, 0.0f, 10,
-						trap->R_RegisterShader( "gfx/misc/lightningFlash" ));
+						R_RegisterShader( "gfx/misc/lightningFlash" ));
 
 
 	//--------------------------------------------
@@ -206,14 +206,14 @@ void FX_DEMP2_AltBeam( vec3_t start, vec3_t end, vec3_t normal, //qboolean spark
 						5.0f + s1 * 2, 8.0f, 0.0f,
 						1.0f, 0.0f, 0.0f,
 						chaos, chaos, 0.0f,
-						1.0f, trap->R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
+						1.0f, R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
 
 	FX_AddBezier( targ1, targ2,
 						c2, v2, c1, v1,
 						3.0f + s3, 3.0f, 0.0f,
 						1.0f, 0.0f, 0.0f,
 						chaos, chaos, 0.0f,
-						1.0f, trap->R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
+						1.0f, R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
 
 	s1 = sin( cg.time * 0.0005f ) + Q_flrand(-1.0f, 1.0f) * 0.1f;
 	s2 = sin( cg.time * 0.0025f );
@@ -241,20 +241,20 @@ void FX_DEMP2_AltBeam( vec3_t start, vec3_t end, vec3_t normal, //qboolean spark
 						4.0f + s3, 8.0f, 0.0f,
 						1.0f, 0.0f, 0.0f,
 						chaos, chaos, 0.0f,
-						1.0f, trap->R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
+						1.0f, R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
 
 	FX_AddBezier( targ1, targ2,
 						c2, v1, c1, v2,
 						5.0f + s1 * 2, 8.0f, 0.0f,
 						1.0f, 0.0f, 0.0f,
 						chaos, chaos, 0.0f,
-						1.0f, trap->R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
+						1.0f, R_RegisterShader( "gfx/misc/electric2" ), FX_ALPHA_LINEAR );
 
 
 	FX_AddSprite( targ2, NULL, NULL, 4.0f + Q_flrand(-1.0f, 1.0f), 0.0f, 1.0f, 0.0f, chaos, chaos, Q_flrand(0.0f, 1.0f) * 360, 0.0f, 10,
-						trap->R_RegisterShader( "gfx/misc/lightningFlash" ));
+						R_RegisterShader( "gfx/misc/lightningFlash" ));
 	FX_AddSprite( targ2, NULL, NULL, 8.0f + Q_flrand(-1.0f, 1.0f) * 2, 0.0f, 1.0f, 0.0f, chaos, chaos, Q_flrand(0.0f, 1.0f) * 360, 0.0f, 10,
-						trap->R_RegisterShader( "gfx/misc/lightningFlash" ));
+						R_RegisterShader( "gfx/misc/lightningFlash" ));
 */
 }
 

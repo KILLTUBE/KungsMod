@@ -42,7 +42,29 @@ CCALL sfxHandle_t		S_RegisterSound						( const char *sample ) {
 }
 
 
+CCALL qhandle_t		R_RegisterFont						( const char *fontName ) {
+	return trap->R_RegisterFont(fontName);
+}
 
+CCALL qhandle_t		R_RegisterModel						( const char *name ) {
+	return trap->R_RegisterModel(name);
+}
+
+CCALL qhandle_t		R_RegisterShader					( const char *name ) {
+	return trap->R_RegisterShader(name);
+}
+
+CCALL qhandle_t		R_RegisterShaderNoMip				( const char *name ) {
+	return trap->R_RegisterShaderNoMip(name);
+}
+
+CCALL qhandle_t		R_RegisterSkin						( const char *name ) {
+	return trap->R_RegisterSkin(name);
+}
+
+CCALL int				FX_RegisterEffect					( const char *file ) {
+	return trap->FX_RegisterEffect(file);
+}
 
 CCALL qboolean isGame() {
 	return (qboolean)(0);

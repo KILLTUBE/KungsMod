@@ -71,16 +71,16 @@ void CG_RegisterItemVisuals( int itemNum ) {
 		(item->giTag == PW_REDFLAG || item->giTag == PW_BLUEFLAG) &&
 		cgs.gametype == GT_CTY)
 	{ //in CTY the flag model is different
-		itemInfo->models[0] = trap->R_RegisterModel( item->world_model[1] );
+		itemInfo->models[0] = R_RegisterModel( item->world_model[1] );
 	}
 	else if (item->giType == IT_WEAPON &&
 		(item->giTag == WP_THERMAL || item->giTag == WP_TRIP_MINE || item->giTag == WP_DET_PACK))
 	{
-		itemInfo->models[0] = trap->R_RegisterModel( item->world_model[1] );
+		itemInfo->models[0] = R_RegisterModel( item->world_model[1] );
 	}
 	else
 	{
-		itemInfo->models[0] = trap->R_RegisterModel( item->world_model[0] );
+		itemInfo->models[0] = R_RegisterModel( item->world_model[0] );
 	}
 /*
 Ghoul2 Insert Start
@@ -104,11 +104,11 @@ Ghoul2 Insert End
 	{
 		if (item->giType == IT_HEALTH)
 		{ //medpack gets nomip'd by the ui or something I guess.
-			itemInfo->icon = trap->R_RegisterShaderNoMip( item->icon );
+			itemInfo->icon = R_RegisterShaderNoMip( item->icon );
 		}
 		else
 		{
-			itemInfo->icon = trap->R_RegisterShader( item->icon );
+			itemInfo->icon = R_RegisterShader( item->icon );
 		}
 	}
 	else
@@ -126,7 +126,7 @@ Ghoul2 Insert End
 	if ( item->giType == IT_POWERUP || item->giType == IT_HEALTH ||
 		item->giType == IT_ARMOR || item->giType == IT_HOLDABLE ) {
 		if ( item->world_model[1] ) {
-			itemInfo->models[1] = trap->R_RegisterModel( item->world_model[1] );
+			itemInfo->models[1] = R_RegisterModel( item->world_model[1] );
 		}
 	}
 }
@@ -494,7 +494,7 @@ Ghoul2 Insert Start
 			{
 				gun.shaderRGBA[0] = gun.shaderRGBA[1] = gun.shaderRGBA[2] = 25;
 
-				gun.customShader = trap->R_RegisterShader( "gfx/effects/stunPass" );
+				gun.customShader = R_RegisterShader( "gfx/effects/stunPass" );
 				gun.renderfx = RF_RGB_TINT | RF_FIRST_PERSON | RF_DEPTHHACK;
 				trap->R_AddRefEntityToScene( &gun );
 			}
@@ -514,15 +514,15 @@ Ghoul2 Insert Start
 
 				if (i == 0)
 				{
-					barrel.hModel = trap->R_RegisterModel("models/weapons2/stun_baton/baton_barrel.md3");
+					barrel.hModel = R_RegisterModel("models/weapons2/stun_baton/baton_barrel.md3");
 				}
 				else if (i == 1)
 				{
-					barrel.hModel = trap->R_RegisterModel("models/weapons2/stun_baton/baton_barrel2.md3");
+					barrel.hModel = R_RegisterModel("models/weapons2/stun_baton/baton_barrel2.md3");
 				}
 				else
 				{
-					barrel.hModel = trap->R_RegisterModel("models/weapons2/stun_baton/baton_barrel3.md3");
+					barrel.hModel = R_RegisterModel("models/weapons2/stun_baton/baton_barrel3.md3");
 				}
 				angles[YAW] = 0;
 				angles[PITCH] = 0;

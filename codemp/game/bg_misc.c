@@ -29,6 +29,10 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "g_local.h"
 #include "cgame/cg_local.h"
+
+
+#include "../cgame/cg_tempwrappers.h"
+
 //#elif defined(UI_BUILD)
 // meh now cgame and ui still conflict...
 	//#include "ui/ui_local.h"
@@ -3071,9 +3075,9 @@ int BG_ModelCache(const char *modelName, const char *skinName)
 			#endif // _CGAME
 		}
 		#ifdef _CGAME
-			return trap->R_RegisterModel( modelName );
+			return R_RegisterModel( modelName );
 		#else // !_CGAME
-			return trap->R_RegisterModel( modelName );
+			return R_RegisterModel( modelName );
 		#endif // _CGAME
 	}
 }

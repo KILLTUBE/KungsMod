@@ -94,19 +94,19 @@ void CG_PrecacheSiegeObjectiveAssetsForTeam(int myTeam)
 				}
 				if (BG_SiegeGetPairedValue(foundobjective, "objgfx", str))
 				{
-					trap->R_RegisterShaderNoMip(str);
+					R_RegisterShaderNoMip(str);
 				}
 				if (BG_SiegeGetPairedValue(foundobjective, "mapicon", str))
 				{
-					trap->R_RegisterShaderNoMip(str);
+					R_RegisterShaderNoMip(str);
 				}
 				if (BG_SiegeGetPairedValue(foundobjective, "litmapicon", str))
 				{
-					trap->R_RegisterShaderNoMip(str);
+					R_RegisterShaderNoMip(str);
 				}
 				if (BG_SiegeGetPairedValue(foundobjective, "donemapicon", str))
 				{
-					trap->R_RegisterShaderNoMip(str);
+					R_RegisterShaderNoMip(str);
 				}
 			}
 			else
@@ -141,7 +141,7 @@ void CG_PrecachePlayersForSiegeTeam(int team)
 			memset(&fake, 0, sizeof(fake));
 			Q_strncpyz(fake.modelName, scl->forcedModel, sizeof(fake.modelName));
 
-			trap->R_RegisterModel(va("models/players/%s/model.glm", scl->forcedModel));
+			R_RegisterModel(va("models/players/%s/model.glm", scl->forcedModel));
 			if (scl->forcedSkin[0])
 			{
 				trap->R_RegisterSkin(va("models/players/%s/model_%s.skin", scl->forcedModel, scl->forcedSkin));
@@ -338,7 +338,7 @@ void CG_InitSiegeMode(void)
 		}
 		if (BG_SiegeGetPairedValue(teamInfo, "FriendlyShader", btime))
 		{
-			cgSiegeTeam1PlShader = trap->R_RegisterShaderNoMip(btime);
+			cgSiegeTeam1PlShader = R_RegisterShaderNoMip(btime);
 		}
 		else
 		{
@@ -353,7 +353,7 @@ void CG_InitSiegeMode(void)
 		}
 		if (BG_SiegeGetPairedValue(teamInfo, "FriendlyShader", btime))
 		{
-			cgSiegeTeam2PlShader = trap->R_RegisterShaderNoMip(btime);
+			cgSiegeTeam2PlShader = R_RegisterShaderNoMip(btime);
 		}
 		else
 		{
@@ -392,7 +392,7 @@ void CG_InitSiegeMode(void)
 
 			if (cl->forcedModel[0])
 			{ //This class has a forced model, so precache it.
-				trap->R_RegisterModel(va("models/players/%s/model.glm", cl->forcedModel));
+				R_RegisterModel(va("models/players/%s/model.glm", cl->forcedModel));
 
 				if (cl->forcedSkin[0])
 				{ //also has a forced skin, precache it.

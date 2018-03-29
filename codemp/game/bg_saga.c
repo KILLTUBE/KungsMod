@@ -997,7 +997,7 @@ void BG_SiegeParseClassFile(const char *filename, siegeClassDesc_t *descBuffer)
 			bgSiegeClasses[bgNumSiegeClasses].uiPortraitShader = 0;
 			memset(bgSiegeClasses[bgNumSiegeClasses].uiPortrait,0,sizeof(bgSiegeClasses[bgNumSiegeClasses].uiPortrait));
 		} else if (isUI()) {
-			bgSiegeClasses[bgNumSiegeClasses].uiPortraitShader = trap->R_RegisterShaderNoMip(parseBuf);
+			bgSiegeClasses[bgNumSiegeClasses].uiPortraitShader = R_RegisterShaderNoMip(parseBuf);
 			memcpy(bgSiegeClasses[bgNumSiegeClasses].uiPortrait,parseBuf,sizeof(bgSiegeClasses[bgNumSiegeClasses].uiPortrait));
 		}
 	}
@@ -1012,7 +1012,7 @@ void BG_SiegeParseClassFile(const char *filename, siegeClassDesc_t *descBuffer)
 		if (isGame()) {
 			bgSiegeClasses[bgNumSiegeClasses].classShader = 0;
 		} else {
-			bgSiegeClasses[bgNumSiegeClasses].classShader = trap->R_RegisterShaderNoMip(parseBuf);
+			bgSiegeClasses[bgNumSiegeClasses].classShader = R_RegisterShaderNoMip(parseBuf);
 		
 			assert( bgSiegeClasses[bgNumSiegeClasses].classShader );
 			if ( !bgSiegeClasses[bgNumSiegeClasses].classShader )
@@ -1285,7 +1285,7 @@ void BG_SiegeParseTeamFile(const char *filename)
 	//I don't entirely like doing things this way but it's the easiest way.
 	#ifdef _CGAME
 		if (BG_SiegeGetPairedValue(teamInfo, "FriendlyShader", parseBuf))
-			bgSiegeTeams[bgNumSiegeTeams].friendlyShader = trap->R_RegisterShaderNoMip(parseBuf);
+			bgSiegeTeams[bgNumSiegeTeams].friendlyShader = R_RegisterShaderNoMip(parseBuf);
 	#else
 		bgSiegeTeams[bgNumSiegeTeams].friendlyShader = 0;
 	#endif
