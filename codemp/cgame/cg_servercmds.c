@@ -446,7 +446,7 @@ static void CG_RegisterCustomSounds(clientInfo_t *ci, int setType, const char *p
 		}
 
 		s++;
-		hSFX = trap->S_RegisterSound( va("sound/chars/%s/misc/%s", psDir, s) );
+		hSFX = S_RegisterSound( va("sound/chars/%s/misc/%s", psDir, s) );
 
 		if (hSFX == 0)
 		{
@@ -472,7 +472,7 @@ static void CG_RegisterCustomSounds(clientInfo_t *ci, int setType, const char *p
 
 					strcat(modifiedSound, "1.wav");
 
-					hSFX = trap->S_RegisterSound( va("sound/chars/%s/misc/%s", psDir, modifiedSound) );
+					hSFX = S_RegisterSound( va("sound/chars/%s/misc/%s", psDir, modifiedSound) );
 				}
 			}
 		}
@@ -517,7 +517,7 @@ void CG_PrecacheNPCSounds(const char *str)
 				sEnd[k-1] = 0;
 
 				trap->S_Shutup(qtrue);
-				trap->S_RegisterSound( va("sound/chars/%s/misc/%s", pEnd, sEnd) );
+				S_RegisterSound( va("sound/chars/%s/misc/%s", pEnd, sEnd) );
 				trap->S_Shutup(qfalse);
 			}
 			else
@@ -850,7 +850,7 @@ static void CG_ConfigStringModified( void ) {
 // Ghoul2 Insert end
 	} else if ( num >= CS_SOUNDS && num < CS_SOUNDS+MAX_SOUNDS ) {
 		if ( str[0] != '*' ) {	// player specific sounds don't register here
-			cgs.gameSounds[ num-CS_SOUNDS] = trap->S_RegisterSound( str );
+			cgs.gameSounds[ num-CS_SOUNDS] = S_RegisterSound( str );
 		}
 		else if (str[1] == '$')
 		{ //an NPC soundset

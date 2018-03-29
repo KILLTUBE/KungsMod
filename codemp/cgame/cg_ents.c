@@ -1539,11 +1539,11 @@ Ghoul2 Insert End
 					cent->dustTrailTime = cg.time;
 					if (lightSide)
 					{
-						trap->S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, trap->S_RegisterSound("sound/weapons/force/see.wav") );
+						trap->S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound("sound/weapons/force/see.wav") );
 					}
 					else
 					{
-						trap->S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, trap->S_RegisterSound("sound/weapons/force/lightning") );
+						trap->S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound("sound/weapons/force/lightning") );
 					}
 				}
 				ent.endTime = cent->dustTrailTime;
@@ -1594,7 +1594,7 @@ Ghoul2 Insert End
 				{
 					if (curTimeDif < 2200)
 					{ //probably temporary
-						trap->S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, trap->S_RegisterSound( "sound/weapons/saber/saberhum1.wav" ) );
+						trap->S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberhum1.wav" ) );
 					}
 				}
 				else
@@ -3705,7 +3705,7 @@ defaultoffsetposition:
 	}
 	else if (strcmp(type, "sound") == 0)
 	{
-		objectID = trap->S_RegisterSound(argument);
+		objectID = S_RegisterSound(argument);
 		trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_BODY, objectID);
 	}
 	else if (strcmp(type, "loop") == 0)

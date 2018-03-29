@@ -325,6 +325,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\codemp\cgame\cg_tempwrappers.c" />
     <ClCompile Include="..\..\..\codemp\game\bg_panimate.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
     </ClCompile>
@@ -407,6 +408,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
+    <ClInclude Include="..\..\..\codemp\cgame\cg_tempwrappers.h" />
     <ClInclude Include="C:\XycaRend2\codemp\game\anims.h" />
     <ClInclude Include="C:\XycaRend2\codemp\game\bg_local.h" />
     <ClInclude Include="C:\XycaRend2\codemp\game\bg_public.h" />

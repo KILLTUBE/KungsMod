@@ -41,7 +41,7 @@ int BG_SoundIndex( const char *sound ) {
 	if (isGame())
 		return G_SoundIndex( sound );
 	else
-		return trap->S_RegisterSound( sound );
+		return S_RegisterSound( sound );
 }
 
 extern stringID_table_t FPTable[];

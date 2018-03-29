@@ -2307,7 +2307,7 @@ void CG_DrawVehicleWeaponsLinked( const menuDef_t	*menuHUD, const centity_t *veh
 	if ( cg_drawLink != drawLink )
 	{//state changed, play sound
 		cg_drawLink = drawLink;
-		trap->S_StartSound (NULL, cg.predictedPlayerState.clientNum, CHAN_LOCAL, trap->S_RegisterSound( "sound/vehicles/common/linkweaps.wav" ) );
+		trap->S_StartSound (NULL, cg.predictedPlayerState.clientNum, CHAN_LOCAL, S_RegisterSound( "sound/vehicles/common/linkweaps.wav" ) );
 	}
 
 	if ( drawLink )
@@ -3588,7 +3588,7 @@ float CG_DrawRadar ( float y )
 								impactSoundDebounceTime = cg.time + 100;
 							}
 							VectorMA( cg.refdef.vieworg, -500.0f*(surfaceDist/RADAR_ASTEROID_RANGE), dirPlayer, soundOrg );
-							trap->S_StartSound( soundOrg, ENTITYNUM_WORLD, CHAN_AUTO, trap->S_RegisterSound( "sound/vehicles/common/impactalarm.wav" ) );
+							trap->S_StartSound( soundOrg, ENTITYNUM_WORLD, CHAN_AUTO, S_RegisterSound( "sound/vehicles/common/impactalarm.wav" ) );
 						}
 						//brighten it the closer it is
 						if ( surfaceDist > RADAR_ASTEROID_RANGE*0.66f )
@@ -3640,19 +3640,19 @@ float CG_DrawRadar ( float y )
 								{
 									radarLockSoundDebounceTime = cg.time + 1000;
 									arrowBaseScale = 3.0f;
-									alarmSound = trap->S_RegisterSound( "sound/vehicles/common/lockalarm1.wav" );
+									alarmSound = S_RegisterSound( "sound/vehicles/common/lockalarm1.wav" );
 								}
 								else if ( actualDist > RADAR_MISSILE_RANGE/3.0f )
 								{
 									radarLockSoundDebounceTime = cg.time + 500;
 									arrowBaseScale = 6.0f;
-									alarmSound = trap->S_RegisterSound( "sound/vehicles/common/lockalarm2.wav" );
+									alarmSound = S_RegisterSound( "sound/vehicles/common/lockalarm2.wav" );
 								}
 								else
 								{
 									radarLockSoundDebounceTime = cg.time + 250;
 									arrowBaseScale = 9.0f;
-									alarmSound = trap->S_RegisterSound( "sound/vehicles/common/lockalarm3.wav" );
+									alarmSound = S_RegisterSound( "sound/vehicles/common/lockalarm3.wav" );
 								}
 								if ( actualDist > RADAR_MISSILE_RANGE )
 								{
@@ -5919,22 +5919,22 @@ static void CG_DrawRocketLocking( int lockEntNum, int lockTime )
 			{
 				if ( cg.snap->ps.m_iVehicleNum )
 				{
-					trap->S_StartSound( org, 0, CHAN_AUTO, trap->S_RegisterSound( "sound/vehicles/weapons/common/lock.wav" ));
+					trap->S_StartSound( org, 0, CHAN_AUTO, S_RegisterSound( "sound/vehicles/weapons/common/lock.wav" ));
 				}
 				else
 				{
-					trap->S_StartSound( org, 0, CHAN_AUTO, trap->S_RegisterSound( "sound/weapons/rocket/lock.wav" ));
+					trap->S_StartSound( org, 0, CHAN_AUTO, S_RegisterSound( "sound/weapons/rocket/lock.wav" ));
 				}
 			}
 			else
 			{
 				if ( cg.snap->ps.m_iVehicleNum )
 				{
-					trap->S_StartSound( org, 0, CHAN_AUTO, trap->S_RegisterSound( "sound/vehicles/weapons/common/tick.wav" ));
+					trap->S_StartSound( org, 0, CHAN_AUTO, S_RegisterSound( "sound/vehicles/weapons/common/tick.wav" ));
 				}
 				else
 				{
-					trap->S_StartSound( org, 0, CHAN_AUTO, trap->S_RegisterSound( "sound/weapons/rocket/tick.wav" ));
+					trap->S_StartSound( org, 0, CHAN_AUTO, S_RegisterSound( "sound/weapons/rocket/tick.wav" ));
 				}
 			}
 		}

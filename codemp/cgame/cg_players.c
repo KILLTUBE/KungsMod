@@ -201,7 +201,7 @@ sfxHandle_t	CG_CustomSound( int clientNum, const char *soundName ) {
 	char		lSoundName[MAX_QPATH];
 
 	if ( soundName[0] != '*' ) {
-		return trap->S_RegisterSound( soundName );
+		return S_RegisterSound( soundName );
 	}
 
 	COM_StripExtension( soundName, lSoundName, sizeof( lSoundName ) );
@@ -914,13 +914,13 @@ void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded)
 		// if the model didn't load use the sounds of the default model
 		if (soundpath[0])
 		{
-			ci->sounds[i] = trap->S_RegisterSound( va("sound/chars/%s/misc/%s", soundpath, soundName) );
+			ci->sounds[i] = S_RegisterSound( va("sound/chars/%s/misc/%s", soundpath, soundName) );
 		}
 		else
 		{
 			if (modelloaded)
 			{
-				ci->sounds[i] = trap->S_RegisterSound( va("sound/chars/%s/misc/%s", dir, soundName) );
+				ci->sounds[i] = S_RegisterSound( va("sound/chars/%s/misc/%s", dir, soundName) );
 			}
 		}
 
@@ -928,11 +928,11 @@ void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded)
 		{ //failed the load, try one out of the generic path
 			if (isFemale)
 			{
-				ci->sounds[i] = trap->S_RegisterSound( va("sound/%s/%s", DEFAULT_FEMALE_SOUNDPATH, soundName) );
+				ci->sounds[i] = S_RegisterSound( va("sound/%s/%s", DEFAULT_FEMALE_SOUNDPATH, soundName) );
 			}
 			else
 			{
-				ci->sounds[i] = trap->S_RegisterSound( va("sound/%s/%s", DEFAULT_MALE_SOUNDPATH, soundName) );
+				ci->sounds[i] = S_RegisterSound( va("sound/%s/%s", DEFAULT_MALE_SOUNDPATH, soundName) );
 			}
 		}
 	}
@@ -955,15 +955,15 @@ void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded)
 			// if the model didn't load use the sounds of the default model
 			if (soundpath[0])
 			{
-				ci->siegeSounds[i] = trap->S_RegisterSound( va("sound/chars/%s/misc/%s", soundpath, soundName) );
+				ci->siegeSounds[i] = S_RegisterSound( va("sound/chars/%s/misc/%s", soundpath, soundName) );
 				if ( !ci->siegeSounds[i] )
-					ci->siegeSounds[i] = trap->S_RegisterSound( va( "sound/%s/%s", soundpath, soundName ) );
+					ci->siegeSounds[i] = S_RegisterSound( va( "sound/%s/%s", soundpath, soundName ) );
 			}
 			else
 			{
 				if (modelloaded)
 				{
-					ci->siegeSounds[i] = trap->S_RegisterSound( va("sound/chars/%s/misc/%s", dir, soundName) );
+					ci->siegeSounds[i] = S_RegisterSound( va("sound/chars/%s/misc/%s", dir, soundName) );
 				}
 			}
 
@@ -971,11 +971,11 @@ void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded)
 			{ //failed the load, try one out of the generic path
 				if (isFemale)
 				{
-					ci->siegeSounds[i] = trap->S_RegisterSound( va("sound/%s/%s", DEFAULT_FEMALE_SOUNDPATH, soundName) );
+					ci->siegeSounds[i] = S_RegisterSound( va("sound/%s/%s", DEFAULT_FEMALE_SOUNDPATH, soundName) );
 				}
 				else
 				{
-					ci->siegeSounds[i] = trap->S_RegisterSound( va("sound/%s/%s", DEFAULT_MALE_SOUNDPATH, soundName) );
+					ci->siegeSounds[i] = S_RegisterSound( va("sound/%s/%s", DEFAULT_MALE_SOUNDPATH, soundName) );
 				}
 			}
 		}
@@ -1001,13 +1001,13 @@ void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded)
 			// if the model didn't load use the sounds of the default model
 			if (soundpath[0])
 			{
-				ci->duelSounds[i] = trap->S_RegisterSound( va("sound/chars/%s/misc/%s", soundpath, soundName) );
+				ci->duelSounds[i] = S_RegisterSound( va("sound/chars/%s/misc/%s", soundpath, soundName) );
 			}
 			else
 			{
 				if (modelloaded)
 				{
-					ci->duelSounds[i] = trap->S_RegisterSound( va("sound/chars/%s/misc/%s", dir, soundName) );
+					ci->duelSounds[i] = S_RegisterSound( va("sound/chars/%s/misc/%s", dir, soundName) );
 				}
 			}
 
@@ -1015,11 +1015,11 @@ void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded)
 			{ //failed the load, try one out of the generic path
 				if (isFemale)
 				{
-					ci->duelSounds[i] = trap->S_RegisterSound( va("sound/%s/%s", DEFAULT_FEMALE_SOUNDPATH, soundName) );
+					ci->duelSounds[i] = S_RegisterSound( va("sound/%s/%s", DEFAULT_FEMALE_SOUNDPATH, soundName) );
 				}
 				else
 				{
-					ci->duelSounds[i] = trap->S_RegisterSound( va("sound/%s/%s", DEFAULT_MALE_SOUNDPATH, soundName) );
+					ci->duelSounds[i] = S_RegisterSound( va("sound/%s/%s", DEFAULT_MALE_SOUNDPATH, soundName) );
 				}
 			}
 		}
@@ -2339,7 +2339,7 @@ void CG_PlayerAnimEventDo( centity_t *cent, animevent_t *animEvent )
 				randomSwing = Q_irand( 7, 9 );
 				break;
 			}
-			swingSound = trap->S_RegisterSound(va("sound/weapons/saber/saberhup%i.wav", randomSwing));
+			swingSound = S_RegisterSound(va("sound/weapons/saber/saberhup%i.wav", randomSwing));
 		}
 		trap->S_StartSound(cent->currentState.pos.trBase, cent->currentState.number, CHAN_AUTO, swingSound );
 		break;
@@ -2364,22 +2364,22 @@ void CG_PlayerAnimEventDo( centity_t *cent, animevent_t *animEvent )
 			switch ( animEvent->eventData[AED_SABER_SPIN_TYPE] )
 			{
 			case 0://saberspinoff
-				spinSound = trap->S_RegisterSound( "sound/weapons/saber/saberspinoff.wav" );
+				spinSound = S_RegisterSound( "sound/weapons/saber/saberspinoff.wav" );
 				break;
 			case 1://saberspin
-				spinSound = trap->S_RegisterSound( "sound/weapons/saber/saberspin.wav" );
+				spinSound = S_RegisterSound( "sound/weapons/saber/saberspin.wav" );
 				break;
 			case 2://saberspin1
-				spinSound = trap->S_RegisterSound( "sound/weapons/saber/saberspin1.wav" );
+				spinSound = S_RegisterSound( "sound/weapons/saber/saberspin1.wav" );
 				break;
 			case 3://saberspin2
-				spinSound = trap->S_RegisterSound( "sound/weapons/saber/saberspin2.wav" );
+				spinSound = S_RegisterSound( "sound/weapons/saber/saberspin2.wav" );
 				break;
 			case 4://saberspin3
-				spinSound = trap->S_RegisterSound( "sound/weapons/saber/saberspin3.wav" );
+				spinSound = S_RegisterSound( "sound/weapons/saber/saberspin3.wav" );
 				break;
 			default://random saberspin1-3
-				spinSound = trap->S_RegisterSound( va( "sound/weapons/saber/saberspin%d.wav", Q_irand(1,3)) );
+				spinSound = S_RegisterSound( va( "sound/weapons/saber/saberspin%d.wav", Q_irand(1,3)) );
 				break;
 			}
 		}
@@ -5760,7 +5760,7 @@ void CG_G2SaberEffects(vec3_t start, vec3_t end, centity_t *owner)
 			if (trace.entityNum != ENTITYNUM_NONE)
 			{ //it succeeded with the ghoul2 trace
 				trap->FX_PlayEffectID( cgs.effects.mSaberBloodSparks, trace.endpos, trace.plane.normal, -1, -1, qfalse );
-				trap->S_StartSound(trace.endpos, trace.entityNum, CHAN_AUTO, trap->S_RegisterSound(va("sound/weapons/saber/saberhit%i.wav", Q_irand(1, 3))));
+				trap->S_StartSound(trace.endpos, trace.entityNum, CHAN_AUTO, S_RegisterSound(va("sound/weapons/saber/saberhit%i.wav", Q_irand(1, 3))));
 			}
 		}
 
@@ -6001,7 +6001,7 @@ void CG_SaberCompWork(vec3_t start, vec3_t end, centity_t *owner, int saberNum, 
 				if (owner->serverSaberFleshImpact)
 				{ //do standard player/live ent hit sparks
 					trap->FX_PlayEffectID( hitPersonFxID, trace.endpos, trace.plane.normal, -1, -1, qfalse );
-					//trap->S_StartSound(trace.endpos, trace.entityNum, CHAN_AUTO, trap->S_RegisterSound(va("sound/weapons/saber/saberhit%i.wav", Q_irand(1, 3))));
+					//trap->S_StartSound(trace.endpos, trace.entityNum, CHAN_AUTO, S_RegisterSound(va("sound/weapons/saber/saberhit%i.wav", Q_irand(1, 3))));
 				}
 				else
 				{ //do the cut effect
@@ -6248,7 +6248,7 @@ void CG_AddSaberBlade( centity_t *cent, centity_t *scent, refEntity_t *saber, in
 							if ( cg.time - client->saber[saberNum].blade[bladeNum].hitWallDebounceTime >= 100 )
 							{//ugh, need to have a real sound debouncer... or do this game-side
 								client->saber[saberNum].blade[bladeNum].hitWallDebounceTime = cg.time;
-								trap->S_StartSound ( trace.endpos, -1, CHAN_WEAPON, trap->S_RegisterSound( va("sound/weapons/saber/saberhitwall%i", Q_irand(1, 3)) ) );
+								trap->S_StartSound ( trace.endpos, -1, CHAN_WEAPON, S_RegisterSound( va("sound/weapons/saber/saberhitwall%i", Q_irand(1, 3)) ) );
 							}
 						}
 					}
@@ -7113,7 +7113,7 @@ void CG_G2AnimEntModelLoad(centity_t *cent)
 			strcpy(modelName, va("models/players/%s/model.glm", modelName));
 
 			//this sound is *only* used for vehicles now
-			cgs.media.noAmmoSound = trap->S_RegisterSound( "sound/weapons/noammo.wav" );
+			cgs.media.noAmmoSound = S_RegisterSound( "sound/weapons/noammo.wav" );
 		}
 		else
 		{
@@ -7558,7 +7558,7 @@ void CG_G2Animated( centity_t *cent )
 
 		if (cent->currentState.weapon == WP_SABER)
 		{
-			trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, trap->S_RegisterSound( "sound/weapons/saber/saberon.wav" ));
+			trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberon.wav" ));
 		}
 	}
 	*/
@@ -8790,7 +8790,7 @@ void CG_Player( centity_t *cent ) {
 
 					//Keep the jet fire sound looping
 					trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin,
-						trap->S_RegisterSound( "sound/effects/fire_lp" ) );
+						S_RegisterSound( "sound/effects/fire_lp" ) );
 				}
 				else
 				{ //just idling
@@ -8803,7 +8803,7 @@ void CG_Player( centity_t *cent ) {
 			}
 
 			trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin,
-				trap->S_RegisterSound( "sound/boba/JETHOVER" ) );
+				S_RegisterSound( "sound/boba/JETHOVER" ) );
 		}
 	}
 	else if (trap->G2API_HasGhoul2ModelOnIndex(&(cent->ghoul2), 3))
@@ -8957,7 +8957,7 @@ void CG_Player( centity_t *cent ) {
 					&& cent->weapon != cent->currentState.weapon
 					&& !cent->currentState.saberHolstered)
 				{ //switching away from the saber
-					//trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, trap->S_RegisterSound( "sound/weapons/saber/saberoffquick.wav" ));
+					//trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberoffquick.wav" ));
 					if (ci->saber[0].soundOff
 						&& !cent->currentState.saberHolstered)
 					{
@@ -8976,7 +8976,7 @@ void CG_Player( centity_t *cent ) {
 					&& cent->weapon != cent->currentState.weapon
 					&& !cent->saberWasInFlight)
 				{ //switching to the saber
-					//trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, trap->S_RegisterSound( "sound/weapons/saber/saberon.wav" ));
+					//trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberon.wav" ));
 					if (ci->saber[0].soundOn)
 					{
 						trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, ci->saber[0].soundOn);
@@ -9465,7 +9465,7 @@ void CG_Player( centity_t *cent ) {
 		if (cent->bolt4 < cg.time)
 		{
 			cent->bolt4 = cg.time + 100;
-			trap->S_StartSound(NULL, cent->currentState.number, CHAN_AUTO, trap->S_RegisterSound("sound/weapons/force/drain.wav") );
+			trap->S_StartSound(NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound("sound/weapons/force/drain.wav") );
 		}
 		*/
 	}
@@ -9512,7 +9512,7 @@ void CG_Player( centity_t *cent ) {
 		if (cent->bolt4 < cg.time)
 		{
 			cent->bolt4 = cg.time + 100;
-			trap->S_StartSound(NULL, cent->currentState.number, CHAN_AUTO, trap->S_RegisterSound("sound/weapons/force/lightning.wav") );
+			trap->S_StartSound(NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound("sound/weapons/force/lightning.wav") );
 		}
 		*/
 	}
@@ -9651,7 +9651,7 @@ void CG_Player( centity_t *cent ) {
 	if (cent->currentState.weapon == WP_STUN_BATON && cent->currentState.number == cg.snap->ps.clientNum)
 	{
 		trap->S_AddLoopingSound( cent->currentState.number, cg.refdef.vieworg, vec3_origin,
-			trap->S_RegisterSound( "sound/weapons/baton/idle.wav" ) );
+			S_RegisterSound( "sound/weapons/baton/idle.wav" ) );
 	}
 
 	//NOTE: All effects that should be visible during mindtrick should go above here
@@ -9967,13 +9967,13 @@ stillDoSaber:
 			if (cg.snap->ps.clientNum == cent->currentState.number)
 			{
 				//trap->S_AddLoopingSound( cent->currentState.number, cg.refdef.vieworg, vec3_origin,
-				//	trap->S_RegisterSound( "sound/weapons/saber/saberhum1.wav" ) );
+				//	S_RegisterSound( "sound/weapons/saber/saberhum1.wav" ) );
 				VectorCopy(cg.refdef.vieworg, soundSpot);
 			}
 			else
 			{
 				//trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin,
-				//	trap->S_RegisterSound( "sound/weapons/saber/saberhum1.wav" ) );
+				//	S_RegisterSound( "sound/weapons/saber/saberhum1.wav" ) );
 				VectorCopy(cent->lerpOrigin, soundSpot);
 			}
 

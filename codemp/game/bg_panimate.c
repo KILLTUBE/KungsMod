@@ -1946,7 +1946,7 @@ void ParseAnimationEvtBlock(const char *aeb_filename, animevent_t *animEvents, a
 					}
 					else
 					{
-						animEvents[curAnimEvent].eventData[num] = trap->S_RegisterSound( va( stringData, n ) );
+						animEvents[curAnimEvent].eventData[num] = S_RegisterSound( va( stringData, n ) );
 					}
 				}
 				animEvents[curAnimEvent].eventData[AED_SOUND_NUMRANDOMSNDS] = num - 1;
@@ -1959,7 +1959,7 @@ void ParseAnimationEvtBlock(const char *aeb_filename, animevent_t *animEvents, a
 				}
 				else
 				{
-					animEvents[curAnimEvent].eventData[AED_SOUNDINDEX_START] = trap->S_RegisterSound( stringData );
+					animEvents[curAnimEvent].eventData[AED_SOUNDINDEX_START] = S_RegisterSound( stringData );
 				}
 #ifndef FINAL_BUILD
 				if ( !animEvents[curAnimEvent].eventData[AED_SOUNDINDEX_START] &&

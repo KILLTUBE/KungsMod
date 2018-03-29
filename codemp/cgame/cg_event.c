@@ -924,7 +924,7 @@ void DoFall(centity_t *cent, entityState_t *es, int clientNum)
 		}
 		else
 		{
-			trap->S_StartSound (NULL, es->number, CHAN_AUTO, trap->S_RegisterSound( "sound/movers/objects/objectHit.wav" ) );
+			trap->S_StartSound (NULL, es->number, CHAN_AUTO, S_RegisterSound( "sound/movers/objects/objectHit.wav" ) );
 		}
 	}
 	else if (BG_InKnockDownOnly(es->legsAnim))
@@ -935,7 +935,7 @@ void DoFall(centity_t *cent, entityState_t *es, int clientNum)
 		}
 		else
 		{
-			trap->S_StartSound (NULL, es->number, CHAN_AUTO, trap->S_RegisterSound( "sound/movers/objects/objectHit.wav" ) );
+			trap->S_StartSound (NULL, es->number, CHAN_AUTO, S_RegisterSound( "sound/movers/objects/objectHit.wav" ) );
 		}
 	}
 	else if (delta > 50)
@@ -1915,7 +1915,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			if ( /*item->giType != IT_POWERUP && */item->giType != IT_TEAM) {
 				if (item->pickup_sound && item->pickup_sound[0])
 				{
-					trap->S_StartSound (NULL, es->number, CHAN_AUTO,	trap->S_RegisterSound( item->pickup_sound ) );
+					trap->S_StartSound (NULL, es->number, CHAN_AUTO,	S_RegisterSound( item->pickup_sound ) );
 				}
 			}
 
@@ -1940,7 +1940,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			item = &bg_itemlist[ index ];
 			// powerup pickups are global
 			if( item->pickup_sound && item->pickup_sound[0] ) {
-				trap->S_StartSound (NULL, cg.snap->ps.clientNum, CHAN_AUTO, trap->S_RegisterSound( item->pickup_sound) );
+				trap->S_StartSound (NULL, cg.snap->ps.clientNum, CHAN_AUTO, S_RegisterSound( item->pickup_sound) );
 			}
 
 			// show icon and name on status bar
@@ -2126,7 +2126,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 	case EV_SABER_ATTACK:
 		DEBUGNAME("EV_SABER_ATTACK");
 		{
-			qhandle_t swingSound = trap->S_RegisterSound(va("sound/weapons/saber/saberhup%i.wav", Q_irand(1, 8)));
+			qhandle_t swingSound = S_RegisterSound(va("sound/weapons/saber/saberhup%i.wav", Q_irand(1, 8)));
 			clientInfo_t *client = NULL;
 			if ( cg_entities[es->number].currentState.eType == ET_NPC )
 			{
@@ -2151,7 +2151,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			int hitPersonSmallFxID = cgs.effects.mSaberBloodSparksSmall;
 			int hitPersonMidFxID = cgs.effects.mSaberBloodSparksMid;
 			int hitOtherFxID = cgs.effects.mSaberCut;
-			int hitSound = trap->S_RegisterSound(va("sound/weapons/saber/saberhit%i.wav", Q_irand(1, 3)));
+			int hitSound = S_RegisterSound(va("sound/weapons/saber/saberhit%i.wav", Q_irand(1, 3)));
 
 			if ( es->otherEntityNum2 >= 0
 				&& es->otherEntityNum2 < ENTITYNUM_NONE )
@@ -2252,7 +2252,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 				}
 				//old jk2mp method
 				/*
-				trap->S_StartSound(es->origin, es->number, CHAN_AUTO, trap->S_RegisterSound("sound/weapons/saber/saberhit.wav"));
+				trap->S_StartSound(es->origin, es->number, CHAN_AUTO, S_RegisterSound("sound/weapons/saber/saberhit.wav"));
 				trap->FX_PlayEffectID( trap->FX_RegisterEffect("saber/spark.efx"), es->origin, fxDir, -1, -1, qfalse );
 				*/
 
@@ -2290,7 +2290,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			if (es->eventParm)
 			{ //saber block
 				int			blockFXID = cgs.effects.mSaberBlock;
-				qhandle_t	blockSound = trap->S_RegisterSound(va( "sound/weapons/saber/saberblock%d.wav", Q_irand(1, 9) ));
+				qhandle_t	blockSound = S_RegisterSound(va( "sound/weapons/saber/saberblock%d.wav", Q_irand(1, 9) ));
 				qboolean	noFlare = qfalse;
 
 				if ( es->otherEntityNum2 >= 0
@@ -2374,7 +2374,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		{
 			cg_saberFlashTime = cg.time-50;
 			VectorCopy( es->origin, cg_saberFlashPos );
-			trap->S_StartSound ( es->origin, -1, CHAN_WEAPON, trap->S_RegisterSound( va("sound/weapons/saber/saberhitwall%i", Q_irand(1, 3)) ) );
+			trap->S_StartSound ( es->origin, -1, CHAN_WEAPON, S_RegisterSound( va("sound/weapons/saber/saberhitwall%i", Q_irand(1, 3)) ) );
 		}
 		break;
 
@@ -2429,7 +2429,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			}
 			trap->FX_PlayEffectID(cgs.effects.mJediSpawn, pos, ang, -1, -1, qfalse);
 
-			trap->S_StartSound (NULL, es->number, CHAN_AUTO, trap->S_RegisterSound( "sound/weapons/saber/saberon.wav" ) );
+			trap->S_StartSound (NULL, es->number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberon.wav" ) );
 
 			if (cg.snap->ps.clientNum == es->number)
 			{
@@ -2505,11 +2505,11 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		{
 			if (cg.snap->ps.zoomMode)
 			{
-				trap->S_StartLocalSound(trap->S_RegisterSound("sound/weapons/disruptor/zoomstart.wav"), CHAN_AUTO);
+				trap->S_StartLocalSound(S_RegisterSound("sound/weapons/disruptor/zoomstart.wav"), CHAN_AUTO);
 			}
 			else
 			{
-				trap->S_StartLocalSound(trap->S_RegisterSound("sound/weapons/disruptor/zoomend.wav"), CHAN_AUTO);
+				trap->S_StartLocalSound(S_RegisterSound("sound/weapons/disruptor/zoomend.wav"), CHAN_AUTO);
 			}
 		}
 		break;
@@ -2521,13 +2521,13 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			switch (es->eventParm)
 			{
 			case PDSOUND_PROTECTHIT:
-				sID = trap->S_RegisterSound("sound/weapons/force/protecthit.mp3");
+				sID = S_RegisterSound("sound/weapons/force/protecthit.mp3");
 				break;
 			case PDSOUND_PROTECT:
-				sID = trap->S_RegisterSound("sound/weapons/force/protect.mp3");
+				sID = S_RegisterSound("sound/weapons/force/protect.mp3");
 				break;
 			case PDSOUND_ABSORBHIT:
-				sID = trap->S_RegisterSound("sound/weapons/force/absorbhit.mp3");
+				sID = S_RegisterSound("sound/weapons/force/absorbhit.mp3");
 				if (es->trickedentindex >= 0 && es->trickedentindex < MAX_CLIENTS)
 				{
 					int clnum = es->trickedentindex;
@@ -2537,13 +2537,13 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 				}
 				break;
 			case PDSOUND_ABSORB:
-				sID = trap->S_RegisterSound("sound/weapons/force/absorb.mp3");
+				sID = S_RegisterSound("sound/weapons/force/absorb.mp3");
 				break;
 			case PDSOUND_FORCEJUMP:
-				sID = trap->S_RegisterSound("sound/weapons/force/jump.mp3");
+				sID = S_RegisterSound("sound/weapons/force/jump.mp3");
 				break;
 			case PDSOUND_FORCEGRIP:
-				sID = trap->S_RegisterSound("sound/weapons/force/grip.mp3");
+				sID = S_RegisterSound("sound/weapons/force/grip.mp3");
 				break;
 			default:
 				break;

@@ -86,11 +86,11 @@ void CG_PrecacheSiegeObjectiveAssetsForTeam(int myTeam)
 
 				if (BG_SiegeGetPairedValue(foundobjective, "sound_team1", str))
 				{
-					trap->S_RegisterSound(str);
+					S_RegisterSound(str);
 				}
 				if (BG_SiegeGetPairedValue(foundobjective, "sound_team2", str))
 				{
-					trap->S_RegisterSound(str);
+					S_RegisterSound(str);
 				}
 				if (BG_SiegeGetPairedValue(foundobjective, "objgfx", str))
 				{
@@ -663,7 +663,7 @@ void CG_SiegeRoundOver(centity_t *ent, int won)
 
 		if (soundstr[0])
 		{
-			trap->S_StartLocalSound(trap->S_RegisterSound(soundstr), CHAN_ANNOUNCER);
+			trap->S_StartLocalSound(S_RegisterSound(soundstr), CHAN_ANNOUNCER);
 		}
 	}
 }
@@ -979,7 +979,7 @@ void CG_SiegeObjectiveCompleted(centity_t *ent, int won, int objectivenum)
 
 			if (soundstr[0])
 			{
-				trap->S_StartLocalSound(trap->S_RegisterSound(soundstr), CHAN_ANNOUNCER);
+				trap->S_StartLocalSound(S_RegisterSound(soundstr), CHAN_ANNOUNCER);
 			}
 		}
 	}

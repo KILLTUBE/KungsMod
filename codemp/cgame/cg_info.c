@@ -111,7 +111,7 @@ void CG_LoadingClient( int clientNum ) {
 
 	/*
 	if( cgs.gametype == GT_SINGLE_PLAYER ) {
-		trap->S_RegisterSound( va( "sound/player/announce/%s.wav", personality ));
+		S_RegisterSound( va( "sound/player/announce/%s.wav", personality ));
 	}
 	*/
 

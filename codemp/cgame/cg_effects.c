@@ -450,7 +450,7 @@ void CG_DoGlass( vec3_t verts[4], vec3_t normal, vec3_t dmgPt, vec3_t dmgDir, fl
 	//	hopefully be sufficient.
 	CG_CalcHeightWidth( verts, &height, &width );
 
-	trap->S_StartSound( dmgPt, -1, CHAN_AUTO, trap->S_RegisterSound("sound/effects/glassbreak1.wav"));
+	trap->S_StartSound( dmgPt, -1, CHAN_AUTO, S_RegisterSound("sound/effects/glassbreak1.wav"));
 
 	// Pick "LOD" for height
 	if ( height < 100 )
@@ -830,7 +830,7 @@ void CG_Chunks( int owner, vec3_t origin, const vec3_t normal, const vec3_t mins
 		return;
 		break;
 	case MAT_ELECTRICAL:// (sparks)
-		trap->S_StartSound( NULL, owner, CHAN_BODY, trap->S_RegisterSound (va("sound/ambience/spark%d.wav", Q_irand(1, 6))) );
+		trap->S_StartSound( NULL, owner, CHAN_BODY, S_RegisterSound (va("sound/ambience/spark%d.wav", Q_irand(1, 6))) );
 		return;
 		break;
 	case MAT_DRK_STONE:

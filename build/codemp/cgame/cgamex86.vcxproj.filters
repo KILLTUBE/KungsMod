@@ -169,6 +169,9 @@
     <ClCompile Include="..\..\..\shared\sys\snapvector.cpp">
       <Filter>cgame</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\codemp\cgame\cg_tempwrappers.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\game\anims.h">
@@ -251,6 +254,9 @@
     </ClInclude>
     <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_types.h">
       <Filter>rd-common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\codemp\cgame\cg_tempwrappers.h">
+      <Filter>cgame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
