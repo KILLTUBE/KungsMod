@@ -232,14 +232,14 @@ static void CG_CalculateWeaponPosition( vec3_t origin, vec3_t angles ) {
 		scale = cg.xyspeed;
 	}
 
-	if ( cg_weaponBob.value ) {
+	if ( cg_weaponBob->value ) {
 		// gun angles from bobbing
 		angles[ROLL] += scale * cg.bobfracsin * 0.005;
 		angles[YAW] += scale * cg.bobfracsin * 0.01;
 		angles[PITCH] += cg.xyspeed * cg.bobfracsin * 0.005;
 	}
 
-	if ( cg_fallingBob.value ) {
+	if ( cg_fallingBob->value ) {
 		// drop the weapon when landing
 		delta = cg.time - cg.landTime;
 		if ( delta < LAND_DEFLECT_TIME ) {
@@ -260,7 +260,7 @@ static void CG_CalculateWeaponPosition( vec3_t origin, vec3_t angles ) {
 	}
 #endif
 
-	if ( cg_weaponBob.value ) {
+	if ( cg_weaponBob->value ) {
 		// idle drift
 		scale = cg.xyspeed + 40;
 		fracsin = sin( cg.time * 0.001 );
@@ -301,7 +301,7 @@ static void CG_LightningBolt( centity_t *cent, vec3_t origin ) {
 	// NOTENOTE No lightning gun-ish stuff yet.
 /*
 	// CPMA  "true" lightning
-	if ((cent->currentState.number == cg.predictedPlayerState.clientNum) && (cg_trueLightning.value != 0)) {
+	if ((cent->currentState.number == cg.predictedPlayerState.clientNum) && (cg_trueLightning->value != 0)) {
 		vec3_t angle;
 		int i;
 
@@ -314,7 +314,7 @@ static void CG_LightningBolt( centity_t *cent, vec3_t origin ) {
 				a += 360;
 			}
 
-			angle[i] = cg.refdef.viewangles[i] + a * (1.0 - cg_trueLightning.value);
+			angle[i] = cg.refdef.viewangles[i] + a * (1.0 - cg_trueLightning->value);
 			if (angle[i] < 0) {
 				angle[i] += 360;
 			}
@@ -786,7 +786,7 @@ void CG_AddViewWeapon( playerState_t *ps ) {
 	float		fovOffset;
 	vec3_t		angles;
 	weaponInfo_t	*weapon;
-	float cgFov = cg_fovViewmodel.integer ? cg_fovViewmodel.value : cg_fov.value;
+	float cgFov = cg_fovViewmodel->integer ? cg_fovViewmodel->value : cg_fov->value;
 
 	if (cgFov < 1)
 		cgFov = 1;
@@ -808,7 +808,7 @@ void CG_AddViewWeapon( playerState_t *ps ) {
 	}
 
 	// allow the gun to be completely removed
-	if ( !cg_drawGun.integer || cg.predictedPlayerState.zoomMode) {
+	if ( !cg_drawGun->integer || cg.predictedPlayerState.zoomMode) {
 		vec3_t		origin;
 
 		if ( cg.predictedPlayerState.eFlags & EF_FIRING ) {
@@ -826,7 +826,7 @@ void CG_AddViewWeapon( playerState_t *ps ) {
 	}
 
 	// drop gun lower at higher fov
-	if ( cg_fovViewmodelAdjust.integer && cgFov > 90 )
+	if ( cg_fovViewmodelAdjust->integer && cgFov > 90 )
 		fovOffset = -0.2f * ( cgFov - 90 );
 	else
 		fovOffset = 0;
@@ -840,13 +840,13 @@ void CG_AddViewWeapon( playerState_t *ps ) {
 	// set up gun position
 	CG_CalculateWeaponPosition( hand.origin, angles );
 
-	VectorMA( hand.origin, cg_gunX.value, cg.refdef.viewaxis[0], hand.origin );
-	VectorMA( hand.origin, cg_gunY.value, cg.refdef.viewaxis[1], hand.origin );
-	VectorMA( hand.origin, (cg_gunZ.value+fovOffset), cg.refdef.viewaxis[2], hand.origin );
+	VectorMA( hand.origin, cg_gunX->value, cg.refdef.viewaxis[0], hand.origin );
+	VectorMA( hand.origin, cg_gunY->value, cg.refdef.viewaxis[1], hand.origin );
+	VectorMA( hand.origin, (cg_gunZ->value+fovOffset), cg.refdef.viewaxis[2], hand.origin );
 
 	AnglesToAxis( angles, hand.axis );
 
-	if ( cg_fovViewmodel.integer )
+	if ( cg_fovViewmodel->integer )
 	{
 		float fracDistFOV = tanf( cg.refdef.fov_x * ( M_PI/180 ) * 0.5f );
 		float fracWeapFOV = ( 1.0f / fracDistFOV ) * tanf( cgFov * ( M_PI/180 ) * 0.5f );
@@ -854,9 +854,9 @@ void CG_AddViewWeapon( playerState_t *ps ) {
 	}
 
 	// map torso animations to weapon animations
-	if ( cg_debugGun.integer ) {
+	if ( cg_debugGun->integer ) {
 		// development tool
-		hand.frame = hand.oldframe = cg_debugGun.integer;
+		hand.frame = hand.oldframe = cg_debugGun->integer;
 		hand.backlerp = 0;
 	} else {
 		float currentFrame;
@@ -929,7 +929,7 @@ void CG_DrawIconBackground(void)
 		return;
 	}
 
-	if (cg_hudFiles.integer)
+	if (cg_hudFiles->integer)
 	{ //simple hud
 		return;
 	}
@@ -1771,11 +1771,11 @@ void CG_OutOfAmmoChange( int oldWeapon )
 		if ( CG_WeaponSelectable( i ) )
 		{
 			/*
-			if ( 1 == cg_autoswitch.integer &&
+			if ( 1 == cg_autoswitch->integer &&
 				( i == WP_TRIP_MINE || i == WP_DET_PACK || i == WP_THERMAL || i == WP_ROCKET_LAUNCHER) ) // safe weapon switch
 			*/
 			//rww - Don't we want to make sure i != one of these if autoswitch is 1 (safe)?
-			if (cg_autoSwitch.integer != 1 || (i != WP_TRIP_MINE && i != WP_DET_PACK && i != WP_THERMAL && i != WP_ROCKET_LAUNCHER))
+			if (cg_autoSwitch->integer != 1 || (i != WP_TRIP_MINE && i != WP_DET_PACK && i != WP_THERMAL && i != WP_ROCKET_LAUNCHER))
 			{
 				if (i != oldWeapon)
 				{ //don't even do anything if we're just selecting the weapon we already have/had

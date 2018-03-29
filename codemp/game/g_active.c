@@ -254,7 +254,7 @@ void DoImpact( gentity_t *self, gentity_t *other, qboolean damageSelf )
 		VectorCopy( self->s.pos.trDelta, velocity );
 		if ( self->s.pos.trType == TR_GRAVITY )
 		{
-			velocity[2] -= 0.25f * g_gravity.value;
+			velocity[2] -= 0.25f * g_gravity->value;
 		}
 		if( !self->mass )
 		{
@@ -728,7 +728,7 @@ void SpectatorThink( gentity_t *ent, usercmd_t *ucmd ) {
 		pmove.trace = SV_PMTrace;
 		pmove.pointcontents = SV_PointContents;
 
-		pmove.noSpecMove = g_noSpecMove.integer;
+		pmove.noSpecMove = g_noSpecMove->integer;
 
 		pmove.animations = NULL;
 		pmove.nonHumanoid = qfalse;
@@ -778,7 +778,7 @@ Returns qfalse if the client is dropped
 =================
 */
 qboolean ClientInactivityTimer( gclient_t *client ) {
-	if ( ! g_inactivity.integer ) {
+	if ( ! g_inactivity->integer ) {
 		// give everyone some time, so if the operator sets g_inactivity during
 		// gameplay, everyone isn't kicked
 		client->inactivityTime = level.time + 60 * 1000;
@@ -787,7 +787,7 @@ qboolean ClientInactivityTimer( gclient_t *client ) {
 		client->pers.cmd.rightmove ||
 		client->pers.cmd.upmove ||
 		(client->pers.cmd.buttons & (BUTTON_ATTACK|BUTTON_ALT_ATTACK)) ) {
-		client->inactivityTime = level.time + g_inactivity.integer * 1000;
+		client->inactivityTime = level.time + g_inactivity->integer * 1000;
 		client->inactivityWarning = qfalse;
 	} else if ( !client->pers.localClient ) {
 		if ( level.time > client->inactivityTime ) {
@@ -970,7 +970,7 @@ void ClientEvents( gentity_t *ent, int oldEventSequence ) {
 					break;		// not in the player model
 				}
 
-				if ( dmflags.integer & DF_NO_FALLING )
+				if ( dmflags->integer & DF_NO_FALLING )
 				{
 					break;
 				}
@@ -2033,15 +2033,15 @@ void ClientThink_real( gentity_t *ent ) {
 		msec = 200;
 	}
 
-	if ( pmove_msec.integer < 8 ) {
+	if ( pmove_msec->integer < 8 ) {
 		Cvar_Set("pmove_msec", "8");
 	}
-	else if (pmove_msec.integer > 33) {
+	else if (pmove_msec->integer > 33) {
 		Cvar_Set("pmove_msec", "33");
 	}
 
-	if ( pmove_fixed.integer || client->pers.pmoveFixed ) {
-		ucmd->serverTime = ((ucmd->serverTime + pmove_msec.integer-1) / pmove_msec.integer) * pmove_msec.integer;
+	if ( pmove_fixed->integer || client->pers.pmoveFixed ) {
+		ucmd->serverTime = ((ucmd->serverTime + pmove_msec->integer-1) / pmove_msec->integer) * pmove_msec->integer;
 		//if (ucmd->serverTime - client->ps.commandTime <= 0)
 		//	return;
 	}
@@ -2358,7 +2358,7 @@ void ClientThink_real( gentity_t *ent ) {
 		(!ent->NPC || ent->s.NPC_class != CLASS_VEHICLE)) //if riding a vehicle it will manage our speed and such
 	{
 		// set speed
-		client->ps.speed = g_speed.value;
+		client->ps.speed = g_speed->value;
 
 		//Check for a siege class speed multiplier
 		if (level.gametype == GT_SIEGE &&
@@ -2401,7 +2401,7 @@ void ClientThink_real( gentity_t *ent ) {
 				}
 				else
 				{
-					client->ps.gravity = g_gravity.value;
+					client->ps.gravity = g_gravity->value;
 				}
 			}
 		}
@@ -2493,10 +2493,10 @@ void ClientThink_real( gentity_t *ent ) {
 					ent->client->ps.stats[STAT_HEALTH] = ent->health = ent->client->ps.stats[STAT_MAX_HEALTH];
 				}
 
-				if (g_spawnInvulnerability.integer)
+				if (g_spawnInvulnerability->integer)
 				{
 					ent->client->ps.eFlags |= EF_INVULNERABLE;
-					ent->client->invulnerableTimer = level.time + g_spawnInvulnerability.integer;
+					ent->client->invulnerableTimer = level.time + g_spawnInvulnerability->integer;
 				}
 			}
 
@@ -2836,12 +2836,12 @@ void ClientThink_real( gentity_t *ent ) {
 	}
 	pmove.trace = SV_PMTrace;
 	pmove.pointcontents = SV_PointContents;
-	pmove.debugLevel = g_debugMove.integer;
-	pmove.noFootsteps = (dmflags.integer & DF_NO_FOOTSTEPS) > 0;
+	pmove.debugLevel = g_debugMove->integer;
+	pmove.noFootsteps = (dmflags->integer & DF_NO_FOOTSTEPS) > 0;
 
-	pmove.pmove_fixed = pmove_fixed.integer | client->pers.pmoveFixed;
-	pmove.pmove_msec = pmove_msec.integer;
-	pmove.pmove_float = pmove_float.integer;
+	pmove.pmove_fixed = pmove_fixed->integer | client->pers.pmoveFixed;
+	pmove.pmove_msec = pmove_msec->integer;
+	pmove.pmove_float = pmove_float->integer;
 
 	pmove.animations = bgAllAnims[ent->localAnimIndex].anims;//NULL;
 
@@ -2849,7 +2849,7 @@ void ClientThink_real( gentity_t *ent ) {
 	pmove.ghoul2 = NULL;
 
 #ifdef _DEBUG
-	if (g_disableServerG2.integer)
+	if (g_disableServerG2->integer)
 	{
 
 	}
@@ -2891,17 +2891,17 @@ void ClientThink_real( gentity_t *ent ) {
 	//rww end bgghoul2
 
 	pmove.gametype = level.gametype;
-	pmove.debugMelee = g_debugMelee.integer;
-	pmove.stepSlideFix = g_stepSlideFix.integer;
+	pmove.debugMelee = g_debugMelee->integer;
+	pmove.stepSlideFix = g_stepSlideFix->integer;
 
-	pmove.noSpecMove = g_noSpecMove.integer;
+	pmove.noSpecMove = g_noSpecMove->integer;
 
 	pmove.nonHumanoid = (ent->localAnimIndex > 0);
 
 	VectorCopy( client->ps.origin, client->oldOrigin );
 
 	/*
-	if (level.intermissionQueued != 0 && g_singlePlayer.integer) {
+	if (level.intermissionQueued != 0 && g_singlePlayer->integer) {
 		if ( level.time - level.intermissionQueued >= 1000  ) {
 			pm.cmd.buttons = 0;
 			pm.cmd.forwardmove = 0;
@@ -2979,9 +2979,9 @@ void ClientThink_real( gentity_t *ent ) {
 						lockHits += ent->client->saber[1].lockBonus;
 					}
 					ent->client->ps.saberLockHits += lockHits;
-					if ( g_saberLockRandomNess.integer )
+					if ( g_saberLockRandomNess->integer )
 					{
-						ent->client->ps.saberLockHits += Q_irand( 0, g_saberLockRandomNess.integer );
+						ent->client->ps.saberLockHits += Q_irand( 0, g_saberLockRandomNess->integer );
 						if ( ent->client->ps.saberLockHits < 0 )
 						{
 							ent->client->ps.saberLockHits = 0;
@@ -3328,7 +3328,7 @@ void ClientThink_real( gentity_t *ent ) {
 	if ( ent->client->ps.eventSequence != oldEventSequence ) {
 		ent->eventTime = level.time;
 	}
-	if (g_smoothClients.integer) {
+	if (g_smoothClients->integer) {
 		BG_PlayerStateToEntityStateExtraPolate( &ent->client->ps, &ent->s, ent->client->ps.commandTime, qfalse );
 		//rww - 12-03-02 - Don't snap the origin of players! It screws prediction all up.
 	}
@@ -3408,7 +3408,7 @@ void ClientThink_real( gentity_t *ent ) {
 	{
 		gentity_t *faceKicked = &g_entities[client->ps.forceKickFlip-1];
 
-		if (faceKicked && faceKicked->client && (!OnSameTeam(ent, faceKicked) || g_friendlyFire.integer) &&
+		if (faceKicked && faceKicked->client && (!OnSameTeam(ent, faceKicked) || g_friendlyFire->integer) &&
 			(!faceKicked->client->ps.duelInProgress || faceKicked->client->ps.duelIndex == ent->s.number) &&
 			(!ent->client->ps.duelInProgress || ent->client->ps.duelIndex == faceKicked->s.number))
 		{
@@ -3462,13 +3462,13 @@ void ClientThink_real( gentity_t *ent ) {
 		// wait for the attack button to be pressed
 		if ( level.time > client->respawnTime && !gDoSlowMoDuel ) {
 			// forcerespawn is to prevent users from waiting out powerups
-			int forceRes = g_forceRespawn.integer;
+			int forceRes = g_forceRespawn->integer;
 
 			if (level.gametype == GT_POWERDUEL)
 			{
 				forceRes = 1;
 			}
-			else if (level.gametype == GT_SIEGE && g_siegeRespawn.integer)
+			else if (level.gametype == GT_SIEGE && g_siegeRespawn->integer)
 			{ //wave respawning on
 				forceRes = 1;
 			}
@@ -3526,7 +3526,7 @@ Checks whether a client has exceded any timeouts and act accordingly
 void G_CheckClientTimeouts ( gentity_t *ent )
 {
 	// Only timeout supported right now is the timeout to spectator mode
-	if ( !g_timeouttospec.integer )
+	if ( !g_timeouttospec->integer )
 	{
 		return;
 	}
@@ -3539,7 +3539,7 @@ void G_CheckClientTimeouts ( gentity_t *ent )
 
 	// See how long its been since a command was received by the client and if its
 	// longer than the timeout to spectator then force this client into spectator mode
-	if ( level.time - ent->client->pers.cmd.serverTime > g_timeouttospec.integer * 1000 )
+	if ( level.time - ent->client->pers.cmd.serverTime > g_timeouttospec->integer * 1000 )
 	{
 		SetTeam ( ent, "spectator" );
 	}
@@ -3596,7 +3596,7 @@ void ClientThink( int clientNum, usercmd_t *ucmd ) {
 		}
 	}
 */
-	if ( !(ent->r.svFlags & SVF_BOT) && !g_synchronousClients.integer ) {
+	if ( !(ent->r.svFlags & SVF_BOT) && !g_synchronousClients->integer ) {
 		ClientThink_real( ent );
 	}
 	// vehicles are clients and when running synchronous they still need to think here
@@ -3628,7 +3628,7 @@ void ClientThink( int clientNum, usercmd_t *ucmd ) {
 
 void G_RunClient( gentity_t *ent ) {
 	// force client updates if they're not sending packets at roughly 4hz
-	if ( !(ent->r.svFlags & SVF_BOT) && g_forceClientUpdateRate.integer && ent->client->lastCmdTime < level.time - g_forceClientUpdateRate.integer ) {
+	if ( !(ent->r.svFlags & SVF_BOT) && g_forceClientUpdateRate->integer && ent->client->lastCmdTime < level.time - g_forceClientUpdateRate->integer ) {
 		SV_GetUsercmd( ent-g_entities, &ent->client->pers.cmd );
 
 		ent->client->lastCmdTime = level.time;
@@ -3642,7 +3642,7 @@ void G_RunClient( gentity_t *ent ) {
 		return;
 	}
 
-	if ( !(ent->r.svFlags & SVF_BOT) && !g_synchronousClients.integer ) {
+	if ( !(ent->r.svFlags & SVF_BOT) && !g_synchronousClients->integer ) {
 		return;
 	}
 	ent->client->pers.cmd.serverTime = level.time;
@@ -3770,7 +3770,7 @@ void ClientEndFrame( gentity_t *ent ) {
 	G_SetClientSound (ent);
 
 	// set the latest infor
-	if (g_smoothClients.integer) {
+	if (g_smoothClients->integer) {
 		BG_PlayerStateToEntityStateExtraPolate( &ent->client->ps, &ent->s, ent->client->ps.commandTime, qfalse );
 		//rww - 12-03-02 - Don't snap the origin of players! It screws prediction all up.
 	}

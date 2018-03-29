@@ -577,9 +577,9 @@ static void WP_DisruptorMainFire( gentity_t *ent )
 	traces = 0;
 	while ( traces < 10 )
 	{//need to loop this in case we hit a Jedi who dodges the shot
-		if (d_projectileGhoul2Collision.integer)
+		if (d_projectileGhoul2Collision->integer)
 		{
-			SV_Trace( &tr, start, NULL, NULL, end, ignore, MASK_SHOT, qfalse, G2TRFLAG_DOGHOULTRACE|G2TRFLAG_GETSURFINDEX|G2TRFLAG_THICK|G2TRFLAG_HITCORPSES, g_g2TraceLod.integer );
+			SV_Trace( &tr, start, NULL, NULL, end, ignore, MASK_SHOT, qfalse, G2TRFLAG_DOGHOULTRACE|G2TRFLAG_GETSURFINDEX|G2TRFLAG_THICK|G2TRFLAG_HITCORPSES, g_g2TraceLod->integer );
 		}
 		else
 		{
@@ -588,7 +588,7 @@ static void WP_DisruptorMainFire( gentity_t *ent )
 
 		traceEnt = &g_entities[tr.entityNum];
 
-		if (d_projectileGhoul2Collision.integer && traceEnt->inuse && traceEnt->client)
+		if (d_projectileGhoul2Collision->integer && traceEnt->inuse && traceEnt->client)
 		{ //g2 collision checks -rww
 			if (traceEnt->inuse && traceEnt->client && traceEnt->ghoul2)
 			{ //since we used G2TRFLAG_GETSURFINDEX, tr.surfaceFlags will actually contain the index of the surface on the ghoul2 model we collided with.
@@ -778,9 +778,9 @@ void WP_DisruptorAltFire( gentity_t *ent )
 	{
 		VectorMA( start, shotRange, forward, end );
 
-		if (d_projectileGhoul2Collision.integer)
+		if (d_projectileGhoul2Collision->integer)
 		{
-			SV_Trace( &tr, start, NULL, NULL, end, skip, MASK_SHOT, qfalse, G2TRFLAG_DOGHOULTRACE|G2TRFLAG_GETSURFINDEX|G2TRFLAG_THICK|G2TRFLAG_HITCORPSES, g_g2TraceLod.integer );
+			SV_Trace( &tr, start, NULL, NULL, end, skip, MASK_SHOT, qfalse, G2TRFLAG_DOGHOULTRACE|G2TRFLAG_GETSURFINDEX|G2TRFLAG_THICK|G2TRFLAG_HITCORPSES, g_g2TraceLod->integer );
 		}
 		else
 		{
@@ -802,7 +802,7 @@ void WP_DisruptorAltFire( gentity_t *ent )
 
 		traceEnt = &g_entities[tr.entityNum];
 
-		if (d_projectileGhoul2Collision.integer && traceEnt->inuse && traceEnt->client)
+		if (d_projectileGhoul2Collision->integer && traceEnt->inuse && traceEnt->client)
 		{ //g2 collision checks -rww
 			if (traceEnt->inuse && traceEnt->client && traceEnt->ghoul2)
 			{ //since we used G2TRFLAG_GETSURFINDEX, tr.surfaceFlags will actually contain the index of the surface on the ghoul2 model we collided with.
@@ -2201,7 +2201,7 @@ qboolean WP_LobFire( gentity_t *self, vec3_t start, vec3_t target, vec3_t mins, 
 
 		VectorScale( targetDir, shotSpeed, shotVel );
 		travelTime = targetDist/shotSpeed;
-		shotVel[2] += travelTime * 0.5 * g_gravity.value;
+		shotVel[2] += travelTime * 0.5 * g_gravity->value;
 
 		if ( !hitCount )
 		{//save the first (ideal) one as the failCase (fallback value)
@@ -2431,7 +2431,7 @@ void proxMineThink(gentity_t *ent)
 			owner != cl && cl->client->sess.sessionTeam != TEAM_SPECTATOR &&
 			cl->client->tempSpectate < level.time && cl->health > 0)
 		{
-			if (!OnSameTeam(owner, cl) || g_friendlyFire.integer)
+			if (!OnSameTeam(owner, cl) || g_friendlyFire->integer)
 			{ //not on the same team, or friendly fire is enabled
 				vec3_t v;
 
@@ -2984,7 +2984,7 @@ void RemoveDetpacks(gentity_t *ent)
 
 qboolean CheatsOn(void)
 {
-	if ( !sv_cheats.integer )
+	if ( !sv_cheats->integer )
 	{
 		return qfalse;
 	}
@@ -3129,9 +3129,9 @@ static void WP_FireConcussionAlt( gentity_t *ent )
 		//NOTE: if you want to be able to hit guys in emplaced guns, use "G2_COLLIDE, 10" instead of "G2_RETURNONHIT, 0"
 		//alternately, if you end up hitting an emplaced_gun that has a sitter, just redo this one trace with the "G2_COLLIDE, 10" to see if we it the sitter
 		//SV_trace( &tr, start, NULL, NULL, end, skip, MASK_SHOT, G2_COLLIDE, 10 );//G2_RETURNONHIT, 0 );
-		if (d_projectileGhoul2Collision.integer)
+		if (d_projectileGhoul2Collision->integer)
 		{
-			SV_Trace( &tr, start, shot_mins, shot_maxs, end, skip, MASK_SHOT, qfalse, G2TRFLAG_DOGHOULTRACE|G2TRFLAG_GETSURFINDEX|G2TRFLAG_HITCORPSES, g_g2TraceLod.integer );
+			SV_Trace( &tr, start, shot_mins, shot_maxs, end, skip, MASK_SHOT, qfalse, G2TRFLAG_DOGHOULTRACE|G2TRFLAG_GETSURFINDEX|G2TRFLAG_HITCORPSES, g_g2TraceLod->integer );
 		}
 		else
 		{
@@ -3140,7 +3140,7 @@ static void WP_FireConcussionAlt( gentity_t *ent )
 
 		traceEnt = &g_entities[tr.entityNum];
 
-		if (d_projectileGhoul2Collision.integer && traceEnt->inuse && traceEnt->client)
+		if (d_projectileGhoul2Collision->integer && traceEnt->inuse && traceEnt->client)
 		{ //g2 collision checks -rww
 			if (traceEnt->inuse && traceEnt->client && traceEnt->ghoul2)
 			{ //since we used G2TRFLAG_GETSURFINDEX, tr.surfaceFlags will actually contain the index of the surface on the ghoul2 model we collided with.
@@ -3985,7 +3985,7 @@ void G_EstimateCamPos( vec3_t viewAngles, vec3_t cameraFocusLoc, float viewheigh
 
 	VectorCopy( viewAngles, cameraFocusAngles );
 	cameraFocusAngles[PITCH] += pitchOffset;
-	if ( !bg_fighterAltControl.integer )
+	if ( !bg_fighterAltControl->integer )
 	{//clamp view pitch
 		cameraFocusAngles[PITCH] = AngleNormalize180( cameraFocusAngles[PITCH] );
 		if (cameraFocusAngles[PITCH] > 80.0)

@@ -36,7 +36,6 @@ extern float DotToSpot( vec3_t spot, vec3_t from, vec3_t fromAngles );
 
 
 // only used by GAME
-	extern vmCvar_t	cg_thirdPersonAlpha;
 	extern vec3_t playerMins;
 	extern vec3_t playerMaxs;
 	extern void ChangeWeapon( gentity_t *ent, int newWeapon );
@@ -126,7 +125,7 @@ static qboolean Update( Vehicle_t *pVeh, const usercmd_t *pUcmd )
 	assert(pVeh->m_pParentEntity);
 	if (!BG_FighterUpdate(pVeh, pUcmd, ((gentity_t *)pVeh->m_pParentEntity)->r.mins,
 		((gentity_t *)pVeh->m_pParentEntity)->r.maxs,
-		g_gravity.value,
+		g_gravity->value,
 		G_VehicleTrace))
 	{
 		return qfalse;

@@ -1323,7 +1323,6 @@ void DeathmatchScoreboardMessage (gentity_t *client);
 //
 // g_main.c
 //
-extern vmCvar_t g_ff_objectives;
 extern qboolean gDoSlowMoDuel;
 extern int gSlowMoDuelTime;
 

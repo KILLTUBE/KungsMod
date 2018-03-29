@@ -305,9 +305,6 @@ extern qboolean NPC_FacePosition( vec3_t position, qboolean doPitch ); //doPitch
 extern qboolean NPC_FaceEntity( gentity_t *ent, qboolean doPitch ); //doPitch = qtrue
 extern qboolean NPC_FaceEnemy( qboolean doPitch ); //doPitch = qtrue
 
-//Skill level cvar
-extern vmCvar_t	g_npcspskill;
-
 #define	NIF_NONE		0x00000000
 #define	NIF_FAILED		0x00000001	//failed to find a way to the goal
 #define	NIF_MACRO_NAV	0x00000002	//using macro navigation

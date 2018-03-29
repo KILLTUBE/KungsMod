@@ -269,7 +269,7 @@ void G_LogWeaponOutput(void)
 	char mapname[128];
 	char *nameptr, *unknownname="<Unknown>";
 
-	if (!g_statLog.integer)
+	if (!g_statLog->integer)
 	{
 		return;
 	}
@@ -348,7 +348,7 @@ void G_LogWeaponOutput(void)
 	G_LogPrintf("\n");
 
 	// Write the whole weapon statistic log out to a file.
-	FS_FOpenFileByMode( g_statLogFile.string, &weaponfile, FS_APPEND );
+	FS_FOpenFileByMode( g_statLogFile->string, &weaponfile, FS_APPEND );
 	if (!weaponfile) {	//failed to open file, let's not crash, shall we?
 		return;
 	}

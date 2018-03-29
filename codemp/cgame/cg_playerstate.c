@@ -284,7 +284,7 @@ void CG_CheckChangedPredictableEvents( playerState_t *ps ) {
 
 				cg.predictableEvents[ i & (MAX_PREDICTED_EVENTS-1) ] = event;
 
-				if ( cg_showMiss.integer ) {
+				if ( cg_showMiss->integer ) {
 					trap->Print("WARNING: changed predicted event\n");
 				}
 			}
@@ -355,7 +355,7 @@ void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops ) {
 	}
 
 	// health changes of more than -3 should make pain sounds
-	if (cg_oldPainSounds.integer)
+	if (cg_oldPainSounds->integer)
 	{
 		if ( ps->stats[STAT_HEALTH] < (ops->stats[STAT_HEALTH] - 3))
 		{

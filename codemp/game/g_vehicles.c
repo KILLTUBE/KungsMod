@@ -875,7 +875,7 @@ getItOutOfMe:
 	}
 
 /*	if ( !ent->s.number && ent->client->ps.weapon != WP_SABER
-		&& cg_gunAutoFirst.value )
+		&& cg_gunAutoFirst->value )
 	{
 		Cvar_Set( "cg_thirdperson", "0" );
 	}*/
@@ -1109,7 +1109,7 @@ qboolean Initialize( Vehicle_t *pVeh )
 	pVeh->m_vOrientation[YAW] = parent->s.angles[YAW];
 
 	if ( pVeh->m_pVehicleInfo->gravity &&
-		pVeh->m_pVehicleInfo->gravity != g_gravity.value )
+		pVeh->m_pVehicleInfo->gravity != g_gravity->value )
 	{//not normal gravity
 		if ( parent->NPC )
 		{

@@ -717,9 +717,9 @@ void Window_Paint(windowDef_t *w, float fadeAmount, float fadeClamp, float fadeC
 #ifndef _CGAME
 		if ( w->flags & WINDOW_PLAYERCOLOR ) {
 			vec4_t	color;
-			color[0] = ui_char_color_red.integer/255.0f;
-			color[1] = ui_char_color_green.integer/255.0f;
-			color[2] = ui_char_color_blue.integer/255.0f;
+			color[0] = ui_char_color_red->integer/255.0f;
+			color[1] = ui_char_color_green->integer/255.0f;
+			color[2] = ui_char_color_blue->integer/255.0f;
 			color[3] = 1;
 			DC->setColor( color );
 		}
@@ -4440,7 +4440,7 @@ void Item_SetTextExtents(itemDef_t *item, int *width, int *height, const char *t
 	// keeps us from computing the widths and heights more than once
 	if (*width == 0 || (item->type == ITEM_TYPE_OWNERDRAW && item->textalignment == ITEM_ALIGN_CENTER)
 #ifndef _CGAME
-		|| (item->text && item->text[0]=='@' && item->asset != se_language.modificationCount )	//string package language changed
+		|| (item->text && item->text[0]=='@' && item->asset != se_language->modificationCount )	//string package language changed
 #endif
 		)
 	{
@@ -4474,7 +4474,7 @@ void Item_SetTextExtents(itemDef_t *item, int *width, int *height, const char *t
 #ifndef _CGAME
 		if (item->text && item->text[0]=='@' )//string package
 		{//mark language
-			item->asset = se_language.modificationCount;
+			item->asset = se_language->modificationCount;
 		}
 #endif
 	}
@@ -5417,9 +5417,9 @@ void Item_Model_Paint(itemDef_t *item)
 #ifndef _CGAME
 		if ( (item->flags&ITF_ISCHARACTER) )
 		{
-			ent.shaderRGBA[0] = ui_char_color_red.integer;
-			ent.shaderRGBA[1] = ui_char_color_green.integer;
-			ent.shaderRGBA[2] = ui_char_color_blue.integer;
+			ent.shaderRGBA[0] = ui_char_color_red->integer;
+			ent.shaderRGBA[1] = ui_char_color_green->integer;
+			ent.shaderRGBA[2] = ui_char_color_blue->integer;
 			ent.shaderRGBA[3] = 255;
 //			UI_TalkingHead(item);
 		}
@@ -5607,9 +5607,9 @@ void Item_ListBox_Paint(itemDef_t *item) {
 					{
 						vec4_t	color;
 
-						color[0] = ui_char_color_red.integer/COLOR_MAX;
-						color[1] = ui_char_color_green.integer/COLOR_MAX;
-						color[2] = ui_char_color_blue.integer/COLOR_MAX;
+						color[0] = ui_char_color_red->integer/COLOR_MAX;
+						color[1] = ui_char_color_green->integer/COLOR_MAX;
+						color[2] = ui_char_color_blue->integer/COLOR_MAX;
 						color[3] = 1.0f;
 						DC->setColor(color);
 					}
@@ -5709,9 +5709,9 @@ void Item_ListBox_Paint(itemDef_t *item) {
 							{
 								vec4_t	color;
 
-								color[0] = ui_char_color_red.integer/COLOR_MAX;
-								color[1] = ui_char_color_green.integer/COLOR_MAX;
-								color[2] = ui_char_color_blue.integer/COLOR_MAX;
+								color[0] = ui_char_color_red->integer/COLOR_MAX;
+								color[1] = ui_char_color_green->integer/COLOR_MAX;
+								color[2] = ui_char_color_blue->integer/COLOR_MAX;
 								color[3] = 1.0f;
 								DC->setColor(color);
 							}

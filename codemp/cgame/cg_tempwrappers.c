@@ -9,6 +9,10 @@ CCALL void Com_Error(int code,  const char *fmt, ... ) {
 	assert(0);
 }
 
+CCALL cvar_t *Cvar_Get( const char *var_name, const char *var_value, uint32_t flags, const char *var_desc ) {
+	return trap->GetRealCvar(var_name, var_value, flags, var_desc);
+}
+
 //NORETURN void QDECL CG_Error( int level, const char *error, ... ) {
 //	va_list argptr;
 //	char text[1024] = {0};

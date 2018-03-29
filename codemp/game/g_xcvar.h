@@ -22,15 +22,16 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 #ifdef XCVAR_PROTO
-	#define XCVAR_DEF( name, defVal, update, flags, announce ) extern vmCvar_t name;
+	#define XCVAR_DEF( name, defVal, update, flags, announce ) EXTERNC cvar_t *name;
 #endif
 
 #ifdef XCVAR_DECL
-	#define XCVAR_DEF( name, defVal, update, flags, announce ) vmCvar_t name;
+	#define XCVAR_DEF( name, defVal, update, flags, announce ) cvar_t *name;
 #endif
 
+// produce something like: g_gravity = Cvar_Get("g_gravity", "800", 0, "desc");
 #ifdef XCVAR_LIST
-	#define XCVAR_DEF( name, defVal, update, flags, announce ) { & name , #name , defVal , update , flags , announce },
+#define XCVAR_DEF( name, defVal, update, flags, announce ) name  = Cvar_Get( #name , defVal , flags , "" );
 #endif
 
 XCVAR_DEF( bg_fighterAltControl,		"0",			NULL,				CVAR_SYSTEMINFO,								qtrue )
@@ -175,5 +176,34 @@ XCVAR_DEF( sv_cheats,					"1",			NULL,				CVAR_NONE,										qfalse )
 //XCVAR_DEF( sv_fps,						"40",			NULL,				CVAR_ARCHIVE|CVAR_SERVERINFO,					qtrue )
 //XCVAR_DEF( sv_maxclients,				"8",			NULL,				CVAR_SERVERINFO|CVAR_LATCH|CVAR_ARCHIVE,		qfalse )
 XCVAR_DEF( timelimit,					"0",			NULL,				CVAR_SERVERINFO|CVAR_ARCHIVE|CVAR_NORESTART,	qtrue )
+XCVAR_DEF( bot_minplayers,				"0",			NULL,				CVAR_NONE,										qfalse )
+
+
+
+	//rww - new bot cvars..
+XCVAR_DEF( bot_forcepowers            , "1", NULL, CVAR_CHEAT, qfalse);
+XCVAR_DEF( bot_forgimmick             , "0", NULL, CVAR_CHEAT, qfalse);
+XCVAR_DEF( bot_honorableduelacceptance, "0", NULL, CVAR_CHEAT, qfalse);
+XCVAR_DEF( bot_pvstype                , "1", NULL, CVAR_CHEAT, qfalse);
+#ifndef FINAL_BUILD
+XCVAR_DEF( bot_getinthecarrr          , "0", NULL, 0, qfalse);
+#endif
+#ifdef _DEBUG
+XCVAR_DEF( bot_nogoals      , "0", NULL, CVAR_CHEAT, qfalse);
+XCVAR_DEF( bot_debugmessages, "0", NULL, CVAR_CHEAT, qfalse);
+#endif
+XCVAR_DEF( bot_attachments   , "1", NULL,          0, qfalse);
+XCVAR_DEF( bot_camp          , "1", NULL,          0, qfalse);
+XCVAR_DEF( bot_wp_info       , "1", NULL,          0, qfalse);
+XCVAR_DEF( bot_wp_edit       , "0", NULL, CVAR_CHEAT, qfalse);
+XCVAR_DEF( bot_wp_clearweight, "1", NULL,          0, qfalse);
+XCVAR_DEF( bot_wp_distconnect, "1", NULL,          0, qfalse);
+XCVAR_DEF( bot_wp_visconnect , "1", NULL,          0, qfalse);
+XCVAR_DEF( bot_normgpath     , "1", NULL, CVAR_CHEAT, qfalse);
+
+
+XCVAR_DEF( mapname           , "", NULL, CVAR_SERVERINFO | CVAR_ROM, qfalse); // false or true?
+
+XCVAR_DEF( sv_mapChecksum           , "", NULL, CVAR_ROM, qfalse);
 
 #undef XCVAR_DEF

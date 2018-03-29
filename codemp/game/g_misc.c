@@ -644,7 +644,7 @@ void SP_misc_bsp(gentity_t *ent)
 	level.mTeamFilter[0] = 0;
 
 	/*
-	if ( g_debugRMG.integer )
+	if ( g_debugRMG->integer )
 	{
 		G_SpawnDebugCylinder ( ent->s.origin, ent->s.time2, &g_entities[0], 2000, COLOR_WHITE );
 
@@ -905,7 +905,7 @@ void HolocronTouch(gentity_t *self, gentity_t *other, trace_t *trace)
 		}
 	}
 
-	if (g_maxHolocronCarry.integer && othercarrying >= g_maxHolocronCarry.integer)
+	if (g_maxHolocronCarry->integer && othercarrying >= g_maxHolocronCarry->integer)
 	{ //make the oldest holocron carried by the player pop out to make room for this one
 		other->client->ps.holocronsCarried[index_lowest] = 0;
 
@@ -1098,8 +1098,8 @@ void SP_misc_holocron(gentity_t *ent)
 		ent->count = NUM_FORCE_POWERS-1;
 	}
 /*
-	if (g_forcePowerDisable.integer &&
-		(g_forcePowerDisable.integer & (1 << ent->count)))
+	if (g_forcePowerDisable->integer &&
+		(g_forcePowerDisable->integer & (1 << ent->count)))
 	{
 		G_FreeEntity(ent);
 		return;

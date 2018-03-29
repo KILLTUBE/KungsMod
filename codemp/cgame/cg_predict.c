@@ -137,7 +137,7 @@ void CG_BuildSolidList( void ) {
 		cg_numSolidEntities++;
 	}
 
-	dsquared = /*RMG_distancecull.value*/5000+500;
+	dsquared = /*RMG_distancecull->value*/5000+500;
 	dsquared *= dsquared;
 
 	for(i=0;i<cg_numpermanents;i++)
@@ -558,7 +558,7 @@ CG_TouchItem
 static void CG_TouchItem( centity_t *cent ) {
 	gitem_t		*item;
 
-	if ( !cg_predictItems.integer ) {
+	if ( !cg_predictItems->integer ) {
 		return;
 	}
 	if ( !BG_PlayerTouchesItem( &cg.predictedPlayerState, &cent->currentState, cg.time ) ) {
@@ -920,7 +920,7 @@ to ease the jerk.
 =================
 */
 extern void CG_Cube( vec3_t mins, vec3_t maxs, vec3_t color, float alpha );
-extern	vmCvar_t		cg_showVehBounds;
+
 pmove_t cg_vehPmove;
 qboolean cg_vehPmoveSet = qfalse;
 
@@ -959,7 +959,7 @@ void CG_PredictPlayerState( void ) {
 	}
 
 	// non-predicting local movement will grab the latest angles
-	if ( cg_noPredict.integer || g_synchronousClients.integer || CG_UsingEWeb() ) {
+	if ( cg_noPredict->integer || g_synchronousClients->integer || CG_UsingEWeb() ) {
 		CG_InterpolatePlayerState( qtrue );
 		if (CG_Piloting(cg.predictedPlayerState.m_iVehicleNum))
 		{
@@ -1025,7 +1025,7 @@ void CG_PredictPlayerState( void ) {
 	trap->GetUserCmd( cmdNum, &oldestCmd );
 	if ( oldestCmd.serverTime > cg.snap->ps.commandTime
 		&& oldestCmd.serverTime < cg.time ) {	// special check for map_restart
-		if ( cg_showMiss.integer ) {
+		if ( cg_showMiss->integer ) {
 			trap->Print ("exceeded PACKET_BACKUP on commands\n");
 		}
 		return;
@@ -1056,16 +1056,16 @@ void CG_PredictPlayerState( void ) {
 		cg.physicsTime = cg.snap->serverTime;
 	}
 
-	if ( pmove_msec.integer < 8 ) {
+	if ( pmove_msec->integer < 8 ) {
 		trap->Cvar_Set("pmove_msec", "8");
 	}
-	else if (pmove_msec.integer > 33) {
+	else if (pmove_msec->integer > 33) {
 		trap->Cvar_Set("pmove_msec", "33");
 	}
 
-	cg_pmove.pmove_fixed = pmove_fixed.integer;// | cg_pmove_fixed.integer;
-	cg_pmove.pmove_float = pmove_float.integer;
-	cg_pmove.pmove_msec = pmove_msec.integer;
+	cg_pmove.pmove_fixed = pmove_fixed->integer;// | cg_pmove_fixed->integer;
+	cg_pmove.pmove_float = pmove_float->integer;
+	cg_pmove.pmove_msec = pmove_msec->integer;
 
 	for ( i = 0 ; i < MAX_GENTITIES ; i++ )
 	{
@@ -1135,7 +1135,7 @@ void CG_PredictPlayerState( void ) {
 			if ( cg.thisFrameTeleport ) {
 				// a teleport will not cause an error decay
 				VectorClear( cg.predictedError );
-				if ( cg_showVehMiss.integer ) {
+				if ( cg_showVehMiss->integer ) {
 					trap->Print( "VEH PredictionTeleport\n" );
 				}
 				cg.thisFrameTeleport = qfalse;
@@ -1144,7 +1144,7 @@ void CG_PredictPlayerState( void ) {
 				CG_AdjustPositionForMover( cg.predictedVehicleState.origin,
 					cg.predictedVehicleState.groundEntityNum, cg.physicsTime, cg.oldTime, adjusted );
 
-				if ( cg_showVehMiss.integer ) {
+				if ( cg_showVehMiss->integer ) {
 					if (!VectorCompare( oldVehicleState.origin, adjusted )) {
 						trap->Print("VEH prediction error\n");
 					}
@@ -1152,19 +1152,19 @@ void CG_PredictPlayerState( void ) {
 				VectorSubtract( oldVehicleState.origin, adjusted, delta );
 				len = VectorLength( delta );
 				if ( len > 0.1 ) {
-					if ( cg_showVehMiss.integer ) {
+					if ( cg_showVehMiss->integer ) {
 						trap->Print("VEH Prediction miss: %f\n", len);
 					}
-					if ( cg_errorDecay.integer ) {
+					if ( cg_errorDecay->integer ) {
 						int		t;
 						float	f;
 
 						t = cg.time - cg.predictedErrorTime;
-						f = ( cg_errorDecay.value - t ) / cg_errorDecay.value;
+						f = ( cg_errorDecay->value - t ) / cg_errorDecay->value;
 						if ( f < 0 ) {
 							f = 0;
 						}
-						if ( f > 0 && cg_showVehMiss.integer ) {
+						if ( f > 0 && cg_showVehMiss->integer ) {
 							trap->Print("VEH Double prediction decay: %f\n", f);
 						}
 						VectorScale( cg.predictedError, f, cg.predictedError );
@@ -1175,7 +1175,7 @@ void CG_PredictPlayerState( void ) {
 					cg.predictedErrorTime = cg.oldTime;
 				}
 				//
-				if ( cg_showVehMiss.integer ) {
+				if ( cg_showVehMiss->integer ) {
 					if (!VectorCompare( oldVehicleState.vehOrientation, cg.predictedVehicleState.vehOrientation )) {
 						trap->Print("VEH orient prediction error\n");
 						trap->Print("VEH pitch prediction miss: %f\n", AngleSubtract( oldVehicleState.vehOrientation[0], cg.predictedVehicleState.vehOrientation[0] ) );
@@ -1194,7 +1194,7 @@ void CG_PredictPlayerState( void ) {
 			if ( cg.thisFrameTeleport ) {
 				// a teleport will not cause an error decay
 				VectorClear( cg.predictedError );
-				if ( cg_showMiss.integer ) {
+				if ( cg_showMiss->integer ) {
 					trap->Print( "PredictionTeleport\n" );
 				}
 				cg.thisFrameTeleport = qfalse;
@@ -1203,7 +1203,7 @@ void CG_PredictPlayerState( void ) {
 				CG_AdjustPositionForMover( cg.predictedPlayerState.origin,
 					cg.predictedPlayerState.groundEntityNum, cg.physicsTime, cg.oldTime, adjusted );
 
-				if ( cg_showMiss.integer ) {
+				if ( cg_showMiss->integer ) {
 					if (!VectorCompare( oldPlayerState.origin, adjusted )) {
 						trap->Print("prediction error\n");
 					}
@@ -1211,19 +1211,19 @@ void CG_PredictPlayerState( void ) {
 				VectorSubtract( oldPlayerState.origin, adjusted, delta );
 				len = VectorLength( delta );
 				if ( len > 0.1 ) {
-					if ( cg_showMiss.integer ) {
+					if ( cg_showMiss->integer ) {
 						trap->Print("Prediction miss: %f\n", len);
 					}
-					if ( cg_errorDecay.integer ) {
+					if ( cg_errorDecay->integer ) {
 						int		t;
 						float	f;
 
 						t = cg.time - cg.predictedErrorTime;
-						f = ( cg_errorDecay.value - t ) / cg_errorDecay.value;
+						f = ( cg_errorDecay->value - t ) / cg_errorDecay->value;
 						if ( f < 0 ) {
 							f = 0;
 						}
-						if ( f > 0 && cg_showMiss.integer ) {
+						if ( f > 0 && cg_showMiss->integer ) {
 							trap->Print("Double prediction decay: %f\n", f);
 						}
 						VectorScale( cg.predictedError, f, cg.predictedError );
@@ -1237,7 +1237,7 @@ void CG_PredictPlayerState( void ) {
 		}
 
 		if ( cg_pmove.pmove_fixed ) {
-			cg_pmove.cmd.serverTime = ((cg_pmove.cmd.serverTime + pmove_msec.integer-1) / pmove_msec.integer) * pmove_msec.integer;
+			cg_pmove.cmd.serverTime = ((cg_pmove.cmd.serverTime + pmove_msec->integer-1) / pmove_msec->integer) * pmove_msec->integer;
 		}
 
 		cg_pmove.animations = bgAllAnims[pEnt->localAnimIndex].anims;
@@ -1358,8 +1358,8 @@ void CG_PredictPlayerState( void ) {
 				}
 
 				cg_vehPmove.noFootsteps = ( cgs.dmflags & DF_NO_FOOTSTEPS ) > 0;
-				cg_vehPmove.pmove_fixed = pmove_fixed.integer;
-				cg_vehPmove.pmove_msec = pmove_msec.integer;
+				cg_vehPmove.pmove_fixed = pmove_fixed->integer;
+				cg_vehPmove.pmove_msec = pmove_msec->integer;
 
 				cg_entities[cg.predictedPlayerState.clientNum].playerState = &cg.predictedPlayerState;
 				veh->playerState = &cg.predictedVehicleState;
@@ -1369,12 +1369,12 @@ void CG_PredictPlayerState( void ) {
 
 				Pmove(&cg_vehPmove);
 				/*
-				if ( !cg_paused.integer )
+				if ( !cg_paused->integer )
 				{
 					Com_Printf( "%d - PITCH change %4.2f\n", cg.time, AngleSubtract(veh->m_pVehicle->m_vOrientation[0],veh->m_pVehicle->m_vPrevOrientation[0]) );
 				}
 				*/
-				if ( cg_showVehBounds.integer )
+				if ( cg_showVehBounds->integer )
 				{
 					vec3_t NPCDEBUG_RED = {1.0, 0.0, 0.0};
 					vec3_t absmin, absmax;
@@ -1394,12 +1394,12 @@ void CG_PredictPlayerState( void ) {
 		//CG_CheckChangedPredictableEvents(&cg.predictedPlayerState);
 	}
 
-	if ( cg_showMiss.integer > 1 ) {
+	if ( cg_showMiss->integer > 1 ) {
 		trap->Print( "[%i : %i] ", cg_pmove.cmd.serverTime, cg.time );
 	}
 
 	if ( !moved ) {
-		if ( cg_showMiss.integer ) {
+		if ( cg_showMiss->integer ) {
 			trap->Print( "not moved\n" );
 		}
 		goto revertES;
@@ -1419,7 +1419,7 @@ void CG_PredictPlayerState( void ) {
 			cg.physicsTime, cg.time, cg.predictedPlayerState.origin );
 	}
 
-	if ( cg_showMiss.integer ) {
+	if ( cg_showMiss->integer ) {
 		if (cg.predictedPlayerState.eventSequence > oldPlayerState.eventSequence + MAX_PS_EVENTS) {
 			trap->Print("WARNING: dropped event\n");
 		}
@@ -1428,7 +1428,7 @@ void CG_PredictPlayerState( void ) {
 	// fire events and other transition triggered things
 	CG_TransitionPlayerState( &cg.predictedPlayerState, &oldPlayerState );
 
-	if ( cg_showMiss.integer ) {
+	if ( cg_showMiss->integer ) {
 		if (cg.eventSequence > cg.predictedPlayerState.eventSequence) {
 			trap->Print("WARNING: double event\n");
 			cg.eventSequence = cg.predictedPlayerState.eventSequence;

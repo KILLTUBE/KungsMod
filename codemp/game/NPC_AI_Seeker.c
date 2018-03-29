@@ -304,7 +304,7 @@ void Seeker_Hunt( qboolean visible, qboolean advance )
 		/*distance = */VectorNormalize( forward );
 	}
 
-	speed = SEEKER_FORWARD_BASE_SPEED + SEEKER_FORWARD_MULTIPLIER * g_npcspskill.integer;
+	speed = SEEKER_FORWARD_BASE_SPEED + SEEKER_FORWARD_MULTIPLIER * g_npcspskill->integer;
 	VectorMA( NPCS.NPC->client->ps.velocity, speed, forward, NPCS.NPC->client->ps.velocity );
 }
 

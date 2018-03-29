@@ -90,31 +90,6 @@ extern int imperial_attackers;
 
 boteventtracker_t gBotEventTracker[MAX_CLIENTS];
 
-//rww - new bot cvars..
-vmCvar_t bot_forcepowers;
-vmCvar_t bot_forgimmick;
-vmCvar_t bot_honorableduelacceptance;
-vmCvar_t bot_pvstype;
-vmCvar_t bot_normgpath;
-#ifndef FINAL_BUILD
-vmCvar_t bot_getinthecarrr;
-#endif
-
-#ifdef _DEBUG
-vmCvar_t bot_nogoals;
-vmCvar_t bot_debugmessages;
-#endif
-
-vmCvar_t bot_attachments;
-vmCvar_t bot_camp;
-
-vmCvar_t bot_wp_info;
-vmCvar_t bot_wp_edit;
-vmCvar_t bot_wp_clearweight;
-vmCvar_t bot_wp_distconnect;
-vmCvar_t bot_wp_visconnect;
-//end rww
-
 wpobject_t *flagRed;
 wpobject_t *oFlagRed;
 wpobject_t *flagBlue;
@@ -802,7 +777,7 @@ int BotAI(int client, float thinktime) {
 
 	Cvar_Update(&bot_debugmessages);
 
-	if (bot_debugmessages.integer)
+	if (bot_debugmessages->integer)
 	{
 		Com_Printf("Single AI frametime: %i\n", (end - start));
 	}
@@ -1076,7 +1051,7 @@ int OrgVisibleBox(vec3_t org1, vec3_t mins, vec3_t maxs, vec3_t org2, int ignore
 {
 	trace_t tr;
 
-	if (RMG.integer)
+	if (RMG->integer)
 	{
 		SV_Trace(&tr, org1, NULL, NULL, org2, ignore, MASK_SOLID, qfalse, 0, 0);
 	}
@@ -1131,7 +1106,7 @@ int CheckForFunc(vec3_t org, int ignore)
 //perform pvs check based on rmg or not
 qboolean BotPVSCheck( const vec3_t p1, const vec3_t p2 )
 {
-	if (RMG.integer && bot_pvstype.integer)
+	if (RMG->integer && bot_pvstype->integer)
 	{
 		vec3_t subPoint;
 		VectorSubtract(p1, p2, subPoint);
@@ -1156,7 +1131,7 @@ int GetNearestVisibleWP(vec3_t org, int ignore)
 	vec3_t a, mins, maxs;
 
 	i = 0;
-	if (RMG.integer)
+	if (RMG->integer)
 	{
 		bestdist = 300;
 	}
@@ -1181,7 +1156,7 @@ int GetNearestVisibleWP(vec3_t org, int ignore)
 			VectorSubtract(org, gWPArray[i]->origin, a);
 			flLen = VectorLength(a);
 
-			if (flLen < bestdist && (RMG.integer || BotPVSCheck(org, gWPArray[i]->origin)) && OrgVisibleBox(org, mins, maxs, gWPArray[i]->origin, ignore))
+			if (flLen < bestdist && (RMG->integer || BotPVSCheck(org, gWPArray[i]->origin)) && OrgVisibleBox(org, mins, maxs, gWPArray[i]->origin, ignore))
 			{
 				bestdist = flLen;
 				bestindex = i;
@@ -1207,7 +1182,7 @@ int PassWayCheck(bot_state_t *bs, int windex)
 		return 0;
 	}
 
-	if (RMG.integer)
+	if (RMG->integer)
 	{
 		if ((gWPArray[windex]->flags & WPFLAG_RED_FLAG) ||
 			(gWPArray[windex]->flags & WPFLAG_BLUE_FLAG))
@@ -1262,7 +1237,7 @@ float TotalTrailDistance(int start, int end, bot_state_t *bs)
 			return -1;
 		}
 
-		if (!RMG.integer)
+		if (!RMG->integer)
 		{
 			if ((end > start && gWPArray[beginat]->flags & WPFLAG_ONEWAY_BACK) ||
 				(start > end && gWPArray[beginat]->flags & WPFLAG_ONEWAY_FWD))
@@ -1518,7 +1493,7 @@ void WPTouchRoutine(bot_state_t *bs)
 	}
 #endif
 
-	if (bs->isCamper && bot_camp.integer && (BotIsAChickenWuss(bs) || BotCTFGuardDuty(bs) || bs->isCamper == 2) && ((bs->wpCurrent->flags & WPFLAG_SNIPEORCAMP) || (bs->wpCurrent->flags & WPFLAG_SNIPEORCAMPSTAND)) &&
+	if (bs->isCamper && bot_camp->integer && (BotIsAChickenWuss(bs) || BotCTFGuardDuty(bs) || bs->isCamper == 2) && ((bs->wpCurrent->flags & WPFLAG_SNIPEORCAMP) || (bs->wpCurrent->flags & WPFLAG_SNIPEORCAMPSTAND)) &&
 		bs->cur_ps.weapon != WP_SABER && bs->cur_ps.weapon != WP_MELEE && bs->cur_ps.weapon != WP_STUN_BATON)
 	{ //if we're a camper and a chicken then camp
 		if (bs->wpDirection)
@@ -1879,7 +1854,7 @@ int PassStandardEnemyChecks(bot_state_t *bs, gentity_t *en)
 		vec3_t vs;
 		float vLen = 0;
 
-		if (!g_friendlyFire.integer)
+		if (!g_friendlyFire->integer)
 		{ //can't harm non-JM in JM mode if FF is off
 			return 0;
 		}
@@ -2136,7 +2111,7 @@ int PassLovedOneCheck(bot_state_t *bs, gentity_t *ent)
 		return 1;
 	}
 
-	if (!bot_attachments.integer)
+	if (!bot_attachments->integer)
 	{
 		return 1;
 	}
@@ -2199,7 +2174,7 @@ int ScanForEnemies(bot_state_t *bs)
 	{
 		if (G_ThereIsAMaster() && !bs->cur_ps.isJediMaster)
 		{ //if friendly fire is on in jedi master we can attack people that bug us
-			if (!g_friendlyFire.integer)
+			if (!g_friendlyFire->integer)
 			{
 				noAttackNonJM = qtrue;
 			}
@@ -3695,7 +3670,7 @@ void GetIdealDestination(bot_state_t *bs)
 #ifdef _DEBUG
 	Cvar_Update(&bot_nogoals);
 
-	if (bot_nogoals.integer)
+	if (bot_nogoals->integer)
 	{
 		return;
 	}
@@ -5336,7 +5311,7 @@ int GetLoveLevel(bot_state_t *bs, bot_state_t *love)
 		return 0;
 	}
 
-	if (!bot_attachments.integer)
+	if (!bot_attachments->integer)
 	{
 		return 1;
 	}
@@ -5397,7 +5372,7 @@ void BotLovedOneDied(bot_state_t *bs, bot_state_t *loved, int lovelevel)
 		return;
 	}
 
-	if (!bot_attachments.integer)
+	if (!bot_attachments->integer)
 	{
 		return;
 	}
@@ -6021,7 +5996,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 
 
 #ifndef FINAL_BUILD
-	if (bot_getinthecarrr.integer)
+	if (bot_getinthecarrr->integer)
 	{ //stupid vehicle debug, I tire of having to connect another client to test passengers.
 		gentity_t *botEnt = &g_entities[bs->client];
 
@@ -6029,11 +6004,11 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 		{ //in a vehicle, so...
 			bs->noUseTime = level.time + 5000;
 
-			if (bot_getinthecarrr.integer != 2)
+			if (bot_getinthecarrr->integer != 2)
 			{
 				SV_EA_MoveForward(bs->client);
 
-				if (bot_getinthecarrr.integer == 3)
+				if (bot_getinthecarrr->integer == 3)
 				{ //use alt fire
 					SV_EA_Alt_Attack(bs->client);
 				}
@@ -6050,7 +6025,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 
 				if (vehicle->inuse && vehicle->client && vehicle->s.eType == ET_NPC &&
 					vehicle->s.NPC_class == CLASS_VEHICLE && vehicle->m_pVehicle &&
-					(vehicle->client->ps.m_iVehicleNum || bot_getinthecarrr.integer == 2))
+					(vehicle->client->ps.m_iVehicleNum || bot_getinthecarrr->integer == 2))
 				{ //ok, this is a vehicle, and it has a pilot/passengers
 					break;
 				}
@@ -6077,19 +6052,19 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 	}
 #endif
 
-	if (bot_forgimmick.integer)
+	if (bot_forgimmick->integer)
 	{
 		bs->wpCurrent = NULL;
 		bs->currentEnemy = NULL;
 		bs->wpDestination = NULL;
 		bs->wpDirection = 0;
 
-		if (bot_forgimmick.integer == 2)
+		if (bot_forgimmick->integer == 2)
 		{ //for debugging saber stuff, this is handy
 			SV_EA_Attack(bs->client);
 		}
 
-		if (bot_forgimmick.integer == 3)
+		if (bot_forgimmick->integer == 3)
 		{ //for testing cpu usage moving around rmg terrain without AI
 			vec3_t mdir;
 
@@ -6099,7 +6074,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 			SV_EA_Move(bs->client, mdir, 5000);
 		}
 
-		if (bot_forgimmick.integer == 4)
+		if (bot_forgimmick->integer == 4)
 		{ //constantly move toward client 0
 			if (g_entities[0].client && g_entities[0].inuse)
 			{
@@ -6504,11 +6479,11 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 		}
 	}
 
-	if (bot_honorableduelacceptance.integer)
+	if (bot_honorableduelacceptance->integer)
 	{
 		if (bs->currentEnemy && bs->currentEnemy->client &&
 			bs->cur_ps.weapon == WP_SABER &&
-			g_privateDuel.integer &&
+			g_privateDuel->integer &&
 			bs->frame_Enemy_Vis &&
 			bs->frame_Enemy_Len < 400 &&
 			bs->currentEnemy->client->ps.weapon == WP_SABER &&
@@ -6586,7 +6561,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 	//ESTABLISH VISIBILITIES AND DISTANCES FOR THE WHOLE FRAME HERE
 	if (bs->wpCurrent)
 	{
-		if (RMG.integer)
+		if (RMG->integer)
 		{ //this is somewhat hacky, but in RMG we don't really care about vertical placement because points are scattered across only the terrain.
 			vec3_t vecB, vecC;
 
@@ -6702,7 +6677,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 
 		if (bs->frame_Waypoint_Vis || (bs->wpCurrent->flags & WPFLAG_NOVIS))
 		{
-			if (RMG.integer)
+			if (RMG->integer)
 			{
 				bs->wpSeenTime = level.time + 5000; //if we lose sight of the point, we have 1.5 seconds to regain it before we drop it
 			}
@@ -6767,7 +6742,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 			}
 		}
 
-		if (RMG.integer)
+		if (RMG->integer)
 		{
 			if (bs->frame_Waypoint_Vis)
 			{
@@ -6778,7 +6753,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 			}
 		}
 
-		if (bs->frame_Waypoint_Len < wpTouchDist || (RMG.integer && bs->frame_Waypoint_Len < wpTouchDist*2))
+		if (bs->frame_Waypoint_Len < wpTouchDist || (RMG->integer && bs->frame_Waypoint_Len < wpTouchDist*2))
 		{
 			WPTouchRoutine(bs);
 
@@ -6835,7 +6810,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 		doingFallback = BotFallbackNavigation(bs);
 	}
 
-	if (RMG.integer)
+	if (RMG->integer)
 	{ //for RMG if the bot sticks around an area too long, jump around randomly some to spread to a new area (horrible hacky method)
 		vec3_t vSubDif;
 
@@ -6864,7 +6839,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 		bs->lastSignificantChangeTime = level.time + 25000;
 	}
 
-	if (bs->wpCurrent && RMG.integer)
+	if (bs->wpCurrent && RMG->integer)
 	{
 		qboolean doJ = qfalse;
 
@@ -7519,7 +7494,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 		else
 		{
 #endif
-			if (bot_forcepowers.integer && !g_forcePowerDisable.integer)
+			if (bot_forcepowers->integer && !g_forcePowerDisable->integer)
 			{
 				SV_EA_ForcePower(bs->client);
 			}
@@ -7622,28 +7597,7 @@ BotAISetup
 ==============
 */
 int BotAISetup( int restart ) {
-	//rww - new bot cvars..
-	Cvar_Register(&bot_forcepowers, "bot_forcepowers", "1", CVAR_CHEAT);
-	Cvar_Register(&bot_forgimmick, "bot_forgimmick", "0", CVAR_CHEAT);
-	Cvar_Register(&bot_honorableduelacceptance, "bot_honorableduelacceptance", "0", CVAR_CHEAT);
-	Cvar_Register(&bot_pvstype, "bot_pvstype", "1", CVAR_CHEAT);
-#ifndef FINAL_BUILD
-	trap->Cvar_Register(&bot_getinthecarrr, "bot_getinthecarrr", "0", 0);
-#endif
 
-#ifdef _DEBUG
-	Cvar_Register(&bot_nogoals, "bot_nogoals", "0", CVAR_CHEAT);
-	Cvar_Register(&bot_debugmessages, "bot_debugmessages", "0", CVAR_CHEAT);
-#endif
-
-	Cvar_Register(&bot_attachments, "bot_attachments", "1", 0);
-	Cvar_Register(&bot_camp, "bot_camp", "1", 0);
-
-	Cvar_Register(&bot_wp_info, "bot_wp_info", "1", 0);
-	Cvar_Register(&bot_wp_edit, "bot_wp_edit", "0", CVAR_CHEAT);
-	Cvar_Register(&bot_wp_clearweight, "bot_wp_clearweight", "1", 0);
-	Cvar_Register(&bot_wp_distconnect, "bot_wp_distconnect", "1", 0);
-	Cvar_Register(&bot_wp_visconnect, "bot_wp_visconnect", "1", 0);
 
 	Cvar_Update(&bot_forcepowers);
 	//end rww

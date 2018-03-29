@@ -28,10 +28,10 @@ extern displayContextDef_t cgDC;
 
 
 int CG_GetSelectedPlayer() {
-	if (cg_currentSelectedPlayer.integer < 0 || cg_currentSelectedPlayer.integer >= numSortedTeamPlayers) {
-		cg_currentSelectedPlayer.integer = 0;
+	if (cg_currentSelectedPlayer->integer < 0 || cg_currentSelectedPlayer->integer >= numSortedTeamPlayers) {
+		cg_currentSelectedPlayer->integer = 0;
 	}
-	return cg_currentSelectedPlayer.integer;
+	return cg_currentSelectedPlayer->integer;
 }
 
 qhandle_t CG_StatusHandle(int task) {
@@ -146,11 +146,11 @@ qboolean CG_YourTeamHasFlag(void) {
 qboolean CG_OwnerDrawVisible(int flags) {
 
 	if (flags & CG_SHOW_TEAMINFO) {
-		return (cg_currentSelectedPlayer.integer == numSortedTeamPlayers);
+		return (cg_currentSelectedPlayer->integer == numSortedTeamPlayers);
 	}
 
 	if (flags & CG_SHOW_NOTEAMINFO) {
-		return !(cg_currentSelectedPlayer.integer == numSortedTeamPlayers);
+		return !(cg_currentSelectedPlayer->integer == numSortedTeamPlayers);
 	}
 
 	if (flags & CG_SHOW_OTHERTEAMHASFLAG) {
@@ -567,7 +567,7 @@ void CG_OwnerDraw(float x, float y, float w, float h, float text_x, float text_y
 #if 0
 	rectDef_t rect;
 
-	if ( cg_drawStatus.integer == 0 ) {
+	if ( cg_drawStatus->integer == 0 ) {
 		return;
 	}
 
@@ -727,7 +727,7 @@ void CG_OwnerDraw(float x, float y, float w, float h, float text_x, float text_y
 		CG_DrawTeamSpectators(&rect, scale, color, shader);
 		break;
 	case CG_TEAMINFO:
-		if (cg_currentSelectedPlayer.integer == numSortedTeamPlayers) {
+		if (cg_currentSelectedPlayer->integer == numSortedTeamPlayers) {
 			CG_DrawNewTeamInfo(&rect, text_x, text_y, scale, color, shader);
 		}
 		break;

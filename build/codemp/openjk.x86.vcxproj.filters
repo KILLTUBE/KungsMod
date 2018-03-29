@@ -1848,6 +1848,9 @@
     <ClInclude Include="..\..\codemp\game\bg_saga.h">
       <Filter>gamecgamemix</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_xcvar.h">
+      <Filter>game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt" />

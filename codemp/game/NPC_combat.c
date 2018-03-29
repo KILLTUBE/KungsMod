@@ -148,7 +148,7 @@ void G_AttackDelay( gentity_t *self, gentity_t *enemy )
 		AngleVectors( self->client->renderInfo.eyeAngles, fwd, NULL, NULL );
 		//dir[2] = fwd[2] = 0;//ignore z diff?
 
-		attDelay = (4-g_npcspskill.integer)*500;//initial: from 1000ms delay on hard to 2000ms delay on easy
+		attDelay = (4-g_npcspskill->integer)*500;//initial: from 1000ms delay on hard to 2000ms delay on easy
 		if ( self->client->playerTeam == NPCTEAM_PLAYER )
 		{//invert
 			attDelay = 2000-attDelay;
@@ -314,9 +314,9 @@ void G_AttackDelay( gentity_t *self, gentity_t *enemy )
 		}
 
 		//don't shoot right away
-		if ( attDelay > 4000+((2-g_npcspskill.integer)*3000) )
+		if ( attDelay > 4000+((2-g_npcspskill->integer)*3000) )
 		{
-			attDelay = 4000+((2-g_npcspskill.integer)*3000);
+			attDelay = 4000+((2-g_npcspskill->integer)*3000);
 		}
 		TIMER_Set( self, "attackDelay", attDelay );//Q_irand( 1500, 4500 ) );
 		//don't move right away either
@@ -477,7 +477,7 @@ void G_SetEnemy( gentity_t *self, gentity_t *enemy )
 			//Hmm, base on game difficulty, too?  Rank?
 			if ( self->client->playerTeam == NPCTEAM_PLAYER )
 			{
-				G_AimSet( self, Q_irand( self->NPC->stats.aim - (5*(g_npcspskill.integer)), self->NPC->stats.aim - g_npcspskill.integer ) );
+				G_AimSet( self, Q_irand( self->NPC->stats.aim - (5*(g_npcspskill->integer)), self->NPC->stats.aim - g_npcspskill->integer ) );
 			}
 			else
 			{
@@ -494,7 +494,7 @@ void G_SetEnemy( gentity_t *self, gentity_t *enemy )
 					maxErr = 15;
 				}
 
-				G_AimSet( self, Q_irand( self->NPC->stats.aim - (maxErr*(3-g_npcspskill.integer)), self->NPC->stats.aim - (minErr*(3-g_npcspskill.integer)) ) );
+				G_AimSet( self, Q_irand( self->NPC->stats.aim - (maxErr*(3-g_npcspskill->integer)), self->NPC->stats.aim - (minErr*(3-g_npcspskill->integer)) ) );
 			}
 		}
 
@@ -616,9 +616,9 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 	case WP_BLASTER_PISTOL:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
 	//	ent->NPC->burstSpacing = 1000;//attackdebounce
-		if ( g_npcspskill.integer == 0 )
+		if ( g_npcspskill->integer == 0 )
 			ent->NPC->burstSpacing = 1000;//attack debounce
-		else if ( g_npcspskill.integer == 1 )
+		else if ( g_npcspskill->integer == 1 )
 			ent->NPC->burstSpacing = 750;//attack debounce
 		else
 			ent->NPC->burstSpacing = 500;//attack debounce
@@ -630,9 +630,9 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 	case WP_BOT_LASER://probe attack
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
 	//	ent->NPC->burstSpacing = 600;//attackdebounce
-		if ( g_npcspskill.integer == 0 )
+		if ( g_npcspskill->integer == 0 )
 			ent->NPC->burstSpacing = 600;//attack debounce
-		else if ( g_npcspskill.integer == 1 )
+		else if ( g_npcspskill->integer == 1 )
 			ent->NPC->burstSpacing = 400;//attack debounce
 		else
 			ent->NPC->burstSpacing = 200;//attack debounce
@@ -648,7 +648,7 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
 		if ( ent->NPC->scriptFlags & SCF_ALT_FIRE )
 		{
-			switch( g_npcspskill.integer )
+			switch( g_npcspskill->integer )
 			{
 			case 0:
 				ent->NPC->burstSpacing = 2500;//attackdebounce
@@ -670,9 +670,9 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 	case WP_BOWCASTER:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
 	//	ent->NPC->burstSpacing = 1000;//attackdebounce
-		if ( g_npcspskill.integer == 0 )
+		if ( g_npcspskill->integer == 0 )
 			ent->NPC->burstSpacing = 1000;//attack debounce
-		else if ( g_npcspskill.integer == 1 )
+		else if ( g_npcspskill->integer == 1 )
 			ent->NPC->burstSpacing = 750;//attack debounce
 		else
 			ent->NPC->burstSpacing = 500;//attack debounce
@@ -690,9 +690,9 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 			ent->NPC->burstMin = 3;
 			ent->NPC->burstMean = 6;
 			ent->NPC->burstMax = 10;
-			if ( g_npcspskill.integer == 0 )
+			if ( g_npcspskill->integer == 0 )
 				ent->NPC->burstSpacing = 1500;//attack debounce
-			else if ( g_npcspskill.integer == 1 )
+			else if ( g_npcspskill->integer == 1 )
 				ent->NPC->burstSpacing = 1000;//attack debounce
 			else
 				ent->NPC->burstSpacing = 500;//attack debounce
@@ -719,9 +719,9 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 	case WP_ROCKET_LAUNCHER:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
 	//	ent->NPC->burstSpacing = 2500;//attackdebounce
-		if ( g_npcspskill.integer == 0 )
+		if ( g_npcspskill->integer == 0 )
 			ent->NPC->burstSpacing = 2500;//attack debounce
-		else if ( g_npcspskill.integer == 1 )
+		else if ( g_npcspskill->integer == 1 )
 			ent->NPC->burstSpacing = 2000;//attack debounce
 		else
 			ent->NPC->burstSpacing = 1500;//attack debounce
@@ -730,9 +730,9 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 	case WP_THERMAL:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
 	//	ent->NPC->burstSpacing = 3000;//attackdebounce
-		if ( g_npcspskill.integer == 0 )
+		if ( g_npcspskill->integer == 0 )
 			ent->NPC->burstSpacing = 3000;//attack debounce
-		else if ( g_npcspskill.integer == 1 )
+		else if ( g_npcspskill->integer == 1 )
 			ent->NPC->burstSpacing = 2500;//attack debounce
 		else
 			ent->NPC->burstSpacing = 2000;//attack debounce
@@ -756,9 +756,9 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 			ent->NPC->burstMin = 3;
 			ent->NPC->burstMean = 3;
 			ent->NPC->burstMax = 3;
-			if ( g_npcspskill.integer == 0 )
+			if ( g_npcspskill->integer == 0 )
 				ent->NPC->burstSpacing = 1500;//attack debounce
-			else if ( g_npcspskill.integer == 1 )
+			else if ( g_npcspskill->integer == 1 )
 				ent->NPC->burstSpacing = 1000;//attack debounce
 			else
 				ent->NPC->burstSpacing = 500;//attack debounce
@@ -766,9 +766,9 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 		else
 		{
 			ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
-			if ( g_npcspskill.integer == 0 )
+			if ( g_npcspskill->integer == 0 )
 				ent->NPC->burstSpacing = 1000;//attack debounce
-			else if ( g_npcspskill.integer == 1 )
+			else if ( g_npcspskill->integer == 1 )
 				ent->NPC->burstSpacing = 750;//attack debounce
 			else
 				ent->NPC->burstSpacing = 500;//attack debounce
@@ -786,9 +786,9 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 	case WP_ATST_SIDE:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
 	//	ent->NPC->burstSpacing = 1000;//attackdebounce
-			if ( g_npcspskill.integer == 0 )
+			if ( g_npcspskill->integer == 0 )
 				ent->NPC->burstSpacing = 1000;//attack debounce
-			else if ( g_npcspskill.integer == 1 )
+			else if ( g_npcspskill->integer == 1 )
 				ent->NPC->burstSpacing = 750;//attack debounce
 			else
 				ent->NPC->burstSpacing = 500;//attack debounce
@@ -802,9 +802,9 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 		{
 			ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
 			ent->NPC->burstSpacing = 1000;//attack debounce
-	//		if ( g_npcspskill.integer == 0 )
+	//		if ( g_npcspskill->integer == 0 )
 	//			ent->NPC->burstSpacing = 300;//attack debounce
-	//		else if ( g_npcspskill.integer == 1 )
+	//		else if ( g_npcspskill->integer == 1 )
 	//			ent->NPC->burstSpacing = 200;//attack debounce
 	//		else
 	//			ent->NPC->burstSpacing = 100;//attack debounce
@@ -818,12 +818,12 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 
 			if ( ent->parent ) // if we have an owner, it should be the chair at this point...so query the chair for its shot debounce times, etc.
 			{
-				if ( g_npcspskill.integer == 0 )
+				if ( g_npcspskill->integer == 0 )
 				{
 					ent->NPC->burstSpacing = ent->parent->wait + 400;//attack debounce
 					ent->NPC->burstMin = ent->NPC->burstMax = 1; // two shots
 				}
-				else if ( g_npcspskill.integer == 1 )
+				else if ( g_npcspskill->integer == 1 )
 				{
 					ent->NPC->burstSpacing = ent->parent->wait + 200;//attack debounce
 				}
@@ -834,12 +834,12 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 			}
 			else
 			{
-				if ( g_npcspskill.integer == 0 )
+				if ( g_npcspskill->integer == 0 )
 				{
 					ent->NPC->burstSpacing = 1200;//attack debounce
 					ent->NPC->burstMin = ent->NPC->burstMax = 1; // two shots
 				}
-				else if ( g_npcspskill.integer == 1 )
+				else if ( g_npcspskill->integer == 1 )
 				{
 					ent->NPC->burstSpacing = 1000;//attack debounce
 				}
@@ -1003,11 +1003,11 @@ void ShootThink( void )
 			{
 				if ( NPCS.NPC->parent ) // try and get the debounce values from the chair if we can
 				{
-					if ( g_npcspskill.integer == 0 )
+					if ( g_npcspskill->integer == 0 )
 					{
 						delay = NPCS.NPC->parent->random + 150;
 					}
-					else if ( g_npcspskill.integer == 1 )
+					else if ( g_npcspskill->integer == 1 )
 					{
 						delay = NPCS.NPC->parent->random + 100;
 					}
@@ -1018,11 +1018,11 @@ void ShootThink( void )
 				}
 				else
 				{
-					if ( g_npcspskill.integer == 0 )
+					if ( g_npcspskill->integer == 0 )
 					{
 						delay = 350;
 					}
-					else if ( g_npcspskill.integer == 1 )
+					else if ( g_npcspskill->integer == 1 )
 					{
 						delay = 300;
 					}
@@ -1279,10 +1279,10 @@ int NPC_AttackDebounceForWeapon (void)
 		/*
 	case WP_BOT_LASER:
 
-		if ( g_npcspskill.integer == 0 )
+		if ( g_npcspskill->integer == 0 )
 			return 2000;
 
-		if ( g_npcspskill.integer == 1 )
+		if ( g_npcspskill->integer == 1 )
 			return 1500;
 
 		return 1000;
@@ -3059,9 +3059,9 @@ void NPC_AimAdjust( int change )
 {
 	if ( !TIMER_Exists( NPCS.NPC, "aimDebounce" ) )
 	{
-		int debounce = 500+(3-g_npcspskill.integer)*100;
+		int debounce = 500+(3-g_npcspskill->integer)*100;
 		TIMER_Set( NPCS.NPC, "aimDebounce", Q_irand( debounce,debounce+1000 ) );
-		//int debounce = 1000+(3-g_npcspskill.integer)*500;
+		//int debounce = 1000+(3-g_npcspskill->integer)*500;
 		//TIMER_Set( NPC, "aimDebounce", Q_irand( debounce, debounce+2000 ) );
 		return;
 	}
@@ -3081,9 +3081,9 @@ void NPC_AimAdjust( int change )
 
 		//Com_Printf( "%s new aim = %d\n", NPC->NPC_type, NPCInfo->currentAim );
 
-		debounce = 500+(3-g_npcspskill.integer)*100;
+		debounce = 500+(3-g_npcspskill->integer)*100;
 		TIMER_Set( NPCS.NPC, "aimDebounce", Q_irand( debounce,debounce+1000 ) );
-		//int debounce = 1000+(3-g_npcspskill.integer)*500;
+		//int debounce = 1000+(3-g_npcspskill->integer)*500;
 		//TIMER_Set( NPC, "aimDebounce", Q_irand( debounce, debounce+2000 ) );
 	}
 }
@@ -3097,9 +3097,9 @@ void G_AimSet( gentity_t *self, int aim )
 		self->NPC->currentAim = aim;
 		//Com_Printf( "%s new aim = %d\n", self->NPC_type, self->NPC->currentAim );
 
-		debounce = 500+(3-g_npcspskill.integer)*100;
+		debounce = 500+(3-g_npcspskill->integer)*100;
 		TIMER_Set( self, "aimDebounce", Q_irand( debounce,debounce+1000 ) );
-	//	int debounce = 1000+(3-g_npcspskill.integer)*500;
+	//	int debounce = 1000+(3-g_npcspskill->integer)*500;
 	//	TIMER_Set( self, "aimDebounce", Q_irand( debounce,debounce+2000 ) );
 	}
 }

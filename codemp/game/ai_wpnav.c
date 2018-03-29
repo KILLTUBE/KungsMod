@@ -314,7 +314,7 @@ void BotWaypointRender(void)
 
 checkprint:
 
-	if (!bot_wp_info.value)
+	if (!bot_wp_info->value)
 	{
 		return;
 	}
@@ -393,7 +393,7 @@ void CreateNewWP(vec3_t origin, int flags)
 {
 	if (gWPNum >= MAX_WPARRAY_SIZE)
 	{
-		if (!RMG.integer)
+		if (!RMG->integer)
 		{
 			Com_Printf(S_COLOR_YELLOW "Warning: Waypoint limit hit (%i)\n", MAX_WPARRAY_SIZE);
 		}
@@ -589,7 +589,7 @@ int CreateNewWP_InTrail(vec3_t origin, int flags, int afterindex)
 
 	if (gWPNum >= MAX_WPARRAY_SIZE)
 	{
-		if (!RMG.integer)
+		if (!RMG->integer)
 		{
 			Com_Printf(S_COLOR_YELLOW "Warning: Waypoint limit hit (%i)\n", MAX_WPARRAY_SIZE);
 		}
@@ -667,7 +667,7 @@ int CreateNewWP_InsertUnder(vec3_t origin, int flags, int afterindex)
 
 	if (gWPNum >= MAX_WPARRAY_SIZE)
 	{
-		if (!RMG.integer)
+		if (!RMG->integer)
 		{
 			Com_Printf(S_COLOR_YELLOW "Warning: Waypoint limit hit (%i)\n", MAX_WPARRAY_SIZE);
 		}
@@ -1038,7 +1038,7 @@ int ConnectTrail(int startindex, int endindex, qboolean behindTheScenes)
 
 	memset( extendednodes, 0, sizeof( extendednodes ) );
 
-	if (RMG.integer)
+	if (RMG->integer)
 	{ //this might be temporary. Or not.
 		if (!(gWPArray[startindex]->flags & WPFLAG_NEVERONEWAY) &&
 			!(gWPArray[endindex]->flags & WPFLAG_NEVERONEWAY))
@@ -1049,7 +1049,7 @@ int ConnectTrail(int startindex, int endindex, qboolean behindTheScenes)
 		return 0;
 	}
 
-	if (!RMG.integer)
+	if (!RMG->integer)
 	{
 		branchDistance = TABLE_BRANCH_DISTANCE;
 	}
@@ -1058,7 +1058,7 @@ int ConnectTrail(int startindex, int endindex, qboolean behindTheScenes)
 		branchDistance = 512; //be less precise here, terrain is fairly broad, and we don't want to take an hour precalculating
 	}
 
-	if (RMG.integer)
+	if (RMG->integer)
 	{
 		maxDistFactor = 700;
 	}
@@ -1120,7 +1120,7 @@ int ConnectTrail(int startindex, int endindex, qboolean behindTheScenes)
 
 	while (nodenum < MAX_NODETABLE_SIZE && !foundit && cancontinue)
 	{
-		if (RMG.integer)
+		if (RMG->integer)
 		{ //adjust the branch distance dynamically depending on the distance from the start and end points.
 			vec3_t startDist;
 			vec3_t endDist;
@@ -1493,7 +1493,7 @@ int RepairPaths(qboolean behindTheScenes)
 		return 0;
 	}
 
-	if (RMG.integer)
+	if (RMG->integer)
 	{
 		maxDistFactor = 800; //higher tolerance here.
 	}
@@ -1513,7 +1513,7 @@ int RepairPaths(qboolean behindTheScenes)
 				!(gWPArray[i+1]->flags & WPFLAG_JUMP) && //don't calculate on jump points because they might not always want to be visible (in cases of force jumping)
 				!(gWPArray[i]->flags & WPFLAG_CALCULATED) && //don't calculate it again
 				!OpposingEnds(i, i+1) &&
-				((bot_wp_distconnect.value && VectorLength(a) > maxDistFactor) || (!OrgVisible(gWPArray[i]->origin, gWPArray[i+1]->origin, ENTITYNUM_NONE) && bot_wp_visconnect.value) ) &&
+				((bot_wp_distconnect->value && VectorLength(a) > maxDistFactor) || (!OrgVisible(gWPArray[i]->origin, gWPArray[i+1]->origin, ENTITYNUM_NONE) && bot_wp_visconnect->value) ) &&
 				!DoorBlockingSection(i, i+1))
 			{
 				/*ctRet = */ConnectTrail(i, i+1, behindTheScenes);
@@ -1649,7 +1649,7 @@ void CalculatePaths(void)
 		return;
 	}
 
-	if (RMG.integer)
+	if (RMG->integer)
 	{
 		maxNeighborDist = DEFAULT_GRID_SPACING + (DEFAULT_GRID_SPACING*0.5);
 	}
@@ -1878,7 +1878,7 @@ void CalculateWeightGoals(void)
 
 	Cvar_Update(&bot_wp_clearweight);
 
-	if (bot_wp_clearweight.integer)
+	if (bot_wp_clearweight->integer)
 	{ //if set then flush out all weight/goal values before calculating them again
 		while (i < gWPNum)
 		{
@@ -3260,7 +3260,7 @@ void BeginAutoPathRoutine(void)
 
 	//rww - Using a faster in-engine version because we're having to wait for this stuff to get done as opposed to just saving it once.
 	SV_BotWaypointReception(gWPNum, gWPArray);
-	SV_BotCalculatePaths(RMG.integer);
+	SV_BotCalculatePaths(RMG->integer);
 	//CalculatePaths(); //make everything nice and connected
 
 
@@ -3278,8 +3278,6 @@ void BeginAutoPathRoutine(void)
 	RemoveWP(); //remove the dummy point at the end of the trail
 }
 
-extern vmCvar_t bot_normgpath;
-
 void LoadPath_ThisLevel(void)
 {
 	vmCvar_t	mapname;
@@ -3288,13 +3286,13 @@ void LoadPath_ThisLevel(void)
 
 	Cvar_Register( &mapname, "mapname", "", CVAR_SERVERINFO | CVAR_ROM );
 
-	if (RMG.integer)
+	if (RMG->integer)
 	{ //If RMG, generate the path on-the-fly
-		Cvar_Register(&bot_normgpath, "bot_normgpath", "1", CVAR_CHEAT);
+		
 		//note: This is disabled for now as I'm using standard bot nav
 		//on premade terrain levels.
 
-		if (!bot_normgpath.integer)
+		if (!bot_normgpath->integer)
 		{ //autopath the random map
 			BeginAutoPathRoutine();
 		}
@@ -3315,7 +3313,7 @@ void LoadPath_ThisLevel(void)
 
 	Cvar_Update(&bot_wp_edit);
 
-	if (bot_wp_edit.value)
+	if (bot_wp_edit->value)
 	{
 		gBotEdit = 1;
 	}

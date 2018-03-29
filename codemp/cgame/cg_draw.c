@@ -433,7 +433,7 @@ void CG_Draw3DModel( float x, float y, float w, float h, qhandle_t model, void *
 	refdef_t		refdef;
 	refEntity_t		ent;
 
-	if ( !cg_draw3DIcons.integer || !cg_drawIcons.integer ) {
+	if ( !cg_draw3DIcons->integer || !cg_drawIcons->integer ) {
 		return;
 	}
 
@@ -508,7 +508,7 @@ void CG_DrawFlagModel( float x, float y, float w, float h, int team, qboolean fo
 	vec3_t			mins, maxs;
 	qhandle_t		handle;
 
-	if ( !force2D && cg_draw3DIcons.integer ) {
+	if ( !force2D && cg_draw3DIcons->integer ) {
 		x *= cgs.screenXScale;
 		y *= cgs.screenYScale;
 		w *= cgs.screenXScale;
@@ -541,7 +541,7 @@ void CG_DrawFlagModel( float x, float y, float w, float h, int team, qboolean fo
 			return;
 		}
 		CG_Draw3DModel( x, y, w, h, handle, NULL, 0, 0, origin, angles );
-	} else if ( cg_drawIcons.integer ) {
+	} else if ( cg_drawIcons->integer ) {
 		gitem_t *item;
 
 		if( team == TEAM_RED ) {
@@ -1328,7 +1328,7 @@ void CG_DrawHUD(centity_t	*cent)
 	int	scoreBias;
 	char scoreBiasStr[16];
 
-	if (cg_hudFiles.integer)
+	if (cg_hudFiles->integer)
 	{
 		int x = 0;
 		int y = SCREEN_HEIGHT-80;
@@ -2787,7 +2787,7 @@ static void CG_DrawStats( void )
 	vec3_t			angles;
 //	vec3_t		origin;
 
-	if ( cg_drawStatus.integer == 0 ) {
+	if ( cg_drawStatus->integer == 0 ) {
 		return;
 	}
 */
@@ -2897,7 +2897,7 @@ static float CG_DrawMiniScoreboard ( float y )
 	char temp[MAX_QPATH];
 	int xOffset = 0;
 
-	if ( !cg_drawScores.integer )
+	if ( !cg_drawScores->integer )
 	{
 		return y;
 	}
@@ -2954,7 +2954,7 @@ static float CG_DrawEnemyInfo ( float y )
 		return y;
 	}
 
-	if ( !cg_drawEnemyInfo.integer )
+	if ( !cg_drawEnemyInfo->integer )
 	{
 		return y;
 	}
@@ -3845,7 +3845,7 @@ static float CG_DrawTeamOverlay( float y, qboolean right, qboolean upper ) {
 	int ret_y, count;
 	int xOffset = 0;
 
-	if ( !cg_drawTeamOverlay.integer ) {
+	if ( !cg_drawTeamOverlay->integer ) {
 		return y;
 	}
 
@@ -4075,22 +4075,22 @@ static void CG_DrawUpperRight( void ) {
 
 	trap->R_SetColor( colorTable[CT_WHITE] );
 
-	if ( cgs.gametype >= GT_TEAM && cg_drawTeamOverlay.integer == 1 ) {
+	if ( cgs.gametype >= GT_TEAM && cg_drawTeamOverlay->integer == 1 ) {
 		y = CG_DrawTeamOverlay( y, qtrue, qtrue );
 	}
-	if ( cg_drawSnapshot.integer ) {
+	if ( cg_drawSnapshot->integer ) {
 		y = CG_DrawSnapshot( y );
 	}
 
-	if ( cg_drawFPS.integer ) {
+	if ( cg_drawFPS->integer ) {
 		y = CG_DrawFPS( y );
 	}
-	if ( cg_drawTimer.integer ) {
+	if ( cg_drawTimer->integer ) {
 		y = CG_DrawTimer( y );
 	}
 
 	if ( ( cgs.gametype >= GT_TEAM || cg.predictedPlayerState.m_iVehicleNum )
-		&& cg_drawRadar.integer )
+		&& cg_drawRadar->integer )
 	{//draw Radar in Siege mode or when in a vehicle of any kind
 		y = CG_DrawRadar ( y );
 	}
@@ -4114,7 +4114,7 @@ static void CG_DrawReward( void ) {
 	float	x, y;
 	char	buf[32];
 
-	if ( !cg_drawRewards.integer ) {
+	if ( !cg_drawRewards->integer ) {
 		return;
 	}
 
@@ -4301,7 +4301,7 @@ static void CG_DrawLagometer( void ) {
 	int		color;
 	float	vscale;
 
-	if ( !cg_lagometer.integer || cgs.localServer ) {
+	if ( !cg_lagometer->integer || cgs.localServer ) {
 		CG_DrawDisconnect();
 		return;
 	}
@@ -4388,7 +4388,7 @@ static void CG_DrawLagometer( void ) {
 
 	trap->R_SetColor( NULL );
 
-	if ( cg_noPredict.integer || g_synchronousClients.integer ) {
+	if ( cg_noPredict->integer || g_synchronousClients->integer ) {
 		CG_DrawBigString( ax, ay, "snc", 1.0 );
 	}
 
@@ -4497,7 +4497,7 @@ static void CG_DrawCenterString( void ) {
 		return;
 	}
 
-	color = CG_FadeColor( cg.centerPrintTime, 1000 * cg_centerTime.value );
+	color = CG_FadeColor( cg.centerPrintTime, 1000 * cg_centerTime->value );
 	if ( !color ) {
 		return;
 	}
@@ -4918,7 +4918,7 @@ static void CG_DrawCrosshair( vec3_t worldPoint, int chEntValid ) {
 		VectorCopy( worldPoint, cg_crosshairPos );
 	}
 
-	if ( !cg_drawCrosshair.integer )
+	if ( !cg_drawCrosshair->integer )
 	{
 		return;
 	}
@@ -4933,7 +4933,7 @@ static void CG_DrawCrosshair( vec3_t worldPoint, int chEntValid ) {
 		return;
 	}
 
-	if ( cg_crosshairHealth.integer )
+	if ( cg_crosshairHealth->integer )
 	{
 		vec4_t		hcolor;
 
@@ -5191,12 +5191,12 @@ static void CG_DrawCrosshair( vec3_t worldPoint, int chEntValid ) {
 			hShader = vehCent->m_pVehicle->m_pVehicleInfo->crosshairShaderHandle;
 		}
 		//bigger by default
-		w = cg_crosshairSize.value*2.0f;
+		w = cg_crosshairSize->value*2.0f;
 		h = w;
 	}
 	else
 	{
-		w = h = cg_crosshairSize.value;
+		w = h = cg_crosshairSize->value;
 	}
 
 	// pulse the size of the crosshair when picking up items
@@ -5219,13 +5219,13 @@ static void CG_DrawCrosshair( vec3_t worldPoint, int chEntValid ) {
 	}
 	else
 	{
-		x = cg_crosshairX.integer;
-		y = cg_crosshairY.integer;
+		x = cg_crosshairX->integer;
+		y = cg_crosshairY->integer;
 	}
 
 	if ( !hShader )
 	{
-		hShader = cgs.media.crosshairShader[ cg_drawCrosshair.integer % NUM_CROSSHAIRS ];
+		hShader = cgs.media.crosshairShader[ cg_drawCrosshair->integer % NUM_CROSSHAIRS ];
 	}
 
 	chX = x + cg.refdef.x + 0.5 * (640 - w);
@@ -5557,7 +5557,7 @@ void CG_BracketEntity( centity_t *cent, float radius )
         CG_DrawPic( x+size-lineWidth, y+size-lineLength, lineWidth, lineLength, cgs.media.whiteShader );
 	}
 	//Lead Indicator...
-	if ( cg_drawVehLeadIndicator.integer )
+	if ( cg_drawVehLeadIndicator->integer )
 	{//draw the lead indicator
 		if ( isEnemy )
 		{//an enemy object
@@ -6086,7 +6086,7 @@ static void CG_ScanForCrosshairEntity( void ) {
 
 	ignore = cg.predictedPlayerState.clientNum;
 
-	if ( cg_dynamicCrosshair.integer )
+	if ( cg_dynamicCrosshair->integer )
 	{
 		vec3_t d_f, d_rt, d_up;
 		/*
@@ -6190,7 +6190,7 @@ static void CG_ScanForCrosshairEntity( void ) {
 		VectorMA( start, 131072, cg.refdef.viewaxis[0], end );
 	}
 
-	if ( cg_dynamicCrosshair.integer && cg_dynamicCrosshairPrecision.integer )
+	if ( cg_dynamicCrosshair->integer && cg_dynamicCrosshairPrecision->integer )
 	{ //then do a trace with ghoul2 models in mind
 		CG_G2Trace( &trace, start, vec3_origin, vec3_origin, end,
 			ignore, CONTENTS_SOLID|CONTENTS_BODY );
@@ -6301,14 +6301,14 @@ static void CG_DrawCrosshairNames( void ) {
 	int			baseColor;
 	qboolean	isVeh = qfalse;
 
-	if ( !cg_drawCrosshair.integer ) {
+	if ( !cg_drawCrosshair->integer ) {
 		return;
 	}
 
 	// scan the known entities to see if the crosshair is sighted on one
 	CG_ScanForCrosshairEntity();
 
-	if ( !cg_drawCrosshairNames.integer ) {
+	if ( !cg_drawCrosshairNames->integer ) {
 		return;
 	}
 	//rww - still do the trace, our dynamic crosshair depends on it
@@ -6661,7 +6661,7 @@ CG_DrawIntermission
 */
 static void CG_DrawIntermission( void ) {
 //	int key;
-	//if (cg_singlePlayer.integer) {
+	//if (cg_singlePlayer->integer) {
 	//	CG_DrawCenterString();
 	//	return;
 	//}
@@ -6752,12 +6752,12 @@ static void CG_DrawAmmoWarning( void ) {
 	const char	*s;
 	int			w;
 
-	if (!cg_drawStatus.integer)
+	if (!cg_drawStatus->integer)
 	{
 		return;
 	}
 
-	if ( cg_drawAmmoWarning.integer == 0 ) {
+	if ( cg_drawAmmoWarning->integer == 0 ) {
 		return;
 	}
 
@@ -7387,7 +7387,7 @@ void CG_ChatBox_AddString(char *chatStr)
 	chatBoxItem_t *chat = &cg.chatItems[cg.chatItemActive];
 	float chatLen;
 
-	if (cg_chatBox.integer<=0)
+	if (cg_chatBox->integer<=0)
 	{ //don't bother then.
 		return;
 	}
@@ -7400,7 +7400,7 @@ void CG_ChatBox_AddString(char *chatStr)
 	}
 
 	strcpy(chat->string, chatStr);
-	chat->time = cg.time + cg_chatBox.integer;
+	chat->time = cg.time + cg_chatBox->integer;
 
 	chat->lines = 1;
 
@@ -7475,10 +7475,10 @@ static QINLINE void CG_ChatBox_DrawStrings(void)
 	int linesToDraw = 0;
 	int i = 0;
 	int x = 30;
-	float y = cg.scoreBoardShowing ? 475 : cg_chatBoxHeight.integer;
+	float y = cg.scoreBoardShowing ? 475 : cg_chatBoxHeight->integer;
 	float fontScale = 0.65f;
 
-	if (!cg_chatBox.integer)
+	if (!cg_chatBox->integer)
 	{
 		return;
 	}
@@ -7978,7 +7978,7 @@ static void CG_Draw2D( void ) {
 		cgYsalFadeVal = 0;
 	}
 
-	if ( !cg_draw2D.integer ) {
+	if ( !cg_draw2D->integer ) {
 		gCGHasFallVector = qfalse;
 		VectorClear( gCGFallVector );
 		return;
@@ -8041,7 +8041,7 @@ static void CG_Draw2D( void ) {
 		// don't draw any status if dead or the scoreboard is being explicitly shown
 		if ( !cg.showScores && cg.snap->ps.stats[STAT_HEALTH] > 0 ) {
 
-			if ( /*cg_drawStatus.integer*/0 ) {
+			if ( /*cg_drawStatus->integer*/0 ) {
 				//Reenable if stats are drawn with menu system again
 				Menu_PaintAll();
 				CG_DrawTimedMenus();
@@ -8053,7 +8053,7 @@ static void CG_Draw2D( void ) {
 
 			CG_DrawCrosshairNames();
 
-			if (cg_drawStatus.integer)
+			if (cg_drawStatus->integer)
 			{
 				CG_DrawIconBackground();
 			}
@@ -8089,7 +8089,7 @@ static void CG_Draw2D( void ) {
 				break;
 			}
 
-			if (cg_drawStatus.integer)
+			if (cg_drawStatus->integer)
 			{
 				//Powerups now done with upperright stuff
 				//CG_DrawPowerupIcons();
@@ -8099,7 +8099,7 @@ static void CG_Draw2D( void ) {
 
 			CG_SaberClashFlare();
 
-			if (cg_drawStatus.integer)
+			if (cg_drawStatus->integer)
 			{
 				CG_DrawStats();
 			}
@@ -8425,10 +8425,10 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 		separation = 0;
 		break;
 	case STEREO_LEFT:
-		separation = -cg_stereoSeparation.value / 2;
+		separation = -cg_stereoSeparation->value / 2;
 		break;
 	case STEREO_RIGHT:
-		separation = cg_stereoSeparation.value / 2;
+		separation = cg_stereoSeparation->value / 2;
 		break;
 	default:
 		separation = 0;

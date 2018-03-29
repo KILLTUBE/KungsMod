@@ -93,12 +93,12 @@ level_locals_t	level;
 
 gentity_t g_entities[1024];
 
-vmCvar_t	g_gravity;
 cvar_t	*cl_paused = NULL;
 cvar_t	*com_buildScript = NULL;		// for building release pak files
 cvar_t	*com_cameraMode = NULL;
 cvar_t	*com_optvehtrace = NULL;
 cvar_t *bg_showevents = NULL;
+cvar_t *g_gravity = NULL;
 
 
 
@@ -839,7 +839,7 @@ static void CG_RegisterSounds( void ) {
 			cgs.media.redTookFlagSound = S_RegisterSound( "sound/chars/protocol/misc/40MOM040" );
 			cgs.media.blueTookFlagSound = S_RegisterSound( "sound/chars/protocol/misc/40MOM039" );
 		}
-		if ( cgs.gametype == GT_CTY /*|| com_buildScript.integer*/ ) {
+		if ( cgs.gametype == GT_CTY /*|| com_buildScript->integer*/ ) {
 			cgs.media.redYsalReturnedSound = S_RegisterSound( "sound/chars/protocol/misc/40MOM050" );
 			cgs.media.blueYsalReturnedSound = S_RegisterSound( "sound/chars/protocol/misc/40MOM049" );
 			cgs.media.redTookYsalSound = S_RegisterSound( "sound/chars/protocol/misc/40MOM048" );
@@ -2382,7 +2382,7 @@ void CG_LoadHudMenu()
 
 	Menu_Reset();
 
-	hudSet = cg_hudFiles.string;
+	hudSet = cg_hudFiles->string;
 	if (hudSet[0] == '\0')
 	{
 		hudSet = "ui/jahud.txt";
@@ -2623,7 +2623,7 @@ Ghoul2 Insert End
 
 	CG_InitConsoleCommands();
 
-	cg.renderingThirdPerson = cg_thirdPerson.integer;
+	cg.renderingThirdPerson = cg_thirdPerson->integer;
 
 	cg.weaponSelect = WP_BRYAR_PISTOL;
 

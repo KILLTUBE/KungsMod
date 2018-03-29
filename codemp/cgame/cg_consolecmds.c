@@ -56,7 +56,7 @@ Keybinding command
 =================
 */
 static void CG_SizeUp_f (void) {
-	trap->Cvar_Set( "cg_viewsize", va( "%i", Q_min( cg_viewsize.integer + 10, 100 ) ) );
+	trap->Cvar_Set( "cg_viewsize", va( "%i", Q_min( cg_viewsize->integer + 10, 100 ) ) );
 }
 
 /*
@@ -67,7 +67,7 @@ Keybinding command
 =================
 */
 static void CG_SizeDown_f (void) {
-	trap->Cvar_Set( "cg_viewsize", va( "%i", Q_max( cg_viewsize.integer - 10, 30 ) ) );
+	trap->Cvar_Set( "cg_viewsize", va( "%i", Q_max( cg_viewsize->integer - 10, 30 ) ) );
 }
 
 /*
@@ -208,7 +208,7 @@ static void CG_StartOrbit_f( void ) {
 	if ( !atoi(var) ) {
 		return;
 	}
-	if (cg_cameraOrbit.value != 0) {
+	if (cg_cameraOrbit->value != 0) {
 		trap->Cvar_Set ("cg_cameraOrbit", "0");
 		trap->Cvar_Set("cg_thirdPerson", "0");
 	} else {
@@ -273,7 +273,7 @@ static void CG_SiegeCompleteCvarUpdate_f(void)
 }
 
 static void CG_LoadHud_f( void ) {
-	const char *hudSet = cg_hudFiles.string;
+	const char *hudSet = cg_hudFiles->string;
 	if ( hudSet[0] == '\0' ) {
 		hudSet = "ui/jahud.txt";
 	}

@@ -161,7 +161,7 @@ void WP_InitForcePowers( gentity_t *ent ) {
 	char userinfo[MAX_INFO_STRING], forcePowers[DEFAULT_FORCEPOWERS_LEN+1], readBuf[DEFAULT_FORCEPOWERS_LEN+1];
 
 	// if server has no max rank, default to max (50)
-	if ( g_maxForceRank.integer <= 0 || g_maxForceRank.integer >= NUM_FORCE_MASTERY_LEVELS ) {
+	if ( g_maxForceRank->integer <= 0 || g_maxForceRank->integer >= NUM_FORCE_MASTERY_LEVELS ) {
 		// ack, prevent user from being dumb
 		Cvar_Set( "g_maxForceRank", va( "%i", FORCE_MASTERY_JEDI_MASTER ) );
 		Cvar_Update( &g_maxForceRank );
@@ -235,16 +235,16 @@ void WP_InitForcePowers( gentity_t *ent ) {
 	if ( (ent->r.svFlags & SVF_BOT) && botstates[ent->s.number] )
 		Q_strncpyz( forcePowers, botstates[ent->s.number]->forceinfo, sizeof( forcePowers ) );
 
-	if ( g_forceBasedTeams.integer ) {
+	if ( g_forceBasedTeams->integer ) {
 		if ( ent->client->sess.sessionTeam == TEAM_RED )
-			warnClient = !(BG_LegalizedForcePowers( forcePowers, sizeof (forcePowers), g_maxForceRank.integer, HasSetSaberOnly(), FORCE_DARKSIDE, level.gametype, g_forcePowerDisable.integer ));
+			warnClient = !(BG_LegalizedForcePowers( forcePowers, sizeof (forcePowers), g_maxForceRank->integer, HasSetSaberOnly(), FORCE_DARKSIDE, level.gametype, g_forcePowerDisable->integer ));
 		else if ( ent->client->sess.sessionTeam == TEAM_BLUE )
-			warnClient = !(BG_LegalizedForcePowers( forcePowers, sizeof (forcePowers), g_maxForceRank.integer, HasSetSaberOnly(), FORCE_LIGHTSIDE, level.gametype, g_forcePowerDisable.integer ));
+			warnClient = !(BG_LegalizedForcePowers( forcePowers, sizeof (forcePowers), g_maxForceRank->integer, HasSetSaberOnly(), FORCE_LIGHTSIDE, level.gametype, g_forcePowerDisable->integer ));
 		else
-			warnClient = !(BG_LegalizedForcePowers( forcePowers, sizeof (forcePowers), g_maxForceRank.integer, HasSetSaberOnly(), 0, level.gametype, g_forcePowerDisable.integer ));
+			warnClient = !(BG_LegalizedForcePowers( forcePowers, sizeof (forcePowers), g_maxForceRank->integer, HasSetSaberOnly(), 0, level.gametype, g_forcePowerDisable->integer ));
 	}
 	else
-		warnClient = !(BG_LegalizedForcePowers( forcePowers, sizeof (forcePowers), g_maxForceRank.integer, HasSetSaberOnly(), 0, level.gametype, g_forcePowerDisable.integer ));
+		warnClient = !(BG_LegalizedForcePowers( forcePowers, sizeof (forcePowers), g_maxForceRank->integer, HasSetSaberOnly(), 0, level.gametype, g_forcePowerDisable->integer ));
 
 	//rww - parse through the string manually and eat out all the appropriate data
 	i = 0;
@@ -343,7 +343,7 @@ void WP_InitForcePowers( gentity_t *ent ) {
 			te->s.eventParm = 0;
 		}
 
-		if ( g_forcePowerDisable.integer ) {
+		if ( g_forcePowerDisable->integer ) {
 			gentity_t *te = G_TempEntity( vec3_origin, EV_SET_FORCE_DISABLE );
 			te->r.svFlags |= SVF_BROADCAST;
 			te->s.eventParm = 1;
@@ -371,7 +371,7 @@ void WP_InitForcePowers( gentity_t *ent ) {
 				didEvent = qtrue;
 
 				if ( !(ent->r.svFlags & SVF_BOT) && ent->s.eType != ET_NPC ) {
-					if ( !g_teamAutoJoin.integer ) {
+					if ( !g_teamAutoJoin->integer ) {
 						// make them a spectator so they can set their powerups up without being bothered.
 						ent->client->sess.sessionTeam = TEAM_SPECTATOR;
 						ent->client->sess.spectatorState = SPECTATOR_FREE;
@@ -384,14 +384,14 @@ void WP_InitForcePowers( gentity_t *ent ) {
 
 				// event isn't very reliable, I made it a string. This way I can send it to just one client also,
 				//	as opposed to making a broadcast event.
-				SV_GameSendServerCommand( ent->s.number, va( "nfr %i %i %i", g_maxForceRank.integer, 1, ent->client->sess.sessionTeam ) );
+				SV_GameSendServerCommand( ent->s.number, va( "nfr %i %i %i", g_maxForceRank->integer, 1, ent->client->sess.sessionTeam ) );
 				// arg1 is new max rank, arg2 is non-0 if force menu should be shown, arg3 is the current team
 			}
 			ent->client->sess.setForce = qtrue;
 		}
 
 		if ( !didEvent )
-			SV_GameSendServerCommand( ent->s.number, va( "nfr %i %i %i", g_maxForceRank.integer, 0, ent->client->sess.sessionTeam ) );
+			SV_GameSendServerCommand( ent->s.number, va( "nfr %i %i %i", g_maxForceRank->integer, 0, ent->client->sess.sessionTeam ) );
 
 		// the server has one or more force powers disabled and the client is using them in his config
 		if ( warnClientLimit )
@@ -710,7 +710,7 @@ qboolean WP_ForcePowerUsable( gentity_t *self, forcePowers_t forcePower )
 		return qfalse;
 	}
 
-	if ( g_debugMelee.integer )
+	if ( g_debugMelee->integer )
 	{
 		if ( (self->client->ps.pm_flags&PMF_STUCK_TO_WALL) )
 		{//no offensive force powers when stuck to wall
@@ -734,7 +734,7 @@ qboolean WP_ForcePowerUsable( gentity_t *self, forcePowers_t forcePower )
 	{
 		if ( (self->client->saber[0].saberFlags&SFL_TWO_HANDED) )
 		{
-			if ( g_saberRestrictForce.integer )
+			if ( g_saberRestrictForce->integer )
 			{
 				switch ( forcePower )
 				{
@@ -763,7 +763,7 @@ qboolean WP_ForcePowerUsable( gentity_t *self, forcePowers_t forcePower )
 
 		if ( self->client->saber[0].model[0] )
 		{//both sabers on
-			if ( g_saberRestrictForce.integer )
+			if ( g_saberRestrictForce->integer )
 			{
 				switch ( forcePower )
 				{
@@ -1416,7 +1416,7 @@ void ForceGrip( gentity_t *self )
 		!g_entities[tr.entityNum].client->ps.fd.forceGripCripple &&
 		g_entities[tr.entityNum].client->ps.fd.forceGripBeingGripped < level.time &&
 		ForcePowerUsableOn(self, &g_entities[tr.entityNum], FP_GRIP) &&
-		(g_friendlyFire.integer || !OnSameTeam(self, &g_entities[tr.entityNum])) ) //don't grip someone who's still crippled
+		(g_friendlyFire->integer || !OnSameTeam(self, &g_entities[tr.entityNum])) ) //don't grip someone who's still crippled
 	{
 		if (g_entities[tr.entityNum].s.number < MAX_CLIENTS && g_entities[tr.entityNum].client->ps.m_iVehicleNum)
 		{ //a player on a vehicle
@@ -1806,7 +1806,7 @@ void ForceShootLightning( gentity_t *self )
 				continue;
 			if ( traceEnt->health <= 0 )//no torturing corpses
 				continue;
-			if ( !g_friendlyFire.integer && OnSameTeam(self, traceEnt))
+			if ( !g_friendlyFire->integer && OnSameTeam(self, traceEnt))
 				continue;
 			//this is all to see if we need to start a saber attack, if it's in flight, this doesn't matter
 			// find the distance from the edge of the bounding box
@@ -1919,7 +1919,7 @@ void ForceDrainDamage( gentity_t *self, gentity_t *traceEnt, vec3_t dir, vec3_t 
 
 	if ( traceEnt && traceEnt->takedamage )
 	{
-		if ( traceEnt->client && (!OnSameTeam(self, traceEnt) || g_friendlyFire.integer) && self->client->ps.fd.forceDrainTime < level.time && traceEnt->client->ps.fd.forcePower )
+		if ( traceEnt->client && (!OnSameTeam(self, traceEnt) || g_friendlyFire->integer) && self->client->ps.fd.forceDrainTime < level.time && traceEnt->client->ps.fd.forcePower )
 		{//an enemy or object
 			if (!traceEnt->client && traceEnt->s.eType == ET_NPC)
 			{ //g2animent
@@ -2091,7 +2091,7 @@ int ForceShootDrain( gentity_t *self )
 				continue;
 			if ( !traceEnt->client->ps.fd.forcePower )
 				continue;
-			if (OnSameTeam(self, traceEnt) && !g_friendlyFire.integer)
+			if (OnSameTeam(self, traceEnt) && !g_friendlyFire->integer)
 				continue;
 			//this is all to see if we need to start a saber attack, if it's in flight, this doesn't matter
 			// find the distance from the edge of the bounding box
@@ -2944,7 +2944,7 @@ void ForceThrow( gentity_t *self, qboolean pull )
 		return;
 	}
 
-	if (!g_useWhileThrowing.integer && self->client->ps.saberInFlight)
+	if (!g_useWhileThrowing->integer && self->client->ps.saberInFlight)
 	{
 		return;
 	}
@@ -3355,7 +3355,7 @@ void ForceThrow( gentity_t *self, qboolean pull )
 				qboolean canPullWeapon = qtrue;
 				float dirLen = 0;
 
-				if ( g_debugMelee.integer )
+				if ( g_debugMelee->integer )
 				{
 					if ( (push_list[x]->client->ps.pm_flags&PMF_STUCK_TO_WALL) )
 					{//no resistance if stuck to wall
@@ -5408,7 +5408,7 @@ void WP_ForcePowersUpdate( gentity_t *self, usercmd_t *ucmd )
 	{//when not using the force, regenerate at 1 point per half second
 		while ( self->client->ps.fd.forcePowerRegenDebounceTime < level.time )
 		{
-			if (level.gametype != GT_HOLOCRON || g_maxHolocronCarry.value)
+			if (level.gametype != GT_HOLOCRON || g_maxHolocronCarry->value)
 			{
 				if ( self->client->ps.powerups[PW_FORCE_BOON] )
 					WP_ForcePowerRegenerate( self, 6 );
@@ -5436,21 +5436,21 @@ void WP_ForcePowersUpdate( gentity_t *self, usercmd_t *ucmd )
 				if ( self->client->holdingObjectiveItem && g_entities[self->client->holdingObjectiveItem].inuse && g_entities[self->client->holdingObjectiveItem].genericValue15 )
 					self->client->ps.fd.forcePowerRegenDebounceTime += 7000; //1 point per 7 seconds.. super slow
 				else if (self->client->siegeClass != -1 && (bgSiegeClasses[self->client->siegeClass].classflags & (1<<CFL_FASTFORCEREGEN)))
-					self->client->ps.fd.forcePowerRegenDebounceTime += Q_max(g_forceRegenTime.integer*0.2, 1); //if this is siege and our player class has the fast force regen ability, then recharge with 1/5th the usual delay
+					self->client->ps.fd.forcePowerRegenDebounceTime += Q_max(g_forceRegenTime->integer*0.2, 1); //if this is siege and our player class has the fast force regen ability, then recharge with 1/5th the usual delay
 				else
-					self->client->ps.fd.forcePowerRegenDebounceTime += Q_max(g_forceRegenTime.integer, 1);
+					self->client->ps.fd.forcePowerRegenDebounceTime += Q_max(g_forceRegenTime->integer, 1);
 			}
 			else
 			{
 				if ( level.gametype == GT_POWERDUEL && self->client->sess.duelTeam == DUELTEAM_LONE )
 				{
-					if ( duel_fraglimit.integer )
-						self->client->ps.fd.forcePowerRegenDebounceTime += Q_max(g_forceRegenTime.integer * (0.6 + (.3 * (float)self->client->sess.wins / (float)duel_fraglimit.integer)), 1);
+					if ( duel_fraglimit->integer )
+						self->client->ps.fd.forcePowerRegenDebounceTime += Q_max(g_forceRegenTime->integer * (0.6 + (.3 * (float)self->client->sess.wins / (float)duel_fraglimit->integer)), 1);
 					else
-						self->client->ps.fd.forcePowerRegenDebounceTime += Q_max(g_forceRegenTime.integer*0.7, 1);
+						self->client->ps.fd.forcePowerRegenDebounceTime += Q_max(g_forceRegenTime->integer*0.7, 1);
 				}
 				else
-					self->client->ps.fd.forcePowerRegenDebounceTime += Q_max(g_forceRegenTime.integer, 1);
+					self->client->ps.fd.forcePowerRegenDebounceTime += Q_max(g_forceRegenTime->integer, 1);
 			}
 		}
 	}
@@ -5482,12 +5482,12 @@ qboolean Jedi_DodgeEvasion( gentity_t *self, gentity_t *shooter, trace_t *tr, in
 		return qfalse;
 	}
 
-	if (!g_forceDodge.integer)
+	if (!g_forceDodge->integer)
 	{
 		return qfalse;
 	}
 
-	if (g_forceDodge.integer != 2)
+	if (g_forceDodge->integer != 2)
 	{
 		if (!(self->client->ps.fd.forcePowersActive & (1 << FP_SEE)))
 		{
@@ -5505,7 +5505,7 @@ qboolean Jedi_DodgeEvasion( gentity_t *self, gentity_t *shooter, trace_t *tr, in
 		return qfalse;
 	}
 
-	if (g_forceDodge.integer == 2)
+	if (g_forceDodge->integer == 2)
 	{
 		if (self->client->ps.fd.forcePowersActive)
 		{ //for now just don't let us dodge if we're using a force power at all
@@ -5513,7 +5513,7 @@ qboolean Jedi_DodgeEvasion( gentity_t *self, gentity_t *shooter, trace_t *tr, in
 		}
 	}
 
-	if (g_forceDodge.integer == 2)
+	if (g_forceDodge->integer == 2)
 	{
 		if ( !WP_ForcePowerUsable( self, FP_SPEED ) )
 		{//make sure we have it and have enough force power
@@ -5521,7 +5521,7 @@ qboolean Jedi_DodgeEvasion( gentity_t *self, gentity_t *shooter, trace_t *tr, in
 		}
 	}
 
-	if (g_forceDodge.integer == 2)
+	if (g_forceDodge->integer == 2)
 	{
 		if ( Q_irand( 1, 7 ) > self->client->ps.fd.forcePowerLevel[FP_SPEED] )
 		{//more likely to fail on lower force speed level
@@ -5590,7 +5590,7 @@ qboolean Jedi_DodgeEvasion( gentity_t *self, gentity_t *shooter, trace_t *tr, in
 
 		self->client->ps.powerups[PW_SPEEDBURST] = level.time + 100;
 
-		if (g_forceDodge.integer == 2)
+		if (g_forceDodge->integer == 2)
 		{
 			ForceSpeed( self, 500 );
 		}

@@ -324,7 +324,7 @@ clientkilled:
 			trap->SE_GetStringTextString("MP_INGAME_KILLED_MESSAGE", sKilledStr, sizeof(sKilledStr));
 			s = va("%s %s", sKilledStr, targetName );
 		}
-		//if (!(cg_singlePlayerActive.integer && cg_cameraOrbit.integer)) {
+		//if (!(cg_singlePlayerActive->integer && cg_cameraOrbit->integer)) {
 			CG_CenterPrint( s, SCREEN_HEIGHT * 0.30, BIGCHAR_WIDTH );
 		//}
 		// print the text message as well
@@ -606,11 +606,11 @@ static void CG_ItemPickup( int itemNum ) {
 		// 2 == automatically switch to best weapon, safe or otherwise
 		// 3 == if not saber, automatically switch to best weapon, safe or otherwise
 
-		if (0 == cg_autoSwitch.integer)
+		if (0 == cg_autoSwitch->integer)
 		{
 			// don't switch
 		}
-		else if ( cg_autoSwitch.integer == 1)
+		else if ( cg_autoSwitch->integer == 1)
 		{ //only autoselect if not explosive ("safe")
 			if (bg_itemlist[itemNum].giTag != WP_TRIP_MINE &&
 				bg_itemlist[itemNum].giTag != WP_DET_PACK &&
@@ -626,7 +626,7 @@ static void CG_ItemPickup( int itemNum ) {
 				cg.weaponSelect = bg_itemlist[itemNum].giTag;
 			}
 		}
-		else if ( cg_autoSwitch.integer == 2)
+		else if ( cg_autoSwitch->integer == 2)
 		{ //autoselect if better
 			if (bg_itemlist[itemNum].giTag > cg.snap->ps.weapon &&
 				cg.snap->ps.weapon != WP_SABER)
@@ -639,7 +639,7 @@ static void CG_ItemPickup( int itemNum ) {
 			}
 		}
 		/*
-		else if ( cg_autoswitch.integer == 3)
+		else if ( cg_autoswitch->integer == 3)
 		{ //autoselect if better and not using the saber as a weapon
 			if (bg_itemlist[itemNum].giTag > cg.snap->ps.weapon &&
 				cg.snap->ps.weapon != WP_SABER)
@@ -1292,7 +1292,7 @@ An entity has an event value
 also called by CG_CheckPlayerstateEvents
 ==============
 */
-#define	DEBUGNAME(x) if(cg_debugEvents.integer){trap->Print(x"\n");}
+#define	DEBUGNAME(x) if(cg_debugEvents->integer){trap->Print(x"\n");}
 extern void CG_ChatBox_AddString(char *chatStr); //cg_draw.c
 void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 	entityState_t	*es;
@@ -1307,7 +1307,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 	es = &cent->currentState;
 	event = es->event & ~EV_EVENT_BITS;
 
-	if ( cg_debugEvents.integer ) {
+	if ( cg_debugEvents->integer ) {
 		trap->Print( "ent:%3i  event:%3i ", es->number, event );
 	}
 
@@ -1379,7 +1379,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 
 	case EV_FOOTSTEP:
 		DEBUGNAME("EV_FOOTSTEP");
-		if (cg_footsteps.integer) {
+		if (cg_footsteps->integer) {
 			footstep_t	soundType;
 			switch( es->eventParm )
 			{
@@ -1430,28 +1430,28 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		break;
 	case EV_FOOTSTEP_METAL:
 		DEBUGNAME("EV_FOOTSTEP_METAL");
-		if (cg_footsteps.integer) {
+		if (cg_footsteps->integer) {
 			trap->S_StartSound (NULL, es->number, CHAN_BODY,
 				cgs.media.footsteps[ FOOTSTEP_METALWALK ][rand()&3] );
 		}
 		break;
 	case EV_FOOTSPLASH:
 		DEBUGNAME("EV_FOOTSPLASH");
-		if (cg_footsteps.integer) {
+		if (cg_footsteps->integer) {
 			trap->S_StartSound (NULL, es->number, CHAN_BODY,
 				cgs.media.footsteps[ FOOTSTEP_SPLASH ][rand()&3] );
 		}
 		break;
 	case EV_FOOTWADE:
 		DEBUGNAME("EV_FOOTWADE");
-		if (cg_footsteps.integer) {
+		if (cg_footsteps->integer) {
 			trap->S_StartSound (NULL, es->number, CHAN_BODY,
 				cgs.media.footsteps[ FOOTSTEP_SPLASH ][rand()&3] );
 		}
 		break;
 	case EV_SWIM:
 		DEBUGNAME("EV_SWIM");
-		if (cg_footsteps.integer) {
+		if (cg_footsteps->integer) {
 			trap->S_StartSound (NULL, es->number, CHAN_BODY,
 				cgs.media.footsteps[ FOOTSTEP_SPLASH ][rand()&3] );
 		}
@@ -1481,7 +1481,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		}
 		// if we are interpolating, we don't need to smooth steps
 		if ( cg.demoPlayback || (cg.snap->ps.pm_flags & PMF_FOLLOW) ||
-			cg_noPredict.integer || g_synchronousClients.integer ) {
+			cg_noPredict->integer || g_synchronousClients->integer ) {
 			break;
 		}
 		// check for stepping up before a previous step is completed
@@ -1509,7 +1509,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 	case EV_GHOUL2_MARK:
 		DEBUGNAME("EV_GHOUL2_MARK");
 
-		if (cg_ghoul2Marks.integer)
+		if (cg_ghoul2Marks->integer)
 		{ //Can we put a burn mark on him?
 			CG_G2MarkEvent(es);
 		}
@@ -1556,7 +1556,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 
 	case EV_JUMP:
 		DEBUGNAME("EV_JUMP");
-		if (cg_jumpSounds.integer)
+		if (cg_jumpSounds->integer)
 		{
 			trap->S_StartSound (NULL, es->number, CHAN_VOICE, CG_CustomSound( es->number, "*jump1.wav" ) );
 		}
@@ -1583,7 +1583,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		{
 			int soundIndex = 0;
 
-			if ( cg_noTaunt.integer )
+			if ( cg_noTaunt->integer )
 				break;
 
 			if ( cgs.gametype != GT_DUEL
@@ -2904,7 +2904,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			CG_MissileHitPlayer( es->weapon, position, dir, es->otherEntityNum, qfalse);
 		}
 
-		if (cg_ghoul2Marks.integer &&
+		if (cg_ghoul2Marks->integer &&
 			es->trickedentindex)
 		{ //flag to place a ghoul2 mark
 			CG_G2MarkEvent(es);
@@ -2930,7 +2930,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			CG_MissileHitWall(es->weapon, 0, position, dir, IMPACTSOUND_DEFAULT, qfalse, 0);
 		}
 
-		if (cg_ghoul2Marks.integer &&
+		if (cg_ghoul2Marks->integer &&
 			es->trickedentindex)
 		{ //flag to place a ghoul2 mark
 			CG_G2MarkEvent(es);
@@ -3313,7 +3313,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		// so ignore events on the player
 		DEBUGNAME("EV_PAIN");
 
-		if ( !cg_oldPainSounds.integer || (cent->currentState.number != cg.snap->ps.clientNum) )
+		if ( !cg_oldPainSounds->integer || (cent->currentState.number != cg.snap->ps.clientNum) )
 		{
 			CG_PainEvent( cent, es->eventParm );
 		}

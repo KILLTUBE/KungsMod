@@ -35,7 +35,6 @@ static struct botSpawnQueue_s {
 	int		spawnTime;
 } botSpawnQueue[BOT_SPAWN_QUEUE_DEPTH];
 
-vmCvar_t bot_minplayers;
 
 float trap_Cvar_VariableValue( const char *var_name ) {
 	char buf[MAX_CVAR_VALUE_STRING];
@@ -226,7 +225,7 @@ const char *G_RefreshNextMap(int gametype, qboolean forced)
 	qboolean	loopingUp = qfalse;
 	vmCvar_t	mapname;
 
-	if (!g_autoMapCycle.integer && !forced)
+	if (!g_autoMapCycle->integer && !forced)
 	{
 		return NULL;
 	}
@@ -618,7 +617,7 @@ void G_CheckMinimumPlayers( void ) {
 	}
 	checkminimumplayers_time = level.time;
 	Cvar_Update(&bot_minplayers);
-	minplayers = bot_minplayers.integer;
+	minplayers = bot_minplayers->integer;
 	if (minplayers <= 0) return;
 
 	if (minplayers > sv_maxclients->integer)
@@ -646,8 +645,8 @@ void G_CheckMinimumPlayers( void ) {
 	/*
 	if (level.gametype >= GT_TEAM) {
 		int humanplayers2, botplayers2;
-		if (minplayers >= sv_maxclients.integer / 2) {
-			minplayers = (sv_maxclients.integer / 2) -1;
+		if (minplayers >= sv_maxclients->integer / 2) {
+			minplayers = (sv_maxclients->integer / 2) -1;
 		}
 
 		humanplayers = G_CountHumanPlayers( TEAM_RED );
@@ -679,8 +678,8 @@ void G_CheckMinimumPlayers( void ) {
 		}
 	}
 	else if (level.gametype == GT_DUEL || level.gametype == GT_POWERDUEL) {
-		if (minplayers >= sv_maxclients.integer) {
-			minplayers = sv_maxclients.integer-1;
+		if (minplayers >= sv_maxclients->integer) {
+			minplayers = sv_maxclients->integer-1;
 		}
 		humanplayers = G_CountHumanPlayers( -1 );
 		botplayers = G_CountBotPlayers( -1 );
@@ -696,8 +695,8 @@ void G_CheckMinimumPlayers( void ) {
 		}
 	}
 	else if (level.gametype == GT_FFA) {
-		if (minplayers >= sv_maxclients.integer) {
-			minplayers = sv_maxclients.integer-1;
+		if (minplayers >= sv_maxclients->integer) {
+			minplayers = sv_maxclients->integer-1;
 		}
 		humanplayers = G_CountHumanPlayers( TEAM_FREE );
 		botplayers = G_CountBotPlayers( TEAM_FREE );
@@ -709,8 +708,8 @@ void G_CheckMinimumPlayers( void ) {
 		}
 	}
 	else if (level.gametype == GT_HOLOCRON || level.gametype == GT_JEDIMASTER) {
-		if (minplayers >= sv_maxclients.integer) {
-			minplayers = sv_maxclients.integer-1;
+		if (minplayers >= sv_maxclients->integer) {
+			minplayers = sv_maxclients->integer-1;
 		}
 		humanplayers = G_CountHumanPlayers( TEAM_FREE );
 		botplayers = G_CountBotPlayers( TEAM_FREE );

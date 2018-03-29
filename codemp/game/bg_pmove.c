@@ -7790,10 +7790,9 @@ static void PM_DropTimers( void ) {
 // which includes files that are also compiled in SP. We do need to make
 // sure we only get one copy in the linker, though.
 
-extern	vmCvar_t	bg_fighterAltControl;
 qboolean BG_UnrestrainedPitchRoll( playerState_t *ps, Vehicle_t *pVeh )
 {
-	if ( bg_fighterAltControl.integer
+	if ( bg_fighterAltControl->integer
 		&& ps->clientNum < MAX_CLIENTS //real client
 		&& ps->m_iVehicleNum//in a vehicle
 		&& pVeh //valid vehicle data pointer
@@ -8073,7 +8072,7 @@ void PM_AdjustAttackStates( pmove_t *pmove )
 				// not already zooming, so do it now
 				pmove->ps->zoomMode = 1;
 				pmove->ps->zoomLocked = qfalse;
-				pmove->ps->zoomFov = 80.0f;//cg_fov.value;
+				pmove->ps->zoomFov = 80.0f;//cg_fov->value;
 				pmove->ps->zoomLockTime = pmove->cmd.serverTime + 50;
 				PM_AddEvent(EV_DISRUPTOR_ZOOMSOUND);
 			}

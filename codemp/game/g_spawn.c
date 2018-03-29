@@ -1456,7 +1456,7 @@ void SP_worldspawn( void )
 	G_SpawnString( "message", "", &text );
 	SV_SetConfigstring( CS_MESSAGE, text );				// map specific message
 
-	SV_SetConfigstring( CS_MOTD, g_motd.string );		// message of the day
+	SV_SetConfigstring( CS_MOTD, g_motd->string );		// message of the day
 
 	G_SpawnString( "gravity", "800", &text );
 	Cvar_Set( "g_gravity", text );
@@ -1477,12 +1477,12 @@ void SP_worldspawn( void )
 
 	// see if we want a warmup time
 	SV_SetConfigstring( CS_WARMUP, "" );
-	if ( g_restarted.integer ) {
+	if ( g_restarted->integer ) {
 		Cvar_Set( "g_restarted", "0" );
 		Cvar_Update( &g_restarted );
 		level.warmupTime = 0;
 	}
-	else if ( g_doWarmup.integer && level.gametype != GT_DUEL && level.gametype != GT_POWERDUEL && level.gametype != GT_SIEGE ) { // Turn it on
+	else if ( g_doWarmup->integer && level.gametype != GT_DUEL && level.gametype != GT_POWERDUEL && level.gametype != GT_SIEGE ) { // Turn it on
 		level.warmupTime = -1;
 		SV_SetConfigstring( CS_WARMUP, va("%i", level.warmupTime) );
 		G_LogPrintf( "Warmup:\n" );

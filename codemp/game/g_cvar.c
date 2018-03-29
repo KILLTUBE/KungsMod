@@ -51,39 +51,41 @@ typedef struct cvarTable_s {
 	#include "g_xcvar.h"
 #undef XCVAR_DECL
 
-static const cvarTable_t gameCvarTable[] = {
+//#include "client/client.h"
+cvar_t *Cvar_Get( const char *var_name, const char *var_value, uint32_t flags, const char *var_desc );
+
+void G_RegisterCvars( void ) {
+
 	#define XCVAR_LIST
 		#include "g_xcvar.h"
 	#undef XCVAR_LIST
-};
-static const size_t gameCvarTableSize = ARRAY_LEN( gameCvarTable );
+	//g_gravity = Cvar_Get("g_gravity", "800", 0, "desc");
 
-void G_RegisterCvars( void ) {
-	size_t i = 0;
-	const cvarTable_t *cv = NULL;
-
-	for ( i=0, cv=gameCvarTable; i<gameCvarTableSize; i++, cv++ ) {
-		Cvar_Register( cv->vmCvar, cv->cvarName, cv->defaultString, cv->cvarFlags );
-		if ( cv->update )
-			cv->update();
-	}
+	//for ( i=0, cv=gameCvarTable; i<gameCvarTableSize; i++, cv++ ) {
+	//	Cvar_Register( cv->vmCvar, cv->cvarName, cv->defaultString, cv->cvarFlags );
+	//	if ( cv->update )
+	//		cv->update();
+	//}
 }
 
 void G_UpdateCvars( void ) {
 	size_t i = 0;
 	const cvarTable_t *cv = NULL;
 
-	for ( i=0, cv=gameCvarTable; i<gameCvarTableSize; i++, cv++ ) {
-		if ( cv->vmCvar ) {
-			int modCount = cv->vmCvar->modificationCount;
-			Cvar_Update( cv->vmCvar );
-			if ( cv->vmCvar->modificationCount != modCount ) {
-				if ( cv->update )
-					cv->update();
+	//for ( i=0, cv=gameCvarTable; i<gameCvarTableSize; i++, cv++ ) {
+	//	if ( cv->vmCvar ) {
+	//		int modCount = cv->vmCvar->modificationCount;
+	//		Cvar_Update( cv->vmCvar );
+	//		if ( cv->vmCvar->modificationCount != modCount ) {
+	//			if ( cv->update )
+	//				cv->update();
+	//
 
-				if ( cv->trackChange )
-					SV_GameSendServerCommand( -1, va("print \"Server: %s changed to %s\n\"", cv->cvarName, cv->vmCvar->string ) );
-			}
-		}
-	}
+	// trackChange is quite nice, need to embed that in main cvar system, along with typed cvars etc. + imgui interface
+
+	//			if ( cv->trackChange )
+	//				SV_GameSendServerCommand( -1, va("print \"Server: %s changed to %s\n\"", cv->cvarName, cv->vmCvar->string ) );
+	//		}
+	//	}
+	//}
 }

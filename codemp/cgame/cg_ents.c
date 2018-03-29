@@ -705,7 +705,7 @@ void CG_Disintegration(centity_t *cent, refEntity_t *ent)
 	ent->customShader = 0;
 	trap->R_AddRefEntityToScene( ent );
 
-	if ( cg.time - ent->endTime < 1000 && (timescale.value * timescale.value * Q_flrand(0.0f, 1.0f)) > 0.05f )
+	if ( cg.time - ent->endTime < 1000 && (timescale->value * timescale->value * Q_flrand(0.0f, 1.0f)) > 0.05f )
 	{
 		vec3_t fxOrg, fxDir;
 		mdxaBone_t	boltMatrix;
@@ -936,7 +936,7 @@ static void CG_General( centity_t *cent ) {
 	{
 		if (cent->currentState.groundEntityNum >= ENTITYNUM_WORLD)
 		{
-			float smoothFactor = 0.5f*timescale.value;
+			float smoothFactor = 0.5f*timescale->value;
 			int k = 0;
 			vec3_t posDif;
 
@@ -1022,8 +1022,8 @@ static void CG_General( centity_t *cent ) {
 		cent->currentState.weapon == G2_MODEL_PART)
 	{ //special case for client limbs
 		centity_t *clEnt;
-		int dismember_settings = cg_dismember.integer;
-		float smoothFactor = 0.5f*timescale.value;
+		int dismember_settings = cg_dismember->integer;
+		float smoothFactor = 0.5f*timescale->value;
 		int k = 0;
 		vec3_t posDif;
 
@@ -1820,7 +1820,7 @@ Ghoul2 Insert End
 Ghoul2 Insert Start
 */
 
-	if (debugBB.integer)
+	if (debugBB->integer)
 	{
 		CG_CreateBBRefEnts(s1, cent->lerpOrigin);
 	}
@@ -1917,7 +1917,7 @@ Ghoul2 Insert Start
 
 	if ((item->giType == IT_WEAPON || item->giType == IT_POWERUP) &&
 		!(cent->currentState.eFlags & EF_DROPPEDWEAPON) &&
-		!cg_simpleItems.integer)
+		!cg_simpleItems->integer)
 	{
 		vec3_t uNorm;
 		qboolean doGrey;
@@ -1962,7 +1962,7 @@ Ghoul2 Insert Start
 Ghoul2 Insert End
 */
 
-	if ( cg_simpleItems.integer && item->giType != IT_TEAM ) {
+	if ( cg_simpleItems->integer && item->giType != IT_TEAM ) {
 		memset( &ent, 0, sizeof( ent ) );
 		ent.reType = RT_SPRITE;
 		VectorCopy( cent->lerpOrigin, ent.origin );
@@ -2307,7 +2307,7 @@ Ghoul2 Insert End
 	*/
 
 	// accompanying rings / spheres for powerups
-	if ( !cg_simpleItems.integer )
+	if ( !cg_simpleItems->integer )
 	{
 		vec3_t spinAngles;
 
@@ -2338,7 +2338,7 @@ void CG_CreateDistortionTrailPart(centity_t *cent, float scale, vec3_t pos)
 	vec3_t ang;
 	float vLen;
 
-	if (!cg_renderToTextureFX.integer)
+	if (!cg_renderToTextureFX->integer)
 	{
 		return;
 	}
@@ -3083,7 +3083,7 @@ void CG_CalcEntityLerpPositions( centity_t *cent ) {
 	qboolean goAway = qfalse;
 
 	// if this player does not want to see extrapolated players
-	if ( !cg_smoothClients.integer ) {
+	if ( !cg_smoothClients->integer ) {
 		// make sure the clients use TR_INTERPOLATE
 		if ( (cent->currentState.number != cg.clientNum && cent->currentState.number < MAX_CLIENTS) || cent->currentState.eType == ET_NPC ) {
 			cent->currentState.pos.trType = TR_INTERPOLATE;

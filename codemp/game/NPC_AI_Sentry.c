@@ -209,12 +209,12 @@ void Sentry_Fire (void)
 	missile->damage = 5;
 
 	// now scale for difficulty
-	if ( g_npcspskill.integer == 0 )
+	if ( g_npcspskill->integer == 0 )
 	{
 		NPCS.NPC->attackDebounceTime += 200;
 		missile->damage = 1;
 	}
-	else if ( g_npcspskill.integer == 1 )
+	else if ( g_npcspskill->integer == 1 )
 	{
 		NPCS.NPC->attackDebounceTime += 100;
 		missile->damage = 3;
@@ -425,7 +425,7 @@ void Sentry_Hunt( qboolean visible, qboolean advance )
 		/*distance = */VectorNormalize( forward );
 	}
 
-	speed = SENTRY_FORWARD_BASE_SPEED + SENTRY_FORWARD_MULTIPLIER * g_npcspskill.integer;
+	speed = SENTRY_FORWARD_BASE_SPEED + SENTRY_FORWARD_MULTIPLIER * g_npcspskill->integer;
 	VectorMA( NPCS.NPC->client->ps.velocity, speed, forward, NPCS.NPC->client->ps.velocity );
 }
 

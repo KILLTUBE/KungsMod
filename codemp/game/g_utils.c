@@ -348,14 +348,14 @@ void G_Throw( gentity_t *targ, vec3_t newDir, float push )
 		mass = 200;
 	}
 
-	if ( g_gravity.value > 0 )
+	if ( g_gravity->value > 0 )
 	{
-		VectorScale( newDir, g_knockback.value * (float)push / mass * 0.8, kvel );
-		kvel[2] = newDir[2] * g_knockback.value * (float)push / mass * 1.5;
+		VectorScale( newDir, g_knockback->value * (float)push / mass * 0.8, kvel );
+		kvel[2] = newDir[2] * g_knockback->value * (float)push / mass * 1.5;
 	}
 	else
 	{
-		VectorScale( newDir, g_knockback.value * (float)push / mass, kvel );
+		VectorScale( newDir, g_knockback->value * (float)push / mass, kvel );
 	}
 
 	if ( targ->client )
@@ -1786,7 +1786,7 @@ void TryUse( gentity_t *ent )
 		&& (level.gametype != GT_SIEGE
 			|| !target->alliedTeam
 			|| target->alliedTeam != ent->client->sess.sessionTeam
-			|| g_ff_objectives.integer) )
+			|| g_ff_objectives->integer) )
 	{
 		if (ent->client->ps.torsoAnim == BOTH_BUTTON_HOLD ||
 			ent->client->ps.torsoAnim == BOTH_CONSOLE1)

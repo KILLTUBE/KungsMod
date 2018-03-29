@@ -1049,7 +1049,7 @@ require a reload of all the media
 ===============
 */
 static void CG_MapRestart( void ) {
-	if ( cg_showMiss.integer ) {
+	if ( cg_showMiss->integer ) {
 		trap->Print( "CG_MapRestart\n" );
 	}
 
@@ -1083,9 +1083,9 @@ static void CG_MapRestart( void ) {
 		CG_CenterPrint( CG_GetStringEdString("MP_SVGAME", "BEGIN_DUEL"), 120, GIANTCHAR_WIDTH*2 );
 	}
 	/*
-	if (cg_singlePlayerActive.integer) {
+	if (cg_singlePlayerActive->integer) {
 		trap->Cvar_Set("ui_matchStartTime", va("%i", cg.time));
-		if (cg_recordSPDemo.integer && cg_recordSPDemoName.string && *cg_recordSPDemoName.string) {
+		if (cg_recordSPDemo->integer && cg_recordSPDemoName.string && *cg_recordSPDemoName.string) {
 			trap->SendConsoleCommand(va("set g_synchronousclients 1 ; record %s \n", cg_recordSPDemoName.string));
 		}
 	}
@@ -1501,8 +1501,8 @@ static void CG_Chat_f( void ) {
 	trap->Cmd_Argv( 0, cmd, sizeof( cmd ) );
 
 	if ( !strcmp( cmd, "chat" ) ) {
-		if ( !cg_teamChatsOnly.integer ) {
-			if( cg_chatBeep.integer )
+		if ( !cg_teamChatsOnly->integer ) {
+			if( cg_chatBeep->integer )
 				trap->S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
 			trap->Cmd_Argv( 1, text, sizeof( text ) );
 			CG_RemoveChatEscapeChar( text );
@@ -1511,7 +1511,7 @@ static void CG_Chat_f( void ) {
 		}
 	}
 	else if ( !strcmp( cmd, "lchat" ) ) {
-		if ( !cg_teamChatsOnly.integer ) {
+		if ( !cg_teamChatsOnly->integer ) {
 			char	name[MAX_NETNAME]={0},	loc[MAX_STRING_CHARS]={0},
 					color[8]={0},			message[MAX_STRING_CHARS]={0};
 
@@ -1527,7 +1527,7 @@ static void CG_Chat_f( void ) {
 			if ( loc[0] == '@' )
 				trap->SE_GetStringTextString( loc+1, loc, sizeof( loc ) );
 
-			if( cg_chatBeep.integer )
+			if( cg_chatBeep->integer )
 				trap->S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
 			Com_sprintf( text, sizeof( text ), "%s^7<%s> ^%s%s", name, loc, color, message );
 			CG_RemoveChatEscapeChar( text );
@@ -1536,7 +1536,7 @@ static void CG_Chat_f( void ) {
 		}
 	}
 	else if ( !strcmp( cmd, "tchat" ) ) {
-		if( cg_teamChatBeep.integer )
+		if( cg_teamChatBeep->integer )
 			trap->S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
 		trap->Cmd_Argv( 1, text, sizeof( text ) );
 		CG_RemoveChatEscapeChar( text );
@@ -1559,7 +1559,7 @@ static void CG_Chat_f( void ) {
 		if ( loc[0] == '@' )
 			trap->SE_GetStringTextString( loc+1, loc, sizeof( loc ) );
 
-		if( cg_teamChatBeep.integer )
+		if( cg_teamChatBeep->integer )
 			trap->S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
 		Com_sprintf( text, sizeof( text ), "%s^7<%s> ^%s%s", name, loc, color, message );
 		CG_RemoveChatEscapeChar( text );

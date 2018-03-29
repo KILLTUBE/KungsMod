@@ -79,7 +79,7 @@ int adjustRespawnTime(float preRespawnTime, int itemType, int itemTag)
 		}
 	}
 
-	if (!g_adaptRespawn.integer)
+	if (!g_adaptRespawn->integer)
 	{
 		return((int)respawnTime);
 	}
@@ -1132,7 +1132,7 @@ void ItemUse_Sentry( gentity_t *ent )
 extern gentity_t *NPC_SpawnType( gentity_t *ent, char *npc_type, char *targetname, qboolean isVehicle );
 void ItemUse_Seeker(gentity_t *ent)
 {
-	if ( level.gametype == GT_SIEGE && d_siegeSeekerNPC.integer )
+	if ( level.gametype == GT_SIEGE && d_siegeSeekerNPC->integer )
 	{//actualy spawn a remote NPC
 		gentity_t *remote = NPC_SpawnType( ent, "remote", NULL, qfalse );
 		if ( remote && remote->client )
@@ -2263,7 +2263,7 @@ int Pickup_Weapon (gentity_t *ent, gentity_t *other) {
 		return adjustRespawnTime(RESPAWN_TEAM_WEAPON, ent->item->giType, ent->item->giTag);
 	}
 
-	return adjustRespawnTime(g_weaponRespawn.integer, ent->item->giType, ent->item->giTag);
+	return adjustRespawnTime(g_weaponRespawn->integer, ent->item->giType, ent->item->giTag);
 }
 
 
@@ -2872,7 +2872,7 @@ void FinishSpawningItem( gentity_t *ent ) {
 		}
 	}
 
-	if (g_forcePowerDisable.integer)
+	if (g_forcePowerDisable->integer)
 	{ //if force powers disabled, don't add force powerups
 		if (ent->item->giType == IT_POWERUP)
 		{
@@ -3119,11 +3119,11 @@ void G_SpawnItem (gentity_t *ent, gitem_t *item) {
 
 	if (level.gametype == GT_DUEL || level.gametype == GT_POWERDUEL)
 	{
-		wDisable = g_duelWeaponDisable.integer;
+		wDisable = g_duelWeaponDisable->integer;
 	}
 	else
 	{
-		wDisable = g_weaponDisable.integer;
+		wDisable = g_weaponDisable->integer;
 	}
 
 	if (item->giType == IT_WEAPON &&

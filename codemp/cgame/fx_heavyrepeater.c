@@ -71,7 +71,7 @@ static void CG_DistortionOrb( centity_t *cent )
 	float scale = 0.5f;
 	float vLen;
 
-	if (!cg_renderToTextureFX.integer)
+	if (!cg_renderToTextureFX->integer)
 	{
 		return;
 	}
@@ -147,7 +147,7 @@ void FX_RepeaterAltProjectileThink( centity_t *cent, const struct weaponInfo_s *
 		forward[2] = 1.0f;
 	}
 
-	if (cg_repeaterOrb.integer)
+	if (cg_repeaterOrb->integer)
 	{
 		CG_DistortionOrb(cent);
 	}

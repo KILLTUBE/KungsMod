@@ -695,7 +695,7 @@ qboolean NPC_CheckEnemyStealth( gentity_t *target )
 		}
 
 		//If he's violated the threshold, then realize him
-		//float difficulty_scale = 1.0f + (2.0f-g_npcspskill.value);//if playing on easy, 20% harder to be seen...?
+		//float difficulty_scale = 1.0f + (2.0f-g_npcspskill->value);//if playing on easy, 20% harder to be seen...?
 		if ( NPCS.NPC->client->NPC_class == CLASS_SWAMPTROOPER )
 		{//swamptroopers can see much better
 			realize = (float)CAUTIOUS_THRESHOLD/**difficulty_scale*/;
@@ -1883,7 +1883,7 @@ void ST_Commander( void )
 	//Go through the list:
 
 	//Everyone should try to get to a combat point if possible
-	if ( d_asynchronousGroupAI.integer )
+	if ( d_asynchronousGroupAI->integer )
 	{//do one member a turn
 		group->activeMemberNum++;
 		if ( group->activeMemberNum >= group->numGroup )
@@ -2748,7 +2748,7 @@ void NPC_BSST_Attack( void )
 			if ( NPCS.NPC->s.weapon == WP_ROCKET_LAUNCHER
 				&& (NPCS.ucmd.buttons&BUTTON_ATTACK)
 				&& !move
-				&& g_npcspskill.integer > 1
+				&& g_npcspskill->integer > 1
 				&& !Q_irand( 0, 3 ) )
 			{//every now and then, shoot a homing rocket
 				NPCS.ucmd.buttons &= ~BUTTON_ATTACK;

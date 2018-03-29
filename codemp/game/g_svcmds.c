@@ -174,10 +174,10 @@ qboolean G_FilterPacket( char *from ) {
 
 	for ( i=0; i<numIPFilters; i++ ) {
 		if ( (in & ipFilters[i].mask) == ipFilters[i].compare )
-			return g_filterBan.integer != 0;
+			return g_filterBan->integer != 0;
 	}
 
-	return g_filterBan.integer == 0;
+	return g_filterBan->integer == 0;
 }
 
 /*
@@ -214,9 +214,9 @@ G_ProcessIPBans
 void G_ProcessIPBans( void ) {
 	char *s = NULL, *t = NULL, str[MAX_CVAR_VALUE_STRING] = {0};
 
-	Q_strncpyz( str, g_banIPs.string, sizeof( str ) );
+	Q_strncpyz( str, g_banIPs->string, sizeof( str ) );
 
-	for ( t=s=g_banIPs.string; *t; t=s ) {
+	for ( t=s=g_banIPs->string; *t; t=s ) {
 		s = strchr( s, ' ' );
 		if ( !s )
 			break;
@@ -509,7 +509,7 @@ qboolean	ConsoleCommand( void ) {
 	if ( !command )
 		return qfalse;
 
-	if ( command->dedicated && !dedicated.integer )
+	if ( command->dedicated && !dedicated->integer )
 		return qfalse;
 
 	command->func();

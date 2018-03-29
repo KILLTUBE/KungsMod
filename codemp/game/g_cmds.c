@@ -514,7 +514,7 @@ void G_Kill( gentity_t *ent ) {
 	if ((level.gametype == GT_DUEL || level.gametype == GT_POWERDUEL) &&
 		level.numPlayingClients > 1 && !level.warmupTime)
 	{
-		if (!g_allowDuelSuicide.integer)
+		if (!g_allowDuelSuicide->integer)
 		{
 			SV_GameSendServerCommand( ent-g_entities, va("print \"%s\n\"", G_GetStringEdString("MP_SVGAME", "ATTEMPTDUELKILL")) );
 			return;
@@ -679,7 +679,7 @@ void SetTeam( gentity_t *ent, char *s ) {
 			// pick the team with the least number of players
 			//For now, don't do this. The legalize function will set powers properly now.
 			/*
-			if (g_forceBasedTeams.integer)
+			if (g_forceBasedTeams->integer)
 			{
 				if (ent->client->ps.fd.forceSide == FORCE_LIGHTSIDE)
 				{
@@ -697,7 +697,7 @@ void SetTeam( gentity_t *ent, char *s ) {
 			//}
 		}
 
-		if ( g_teamForceBalance.integer && !g_jediVmerc.integer ) {
+		if ( g_teamForceBalance->integer && !g_jediVmerc->integer ) {
 			int		counts[TEAM_NUM_TEAMS];
 
 			//JAC: Invalid clientNum was being used
@@ -708,7 +708,7 @@ void SetTeam( gentity_t *ent, char *s ) {
 			if ( team == TEAM_RED && counts[TEAM_RED] - counts[TEAM_BLUE] > 1 ) {
 				//For now, don't do this. The legalize function will set powers properly now.
 				/*
-				if (g_forceBasedTeams.integer && ent->client->ps.fd.forceSide == FORCE_DARKSIDE)
+				if (g_forceBasedTeams->integer && ent->client->ps.fd.forceSide == FORCE_DARKSIDE)
 				{
 					SV_GameSendServerCommand( ent->client->ps.clientNum,
 						va("print \"%s\n\"", G_GetStringEdString("MP_SVGAME", "TOOMANYRED_SWITCH")) );
@@ -725,7 +725,7 @@ void SetTeam( gentity_t *ent, char *s ) {
 			if ( team == TEAM_BLUE && counts[TEAM_BLUE] - counts[TEAM_RED] > 1 ) {
 				//For now, don't do this. The legalize function will set powers properly now.
 				/*
-				if (g_forceBasedTeams.integer && ent->client->ps.fd.forceSide == FORCE_LIGHTSIDE)
+				if (g_forceBasedTeams->integer && ent->client->ps.fd.forceSide == FORCE_LIGHTSIDE)
 				{
 					SV_GameSendServerCommand( ent->client->ps.clientNum,
 						va("print \"%s\n\"", G_GetStringEdString("MP_SVGAME", "TOOMANYBLUE_SWITCH")) );
@@ -745,7 +745,7 @@ void SetTeam( gentity_t *ent, char *s ) {
 
 		//For now, don't do this. The legalize function will set powers properly now.
 		/*
-		if (g_forceBasedTeams.integer)
+		if (g_forceBasedTeams->integer)
 		{
 			if (team == TEAM_BLUE && ent->client->ps.fd.forceSide != FORCE_LIGHTSIDE)
 			{
@@ -835,8 +835,8 @@ void SetTeam( gentity_t *ent, char *s ) {
 	{
 		team = TEAM_SPECTATOR;
 	}
-	else if ( g_maxGameClients.integer > 0 &&
-		level.numNonSpectatorClients >= g_maxGameClients.integer )
+	else if ( g_maxGameClients->integer > 0 &&
+		level.numNonSpectatorClients >= g_maxGameClients->integer )
 	{
 		team = TEAM_SPECTATOR;
 	}
@@ -1630,7 +1630,7 @@ void G_Say( gentity_t *ent, gentity_t *target, int mode, const char *chatText ) 
 	}
 
 	// echo the text to the console
-	if ( dedicated.integer ) {
+	if ( dedicated->integer ) {
 		Com_Printf( "%s%s\n", name, text);
 	}
 
@@ -2110,7 +2110,7 @@ void Svcmd_ToggleAllowVote_f( void ) {
 	if ( Cmd_Argc() == 1 ) {
 		int i = 0;
 		for ( i = 0; i<validVoteStringsSize; i++ ) {
-			if ( (g_allowVote.integer & (1 << i)) )	Com_Printf( "%2d [X] %s\n", i, validVoteStrings[i].string );
+			if ( (g_allowVote->integer & (1 << i)) )	Com_Printf( "%2d [X] %s\n", i, validVoteStrings[i].string );
 			else									Com_Printf( "%2d [ ] %s\n", i, validVoteStrings[i].string );
 		}
 		return;
@@ -2127,10 +2127,10 @@ void Svcmd_ToggleAllowVote_f( void ) {
 			return;
 		}
 
-		Cvar_Set( "g_allowVote", va( "%i", (1 << index) ^ (g_allowVote.integer & ((1 << validVoteStringsSize) - 1)) ) );
+		Cvar_Set( "g_allowVote", va( "%i", (1 << index) ^ (g_allowVote->integer & ((1 << validVoteStringsSize) - 1)) ) );
 		Cvar_Update( &g_allowVote );
 
-		Com_Printf( "%s %s^7\n", validVoteStrings[index].string, ((g_allowVote.integer & (1 << index)) ? "^2Enabled" : "^1Disabled") );
+		Com_Printf( "%s %s^7\n", validVoteStrings[index].string, ((g_allowVote->integer & (1 << index)) ? "^2Enabled" : "^1Disabled") );
 	}
 }
 
@@ -2141,7 +2141,7 @@ void Cmd_CallVote_f( gentity_t *ent ) {
 	voteString_t	*vote = NULL;
 
 	// not allowed to vote at all
-	if ( !g_allowVote.integer ) {
+	if ( !g_allowVote->integer ) {
 		SV_GameSendServerCommand( ent-g_entities, va( "print \"%s\n\"", G_GetStringEdString( "MP_SVGAME", "NOVOTE" ) ) );
 		return;
 	}
@@ -2172,7 +2172,7 @@ void Cmd_CallVote_f( gentity_t *ent ) {
 
 	// check for invalid votes
 	for ( i=0; i<validVoteStringsSize; i++ ) {
-		if ( !(g_allowVote.integer & (1<<i)) )
+		if ( !(g_allowVote->integer & (1<<i)) )
 			continue;
 
 		if ( !Q_stricmp( arg1, validVoteStrings[i].string ) )
@@ -2200,7 +2200,7 @@ void Cmd_CallVote_f( gentity_t *ent ) {
 		SV_GameSendServerCommand( ent-g_entities, "print \"Invalid vote string.\n\"" );
 		SV_GameSendServerCommand( ent-g_entities, "print \"Allowed vote strings are: \"" );
 		for ( i=0; i<validVoteStringsSize; i++ ) {
-			if ( !(g_allowVote.integer & (1<<i)) )
+			if ( !(g_allowVote->integer & (1<<i)) )
 				continue;
 
 			toggle = !toggle;
@@ -2236,7 +2236,7 @@ validVote:
 
 	level.votingGametype = qfalse;
 
-	level.voteExecuteDelay = vote->voteDelay ? g_voteDelay.integer : 0;
+	level.voteExecuteDelay = vote->voteDelay ? g_voteDelay->integer : 0;
 
 	// there is still a vote to be executed, execute it and store the new vote
 	if ( level.voteExecuteTime ) {
@@ -2364,7 +2364,7 @@ void Cmd_CallTeamVote_f( gentity_t *ent ) {
 		return;
 
 	// not allowed to vote at all
-	if ( !g_allowTeamVote.integer ) {
+	if ( !g_allowTeamVote->integer ) {
 		SV_GameSendServerCommand( ent-g_entities, va("print \"%s\n\"", G_GetStringEdString("MP_SVGAME", "NOVOTE")) );
 		return;
 	}
@@ -2743,7 +2743,6 @@ void Cmd_ToggleSaber_f(gentity_t *ent)
 	}
 }
 
-extern vmCvar_t		d_saberStanceDebug;
 
 extern qboolean WP_SaberCanTurnOffSomeBlades( saberInfo_t *saber );
 void Cmd_SaberAttackCycle_f(gentity_t *ent)
@@ -2813,7 +2812,7 @@ void Cmd_SaberAttackCycle_f(gentity_t *ent)
 				}
 			}
 
-			if (d_saberStanceDebug.integer)
+			if (d_saberStanceDebug->integer)
 			{
 				SV_GameSendServerCommand( ent-g_entities, va("print \"SABERSTANCEDEBUG: Attempted to toggle dual saber blade.\n\"") );
 			}
@@ -2827,7 +2826,7 @@ void Cmd_SaberAttackCycle_f(gentity_t *ent)
 		{//second blade off
 			if ( ent->client->ps.saberInFlight )
 			{//can't turn second blade back on if it's in the air, you naughty boy!
-				if (d_saberStanceDebug.integer)
+				if (d_saberStanceDebug->integer)
 				{
 					SV_GameSendServerCommand( ent-g_entities, va("print \"SABERSTANCEDEBUG: Attempted to toggle staff blade in air.\n\"") );
 				}
@@ -2878,7 +2877,7 @@ void Cmd_SaberAttackCycle_f(gentity_t *ent)
 				}
 			}
 		}
-		if (d_saberStanceDebug.integer)
+		if (d_saberStanceDebug->integer)
 		{
 			SV_GameSendServerCommand( ent-g_entities, va("print \"SABERSTANCEDEBUG: Attempted to toggle staff blade.\n\"") );
 		}
@@ -2917,7 +2916,7 @@ void Cmd_SaberAttackCycle_f(gentity_t *ent)
 			i++;
 		}
 
-		if (d_saberStanceDebug.integer)
+		if (d_saberStanceDebug->integer)
 		{
 			SV_GameSendServerCommand( ent-g_entities, va("print \"SABERSTANCEDEBUG: Attempted to cycle given class stance.\n\"") );
 		}
@@ -2929,7 +2928,7 @@ void Cmd_SaberAttackCycle_f(gentity_t *ent)
 		{
 			selectLevel = FORCE_LEVEL_1;
 		}
-		if (d_saberStanceDebug.integer)
+		if (d_saberStanceDebug->integer)
 		{
 			SV_GameSendServerCommand( ent-g_entities, va("print \"SABERSTANCEDEBUG: Attempted to cycle stance normally.\n\"") );
 		}
@@ -2990,7 +2989,7 @@ void Cmd_EngageDuel_f(gentity_t *ent)
 	trace_t tr;
 	vec3_t forward, fwdOrg;
 
-	if (!g_privateDuel.integer)
+	if (!g_privateDuel->integer)
 	{
 		return;
 	}
@@ -3456,7 +3455,7 @@ void ClientCommand( int clientNum ) {
 	}
 
 	else if ( (command->flags & CMD_CHEAT)
-		&& !sv_cheats.integer )
+		&& !sv_cheats->integer )
 	{
 		SV_GameSendServerCommand( clientNum, va( "print \"%s\n\"", G_GetStringEdString( "MP_SVGAME", "NOCHEATS" ) ) );
 		return;

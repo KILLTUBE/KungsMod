@@ -55,7 +55,7 @@ void *G_Alloc( int size ) {
 		return NULL;
 	}
 
-	if ( g_debugAlloc.integer ) {
+	if ( g_debugAlloc->integer ) {
 		Com_Printf( "G_Alloc of %i bytes (%i left)\n", size, POOLSIZE - allocPoint - ( ( size + 31 ) & ~31 ) );
 	}
 

@@ -297,7 +297,7 @@ void G_DebugPrint( int printLevel, const char *format, ... )
 
 	//Don't print messages they don't want to see
 	//if ( g_ICARUSDebug->integer < level )
-	if (developer.integer != 2)
+	if (developer->integer != 2)
 		return;
 
 	va_start( argptr, format );
@@ -1318,7 +1318,7 @@ int ICARUS_GetFloat( int entID, int type, const char *name, float *value )
 		break;
 
 	case SET_GRAVITY://## %f="0.0" # Change this ent's gravity - 800 default
-		*value = g_gravity.value;
+		*value = g_gravity->value;
 		break;
 
 	case SET_FACEEYESCLOSED:

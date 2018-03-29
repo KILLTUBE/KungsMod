@@ -87,7 +87,7 @@ void CorpsePhysics( gentity_t *self )
 
 	if ( level.time - self->s.time > 3000 )
 	{//been dead for 3 seconds
-		if ( g_dismember.integer < 11381138 && !g_saberRealisticCombat.integer )
+		if ( g_dismember->integer < 11381138 && !g_saberRealisticCombat->integer )
 		{//can't be dismembered once dead
 			if ( self->client->NPC_class != CLASS_PROTOCOL )
 			{
@@ -756,7 +756,7 @@ void NPC_HandleAIFlags (void)
 		if ( NPCS.NPCInfo->ffireFadeDebounce < level.time )
 		{
 			NPCS.NPCInfo->ffireCount--;
-			//Com_Printf( "drop: %d < %d\n", NPCInfo->ffireCount, 3+((2-g_npcspskill.integer)*2) );
+			//Com_Printf( "drop: %d < %d\n", NPCInfo->ffireCount, 3+((2-g_npcspskill->integer)*2) );
 			NPCS.NPCInfo->ffireFadeDebounce = level.time + 3000;
 		}
 	}
@@ -1800,7 +1800,7 @@ void NPC_Think ( gentity_t *self)//, int msec )
 	}
 
 	// see if NPC ai is frozen
-	if ( d_npcfreeze.value || (NPCS.NPC->r.svFlags&SVF_ICARUS_FREEZE) )
+	if ( d_npcfreeze->value || (NPCS.NPC->r.svFlags&SVF_ICARUS_FREEZE) )
 	{
 		NPC_UpdateAngles( qtrue, qtrue );
 		ClientThink(self->s.number, &NPCS.ucmd);
@@ -1870,7 +1870,7 @@ void NPC_Think ( gentity_t *self)//, int msec )
 			return;
 		}
 
-		if ( NPCS.NPC->s.weapon == WP_SABER && g_npcspskill.integer >= 2 && NPCS.NPCInfo->rank > RANK_LT_JG )
+		if ( NPCS.NPC->s.weapon == WP_SABER && g_npcspskill->integer >= 2 && NPCS.NPCInfo->rank > RANK_LT_JG )
 		{//Jedi think faster on hard difficulty, except low-rank (reborn)
 			NPCS.NPCInfo->nextBStateThink = level.time + FRAMETIME/2;
 		}
