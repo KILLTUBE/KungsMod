@@ -326,6 +326,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\codemp\cgame\cg_tempwrappers.c" />
+    <ClCompile Include="..\..\..\codemp\cgame\cg_tempwrappers_g2.c" />
     <ClCompile Include="..\..\..\codemp\game\bg_panimate.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
     </ClCompile>

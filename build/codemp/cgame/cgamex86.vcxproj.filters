@@ -172,6 +172,9 @@
     <ClCompile Include="..\..\..\codemp\cgame\cg_tempwrappers.c">
       <Filter>cgame</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\codemp\cgame\cg_tempwrappers_g2.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\game\anims.h">
