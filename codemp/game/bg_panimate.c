@@ -53,13 +53,7 @@ BEGIN: Animation utility functions (sequence checking)
 // need multiple copies of this, but it's much easier (and less likely to
 // break in the future) if I keep separate namespace versions now.
 
-int BG_GetTime(void)
-{
-	if (isGame())
-		return level.time;
-	else
-		return cg.time;
-}
+
 
 qboolean BG_SaberStanceAnim( int anim )
 {

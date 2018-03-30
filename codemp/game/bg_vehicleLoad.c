@@ -27,13 +27,10 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "bg_vehicles.h"
 #include "bg_weapons.h"
 
-#ifdef _GAME
-	#include "g_local.h"
-#elif _CGAME
-	#include "cgame/cg_local.h"
-#elif UI_BUILD
-	#include "ui/ui_local.h"
-#endif
+#include "g_local.h"
+#include "cgame/cg_local.h"
+#include "cgame/cg_tempwrappers.h"
+#include "ui/ui_local.h"
 
 extern stringID_table_t animTable [MAX_ANIMATIONS+1];
 
@@ -1446,15 +1443,16 @@ void BG_GetVehicleSkinName(char *skinname, int len)
 		Q_strncpyz( skinname, g_vehicleInfo[vIndex].skin, len );
 }
 
-#if defined(_GAME) || defined(_CGAME)
-//so cgame can assign the function pointer for the vehicle attachment without having to
-//bother with all the other funcs that don't really exist cgame-side.
-extern int BG_GetTime(void);
-void AttachRidersGeneric( Vehicle_t *pVeh )
-{
+int BG_GetTime(void) {
+	if (isGame())
+		return level.time;
+	else
+		return cg.time;
+}
+
+void AttachRidersGeneric( Vehicle_t *pVeh ) {
 	// If we have a pilot, attach him to the driver tag.
-	if ( pVeh->m_pPilot )
-	{
+	if ( pVeh->m_pPilot ) {
 		mdxaBone_t boltMatrix;
 		vec3_t	yawOnlyAngles;
 		bgEntity_t *parent = pVeh->m_pParentEntity;
@@ -1470,4 +1468,3 @@ void AttachRidersGeneric( Vehicle_t *pVeh )
 		BG_GiveMeVectorFromMatrix( &boltMatrix, ORIGIN, pilot->playerState->origin );
 	}
 }
-#endif

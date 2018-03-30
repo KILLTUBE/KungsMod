@@ -1342,11 +1342,10 @@ static void Saber_ParseG2MarksShader( saberInfo_t *saber, const char **p ) {
 		SkipRestOfLine( p );
 		return;
 	}
-#ifdef _CGAME
-	saber->g2MarksShader = R_RegisterShader( value );
-#else
-	SkipRestOfLine( p );
-#endif
+	if (isCGame())
+		saber->g2MarksShader = R_RegisterShader( value );
+	else
+		SkipRestOfLine( p );
 }
 static void Saber_ParseG2WeaponMarkShader( saberInfo_t *saber, const char **p ) {
 	const char *value;
@@ -1354,11 +1353,10 @@ static void Saber_ParseG2WeaponMarkShader( saberInfo_t *saber, const char **p ) 
 		SkipRestOfLine( p );
 		return;
 	}
-#ifdef _CGAME
-	saber->g2WeaponMarkShader = R_RegisterShader( value );
-#else
-	SkipRestOfLine( p );
-#endif
+	if (isCGame())
+		saber->g2WeaponMarkShader = R_RegisterShader( value );
+	else
+		SkipRestOfLine( p );
 }
 static void Saber_ParseKnockbackScale( saberInfo_t *saber, const char **p ) {
 	float f;
@@ -1503,41 +1501,37 @@ static void Saber_ParseBlockEffect( saberInfo_t *saber, const char **p ) {
 	const char *value;
 	if ( COM_ParseString( p, &value ) )
 		return;
-#ifdef _CGAME
-	saber->blockEffect = FX_RegisterEffect( value );
-#else
-	SkipRestOfLine( p );
-#endif
+	if (isCGame())
+		saber->blockEffect = FX_RegisterEffect( value );
+	else
+		SkipRestOfLine( p );
 }
 static void Saber_ParseHitPersonEffect( saberInfo_t *saber, const char **p ) {
 	const char *value;
 	if ( COM_ParseString( p, &value ) )
 		return;
-#ifdef _CGAME
-	saber->hitPersonEffect = FX_RegisterEffect( value );
-#else
-	SkipRestOfLine( p );
-#endif
+	if (isCGame())
+		saber->hitPersonEffect = FX_RegisterEffect( value );
+	else
+		SkipRestOfLine( p );
 }
 static void Saber_ParseHitOtherEffect( saberInfo_t *saber, const char **p ) {
 	const char *value;
 	if ( COM_ParseString( p, &value ) )
 		return;
-#ifdef _CGAME
-	saber->hitOtherEffect = FX_RegisterEffect( value );
-#else
-	SkipRestOfLine( p );
-#endif
+	if (isCGame())
+		saber->hitOtherEffect = FX_RegisterEffect( value );
+	else
+		SkipRestOfLine( p );
 }
 static void Saber_ParseBladeEffect( saberInfo_t *saber, const char **p ) {
 	const char *value;
 	if ( COM_ParseString( p, &value ) )
 		return;
-#ifdef _CGAME
-	saber->bladeEffect = FX_RegisterEffect( value );
-#else
-	SkipRestOfLine( p );
-#endif
+	if (isCGame())
+		saber->bladeEffect = FX_RegisterEffect( value );
+	else
+		SkipRestOfLine( p );
 }
 static void Saber_ParseNoClashFlare( saberInfo_t *saber, const char **p ) {
 	int n;
@@ -1589,11 +1583,10 @@ static void Saber_ParseG2MarksShader2( saberInfo_t *saber, const char **p ) {
 		SkipRestOfLine( p );
 		return;
 	}
-#ifdef _CGAME
-	saber->g2MarksShader2 = R_RegisterShader( value );
-#else
-	SkipRestOfLine( p );
-#endif
+	if (isCGame())
+		saber->g2MarksShader2 = R_RegisterShader( value );
+	else
+		SkipRestOfLine( p );
 }
 static void Saber_ParseG2WeaponMarkShader2( saberInfo_t *saber, const char **p ) {
 	const char *value;
@@ -1601,11 +1594,10 @@ static void Saber_ParseG2WeaponMarkShader2( saberInfo_t *saber, const char **p )
 		SkipRestOfLine( p );
 		return;
 	}
-#ifdef _CGAME
-	saber->g2WeaponMarkShader2 = R_RegisterShader( value );
-#else
-	SkipRestOfLine( p );
-#endif
+	if (isCGame())
+		saber->g2WeaponMarkShader2 = R_RegisterShader( value );
+	else
+		SkipRestOfLine( p );
 }
 static void Saber_ParseKnockbackScale2( saberInfo_t *saber, const char **p ) {
 	float f;
@@ -1750,41 +1742,37 @@ static void Saber_ParseBlockEffect2( saberInfo_t *saber, const char **p ) {
 	const char *value;
 	if ( COM_ParseString( p, &value ) )
 		return;
-#ifdef _CGAME
-	saber->blockEffect2 = FX_RegisterEffect( value );
-#else
-	SkipRestOfLine( p );
-#endif
+	if (isCGame())
+		saber->blockEffect2 = FX_RegisterEffect( value );
+	else
+		SkipRestOfLine( p );
 }
 static void Saber_ParseHitPersonEffect2( saberInfo_t *saber, const char **p ) {
 	const char *value;
 	if ( COM_ParseString( p, &value ) )
 		return;
-#ifdef _CGAME
-	saber->hitPersonEffect2 = FX_RegisterEffect( value );
-#else
-	SkipRestOfLine( p );
-#endif
+	if (isCGame())
+		saber->hitPersonEffect2 = FX_RegisterEffect( value );
+	else
+		SkipRestOfLine( p );
 }
 static void Saber_ParseHitOtherEffect2( saberInfo_t *saber, const char **p ) {
 	const char *value;
 	if ( COM_ParseString( p, &value ) )
 		return;
-#ifdef _CGAME
-	saber->hitOtherEffect2 = FX_RegisterEffect( value );
-#else
-	SkipRestOfLine( p );
-#endif
+	if (isCGame())
+		saber->hitOtherEffect2 = FX_RegisterEffect( value );
+	else
+		SkipRestOfLine( p );
 }
 static void Saber_ParseBladeEffect2( saberInfo_t *saber, const char **p ) {
 	const char *value;
 	if ( COM_ParseString( p, &value ) )
 		return;
-#ifdef _CGAME
-	saber->bladeEffect2 = FX_RegisterEffect( value );
-#else
-	SkipRestOfLine( p );
-#endif
+	if (isCGame())
+		saber->bladeEffect2 = FX_RegisterEffect( value );
+	else
+		SkipRestOfLine( p );
 }
 static void Saber_ParseNoClashFlare2( saberInfo_t *saber, const char **p ) {
 	int n;

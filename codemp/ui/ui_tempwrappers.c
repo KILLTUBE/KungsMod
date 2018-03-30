@@ -1,5 +1,14 @@
+
 #include "ui_tempwrappers.h"
+#include "game/g_local.h"
 #include "ui/ui_local.h"
+
+EXTERNC level_locals_t	level;
+EXTERNC cg_t			cg;
+
+level_locals_t	level;
+cg_t			cg;
+
 
 CCALL void Com_Printf( const char *fmt, ... ) {
 	// todo
@@ -131,7 +140,6 @@ CCALL int	FS_GetFileList( const char *path, const char *extension, char *listbuf
 	return 0;
 }
 
-#include "game/g_local.h"
 
 
 CCALL void Vehicle_SetAnim(gentity_t *ent,int setAnimParts,int anim,int setAnimFlags, int iBlend) {

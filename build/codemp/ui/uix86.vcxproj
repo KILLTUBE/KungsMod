@@ -325,7 +325,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\codemp\ui\ui_tempwrappers.c" />
+    <ClCompile Include="..\..\..\codemp\ui\ui_tempwrappers.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
     <ClCompile Include="..\..\..\codemp\ui\ui_tempwrappers_g2.c" />
     <ClCompile Include="C:\XycaRend2\codemp\game\bg_misc.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
