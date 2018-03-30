@@ -160,4 +160,33 @@ CCALL qhandle_t SV_RE_RegisterSkin( const char *name ) {
 	return 0;
 }
 
+CCALL void G_SetAnimalVehicleFunctions( vehicleInfo_t *pVehInfo ) {
+	__debugbreak();
+}
+CCALL void G_SetSpeederVehicleFunctions( vehicleInfo_t *pVehInfo ) {
+	__debugbreak();
+}
+CCALL void G_SetWalkerVehicleFunctions( vehicleInfo_t *pVehInfo ) {
+	__debugbreak();
+}
+CCALL void G_SetFighterVehicleFunctions( vehicleInfo_t *pVehInfo ) {
+	__debugbreak();
+}
+
+CCALL int G_ModelIndex( const char *name ) {
+	__debugbreak();
+	return 0;
+}
+
+CCALL int G_EffectIndex( const char *name ) {
+	__debugbreak();
+	return 0;
+}
+
+CCALL void G_SetSharedVehicleFunctions( vehicleInfo_t *pVehInfo ) {
+	__debugbreak();
+}
+
+
+
 cvar_t *bg_showevents = NULL;

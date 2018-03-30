@@ -39,3 +39,9 @@ CCALL int				FX_RegisterEffect					( const char *file ) {
 CCALL void CG_GetVehicleCamPos( vec3_t camPos ) {
 	__debugbreak();
 }
+
+
+CCALL const char *String_Alloc(const char *p) {
+	__debugbreak();
+	return "";
+}

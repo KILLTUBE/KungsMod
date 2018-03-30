@@ -3065,22 +3065,12 @@ int BG_ModelCache(const char *modelName, const char *skinName)
 		//now get rid of it
 		if ( g2 )
 			SV_G2API_CleanGhoul2Models( &g2 );
-
 		return 0;
 	} else {
-		if ( VALIDSTRING( skinName ) )
-		{
-			#ifdef _CGAME
-				trap->R_RegisterSkin( skinName );
-			#else // !_CGAME
-				trap->R_RegisterSkin( skinName );
-			#endif // _CGAME
+		if ( VALIDSTRING( skinName ) ) {
+			trap->R_RegisterSkin( skinName );
 		}
-		#ifdef _CGAME
-			return R_RegisterModel( modelName );
-		#else // !_CGAME
-			return R_RegisterModel( modelName );
-		#endif // _CGAME
+		return R_RegisterModel( modelName );
 	}
 }
 

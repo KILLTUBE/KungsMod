@@ -23,7 +23,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "q_platform.h"
-
+#include "rd-rend2/include_ccall.h"
 
 #if defined(__cplusplus)
 extern "C" {
@@ -140,16 +140,16 @@ float AngleDelta( float angle1, float angle2 );
 #define	YAW		1		// left / right
 #define	ROLL	2		// fall over
 
-qboolean PlaneFromPoints( vec4_t plane, const vec3_t a, const vec3_t b, const vec3_t c );
-void RotatePointAroundVector( vec3_t dst, const vec3_t dir, const vec3_t point, float degrees );
-void RotateAroundDirection( matrix3_t axis, float yaw );
-void vectoangles( const vec3_t value1, vec3_t angles );
-vec_t GetYawForDirection( const vec3_t p1, const vec3_t p2 );
-void GetAnglesForDirection( const vec3_t p1, const vec3_t p2, vec3_t out );
-void ProjectPointOnPlane( vec3_t dst, const vec3_t p, const vec3_t normal );
-qboolean G_FindClosestPointOnLineSegment( const vec3_t start, const vec3_t end, const vec3_t from, vec3_t result );
-float G_PointDistFromLineSegment( const vec3_t start, const vec3_t end, const vec3_t from );
-void MatrixMultiply(float in1[3][3], float in2[3][3], float out[3][3]);
+CCALL qboolean PlaneFromPoints( vec4_t plane, const vec3_t a, const vec3_t b, const vec3_t c );
+CCALL void RotatePointAroundVector( vec3_t dst, const vec3_t dir, const vec3_t point, float degrees );
+CCALL void RotateAroundDirection( matrix3_t axis, float yaw );
+CCALL void vectoangles( const vec3_t value1, vec3_t angles );
+CCALL vec_t GetYawForDirection( const vec3_t p1, const vec3_t p2 );
+CCALL void GetAnglesForDirection( const vec3_t p1, const vec3_t p2, vec3_t out );
+CCALL void ProjectPointOnPlane( vec3_t dst, const vec3_t p, const vec3_t normal );
+CCALL qboolean G_FindClosestPointOnLineSegment( const vec3_t start, const vec3_t end, const vec3_t from, vec3_t result );
+CCALL float G_PointDistFromLineSegment( const vec3_t start, const vec3_t end, const vec3_t from );
+CCALL void MatrixMultiply(float in1[3][3], float in2[3][3], float out[3][3]);
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -157,9 +157,9 @@ void MatrixMultiply(float in1[3][3], float in2[3][3], float out[3][3]);
 //      BOUNDING BOX
 //
 ///////////////////////////////////////////////////////////////////////////
-float RadiusFromBounds( const vec3_t mins, const vec3_t maxs );
-void ClearBounds( vec3_t mins, vec3_t maxs );
-void AddPointToBounds( const vec3_t v, vec3_t mins, vec3_t maxs );
+CCALL float RadiusFromBounds( const vec3_t mins, const vec3_t maxs );
+CCALL void ClearBounds( vec3_t mins, vec3_t maxs );
+CCALL void AddPointToBounds( const vec3_t v, vec3_t mins, vec3_t maxs );
 
 
 ///////////////////////////////////////////////////////////////////////////

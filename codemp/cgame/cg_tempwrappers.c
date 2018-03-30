@@ -117,3 +117,26 @@ CCALL qhandle_t SV_RE_RegisterSkin( const char *name ) {
 	__debugbreak();
 	return 0;
 }
+
+
+
+CCALL int G_ModelIndex( const char *name ) {
+	__debugbreak();
+	return 0;
+}
+
+CCALL int G_EffectIndex( const char *name ) {
+	__debugbreak();
+	return 0;
+}
+
+CCALL void G_SetSharedVehicleFunctions( vehicleInfo_t *pVehInfo ) {
+	__debugbreak();
+}
+
+#if 0
+CCALL const char *String_Alloc(const char *p) {
+	__debugbreak();
+	return "";
+}
+#endif

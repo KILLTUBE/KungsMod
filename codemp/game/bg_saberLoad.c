@@ -28,14 +28,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "bg_local.h"
 #include "w_saber.h"
 
-
 #include "g_local.h"
 #include "cgame/cg_local.h"
-//#elif UI_BUILD
-#ifdef UI_BUILD
 #include "ui/ui_local.h"
-#endif
-//#endif
 
 extern stringID_table_t animTable[MAX_ANIMATIONS+1];
 
@@ -2300,7 +2295,6 @@ void WP_SaberLoadParms( void )
 	}
 }
 
-#ifdef UI_BUILD
 qboolean WP_IsSaberTwoHanded( const char *saberName )
 {
 	int twoHanded;
@@ -2378,7 +2372,6 @@ void WP_SaberGetHiltInfo( const char *singleHilts[MAX_SABER_HILTS], const char *
 	singleHilts[numSingleHilts] = NULL;
 	staffHilts[numStaffHilts] = NULL;
 }
-#endif
 
 /*
 rww -

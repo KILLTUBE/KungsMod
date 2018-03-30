@@ -19,4 +19,13 @@ CCALL qhandle_t SV_RE_RegisterSkin( const char *name );
 CCALL void CG_GetVehicleCamPos( vec3_t camPos );
 CCALL void NPC_SetAnim(gentity_t *ent, int setAnimParts, int anim, int setAnimFlags);
 
+// for UI stuff
+CCALL const char *String_Alloc(const char *p);
+
+CCALL int G_ModelIndex( const char *name );
+
+CCALL int G_EffectIndex( const char *name );
+
+CCALL void G_SetSharedVehicleFunctions( vehicleInfo_t *pVehInfo );
+
 #endif

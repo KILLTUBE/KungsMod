@@ -1076,73 +1076,63 @@ void SaveRegisteredItems( void );
 //
 // g_utils.c
 //
-int		G_ModelIndex( const char *name );
-int		G_SoundIndex( const char *name );
-int		G_SoundSetIndex(const char *name);
-int		G_EffectIndex( const char *name );
-int		G_BSPIndex( const char *name );
-int		G_IconIndex( const char* name );
+CCALL int		G_ModelIndex( const char *name );
+CCALL int		G_SoundIndex( const char *name );
+CCALL int		G_SoundSetIndex(const char *name);
+CCALL int		G_EffectIndex( const char *name );
+CCALL int		G_BSPIndex( const char *name );
+CCALL int		G_IconIndex( const char* name );
 
-qboolean	G_PlayerHasCustomSkeleton(gentity_t *ent);
-
-void	G_TeamCommand( team_t team, char *cmd );
-void	G_ScaleNetHealth(gentity_t *self);
-void	G_KillBox (gentity_t *ent);
-gentity_t *G_Find (gentity_t *from, int fieldofs, const char *match);
-int		G_RadiusList ( vec3_t origin, float radius,	gentity_t *ignore, qboolean takeDamage, gentity_t *ent_list[MAX_GENTITIES]);
-
-void	G_Throw( gentity_t *targ, vec3_t newDir, float push );
-
-void	G_FreeFakeClient(gclient_t **cl);
-void	G_CreateFakeClient(int entNum, gclient_t **cl);
-void	G_CleanAllFakeClients(void);
-
-void	G_SetAnim(gentity_t *ent, usercmd_t *ucmd, int setAnimParts, int anim, int setAnimFlags, int blendTime);
-gentity_t *G_PickTarget (char *targetname);
-void	GlobalUse(gentity_t *self, gentity_t *other, gentity_t *activator);
-void	G_UseTargets2( gentity_t *ent, gentity_t *activator, const char *string );
-void	G_UseTargets (gentity_t *ent, gentity_t *activator);
-void	G_SetMovedir ( vec3_t angles, vec3_t movedir);
-void	G_SetAngles( gentity_t *ent, vec3_t angles );
-
-void	G_InitGentity( gentity_t *e );
-gentity_t	*G_Spawn (void);
-gentity_t *G_TempEntity( vec3_t origin, int event );
-gentity_t	*G_PlayEffect(int fxID, vec3_t org, vec3_t ang);
-gentity_t	*G_PlayEffectID(const int fxID, vec3_t org, vec3_t ang);
-gentity_t *G_ScreenShake(vec3_t org, gentity_t *target, float intensity, int duration, qboolean global);
-void	G_MuteSound( int entnum, int channel );
-void	G_Sound( gentity_t *ent, int channel, int soundIndex );
-void	G_SoundAtLoc( vec3_t loc, int channel, int soundIndex );
-void	G_EntitySound( gentity_t *ent, int channel, int soundIndex );
-void	TryUse( gentity_t *ent );
-void	G_SendG2KillQueue(void);
-void	G_KillG2Queue(int entNum);
-void	G_FreeEntity( gentity_t *e );
-qboolean	G_EntitiesFree( void );
-
-qboolean G_ActivateBehavior (gentity_t *self, int bset );
-
-void	G_TouchTriggers (gentity_t *ent);
-void	G_TouchSolids (gentity_t *ent);
-void	GetAnglesForDirection( const vec3_t p1, const vec3_t p2, vec3_t out );
+CCALL qboolean	G_PlayerHasCustomSkeleton(gentity_t *ent);
+CCALL void	G_TeamCommand( team_t team, char *cmd );
+CCALL void	G_ScaleNetHealth(gentity_t *self);
+CCALL void	G_KillBox (gentity_t *ent);
+CCALL gentity_t *G_Find (gentity_t *from, int fieldofs, const char *match);
+CCALL int		G_RadiusList ( vec3_t origin, float radius,	gentity_t *ignore, qboolean takeDamage, gentity_t *ent_list[MAX_GENTITIES]);
+CCALL void	G_Throw( gentity_t *targ, vec3_t newDir, float push );
+CCALL void	G_FreeFakeClient(gclient_t **cl);
+CCALL void	G_CreateFakeClient(int entNum, gclient_t **cl);
+CCALL void	G_CleanAllFakeClients(void);
+CCALL void	G_SetAnim(gentity_t *ent, usercmd_t *ucmd, int setAnimParts, int anim, int setAnimFlags, int blendTime);
+CCALL gentity_t *G_PickTarget (char *targetname);
+CCALL void	GlobalUse(gentity_t *self, gentity_t *other, gentity_t *activator);
+CCALL void	G_UseTargets2( gentity_t *ent, gentity_t *activator, const char *string );
+CCALL void	G_UseTargets (gentity_t *ent, gentity_t *activator);
+CCALL void	G_SetMovedir ( vec3_t angles, vec3_t movedir);
+CCALL void	G_SetAngles( gentity_t *ent, vec3_t angles );
+CCALL void	G_InitGentity( gentity_t *e );
+CCALL gentity_t	*G_Spawn (void);
+CCALL gentity_t *G_TempEntity( vec3_t origin, int event );
+CCALL gentity_t	*G_PlayEffect(int fxID, vec3_t org, vec3_t ang);
+CCALL gentity_t	*G_PlayEffectID(const int fxID, vec3_t org, vec3_t ang);
+CCALL gentity_t *G_ScreenShake(vec3_t org, gentity_t *target, float intensity, int duration, qboolean global);
+CCALL void	G_MuteSound( int entnum, int channel );
+CCALL void	G_Sound( gentity_t *ent, int channel, int soundIndex );
+CCALL void	G_SoundAtLoc( vec3_t loc, int channel, int soundIndex );
+CCALL void	G_EntitySound( gentity_t *ent, int channel, int soundIndex );
+CCALL void	TryUse( gentity_t *ent );
+CCALL void	G_SendG2KillQueue(void);
+CCALL void	G_KillG2Queue(int entNum);
+CCALL void	G_FreeEntity( gentity_t *e );
+CCALL qboolean	G_EntitiesFree( void );
+CCALL qboolean G_ActivateBehavior (gentity_t *self, int bset );
+CCALL void	G_TouchTriggers (gentity_t *ent);
+CCALL void	G_TouchSolids (gentity_t *ent);
+CCALL void	GetAnglesForDirection( const vec3_t p1, const vec3_t p2, vec3_t out );
 
 //
 // g_object.c
 //
 
-extern void G_RunObject			( gentity_t *ent );
-
-
-float	*tv (float x, float y, float z);
-char	*vtos( const vec3_t v );
-
-void G_AddPredictableEvent( gentity_t *ent, int event, int eventParm );
-void G_AddEvent( gentity_t *ent, int event, int eventParm );
-void G_SetOrigin( gentity_t *ent, vec3_t origin );
-qboolean G_CheckInSolid (gentity_t *self, qboolean fix);
-void AddRemap(const char *oldShader, const char *newShader, float timeOffset);
-const char *BuildShaderStateConfig(void);
+CCALL void G_RunObject			( gentity_t *ent );
+CCALL float	*tv (float x, float y, float z);
+CCALL char	*vtos( const vec3_t v );
+CCALL void G_AddPredictableEvent( gentity_t *ent, int event, int eventParm );
+CCALL void G_AddEvent( gentity_t *ent, int event, int eventParm );
+CCALL void G_SetOrigin( gentity_t *ent, vec3_t origin );
+CCALL qboolean G_CheckInSolid (gentity_t *self, qboolean fix);
+CCALL void AddRemap(const char *oldShader, const char *newShader, float timeOffset);
+CCALL const char *BuildShaderStateConfig(void);
 /*
 Ghoul2 Insert Start
 */
@@ -1155,15 +1145,15 @@ Ghoul2 Insert End
 //
 // g_combat.c
 //
-qboolean CanDamage (gentity_t *targ, vec3_t origin);
-void G_Damage (gentity_t *targ, gentity_t *inflictor, gentity_t *attacker, vec3_t dir, vec3_t point, int damage, int dflags, int mod);
-qboolean G_RadiusDamage (vec3_t origin, gentity_t *attacker, float damage, float radius, gentity_t *ignore, gentity_t *missile, int mod);
-void body_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int meansOfDeath );
-void TossClientWeapon(gentity_t *self, vec3_t direction, float speed);
-void TossClientItems( gentity_t *self );
-void TossClientCubes( gentity_t *self );
-void ExplodeDeath( gentity_t *self );
-void G_CheckForDismemberment(gentity_t *ent, gentity_t *enemy, vec3_t point, int damage, int deathAnim, qboolean postDeath);
+CCALL qboolean CanDamage (gentity_t *targ, vec3_t origin);
+CCALL void G_Damage (gentity_t *targ, gentity_t *inflictor, gentity_t *attacker, vec3_t dir, vec3_t point, int damage, int dflags, int mod);
+CCALL qboolean G_RadiusDamage (vec3_t origin, gentity_t *attacker, float damage, float radius, gentity_t *ignore, gentity_t *missile, int mod);
+CCALL void body_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int meansOfDeath );
+CCALL void TossClientWeapon(gentity_t *self, vec3_t direction, float speed);
+CCALL void TossClientItems( gentity_t *self );
+CCALL void TossClientCubes( gentity_t *self );
+CCALL void ExplodeDeath( gentity_t *self );
+CCALL void G_CheckForDismemberment(gentity_t *ent, gentity_t *enemy, vec3_t point, int damage, int deathAnim, qboolean postDeath);
 extern int gGAvoidDismember;
 
 

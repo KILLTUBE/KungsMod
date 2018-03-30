@@ -1283,12 +1283,12 @@ void BG_SiegeParseTeamFile(const char *filename)
 	}
 
 	//I don't entirely like doing things this way but it's the easiest way.
-	#ifdef _CGAME
+	if (isCGame()) {
 		if (BG_SiegeGetPairedValue(teamInfo, "FriendlyShader", parseBuf))
 			bgSiegeTeams[bgNumSiegeTeams].friendlyShader = R_RegisterShaderNoMip(parseBuf);
-	#else
+	} else {
 		bgSiegeTeams[bgNumSiegeTeams].friendlyShader = 0;
-	#endif
+	}
 
 	bgSiegeTeams[bgNumSiegeTeams].numClasses = 0;
 
