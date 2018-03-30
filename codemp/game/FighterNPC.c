@@ -23,11 +23,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "bg_public.h"
 #include "bg_vehicles.h"
 
-//#ifdef _GAME
-	#include "g_local.h"
-//#elif _CGAME
-	#include "cgame/cg_local.h"
-//#endif
+#include "g_local.h"
+#include "cgame/cg_local.h"
 
 
 

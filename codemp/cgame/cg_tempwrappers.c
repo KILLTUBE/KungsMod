@@ -99,6 +99,10 @@ CCALL void G_AllocateVehicleObject(Vehicle_t **pVeh) {
 
 }
 
+CCALL void WP_GetVehicleCamPos( gentity_t *ent, gentity_t *pilot, vec3_t camPos ) {
+	__debugbreak();
+}
+
 CCALL int	FS_GetFileList( const char *path, const char *extension, char *listbuf, int bufsize ) {
 	return trap->FS_GetFileList(path, extension, listbuf, bufsize);
 }

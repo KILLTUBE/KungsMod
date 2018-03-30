@@ -3406,11 +3406,10 @@ static void PM_WalkMove( void ) {
 	/*
 	if (pm->ps->clientNum >= MAX_CLIENTS)
 	{
-#ifdef _GAME
-		Com_Printf("^1S: %f, %f\n", wishspeed, pm->ps->speed);
-#else
-		Com_Printf("^2C: %f, %f\n", wishspeed, pm->ps->speed);
-#endif
+		if (isGame)
+			Com_Printf("^1S: %f, %f\n", wishspeed, pm->ps->speed);
+		else
+			Com_Printf("^2C: %f, %f\n", wishspeed, pm->ps->speed);
 	}
 	*/
 
@@ -5860,11 +5859,10 @@ int BG_VehTraceFromCamPos( trace_t *camTrace, bgEntity_t *bgEnt, const vec3_t en
 	vec3_t	viewDir2End, extraEnd, camPos;
 	float	minAutoAimDist;
 
-#ifdef _GAME
-	WP_GetVehicleCamPos( (gentity_t *)bgEnt, (gentity_t *)bgEnt->m_pVehicle->m_pPilot, camPos );
-#else
-	CG_GetVehicleCamPos( camPos );
-#endif
+	if (isGame())
+		WP_GetVehicleCamPos( (gentity_t *)bgEnt, (gentity_t *)bgEnt->m_pVehicle->m_pPilot, camPos );
+	else
+		CG_GetVehicleCamPos( camPos );
 
 	minAutoAimDist = Distance( entOrg, camPos ) + (bgEnt->m_pVehicle->m_pVehicleInfo->length/2.0f) + 200.0f;
 
@@ -10538,11 +10536,10 @@ void PmoveSingle (pmove_t *pmove) {
 	/*
 	if (pm->ps->clientNum >= MAX_CLIENTS)
 	{
-#ifdef _GAME
-		Com_Printf( S_C0LOR_RED" SERVER N%i msec %d\n", pm->ps->clientNum, pml.msec );
-#else
-		Com_Printf( S_COLOR_GREEN" CLIENT N%i msec %d\n", pm->ps->clientNum, pml.msec );
-#endif
+		if (isGame())
+			Com_Printf( S_C0LOR_RED" SERVER N%i msec %d\n", pm->ps->clientNum, pml.msec );
+		else
+			Com_Printf( S_COLOR_GREEN" CLIENT N%i msec %d\n", pm->ps->clientNum, pml.msec );
 	}
 	*/
 
@@ -10836,8 +10833,7 @@ void PmoveSingle (pmove_t *pmove) {
 	PM_DropTimers();
 
 #ifdef _TESTING_VEH_PREDICTION
-#ifndef _GAME
-	{
+	if ( ! isGame()) {
 		vec3_t blah;
 		VectorMA(pm->ps->origin, 128.0f, pm->ps->moveDir, blah);
 		CG_TestLine(pm->ps->origin, blah, 1, 0x0000ff, 1);
@@ -10845,7 +10841,6 @@ void PmoveSingle (pmove_t *pmove) {
 		VectorMA(pm->ps->origin, 1.0f, pm->ps->velocity, blah);
 		CG_TestLine(pm->ps->origin, blah, 1, 0xff0000, 1);
 	}
-#endif
 #endif
 
 	if (pm_entSelf->s.NPC_class!=CLASS_VEHICLE
