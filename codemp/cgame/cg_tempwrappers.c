@@ -95,11 +95,16 @@ CCALL int		FS_FOpenFileByMode( const char *qpath, fileHandle_t *f, fsMode_t mode
 }
 
 
+gentity_t g_entities[1024];
 CCALL void G_AllocateVehicleObject(Vehicle_t **pVeh) {
 
 }
 
 CCALL void WP_GetVehicleCamPos( gentity_t *ent, gentity_t *pilot, vec3_t camPos ) {
+	__debugbreak();
+}
+
+CCALL void NPC_SetAnim(gentity_t *ent, int setAnimParts, int anim, int setAnimFlags) {
 	__debugbreak();
 }
 

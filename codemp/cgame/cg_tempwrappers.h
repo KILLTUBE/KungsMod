@@ -17,6 +17,6 @@ CCALL int				FX_RegisterEffect					( const char *file );
 CCALL qhandle_t SV_RE_RegisterSkin( const char *name );
 
 CCALL void CG_GetVehicleCamPos( vec3_t camPos );
-
+CCALL void NPC_SetAnim(gentity_t *ent, int setAnimParts, int anim, int setAnimFlags);
 
 #endif

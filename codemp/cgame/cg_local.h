@@ -1639,77 +1639,74 @@ typedef struct siegeExtended_s
 } siegeExtended_t;
 
 //keep an entry available for each client
-extern siegeExtended_t cg_siegeExtendedData[MAX_CLIENTS];
+EXTERNC  siegeExtended_t cg_siegeExtendedData[MAX_CLIENTS];
 
 //==============================================================================
 
-extern	cgs_t			cgs;
-extern	cg_t			cg;
-extern	centity_t		cg_entities[MAX_GENTITIES];
+EXTERNC	cgs_t			cgs;
+EXTERNC	cg_t			cg;
+EXTERNC	centity_t		cg_entities[MAX_GENTITIES];
 
-extern	centity_t		*cg_permanents[MAX_GENTITIES];
-extern	int				cg_numpermanents;
+EXTERNC	centity_t		*cg_permanents[MAX_GENTITIES];
+EXTERNC	int				cg_numpermanents;
 
-extern	weaponInfo_t	cg_weapons[MAX_WEAPONS];
-extern	itemInfo_t		cg_items[MAX_ITEMS];
-extern	markPoly_t		cg_markPolys[MAX_MARK_POLYS];
+EXTERNC	weaponInfo_t	cg_weapons[MAX_WEAPONS];
+EXTERNC	itemInfo_t		cg_items[MAX_ITEMS];
+EXTERNC	markPoly_t		cg_markPolys[MAX_MARK_POLYS];
 
 // cg_cvar.c
 #define XCVAR_PROTO
 	#include "cg_xcvar.h"
 #undef XCVAR_PROTO
-void CG_RegisterCvars( void );
-void CG_UpdateCvars( void );
+EXTERNC void CG_RegisterCvars( void );
+EXTERNC void CG_UpdateCvars( void );
 
 //
 // cg_main.c
 //
-const char *CG_ConfigString( int index );
-const char *CG_Argv( int arg );
-
-void CG_StartMusic( qboolean bForceStart );
-
-void CG_UpdateCvars( void );
-
-int CG_CrosshairPlayer( void );
-int CG_LastAttacker( void );
-void CG_LoadMenus(const char *menuFile);
-void CG_KeyEvent(int key, qboolean down);
-void CG_MouseEvent(int x, int y);
-void CG_EventHandling(int type);
-void CG_RankRunFrame( void );
-void CG_SetScoreSelection(void *menu);
-void CG_BuildSpectatorString(void);
-void CG_NextInventory_f(void);
-void CG_PrevInventory_f(void);
-void CG_NextForcePower_f(void);
-void CG_PrevForcePower_f(void);
+EXTERNC const char *CG_ConfigString( int index );
+EXTERNC const char *CG_Argv( int arg );
+EXTERNC void CG_StartMusic( qboolean bForceStart );
+EXTERNC void CG_UpdateCvars( void );
+EXTERNC int CG_CrosshairPlayer( void );
+EXTERNC int CG_LastAttacker( void );
+EXTERNC void CG_LoadMenus(const char *menuFile);
+EXTERNC void CG_KeyEvent(int key, qboolean down);
+EXTERNC void CG_MouseEvent(int x, int y);
+EXTERNC void CG_EventHandling(int type);
+EXTERNC void CG_RankRunFrame( void );
+EXTERNC void CG_SetScoreSelection(void *menu);
+EXTERNC void CG_BuildSpectatorString(void);
+EXTERNC void CG_NextInventory_f(void);
+EXTERNC void CG_PrevInventory_f(void);
+EXTERNC void CG_NextForcePower_f(void);
+EXTERNC void CG_PrevForcePower_f(void);
 
 //
 // cg_view.c
 //
-void CG_TestModel_f (void);
-void CG_TestGun_f (void);
-void CG_TestModelNextFrame_f (void);
-void CG_TestModelPrevFrame_f (void);
-void CG_TestModelNextSkin_f (void);
-void CG_TestModelPrevSkin_f (void);
-void CG_ZoomDown_f( void );
-void CG_ZoomUp_f( void );
-void CG_AddBufferedSound( sfxHandle_t sfx);
+EXTERNC void CG_TestModel_f (void);
+EXTERNC void CG_TestGun_f (void);
+EXTERNC void CG_TestModelNextFrame_f (void);
+EXTERNC void CG_TestModelPrevFrame_f (void);
+EXTERNC void CG_TestModelNextSkin_f (void);
+EXTERNC void CG_TestModelPrevSkin_f (void);
+EXTERNC void CG_ZoomDown_f( void );
+EXTERNC void CG_ZoomUp_f( void );
+EXTERNC void CG_AddBufferedSound( sfxHandle_t sfx);
 
 void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolean demoPlayback );
 /*
 Ghoul2 Insert Start
 */
 
-void CG_TestG2Model_f (void);
-void CG_TestModelSurfaceOnOff_f(void);
-void CG_ListModelSurfaces_f (void);
-void CG_ListModelBones_f (void);
-void CG_TestModelSetAnglespre_f(void);
-void CG_TestModelSetAnglespost_f(void);
-void CG_TestModelAnimate_f(void);
+EXTERNC void CG_TestG2Model_f (void);
+EXTERNC void CG_TestModelSurfaceOnOff_f(void);
+EXTERNC void CG_ListModelSurfaces_f (void);
+EXTERNC void CG_ListModelBones_f (void);
+EXTERNC void CG_TestModelSetAnglespre_f(void);
+EXTERNC void CG_TestModelSetAnglespost_f(void);
+EXTERNC void CG_TestModelAnimate_f(void);
 /*
 Ghoul2 Insert End
 */
@@ -1717,87 +1714,87 @@ Ghoul2 Insert End
 //
 // cg_drawtools.c
 //
-void CG_FillRect( float x, float y, float width, float height, const float *color );
-void CG_DrawPic( float x, float y, float width, float height, qhandle_t hShader );
-void CG_DrawRotatePic( float x, float y, float width, float height,float angle, qhandle_t hShader );
-void CG_DrawRotatePic2( float x, float y, float width, float height,float angle, qhandle_t hShader );
-void CG_DrawString( float x, float y, const char *string,
+EXTERNC void CG_FillRect( float x, float y, float width, float height, const float *color );
+EXTERNC void CG_DrawPic( float x, float y, float width, float height, qhandle_t hShader );
+EXTERNC void CG_DrawRotatePic( float x, float y, float width, float height,float angle, qhandle_t hShader );
+EXTERNC void CG_DrawRotatePic2( float x, float y, float width, float height,float angle, qhandle_t hShader );
+EXTERNC void CG_DrawString( float x, float y, const char *string,
 				   float charWidth, float charHeight, const float *modulate );
 
-void CG_DrawNumField (int x, int y, int width, int value,int charWidth,int charHeight,int style,qboolean zeroFill);
+EXTERNC void CG_DrawNumField (int x, int y, int width, int value,int charWidth,int charHeight,int style,qboolean zeroFill);
 
-void CG_DrawStringExt( int x, int y, const char *string, const float *setColor,
+EXTERNC void CG_DrawStringExt( int x, int y, const char *string, const float *setColor,
 		qboolean forceColor, qboolean shadow, int charWidth, int charHeight, int maxChars );
-void CG_DrawBigString( int x, int y, const char *s, float alpha );
-void CG_DrawBigStringColor( int x, int y, const char *s, vec4_t color );
-void CG_DrawSmallString( int x, int y, const char *s, float alpha );
-void CG_DrawSmallStringColor( int x, int y, const char *s, vec4_t color );
+EXTERNC void CG_DrawBigString( int x, int y, const char *s, float alpha );
+EXTERNC void CG_DrawBigStringColor( int x, int y, const char *s, vec4_t color );
+EXTERNC void CG_DrawSmallString( int x, int y, const char *s, float alpha );
+EXTERNC void CG_DrawSmallStringColor( int x, int y, const char *s, vec4_t color );
 
-int CG_DrawStrlen( const char *str );
+EXTERNC int CG_DrawStrlen( const char *str );
 
-float	*CG_FadeColor( int startMsec, int totalMsec );
-float *CG_TeamColor( int team );
-void CG_TileClear( void );
-void CG_ColorForHealth( vec4_t hcolor );
-void CG_GetColorForHealth( int health, int armor, vec4_t hcolor );
+EXTERNC float	*CG_FadeColor( int startMsec, int totalMsec );
+EXTERNC float *CG_TeamColor( int team );
+EXTERNC void CG_TileClear( void );
+EXTERNC void CG_ColorForHealth( vec4_t hcolor );
+EXTERNC void CG_GetColorForHealth( int health, int armor, vec4_t hcolor );
 
-void CG_DrawProportionalString( int x, int y, const char* str, int style, vec4_t color );
-void CG_DrawScaledProportionalString( int x, int y, const char* str, int style, vec4_t color, float scale);
-void CG_DrawRect( float x, float y, float width, float height, float size, const float *color );
-void CG_DrawSides(float x, float y, float w, float h, float size);
-void CG_DrawTopBottom(float x, float y, float w, float h, float size);
+EXTERNC void CG_DrawProportionalString( int x, int y, const char* str, int style, vec4_t color );
+EXTERNC void CG_DrawScaledProportionalString( int x, int y, const char* str, int style, vec4_t color, float scale);
+EXTERNC void CG_DrawRect( float x, float y, float width, float height, float size, const float *color );
+EXTERNC void CG_DrawSides(float x, float y, float w, float h, float size);
+EXTERNC void CG_DrawTopBottom(float x, float y, float w, float h, float size);
 
 //
 // cg_draw.c, cg_newDraw.c
 //
-extern	int sortedTeamPlayers[TEAM_MAXOVERLAY];
-extern	int	numSortedTeamPlayers;
-extern  char systemChat[256];
+EXTERNC int sortedTeamPlayers[TEAM_MAXOVERLAY];
+EXTERNC int	numSortedTeamPlayers;
+EXTERNC char systemChat[256];
 
-void CG_AddLagometerFrameInfo( void );
-void CG_AddLagometerSnapshotInfo( snapshot_t *snap );
-void CG_CenterPrint( const char *str, int y, int charWidth );
-void CG_DrawHead( float x, float y, float w, float h, int clientNum, vec3_t headAngles );
-void CG_DrawActive( stereoFrame_t stereoView );
-void CG_DrawFlagModel( float x, float y, float w, float h, int team, qboolean force2D );
-void CG_DrawTeamBackground( int x, int y, int w, int h, float alpha, int team );
-void CG_OwnerDraw(float x, float y, float w, float h, float text_x, float text_y, int ownerDraw, int ownerDrawFlags, int align, float special, float scale, vec4_t color, qhandle_t shader, int textStyle,int font);
-void CG_Text_Paint(float x, float y, float scale, vec4_t color, const char *text, float adjust, int limit, int style, int iMenuFont);
-int CG_Text_Width(const char *text, float scale, int iMenuFont);
-int CG_Text_Height(const char *text, float scale, int iMenuFont);
-float CG_GetValue(int ownerDraw);
-qboolean CG_OwnerDrawVisible(int flags);
-void CG_RunMenuScript(char **args);
-qboolean CG_DeferMenuScript(char **args);
-void CG_ShowResponseHead(void);
-void CG_GetTeamColor(vec4_t *color);
-const char *CG_GetGameStatusText(void);
-const char *CG_GetKillerText(void);
-void CG_Draw3DModel( float x, float y, float w, float h, qhandle_t model, void *ghoul2, int g2radius, qhandle_t skin, vec3_t origin, vec3_t angles );
-void CG_Text_PaintChar(float x, float y, float width, float height, float scale, float s, float t, float s2, float t2, qhandle_t hShader);
-qboolean CG_YourTeamHasFlag(void);
-qboolean CG_OtherTeamHasFlag(void);
-qhandle_t CG_StatusHandle(int task);
+EXTERNC void CG_AddLagometerFrameInfo( void );
+EXTERNC void CG_AddLagometerSnapshotInfo( snapshot_t *snap );
+EXTERNC void CG_CenterPrint( const char *str, int y, int charWidth );
+EXTERNC void CG_DrawHead( float x, float y, float w, float h, int clientNum, vec3_t headAngles );
+EXTERNC void CG_DrawActive( stereoFrame_t stereoView );
+EXTERNC void CG_DrawFlagModel( float x, float y, float w, float h, int team, qboolean force2D );
+EXTERNC void CG_DrawTeamBackground( int x, int y, int w, int h, float alpha, int team );
+EXTERNC void CG_OwnerDraw(float x, float y, float w, float h, float text_x, float text_y, int ownerDraw, int ownerDrawFlags, int align, float special, float scale, vec4_t color, qhandle_t shader, int textStyle,int font);
+EXTERNC void CG_Text_Paint(float x, float y, float scale, vec4_t color, const char *text, float adjust, int limit, int style, int iMenuFont);
+EXTERNC int CG_Text_Width(const char *text, float scale, int iMenuFont);
+EXTERNC int CG_Text_Height(const char *text, float scale, int iMenuFont);
+EXTERNC float CG_GetValue(int ownerDraw);
+EXTERNC qboolean CG_OwnerDrawVisible(int flags);
+EXTERNC void CG_RunMenuScript(char **args);
+EXTERNC qboolean CG_DeferMenuScript(char **args);
+EXTERNC void CG_ShowResponseHead(void);
+EXTERNC void CG_GetTeamColor(vec4_t *color);
+EXTERNC const char *CG_GetGameStatusText(void);
+EXTERNC const char *CG_GetKillerText(void);
+EXTERNC void CG_Draw3DModel( float x, float y, float w, float h, qhandle_t model, void *ghoul2, int g2radius, qhandle_t skin, vec3_t origin, vec3_t angles );
+EXTERNC void CG_Text_PaintChar(float x, float y, float width, float height, float scale, float s, float t, float s2, float t2, qhandle_t hShader);
+EXTERNC qboolean CG_YourTeamHasFlag(void);
+EXTERNC qboolean CG_OtherTeamHasFlag(void);
+EXTERNC qhandle_t CG_StatusHandle(int task);
 
 
 
 //
 // cg_player.c
 //
-qboolean CG_RagDoll(centity_t *cent, vec3_t forcedAngles);
-qboolean CG_G2TraceCollide(trace_t *tr, const vec3_t mins, const vec3_t maxs, const vec3_t lastValidStart, const vec3_t lastValidEnd);
-void CG_AddGhoul2Mark(int shader, float size, vec3_t start, vec3_t end, int entnum,
+EXTERNC qboolean CG_RagDoll(centity_t *cent, vec3_t forcedAngles);
+EXTERNC qboolean CG_G2TraceCollide(trace_t *tr, const vec3_t mins, const vec3_t maxs, const vec3_t lastValidStart, const vec3_t lastValidEnd);
+EXTERNC void CG_AddGhoul2Mark(int shader, float size, vec3_t start, vec3_t end, int entnum,
 					  vec3_t entposition, float entangle, void *ghoul2, vec3_t scale, int lifeTime);
 
-void CG_CreateNPCClient(clientInfo_t **ci);
-void CG_DestroyNPCClient(clientInfo_t **ci);
+EXTERNC void CG_CreateNPCClient(clientInfo_t **ci);
+EXTERNC void CG_DestroyNPCClient(clientInfo_t **ci);
 
-void CG_Player( centity_t *cent );
-void CG_ResetPlayerEntity( centity_t *cent );
-void CG_AddRefEntityWithPowerups( refEntity_t *ent, entityState_t *state, int team );
-void CG_NewClientInfo( int clientNum, qboolean entitiesInitialized );
-sfxHandle_t	CG_CustomSound( int clientNum, const char *soundName );
-void CG_PlayerShieldHit(int entitynum, vec3_t angles, int amount);
+EXTERNC void CG_Player( centity_t *cent );
+EXTERNC void CG_ResetPlayerEntity( centity_t *cent );
+EXTERNC void CG_AddRefEntityWithPowerups( refEntity_t *ent, entityState_t *state, int team );
+EXTERNC void CG_NewClientInfo( int clientNum, qboolean entitiesInitialized );
+EXTERNC sfxHandle_t	CG_CustomSound( int clientNum, const char *soundName );
+EXTERNC void CG_PlayerShieldHit(int entitynum, vec3_t angles, int amount);
 
 
 //

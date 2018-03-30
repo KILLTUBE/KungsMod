@@ -22,9 +22,12 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "qcommon/q_shared.h"
+#include "game/g_local.h"
 #include "bg_public.h"
 #include "bg_local.h"
 #include "w_saber.h"
+#include "cgame/cg_local.h"
+#include "../cgame/cg_tempwrappers.h"
 
 extern qboolean BG_SabersOff( playerState_t *ps );
 saberInfo_t *BG_MySaber( int clientNum, int saberNum );
@@ -906,15 +909,6 @@ int PM_SaberLockWinAnim( qboolean victory, qboolean superBreak )
 	return winAnim;
 }
 
-// Need to avoid nesting namespaces!
-#ifdef _GAME //including game headers on cgame is FORBIDDEN ^_^
-	#include "g_local.h"
-	extern void NPC_SetAnim(gentity_t *ent, int setAnimParts, int anim, int setAnimFlags);
-	extern gentity_t g_entities[];
-#elif defined(_CGAME)
-	#include "cgame/cg_local.h" //ahahahahhahahaha@$!$!
-#endif
-
 int PM_SaberLockLoseAnim( playerState_t *genemy, qboolean victory, qboolean superBreak )
 {
 	int loseAnim = -1;
@@ -1033,10 +1027,10 @@ int PM_SaberLockLoseAnim( playerState_t *genemy, qboolean victory, qboolean supe
 	}
 	if ( loseAnim != -1 )
 	{
-#ifdef _GAME
-		NPC_SetAnim( &g_entities[genemy->clientNum], SETANIM_BOTH, loseAnim, SETANIM_FLAG_OVERRIDE|SETANIM_FLAG_HOLD );
-		genemy->weaponTime = genemy->torsoTimer;// + 250;
-#endif
+		if (isGame()) {
+			NPC_SetAnim( &g_entities[genemy->clientNum], SETANIM_BOTH, loseAnim, SETANIM_FLAG_OVERRIDE|SETANIM_FLAG_HOLD );
+			genemy->weaponTime = genemy->torsoTimer;// + 250;
+		}
 		genemy->saberBlocked = BLOCKED_NONE;
 		genemy->weaponstate = WEAPON_READY;
 	}
@@ -1087,19 +1081,19 @@ int PM_SaberLockResultAnim( playerState_t *duelist, qboolean superBreak, qboolea
 	}
 
 	//play the anim and hold it
-#ifdef _GAME
-	//server-side: set it on the other guy, too
-	if ( duelist->clientNum == pm->ps->clientNum )
-	{//me
+	if (isGame()) {
+		//server-side: set it on the other guy, too
+		if ( duelist->clientNum == pm->ps->clientNum )
+		{//me
+			PM_SetAnim( SETANIM_BOTH, baseAnim, SETANIM_FLAG_OVERRIDE|SETANIM_FLAG_HOLD );
+		}
+		else
+		{//other guy
+			NPC_SetAnim( &g_entities[duelist->clientNum], SETANIM_BOTH, baseAnim, SETANIM_FLAG_OVERRIDE|SETANIM_FLAG_HOLD );
+		}
+	} else {
 		PM_SetAnim( SETANIM_BOTH, baseAnim, SETANIM_FLAG_OVERRIDE|SETANIM_FLAG_HOLD );
 	}
-	else
-	{//other guy
-		NPC_SetAnim( &g_entities[duelist->clientNum], SETANIM_BOTH, baseAnim, SETANIM_FLAG_OVERRIDE|SETANIM_FLAG_HOLD );
-	}
-#else
-	PM_SetAnim( SETANIM_BOTH, baseAnim, SETANIM_FLAG_OVERRIDE|SETANIM_FLAG_HOLD );
-#endif
 
 	if ( superBreak
 		&& !won )
@@ -1115,12 +1109,9 @@ int PM_SaberLockResultAnim( playerState_t *duelist, qboolean superBreak, qboolea
 			G_SetOrigin(saberent, duelist->currentOrigin);
 		}
 		*/
-#ifdef _GAME
-		if ( 1 )
-#else
-		if ( duelist->clientNum == pm->ps->clientNum )
-#endif
-		{
+
+		// game: always, cgame: conditional
+		if ( isGame() || duelist->clientNum == pm->ps->clientNum ) {
 			//set sabermove to none
 			duelist->saberMove = LS_NONE;
 			//Hold the anim a little longer than it is
@@ -1128,12 +1119,8 @@ int PM_SaberLockResultAnim( playerState_t *duelist, qboolean superBreak, qboolea
 		}
 	}
 
-#ifdef _GAME
-	if ( 1 )
-#else
-	if ( duelist->clientNum == pm->ps->clientNum )
-#endif
-	{
+	// game: always, cgame: conditional
+	if ( isGame() || duelist->clientNum == pm->ps->clientNum ) {
 		//no attacking during this anim
 		duelist->weaponTime = duelist->torsoTimer;
 		duelist->saberBlocked = BLOCKED_NONE;
@@ -4008,40 +3995,31 @@ void PM_SetSaberMove(short newMove)
 saberInfo_t *BG_MySaber( int clientNum, int saberNum )
 {
 	//returns a pointer to the requested saberNum
-#ifdef _GAME
-	gentity_t *ent = &g_entities[clientNum];
-	if ( ent->inuse && ent->client )
-	{
-		if ( !ent->client->saber[saberNum].model[0] )
-		{ //don't have saber anymore!
-			return NULL;
+	if (isGame()) {
+		gentity_t *ent = &g_entities[clientNum];
+		if ( ent->inuse && ent->client ) {
+			if ( !ent->client->saber[saberNum].model[0] ) { //don't have saber anymore!
+				return NULL;
+			}
+			return &ent->client->saber[saberNum];
 		}
-		return &ent->client->saber[saberNum];
-	}
-#elif defined(_CGAME)
-	clientInfo_t *ci = NULL;
-	if (clientNum < MAX_CLIENTS)
-	{
-		ci = &cgs.clientinfo[clientNum];
-	}
-	else
-	{
-		centity_t *cent = &cg_entities[clientNum];
-		if (cent->npcClient)
-		{
-			ci = cent->npcClient;
+	} else {
+		clientInfo_t *ci = NULL;
+		if (clientNum < MAX_CLIENTS) {
+			ci = &cgs.clientinfo[clientNum];
+		} else {
+			centity_t *cent = &cg_entities[clientNum];
+			if (cent->npcClient) {
+				ci = cent->npcClient;
+			}
+		}
+		if ( ci && ci->infoValid ) {
+			if ( !ci->saber[saberNum].model[0] ) { //don't have sabers anymore!
+				return NULL;
+			}
+			return &ci->saber[saberNum];
 		}
 	}
-	if ( ci
-		&& ci->infoValid )
-	{
-		if ( !ci->saber[saberNum].model[0] )
-		{ //don't have sabers anymore!
-			return NULL;
-		}
-		return &ci->saber[saberNum];
-	}
-#endif
 
 	return NULL;
 }

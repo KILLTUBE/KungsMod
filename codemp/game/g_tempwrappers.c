@@ -2,6 +2,8 @@
 
 // these functions should probably never be called from GAME...
 
+centity_t			cg_entities[MAX_GENTITIES];
+cgs_t				cgs;
 
 CCALL qhandle_t		R_RegisterFont						( const char *fontName ) {
 	__debugbreak();
