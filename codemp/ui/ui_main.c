@@ -10550,7 +10550,7 @@ GetModuleAPI
 
 uiImport_t *trap = NULL;
 
-Q_EXPORT uiExport_t* QDECL GetModuleAPI( int apiVersion, uiImport_t *import )
+Q_EXPORT uiExport_t* QDECL GetModuleAPI_UI( int apiVersion, uiImport_t *import )
 {
 	static uiExport_t uie = {0};
 
