@@ -18,7 +18,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-// cl_uiapi.c  -- client system interaction with client game
 #include "qcommon/RoffSystem.h"
 #include "qcommon/stringed_ingame.h"
 #include "qcommon/timing.h"
@@ -33,108 +32,72 @@ extern IHeapAllocator *G2VertSpaceClient;
 extern botlib_export_t *botlib_export;
 
 // ui interface
-static uiExport_t *uie; // ui export table
 static vm_t *uivm; // ui vm, valid for legacy and new api
 
-//
-// ui vmMain calls
-//
+
+CCALL void UI_Init( qboolean inGameLoad );
+CCALL void UI_Shutdown( void );
+CCALL void UI_KeyEvent( int key, qboolean down );
+CCALL void UI_MouseEvent( int dx, int dy );
+CCALL void UI_Refresh( int realtime );
+CCALL qboolean Menus_AnyFullScreenVisible( void );
+CCALL void UI_SetActiveMenu( uiMenuCommand_t menu );
+CCALL qboolean UI_ConsoleCommand( int realTime );
+CCALL void UI_DrawConnectScreen( qboolean overlay );
+CCALL void Menu_Reset(void);
+
+
+
+
 
 void UIVM_Init( qboolean inGameLoad ) {
-	if ( uivm->isLegacy ) {
-		VM_Call( uivm, UI_INIT, inGameLoad );
-		return;
-	}
 	VMSwap v( uivm );
-
-	uie->Init( inGameLoad );
+	UI_Init( inGameLoad );
 }
 
 void UIVM_Shutdown( void ) {
-	if ( uivm->isLegacy ) {
-		VM_Call( uivm, UI_SHUTDOWN );
-		VM_Call( uivm, UI_MENU_RESET );
-		return;
-	}
 	VMSwap v( uivm );
-
-	uie->Shutdown();
-	uie->MenuReset();
+	UI_Shutdown();
+	Menu_Reset();
 }
 
 void UIVM_KeyEvent( int key, qboolean down ) {
-	if ( uivm->isLegacy ) {
-		VM_Call( uivm, UI_KEY_EVENT, key, down );
-		return;
-	}
 	VMSwap v( uivm );
-
-	uie->KeyEvent( key, down );
+	UI_KeyEvent( key, down );
 }
 
 void UIVM_MouseEvent( int dx, int dy ) {
-	if ( uivm->isLegacy ) {
-		VM_Call( uivm, UI_MOUSE_EVENT, dx, dy );
-		return;
-	}
 	VMSwap v( uivm );
-
-	uie->MouseEvent( dx, dy );
+	UI_MouseEvent( dx, dy );
 }
 
 void UIVM_Refresh( int realtime ) {
-	if ( uivm->isLegacy ) {
-		VM_Call( uivm, UI_REFRESH, realtime );
-		return;
-	}
 	VMSwap v( uivm );
-
-	uie->Refresh( realtime );
+	UI_Refresh( realtime );
 }
 
 qboolean UIVM_IsFullscreen( void ) {
-	if ( uivm->isLegacy ) {
-		return (qboolean)VM_Call( uivm, UI_IS_FULLSCREEN );
-	}
 	VMSwap v( uivm );
-
-	return uie->IsFullscreen();
+	return Menus_AnyFullScreenVisible();
 }
 
 void UIVM_SetActiveMenu( uiMenuCommand_t menu ) {
-	if ( uivm->isLegacy ) {
-		VM_Call( uivm, UI_SET_ACTIVE_MENU, menu );
-		return;
-	}
 	VMSwap v( uivm );
-
-	uie->SetActiveMenu( menu );
+	UI_SetActiveMenu( menu );
 }
 
 qboolean UIVM_ConsoleCommand( int realTime ) {
-	if ( uivm->isLegacy ) {
-		return (qboolean)VM_Call( uivm, UI_CONSOLE_COMMAND, realTime );
-	}
 	VMSwap v( uivm );
-
-	return uie->ConsoleCommand( realTime );
+	return UI_ConsoleCommand( realTime );
 }
 void UIVM_DrawConnectScreen( qboolean overlay ) {
-	if ( uivm->isLegacy ) {
-		VM_Call( uivm, UI_DRAW_CONNECT_SCREEN, overlay );
-		return;
-	}
 	VMSwap v( uivm );
-
-	uie->DrawConnectScreen( overlay );
+	UI_DrawConnectScreen( overlay );
 }
 
-//
-// ui syscalls
-//	only used by legacy mods!
-//
 
-// wrappers and such
+
+
 
 static int CL_Milliseconds( void ) {
 	return Sys_Milliseconds();
@@ -889,15 +852,8 @@ CCALL void	Cmd_ExecuteText	( int exec_when, const char *text ) {
 	Cbuf_ExecuteText(exec_when, text);
 }
 
-CCALL uiExport_t* QDECL GetModuleAPI_UI( int apiVersion, uiImport_t *import );
-
 void CL_BindUI( void ) {
-	static uiImport_t uii;
-	uiExport_t		*ret;
-	memset( &uii, 0, sizeof( uii ) );
 	uivm = VM_Create( VM_UI );
-	ret = GetModuleAPI_UI( UI_API_VERSION, &uii );
-	uie = ret;
 }
 
 void CL_UnbindUI( void ) {
