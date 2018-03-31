@@ -39,6 +39,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include <windows.h>
 #endif
 
+CCALL const char *Music_GetLevelSetName(void);
+
 qboolean s_shutUp = qfalse;
 
 static void S_Play_f(void);
@@ -1000,7 +1002,7 @@ S_RegisterSound
 Creates a default buzz sound if the file can't be loaded
 ==================
 */
-sfxHandle_t	S_RegisterSound( const char *name)
+CCALL sfxHandle_t	S_RegisterSound( const char *name)
 {
 	sfx_t	*sfx;
 
@@ -1659,7 +1661,7 @@ void S_StartSound(const vec3_t origin, int entityNum, int entchannel, sfxHandle_
 S_StartLocalSound
 ==================
 */
-void S_StartLocalSound( sfxHandle_t sfxHandle, int channelNum ) {
+CCALL void S_StartLocalSound( sfxHandle_t sfxHandle, int channelNum ) {
 	if ( !s_soundStarted || s_soundMuted ) {
 		return;
 	}
@@ -4523,7 +4525,7 @@ void S_RestartMusic( void )
 // to be honest, although the code still plays WAVs some of the file-check logic only works for MP3s, so if you ever want
 //	to use WAV music you'll have to do some tweaking below (but I've got other things to do so it'll have to wait - Ste)
 //
-void S_StartBackgroundTrack( const char *intro, const char *loop, qboolean bCalledByCGameStart )
+CCALL void S_StartBackgroundTrack( const char *intro, const char *loop, qboolean bCalledByCGameStart )
 {
 	bMusic_IsDynamic = qfalse;
 
@@ -4578,7 +4580,7 @@ void S_StartBackgroundTrack( const char *intro, const char *loop, qboolean bCall
 	{
 		if (Music_DynamicDataAvailable(intro))	// "intro", NOT "sName" (i.e. don't use version with ".mp3" extension)
 		{
-			extern const char *Music_GetLevelSetName(void);
+			
 			Q_strncpyz(sInfoOnly_CurrentDynamicMusicSet, Music_GetLevelSetName(), sizeof(sInfoOnly_CurrentDynamicMusicSet));
 			for (int i = eBGRNDTRACK_DATABEGIN; i != eBGRNDTRACK_DATAEND; i++)
 			{
@@ -4652,7 +4654,7 @@ void S_StartBackgroundTrack( const char *intro, const char *loop, qboolean bCall
 	}
 }
 
-void S_StopBackgroundTrack( void )
+CCALL void S_StopBackgroundTrack( void )
 {
 	for (int i=0; i<eBGRNDTRACK_NUMBEROF; i++)
 	{

@@ -1102,6 +1102,21 @@
     <ClCompile Include="..\..\codemp\ui\ui_shared.c">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_cvar.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_force.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_gameinfo.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_main.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_saber.c">
+      <Filter>ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">

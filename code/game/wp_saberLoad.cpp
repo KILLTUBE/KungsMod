@@ -27,13 +27,13 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "wp_saber.h"
 #include "../cgame/cg_local.h"
 
-extern qboolean G_ParseLiteral( const char **data, const char *string );
-extern saber_colors_t TranslateSaberColor( const char *name );
-extern qboolean PM_SaberInStart( int move );
-extern qboolean PM_SaberInTransition( int move );
-extern qboolean PM_SaberInAttack( int move );
+CCALL qboolean G_ParseLiteral( const char **data, const char *string );
+CCALL saber_colors_t TranslateSaberColor( const char *name );
+CCALL qboolean PM_SaberInStart( int move );
+CCALL qboolean PM_SaberInTransition( int move );
+CCALL qboolean PM_SaberInAttack( int move );
 
-extern stringID_table_t FPTable[];
+EXTERNC stringID_table_t FPTable[];
 
 #define MAX_SABER_DATA_SIZE (1024*1024) // 1mb, was 512kb
 char	SaberParms[MAX_SABER_DATA_SIZE];

@@ -831,12 +831,12 @@ void Message_Key( int key ) {
 //============================================================================
 
 
-qboolean Key_GetOverstrikeMode( void ) {
+CCALL qboolean Key_GetOverstrikeMode( void ) {
 	return kg.key_overstrikeMode;
 }
 
 
-void Key_SetOverstrikeMode( qboolean state ) {
+CCALL void Key_SetOverstrikeMode( qboolean state ) {
 	kg.key_overstrikeMode = state;
 }
 
@@ -985,7 +985,7 @@ const char *Key_KeynumToString( int keynum ) {
 Key_SetBinding
 ===================
 */
-void Key_SetBinding( int keynum, const char *binding ) {
+CCALL void Key_SetBinding( int keynum, const char *binding ) {
 	if ( keynum < 0 || keynum >= MAX_KEYS )
 		return;
 
@@ -1493,7 +1493,7 @@ void CL_CharEvent( int key ) {
 Key_ClearStates
 ===================
 */
-void Key_ClearStates( void ) {
+CCALL void Key_ClearStates( void ) {
 	kg.anykeydown = qfalse;
 
 	for ( int i=0; i<MAX_KEYS; i++ ) {

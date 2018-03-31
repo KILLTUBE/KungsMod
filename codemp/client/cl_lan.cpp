@@ -33,7 +33,7 @@ serverInfo_t	cls_mplayerServers[MAX_OTHER_SERVERS];
 LAN_LoadCachedServers
 ====================
 */
-void LAN_LoadCachedServers( ) {
+CCALL void LAN_LoadCachedServers( ) {
 	int size;
 	fileHandle_t fileIn;
 	cls.numglobalservers = cls_nummplayerservers = cls.numfavoriteservers = 0;
@@ -60,7 +60,7 @@ void LAN_LoadCachedServers( ) {
 LAN_SaveServersToCache
 ====================
 */
-void LAN_SaveServersToCache( ) {
+CCALL void LAN_SaveServersToCache( ) {
 	int size;
 	fileHandle_t fileOut = FS_SV_FOpenFileWrite("servercache.dat");
 	FS_Write(&cls.numglobalservers, sizeof(int), fileOut);
@@ -79,7 +79,7 @@ void LAN_SaveServersToCache( ) {
 LAN_ResetPings
 ====================
 */
-void LAN_ResetPings(int source) {
+CCALL void LAN_ResetPings(int source) {
 	int count,i;
 	serverInfo_t *servers = NULL;
 	count = 0;
@@ -111,7 +111,7 @@ void LAN_ResetPings(int source) {
 LAN_AddServer
 ====================
 */
-int LAN_AddServer(int source, const char *name, const char *address) {
+CCALL int LAN_AddServer(int source, const char *name, const char *address) {
 	int max, *count, i;
 	netadr_t adr;
 	serverInfo_t *servers = NULL;
@@ -153,7 +153,7 @@ int LAN_AddServer(int source, const char *name, const char *address) {
 	return -1;
 }
 
-int LAN_AddFavAddr( const char *address ) {
+CCALL int LAN_AddFavAddr( const char *address ) {
 	if ( cls.numfavoriteservers < MAX_OTHER_SERVERS ) {
 		netadr_t adr;
 		if ( !NET_StringToAdr( address, &adr ) ) {
@@ -184,7 +184,7 @@ int LAN_AddFavAddr( const char *address ) {
 LAN_RemoveServer
 ====================
 */
-void LAN_RemoveServer(int source, const char *addr) {
+CCALL void LAN_RemoveServer(int source, const char *addr) {
 	int *count, i;
 	serverInfo_t *servers = NULL;
 	count = NULL;
@@ -226,7 +226,7 @@ void LAN_RemoveServer(int source, const char *addr) {
 LAN_GetServerCount
 ====================
 */
-int LAN_GetServerCount( int source ) {
+CCALL int LAN_GetServerCount( int source ) {
 	switch (source) {
 		case AS_LOCAL :
 			return cls.numlocalservers;
@@ -247,7 +247,7 @@ int LAN_GetServerCount( int source ) {
 LAN_GetLocalServerAddressString
 ====================
 */
-void LAN_GetServerAddressString( int source, int n, char *buf, int buflen ) {
+CCALL void LAN_GetServerAddressString( int source, int n, char *buf, int buflen ) {
 	switch (source) {
 		case AS_LOCAL :
 			if (n >= 0 && n < MAX_OTHER_SERVERS) {
@@ -277,7 +277,7 @@ void LAN_GetServerAddressString( int source, int n, char *buf, int buflen ) {
 LAN_GetServerInfo
 ====================
 */
-void LAN_GetServerInfo( int source, int n, char *buf, int buflen ) {
+CCALL void LAN_GetServerInfo( int source, int n, char *buf, int buflen ) {
 	char info[MAX_STRING_CHARS];
 	serverInfo_t *server = NULL;
 	info[0] = '\0';
@@ -333,7 +333,7 @@ void LAN_GetServerInfo( int source, int n, char *buf, int buflen ) {
 LAN_GetServerPing
 ====================
 */
-int LAN_GetServerPing( int source, int n ) {
+CCALL int LAN_GetServerPing( int source, int n ) {
 	serverInfo_t *server = NULL;
 	switch (source) {
 		case AS_LOCAL :
@@ -364,7 +364,7 @@ int LAN_GetServerPing( int source, int n ) {
 LAN_GetServerPtr
 ====================
 */
-static serverInfo_t *LAN_GetServerPtr( int source, int n ) {
+CCALL serverInfo_t *LAN_GetServerPtr( int source, int n ) {
 	switch (source) {
 		case AS_LOCAL :
 			if (n >= 0 && n < MAX_OTHER_SERVERS) {
@@ -391,7 +391,7 @@ static serverInfo_t *LAN_GetServerPtr( int source, int n ) {
 LAN_CompareServers
 ====================
 */
-int LAN_CompareServers( int source, int sortKey, int sortDir, int s1, int s2 ) {
+CCALL int LAN_CompareServers( int source, int sortKey, int sortDir, int s1, int s2 ) {
 	int res;
 	serverInfo_t *server1, *server2;
 
@@ -460,7 +460,7 @@ int LAN_CompareServers( int source, int sortKey, int sortDir, int s1, int s2 ) {
 LAN_GetPingQueueCount
 ====================
 */
-int LAN_GetPingQueueCount( void ) {
+CCALL int LAN_GetPingQueueCount( void ) {
 	return (CL_GetPingQueueCount());
 }
 
@@ -469,7 +469,7 @@ int LAN_GetPingQueueCount( void ) {
 LAN_ClearPing
 ====================
 */
-void LAN_ClearPing( int n ) {
+CCALL void LAN_ClearPing( int n ) {
 	CL_ClearPing( n );
 }
 
@@ -478,7 +478,7 @@ void LAN_ClearPing( int n ) {
 LAN_GetPing
 ====================
 */
-void LAN_GetPing( int n, char *buf, int buflen, int *pingtime ) {
+CCALL void LAN_GetPing( int n, char *buf, int buflen, int *pingtime ) {
 	CL_GetPing( n, buf, buflen, pingtime );
 }
 
@@ -487,7 +487,7 @@ void LAN_GetPing( int n, char *buf, int buflen, int *pingtime ) {
 LAN_GetPingInfo
 ====================
 */
-void LAN_GetPingInfo( int n, char *buf, int buflen ) {
+CCALL void LAN_GetPingInfo( int n, char *buf, int buflen ) {
 	CL_GetPingInfo( n, buf, buflen );
 }
 
@@ -496,7 +496,7 @@ void LAN_GetPingInfo( int n, char *buf, int buflen ) {
 LAN_MarkServerVisible
 ====================
 */
-void LAN_MarkServerVisible(int source, int n, qboolean visible ) {
+CCALL void LAN_MarkServerVisible(int source, int n, qboolean visible ) {
 	if (n == -1) {
 		int count = MAX_OTHER_SERVERS;
 		serverInfo_t *server = NULL;
@@ -547,7 +547,7 @@ void LAN_MarkServerVisible(int source, int n, qboolean visible ) {
 LAN_ServerIsVisible
 =======================
 */
-int LAN_ServerIsVisible(int source, int n ) {
+CCALL int LAN_ServerIsVisible(int source, int n ) {
 	switch (source) {
 		case AS_LOCAL :
 			if (n >= 0 && n < MAX_OTHER_SERVERS) {
@@ -574,7 +574,7 @@ int LAN_ServerIsVisible(int source, int n ) {
 LAN_UpdateVisiblePings
 =======================
 */
-qboolean LAN_UpdateVisiblePings(int source ) {
+CCALL qboolean LAN_UpdateVisiblePings(int source ) {
 	return CL_UpdateVisiblePings_f(source);
 }
 
@@ -583,6 +583,6 @@ qboolean LAN_UpdateVisiblePings(int source ) {
 LAN_GetServerStatus
 ====================
 */
-int LAN_GetServerStatus( const char *serverAddress, char *serverStatus, int maxLen ) {
+CCALL int LAN_GetServerStatus( const char *serverAddress, char *serverStatus, int maxLen ) {
 	return CL_ServerStatus( serverAddress, serverStatus, maxLen );
 }

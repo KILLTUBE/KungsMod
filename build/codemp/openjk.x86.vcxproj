@@ -1190,8 +1190,27 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\..\codemp\rd-rend2\tr_weather.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\tr_world.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\utils_opengl\debuglines.cpp" />
-    <ClCompile Include="..\..\codemp\ui\ui_atoms.c" />
-    <ClCompile Include="..\..\codemp\ui\ui_shared.c" />
+    <ClCompile Include="..\..\codemp\ui\ui_atoms.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_cvar.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_force.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_gameinfo.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_main.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_saber.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_shared.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_load.cpp" />
     <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_local.h" />
     <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_patch.cpp" />

@@ -27,13 +27,14 @@ void RE_TakeVideoFrame( int width, int height, byte *captureBuffer, byte *encode
 
 
 // C only version of client.h ...
-void CL_InitUI( void );
-void CL_ShutdownUI( void );
-int Key_GetCatcher( void );
+CCALL void CL_InitUI( void );
+CCALL void CL_ShutdownUI( void );
+CCALL int Key_GetCatcher( void );
 CCALL qboolean Key_IsDown( int keynum );
-void Key_SetCatcher( int catcher );
-void LAN_LoadCachedServers();
-void LAN_SaveServersToCache();
+CCALL void Key_SetCatcher( int catcher );
+CCALL void LAN_LoadCachedServers();
+CCALL void LAN_SaveServersToCache();
+CCALL void Key_ClearStates( void );
 
 
 // C only version of qcommon.h...
@@ -51,6 +52,8 @@ int Cvar_VariableIntegerValue( const char *var_name );
 char *Cvar_VariableString( const char *var_name );
 void Cvar_VariableStringBuffer( const char *var_name, char *buffer, int bufsize );
 
+
+CCALL void Cvar_SetValue( const char *var_name, float value);
 
 CCALL int				PC_AddGlobalDefine					( char *define );
 CCALL int				PC_FreeSource						( int handle );
@@ -114,5 +117,48 @@ CCALL void			G2API_CollisionDetectCache			( CollisionRecord_t *collRecMap, void*
 CCALL qboolean		G2API_SetSkin						( void *ghoul2, int modelIndex, qhandle_t customSkin, qhandle_t renderSkin );
 CCALL void			G2API_CleanGhoul2Models				( void **ghoul2Ptr );
 
+CCALL qboolean G2API_HasGhoul2ModelOnIndex( void *ghlInfo, int modelIndex );
+CCALL int G2API_AddBolt( void *ghoul2, int modelIndex, const char *boneName );
+CCALL qboolean G2API_RemoveGhoul2Model( void *ghlInfo, int modelIndex );
+CCALL qboolean G2API_AttachG2Model( void *ghoul2From, int modelIndexFrom, void *ghoul2To, int toBoltIndex, int toModel );
+
+CCALL void CL_G2API_SetTime( int time, int clock );
+
+CCALL cvar_t *Cvar_Set( const char *var_name, const char *value);
+CCALL cvar_t *Cvar_Get( const char *var_name, const char *var_value, uint32_t flags, const char *var_desc );
+
+CCALL void	Cbuf_ExecuteText	( int exec_when, const char *text );
+CCALL void	Cmd_ExecuteText	( int exec_when, const char *text );
+
+CCALL int		FS_FOpenFileByMode( const char *qpath, fileHandle_t *f, fsMode_t mode );
+CCALL void FS_FCloseFile( fileHandle_t f );
+CCALL int FS_Write( const void *buffer, int len, fileHandle_t h );
+CCALL int FS_Read( void *buffer, int len, fileHandle_t f );
+CCALL int	FS_GetFileList(  const char *path, const char *extension, char *listbuf, int bufsize );
+
+
+
+CCALL int GetConfigString(int index, char *buf, int size);
+CCALL void CL_GetClientState( uiClientState_t *state );
+CCALL void	Cvar_Register( cvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags );
+
+CCALL sfxHandle_t	S_RegisterSound( const char *name);
+CCALL void S_StartLocalSound( sfxHandle_t sfxHandle, int channelNum );
+CCALL void S_StartBackgroundTrack( const char *intro, const char *loop, qboolean bCalledByCGameStart );
+CCALL void S_StopBackgroundTrack( void );
+
+CCALL int SE_GetNumLanguages(void);
+
+CCALL void CL_GetGlconfig( glconfig_t *config );
+
+CCALL void Key_SetOverstrikeMode( qboolean state );
+CCALL qboolean Key_GetOverstrikeMode( void );
+CCALL void Key_SetBinding( int keynum, const char *binding );
+CCALL void Key_GetBindingBuf( int keynum, char *buf, int buflen );
+CCALL void Key_KeynumToStringBuf( int keynum, char *buf, int buflen );
+
+CCALL int Com_RealTime(qtime_t *qtime);
+
+#include "client/cl_lan.h"
 
 #endif

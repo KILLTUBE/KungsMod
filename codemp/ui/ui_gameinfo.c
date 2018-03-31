@@ -26,6 +26,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 //
 
 #include "ui_local.h"
+#include "ui_only_c_defines.h"
 
 
 //
@@ -91,16 +92,16 @@ int UI_ParseInfos( char *buf, int max, char *infos[] ) {
 		if (infos[count]) {
 			strcpy(infos[count], info);
 #ifndef FINAL_BUILD
-			if (trap->Cvar_VariableValue("com_buildScript"))
+			if (Cvar_VariableValue("com_buildScript"))
 			{
 				char *botFile = Info_ValueForKey(info, "personality");
 				if (botFile && botFile[0])
 				{
 					int fh = 0;
-					trap->FS_Open(botFile, &fh, FS_READ);
+					FS_Open(botFile, &fh, FS_READ);
 					if (fh)
 					{
-						trap->FS_Close(fh);
+						FS_Close(fh);
 					}
 				}
 			}
@@ -121,20 +122,20 @@ static void UI_LoadArenasFromFile( char *filename ) {
 	fileHandle_t	f;
 	char			buf[MAX_ARENAS_TEXT];
 
-	len = trap->FS_Open( filename, &f, FS_READ );
+	len = FS_FOpenFileByMode( filename, &f, FS_READ );
 	if ( !f ) {
-		trap->Print( S_COLOR_RED "file not found: %s\n", filename );
+		Com_Printf( S_COLOR_RED "file not found: %s\n", filename );
 		return;
 	}
 	if ( len >= MAX_ARENAS_TEXT ) {
-		trap->Print( S_COLOR_RED "file too large: %s is %i, max allowed is %i", filename, len, MAX_ARENAS_TEXT );
-		trap->FS_Close( f );
+		Com_Printf( S_COLOR_RED "file too large: %s is %i, max allowed is %i", filename, len, MAX_ARENAS_TEXT );
+		FS_FCloseFile( f );
 		return;
 	}
 
-	trap->FS_Read( buf, len, f );
+	FS_Read( buf, len, f );
 	buf[len] = 0;
-	trap->FS_Close( f );
+	FS_FCloseFile( f );
 
 	ui_numArenas += UI_ParseInfos( buf, MAX_ARENAS - ui_numArenas, &ui_arenaInfos[ui_numArenas] );
 }
@@ -159,7 +160,7 @@ void UI_LoadArenas( void ) {
 	uiInfo.mapCount = 0;
 
 	// get all arenas from .arena files
-	numdirs = trap->FS_GetFileList( "scripts", ".arena", dirlist, ARRAY_LEN( dirlist ) );
+	numdirs = FS_GetFileList( "scripts", ".arena", dirlist, ARRAY_LEN( dirlist ) );
 	dirptr  = dirlist;
 	for (i = 0; i < numdirs; i++, dirptr += dirlen+1) {
 		dirlen = strlen(dirptr);
@@ -167,9 +168,9 @@ void UI_LoadArenas( void ) {
 		strcat(filename, dirptr);
 		UI_LoadArenasFromFile(filename);
 	}
-//	trap->Print( "%i arenas parsed\n", ui_numArenas );
+//	Print( "%i arenas parsed\n", ui_numArenas );
 	if (UI_OutOfMemory()) {
-		trap->Print(S_COLOR_YELLOW"WARNING: not anough memory in pool to load all arenas\n");
+		Com_Printf(S_COLOR_YELLOW"WARNING: not anough memory in pool to load all arenas\n");
 	}
 
 	for( n = 0; n < ui_numArenas; n++ ) {
@@ -238,18 +239,18 @@ static void UI_LoadBotsFromFile( char *filename ) {
 	char			buf[MAX_BOTS_TEXT];
 	char			*stopMark;
 
-	len = trap->FS_Open( filename, &f, FS_READ );
+	len = FS_FOpenFileByMode( filename, &f, FS_READ );
 	if ( !f ) {
-		trap->Print( S_COLOR_RED "file not found: %s\n", filename );
+		Com_Printf( S_COLOR_RED "file not found: %s\n", filename );
 		return;
 	}
 	if ( len >= MAX_BOTS_TEXT ) {
-		trap->Print( S_COLOR_RED "file too large: %s is %i, max allowed is %i", filename, len, MAX_BOTS_TEXT );
-		trap->FS_Close( f );
+		Com_Printf( S_COLOR_RED "file too large: %s is %i, max allowed is %i", filename, len, MAX_BOTS_TEXT );
+		FS_FCloseFile( f );
 		return;
 	}
 
-	trap->FS_Read( buf, len, f );
+	FS_Read( buf, len, f );
 	buf[len] = 0;
 
 	stopMark = strstr(buf, "@STOPHERE");
@@ -270,7 +271,7 @@ static void UI_LoadBotsFromFile( char *filename ) {
 		buf[startPoint] = 0;
 	}
 
-	trap->FS_Close( f );
+	FS_FCloseFile( f );
 
 	COM_Compress(buf);
 
@@ -293,7 +294,7 @@ void UI_LoadBots( void ) {
 
 	ui_numBots = 0;
 
-	botsFile = trap->GetRealCvar( "g_botsFile", "", CVAR_INIT|CVAR_ROM, 0 );
+	botsFile = Cvar_Get( "g_botsFile", "", CVAR_INIT|CVAR_ROM, 0 );
 	if( *botsFile->string ) {
 		UI_LoadBotsFromFile(botsFile->string);
 	}
@@ -302,7 +303,7 @@ void UI_LoadBots( void ) {
 	}
 
 	// get all bots from .bot files
-	numdirs = trap->FS_GetFileList("scripts", ".bot", dirlist, 1024 );
+	numdirs = FS_GetFileList("scripts", ".bot", dirlist, 1024 );
 	dirptr  = dirlist;
 	for (i = 0; i < numdirs; i++, dirptr += dirlen+1) {
 		dirlen = strlen(dirptr);
@@ -310,7 +311,7 @@ void UI_LoadBots( void ) {
 		strcat(filename, dirptr);
 		UI_LoadBotsFromFile(filename);
 	}
-//	trap->Print( "%i bots parsed\n", ui_numBots );
+//	Print( "%i bots parsed\n", ui_numBots );
 }
 
 
@@ -321,7 +322,7 @@ UI_GetBotInfoByNumber
 */
 char *UI_GetBotInfoByNumber( int num ) {
 	if( num < 0 || num >= ui_numBots ) {
-		trap->Print( S_COLOR_RED "Invalid bot number: %i\n", num );
+		Com_Printf( S_COLOR_RED "Invalid bot number: %i\n", num );
 		return NULL;
 	}
 	return ui_botInfos[num];

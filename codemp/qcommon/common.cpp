@@ -664,7 +664,7 @@ int Com_HashKey(char *string, int maxlen) {
 Com_RealTime
 ================
 */
-int Com_RealTime(qtime_t *qtime) {
+CCALL int Com_RealTime(qtime_t *qtime) {
 	time_t t;
 	struct tm *tms;
 

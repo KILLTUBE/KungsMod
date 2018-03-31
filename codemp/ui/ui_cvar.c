@@ -22,6 +22,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "ui_local.h"
+#include "ui_only_c_defines.h"
 
 //
 // Cvar callbacks
@@ -61,7 +62,7 @@ static void UI_UpdateScreenshot( void )
 		int ssf = UI_GetScreenshotFormatForString( ui_screenshotType->string );
 		if ( ssf == -1 )
 		{
-			trap->Print( "UI Screenshot Format Type '%s' unrecognised, defaulting to JPEG\n", ui_screenshotType->string );
+			Com_Printf( "UI Screenshot Format Type '%s' unrecognised, defaulting to JPEG\n", ui_screenshotType->string );
 			uiInfo.uiDC.screenshotFormat = SSF_JPEG;
 			changed = qtrue;
 		}
@@ -70,7 +71,7 @@ static void UI_UpdateScreenshot( void )
 	}
 	else if ( ui_screenshotType->integer < SSF_JPEG || ui_screenshotType->integer > SSF_PNG )
 	{
-		trap->Print( "ui_screenshotType %i is out of range, defaulting to 0 (JPEG)\n", ui_screenshotType->integer );
+		Com_Printf( "ui_screenshotType %i is out of range, defaulting to 0 (JPEG)\n", ui_screenshotType->integer );
 		uiInfo.uiDC.screenshotFormat = SSF_JPEG;
 		changed = qtrue;
 	}
@@ -80,8 +81,8 @@ static void UI_UpdateScreenshot( void )
 	}
 
 	if ( changed ) {
-		trap->Cvar_Set( "ui_screenshotType", UI_GetScreenshotFormatString( uiInfo.uiDC.screenshotFormat ) );
-		trap->Cvar_Update( &ui_screenshotType );
+		Cvar_Set( "ui_screenshotType", UI_GetScreenshotFormatString( uiInfo.uiDC.screenshotFormat ) );
+		//Cvar_Update( &ui_screenshotType );
 	}
 }
 

@@ -834,6 +834,19 @@ static void RE_InitRendererTerrain ( const char * /*info*/ ) {}
 
 
 
+CCALL qhandle_t	R_RegisterShader	( const char *name ) {
+	return re->RegisterShader(name);
+}
+
+
+CCALL void	RE_StretchPic( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader ) {
+	re->DrawStretchPic(x, y, w, h, s1, t1, s2, t2, hShader);
+}
+
+CCALL void		RE_SetColor		( const float *rgba ) {
+	re->SetColor(rgba);
+}
+
 //typedef int cgameExport_t;
 //typedef int cgameImport_t;
 

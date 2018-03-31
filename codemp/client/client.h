@@ -568,12 +568,12 @@ void CL_ShaderStateChanged(void);
 //
 // cl_ui.c
 //
-void CL_InitUI( void );
-void CL_ShutdownUI( void );
-int Key_GetCatcher( void );
-void Key_SetCatcher( int catcher );
-void LAN_LoadCachedServers();
-void LAN_SaveServersToCache();
+CCALL void CL_InitUI( void );
+CCALL void CL_ShutdownUI( void );
+CCALL int Key_GetCatcher( void );
+CCALL void Key_SetCatcher( int catcher );
+CCALL void LAN_LoadCachedServers();
+CCALL void LAN_SaveServersToCache();
 
 
 //

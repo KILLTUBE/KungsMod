@@ -1083,7 +1083,7 @@ int SE_GetFlagMask( const char *psFlagName )
 //	every level-load...  Ok, cacheing it is...
 //
 std::vector <std::string> gvLanguagesAvailable;
-int SE_GetNumLanguages(void)
+CCALL int SE_GetNumLanguages(void)
 {
 	if ( gvLanguagesAvailable.empty() )
 	{

@@ -62,7 +62,7 @@ extern cvar_t	*se_language;
 void	SE_Init				( void );
 void	SE_ShutDown			( void );
 void	SE_CheckForLanguageUpdates(void);
-int		SE_GetNumLanguages	( void );
+CCALL int		SE_GetNumLanguages	( void );
 const char *SE_GetLanguageName	( int iLangIndex );	// eg "german"
 const char *SE_GetLanguageDir	( int iLangIndex );	// eg "strings/german"
 const char *SE_LoadLanguage		( const char *psLanguage, SE_BOOL bLoadDebug = SE_TRUE );

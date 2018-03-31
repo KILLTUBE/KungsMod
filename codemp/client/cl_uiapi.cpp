@@ -144,7 +144,7 @@ static void CL_Cvar_Get( const char *var_name, const char *value, uint32_t flags
 	Cvar_Register( NULL, var_name, value, flags );
 }
 
-static void CL_GetClientState( uiClientState_t *state ) {
+CCALL void CL_GetClientState( uiClientState_t *state ) {
 	state->connectPacketCount = clc.connectPacketCount;
 	state->connState = cls.state;
 	Q_strncpyz( state->servername, cls.servername, sizeof( state->servername ) );
@@ -153,7 +153,7 @@ static void CL_GetClientState( uiClientState_t *state ) {
 	state->clientNum = cl.snap.ps.clientNum;
 }
 
-static void CL_GetGlconfig( glconfig_t *config ) {
+CCALL void CL_GetGlconfig( glconfig_t *config ) {
 	*config = cls.glconfig;
 }
 
@@ -175,7 +175,7 @@ static void GetClipboardData( char *buf, int buflen ) {
 	Z_Free( cbd );
 }
 
-static int GetConfigString(int index, char *buf, int size)
+CCALL int GetConfigString(int index, char *buf, int size)
 {
 	int		offset;
 
@@ -195,7 +195,7 @@ static int GetConfigString(int index, char *buf, int size)
 	return qtrue;
 }
 
-static void Key_GetBindingBuf( int keynum, char *buf, int buflen ) {
+CCALL void Key_GetBindingBuf( int keynum, char *buf, int buflen ) {
 	char	*value;
 
 	value = Key_GetBinding( keynum );
@@ -207,7 +207,7 @@ static void Key_GetBindingBuf( int keynum, char *buf, int buflen ) {
 	}
 }
 
-static void Key_KeynumToStringBuf( int keynum, char *buf, int buflen )
+CCALL void Key_KeynumToStringBuf( int keynum, char *buf, int buflen )
 {
 	const char *psKeyName = Key_KeynumToString( keynum/*, qtrue */);
 
@@ -548,7 +548,7 @@ static void CL_G2API_DuplicateGhoul2Instance( void *g2From, void **g2To ) {
 	re->G2API_DuplicateGhoul2Instance( *((CGhoul2Info_v *)g2From), (CGhoul2Info_v **)g2To );
 }
 
-static qboolean CL_G2API_HasGhoul2ModelOnIndex( void *ghlInfo, int modelIndex ) {
+CCALL qboolean CL_G2API_HasGhoul2ModelOnIndex( void *ghlInfo, int modelIndex ) {
 	if ( !ghlInfo ) {
 		return qfalse;
 	}
@@ -556,7 +556,7 @@ static qboolean CL_G2API_HasGhoul2ModelOnIndex( void *ghlInfo, int modelIndex ) 
 	return re->G2API_HasGhoul2ModelOnIndex( (CGhoul2Info_v **)ghlInfo, modelIndex );
 }
 
-static qboolean CL_G2API_RemoveGhoul2Model( void *ghlInfo, int modelIndex ) {
+CCALL qboolean CL_G2API_RemoveGhoul2Model( void *ghlInfo, int modelIndex ) {
 	if ( !ghlInfo ) {
 		return qfalse;
 	}
@@ -567,7 +567,7 @@ static qboolean CL_G2API_RemoveGhoul2Model( void *ghlInfo, int modelIndex ) {
 	return re->G2API_RemoveGhoul2Model( (CGhoul2Info_v **)ghlInfo, modelIndex );
 }
 
-static int CL_G2API_AddBolt( void *ghoul2, int modelIndex, const char *boneName ) {
+CCALL int CL_G2API_AddBolt( void *ghoul2, int modelIndex, const char *boneName ) {
 	if ( !ghoul2 ) {
 		return -1;
 	}
@@ -611,7 +611,7 @@ static int CL_G2API_GetTime( void ) {
 	return re->G2API_GetTime( 0 );
 }
 
-static void CL_G2API_SetTime( int time, int clock ) {
+CCALL void CL_G2API_SetTime( int time, int clock ) {
 	re->G2API_SetTime( time, clock );
 }
 
@@ -696,7 +696,7 @@ static void CL_G2API_GetSurfaceName( void *ghoul2, int surfNumber, int modelInde
 	strcpy( fillBuf, tmp );
 }
 
-static qboolean CL_G2API_AttachG2Model( void *ghoul2From, int modelIndexFrom, void *ghoul2To, int toBoltIndex, int toModel ) {
+CCALL qboolean CL_G2API_AttachG2Model( void *ghoul2From, int modelIndexFrom, void *ghoul2To, int toBoltIndex, int toModel ) {
 	if ( !ghoul2From || !ghoul2To ) {
 		return qfalse;
 	}
@@ -1452,6 +1452,26 @@ CCALL qboolean		G2API_SetSkin						( void *ghoul2, int modelIndex, qhandle_t cus
 }
 CCALL void			G2API_CleanGhoul2Models				( void **ghoul2Ptr ) {
 	CL_G2API_CleanGhoul2Models(ghoul2Ptr);
+}
+
+CCALL qboolean G2API_HasGhoul2ModelOnIndex( void *ghlInfo, int modelIndex ) {
+	return CL_G2API_HasGhoul2ModelOnIndex(ghlInfo, modelIndex);
+}
+
+CCALL int G2API_AddBolt( void *ghoul2, int modelIndex, const char *boneName ) {
+	return CL_G2API_AddBolt(ghoul2, modelIndex, boneName);
+}
+
+CCALL qboolean G2API_RemoveGhoul2Model( void *ghlInfo, int modelIndex ) {
+	return CL_G2API_RemoveGhoul2Model(ghlInfo, modelIndex);
+}
+
+CCALL qboolean G2API_AttachG2Model( void *ghoul2From, int modelIndexFrom, void *ghoul2To, int toBoltIndex, int toModel ) {
+	return CL_G2API_AttachG2Model(ghoul2From, modelIndexFrom, ghoul2To, toBoltIndex, toModel);
+}
+
+CCALL void	Cmd_ExecuteText	( int exec_when, const char *text ) {
+	Cbuf_ExecuteText(exec_when, text);
 }
 
 void CL_BindUI( void ) {

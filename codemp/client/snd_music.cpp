@@ -1117,7 +1117,7 @@ float Music_GetRandomEntryTime( MusicState_e eMusicState )
 
 // info only, used in "soundinfo" command...
 //
-const char *Music_GetLevelSetName(void)
+CCALL const char *Music_GetLevelSetName(void)
 {
 	if (Q_stricmp(gsLevelNameForCompare.c_str(), gsLevelNameForLoad.c_str()))
 	{

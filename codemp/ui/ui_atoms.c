@@ -82,7 +82,7 @@ typedef struct consoleCommand_s {
 	void		(*func)(void);
 } consoleCommand_t;
 
-int cmdcmp( const void *a, const void *b ) {
+int cmdcmp_ui( const void *a, const void *b ) {
 	return Q_stricmp( (const char *)a, ((consoleCommand_t*)b)->cmd );
 }
 
@@ -110,7 +110,7 @@ qboolean UI_ConsoleCommand( int realTime ) {
 	uiInfo.uiDC.frameTime = realTime - uiInfo.uiDC.realTime;
 	uiInfo.uiDC.realTime = realTime;
 
-	command = (consoleCommand_t *)Q_LinearSearch( UI_Argv( 0 ), commands, numCommands, sizeof( commands[0] ), cmdcmp );
+	command = (consoleCommand_t *)Q_LinearSearch( UI_Argv( 0 ), commands, numCommands, sizeof( commands[0] ), cmdcmp_ui );
 
 	if ( !command )
 		return qfalse;

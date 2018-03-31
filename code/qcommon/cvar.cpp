@@ -705,7 +705,7 @@ void Cvar_Set( const char *var_name, const char *value) {
 Cvar_SetValue
 ============
 */
-void Cvar_SetValue( const char *var_name, float value) {
+CCALL void Cvar_SetValue( const char *var_name, float value) {
 	char	val[32];
 
 	if ( value == (int)value ) {
