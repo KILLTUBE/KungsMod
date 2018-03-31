@@ -26,7 +26,10 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 	User interface building blocks and support functions.
 **********************************************************************/
+
 #include "ui_local.h"
+#include "ui_only_c_defines.h"
+
 
 #define NUM_UI_ARGSTRS (4)
 #define UI_ARGSTR_MASK (NUM_UI_ARGSTRS-1)
@@ -35,7 +38,7 @@ static char tempArgStrs[NUM_UI_ARGSTRS][MAX_STRING_CHARS];
 static char *UI_Argv( int arg ) {
 	static int index=0;
 	char *s = tempArgStrs[index++ & UI_ARGSTR_MASK];
-	trap->Cmd_Argv( arg, s, MAX_STRING_CHARS );
+	Cmd_ArgvBuffer( arg, s, MAX_STRING_CHARS );
 	return s;
 }
 
@@ -46,16 +49,16 @@ static char tempCvarStrs[NUM_UI_CVARSTRS][MAX_CVAR_VALUE_STRING];
 char *UI_Cvar_VariableString( const char *name ) {
 	static int index=0;
 	char *s = tempCvarStrs[index++ & UI_ARGSTR_MASK];
-	trap->Cvar_VariableStringBuffer( name, s, MAX_CVAR_VALUE_STRING );
+	Cvar_VariableStringBuffer( name, s, MAX_CVAR_VALUE_STRING );
 	return s;
 }
 
 static void	UI_Cache_f( void ) {
 	Display_CacheAll();
-	if ( trap->Cmd_Argc() == 2 ) {
+	if ( Cmd_Argc() == 2 ) {
 		int i;
 		for ( i=0; i<uiInfo.q3HeadCount; i++ ) {
-			trap->Print( "model %s\n", uiInfo.q3HeadNames[i] );
+			Com_Printf( "model %s\n", uiInfo.q3HeadNames[i] );
 		}
 	}
 }
@@ -63,14 +66,14 @@ static void	UI_Cache_f( void ) {
 static void UI_OpenMenu_f( void ) {
 	Menus_CloseAll();
 	if ( Menus_ActivateByName( UI_Argv( 1 ) ) )
-		trap->Key_SetCatcher( KEYCATCH_UI );
+		Key_SetCatcher( KEYCATCH_UI );
 }
 
 static void UI_OpenSiegeMenu_f( void ) {
-	if ( trap->Cvar_VariableValue( "g_gametype" ) == GT_SIEGE ) {
+	if ( Cvar_VariableValue( "g_gametype" ) == GT_SIEGE ) {
 		Menus_CloseAll();
 		if ( Menus_ActivateByName( UI_Argv( 1 ) ) )
-			trap->Key_SetCatcher( KEYCATCH_UI );
+			Key_SetCatcher( KEYCATCH_UI );
 	}
 }
 
@@ -142,7 +145,7 @@ void UI_DrawHandlePic( float x, float y, float w, float h, qhandle_t hShader ) {
 		t1 = 1;
 	}
 
-	trap->R_DrawStretchPic( x, y, w, h, s0, t0, s1, t1, hShader );
+	RE_StretchPic( x, y, w, h, s0, t0, s1, t1, hShader );
 }
 
 /*
@@ -153,19 +156,20 @@ Coordinates are 640*480 virtual values
 =================
 */
 void UI_FillRect( float x, float y, float width, float height, const float *color ) {
-	trap->R_SetColor( color );
-	trap->R_DrawStretchPic( x, y, width, height, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
-	trap->R_SetColor( NULL );
+	RE_SetColor( color );
+	RE_StretchPic( x, y, width, height, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
+	
+	RE_SetColor( NULL );
 }
 
 void UI_DrawSides(float x, float y, float w, float h) {
-	trap->R_DrawStretchPic( x, y, 1, h, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
-	trap->R_DrawStretchPic( x + w - 1, y, 1, h, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
+	RE_StretchPic( x, y, 1, h, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
+	RE_StretchPic( x + w - 1, y, 1, h, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
 }
 
 void UI_DrawTopBottom(float x, float y, float w, float h) {
-	trap->R_DrawStretchPic( x, y, w, 1, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
-	trap->R_DrawStretchPic( x, y + h - 1, w, 1, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
+	RE_StretchPic( x, y, w, 1, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
+	RE_StretchPic( x, y + h - 1, w, 1, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
 }
 /*
 ================
@@ -175,10 +179,10 @@ Coordinates are 640*480 virtual values
 =================
 */
 void UI_DrawRect( float x, float y, float width, float height, const float *color ) {
-	trap->R_SetColor( color );
+	RE_SetColor( color );
 
 	UI_DrawTopBottom(x, y, width, height);
 	UI_DrawSides(x, y, width, height);
 
-	trap->R_SetColor( NULL );
+	RE_SetColor( NULL );
 }

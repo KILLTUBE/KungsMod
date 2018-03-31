@@ -490,6 +490,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\codemp\server\sv_bot.h" />
     <ClInclude Include="..\..\codemp\server\sv_g2api.h" />
     <ClInclude Include="..\..\codemp\server\sv_icarus.h" />
+    <ClInclude Include="..\..\codemp\ui\ui_only_c_defines.h" />
+    <ClInclude Include="..\..\codemp\ui\ui_shared.h" />
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h" />
     <ClInclude Include="C:\XycaRend2\codemp\client\client.h" />
     <ClInclude Include="C:\XycaRend2\codemp\client\keys.h" />
@@ -1188,6 +1190,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\..\codemp\rd-rend2\tr_weather.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\tr_world.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\utils_opengl\debuglines.cpp" />
+    <ClCompile Include="..\..\codemp\ui\ui_atoms.c" />
+    <ClCompile Include="..\..\codemp\ui\ui_shared.c" />
     <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_load.cpp" />
     <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_local.h" />
     <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_patch.cpp" />

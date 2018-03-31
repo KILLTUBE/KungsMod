@@ -325,6 +325,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\codemp\cgame\cg_notrap.c" />
     <ClCompile Include="..\..\..\codemp\cgame\cg_tempwrappers.c" />
     <ClCompile Include="..\..\..\codemp\cgame\cg_tempwrappers_g2.c" />
     <ClCompile Include="..\..\..\codemp\game\bg_panimate.c">

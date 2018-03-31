@@ -53,7 +53,7 @@ static qhandle_t blueSaberCoreShader;
 static qhandle_t purpleSaberGlowShader;
 static qhandle_t purpleSaberCoreShader;
 
-void UI_CacheSaberGlowGraphics( void )
+CCALL void UI_CacheSaberGlowGraphics( void )
 {//FIXME: these get fucked by vid_restarts
 	redSaberGlowShader			= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/red_glow" );
 	redSaberCoreShader			= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/red_line" );
@@ -233,7 +233,7 @@ qboolean UI_SaberValidForPlayerInMP( const char *saberName )
 	}
 }
 
-void UI_SaberLoadParms( void )
+CCALL void UI_SaberLoadParms( void )
 {
 	ui_saber_parms_parsed = qtrue;
 	UI_CacheSaberGlowGraphics();

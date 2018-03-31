@@ -1096,6 +1096,12 @@
     <ClCompile Include="..\..\codemp\game\g_tempwrappers.c">
       <Filter>game</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_atoms.c">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_shared.c">
+      <Filter>ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
@@ -1850,6 +1856,12 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\game\g_xcvar.h">
       <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ui\ui_shared.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ui\ui_only_c_defines.h">
+      <Filter>ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

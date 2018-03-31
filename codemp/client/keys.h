@@ -46,30 +46,30 @@ typedef struct keyname_s {
 	bool		menukey;
 } keyname_t;
 
-extern keyGlobals_t	kg;
-extern keyname_t	keynames[MAX_KEYS];
+EXTERNC keyGlobals_t	kg;
+EXTERNC keyname_t	keynames[MAX_KEYS];
 
 // console
-extern field_t		g_consoleField;
-extern int			nextHistoryLine;	// the last line in the history buffer, not masked
-extern int			historyLine;		// the line being displayed from history buffer will be <= nextHistoryLine
-extern field_t		historyEditLines[COMMAND_HISTORY];
+EXTERNC field_t		g_consoleField;
+EXTERNC int			nextHistoryLine;	// the last line in the history buffer, not masked
+EXTERNC int			historyLine;		// the line being displayed from history buffer will be <= nextHistoryLine
+EXTERNC field_t		historyEditLines[COMMAND_HISTORY];
 
 // chat
-extern field_t		chatField;
-extern qboolean		chat_team;
-extern int			chat_playerNum;
+EXTERNC field_t		chatField;
+EXTERNC qboolean		chat_team;
+EXTERNC int			chat_playerNum;
 
-void	Field_KeyDownEvent	( field_t *edit, int key );
-void	Field_CharEvent		( field_t *edit, int ch );
-void	Field_Draw			( field_t *edit, int x, int y, int width, qboolean showCursor, qboolean noColorEscape );
-void	Field_BigDraw		( field_t *edit, int x, int y, int width, qboolean showCursor, qboolean noColorEscape );
+CCALL void	Field_KeyDownEvent	( field_t *edit, int key );
+CCALL void	Field_CharEvent		( field_t *edit, int ch );
+CCALL void	Field_Draw			( field_t *edit, int x, int y, int width, qboolean showCursor, qboolean noColorEscape );
+CCALL void	Field_BigDraw		( field_t *edit, int x, int y, int width, qboolean showCursor, qboolean noColorEscape );
 
-void		Key_SetBinding			( int keynum, const char *binding );
-char *		Key_GetBinding			( int keynum );
-qboolean	Key_IsDown				( int keynum );
-int			Key_StringToKeynum		( char *str );
-qboolean	Key_GetOverstrikeMode	( void );
-void		Key_SetOverstrikeMode	( qboolean state );
-void		Key_ClearStates			( void );
-int			Key_GetKey				( const char *binding );
+CCALL void		Key_SetBinding			( int keynum, const char *binding );
+CCALL char *		Key_GetBinding			( int keynum );
+CCALL qboolean	Key_IsDown				( int keynum );
+CCALL int			Key_StringToKeynum		( char *str );
+CCALL qboolean	Key_GetOverstrikeMode	( void );
+CCALL void		Key_SetOverstrikeMode	( qboolean state );
+CCALL void		Key_ClearStates			( void );
+CCALL int			Key_GetKey				( const char *binding );

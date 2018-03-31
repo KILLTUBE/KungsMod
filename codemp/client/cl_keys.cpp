@@ -846,7 +846,7 @@ void Key_SetOverstrikeMode( qboolean state ) {
 Key_IsDown
 ===================
 */
-qboolean Key_IsDown( int keynum ) {
+CCALL qboolean Key_IsDown( int keynum ) {
 	if ( keynum < 0 || keynum >= MAX_KEYS )
 		return qfalse;
 
