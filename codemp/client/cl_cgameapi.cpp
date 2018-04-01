@@ -850,7 +850,7 @@ CCALL void		RE_SetColor		( const float *rgba ) {
 //typedef int cgameExport_t;
 //typedef int cgameImport_t;
 
-//CCALL cgameExport_t* QDECL GetModuleAPI( int apiVersion, cgameImport_t *import );
+CCALL cgameExport_t* QDECL GetModuleAPI( int apiVersion, cgameImport_t *import );
 
 void CL_BindCGame( void ) {
 	static cgameImport_t cgi;
@@ -1070,7 +1070,7 @@ void CL_BindCGame( void ) {
 
 		cgi.ext.R_Font_StrLenPixels				= re->ext.Font_StrLenPixels;
 
-		GetCGameAPI = (GetCGameAPI_t)cgvm->GetModuleAPI;
+		GetCGameAPI = (GetCGameAPI_t)/*cgvm->*/GetModuleAPI;
 
 		#if 0
 			ret = GetModuleAPI( CGAME_API_VERSION, &cgi );

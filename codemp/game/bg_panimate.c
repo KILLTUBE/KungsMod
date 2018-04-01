@@ -2238,7 +2238,7 @@ int BG_ParseAnimationEvtFile( const char *as_filename, int animFileIndex, int ev
 		goto fin;
 	}
 
-	trap->FS_Read( text, len, f );
+	FS_Read( text, len, f );
 	text[len] = 0;
 	trap->FS_Close( f );
 

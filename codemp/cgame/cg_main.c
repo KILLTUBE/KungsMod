@@ -80,6 +80,7 @@ void CG_DoCameraShake( vec3_t origin, float intensity, int radius, int time );
 
 #include "game/g_local.h"
 
+#if 0
 CCALL void Vehicle_SetAnim(gentity_t *ent,int setAnimParts,int anim,int setAnimFlags, int iBlend) {
 }
 CCALL void G_Knockdown( gentity_t *self, gentity_t *attacker, const vec3_t pushDir, float strength, qboolean breakSaberLock ) {
@@ -99,7 +100,6 @@ cvar_t	*com_cameraMode = NULL;
 cvar_t	*com_optvehtrace = NULL;
 cvar_t *bg_showevents = NULL;
 cvar_t *g_gravity = NULL;
-
 
 
 
@@ -144,9 +144,9 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker, vec3_
 	assert(0);
 }
 
-//#endif
+#endif
 
-
+EXTERNC cvar_t *bg_showevents;
 
 //do we have any force powers that we would normally need to cycle to?
 qboolean CG_NoUseableForce(void)
@@ -2482,6 +2482,9 @@ void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum )
 	const char	*s;
 	int i = 0;
 
+	
+	CG_RegisterCvars();
+
 	BG_InitAnimsets(); //clear it out
 
 	trap->RegisterSharedMemory( cg.sharedBuffer.raw );
@@ -2615,7 +2618,6 @@ Ghoul2 Insert End
 	cgs.media.bdecal_burn1 = R_RegisterShader("gfx/damage/bodybigburnmark1");
 	cgs.media.mSaberDamageGlow = R_RegisterShader("gfx/effects/saberDamageGlow");
 
-	CG_RegisterCvars();
 
 	CG_InitConsoleCommands();
 

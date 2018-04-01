@@ -186,6 +186,9 @@ vm_t *VM_Create( vmSlots_t vmSlot ) {
 	if (vmSlot == VM_UI) {
 		return vm;
 	}
+	if (vmSlot == VM_CGAME) {
+		return vm;
+	}
 	Com_Printf( "VM_Create: %s" ARCH_STRING DLL_EXT, vm->name );
 	if ( vm->dllHandle ) {
 		if ( com_developer->integer )

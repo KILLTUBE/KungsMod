@@ -114,13 +114,14 @@ char *showPowersName[] =
 
 //Called from UI shared code. For now we'll just redirect to the normal anim load function.
 
+// i dont see any useage for this in cgame, conflicts with ui_main.c version as well
+//int UI_ParseAnimationFile(const char *filename, animation_t *animset, qboolean isHumanoid)
+//{
+//	return BG_ParseAnimationFile(filename, animset, isHumanoid);
+//}
 
-int UI_ParseAnimationFile(const char *filename, animation_t *animset, qboolean isHumanoid)
-{
-	return BG_ParseAnimationFile(filename, animset, isHumanoid);
-}
-
-int MenuFontToHandle(int iMenuFont)
+// already defined in ui_main.c
+int MenuFontToHandle_CG(int iMenuFont)
 {
 	switch (iMenuFont)
 	{
@@ -137,14 +138,14 @@ int MenuFontToHandle(int iMenuFont)
 
 int CG_Text_Width(const char *text, float scale, int iMenuFont)
 {
-	int iFontIndex = MenuFontToHandle(iMenuFont);
+	int iFontIndex = MenuFontToHandle_CG(iMenuFont);
 
 	return trap->R_Font_StrLenPixels(text, iFontIndex, scale);
 }
 
 int CG_Text_Height(const char *text, float scale, int iMenuFont)
 {
-	int iFontIndex = MenuFontToHandle(iMenuFont);
+	int iFontIndex = MenuFontToHandle_CG(iMenuFont);
 
 	return trap->R_Font_HeightPixels(iFontIndex, scale);
 }
@@ -153,7 +154,7 @@ int CG_Text_Height(const char *text, float scale, int iMenuFont)
 void CG_Text_Paint(float x, float y, float scale, vec4_t color, const char *text, float adjust, int limit, int style, int iMenuFont)
 {
 	int iStyleOR = 0;
-	int iFontIndex = MenuFontToHandle(iMenuFont);
+	int iFontIndex = MenuFontToHandle_CG(iMenuFont);
 
 	switch (style)
 	{
