@@ -36,7 +36,7 @@ RE_ClearDecals
 This is called to remove all decals from the world
 ===================
 */
-void RE_ClearDecals( void ) {
+CCALL void RE_ClearDecals( void ) {
 	memset( re_decalPolys, 0, sizeof(re_decalPolys) );
 	memset( re_decalPolyHead, 0, sizeof(re_decalPolyHead) );
 	memset( re_decalPolyTotal, 0, sizeof(re_decalPolyTotal) );
@@ -134,7 +134,7 @@ passed to the renderer.
 #define	MAX_DECAL_FRAGMENTS	128
 #define	MAX_DECAL_POINTS		384
 
-void RE_AddDecalToScene( qhandle_t decalShader, const vec3_t origin, const vec3_t dir, float orientation, float red, float green, float blue, float alpha, qboolean alphaFade, float radius, qboolean temporary )
+CCALL void RE_AddDecalToScene( qhandle_t decalShader, const vec3_t origin, const vec3_t dir, float orientation, float red, float green, float blue, float alpha, qboolean alphaFade, float radius, qboolean temporary )
 {
 	matrix3_t		axis;
 	float			texCoordScale;

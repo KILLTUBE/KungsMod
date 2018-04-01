@@ -2538,7 +2538,7 @@ void R_LoadEntities( world_t *worldData, lump_t *l ) {
 R_GetEntityToken
 =================
 */
-qboolean R_GetEntityToken( char *buffer, int size ) {
+CCALL qboolean R_GetEntityToken( char *buffer, int size ) {
 	char	*s;
 	world_t *worldData = &s_worldData;
 

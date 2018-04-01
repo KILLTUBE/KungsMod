@@ -68,7 +68,7 @@ RE_ClearScene
 
 ====================
 */
-void RE_ClearScene( void ) {
+CCALL void RE_ClearScene( void ) {
 	r_firstSceneDlight = r_numdlights;
 	r_firstSceneEntity = r_numentities;
 	r_firstScenePoly = r_numpolys;
@@ -113,7 +113,7 @@ RE_AddPolyToScene
 
 =====================
 */
-void RE_AddPolyToScene( qhandle_t hShader, int numVerts, const polyVert_t *verts, int numPolys ) {
+CCALL void RE_AddPolyToScene( qhandle_t hShader, int numVerts, const polyVert_t *verts, int numPolys ) {
 	srfPoly_t	*poly;
 	int			i, j;
 	int			fogIndex;
@@ -187,7 +187,7 @@ RE_AddRefEntityToScene
 
 =====================
 */
-void RE_AddRefEntityToScene( const refEntity_t *ent ) {
+CCALL void RE_AddRefEntityToScene( const refEntity_t *ent ) {
 	vec3_t cross;
 
 	if ( !tr.registered ) {
@@ -225,7 +225,7 @@ RE_AddMiniRefEntityToScene
 1:1 with how vanilla does it --eez
 =====================
 */
-void RE_AddMiniRefEntityToScene( const miniRefEntity_t *miniRefEnt ) {
+CCALL void RE_AddMiniRefEntityToScene( const miniRefEntity_t *miniRefEnt ) {
 	refEntity_t entity;
 	if(!tr.registered)
 		return;
@@ -270,7 +270,7 @@ RE_AddLightToScene
 
 =====================
 */
-void RE_AddLightToScene( const vec3_t org, float intensity, float r, float g, float b ) {
+CCALL void RE_AddLightToScene( const vec3_t org, float intensity, float r, float g, float b ) {
 	RE_AddDynamicLightToScene( org, intensity, r, g, b, qfalse );
 }
 
@@ -280,7 +280,7 @@ RE_AddAdditiveLightToScene
 
 =====================
 */
-void RE_AddAdditiveLightToScene( const vec3_t org, float intensity, float r, float g, float b ) {
+CCALL void RE_AddAdditiveLightToScene( const vec3_t org, float intensity, float r, float g, float b ) {
 	RE_AddDynamicLightToScene( org, intensity, r, g, b, qtrue );
 }
 
@@ -465,7 +465,7 @@ Rendering a scene may require multiple views to be rendered
 to handle mirrors,
 @@@@@@@@@@@@@@@@@@@@@
 */
-void RE_RenderScene( const refdef_t *fd ) {
+CCALL void RE_RenderScene( const refdef_t *fd ) {
 	viewParms_t		parms;
 	int				startTime;
 

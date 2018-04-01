@@ -329,7 +329,7 @@ RE_SetColor
 Passing NULL will set the color to white
 =============
 */
-void	RE_SetColor( const float *rgba ) {
+CCALL void	RE_SetColor( const float *rgba ) {
 	setColorCommand_t	*cmd;
 
   if ( !tr.registered ) {
@@ -357,7 +357,7 @@ void	RE_SetColor( const float *rgba ) {
 RE_RotatePic
 =============
 */
-void RE_RotatePic ( float x, float y, float w, float h, 
+CCALL void RE_RotatePic ( float x, float y, float w, float h, 
 					  float s1, float t1, float s2, float t2,float a, qhandle_t hShader ) {
 	rotatePicCommand_t	*cmd;
 
@@ -383,7 +383,7 @@ void RE_RotatePic ( float x, float y, float w, float h,
 RE_RotatePic2
 =============
 */
-void RE_RotatePic2 ( float x, float y, float w, float h, 
+CCALL void RE_RotatePic2 ( float x, float y, float w, float h, 
 					  float s1, float t1, float s2, float t2,float a, qhandle_t hShader ) {
 	rotatePicCommand_t	*cmd;
 
@@ -409,8 +409,7 @@ void RE_RotatePic2 ( float x, float y, float w, float h,
 RE_StretchPic
 =============
 */
-void RE_StretchPic ( float x, float y, float w, float h, 
-					  float s1, float t1, float s2, float t2, qhandle_t hShader ) {
+CCALL void RE_StretchPic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader ) {
 	stretchPicCommand_t	*cmd;
 
 	if ( !tr.registered ) {

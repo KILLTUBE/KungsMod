@@ -2010,40 +2010,6 @@ Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 		return NULL;
 	}
 
-	// the RE_ functions are Renderer Entry points
-
-
-	re.DrawRotatePic = RE_RotatePic;
-	re.DrawRotatePic2 = RE_RotatePic2;
-
-	re.ClearScene = RE_ClearScene;
-	re.ClearDecals = RE_ClearDecals;
-	re.AddRefEntityToScene = RE_AddRefEntityToScene;
-	re.AddMiniRefEntityToScene = RE_AddMiniRefEntityToScene;
-	re.AddPolyToScene = RE_AddPolyToScene;
-	re.AddDecalToScene = RE_AddDecalToScene;
-	re.LightForPoint = R_LightForPoint;
-	re.AddLightToScene = RE_AddLightToScene;
-	re.AddAdditiveLightToScene = RE_AddAdditiveLightToScene;
-	re.RenderScene = RE_RenderScene;
-
-	re.SetColor = RE_SetColor;
-	re.DrawStretchPic = RE_StretchPic;
-	re.DrawStretchRaw = RE_StretchRaw;
-	re.UploadCinematic = RE_UploadCinematic;
-
-	re.RegisterFont = RE_RegisterFont;
-	re.Font_StrLenPixels = RE_Font_StrLenPixels;
-	re.Font_StrLenChars = RE_Font_StrLenChars;
-	re.Font_HeightPixels = RE_Font_HeightPixels;
-	re.Font_DrawString = RE_Font_DrawString;
-	re.Language_IsAsian = Language_IsAsian;
-	re.Language_UsesSpaces = Language_UsesSpaces;
-	re.AnyLanguage_ReadCharFromString = AnyLanguage_ReadCharFromString;
-	re.RemapShader = R_RemapShader;
-	re.GetEntityToken = R_GetEntityToken;
-	re.inPVS = R_inPVS;
-
 	re.GetLightStyle = RE_GetLightStyle;
 	re.SetLightStyle = RE_SetLightStyle;
 	re.GetBModelVerts = stub_RE_GetBModelVerts;

@@ -712,46 +712,46 @@ CCALL int				PC_SourceFileAndLine					( int handle, char *filename, int *line ) 
 }
 
 CCALL unsigned int R_AnyLanguage_ReadCharFromString( const char *psText, int *piAdvanceCount, qboolean *pbIsTrailingPunctuation ) {
-	return re->AnyLanguage_ReadCharFromString(psText, piAdvanceCount, pbIsTrailingPunctuation);
+	return AnyLanguage_ReadCharFromString(psText, piAdvanceCount, pbIsTrailingPunctuation);
 }
 
 
 CCALL qboolean	 R_Language_IsAsian					( void ) {
-	return re->Language_IsAsian();
+	return Language_IsAsian();
 }
 CCALL qboolean	 R_Language_UsesSpaces				( void ) {
-	return re->Language_UsesSpaces();
+	return Language_UsesSpaces();
 }
 
 
 
 
 CCALL void			R_AddLightToScene		( const vec3_t org, float intensity, float r, float g, float b ) {
-	re->AddLightToScene(org, intensity, r, g, b);
+	RE_AddLightToScene(org, intensity, r, g, b);
 }
 CCALL void			R_AddPolysToScene		( qhandle_t hShader, int numVerts, const polyVert_t *verts, int num ) {
-	re->AddPolyToScene(hShader, numVerts, verts, num);
+	RE_AddPolyToScene(hShader, numVerts, verts, num);
 }
 CCALL void			R_AddRefEntityToScene	( const refEntity_t *re_ ) {
-	re->AddRefEntityToScene(re_);
+	RE_AddRefEntityToScene(re_);
 }
 CCALL void			R_ClearScene			( void ) {
-	re->ClearScene();
+	RE_ClearScene();
 }
 CCALL void			R_DrawStretchPic		( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader ) {
-	re->DrawStretchPic(x, y, w, h, s1, t1, s2, t2, hShader);
+	RE_StretchPic(x, y, w, h, s1, t1, s2, t2, hShader);
 }
 CCALL int			R_Font_StrLenPixels		( const char *text, const int iFontIndex, const float scale ) {
-	return re->Font_StrLenPixels(text, iFontIndex, scale);
+	return RE_Font_StrLenPixels(text, iFontIndex, scale);
 }
 CCALL int			R_Font_StrLenChars		( const char *text ) {
-	return re->Font_StrLenChars(text);
+	return RE_Font_StrLenChars(text);
 }
 CCALL int			R_Font_HeightPixels		( const int iFontIndex, const float scale ) {
-	return re->Font_HeightPixels(iFontIndex, scale);
+	return RE_Font_HeightPixels(iFontIndex, scale);
 }
 CCALL void			R_Font_DrawString		( int ox, int oy, const char *text, const float *rgba, const int setIndex, int iCharLimit, const float scale ) {
-	re->Font_DrawString(ox, oy, text, rgba, setIndex, iCharLimit, scale);
+	RE_Font_DrawString(ox, oy, text, rgba, setIndex, iCharLimit, scale);
 }
 CCALL qhandle_t		R_RegisterModel			( const char *name ) {
 	return RE_RegisterModel(name);
@@ -763,14 +763,14 @@ CCALL qhandle_t		R_RegisterShaderNoMip	( const char *name ) {
 	return RE_RegisterShaderNoMip(name);
 }
 CCALL qhandle_t		R_RegisterFont			( const char *fontName ) {
-	return re->RegisterFont(fontName);
+	return RE_RegisterFont(fontName);
 }
 
 CCALL void			R_RenderScene			( const refdef_t *fd ) {
-	re->RenderScene(fd);
+	RE_RenderScene(fd);
 }
 CCALL void			R_SetColor				( const float *rgba ) {
-	 re->SetColor(rgba);
+	 RE_SetColor(rgba);
 }
 CCALL void			R_ShaderNameFromIndex	( char *name, int index ) {
 	CL_R_ShaderNameFromIndex(name, index);

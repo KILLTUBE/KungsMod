@@ -675,7 +675,7 @@ static int Thai_InitFields(int &iGlyphTPs, const char *&psLang)
 //
 // Note that I have to have this 3-param form instead of advancing a passed-in "const char **psText" because of VM-crap where you can only change ptr-contents, not ptrs themselves. Bleurgh. Ditto the qtrue:qfalse crap instead of just returning stuff straight through.
 //
-unsigned int AnyLanguage_ReadCharFromString( const char *psText, int *piAdvanceCount, qboolean *pbIsTrailingPunctuation /* = NULL */)
+CCALL unsigned int AnyLanguage_ReadCharFromString( const char *psText, int *piAdvanceCount, qboolean *pbIsTrailingPunctuation /* = NULL */)
 {
 	const byte *psString = (const byte *) psText;	// avoid sign-promote bug
 	unsigned int uiLetter;
@@ -804,7 +804,7 @@ unsigned int AnyLanguage_ReadCharFromString( const char *psText, int *piAdvanceC
 // needed for subtitle printing since original code no longer worked once camera bar height was changed to 480/10
 //	rather than refdef height / 10. I now need to bodge the coords to come out right.
 //
-qboolean Language_IsAsian(void)
+CCALL qboolean Language_IsAsian(void)
 {
 	switch ( GetLanguageEnum() )
 	{
@@ -821,7 +821,7 @@ qboolean Language_IsAsian(void)
 	return qfalse;
 }
 
-qboolean Language_UsesSpaces(void)
+CCALL qboolean Language_UsesSpaces(void)
 {
 	// ( korean uses spaces )
 	switch ( GetLanguageEnum() )
@@ -1411,13 +1411,13 @@ float RE_Font_StrLenPixelsNew( const char *psText, const int iFontHandle, const 
 	return maxLineWidth;
 }
 
-int RE_Font_StrLenPixels( const char *psText, const int iFontHandle, const float fScale ) {
+CCALL int RE_Font_StrLenPixels( const char *psText, const int iFontHandle, const float fScale ) {
 	return (int)ceilf( RE_Font_StrLenPixelsNew( psText, iFontHandle, fScale ) );
 }
 
 // not really a font function, but keeps naming consistant...
 //
-int RE_Font_StrLenChars(const char *psText)
+CCALL int RE_Font_StrLenChars(const char *psText)
 {
 	// logic for this function's letter counting must be kept same in this function and RE_Font_DrawString()
 	//
@@ -1454,7 +1454,7 @@ int RE_Font_StrLenChars(const char *psText)
 	return iCharCount;
 }
 
-int RE_Font_HeightPixels(const int iFontHandle, const float fScale)
+CCALL int RE_Font_HeightPixels(const int iFontHandle, const float fScale)
 {
 	CFontInfo	*curfont;
 
@@ -1469,7 +1469,7 @@ int RE_Font_HeightPixels(const int iFontHandle, const float fScale)
 
 // iMaxPixelWidth is -1 for "all of string", else pixel display count...
 //
-void RE_Font_DrawString(int ox, int oy, const char *psText, const float *rgba, const int iFontHandle, int iMaxPixelWidth, const float fScale)
+CCALL void RE_Font_DrawString(int ox, int oy, const char *psText, const float *rgba, const int iFontHandle, int iMaxPixelWidth, const float fScale)
 {
 	static qboolean gbInShadow = qfalse;	// MUST default to this
 	float				fox, foy, fx, fy;
@@ -1673,7 +1673,7 @@ void RE_Font_DrawString(int ox, int oy, const char *psText, const float *rgba, c
 	//let it remember the old color //RE_SetColor(NULL);
 }
 
-int RE_RegisterFont(const char *psName)
+CCALL int RE_RegisterFont(const char *psName)
 {
 	FontIndexMap_t::iterator it = g_mapFontIndexes.find(psName);
 	if (it != g_mapFontIndexes.end() )

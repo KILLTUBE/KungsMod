@@ -157,7 +157,7 @@ static long generateHashValue( const char *fname, const int size ) {
 	return hash;
 }
 
-void R_RemapShader(const char *shaderName, const char *newShaderName, const char *timeOffset) {
+CCALL void R_RemapShader(const char *shaderName, const char *newShaderName, const char *timeOffset) {
 	char		strippedName[MAX_QPATH];
 	int			hash;
 	shader_t	*sh, *sh2;

@@ -30,14 +30,14 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "../qcommon/q_shared.h"
 
-void R_ShutdownFonts(void);
-void R_InitFonts(void);
-int RE_RegisterFont(const char *psName);
-float RE_Font_StrLenPixelsNew( const char *psText, const int iFontHandle, const float fScale = 1.0f );
-int RE_Font_StrLenPixels( const char *psText, const int iFontHandle, const float fScale = 1.0f );
-int RE_Font_StrLenChars(const char *psText);
-int RE_Font_HeightPixels(const int iFontHandle, const float fScale = 1.0f);
-void RE_Font_DrawString(int ox, int oy, const char *psText, const float *rgba, const int iFontHandle, int iMaxPixelWidth, const float fScale = 1.0f);
+CCALL void R_ShutdownFonts(void);
+CCALL void R_InitFonts(void);
+CCALL int RE_RegisterFont(const char *psName);
+CCALL float RE_Font_StrLenPixelsNew( const char *psText, const int iFontHandle, const float fScale = 1.0f );
+CCALL int RE_Font_StrLenPixels( const char *psText, const int iFontHandle, const float fScale = 1.0f );
+CCALL int RE_Font_StrLenChars(const char *psText);
+CCALL int RE_Font_HeightPixels(const int iFontHandle, const float fScale = 1.0f);
+CCALL void RE_Font_DrawString(int ox, int oy, const char *psText, const float *rgba, const int iFontHandle, int iMaxPixelWidth, const float fScale = 1.0f);
 
 // Dammit, I can't use this more elegant form because of !@#@!$%% VM code... (can't alter passed in ptrs, only contents of)
 //
@@ -45,12 +45,10 @@ void RE_Font_DrawString(int ox, int oy, const char *psText, const float *rgba, c
 //
 // so instead we have to use this messier method...
 //
-unsigned int AnyLanguage_ReadCharFromString( const char *psText, int *piAdvanceCount, qboolean *pbIsTrailingPunctuation = NULL);
-
-qboolean Language_IsAsian(void);
-qboolean Language_UsesSpaces(void);
-
-void R_InitFreeType(void);
-void R_DoneFreeType(void);
+CCALL unsigned int AnyLanguage_ReadCharFromString( const char *psText, int *piAdvanceCount, qboolean *pbIsTrailingPunctuation);
+CCALL qboolean Language_IsAsian(void);
+CCALL qboolean Language_UsesSpaces(void);
+CCALL void R_InitFreeType(void);
+CCALL void R_DoneFreeType(void);
 
 // end
