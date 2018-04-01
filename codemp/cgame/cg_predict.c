@@ -1058,10 +1058,10 @@ void CG_PredictPlayerState( void ) {
 	}
 
 	if ( pmove_msec->integer < 8 ) {
-		trap->Cvar_Set("pmove_msec", "8");
+		CGVM_Cvar_Set("pmove_msec", "8");
 	}
 	else if (pmove_msec->integer > 33) {
-		trap->Cvar_Set("pmove_msec", "33");
+		CGVM_Cvar_Set("pmove_msec", "33");
 	}
 
 	cg_pmove.pmove_fixed = pmove_fixed->integer;// | cg_pmove_fixed->integer;

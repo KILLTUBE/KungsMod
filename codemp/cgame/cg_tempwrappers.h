@@ -144,5 +144,46 @@ CCALL void Key_SetCatcher( int catcher );
 CCALL void LAN_LoadCachedServers();
 CCALL void LAN_SaveServersToCache();
 
+CCALL int	Hunk_MemoryRemaining( void );
+CCALL void RegisterSharedMemory( char *memory );
+CCALL void VM_Shifted_Alloc( void **ptr, int size );
+CCALL void VM_Shifted_Free( void **ptr );
+CCALL int CL_Milliseconds( void );
+CCALL int Com_RealTime(qtime_t *qtime);
+CCALL void CL_PrecisionTimerStart( void **p );
+CCALL int CL_PrecisionTimerEnd( void *p );
+CCALL void	Cvar_Register( cvar_t *vmCvar, const char *varName, const char *defaultValue, uint32_t flags );
+CCALL void CGVM_Cvar_Set( const char *var_name, const char *value );
+CCALL void	Cvar_Update( cvar_t *vmCvar );
+
+CCALL void AS_Init( void );
+CCALL void AS_Free( void );
+CCALL void AS_ParseSets( void );
+CCALL void AS_AddPrecacheEntry( const char *name );
+CCALL void S_UpdateAmbientSet ( const char *name, vec3_t origin );
+CCALL int S_AddLocalSet( const char *name, vec3_t listener_origin, vec3_t origin, int entID, int time );
+CCALL sfxHandle_t	AS_GetBModelSound( const char *name, int stage );
+CCALL void S_AddLoopingSound( int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfxHandle );
+CCALL void S_ClearLoopingSounds( void );
+CCALL int CL_S_GetVoiceVolume( int entID );
+CCALL void S_MuteSound(int entityNum, int entchannel);
+CCALL sfxHandle_t	S_RegisterSound( const char *name);
+CCALL void S_Respatialize( int entityNum, const vec3_t head, matrix3_t axis, int inwater );
+CCALL void CL_S_Shutup( qboolean shutup );
+CCALL void S_StartBackgroundTrack( const char *intro, const char *loop, qboolean bCalledByCGameStart );
+CCALL void S_StartLocalSound( sfxHandle_t sfxHandle, int channelNum );
+CCALL void S_StartSound(const vec3_t origin, int entityNum, int entchannel, sfxHandle_t sfxHandle );
+CCALL void S_StopBackgroundTrack( void );
+CCALL void S_StopLoopingSound( int entityNum );
+CCALL void S_UpdateEntityPosition( int entityNum, const vec3_t origin );
+CCALL void S_UpdateAmbientSet ( const char *name, vec3_t origin );
+
+
+
+
+
+
+
+
 
 #endif

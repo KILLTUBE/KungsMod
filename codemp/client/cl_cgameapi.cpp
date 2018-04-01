@@ -201,11 +201,11 @@ CCALL void CL_GetGameState( gameState_t *gs ) {
 	*gs = cl.gameState;
 }
 
-static void RegisterSharedMemory( char *memory ) {
+CCALL void RegisterSharedMemory( char *memory ) {
 	cl.mSharedMemory = memory;
 }
 
-static int CL_Milliseconds( void ) {
+CCALL int CL_Milliseconds( void ) {
 	return Sys_Milliseconds();
 }
 
@@ -218,11 +218,11 @@ static int CL_CM_RegisterTerrain( const char *config ) {
 }
 
 extern int s_entityWavVol[MAX_GENTITIES];
-static int CL_S_GetVoiceVolume( int entID ) {
+CCALL int CL_S_GetVoiceVolume( int entID ) {
 	return s_entityWavVol[entID];
 }
 
-static void CL_S_Shutup( qboolean shutup ) {
+CCALL void CL_S_Shutup( qboolean shutup ) {
 	s_shutUp = shutup;
 }
 
@@ -685,7 +685,7 @@ static void CL_G2API_GetSurfaceName( void *ghoul2, int surfNumber, int modelInde
 	strcpy( fillBuf, tmp );
 }
 
-static void CGVM_Cvar_Set( const char *var_name, const char *value ) {
+CCALL void CGVM_Cvar_Set( const char *var_name, const char *value ) {
 	Cvar_VM_Set( var_name, value, VM_CGAME );
 }
 
@@ -727,17 +727,7 @@ void CL_BindCGame( void ) {
 	cgvm = VM_Create( VM_CGAME );
 	if ( cgvm && !cgvm->isLegacy ) {
 
-		cgi.MemoryRemaining						= Hunk_MemoryRemaining;
-		cgi.RegisterSharedMemory				= RegisterSharedMemory;
-		cgi.TrueMalloc							= VM_Shifted_Alloc;
-		cgi.TrueFree							= VM_Shifted_Free;
-		cgi.Milliseconds						= CL_Milliseconds;
-		cgi.RealTime							= Com_RealTime;
-		cgi.PrecisionTimerStart					= CL_PrecisionTimerStart;
-		cgi.PrecisionTimerEnd					= CL_PrecisionTimerEnd;
-		cgi.Cvar_Register						= Cvar_Register;
-		cgi.Cvar_Set							= CGVM_Cvar_Set;
-		cgi.Cvar_Update							= Cvar_Update;
+
 
 		cgi.CM_InlineModel						= CM_InlineModel;
 		cgi.CM_LoadMap							= CL_CM_LoadMap;
@@ -748,22 +738,9 @@ void CL_BindCGame( void ) {
 		cgi.CM_Trace							= CM_BoxTrace;
 		cgi.CM_TransformedPointContents			= CM_TransformedPointContents;
 		cgi.CM_TransformedTrace					= CM_TransformedBoxTrace;
+
 		cgi.RMG_Init							= CL_RMG_Init;
-		cgi.S_AddLocalSet						= S_AddLocalSet;
-		cgi.S_AddLoopingSound					= S_AddLoopingSound;
-		cgi.S_ClearLoopingSounds				= S_ClearLoopingSounds;
-		cgi.S_GetVoiceVolume					= CL_S_GetVoiceVolume;
-		cgi.S_MuteSound							= S_MuteSound;
-		cgi.S_RegisterSound						= S_RegisterSound;
-		cgi.S_Respatialize						= S_Respatialize;
-		cgi.S_Shutup							= CL_S_Shutup;
-		cgi.S_StartBackgroundTrack				= S_StartBackgroundTrack;
-		cgi.S_StartLocalSound					= S_StartLocalSound;
-		cgi.S_StartSound						= S_StartSound;
-		cgi.S_StopBackgroundTrack				= S_StopBackgroundTrack;
-		cgi.S_StopLoopingSound					= S_StopLoopingSound;
-		cgi.S_UpdateEntityPosition				= S_UpdateEntityPosition;
-		cgi.S_UpdateAmbientSet					= S_UpdateAmbientSet;
+		
 		cgi.AS_AddPrecacheEntry					= AS_AddPrecacheEntry;
 		cgi.AS_GetBModelSound					= AS_GetBModelSound;
 		cgi.AS_ParseSets						= AS_ParseSets;

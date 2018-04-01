@@ -874,7 +874,7 @@ int CG_ClientNumFromName(const char *p) {
 
 void CG_ShowResponseHead(void) {
 	Menus_OpenByName("voiceMenu");
-	trap->Cvar_Set("cl_conXOffset", "72");
+	CGVM_Cvar_Set("cl_conXOffset", "72");
 	cg.voiceTime = cg.time;
 }
 

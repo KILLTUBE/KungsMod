@@ -195,7 +195,7 @@ void CG_FragmentBounceSound( localEntity_t *le, trace_t *trace ) {
 
 		if ( s )
 		{
-			trap->S_StartSound( trace->endpos, ENTITYNUM_WORLD, CHAN_AUTO, s );
+			S_StartSound( trace->endpos, ENTITYNUM_WORLD, CHAN_AUTO, s );
 		}
 
 		// bouncers only make the sound once...
@@ -337,7 +337,7 @@ void CG_AddFragment( localEntity_t *le ) {
 
 		if (le->bounceSound)
 		{ //specified bounce sound (debris)
-			trap->S_StartSound(le->pos.trBase, ENTITYNUM_WORLD, CHAN_AUTO, le->bounceSound);
+			S_StartSound(le->pos.trBase, ENTITYNUM_WORLD, CHAN_AUTO, le->bounceSound);
 		}
 
 		// reflect the velocity on the trace plane

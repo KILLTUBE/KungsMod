@@ -1049,7 +1049,7 @@ void CG_DrawForcePower( menuDef_t *menuHUD )
 		if (cg.forceHUDNextFlashTime < cg.time)
 		{
 			cg.forceHUDNextFlashTime = cg.time + 400;
-			trap->S_StartSound (NULL, 0, CHAN_LOCAL, cgs.media.noforceSound );
+			S_StartSound (NULL, 0, CHAN_LOCAL, cgs.media.noforceSound );
 
 			if (cg.forceHUDActive)
 			{
@@ -1292,7 +1292,7 @@ static void CG_DrawSimpleForcePower( const centity_t *cent )
 		if ( cg.forceHUDNextFlashTime < cg.time )
 		{
 			cg.forceHUDNextFlashTime = cg.time + 400;
-			trap->S_StartSound( NULL, 0, CHAN_LOCAL, cgs.media.noforceSound );
+			S_StartSound( NULL, 0, CHAN_LOCAL, cgs.media.noforceSound );
 			if ( cg.forceHUDActive )
 			{
 				cg.forceHUDActive = qfalse;
@@ -2310,7 +2310,7 @@ void CG_DrawVehicleWeaponsLinked( const menuDef_t	*menuHUD, const centity_t *veh
 	if ( cg_drawLink != drawLink )
 	{//state changed, play sound
 		cg_drawLink = drawLink;
-		trap->S_StartSound (NULL, cg.predictedPlayerState.clientNum, CHAN_LOCAL, S_RegisterSound( "sound/vehicles/common/linkweaps.wav" ) );
+		S_StartSound (NULL, cg.predictedPlayerState.clientNum, CHAN_LOCAL, S_RegisterSound( "sound/vehicles/common/linkweaps.wav" ) );
 	}
 
 	if ( drawLink )
@@ -3154,7 +3154,7 @@ static float CG_DrawFPS( float y ) {
 
 	// don't use serverTime, because that will be drifting to
 	// correct for internet lag changes, timescales, timedemos, etc
-	t = trap->Milliseconds();
+	t = CL_Milliseconds();
 	frameTime = t - previous;
 	previous = t;
 	if (t - lastupdate > 50)	//don't sample faster than this
@@ -3591,7 +3591,7 @@ float CG_DrawRadar ( float y )
 								impactSoundDebounceTime = cg.time + 100;
 							}
 							VectorMA( cg.refdef.vieworg, -500.0f*(surfaceDist/RADAR_ASTEROID_RANGE), dirPlayer, soundOrg );
-							trap->S_StartSound( soundOrg, ENTITYNUM_WORLD, CHAN_AUTO, S_RegisterSound( "sound/vehicles/common/impactalarm.wav" ) );
+							S_StartSound( soundOrg, ENTITYNUM_WORLD, CHAN_AUTO, S_RegisterSound( "sound/vehicles/common/impactalarm.wav" ) );
 						}
 						//brighten it the closer it is
 						if ( surfaceDist > RADAR_ASTEROID_RANGE*0.66f )
@@ -3662,7 +3662,7 @@ float CG_DrawRadar ( float y )
 									actualDist = RADAR_MISSILE_RANGE;
 								}
 								VectorMA( cg.refdef.vieworg, -500.0f*(actualDist/RADAR_MISSILE_RANGE), dirPlayer, soundOrg );
-								trap->S_StartSound( soundOrg, ENTITYNUM_WORLD, CHAN_AUTO, alarmSound );
+								S_StartSound( soundOrg, ENTITYNUM_WORLD, CHAN_AUTO, alarmSound );
 							}
 						}
 					}
@@ -4132,7 +4132,7 @@ static void CG_DrawReward( void ) {
 			cg.rewardTime = cg.time;
 			cg.rewardStack--;
 			color = CG_FadeColor( cg.rewardTime, REWARD_TIME );
-			trap->S_StartLocalSound(cg.rewardSound[0], CHAN_ANNOUNCER);
+			S_StartLocalSound(cg.rewardSound[0], CHAN_ANNOUNCER);
 		} else {
 			return;
 		}
@@ -4403,7 +4403,7 @@ void CG_DrawSiegeMessage( const char *str, int objectiveScreen )
 //	if (!( Key_GetCatcher() & KEYCATCH_UI ))
 	{
 		CL_OpenUIMenu(UIMENU_CLOSEALL);
-		trap->Cvar_Set("cg_siegeMessage", str);
+		CGVM_Cvar_Set("cg_siegeMessage", str);
 		if (objectiveScreen)
 		{
 			CL_OpenUIMenu(UIMENU_SIEGEOBJECTIVES);
@@ -5922,22 +5922,22 @@ static void CG_DrawRocketLocking( int lockEntNum, int lockTime )
 			{
 				if ( cg.snap->ps.m_iVehicleNum )
 				{
-					trap->S_StartSound( org, 0, CHAN_AUTO, S_RegisterSound( "sound/vehicles/weapons/common/lock.wav" ));
+					S_StartSound( org, 0, CHAN_AUTO, S_RegisterSound( "sound/vehicles/weapons/common/lock.wav" ));
 				}
 				else
 				{
-					trap->S_StartSound( org, 0, CHAN_AUTO, S_RegisterSound( "sound/weapons/rocket/lock.wav" ));
+					S_StartSound( org, 0, CHAN_AUTO, S_RegisterSound( "sound/weapons/rocket/lock.wav" ));
 				}
 			}
 			else
 			{
 				if ( cg.snap->ps.m_iVehicleNum )
 				{
-					trap->S_StartSound( org, 0, CHAN_AUTO, S_RegisterSound( "sound/vehicles/weapons/common/tick.wav" ));
+					S_StartSound( org, 0, CHAN_AUTO, S_RegisterSound( "sound/vehicles/weapons/common/tick.wav" ));
 				}
 				else
 				{
-					trap->S_StartSound( org, 0, CHAN_AUTO, S_RegisterSound( "sound/weapons/rocket/tick.wav" ));
+					S_StartSound( org, 0, CHAN_AUTO, S_RegisterSound( "sound/weapons/rocket/tick.wav" ));
 				}
 			}
 		}
@@ -6524,7 +6524,7 @@ static void CG_DrawVote(void) {
 	// play a talk beep whenever it is modified
 	if ( cgs.voteModified ) {
 		cgs.voteModified = qfalse;
-		trap->S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
+		S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
 	}
 
 	sec = ( VOTE_TIME - ( cg.time - cgs.voteTime ) ) / 1000;
@@ -6603,7 +6603,7 @@ static void CG_DrawTeamVote(void) {
 	// play a talk beep whenever it is modified
 	if ( cgs.teamVoteModified[cs_offset] ) {
 		cgs.teamVoteModified[cs_offset] = qfalse;
-//		trap->S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
+//		S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
 	}
 
 	sec = ( VOTE_TIME - ( cg.time - cgs.teamVoteTime[cs_offset] ) ) / 1000;
@@ -6881,13 +6881,13 @@ static void CG_DrawWarmup( void ) {
 		{
 			switch ( sec ) {
 			case 0:
-				trap->S_StartLocalSound( cgs.media.count1Sound, CHAN_ANNOUNCER );
+				S_StartLocalSound( cgs.media.count1Sound, CHAN_ANNOUNCER );
 				break;
 			case 1:
-				trap->S_StartLocalSound( cgs.media.count2Sound, CHAN_ANNOUNCER );
+				S_StartLocalSound( cgs.media.count2Sound, CHAN_ANNOUNCER );
 				break;
 			case 2:
-				trap->S_StartLocalSound( cgs.media.count3Sound, CHAN_ANNOUNCER );
+				S_StartLocalSound( cgs.media.count3Sound, CHAN_ANNOUNCER );
 				break;
 			default:
 				break;
@@ -6925,7 +6925,7 @@ void CG_DrawTimedMenus() {
 		int t = cg.time - cg.voiceTime;
 		if ( t > 2500 ) {
 			Menus_CloseByName("voiceMenu");
-			trap->Cvar_Set("cl_conXOffset", "0");
+			CGVM_Cvar_Set("cl_conXOffset", "0");
 			cg.voiceTime = 0;
 		}
 	}
@@ -7235,7 +7235,7 @@ static void CG_DrawSiegeTimer(int timeRemaining, qboolean isMyTeam)
 		fColor = CT_HUD_GREEN;
 	}
 
-//	trap->Cvar_Set("ui_siegeTimer", timeStr);
+//	CGVM_Cvar_Set("ui_siegeTimer", timeStr);
 
 //	CG_DrawProportionalString( x+16, y+40, timeStr, UI_SMALLFONT|UI_DROPSHADOW, colorTable[fColor] );
 
@@ -8208,13 +8208,13 @@ static void CG_Draw2D( void ) {
 				switch (rTime)
 				{
 				case 1:
-					trap->S_StartLocalSound( cgs.media.count1Sound, CHAN_ANNOUNCER );
+					S_StartLocalSound( cgs.media.count1Sound, CHAN_ANNOUNCER );
 					break;
 				case 2:
-					trap->S_StartLocalSound( cgs.media.count2Sound, CHAN_ANNOUNCER );
+					S_StartLocalSound( cgs.media.count2Sound, CHAN_ANNOUNCER );
 					break;
 				case 3:
-					trap->S_StartLocalSound( cgs.media.count3Sound, CHAN_ANNOUNCER );
+					S_StartLocalSound( cgs.media.count3Sound, CHAN_ANNOUNCER );
 					break;
 				default:
 					break;

@@ -227,7 +227,7 @@ void VM_Clear( void ) {
 	currentVM = NULL;
 }
 
-void VM_Shifted_Alloc( void **ptr, int size ) {
+CCALL void VM_Shifted_Alloc( void **ptr, int size ) {
 	void *mem = NULL;
 
 	if ( !currentVM ) {
@@ -248,7 +248,7 @@ void VM_Shifted_Alloc( void **ptr, int size ) {
 	*ptr = mem;
 }
 
-void VM_Shifted_Free( void **ptr ) {
+CCALL void VM_Shifted_Free( void **ptr ) {
 	void *mem = NULL;
 
 	if ( !currentVM ) {

@@ -57,7 +57,7 @@ Keybinding command
 =================
 */
 static void CG_SizeUp_f (void) {
-	trap->Cvar_Set( "cg_viewsize", va( "%i", Q_min( cg_viewsize->integer + 10, 100 ) ) );
+	CGVM_Cvar_Set( "cg_viewsize", va( "%i", Q_min( cg_viewsize->integer + 10, 100 ) ) );
 }
 
 /*
@@ -68,7 +68,7 @@ Keybinding command
 =================
 */
 static void CG_SizeDown_f (void) {
-	trap->Cvar_Set( "cg_viewsize", va( "%i", Q_max( cg_viewsize->integer - 10, 30 ) ) );
+	CGVM_Cvar_Set( "cg_viewsize", va( "%i", Q_max( cg_viewsize->integer - 10, 30 ) ) );
 }
 
 /*
@@ -210,13 +210,13 @@ static void CG_StartOrbit_f( void ) {
 		return;
 	}
 	if (cg_cameraOrbit->value != 0) {
-		trap->Cvar_Set ("cg_cameraOrbit", "0");
-		trap->Cvar_Set("cg_thirdPerson", "0");
+		CGVM_Cvar_Set ("cg_cameraOrbit", "0");
+		CGVM_Cvar_Set("cg_thirdPerson", "0");
 	} else {
-		trap->Cvar_Set("cg_cameraOrbit", "5");
-		trap->Cvar_Set("cg_thirdPerson", "1");
-		trap->Cvar_Set("cg_thirdPersonAngle", "0");
-		trap->Cvar_Set("cg_thirdPersonRange", "100");
+		CGVM_Cvar_Set("cg_cameraOrbit", "5");
+		CGVM_Cvar_Set("cg_thirdPerson", "1");
+		CGVM_Cvar_Set("cg_thirdPersonAngle", "0");
+		CGVM_Cvar_Set("cg_thirdPersonRange", "100");
 	}
 }
 

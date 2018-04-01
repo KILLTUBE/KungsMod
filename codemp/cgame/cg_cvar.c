@@ -49,9 +49,9 @@ static void CG_TeamOverlayChange( void ) {
 	// If team overlay is on, ask for updates from the server.  If its off,
 	// let the server know so we don't receive it
 	if ( cg_drawTeamOverlay->integer > 0 && cgs.gametype >= GT_SINGLE_PLAYER)
-		trap->Cvar_Set( "teamoverlay", "1" );
+		CGVM_Cvar_Set( "teamoverlay", "1" );
 	else
-		trap->Cvar_Set( "teamoverlay", "0" );
+		CGVM_Cvar_Set( "teamoverlay", "0" );
 }
 
 
@@ -81,7 +81,7 @@ void CG_RegisterCvars( void ) {
 	#undef XCVAR_LIST
 
 	//for ( i=0, cv=cvarTable; i<cvarTableSize; i++, cv++ ) {
-	//	trap->Cvar_Register( cv->vmCvar, cv->cvarName, cv->defaultString, cv->cvarFlags );
+	//	Cvar_Register( cv->vmCvar, cv->cvarName, cv->defaultString, cv->cvarFlags );
 	//	if ( cv->update )
 	//		cv->update();
 	//}
@@ -94,7 +94,7 @@ void CG_UpdateCvars( void ) {
 	//for ( i=0, cv=cvarTable; i<cvarTableSize; i++, cv++ ) {
 	//	if ( cv->vmCvar ) {
 	//		int modCount = cv->vmCvar->modificationCount;
-	//		trap->Cvar_Update( cv->vmCvar );
+	//		Cvar_Update( cv->vmCvar );
 	//		if ( cv->vmCvar->modificationCount != modCount ) {
 	//			if ( cv->update )
 	//				cv->update();

@@ -1440,7 +1440,7 @@ void CG_NextWeapon_f( void ) {
 	}
 	else
 	{
-		trap->S_MuteSound(cg.snap->ps.clientNum, CHAN_WEAPON);
+		S_MuteSound(cg.snap->ps.clientNum, CHAN_WEAPON);
 	}
 }
 
@@ -1506,7 +1506,7 @@ void CG_PrevWeapon_f( void ) {
 	}
 	else
 	{
-		trap->S_MuteSound(cg.snap->ps.clientNum, CHAN_WEAPON);
+		S_MuteSound(cg.snap->ps.clientNum, CHAN_WEAPON);
 	}
 }
 
@@ -1630,7 +1630,7 @@ void CG_Weapon_f( void ) {
 
 	if (cg.weaponSelect != num)
 	{
-		trap->S_MuteSound(cg.snap->ps.clientNum, CHAN_WEAPON);
+		S_MuteSound(cg.snap->ps.clientNum, CHAN_WEAPON);
 	}
 
 	cg.weaponSelect = num;
@@ -1746,7 +1746,7 @@ void CG_WeaponClean_f( void ) {
 
 	if (cg.weaponSelect != num)
 	{
-		trap->S_MuteSound(cg.snap->ps.clientNum, CHAN_WEAPON);
+		S_MuteSound(cg.snap->ps.clientNum, CHAN_WEAPON);
 	}
 
 	cg.weaponSelect = num;
@@ -1787,7 +1787,7 @@ void CG_OutOfAmmoChange( int oldWeapon )
 		}
 	}
 
-	trap->S_MuteSound(cg.snap->ps.clientNum, CHAN_WEAPON);
+	S_MuteSound(cg.snap->ps.clientNum, CHAN_WEAPON);
 }
 
 
@@ -1914,7 +1914,7 @@ void CG_FireWeapon( centity_t *cent, qboolean altFire ) {
 	#ifdef BASE_COMPAT
 		// play quad sound if needed
 		if ( cent->currentState.powerups & ( 1 << PW_QUAD ) ) {
-			//trap->S_StartSound (NULL, cent->currentState.number, CHAN_ITEM, cgs.media.quadSound );
+			//S_StartSound (NULL, cent->currentState.number, CHAN_ITEM, cgs.media.quadSound );
 		}
 	#endif // BASE_COMPAT
 
@@ -1932,12 +1932,12 @@ void CG_FireWeapon( centity_t *cent, qboolean altFire ) {
 			c = rand() % c;
 			if ( weap->altFlashSound[c] )
 			{
-				trap->S_StartSound( NULL, ent->number, CHAN_WEAPON, weap->altFlashSound[c] );
+				S_StartSound( NULL, ent->number, CHAN_WEAPON, weap->altFlashSound[c] );
 			}
 		}
 //		if ( weap->altFlashSnd )
 //		{
-//			trap->S_StartSound( NULL, ent->number, CHAN_WEAPON, weap->altFlashSnd );
+//			S_StartSound( NULL, ent->number, CHAN_WEAPON, weap->altFlashSnd );
 //		}
 	}
 	else
@@ -1952,7 +1952,7 @@ void CG_FireWeapon( centity_t *cent, qboolean altFire ) {
 			c = rand() % c;
 			if ( weap->flashSound[c] )
 			{
-				trap->S_StartSound( NULL, ent->number, CHAN_WEAPON, weap->flashSound[c] );
+				S_StartSound( NULL, ent->number, CHAN_WEAPON, weap->flashSound[c] );
 			}
 		}
 	}
@@ -2550,30 +2550,30 @@ void CG_CheckPlayerG2Weapons(playerState_t *ps, centity_t *cent)
 		cent->ghoul2weapon = CG_G2WeaponInstance(cent, ps->weapon);
 		if (cent->weapon == WP_SABER && cent->weapon != ps->weapon && !ps->saberHolstered)
 		{ //switching away from the saber
-			//trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberoffquick.wav" ));
+			//S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberoffquick.wav" ));
 			if (cgs.clientinfo[ps->clientNum].saber[0].soundOff && !ps->saberHolstered)
 			{
-				trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, cgs.clientinfo[ps->clientNum].saber[0].soundOff);
+				S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, cgs.clientinfo[ps->clientNum].saber[0].soundOff);
 			}
 
 			if (cgs.clientinfo[ps->clientNum].saber[1].soundOff &&
 				cgs.clientinfo[ps->clientNum].saber[1].model[0] &&
 				!ps->saberHolstered)
 			{
-				trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, cgs.clientinfo[ps->clientNum].saber[1].soundOff);
+				S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, cgs.clientinfo[ps->clientNum].saber[1].soundOff);
 			}
 		}
 		else if (ps->weapon == WP_SABER && cent->weapon != ps->weapon && !cent->saberWasInFlight)
 		{ //switching to the saber
-			//trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberon.wav" ));
+			//S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberon.wav" ));
 			if (cgs.clientinfo[ps->clientNum].saber[0].soundOn)
 			{
-				trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, cgs.clientinfo[ps->clientNum].saber[0].soundOn);
+				S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, cgs.clientinfo[ps->clientNum].saber[0].soundOn);
 			}
 
 			if (cgs.clientinfo[ps->clientNum].saber[1].soundOn)
 			{
-				trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, cgs.clientinfo[ps->clientNum].saber[1].soundOn);
+				S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, cgs.clientinfo[ps->clientNum].saber[1].soundOn);
 			}
 
 			BG_SI_SetDesiredLength(&cgs.clientinfo[ps->clientNum].saber[0], 0, -1);

@@ -1517,7 +1517,7 @@ S_MuteSound
 Mutes sound on specified channel for specified entity.
 ====================
 */
-void S_MuteSound(int entityNum, int entchannel)
+CCALL void S_MuteSound(int entityNum, int entchannel)
 {
 	//I guess this works.
 	channel_t *ch = S_PickChannel( entityNum, entchannel );
@@ -1546,7 +1546,7 @@ if pos is NULL, the sound will be dynamically sourced from the entity
 entchannel 0 will never override a playing sound
 ====================
 */
-void S_StartSound(const vec3_t origin, int entityNum, int entchannel, sfxHandle_t sfxHandle )
+CCALL void S_StartSound(const vec3_t origin, int entityNum, int entchannel, sfxHandle_t sfxHandle )
 {
 	channel_t	*ch;
 	/*const*/ sfx_t *sfx;
@@ -1898,7 +1898,7 @@ Stops all active looping sounds on a specified entity.
 Sort of a slow method though, isn't there some better way?
 ==================
 */
-void S_StopLoopingSound( int entityNum )
+CCALL void S_StopLoopingSound( int entityNum )
 {
 	int i = 0;
 
@@ -2327,7 +2327,7 @@ S_UpdateEntityPosition
 let the sound system know where an entity currently is
 ======================
 */
-void S_UpdateEntityPosition( int entityNum, const vec3_t origin )
+CCALL void S_UpdateEntityPosition( int entityNum, const vec3_t origin )
 {
 	if ( entityNum < 0 || entityNum >= MAX_GENTITIES ) {
 		Com_Error( ERR_DROP, "S_UpdateEntityPosition: bad entitynum %i", entityNum );
@@ -2507,7 +2507,7 @@ S_Respatialize
 Change the volumes of all the playing sounds for changes in their positions
 ============
 */
-void S_Respatialize( int entityNum, const vec3_t head, matrix3_t axis, int inwater )
+CCALL void S_Respatialize( int entityNum, const vec3_t head, matrix3_t axis, int inwater )
 {
 #ifdef USE_OPENAL
 	EAXOCCLUSIONPROPERTIES eaxOCProp;

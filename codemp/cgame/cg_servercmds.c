@@ -144,7 +144,7 @@ void CG_ParseServerinfo( void ) {
 	cgs.showDuelHealths = atoi( Info_ValueForKey( info, "g_showDuelHealths" ) );
 
 	cgs.gametype = atoi( Info_ValueForKey( info, "g_gametype" ) );
-	trap->Cvar_Set("g_gametype", va("%i", cgs.gametype));
+	CGVM_Cvar_Set("g_gametype", va("%i", cgs.gametype));
 	cgs.needpass = atoi( Info_ValueForKey( info, "g_needpass" ) );
 	cgs.jediVmerc = atoi( Info_ValueForKey( info, "g_jediVmerc" ) );
 
@@ -186,36 +186,36 @@ void CG_ParseServerinfo( void ) {
 	mapname = Info_ValueForKey( info, "mapname" );
 
 	//rww - You must do this one here, Info_ValueForKey always uses the same memory pointer.
-	trap->Cvar_Set ( "ui_about_mapname", mapname );
+	CGVM_Cvar_Set ( "ui_about_mapname", mapname );
 
 	Com_sprintf( cgs.mapname, sizeof( cgs.mapname ), "maps/%s.bsp", mapname );
 	Com_sprintf( cgs.rawmapname, sizeof( cgs.rawmapname ), "maps/%s", mapname );
 //	Q_strncpyz( cgs.redTeam, Info_ValueForKey( info, "g_redTeam" ), sizeof(cgs.redTeam) );
-//	trap->Cvar_Set("g_redTeam", cgs.redTeam);
+//	CGVM_Cvar_Set("g_redTeam", cgs.redTeam);
 //	Q_strncpyz( cgs.blueTeam, Info_ValueForKey( info, "g_blueTeam" ), sizeof(cgs.blueTeam) );
-//	trap->Cvar_Set("g_blueTeam", cgs.blueTeam);
+//	CGVM_Cvar_Set("g_blueTeam", cgs.blueTeam);
 
-	trap->Cvar_Set ( "ui_about_gametype", va("%i", cgs.gametype ) );
-	trap->Cvar_Set ( "ui_about_fraglimit", va("%i", cgs.fraglimit ) );
-	trap->Cvar_Set ( "ui_about_duellimit", va("%i", cgs.duel_fraglimit ) );
-	trap->Cvar_Set ( "ui_about_capturelimit", va("%i", cgs.capturelimit ) );
-	trap->Cvar_Set ( "ui_about_timelimit", va("%i", cgs.timelimit ) );
-	trap->Cvar_Set ( "ui_about_maxclients", va("%i", cgs.maxclients ) );
-	trap->Cvar_Set ( "ui_about_dmflags", va("%i", cgs.dmflags ) );
-	trap->Cvar_Set ( "ui_about_hostname", Info_ValueForKey( info, "sv_hostname" ) );
-	trap->Cvar_Set ( "ui_about_needpass", Info_ValueForKey( info, "g_needpass" ) );
-	trap->Cvar_Set ( "ui_about_botminplayers", Info_ValueForKey ( info, "bot_minplayers" ) );
+	CGVM_Cvar_Set ( "ui_about_gametype", va("%i", cgs.gametype ) );
+	CGVM_Cvar_Set ( "ui_about_fraglimit", va("%i", cgs.fraglimit ) );
+	CGVM_Cvar_Set ( "ui_about_duellimit", va("%i", cgs.duel_fraglimit ) );
+	CGVM_Cvar_Set ( "ui_about_capturelimit", va("%i", cgs.capturelimit ) );
+	CGVM_Cvar_Set ( "ui_about_timelimit", va("%i", cgs.timelimit ) );
+	CGVM_Cvar_Set ( "ui_about_maxclients", va("%i", cgs.maxclients ) );
+	CGVM_Cvar_Set ( "ui_about_dmflags", va("%i", cgs.dmflags ) );
+	CGVM_Cvar_Set ( "ui_about_hostname", Info_ValueForKey( info, "sv_hostname" ) );
+	CGVM_Cvar_Set ( "ui_about_needpass", Info_ValueForKey( info, "g_needpass" ) );
+	CGVM_Cvar_Set ( "ui_about_botminplayers", Info_ValueForKey ( info, "bot_minplayers" ) );
 
 	//Set the siege teams based on what the server has for overrides.
-	trap->Cvar_Set("cg_siegeTeam1", Info_ValueForKey(info, "g_siegeTeam1"));
-	trap->Cvar_Set("cg_siegeTeam2", Info_ValueForKey(info, "g_siegeTeam2"));
+	CGVM_Cvar_Set("cg_siegeTeam1", Info_ValueForKey(info, "g_siegeTeam1"));
+	CGVM_Cvar_Set("cg_siegeTeam2", Info_ValueForKey(info, "g_siegeTeam2"));
 
 	Q_strncpyz( cgs.voteString, CG_ConfigString( CS_VOTE_STRING ), sizeof( cgs.voteString ) );
 
 	// synchronise our expected snaps/sec with the server's framerate
 	i = atoi( Info_ValueForKey( info, "sv_fps" ) );
 	if ( i )
-		trap->Cvar_Set( "snaps", va( "%i", i ) );
+		CGVM_Cvar_Set( "snaps", va( "%i", i ) );
 }
 
 /*
@@ -517,9 +517,9 @@ void CG_PrecacheNPCSounds(const char *str)
 				}
 				sEnd[k-1] = 0;
 
-				trap->S_Shutup(qtrue);
+				CL_S_Shutup(qtrue);
 				S_RegisterSound( va("sound/chars/%s/misc/%s", pEnd, sEnd) );
-				trap->S_Shutup(qfalse);
+				CL_S_Shutup(qfalse);
 			}
 			else
 			{ //move onto the next set
@@ -1080,18 +1080,18 @@ static void CG_MapRestart( void ) {
 
 	// play the "fight" sound if this is a restart without warmup
 	if ( cg.warmup == 0 && cgs.gametype != GT_SIEGE && cgs.gametype != GT_POWERDUEL/* && cgs.gametype == GT_DUEL */) {
-		trap->S_StartLocalSound( cgs.media.countFightSound, CHAN_ANNOUNCER );
+		S_StartLocalSound( cgs.media.countFightSound, CHAN_ANNOUNCER );
 		CG_CenterPrint( CG_GetStringEdString("MP_SVGAME", "BEGIN_DUEL"), 120, GIANTCHAR_WIDTH*2 );
 	}
 	/*
 	if (cg_singlePlayerActive->integer) {
-		trap->Cvar_Set("ui_matchStartTime", va("%i", cg.time));
+		CGVM_Cvar_Set("ui_matchStartTime", va("%i", cg.time));
 		if (cg_recordSPDemo->integer && cg_recordSPDemoName.string && *cg_recordSPDemoName.string) {
 			Cbuf_AddText(va("set g_synchronousclients 1 ; record %s \n", cg_recordSPDemoName.string));
 		}
 	}
 	*/
-//	trap->Cvar_Set("cg_thirdPerson", "0");
+//	CGVM_Cvar_Set("cg_thirdPerson", "0");
 }
 
 /*
@@ -1312,7 +1312,7 @@ static void CG_SiegeClassSelect_f( void ) {
 
 static void CG_SiegeProfileMenu_f( void ) {
 	if ( !cg.demoPlayback ) {
-		trap->Cvar_Set( "ui_myteam", "3" );
+		CGVM_Cvar_Set( "ui_myteam", "3" );
 		CL_OpenUIMenu( UIMENU_PLAYERCONFIG ); //UIMENU_CLASSSEL
 	}
 }
@@ -1334,9 +1334,9 @@ static void CG_NewForceRank_f( void ) {
 	doMenu = atoi( CG_Argv( 2 ) );
 	setTeam = atoi( CG_Argv( 3 ) );
 
-	trap->Cvar_Set( "ui_rankChange", va( "%i", newRank ) );
+	CGVM_Cvar_Set( "ui_rankChange", va( "%i", newRank ) );
 
-	trap->Cvar_Set( "ui_myteam", va( "%i", setTeam ) );
+	CGVM_Cvar_Set( "ui_myteam", va( "%i", setTeam ) );
 
 	if ( !( Key_GetCatcher() & KEYCATCH_UI ) && doMenu && !cg.demoPlayback )
 		CL_OpenUIMenu( UIMENU_PLAYERCONFIG );
@@ -1504,7 +1504,7 @@ static void CG_Chat_f( void ) {
 	if ( !strcmp( cmd, "chat" ) ) {
 		if ( !cg_teamChatsOnly->integer ) {
 			if( cg_chatBeep->integer )
-				trap->S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
+				S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
 			Cmd_ArgvBuffer( 1, text, sizeof( text ) );
 			CG_RemoveChatEscapeChar( text );
 			CG_ChatBox_AddString( text );
@@ -1529,7 +1529,7 @@ static void CG_Chat_f( void ) {
 				CL_SE_GetStringTextString( loc+1, loc, sizeof( loc ) );
 
 			if( cg_chatBeep->integer )
-				trap->S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
+				S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
 			Com_sprintf( text, sizeof( text ), "%s^7<%s> ^%s%s", name, loc, color, message );
 			CG_RemoveChatEscapeChar( text );
 			CG_ChatBox_AddString( text );
@@ -1538,7 +1538,7 @@ static void CG_Chat_f( void ) {
 	}
 	else if ( !strcmp( cmd, "tchat" ) ) {
 		if( cg_teamChatBeep->integer )
-			trap->S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
+			S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
 		Cmd_ArgvBuffer( 1, text, sizeof( text ) );
 		CG_RemoveChatEscapeChar( text );
 		CG_ChatBox_AddString( text );
@@ -1561,7 +1561,7 @@ static void CG_Chat_f( void ) {
 			CL_SE_GetStringTextString( loc+1, loc, sizeof( loc ) );
 
 		if( cg_teamChatBeep->integer )
-			trap->S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
+			S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
 		Com_sprintf( text, sizeof( text ), "%s^7<%s> ^%s%s", name, loc, color, message );
 		CG_RemoveChatEscapeChar( text );
 		CG_ChatBox_AddString( text );

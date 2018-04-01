@@ -199,12 +199,12 @@ static void CG_CalcVrect (void) {
 	} else {
 		// bound normal viewsize
 		if ( cg_viewsize->integer < 30 ) {
-			trap->Cvar_Set( "cg_viewsize", "30" );
-			trap->Cvar_Update( &cg_viewsize );
+			CGVM_Cvar_Set( "cg_viewsize", "30" );
+			Cvar_Update( &cg_viewsize );
 			size = 30;
 		} else if ( cg_viewsize->integer > 100 ) {
-			trap->Cvar_Set( "cg_viewsize", "100" );
-			trap->Cvar_Update( &cg_viewsize );
+			CGVM_Cvar_Set( "cg_viewsize", "100" );
+			Cvar_Update( &cg_viewsize );
 			size = 100;
 		} else {
 			size = cg_viewsize->integer;
@@ -1217,7 +1217,7 @@ static int CG_CalcFov( void ) {
 
 					if (zoomSoundTime < cg.time || zoomSoundTime > cg.time + 10000)
 					{
-						trap->S_StartSound(cg.refdef.vieworg, ENTITYNUM_WORLD, CHAN_LOCAL, cgs.media.disruptorZoomLoop);
+						S_StartSound(cg.refdef.vieworg, ENTITYNUM_WORLD, CHAN_LOCAL, cgs.media.disruptorZoomLoop);
 						zoomSoundTime = cg.time + 300;
 					}
 				}
@@ -1675,7 +1675,7 @@ static void CG_PowerupTimerSounds( void ) {
 			continue;
 		}
 		if ( ( t - cg.time ) / POWERUP_BLINK_TIME != ( t - cg.oldTime ) / POWERUP_BLINK_TIME ) {
-			//trap->S_StartSound( NULL, cg.snap->ps.clientNum, CHAN_ITEM, cgs.media.wearOffSound );
+			//S_StartSound( NULL, cg.snap->ps.clientNum, CHAN_ITEM, cgs.media.wearOffSound );
 		}
 	}
 }
@@ -1847,7 +1847,7 @@ CG_PlayBufferedSounds
 static void CG_PlayBufferedSounds( void ) {
 	if ( cg.soundTime < cg.time ) {
 		if (cg.soundBufferOut != cg.soundBufferIn && cg.soundBuffer[cg.soundBufferOut]) {
-			trap->S_StartLocalSound(cg.soundBuffer[cg.soundBufferOut], CHAN_ANNOUNCER);
+			S_StartLocalSound(cg.soundBuffer[cg.soundBufferOut], CHAN_ANNOUNCER);
 			cg.soundBuffer[cg.soundBufferOut] = 0;
 			cg.soundBufferOut = (cg.soundBufferOut + 1) % MAX_SOUNDBUFFER;
 			cg.soundTime = cg.time + 750;
@@ -1870,11 +1870,11 @@ void CG_UpdateSoundTrackers()
 			if (cg.snap && cent->currentState.trickedentindex == cg.snap->ps.clientNum)
 			{ //this is actually the player, so center the sound origin right on top of us
 				VectorCopy(cg.refdef.vieworg, cent->lerpOrigin);
-				trap->S_UpdateEntityPosition( cent->currentState.number, cent->lerpOrigin );
+				S_UpdateEntityPosition( cent->currentState.number, cent->lerpOrigin );
 			}
 			else
 			{
-				trap->S_UpdateEntityPosition( cent->currentState.number, cg_entities[cent->currentState.trickedentindex].lerpOrigin );
+				S_UpdateEntityPosition( cent->currentState.number, cg_entities[cent->currentState.trickedentindex].lerpOrigin );
 			}
 		}
 
@@ -1959,7 +1959,7 @@ void CG_SE_UpdateMusic(void)
 			}
 
 			Com_sprintf(musMultStr, sizeof(musMultStr), "%f", cgScreenEffects.music_volume_multiplier);
-			trap->Cvar_Set("s_musicMult", musMultStr);
+			CGVM_Cvar_Set("s_musicMult", musMultStr);
 
 			if (cgScreenEffects.music_volume_multiplier == 1.0f)
 			{
@@ -1979,7 +1979,7 @@ void CG_SE_UpdateMusic(void)
 		char musMultStr[512];
 
 		Com_sprintf(musMultStr, sizeof(musMultStr), "%f", cgScreenEffects.music_volume_multiplier);
-		trap->Cvar_Set("s_musicMult", musMultStr);
+		CGVM_Cvar_Set("s_musicMult", musMultStr);
 		cgScreenEffects.music_volume_set = qtrue;
 	}
 }
@@ -2431,7 +2431,7 @@ CCALL void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolea
 
 	if (cg.snap && ui_myteam->integer != cg.snap->ps.persistant[PERS_TEAM])
 	{
-		trap->Cvar_Set ( "ui_myteam", va("%i", cg.snap->ps.persistant[PERS_TEAM]) );
+		CGVM_Cvar_Set ( "ui_myteam", va("%i", cg.snap->ps.persistant[PERS_TEAM]) );
 	}
 	if (cgs.gametype == GT_SIEGE &&
 		cg.snap &&
@@ -2440,11 +2440,11 @@ CCALL void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolea
 		cg_siegeClassIndex = cgs.clientinfo[cg.snap->ps.clientNum].siegeIndex;
 		if (cg_siegeClassIndex == -1)
 		{
-			trap->Cvar_Set("ui_mySiegeClass", "<none>");
+			CGVM_Cvar_Set("ui_mySiegeClass", "<none>");
 		}
 		else
 		{
-			trap->Cvar_Set("ui_mySiegeClass", bgSiegeClasses[cg_siegeClassIndex].name);
+			CGVM_Cvar_Set("ui_mySiegeClass", bgSiegeClasses[cg_siegeClassIndex].name);
 		}
 	}
 
@@ -2491,11 +2491,11 @@ CCALL void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolea
 		// milliseconds which will start the timeout.
 		else if ( cg.snapshotTimeoutTime == -1 )
 		{
-			cg.snapshotTimeoutTime = trap->Milliseconds ( );
+			cg.snapshotTimeoutTime = CL_Milliseconds ( );
 		}
 
 		// If we have been waiting too long then just error out
-		if ( cg.snapshotTimeoutTime > 0 && (trap->Milliseconds ( ) - cg.snapshotTimeoutTime > cg_snapshotTimeout->integer * 1000) )
+		if ( cg.snapshotTimeoutTime > 0 && (CL_Milliseconds ( ) - cg.snapshotTimeoutTime > cg_snapshotTimeout->integer * 1000) )
 		{
 			Com_Error ( ERR_DROP, CG_GetStringEdString("MP_SVGAME", "SNAPSHOT_TIMEOUT"));
 			return;
@@ -2683,11 +2683,11 @@ CCALL void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolea
 
 	if (cstr && cstr[0])
 	{
-		trap->S_UpdateAmbientSet( cstr, cg.refdef.vieworg );
+		S_UpdateAmbientSet( cstr, cg.refdef.vieworg );
 	}
 
 	// update audio positions
-	trap->S_Respatialize( cg.snap->ps.clientNum, cg.refdef.vieworg, cg.refdef.viewaxis, inwater );
+	S_Respatialize( cg.snap->ps.clientNum, cg.refdef.vieworg, cg.refdef.viewaxis, inwater );
 
 	// make sure the lagometerSample and frame timing isn't done twice when in stereo
 	if ( stereoView != STEREO_RIGHT ) {
@@ -2710,7 +2710,7 @@ CCALL void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolea
 				timescale->value = cg_timescaleFadeEnd->value;
 		}
 		if (cg_timescaleFadeSpeed->value) {
-			trap->Cvar_Set("timescale", va("%f", timescale->value));
+			CGVM_Cvar_Set("timescale", va("%f", timescale->value));
 		}
 	}
 

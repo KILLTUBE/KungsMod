@@ -1079,7 +1079,7 @@ Does maintenance and plays the ambient sets (two if crossfading)
 -------------------------
 */
 
-void S_UpdateAmbientSet ( const char *name, vec3_t origin )
+CCALL void S_UpdateAmbientSet ( const char *name, vec3_t origin )
 {
 	ambientSet_t	*current, *old;
 	ambientSet_t	*set = aSets->GetSet( name );

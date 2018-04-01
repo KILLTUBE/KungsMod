@@ -7528,7 +7528,7 @@ int BotAIStartFrame(int time) {
 		Cvar_Update(&bot_forgimmick);
 		Cvar_Update(&bot_honorableduelacceptance);
 #ifndef FINAL_BUILD
-		trap->Cvar_Update(&bot_getinthecarrr);
+		Cvar_Update(&bot_getinthecarrr);
 #endif
 		gUpdateVars = level.time + 1000;
 	}

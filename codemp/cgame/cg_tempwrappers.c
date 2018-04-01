@@ -36,7 +36,7 @@ EXTERNC cgameImport_t *trap;
 
 
 //CCALL sfxHandle_t		S_RegisterSound						( const char *sample ) {
-//	return trap->S_RegisterSound(sample);
+//	return S_RegisterSound(sample);
 //}
 //
 //

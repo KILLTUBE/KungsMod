@@ -896,7 +896,7 @@ void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded)
 			isFemale = qfalse;
 	}
 
-	trap->S_Shutup(qtrue);
+	CL_S_Shutup(qtrue);
 
 	for ( i = 0 ; i < MAX_CUSTOM_SOUNDS ; i++ )
 	{
@@ -1024,7 +1024,7 @@ void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded)
 		}
 	}
 
-	trap->S_Shutup(qfalse);
+	CL_S_Shutup(qfalse);
 }
 
 /*
@@ -1624,7 +1624,7 @@ void CG_NewClientInfo( int clientNum, qboolean entitiesInitialized ) {
 //copy team info out to menu
 	if ( clientNum == cg.clientNum)	//this is me
 	{
-		trap->Cvar_Set("ui_team", v);
+		CGVM_Cvar_Set("ui_team", v);
 	}
 
 	// Gender hints
@@ -2176,7 +2176,7 @@ static void _PlayerFootStep( const vec3_t origin,
 	}
 	if (soundType < FOOTSTEP_TOTAL)
 	{
-	 	trap->S_StartSound( NULL, cent->currentState.clientNum, CHAN_BODY, cgs.media.footsteps[soundType][rand()&3] );
+	 	S_StartSound( NULL, cent->currentState.clientNum, CHAN_BODY, cgs.media.footsteps[soundType][rand()&3] );
 	}
 
 	if ( cg_footsteps->integer < 4 )
@@ -2304,7 +2304,7 @@ void CG_PlayerAnimEventDo( centity_t *cent, animevent_t *animEvent )
 			const int holdSnd = animEvent->eventData[ AED_SOUNDINDEX_START+Q_irand( 0, animEvent->eventData[AED_SOUND_NUMRANDOMSNDS] ) ];
 			if ( holdSnd > 0 )
 			{
-				trap->S_StartSound( NULL, cent->currentState.number, channel, holdSnd );
+				S_StartSound( NULL, cent->currentState.number, channel, holdSnd );
 			}
 		}
 		break;
@@ -2340,7 +2340,7 @@ void CG_PlayerAnimEventDo( centity_t *cent, animevent_t *animEvent )
 			}
 			swingSound = S_RegisterSound(va("sound/weapons/saber/saberhup%i.wav", randomSwing));
 		}
-		trap->S_StartSound(cent->currentState.pos.trBase, cent->currentState.number, CHAN_AUTO, swingSound );
+		S_StartSound(cent->currentState.pos.trBase, cent->currentState.number, CHAN_AUTO, swingSound );
 		break;
 	case AEV_SABER_SPIN:
 		if (cent->currentState.eType == ET_NPC)
@@ -2384,7 +2384,7 @@ void CG_PlayerAnimEventDo( centity_t *cent, animevent_t *animEvent )
 		}
 		if ( spinSound )
 		{
-			trap->S_StartSound( NULL, cent->currentState.clientNum, CHAN_AUTO, spinSound );
+			S_StartSound( NULL, cent->currentState.clientNum, CHAN_AUTO, spinSound );
 		}
 		break;
 	case AEV_FOOTSTEP:
@@ -4170,7 +4170,7 @@ qboolean CG_G2PlayerHeadAnims( centity_t *cent )
 			}
 		}
 
-		voiceVolume = trap->S_GetVoiceVolume(cent->currentState.number);
+		voiceVolume = CL_S_GetVoiceVolume(cent->currentState.number);
 
 		if (voiceVolume > 0)	// if we aren't talking, then it will be 0, -1 for talking but paused
 		{
@@ -5759,7 +5759,7 @@ void CG_G2SaberEffects(vec3_t start, vec3_t end, centity_t *owner)
 			if (trace.entityNum != ENTITYNUM_NONE)
 			{ //it succeeded with the ghoul2 trace
 				FX_PlayEffectID( cgs.effects.mSaberBloodSparks, trace.endpos, trace.plane.normal, -1, -1, qfalse );
-				trap->S_StartSound(trace.endpos, trace.entityNum, CHAN_AUTO, S_RegisterSound(va("sound/weapons/saber/saberhit%i.wav", Q_irand(1, 3))));
+				S_StartSound(trace.endpos, trace.entityNum, CHAN_AUTO, S_RegisterSound(va("sound/weapons/saber/saberhit%i.wav", Q_irand(1, 3))));
 			}
 		}
 
@@ -6000,7 +6000,7 @@ void CG_SaberCompWork(vec3_t start, vec3_t end, centity_t *owner, int saberNum, 
 				if (owner->serverSaberFleshImpact)
 				{ //do standard player/live ent hit sparks
 					FX_PlayEffectID( hitPersonFxID, trace.endpos, trace.plane.normal, -1, -1, qfalse );
-					//trap->S_StartSound(trace.endpos, trace.entityNum, CHAN_AUTO, S_RegisterSound(va("sound/weapons/saber/saberhit%i.wav", Q_irand(1, 3))));
+					//S_StartSound(trace.endpos, trace.entityNum, CHAN_AUTO, S_RegisterSound(va("sound/weapons/saber/saberhit%i.wav", Q_irand(1, 3))));
 				}
 				else
 				{ //do the cut effect
@@ -6247,7 +6247,7 @@ void CG_AddSaberBlade( centity_t *cent, centity_t *scent, refEntity_t *saber, in
 							if ( cg.time - client->saber[saberNum].blade[bladeNum].hitWallDebounceTime >= 100 )
 							{//ugh, need to have a real sound debouncer... or do this game-side
 								client->saber[saberNum].blade[bladeNum].hitWallDebounceTime = cg.time;
-								trap->S_StartSound ( trace.endpos, -1, CHAN_WEAPON, S_RegisterSound( va("sound/weapons/saber/saberhitwall%i", Q_irand(1, 3)) ) );
+								S_StartSound ( trace.endpos, -1, CHAN_WEAPON, S_RegisterSound( va("sound/weapons/saber/saberhitwall%i", Q_irand(1, 3)) ) );
 							}
 						}
 					}
@@ -7305,9 +7305,9 @@ void CG_G2AnimEntModelLoad(centity_t *cent)
 		}
 	}
 
-	trap->S_Shutup(qtrue);
+	CL_S_Shutup(qtrue);
 	CG_HandleNPCSounds(cent); //handle sound loading here as well.
-	trap->S_Shutup(qfalse);
+	CL_S_Shutup(qfalse);
 }
 
 //for now this is just gonna create a big explosion on the area of the surface,
@@ -7557,7 +7557,7 @@ void CG_G2Animated( centity_t *cent )
 
 		if (cent->currentState.weapon == WP_SABER)
 		{
-			trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberon.wav" ));
+			S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberon.wav" ));
 		}
 	}
 	*/
@@ -7734,14 +7734,14 @@ void CG_ForceFPLSPlayerModel(centity_t *cent, clientInfo_t *ci)
 //exe.
 void CG_CreateNPCClient(clientInfo_t **ci)
 {
-	//trap->TrueMalloc((void **)ci, sizeof(clientInfo_t));
+	//VM_Shifted_Alloc((void **)ci, sizeof(clientInfo_t));
 	*ci = (clientInfo_t *) BG_Alloc(sizeof(clientInfo_t));
 }
 
 void CG_DestroyNPCClient(clientInfo_t **ci)
 {
 	memset(*ci, 0, sizeof(clientInfo_t));
-	//trap->TrueFree((void **)ci);
+	//VM_Shifted_Free((void **)ci);
 }
 
 static void CG_ForceElectrocution( centity_t *cent, const vec3_t origin, vec3_t tempAngles, qhandle_t shader, qboolean alwaysDo )
@@ -8070,7 +8070,7 @@ static QINLINE void CG_VehicleEffects(centity_t *cent)
 						{
 							flyBySound = pVehNPC->m_pVehicleInfo->soundFlyBy2;
 						}
-						trap->S_StartSound(NULL, cent->currentState.clientNum, CHAN_LESS_ATTEN, flyBySound );
+						S_StartSound(NULL, cent->currentState.clientNum, CHAN_LESS_ATTEN, flyBySound );
 						lastFlyBySound[cent->currentState.clientNum] = cg.time;
 					}
 				}
@@ -8082,7 +8082,7 @@ static QINLINE void CG_VehicleEffects(centity_t *cent)
 		&& cent->nextState.speed > 0//now moving forward
 		&& cent->m_pVehicle->m_pVehicleInfo->soundEngineStart )
 	{//engines rev up for the first time
-		trap->S_StartSound(NULL, cent->currentState.clientNum, CHAN_LESS_ATTEN, cent->m_pVehicle->m_pVehicleInfo->soundEngineStart );
+		S_StartSound(NULL, cent->currentState.clientNum, CHAN_LESS_ATTEN, cent->m_pVehicle->m_pVehicleInfo->soundEngineStart );
 	}
 	// Animals don't exude any effects...
 	if ( pVehNPC->m_pVehicleInfo->type != VH_ANIMAL )
@@ -8956,18 +8956,18 @@ void CG_Player( centity_t *cent ) {
 					&& cent->weapon != cent->currentState.weapon
 					&& !cent->currentState.saberHolstered)
 				{ //switching away from the saber
-					//trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberoffquick.wav" ));
+					//S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberoffquick.wav" ));
 					if (ci->saber[0].soundOff
 						&& !cent->currentState.saberHolstered)
 					{
-						trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, ci->saber[0].soundOff);
+						S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, ci->saber[0].soundOff);
 					}
 
 					if (ci->saber[1].soundOff &&
 						ci->saber[1].model[0] &&
 						!cent->currentState.saberHolstered)
 					{
-						trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, ci->saber[1].soundOff);
+						S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, ci->saber[1].soundOff);
 					}
 
 				}
@@ -8975,15 +8975,15 @@ void CG_Player( centity_t *cent ) {
 					&& cent->weapon != cent->currentState.weapon
 					&& !cent->saberWasInFlight)
 				{ //switching to the saber
-					//trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberon.wav" ));
+					//S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberon.wav" ));
 					if (ci->saber[0].soundOn)
 					{
-						trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, ci->saber[0].soundOn);
+						S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, ci->saber[0].soundOn);
 					}
 
 					if (ci->saber[1].soundOn)
 					{
-						trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, ci->saber[1].soundOn);
+						S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_AUTO, ci->saber[1].soundOn);
 					}
 
 					BG_SI_SetDesiredLength(&ci->saber[0], 0, -1);
@@ -9270,7 +9270,7 @@ void CG_Player( centity_t *cent ) {
 	{ //don't allow this when spectating
 		if (cgFPLSState != 0)
 		{
-			trap->Cvar_Set("cg_fpls", "0");
+			CGVM_Cvar_Set("cg_fpls", "0");
 			cg_fpls->integer = 0;
 
 			CG_ForceFPLSPlayerModel(cent, ci);
@@ -9280,7 +9280,7 @@ void CG_Player( centity_t *cent ) {
 
 		if (cg_fpls->integer)
 		{
-			trap->Cvar_Set("cg_fpls", "0");
+			CGVM_Cvar_Set("cg_fpls", "0");
 		}
 	}
 	else
@@ -9464,7 +9464,7 @@ void CG_Player( centity_t *cent ) {
 		if (cent->bolt4 < cg.time)
 		{
 			cent->bolt4 = cg.time + 100;
-			trap->S_StartSound(NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound("sound/weapons/force/drain.wav") );
+			S_StartSound(NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound("sound/weapons/force/drain.wav") );
 		}
 		*/
 	}
@@ -9511,7 +9511,7 @@ void CG_Player( centity_t *cent ) {
 		if (cent->bolt4 < cg.time)
 		{
 			cent->bolt4 = cg.time + 100;
-			trap->S_StartSound(NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound("sound/weapons/force/lightning.wav") );
+			S_StartSound(NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound("sound/weapons/force/lightning.wav") );
 		}
 		*/
 	}
@@ -11094,7 +11094,7 @@ stillDoSaber:
 			trap->R_AddRefEntityToScene( &legs );
 
 			if ( Q_flrand(0.0f, 1.0f) > 0.9f )
-				trap->S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, cgs.media.crackleSound );
+				S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, cgs.media.crackleSound );
 		}
 
 		VectorSet(tempAngles, 0, cent->lerpAngles[YAW], 0);

@@ -56,7 +56,7 @@ CCALL cvar_t *Cvar_Get( const char *var_name, const char *var_value, uint32_t fl
 
 
 CCALL sfxHandle_t		S_RegisterSound						( const char *sample ) {
-	//return trap->S_RegisterSound(sample);
+	//return S_RegisterSound(sample);
 	__debugbreak();
 	return 0;
 }

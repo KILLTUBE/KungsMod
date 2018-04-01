@@ -107,7 +107,7 @@ void UI_RegisterCvars( void ) {
 	//const cvarTable_t *cv = NULL;
 	//
 	//for ( i=0, cv=uiCvarTable; i<uiCvarTableSize; i++, cv++ ) {
-	//	trap->Cvar_Register( cv->vmCvar, cv->cvarName, cv->defaultString, cv->cvarFlags );
+	//	Cvar_Register( cv->vmCvar, cv->cvarName, cv->defaultString, cv->cvarFlags );
 	//	if ( cv->update )
 	//		cv->update();
 	//}
@@ -120,7 +120,7 @@ void UI_UpdateCvars( void ) {
 	//for ( i=0, cv=uiCvarTable; i<uiCvarTableSize; i++, cv++ ) {
 	//	if ( cv->vmCvar ) {
 	//		int modCount = cv->vmCvar->modificationCount;
-	//		trap->Cvar_Update( cv->vmCvar );
+	//		Cvar_Update( cv->vmCvar );
 	//		if ( cv->vmCvar->modificationCount != modCount ) {
 	//			if ( cv->update )
 	//				cv->update();

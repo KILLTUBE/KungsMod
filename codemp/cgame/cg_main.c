@@ -246,7 +246,7 @@ CCALL int CG_RagCallback(int callType)
 			centity_t *cent = &cg_entities[callData->entNum];
 			int snapSound = S_RegisterSound(va("sound/player/bodyfall_human%i.wav", Q_irand(1, 3)));
 
-			trap->S_StartSound(cent->lerpOrigin, callData->entNum, CHAN_AUTO, snapSound);
+			S_StartSound(cent->lerpOrigin, callData->entNum, CHAN_AUTO, snapSound);
 		}
 	case RAG_CALLBACK_BONEIMPACT:
 		break;
@@ -771,7 +771,7 @@ static void CG_RegisterSounds( void ) {
 	//PRECACHE ALL MUSIC HERE (don't need to precache normally because it's streamed off the disk)
 	if (com_buildScript->integer)
 	{
-		trap->S_StartBackgroundTrack( "music/mp/duel.mp3", "music/mp/duel.mp3", qfalse );
+		S_StartBackgroundTrack( "music/mp/duel.mp3", "music/mp/duel.mp3", qfalse );
 	}
 
 	cg.loadLCARSStage = 1;
@@ -1532,9 +1532,9 @@ void CG_SiegeCountCvars( void )
 {
 	int classGfx[6];
 
-	trap->Cvar_Set( "ui_tm1_cnt",va("%d",CG_GetTeamNonScoreCount(TEAM_RED )));
-	trap->Cvar_Set( "ui_tm2_cnt",va("%d",CG_GetTeamNonScoreCount(TEAM_BLUE )));
-	trap->Cvar_Set( "ui_tm3_cnt",va("%d",CG_GetTeamNonScoreCount(TEAM_SPECTATOR )));
+	CGVM_Cvar_Set( "ui_tm1_cnt",va("%d",CG_GetTeamNonScoreCount(TEAM_RED )));
+	CGVM_Cvar_Set( "ui_tm2_cnt",va("%d",CG_GetTeamNonScoreCount(TEAM_BLUE )));
+	CGVM_Cvar_Set( "ui_tm3_cnt",va("%d",CG_GetTeamNonScoreCount(TEAM_SPECTATOR )));
 
 	// This is because the only way we can match up classes is by the gfx handle.
 	classGfx[0] = R_RegisterShaderNoMip("gfx/mp/c_icon_infantry");
@@ -1544,19 +1544,19 @@ void CG_SiegeCountCvars( void )
 	classGfx[4] = R_RegisterShaderNoMip("gfx/mp/c_icon_support");
 	classGfx[5] = R_RegisterShaderNoMip("gfx/mp/c_icon_jedi_general");
 
-	trap->Cvar_Set( "ui_tm1_c0_cnt",va("%d",CG_GetClassCount(TEAM_RED,classGfx[0])));
-	trap->Cvar_Set( "ui_tm1_c1_cnt",va("%d",CG_GetClassCount(TEAM_RED,classGfx[1])));
-	trap->Cvar_Set( "ui_tm1_c2_cnt",va("%d",CG_GetClassCount(TEAM_RED,classGfx[2])));
-	trap->Cvar_Set( "ui_tm1_c3_cnt",va("%d",CG_GetClassCount(TEAM_RED,classGfx[3])));
-	trap->Cvar_Set( "ui_tm1_c4_cnt",va("%d",CG_GetClassCount(TEAM_RED,classGfx[4])));
-	trap->Cvar_Set( "ui_tm1_c5_cnt",va("%d",CG_GetClassCount(TEAM_RED,classGfx[5])));
+	CGVM_Cvar_Set( "ui_tm1_c0_cnt",va("%d",CG_GetClassCount(TEAM_RED,classGfx[0])));
+	CGVM_Cvar_Set( "ui_tm1_c1_cnt",va("%d",CG_GetClassCount(TEAM_RED,classGfx[1])));
+	CGVM_Cvar_Set( "ui_tm1_c2_cnt",va("%d",CG_GetClassCount(TEAM_RED,classGfx[2])));
+	CGVM_Cvar_Set( "ui_tm1_c3_cnt",va("%d",CG_GetClassCount(TEAM_RED,classGfx[3])));
+	CGVM_Cvar_Set( "ui_tm1_c4_cnt",va("%d",CG_GetClassCount(TEAM_RED,classGfx[4])));
+	CGVM_Cvar_Set( "ui_tm1_c5_cnt",va("%d",CG_GetClassCount(TEAM_RED,classGfx[5])));
 
-	trap->Cvar_Set( "ui_tm2_c0_cnt",va("%d",CG_GetClassCount(TEAM_BLUE,classGfx[0])));
-	trap->Cvar_Set( "ui_tm2_c1_cnt",va("%d",CG_GetClassCount(TEAM_BLUE,classGfx[1])));
-	trap->Cvar_Set( "ui_tm2_c2_cnt",va("%d",CG_GetClassCount(TEAM_BLUE,classGfx[2])));
-	trap->Cvar_Set( "ui_tm2_c3_cnt",va("%d",CG_GetClassCount(TEAM_BLUE,classGfx[3])));
-	trap->Cvar_Set( "ui_tm2_c4_cnt",va("%d",CG_GetClassCount(TEAM_BLUE,classGfx[4])));
-	trap->Cvar_Set( "ui_tm2_c5_cnt",va("%d",CG_GetClassCount(TEAM_BLUE,classGfx[5])));
+	CGVM_Cvar_Set( "ui_tm2_c0_cnt",va("%d",CG_GetClassCount(TEAM_BLUE,classGfx[0])));
+	CGVM_Cvar_Set( "ui_tm2_c1_cnt",va("%d",CG_GetClassCount(TEAM_BLUE,classGfx[1])));
+	CGVM_Cvar_Set( "ui_tm2_c2_cnt",va("%d",CG_GetClassCount(TEAM_BLUE,classGfx[2])));
+	CGVM_Cvar_Set( "ui_tm2_c3_cnt",va("%d",CG_GetClassCount(TEAM_BLUE,classGfx[3])));
+	CGVM_Cvar_Set( "ui_tm2_c4_cnt",va("%d",CG_GetClassCount(TEAM_BLUE,classGfx[4])));
+	CGVM_Cvar_Set( "ui_tm2_c5_cnt",va("%d",CG_GetClassCount(TEAM_BLUE,classGfx[5])));
 
 }
 
@@ -1645,7 +1645,7 @@ void CG_StartMusic( qboolean bForceStart ) {
 	Q_strncpyz( parm1, COM_Parse( (const char **)&s ), sizeof( parm1 ) );
 	Q_strncpyz( parm2, COM_Parse( (const char **)&s ), sizeof( parm2 ) );
 
-	trap->S_StartBackgroundTrack( parm1, parm2, !bForceStart );
+	S_StartBackgroundTrack( parm1, parm2, !bForceStart );
 }
 
 char *CG_GetMenuBuffer(const char *filename) {
@@ -2264,13 +2264,13 @@ void CG_LoadHudMenu()
 	cgDC.runScript						= &CG_RunMenuScript;
 	cgDC.deferScript					= &CG_DeferMenuScript;
 	cgDC.getTeamColor					= &CG_GetTeamColor;
-	cgDC.setCVar						= trap->Cvar_Set;
+	cgDC.setCVar						= CGVM_Cvar_Set;
 	cgDC.getCVarString					= Cvar_VariableStringBuffer;
 	cgDC.getCVarValue					= CG_Cvar_Get;
 	cgDC.drawTextWithCursor				= &CG_Text_PaintWithCursor;
 	//cgDC.setOverstrikeMode			= &trap->Key_SetOverstrikeMode;
 	//cgDC.getOverstrikeMode			= &trap->Key_GetOverstrikeMode;
-	cgDC.startLocalSound				= trap->S_StartLocalSound;
+	cgDC.startLocalSound				= S_StartLocalSound;
 	cgDC.ownerDrawHandleKey				= &CG_OwnerDrawHandleKey;
 	cgDC.feederCount					= &CG_FeederCount;
 	cgDC.feederItemImage				= &CG_FeederItemImage;
@@ -2285,8 +2285,8 @@ void CG_LoadHudMenu()
 	cgDC.ownerDrawWidth					= &CG_OwnerDrawWidth;
 	//cgDC.Pause						= &CG_Pause;
 	cgDC.registerSound					= S_RegisterSound;
-	cgDC.startBackgroundTrack			= trap->S_StartBackgroundTrack;
-	cgDC.stopBackgroundTrack			= trap->S_StopBackgroundTrack;
+	cgDC.startBackgroundTrack			= S_StartBackgroundTrack;
+	cgDC.stopBackgroundTrack			= S_StopBackgroundTrack;
 	cgDC.playCinematic					= &CG_PlayCinematic;
 	cgDC.stopCinematic					= &CG_StopCinematic;
 	cgDC.drawCinematic					= &CG_DrawCinematic;
@@ -2407,7 +2407,7 @@ CCALL void CG_Init( int serverMessageNum, int serverCommandSequence, int clientN
 
 	BG_InitAnimsets(); //clear it out
 
-	trap->RegisterSharedMemory( cg.sharedBuffer.raw );
+	RegisterSharedMemory( cg.sharedBuffer.raw );
 
 	//Load external vehicle data
 	BG_VehicleLoadParms();

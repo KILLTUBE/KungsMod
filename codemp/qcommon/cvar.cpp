@@ -1535,7 +1535,7 @@ Cvar_Update
 updates an interpreted modules' version of a cvar
 =====================
 */
-void	Cvar_Update( cvar_t *vmCvar ) {
+CCALL void	Cvar_Update( cvar_t *vmCvar ) {
 	//__debugbreak();
 	//cvar_t	*cv = NULL;
 	//assert(vmCvar);

@@ -124,11 +124,11 @@ void CG_SetEntitySoundPosition( centity_t *cent ) {
 
 		v = cgs.inlineModelMidpoints[ cent->currentState.modelindex ];
 		VectorAdd( cent->lerpOrigin, v, origin );
-		trap->S_UpdateEntityPosition( cent->currentState.number, origin );
+		S_UpdateEntityPosition( cent->currentState.number, origin );
 	}
 	else
 	{
-		trap->S_UpdateEntityPosition( cent->currentState.number, cent->lerpOrigin );
+		S_UpdateEntityPosition( cent->currentState.number, cent->lerpOrigin );
 	}
 }
 
@@ -232,7 +232,7 @@ void CG_S_StopLoopingSound(int entityNum, sfxHandle_t sfx)
 			i++;
 		}
 	}
-	//trap->S_StopLoopingSound(entityNum);
+	//S_StopLoopingSound(entityNum);
 }
 
 /*
@@ -1540,11 +1540,11 @@ Ghoul2 Insert End
 					cent->dustTrailTime = cg.time;
 					if (lightSide)
 					{
-						trap->S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound("sound/weapons/force/see.wav") );
+						S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound("sound/weapons/force/see.wav") );
 					}
 					else
 					{
-						trap->S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound("sound/weapons/force/lightning") );
+						S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound("sound/weapons/force/lightning") );
 					}
 				}
 				ent.endTime = cent->dustTrailTime;
@@ -1595,7 +1595,7 @@ Ghoul2 Insert End
 				{
 					if (curTimeDif < 2200)
 					{ //probably temporary
-						trap->S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberhum1.wav" ) );
+						S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberhum1.wav" ) );
 					}
 				}
 				else
@@ -1614,7 +1614,7 @@ Ghoul2 Insert End
 					}
 					if ( Q_flrand(0.0f, 1.0f) > 0.9f )
 					{
-						trap->S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, cgs.media.crackleSound );
+						S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, cgs.media.crackleSound );
 					}
 					trap->R_AddRefEntityToScene( &ent );
 				}
@@ -1851,7 +1851,7 @@ static void CG_Speaker( centity_t *cent ) {
 		return;
 	}
 
-	trap->S_StartSound (NULL, cent->currentState.number, CHAN_ITEM, cgs.gameSounds[cent->currentState.eventParm] );
+	S_StartSound (NULL, cent->currentState.number, CHAN_ITEM, cgs.gameSounds[cent->currentState.eventParm] );
 
 	//	ent->s.frame = ent->wait * 10;
 	//	ent->s.clientNum = ent->random * 10;
@@ -2818,7 +2818,7 @@ void CG_PlayDoorSound( centity_t *cent, int type )
 		return;
 	}
 
-	trap->S_StartSound( NULL, cent->currentState.number, CHAN_AUTO, sfx );
+	S_StartSound( NULL, cent->currentState.number, CHAN_AUTO, sfx );
 }
 
 /*
@@ -3707,7 +3707,7 @@ defaultoffsetposition:
 	else if (strcmp(type, "sound") == 0)
 	{
 		objectID = S_RegisterSound(argument);
-		trap->S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_BODY, objectID);
+		S_StartSound(cent->lerpOrigin, cent->currentState.number, CHAN_BODY, objectID);
 	}
 	else if (strcmp(type, "loop") == 0)
 	{ //handled server-side

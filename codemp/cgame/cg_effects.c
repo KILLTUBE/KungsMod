@@ -451,7 +451,7 @@ void CG_DoGlass( vec3_t verts[4], vec3_t normal, vec3_t dmgPt, vec3_t dmgDir, fl
 	//	hopefully be sufficient.
 	CG_CalcHeightWidth( verts, &height, &width );
 
-	trap->S_StartSound( dmgPt, -1, CHAN_AUTO, S_RegisterSound("sound/effects/glassbreak1.wav"));
+	S_StartSound( dmgPt, -1, CHAN_AUTO, S_RegisterSound("sound/effects/glassbreak1.wav"));
 
 	// Pick "LOD" for height
 	if ( height < 100 )
@@ -823,15 +823,15 @@ void CG_Chunks( int owner, vec3_t origin, const vec3_t normal, const vec3_t mins
 	default:
 		break;
 	case MAT_GLASS:
-		trap->S_StartSound( NULL, owner, CHAN_BODY, cgs.media.glassChunkSound );
+		S_StartSound( NULL, owner, CHAN_BODY, cgs.media.glassChunkSound );
 		return;
 		break;
 	case MAT_GRATE1:
-		trap->S_StartSound( NULL, owner, CHAN_BODY, cgs.media.grateSound );
+		S_StartSound( NULL, owner, CHAN_BODY, cgs.media.grateSound );
 		return;
 		break;
 	case MAT_ELECTRICAL:// (sparks)
-		trap->S_StartSound( NULL, owner, CHAN_BODY, S_RegisterSound (va("sound/ambience/spark%d.wav", Q_irand(1, 6))) );
+		S_StartSound( NULL, owner, CHAN_BODY, S_RegisterSound (va("sound/ambience/spark%d.wav", Q_irand(1, 6))) );
 		return;
 		break;
 	case MAT_DRK_STONE:
@@ -839,28 +839,28 @@ void CG_Chunks( int owner, vec3_t origin, const vec3_t normal, const vec3_t mins
 	case MAT_GREY_STONE:
 	case MAT_WHITE_METAL:  // not quite sure what this stuff is supposed to be...it's for Stu
 	case MAT_SNOWY_ROCK:
-		trap->S_StartSound( NULL, owner, CHAN_BODY, cgs.media.rockBreakSound );
+		S_StartSound( NULL, owner, CHAN_BODY, cgs.media.rockBreakSound );
 		bounce = LEBS_ROCK;
 		speedMod = 0.5f; // rock blows up less
 		break;
 	case MAT_GLASS_METAL:
-		trap->S_StartSound( NULL, owner, CHAN_BODY, cgs.media.glassChunkSound ); // FIXME: should probably have a custom sound
+		S_StartSound( NULL, owner, CHAN_BODY, cgs.media.glassChunkSound ); // FIXME: should probably have a custom sound
 		bounce = LEBS_METAL;
 		break;
 	case MAT_CRATE1:
 	case MAT_CRATE2:
-		trap->S_StartSound( NULL, owner, CHAN_BODY, cgs.media.crateBreakSound[Q_irand(0,1)] );
+		S_StartSound( NULL, owner, CHAN_BODY, cgs.media.crateBreakSound[Q_irand(0,1)] );
 		break;
 	case MAT_METAL:
 	case MAT_METAL2:
 	case MAT_METAL3:
 	case MAT_ELEC_METAL:// FIXME: maybe have its own sound?
-		trap->S_StartSound( NULL, owner, CHAN_BODY, cgs.media.chunkSound );
+		S_StartSound( NULL, owner, CHAN_BODY, cgs.media.chunkSound );
 		bounce = LEBS_METAL;
 		speedMod = 0.8f; // metal blows up a bit more
 		break;
 	case MAT_ROPE:
-//		trap->S_StartSound( NULL, owner, CHAN_BODY, cgi_S_RegisterSound( "" ));  FIXME:  needs a sound
+//		S_StartSound( NULL, owner, CHAN_BODY, cgi_S_RegisterSound( "" ));  FIXME:  needs a sound
 		return;
 		break;
 	}

@@ -722,7 +722,7 @@ void Com_ShutdownHunkMemory(void)
 Hunk_MemoryRemaining
 ====================
 */
-int	Hunk_MemoryRemaining( void ) {
+CCALL int	Hunk_MemoryRemaining( void ) {
 	return (64*1024*1024) - (Z_MemSize(TAG_HUNK_MARK1)+Z_MemSize(TAG_HUNK_MARK2));	//Yeah. Whatever. We've got no size now.
 }
 
