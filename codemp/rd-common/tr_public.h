@@ -125,8 +125,8 @@ typedef struct refexport_s {
 	// These were missing in 1.01, had direct access to renderer backend
 	void				(*SetRangedFog)							( float range );
 	void				(*SetRefractionProperties)				( float distortionAlpha, float distortionStretch, qboolean distortionPrePost, qboolean distortionNegate );
-	float				(*GetDistanceCull)						( void );
-	void				(*GetRealRes)							( int *w, int *h );
+	float				(*R_GetDistanceCull)						( void );
+	void				(*R_GetRealRes)							( int *w, int *h );
 	void				(*AutomapElevationAdjustment)			( float newHeight );
 	qboolean			(*InitializeWireframeAutomap)			( void );
 	void				(*AddWeatherZone)						( vec3_t mins, vec3_t maxs );

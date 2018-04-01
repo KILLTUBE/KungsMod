@@ -324,12 +324,12 @@ void R_EndTimedBlockCmd( qhandle_t timerHandle )
 
 /*
 =============
-RE_SetColor
+R_SetColor
 
 Passing NULL will set the color to white
 =============
 */
-CCALL void	RE_SetColor( const float *rgba ) {
+CCALL void	R_SetColor( const float *rgba ) {
 	setColorCommand_t	*cmd;
 
   if ( !tr.registered ) {
@@ -354,10 +354,10 @@ CCALL void	RE_SetColor( const float *rgba ) {
 
 /*
 =============
-RE_RotatePic
+R_RotatePic
 =============
 */
-CCALL void RE_RotatePic ( float x, float y, float w, float h, 
+CCALL void R_RotatePic ( float x, float y, float w, float h, 
 					  float s1, float t1, float s2, float t2,float a, qhandle_t hShader ) {
 	rotatePicCommand_t	*cmd;
 
@@ -380,10 +380,10 @@ CCALL void RE_RotatePic ( float x, float y, float w, float h,
 
 /*
 =============
-RE_RotatePic2
+R_RotatePic2
 =============
 */
-CCALL void RE_RotatePic2 ( float x, float y, float w, float h, 
+CCALL void R_RotatePic2 ( float x, float y, float w, float h, 
 					  float s1, float t1, float s2, float t2,float a, qhandle_t hShader ) {
 	rotatePicCommand_t	*cmd;
 
@@ -406,10 +406,10 @@ CCALL void RE_RotatePic2 ( float x, float y, float w, float h,
 
 /*
 =============
-RE_StretchPic
+R_StretchPic
 =============
 */
-CCALL void RE_StretchPic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader ) {
+CCALL void R_StretchPic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader ) {
 	stretchPicCommand_t	*cmd;
 
 	if ( !tr.registered ) {
@@ -477,13 +477,13 @@ void R_SetColorMode(GLboolean *rgba, stereoFrame_t stereoFrame, int colormode)
 
 /*
 ====================
-RE_BeginFrame
+R_BeginFrame
 
-If running in stereo, RE_BeginFrame will be called twice
-for each RE_EndFrame
+If running in stereo, R_BeginFrame will be called twice
+for each R_EndFrame
 ====================
 */
-CCALL void RE_BeginFrame( stereoFrame_t stereoFrame ) {
+CCALL void R_BeginFrame( stereoFrame_t stereoFrame ) {
 	drawBufferCommand_t	*cmd = NULL;
 	colorMaskCommand_t *colcmd = NULL;
 
@@ -607,7 +607,7 @@ CCALL void RE_BeginFrame( stereoFrame_t stereoFrame ) {
 
 		GLenum err = qglGetError();
 		if ( err != GL_NO_ERROR )
-			Com_Error( ERR_FATAL, "RE_BeginFrame() - glGetError() failed (0x%x)!\n", err );
+			Com_Error( ERR_FATAL, "R_BeginFrame() - glGetError() failed (0x%x)!\n", err );
 	}
 
 	if (glConfig.stereoEnabled) {
@@ -621,7 +621,7 @@ CCALL void RE_BeginFrame( stereoFrame_t stereoFrame ) {
 		} else if ( stereoFrame == STEREO_RIGHT ) {
 			cmd->buffer = (int)GL_BACK_RIGHT;
 		} else {
-			R_Error( ERR_FATAL, "RE_BeginFrame: Stereo is enabled, but stereoFrame was %i", stereoFrame );
+			R_Error( ERR_FATAL, "R_BeginFrame: Stereo is enabled, but stereoFrame was %i", stereoFrame );
 		}
 	}
 	else
@@ -682,7 +682,7 @@ CCALL void RE_BeginFrame( stereoFrame_t stereoFrame ) {
 					return;
 			}
 			else
-				R_Error( ERR_FATAL, "RE_BeginFrame: Stereo is enabled, but stereoFrame was %i", stereoFrame );
+				R_Error( ERR_FATAL, "R_BeginFrame: Stereo is enabled, but stereoFrame was %i", stereoFrame );
 
 			R_SetColorMode(colcmd->rgba, stereoFrame, r_anaglyphMode->integer);
 			colcmd->commandId = RC_COLORMASK;
@@ -690,7 +690,7 @@ CCALL void RE_BeginFrame( stereoFrame_t stereoFrame ) {
 		else
 		{
 			if(stereoFrame != STEREO_CENTER)
-				R_Error( ERR_FATAL, "RE_BeginFrame: Stereo is disabled, but stereoFrame was %i", stereoFrame );
+				R_Error( ERR_FATAL, "R_BeginFrame: Stereo is disabled, but stereoFrame was %i", stereoFrame );
 
 			if( !(cmd = (drawBufferCommand_t *)R_GetCommandBuffer(sizeof(*cmd))) )
 				return;
@@ -723,12 +723,12 @@ CCALL void RE_BeginFrame( stereoFrame_t stereoFrame ) {
 
 /*
 =============
-RE_EndFrame
+R_EndFrame
 
 Returns the number of msec spent in the back end
 =============
 */
-CCALL void RE_EndFrame( int *frontEndMsec, int *backEndMsec ) {
+CCALL void R_EndFrame( int *frontEndMsec, int *backEndMsec ) {
 	swapBuffersCommand_t	*cmd;
 
 	if ( !tr.registered ) {
@@ -756,10 +756,10 @@ CCALL void RE_EndFrame( int *frontEndMsec, int *backEndMsec ) {
 
 /*
 =============
-RE_TakeVideoFrame
+R_TakeVideoFrame
 =============
 */
-CCALL void RE_TakeVideoFrame( int width, int height, byte *captureBuffer, byte *encodeBuffer, qboolean motionJpeg )
+CCALL void R_TakeVideoFrame( int width, int height, byte *captureBuffer, byte *encodeBuffer, qboolean motionJpeg )
 {
 	videoFrameCommand_t	*cmd;
 

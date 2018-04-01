@@ -1826,7 +1826,7 @@ void R_SortAndSubmitDrawSurfs( drawSurf_t *drawSurfs, int numDrawSurfs ) {
 		if (!(tr.viewParms.flags & (VPF_SHADOWMAP | VPF_DEPTHSHADOW)))
 		{
 			// FIXME: Don't do this at submit time. Determine what surfaces are mirrors
-			// at RE_RenderScene or earlier.
+			// at R_RenderScene or earlier.
 
 			// check for any pass through drawing, which
 			// may cause another view to be rendered first
@@ -2874,7 +2874,7 @@ void R_RenderCubemapSide( int cubemapIndex, int cubemapSide, qboolean subscene )
 
 	if (!subscene)
 	{
-		RE_BeginScene(&refdef);
+		R_BeginScene(&refdef);
 
 		// FIXME: sun shadows aren't rendered correctly in cubemaps
 		// fix involves changing r_FBufScale to fit smaller cubemap image size, or rendering cubemap to framebuffer first
@@ -2927,6 +2927,6 @@ void R_RenderCubemapSide( int cubemapIndex, int cubemapSide, qboolean subscene )
 	}
 	else
 	{
-		RE_EndScene();
+		R_EndScene();
 	}
 }

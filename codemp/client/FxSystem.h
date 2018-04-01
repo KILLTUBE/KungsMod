@@ -165,7 +165,7 @@ public:
 
 		assert(!ent || ent->renderfx >= 0);
 #endif
-		RE_AddRefEntityToScene( ent );
+		R_AddRefEntityToScene( ent );
 	}
 	inline	void	AddFxToScene( miniRefEntity_t *ent )
 	{
@@ -174,30 +174,30 @@ public:
 
 		assert(!ent || ent->renderfx >= 0);
 #endif
-		RE_AddMiniRefEntityToScene( ent );
+		R_AddMiniRefEntityToScene( ent );
 	}
 	inline	void	AddLightToScene( vec3_t org, float radius, float red, float green, float blue )
 	{
-		RE_AddLightToScene(	org, radius, red, green, blue );
+		R_AddLightToScene(	org, radius, red, green, blue );
 	}
 
 	inline	int		RegisterShader( const char *shader )
 	{
-		return RE_RegisterShader( shader );
+		return R_RegisterShader( shader );
 	}
 	inline	int		RegisterModel( const char *model )
 	{
-		return RE_RegisterModel( model );
+		return R_RegisterModel( model );
 	}
 
 	inline	void	AddPolyToScene( int shader, int count, polyVert_t *verts )
 	{
-		RE_AddPolyToScene( shader, count, verts, 1 );
+		R_AddPolysToScene( shader, count, verts, 1 );
 	}
 
 	inline void AddDecalToScene ( qhandle_t shader, const vec3_t origin, const vec3_t dir, float orientation, float r, float g, float b, float a, qboolean alphaFade, float radius, qboolean temporary )
 	{
-		RE_AddDecalToScene ( shader, origin, dir, orientation, r, g, b, a, alphaFade, radius, temporary );
+		R_AddDecalToScene ( shader, origin, dir, orientation, r, g, b, a, alphaFade, radius, temporary );
 	}
 
 	void	CameraShake( vec3_t origin, float intensity, int radius, int time );

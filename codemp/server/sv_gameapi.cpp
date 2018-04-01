@@ -1333,8 +1333,8 @@ CCALL int SV_PC_SourceFileAndLine( int handle, char *filename, int *line ) {
 	return botlib_export->PC_SourceFileAndLine( handle, filename, line );
 }
 
-CCALL qhandle_t SV_RE_RegisterSkin( const char *name ) {
-	return RE_RegisterServerSkin( name );
+CCALL qhandle_t SV_R_RegisterSkin( const char *name ) {
+	return R_RegisterServerSkin( name );
 }
 
 CCALL int SV_CM_RegisterTerrain( const char *config ) {

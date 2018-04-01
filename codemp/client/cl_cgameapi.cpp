@@ -695,14 +695,7 @@ CCALL void CGVM_Cmd_RemoveCommand( const char *cmd_name ) {
 
 
 // Stub function for old RMG system.
-static void RE_InitRendererTerrain ( const char * /*info*/ ) {}
-
-
-
-CCALL qhandle_t	R_RegisterShader	( const char *name ) {
-	return RE_RegisterShader(name);
-}
-
+static void R_InitRendererTerrain ( const char * /*info*/ ) {}
 
 //typedef int cgameExport_t;
 //typedef int cgameImport_t;
@@ -719,49 +712,49 @@ void CL_BindCGame( void ) {
 	cgvm = VM_Create( VM_CGAME );
 	if ( cgvm && !cgvm->isLegacy ) {
 
-		cgi.R_AddAdditiveLightToScene			= RE_AddAdditiveLightToScene;
-		cgi.R_AddDecalToScene					= RE_AddDecalToScene;
-		cgi.R_AddLightToScene					= RE_AddLightToScene;
-		cgi.R_AddPolysToScene					= RE_AddPolyToScene;
-		cgi.R_AddRefEntityToScene				= RE_AddRefEntityToScene;
-		cgi.R_AnyLanguage_ReadCharFromString	= AnyLanguage_ReadCharFromString;
-		cgi.R_AutomapElevationAdjustment		= re->AutomapElevationAdjustment;
-		cgi.R_ClearDecals						= RE_ClearDecals;
-		cgi.R_ClearScene						= RE_ClearScene;
-		cgi.R_DrawStretchPic					= RE_StretchPic;
-		cgi.R_DrawRotatePic						= RE_RotatePic;
-		cgi.R_DrawRotatePic2					= RE_RotatePic2;
-		cgi.R_Font_DrawString					= RE_Font_DrawString;
-		cgi.R_Font_HeightPixels					= RE_Font_HeightPixels;
-		cgi.R_Font_StrLenChars					= RE_Font_StrLenChars;
-		cgi.R_Font_StrLenPixels					= RE_Font_StrLenPixels;
-		cgi.R_GetBModelVerts					= re->GetBModelVerts;
-		cgi.R_GetDistanceCull					= re->GetDistanceCull;
-		cgi.R_GetEntityToken					= R_GetEntityToken;
-		cgi.R_GetLightStyle						= re->GetLightStyle;
-		cgi.R_GetRealRes						= re->GetRealRes;
-		cgi.R_InitializeWireframeAutomap		= re->InitializeWireframeAutomap;
-		cgi.R_InPVS								= R_inPVS;
-		cgi.R_Language_IsAsian					= Language_IsAsian;
-		cgi.R_Language_UsesSpaces				= Language_UsesSpaces;
-		cgi.R_LerpTag							= R_LerpTag;
-		cgi.R_LightForPoint						= R_LightForPoint;
-		cgi.R_LoadWorld							= RE_LoadWorldMap;
-		cgi.R_MarkFragments						= R_MarkFragments;
-		cgi.R_ModelBounds						= R_ModelBounds;
-		cgi.R_RegisterFont						= RE_RegisterFont;
-		cgi.R_RegisterModel						= RE_RegisterModel;
-		cgi.R_RegisterShader					= RE_RegisterShader;
-		cgi.R_RegisterShaderNoMip				= RE_RegisterShaderNoMip;
-		cgi.R_RegisterSkin						= RE_RegisterSkin;
-		cgi.R_RemapShader						= R_RemapShader;
-		cgi.R_RenderScene						= RE_RenderScene;
-		cgi.R_SetColor							= RE_SetColor;
-		cgi.R_SetLightStyle						= re->SetLightStyle;
-		cgi.R_SetRangedFog						= re->SetRangedFog;
-		cgi.R_SetRefractionProperties			= re->SetRefractionProperties;
-		cgi.R_WorldEffectCommand				= re->WorldEffectCommand;
-		cgi.WE_AddWeatherZone					= re->AddWeatherZone;
+		//cgi.R_AddAdditiveLightToScene			= R_AddAdditiveLightToScene;
+		//cgi.R_AddDecalToScene					= R_AddDecalToScene;
+		//cgi.R_AddLightToScene					= R_AddLightToScene;
+		//cgi.R_AddPolysToScene					= R_AddPolysToScene;
+		//cgi.R_AddRefEntityToScene				= R_AddRefEntityToScene;
+		//cgi.R_AnyLanguage_ReadCharFromString	= AnyLanguage_ReadCharFromString;
+		//cgi.R_AutomapElevationAdjustment		= re->AutomapElevationAdjustment;
+		//cgi.R_ClearDecals						= R_ClearDecals;
+		//cgi.R_ClearScene						= R_ClearScene;
+		//cgi.R_StretchPic					= R_StretchPic;
+		//cgi.R_RotatePic						= R_RotatePic;
+		//cgi.R_RotatePic2					= R_RotatePic2;
+		//cgi.R_Font_DrawString					= R_Font_DrawString;
+		//cgi.R_Font_HeightPixels					= R_Font_HeightPixels;
+		//cgi.R_Font_StrLenChars					= R_Font_StrLenChars;
+		//cgi.R_Font_StrLenPixels					= R_Font_StrLenPixels;
+		//cgi.R_GetBModelVerts					= R_GetBModelVerts;
+		//cgi.R_GetDistanceCull					= R_GetDistanceCull;
+		//cgi.R_GetEntityToken					= R_GetEntityToken;
+		//cgi.R_GetLightStyle						= R_GetLightStyle;
+		//cgi.R_GetRealRes						= R_GetRealRes;
+		//cgi.R_InitializeWireframeAutomap		= stub_InitializeWireframeAutomap;
+		//cgi.R_inPVS								= R_inPVS;
+		//cgi.R_Language_IsAsian					= Language_IsAsian;
+		//cgi.R_Language_UsesSpaces				= Language_UsesSpaces;
+		//cgi.R_LerpTag							= R_LerpTag;
+		//cgi.R_LightForPoint						= R_LightForPoint;
+		//cgi.R_LoadWorld							= R_LoadWorldMap;
+		//cgi.R_MarkFragments						= R_MarkFragments;
+		//cgi.R_ModelBounds						= R_ModelBounds;
+		//cgi.R_RegisterFont						= R_RegisterFont;
+		//cgi.R_RegisterModel						= R_RegisterModel;
+		//cgi.R_RegisterShader					= R_RegisterShader;
+		//cgi.R_RegisterShaderNoMip				= R_RegisterShaderNoMip;
+		//cgi.R_RegisterSkin						= R_RegisterSkin;
+		//cgi.R_RemapShader						= R_RemapShader;
+		//cgi.R_RenderScene						= R_RenderScene;
+		//cgi.R_SetColor							= R_SetColor;
+		//cgi.R_SetLightStyle						= R_SetLightStyle;
+		//cgi.R_SetRangedFog						= R_SetRangedFog;
+		//cgi.R_SetRefractionProperties			= R_SetRefractionProperties;
+		//cgi.R_WorldEffectCommand				= stub_R_WorldEffectCommand;
+		//cgi.WE_AddWeatherZone					= stub_R_AddWeatherZone;
 		
 		cgi.PC_AddGlobalDefine					= botlib_export->PC_AddGlobalDefine;
 		cgi.PC_FreeSource						= botlib_export->PC_FreeSourceHandle;

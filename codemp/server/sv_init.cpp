@@ -461,7 +461,7 @@ void SV_SpawnServer( char *server, qboolean killBots, ForceReload_e eForceReload
 
 	SV_SendMapChange();
 
-	re->RegisterMedia_LevelLoadBegin(server, eForceReload);
+	C_LevelLoadBegin(server, eForceReload);
 
 	// shut down the existing game if it is running
 	SV_ShutdownGameProgsVoid();

@@ -76,12 +76,12 @@ CCALL void LoadPNG( const char *filename, byte **data, int *width, int *height )
 ================================================================================
 */
 // Convert raw image data to JPEG format and store in buffer.
-CCALL size_t RE_SaveJPGToBuffer( byte *buffer, size_t bufSize, int quality, int image_width, int image_height, byte *image_buffer, int padding );
+CCALL size_t R_SaveJPGToBuffer( byte *buffer, size_t bufSize, int quality, int image_width, int image_height, byte *image_buffer, int padding );
 
 // Save raw image data as JPEG image file.
-CCALL void RE_SaveJPG( const char * filename, int quality, int image_width, int image_height, byte *image_buffer, int padding );
+CCALL void R_SaveJPG( const char * filename, int quality, int image_width, int image_height, byte *image_buffer, int padding );
 
 // Save raw image data as PNG image file.
-CCALL int RE_SavePNG( const char *filename, byte *buf, size_t width, size_t height, int byteDepth );
+CCALL int R_SavePNG( const char *filename, byte *buf, size_t width, size_t height, int byteDepth );
 
 #endif

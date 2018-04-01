@@ -28,7 +28,7 @@ CCALL void R_MouseClickEvent(int key, int state) {
 		imgui_mouse_set_button(key, state);
 }
 
-void RE_RenderImGui() {
+void R_RenderImGui() {
 	float width = glConfig.vidWidth;
 	float height = glConfig.vidHeight;
 		

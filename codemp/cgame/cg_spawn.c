@@ -205,7 +205,7 @@ void SP_misc_model_static_cg( void ) {
 	if( staticmodel->model ) {
 		vec3_t mins, maxs;
 
-		trap->R_ModelBounds( staticmodel->model, mins, maxs );
+		R_ModelBounds( staticmodel->model, mins, maxs );
 
 		VectorScaleVector( mins, vScale, mins );
 		VectorScaleVector( maxs, vScale, maxs );
@@ -247,7 +247,7 @@ void SP_misc_weather_zone_cg( void ) {
 		return;
 	}
 
-	trap->R_ModelBounds( R_RegisterModel( model ), mins, maxs );
+	R_ModelBounds( R_RegisterModel( model ), mins, maxs );
 
 	trap->WE_AddWeatherZone( mins, maxs );
 }
@@ -360,7 +360,7 @@ qboolean CG_ParseSpawnVars( void ) {
 	cg.numSpawnVarChars	= 0;
 
 	// parse the opening brace
-	if( !trap->R_GetEntityToken( com_token, sizeof( com_token ) ) ) {
+	if( !R_GetEntityToken( com_token, sizeof( com_token ) ) ) {
 		// end of spawn string
 		return qfalse;
 	}
@@ -372,7 +372,7 @@ qboolean CG_ParseSpawnVars( void ) {
 	// go through all the key / value pairs
 	while( 1 ) {
 		// parse key
-		if( !trap->R_GetEntityToken( keyname, sizeof( keyname ) ) ) {
+		if( !R_GetEntityToken( keyname, sizeof( keyname ) ) ) {
 			Com_Error( ERR_DROP, "CG_ParseSpawnVars: EOF without closing brace" );
 		}
 
@@ -381,7 +381,7 @@ qboolean CG_ParseSpawnVars( void ) {
 		}
 
 		// parse value
-		if( !trap->R_GetEntityToken( com_token, sizeof( com_token ) ) ) {
+		if( !R_GetEntityToken( com_token, sizeof( com_token ) ) ) {
 			Com_Error( ERR_DROP, "CG_ParseSpawnVars: EOF without closing brace" );
 		}
 
@@ -422,7 +422,7 @@ Parses textual entity definitions out of an entstring
 */
 void CG_ParseEntitiesFromString( void ) {
 	// make sure it is reset
-	trap->R_GetEntityToken( NULL, -1 );
+	R_GetEntityToken( NULL, -1 );
 
 	// allow calls to CG_Spawn*()
 	cg.spawning	= qtrue;

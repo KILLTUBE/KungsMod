@@ -555,7 +555,7 @@ void Con_DrawInput (void) {
 
 	y = con.vislines - ( SMALLCHAR_HEIGHT * (Language_IsAsian() ? 1.5 : 2) );
 
-	RE_SetColor( con.color );
+	R_SetColor( con.color );
 
 	SCR_DrawSmallChar( (int)(con.xadjust + 1 * SMALLCHAR_WIDTH), y, CONSOLE_PROMPT_CHAR );
 
@@ -584,7 +584,7 @@ void Con_DrawNotify (void)
 	const char* chattext;
 
 	currentColor = 7;
-	RE_SetColor( g_color_table[currentColor] );
+	R_SetColor( g_color_table[currentColor] );
 
 	v = 0;
 	for (i= con.current-NUM_CON_TIMES+1 ; i<=con.current ; i++)
@@ -615,9 +615,9 @@ void Con_DrawNotify (void)
 		//
 		if (Language_IsAsian())
 		{
-			static int iFontIndex = RE_RegisterFont("ocr_a");	// this seems naughty
+			static int iFontIndex = R_RegisterFont("ocr_a");	// this seems naughty
 			const float fFontScale = 0.75f*con.yadjust;
-			const int iPixelHeightToAdvance =   2+(1.3/con.yadjust) * RE_Font_HeightPixels(iFontIndex, fFontScale);	// for asian spacing, since we don't want glyphs to touch.
+			const int iPixelHeightToAdvance =   2+(1.3/con.yadjust) * R_Font_HeightPixels(iFontIndex, fFontScale);	// for asian spacing, since we don't want glyphs to touch.
 
 			// concat the text to be printed...
 			//
@@ -633,7 +633,7 @@ void Con_DrawNotify (void)
 			//
 			// and print...
 			//
-			RE_Font_DrawString(cl_conXOffset->integer + con.xadjust*(con.xadjust + (1*SMALLCHAR_WIDTH/*aesthetics*/)), con.yadjust*(v), sTemp, g_color_table[currentColor], iFontIndex, -1, fFontScale);
+			R_Font_DrawString(cl_conXOffset->integer + con.xadjust*(con.xadjust + (1*SMALLCHAR_WIDTH/*aesthetics*/)), con.yadjust*(v), sTemp, g_color_table[currentColor], iFontIndex, -1, fFontScale);
 
 			v +=  iPixelHeightToAdvance;
 		}
@@ -645,7 +645,7 @@ void Con_DrawNotify (void)
 				}
 				if ( ( (text[x]>>8)&Q_COLOR_BITS ) != currentColor ) {
 					currentColor = (text[x]>>8)&Q_COLOR_BITS;
-					RE_SetColor( g_color_table[currentColor] );
+					R_SetColor( g_color_table[currentColor] );
 				}
 				if (!cl_conXOffset)
 				{
@@ -658,7 +658,7 @@ void Con_DrawNotify (void)
 		}
 	}
 
-	RE_SetColor( NULL );
+	R_SetColor( NULL );
 
 	if (Key_GetCatcher( ) & (KEYCATCH_UI | KEYCATCH_CGAME) ) {
 		return;
@@ -722,19 +722,19 @@ void Con_DrawSolidConsole( float frac ) {
 		{
 			vec4_t con_color;
 			MAKERGBA(con_color, 1.0f, 1.0f, 1.0f, Com_Clamp(0.0f, 1.0f, con_opacity->value));
-			RE_SetColor(con_color);
+			R_SetColor(con_color);
 		}
 		else
 		{
-			RE_SetColor(NULL);
+			R_SetColor(NULL);
 		}
 		SCR_DrawPic( 0, 0, SCREEN_WIDTH, (float) y, cls.consoleShader );
 	}
 
 	// draw the bottom bar and version number
 
-	RE_SetColor( console_color );
-	RE_StretchPic( 0, y, SCREEN_WIDTH, 2, 0, 0, 0, 0, cls.whiteShader );
+	R_SetColor( console_color );
+	R_StretchPic( 0, y, SCREEN_WIDTH, 2, 0, 0, 0, 0, cls.whiteShader );
 
 	i = strlen( JK_VERSION );
 
@@ -754,7 +754,7 @@ void Con_DrawSolidConsole( float frac ) {
 	if (con.display != con.current)
 	{
 	// draw arrows to show the buffer is backscrolled
-		RE_SetColor( console_color );
+		R_SetColor( console_color );
 		for (x=0 ; x<con.linewidth ; x+=4)
 			SCR_DrawSmallChar( (int) (con.xadjust + (x+1)*SMALLCHAR_WIDTH), y, '^' );
 		y -= SMALLCHAR_HEIGHT;
@@ -768,7 +768,7 @@ void Con_DrawSolidConsole( float frac ) {
 	}
 
 	currentColor = 7;
-	RE_SetColor( g_color_table[currentColor] );
+	R_SetColor( g_color_table[currentColor] );
 
 	static int iFontIndexForAsian = 0;
 	const float fFontScaleForAsian = 0.75f*con.yadjust;
@@ -777,9 +777,9 @@ void Con_DrawSolidConsole( float frac ) {
 	{
 		if (!iFontIndexForAsian)
 		{
-			iFontIndexForAsian = RE_RegisterFont("ocr_a");
+			iFontIndexForAsian = R_RegisterFont("ocr_a");
 		}
-		iPixelHeightToAdvance = (1.3/con.yadjust) * RE_Font_HeightPixels(iFontIndexForAsian, fFontScaleForAsian);	// for asian spacing, since we don't want glyphs to touch.
+		iPixelHeightToAdvance = (1.3/con.yadjust) * R_Font_HeightPixels(iFontIndexForAsian, fFontScaleForAsian);	// for asian spacing, since we don't want glyphs to touch.
 	}
 
 	for (i=0 ; i<rows ; i++, y -= iPixelHeightToAdvance, row--)
@@ -813,7 +813,7 @@ void Con_DrawSolidConsole( float frac ) {
 			//
 			// and print...
 			//
-			RE_Font_DrawString(con.xadjust*(con.xadjust + (1*SMALLCHAR_WIDTH/*(aesthetics)*/)), con.yadjust*(y), sTemp, g_color_table[currentColor], iFontIndexForAsian, -1, fFontScaleForAsian);
+			R_Font_DrawString(con.xadjust*(con.xadjust + (1*SMALLCHAR_WIDTH/*(aesthetics)*/)), con.yadjust*(y), sTemp, g_color_table[currentColor], iFontIndexForAsian, -1, fFontScaleForAsian);
 		}
 		else
 		{
@@ -824,7 +824,7 @@ void Con_DrawSolidConsole( float frac ) {
 
 				if ( ( (text[x]>>8)&Q_COLOR_BITS ) != currentColor ) {
 					currentColor = (text[x]>>8)&Q_COLOR_BITS;
-					RE_SetColor( g_color_table[currentColor] );
+					R_SetColor( g_color_table[currentColor] );
 				}
 				SCR_DrawSmallChar(  (int) (con.xadjust + (x+1)*SMALLCHAR_WIDTH), y, text[x] & 0xff );
 			}
@@ -834,7 +834,7 @@ void Con_DrawSolidConsole( float frac ) {
 	// draw the input prompt, user text, and cursor if desired
 	Con_DrawInput ();
 
-	RE_SetColor( NULL );
+	R_SetColor( NULL );
 }
 
 

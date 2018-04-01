@@ -345,7 +345,7 @@ void CG_ShaderStateChanged(void) {
 				strncpy(timeOffset, t, o-t);
 				timeOffset[o-t] = 0;
 				o++;
-				trap->R_RemapShader( originalShader, newShader, timeOffset );
+				R_RemapShader( originalShader, newShader, timeOffset );
 			}
 		} else {
 			break;
@@ -845,7 +845,7 @@ static void CG_ConfigStringModified( void ) {
 // GHOUL2 Insert start
 		/*
 	} else if ( num >= CS_CHARSKINS && num < CS_CHARSKINS+MAX_CHARSKINS ) {
-		cgs.skins[ num-CS_CHARSKINS ] = trap->R_RegisterSkin( str );
+		cgs.skins[ num-CS_CHARSKINS ] = R_RegisterSkin( str );
 		*/
 		//rww - removed and replaced with CS_G2BONES
 // Ghoul2 Insert end
@@ -1054,7 +1054,7 @@ static void CG_MapRestart( void ) {
 		Com_Printf( "CG_MapRestart\n" );
 	}
 
-	trap->R_ClearDecals ( );
+	R_ClearDecals ( );
 	//FIXME: trap->FX_Reset?
 
 	CG_InitLocalEntities();
@@ -1575,7 +1575,7 @@ static void CG_RemapShader_f( void ) {
 
 		Cmd_ArgvBuffer( 1, shader1, sizeof( shader1 ) );
 		Cmd_ArgvBuffer( 2, shader2, sizeof( shader2 ) );
-		trap->R_RemapShader( shader1, shader2, CG_Argv( 3 ) );
+		R_RemapShader( shader1, shader2, CG_Argv( 3 ) );
 	}
 }
 

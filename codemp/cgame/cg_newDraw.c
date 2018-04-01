@@ -276,7 +276,7 @@ static void CG_Text_Paint_Limit(float *maxX, float x, float y, float scale, vec4
 	int iFontIndex = MenuFontToHandle_CG(iMenuFont);
 
 	//float fMax = *maxX;
-	int iPixelLen = trap->R_Font_StrLenPixels(text, iFontIndex, scale);
+	int iPixelLen = R_Font_StrLenPixels(text, iFontIndex, scale);
 	if (x + iPixelLen > *maxX)
 	{
 		// whole text won't fit, so we need to print just the amount that does...
@@ -288,14 +288,14 @@ static void CG_Text_Paint_Limit(float *maxX, float x, float y, float scale, vec4
 		char *psOutLastGood = psOut;
 		unsigned int uiLetter;
 
-		while (*psText && (x + trap->R_Font_StrLenPixels(sTemp, iFontIndex, scale)<=*maxX)
+		while (*psText && (x + R_Font_StrLenPixels(sTemp, iFontIndex, scale)<=*maxX)
 			&& psOut < &sTemp[sizeof(sTemp)-1]	// sanity
 		)
 		{
 			int iAdvanceCount;
 			psOutLastGood = psOut;
 
-			uiLetter = trap->R_AnyLanguage_ReadCharFromString(psText, &iAdvanceCount, &bIsTrailingPunctuation);
+			uiLetter = R_AnyLanguage_ReadCharFromString(psText, &iAdvanceCount, &bIsTrailingPunctuation);
 			psText += iAdvanceCount;
 
 			if (uiLetter > 255)
@@ -384,7 +384,7 @@ void CG_DrawNewTeamInfo(rectDef_t *rect, float text_x, float text_y, float scale
 			xx = rect->x + (PIC_WIDTH * 3) + 2;
 
 			CG_GetColorForHealth( ci->health, ci->armor, hcolor );
-			trap->R_SetColor(hcolor);
+			R_SetColor(hcolor);
 			CG_DrawPic( xx, y + 1, PIC_WIDTH - 2, PIC_WIDTH - 2, cgs.media.heartShader );
 
 			//Com_sprintf (st, sizeof(st), "%3i %3i", ci->health,	ci->armor);
@@ -402,7 +402,7 @@ void CG_DrawNewTeamInfo(rectDef_t *rect, float text_x, float text_y, float scale
 			}
 #endif
 
-			trap->R_SetColor(NULL);
+			R_SetColor(NULL);
 			h = CG_StatusHandle(ci->teamTask);
 
 			if (h) {
@@ -548,7 +548,7 @@ void CG_DrawMedal(int ownerDraw, rectDef_t *rect, float scale, vec4_t color, qha
 		}
 	}
 
-	trap->R_SetColor(color);
+	R_SetColor(color);
 	CG_DrawPic( rect->x, rect->y, rect->w, rect->h, shader );
 
 	if (text) {
@@ -556,7 +556,7 @@ void CG_DrawMedal(int ownerDraw, rectDef_t *rect, float scale, vec4_t color, qha
 		value = CG_Text_Width(text, scale, 0);
 		CG_Text_Paint(rect->x + (rect->w - value) / 2, rect->y + rect->h + 10 , scale, color, text, 0, 0, 0, FONT_MEDIUM);
 	}
-	trap->R_SetColor(NULL);
+	R_SetColor(NULL);
 
 }
 

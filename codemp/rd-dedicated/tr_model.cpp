@@ -80,7 +80,7 @@ typedef struct CachedEndianedModelBinary_s CachedEndianedModelBinary_t;
 typedef std::map <sstring_t,CachedEndianedModelBinary_t>	CachedModels_t;
 CachedModels_t *CachedModels = NULL;	// the important cache item.
 
-void RE_RegisterModels_StoreShaderRequest(const char *psModelFileName, const char *psShaderName, int *piShaderIndexPoke)
+void R_RegisterModels_StoreShaderRequest(const char *psModelFileName, const char *psShaderName, int *piShaderIndexPoke)
 {
 	char sModelName[MAX_QPATH];
 
@@ -128,14 +128,14 @@ static const byte FakeGLAFile[] =
 0x00, 0x80, 0x00, 0x80, 0x00, 0x80
 };
 
-void RE_LoadWorldMap_Actual( const char *name, world_t &worldData, int index );
+void R_LoadWorldMap_Actual( const char *name, world_t &worldData, int index );
 
 // returns qtrue if loaded, and sets the supplied qbool to true if it was from cache (instead of disk)
 //   (which we need to know to avoid LittleLong()ing everything again (well, the Mac needs to know anyway)...
 //
 // don't use ri->xxx functions in case running on dedicated...
 //
-qboolean RE_RegisterModels_GetDiskFile( const char *psModelFileName, void **ppvBuffer, qboolean *pqbAlreadyCached)
+qboolean R_RegisterModels_GetDiskFile( const char *psModelFileName, void **ppvBuffer, qboolean *pqbAlreadyCached)
 {
 	char sModelName[MAX_QPATH];
 
@@ -170,7 +170,7 @@ qboolean RE_RegisterModels_GetDiskFile( const char *psModelFileName, void **ppvB
 
 		if (bSuccess)
 		{
-			R_Printf( PRINT_DEVELOPER, "RE_RegisterModels_GetDiskFile(): Disk-loading \"%s\"\n",psModelFileName);
+			R_Printf( PRINT_DEVELOPER, "R_RegisterModels_GetDiskFile(): Disk-loading \"%s\"\n",psModelFileName);
 		}
 
 		return bSuccess;
@@ -188,7 +188,7 @@ qboolean RE_RegisterModels_GetDiskFile( const char *psModelFileName, void **ppvB
 //
 // don't use ri->xxx functions in case running on dedicated
 //
-void *RE_RegisterModels_Malloc(int iSize, void *pvDiskBufferIfJustLoaded, const char *psModelFileName, qboolean *pqbAlreadyFound, memtag_t eTag)
+void *R_RegisterModels_Malloc(int iSize, void *pvDiskBufferIfJustLoaded, const char *psModelFileName, qboolean *pqbAlreadyFound, memtag_t eTag)
 {
 	char sModelName[MAX_QPATH];
 
@@ -233,14 +233,14 @@ void *RE_RegisterModels_Malloc(int iSize, void *pvDiskBufferIfJustLoaded, const 
 		*pqbAlreadyFound = qtrue;	// tell caller not to re-Endian or re-Shader this binary
 	}
 
-	ModelBin.iLastLevelUsedOn = RE_RegisterMedia_GetLevel();
+	ModelBin.iLastLevelUsedOn = R_RegisterMedia_GetLevel();
 
 	return ModelBin.pModelDiskImage;
 }
 
 // Unfortunately the dedicated server also hates shader loading. So we need an alternate of this func.
 //
-void *RE_RegisterServerModels_Malloc(int iSize, void *pvDiskBufferIfJustLoaded, const char *psModelFileName, qboolean *pqbAlreadyFound, memtag_t eTag)
+void *R_RegisterServerModels_Malloc(int iSize, void *pvDiskBufferIfJustLoaded, const char *psModelFileName, qboolean *pqbAlreadyFound, memtag_t eTag)
 {
 	char sModelName[MAX_QPATH];
 
@@ -306,7 +306,7 @@ void *RE_RegisterServerModels_Malloc(int iSize, void *pvDiskBufferIfJustLoaded, 
 		*pqbAlreadyFound = qtrue;	// tell caller not to re-Endian or re-Shader this binary
 	}
 
-	ModelBin.iLastLevelUsedOn = RE_RegisterMedia_GetLevel();
+	ModelBin.iLastLevelUsedOn = R_RegisterMedia_GetLevel();
 
 	return ModelBin.pModelDiskImage;
 }
@@ -324,17 +324,17 @@ extern cvar_t *r_modelpoolmegs;
 // return qtrue if at least one cached model was freed (which tells z_malloc()-fail recoveryt code to try again)
 //
 extern qboolean gbInsideRegisterModel;
-qboolean RE_RegisterModels_LevelLoadEnd(qboolean bDeleteEverythingNotUsedThisLevel /* = qfalse */)
+qboolean R_RegisterModels_LevelLoadEnd(qboolean bDeleteEverythingNotUsedThisLevel /* = qfalse */)
 {
 	qboolean bAtLeastoneModelFreed = qfalse;
 
 	assert(CachedModels);
 
-	R_Printf( PRINT_DEVELOPER, S_COLOR_RED "RE_RegisterModels_LevelLoadEnd():\n");
+	R_Printf( PRINT_DEVELOPER, S_COLOR_RED "R_RegisterModels_LevelLoadEnd():\n");
 
 	if (gbInsideRegisterModel)
 	{
-		R_Printf( PRINT_DEVELOPER, "(Inside RE_RegisterModel (z_malloc recovery?), exiting...\n");
+		R_Printf( PRINT_DEVELOPER, "(Inside R_RegisterModel (z_malloc recovery?), exiting...\n");
 	}
 	else
 	{
@@ -349,11 +349,11 @@ qboolean RE_RegisterModels_LevelLoadEnd(qboolean bDeleteEverythingNotUsedThisLev
 
 			if (bDeleteEverythingNotUsedThisLevel)
 			{
-				bDeleteThis = (CachedModel.iLastLevelUsedOn != RE_RegisterMedia_GetLevel()) ? qtrue : qfalse;
+				bDeleteThis = (CachedModel.iLastLevelUsedOn != R_RegisterMedia_GetLevel()) ? qtrue : qfalse;
 			}
 			else
 			{
-				bDeleteThis = (CachedModel.iLastLevelUsedOn < RE_RegisterMedia_GetLevel()) ? qtrue : qfalse;
+				bDeleteThis = (CachedModel.iLastLevelUsedOn < R_RegisterMedia_GetLevel()) ? qtrue : qfalse;
 			}
 
 			// if it wasn't used on this level, dump it...
@@ -383,7 +383,7 @@ qboolean RE_RegisterModels_LevelLoadEnd(qboolean bDeleteEverythingNotUsedThisLev
 		}
 	}
 
-	R_Printf( PRINT_DEVELOPER, S_COLOR_RED "RE_RegisterModels_LevelLoadEnd(): Ok\n");
+	R_Printf( PRINT_DEVELOPER, S_COLOR_RED "R_RegisterModels_LevelLoadEnd(): Ok\n");
 
 	return bAtLeastoneModelFreed;
 }
@@ -395,9 +395,9 @@ qboolean RE_RegisterModels_LevelLoadEnd(qboolean bDeleteEverythingNotUsedThisLev
 //
 // (avoid using ri->xxxx stuff here in case running on dedicated)
 //
-static void RE_RegisterModels_DumpNonPure(void)
+static void R_RegisterModels_DumpNonPure(void)
 {
-	R_Printf( PRINT_DEVELOPER,  "RE_RegisterModels_DumpNonPure():\n");
+	R_Printf( PRINT_DEVELOPER,  "R_RegisterModels_DumpNonPure():\n");
 
 	if(!CachedModels) {
 		return;
@@ -437,10 +437,10 @@ static void RE_RegisterModels_DumpNonPure(void)
 		}
 	}
 
-	R_Printf( PRINT_DEVELOPER, "RE_RegisterModels_DumpNonPure(): Ok\n");
+	R_Printf( PRINT_DEVELOPER, "R_RegisterModels_DumpNonPure(): Ok\n");
 }
 
-void RE_RegisterModels_Info_f( void )
+void R_RegisterModels_Info_f( void )
 {
 	int iTotalBytes = 0;
 	if(!CachedModels) {
@@ -469,7 +469,7 @@ void RE_RegisterModels_Info_f( void )
 
 // (don't use ri->xxx functions since the renderer may not be running here)...
 //
-static void RE_RegisterModels_DeleteAll(void)
+static void R_RegisterModels_DeleteAll(void)
 {
 	if(!CachedModels) {
 		return;	//argh!
@@ -491,7 +491,7 @@ static void RE_RegisterModels_DeleteAll(void)
 // do not use ri->xxx functions in here, the renderer may not be running (ie. if on a dedicated server)...
 //
 static int giRegisterMedia_CurrentLevel=0;
-void RE_RegisterMedia_LevelLoadBegin(const char *psMapName, ForceReload_e eForceReload)
+void R_RegisterMedia_LevelLoadBegin(const char *psMapName, ForceReload_e eForceReload)
 {
 	// for development purposes we may want to ditch certain media just before loading a map...
 	//
@@ -500,13 +500,13 @@ void RE_RegisterMedia_LevelLoadBegin(const char *psMapName, ForceReload_e eForce
 
 	if (bDeleteModels)
 	{
-		RE_RegisterModels_DeleteAll();
+		R_RegisterModels_DeleteAll();
 	}
 	else
 	{
 		if ( ri.Cvar_VariableIntegerValue( "sv_pure" ) )
 		{
-			RE_RegisterModels_DumpNonPure();
+			R_RegisterModels_DumpNonPure();
 		}
 	}
 
@@ -527,16 +527,16 @@ void RE_RegisterMedia_LevelLoadBegin(const char *psMapName, ForceReload_e eForce
 	}
 }
 
-int RE_RegisterMedia_GetLevel(void)
+int R_RegisterMedia_GetLevel(void)
 {
 	return giRegisterMedia_CurrentLevel;
 }
 
 // this is now only called by the client, so should be ok to dump media...
 //
-void RE_RegisterMedia_LevelLoadEnd(void)
+void R_RegisterMedia_LevelLoadEnd(void)
 {
-	RE_RegisterModels_LevelLoadEnd(qfalse);
+	R_RegisterModels_LevelLoadEnd(qfalse);
 }
 
 
@@ -604,7 +604,7 @@ static long generateHashValue( const char *fname, const int size ) {
 	return hash;
 }
 
-void RE_InsertModelIntoHash(const char *name, model_t *mod)
+void R_InsertModelIntoHash(const char *name, model_t *mod)
 {
 	int			hash;
 	modelHash_t	*mh;
@@ -669,7 +669,7 @@ qboolean ServerLoadMDXA( model_t *mod, void *buffer, const char *mod_name, qbool
 
 	qboolean bAlreadyFound = qfalse;
 	mdxa = mod->mdxa = (mdxaHeader_t*) //Hunk_Alloc( size );
-										RE_RegisterServerModels_Malloc(size, buffer, mod_name, &bAlreadyFound, TAG_MODEL_GLA);
+										R_RegisterServerModels_Malloc(size, buffer, mod_name, &bAlreadyFound, TAG_MODEL_GLA);
 
 	assert(bAlreadyCached == bAlreadyFound);	// I should probably eliminate 'bAlreadyFound', but wtf?
 
@@ -792,7 +792,7 @@ qboolean ServerLoadMDXM( model_t *mod, void *buffer, const char *mod_name, qbool
 
 	qboolean bAlreadyFound = qfalse;
 	mdxm = mod->mdxm = (mdxmHeader_t*) //Hunk_Alloc( size );
-										RE_RegisterServerModels_Malloc(size, buffer, mod_name, &bAlreadyFound, TAG_MODEL_GLM);
+										R_RegisterServerModels_Malloc(size, buffer, mod_name, &bAlreadyFound, TAG_MODEL_GLM);
 
 	assert(bAlreadyCached == bAlreadyFound);	// I should probably eliminate 'bAlreadyFound', but wtf?
 
@@ -818,7 +818,7 @@ qboolean ServerLoadMDXM( model_t *mod, void *buffer, const char *mod_name, qbool
 	}
 
 	// first up, go load in the animation file we need that has the skeletal animation info for this model
-	mdxm->animIndex = RE_RegisterServerModel(va ("%s.gla",mdxm->animName));
+	mdxm->animIndex = R_RegisterServerModel(va ("%s.gla",mdxm->animName));
 	if (!mdxm->animIndex)
 	{
 		return qfalse;
@@ -849,7 +849,7 @@ qboolean ServerLoadMDXM( model_t *mod, void *buffer, const char *mod_name, qbool
 
 		surfInfo->shaderIndex = 0;
 
-		RE_RegisterModels_StoreShaderRequest(mod_name, &surfInfo->shader[0], &surfInfo->shaderIndex);
+		R_RegisterModels_StoreShaderRequest(mod_name, &surfInfo->shader[0], &surfInfo->shaderIndex);
 
 		// find the next surface
 		surfInfo = (mdxmSurfHierarchy_t *)( (byte *)surfInfo + (intptr_t)( &((mdxmSurfHierarchy_t *)0)->childIndexes[ surfInfo->numChildren ] ));
@@ -949,12 +949,12 @@ qboolean ServerLoadMDXM( model_t *mod, void *buffer, const char *mod_name, qbool
 
 /*
 ====================
-RE_RegisterServerModel
+R_RegisterServerModel
 
-Same as RE_RegisterModel, except used by the server to handle ghoul2 instance models.
+Same as R_RegisterModel, except used by the server to handle ghoul2 instance models.
 ====================
 */
-qhandle_t RE_RegisterServerModel( const char *name ) {
+qhandle_t R_RegisterServerModel( const char *name ) {
 	model_t		*mod;
 	unsigned	*buf;
 	int			lod;
@@ -1029,7 +1029,7 @@ Ghoul2 Insert End
 		}
 
 		qboolean bAlreadyCached = qfalse;
-		if (!RE_RegisterModels_GetDiskFile(filename, (void **)&buf, &bAlreadyCached))
+		if (!R_RegisterModels_GetDiskFile(filename, (void **)&buf, &bAlreadyCached))
 		{
 			continue;
 		}
@@ -1087,7 +1087,7 @@ Ghoul2 Insert End
 Ghoul2 Insert Start
 */
 
-	RE_InsertModelIntoHash(name, mod);
+	R_InsertModelIntoHash(name, mod);
 	return mod->index;
 /*
 Ghoul2 Insert End
@@ -1098,14 +1098,14 @@ fail:
 	// we still keep the model_t around, so if the model name is asked for
 	// again, we won't bother scanning the filesystem
 	mod->type = MOD_BAD;
-	RE_InsertModelIntoHash(name, mod);
+	R_InsertModelIntoHash(name, mod);
 	return 0;
 }
 
 
 /*
 ====================
-RE_RegisterModel
+R_RegisterModel
 
 Loads in a model for the given name
 
@@ -1115,7 +1115,7 @@ optimization to prevent disk rescanning if they are
 asked for again.
 ====================
 */
-static qhandle_t RE_RegisterModel_Actual( const char *name ) {
+static qhandle_t R_RegisterModel_Actual( const char *name ) {
 	model_t		*mod;
 	unsigned	*buf;
 	int			lod;
@@ -1133,7 +1133,7 @@ Ghoul2 Insert End
 */
 
 	if ( !name || !name[0] ) {
-		Com_Printf ("RE_RegisterModel: NULL name\n" );
+		Com_Printf ("R_RegisterModel: NULL name\n" );
 		return 0;
 	}
 
@@ -1146,7 +1146,7 @@ Ghoul2 Insert End
 Ghoul2 Insert Start
 */
 //	if (!tr.registered) {
-//		Com_Printf (S_COLOR_YELLOW  "RE_RegisterModel (%s) called before ready!\n",name );
+//		Com_Printf (S_COLOR_YELLOW  "R_RegisterModel (%s) called before ready!\n",name );
 //		return 0;
 //	}
 	//
@@ -1206,7 +1206,7 @@ Ghoul2 Insert End
 	// allocate a new model_t
 
 	if ( ( mod = R_AllocModel() ) == NULL ) {
-		Com_Printf (S_COLOR_YELLOW  "RE_RegisterModel: R_AllocModel() failed for '%s'\n", name);
+		Com_Printf (S_COLOR_YELLOW  "R_RegisterModel: R_AllocModel() failed for '%s'\n", name);
 		return 0;
 	}
 
@@ -1240,7 +1240,7 @@ Ghoul2 Insert End
 		}
 
 		qboolean bAlreadyCached = qfalse;
-		if (!RE_RegisterModels_GetDiskFile(filename, (void **)&buf, &bAlreadyCached))
+		if (!R_RegisterModels_GetDiskFile(filename, (void **)&buf, &bAlreadyCached))
 		{
 			continue;
 		}
@@ -1275,7 +1275,7 @@ Ghoul2 Insert End
 				break;
 
 			default:
-				Com_Printf (S_COLOR_YELLOW"RE_RegisterModel: unknown fileid for %s\n", filename);
+				Com_Printf (S_COLOR_YELLOW"R_RegisterModel: unknown fileid for %s\n", filename);
 				goto fail;
 		}
 
@@ -1320,7 +1320,7 @@ Ghoul2 Insert Start
 	}
 #endif
 
-	RE_InsertModelIntoHash(name, mod);
+	R_InsertModelIntoHash(name, mod);
 	return mod->index;
 /*
 Ghoul2 Insert End
@@ -1328,7 +1328,7 @@ Ghoul2 Insert End
 	}
 #ifdef _DEBUG
 	else {
-		Com_Printf (S_COLOR_YELLOW"RE_RegisterModel: couldn't load %s\n", name);
+		Com_Printf (S_COLOR_YELLOW"R_RegisterModel: couldn't load %s\n", name);
 	}
 #endif
 
@@ -1336,7 +1336,7 @@ fail:
 	// we still keep the model_t around, so if the model name is asked for
 	// again, we won't bother scanning the filesystem
 	mod->type = MOD_BAD;
-	RE_InsertModelIntoHash(name, mod);
+	R_InsertModelIntoHash(name, mod);
 	return 0;
 }
 
@@ -1345,12 +1345,12 @@ fail:
 //	z_malloc-fail recovery code whether it's safe to ditch any model caches...
 //
 qboolean gbInsideRegisterModel = qfalse;
-qhandle_t RE_RegisterModel( const char *name )
+qhandle_t R_RegisterModel( const char *name )
 {
 	const qboolean bWhatitwas = gbInsideRegisterModel;
 	gbInsideRegisterModel = qtrue;	// !!!!!!!!!!!!!!
 
-		qhandle_t q = RE_RegisterModel_Actual( name );
+		qhandle_t q = R_RegisterModel_Actual( name );
 
 	gbInsideRegisterModel = bWhatitwas;
 
@@ -1405,7 +1405,7 @@ static qboolean R_LoadMD3 (model_t *mod, int lod, void *buffer, const char *mod_
 
 	qboolean bAlreadyFound = qfalse;
 	mod->md3[lod] = (md3Header_t *) //Hunk_Alloc( size );
-										RE_RegisterModels_Malloc(size, buffer, mod_name, &bAlreadyFound, TAG_MODEL_MD3);
+										R_RegisterModels_Malloc(size, buffer, mod_name, &bAlreadyFound, TAG_MODEL_MD3);
 
 	assert(bAlreadyCached == bAlreadyFound);	// I should probably eliminate 'bAlreadyFound', but wtf?
 
@@ -1587,7 +1587,7 @@ void R_HunkClearCrap(void)
 void R_ModelFree(void)
 {
 	if(CachedModels) {
-		RE_RegisterModels_DeleteAll();
+		R_RegisterModels_DeleteAll();
 		delete CachedModels;
 		CachedModels = NULL;
 	}

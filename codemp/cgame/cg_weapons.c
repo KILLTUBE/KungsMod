@@ -354,7 +354,7 @@ static void CG_LightningBolt( centity_t *cent, vec3_t origin ) {
 
 	beam.reType = RT_LIGHTNING;
 	beam.customShader = cgs.media.lightningShader;
-	trap->R_AddRefEntityToScene( &beam );
+	R_AddRefEntityToScene( &beam );
 */
 
 	// NOTENOTE No lightning gun-ish stuff yet.
@@ -377,7 +377,7 @@ static void CG_LightningBolt( centity_t *cent, vec3_t origin ) {
 		angles[1] = rand() % 360;
 		angles[2] = rand() % 360;
 		AnglesToAxis( angles, beam.axis );
-		trap->R_AddRefEntityToScene( &beam );
+		R_AddRefEntityToScene( &beam );
 	}
 */
 }
@@ -390,7 +390,7 @@ CG_AddWeaponWithPowerups
 */
 static void CG_AddWeaponWithPowerups( refEntity_t *gun, int powerups ) {
 	// add powerup effects
-	trap->R_AddRefEntityToScene( gun );
+	R_AddRefEntityToScene( gun );
 
 	if (cg.predictedPlayerState.electrifyTime > cg.time)
 	{ //add electrocution shell
@@ -403,7 +403,7 @@ static void CG_AddWeaponWithPowerups( refEntity_t *gun, int powerups ) {
 		{
 			gun->customShader = cgs.media.electricBody2Shader;
 		}
-		trap->R_AddRefEntityToScene( gun );
+		R_AddRefEntityToScene( gun );
 		gun->customShader = preShader; //set back just to be safe
 	}
 }
@@ -497,7 +497,7 @@ Ghoul2 Insert Start
 
 				gun.customShader = R_RegisterShader( "gfx/effects/stunPass" );
 				gun.renderfx = RF_RGB_TINT | RF_FIRST_PERSON | RF_DEPTHHACK;
-				trap->R_AddRefEntityToScene( &gun );
+				R_AddRefEntityToScene( &gun );
 			}
 			*/
 		}
@@ -767,7 +767,7 @@ Ghoul2 Insert End
 		CG_LightningBolt( nonPredictedCent, flashorigin );
 
 		if ( weapon->flashDlightColor[0] || weapon->flashDlightColor[1] || weapon->flashDlightColor[2] ) {
-			trap->R_AddLightToScene( flashorigin, 300 + (rand()&31), weapon->flashDlightColor[0],
+			R_AddLightToScene( flashorigin, 300 + (rand()&31), weapon->flashDlightColor[0],
 				weapon->flashDlightColor[1], weapon->flashDlightColor[2] );
 		}
 	}
@@ -1010,7 +1010,7 @@ void CG_DrawIconBackground(void)
 		cg.iconHUDPercent=1;
 	}
 
-	//trap->R_SetColor( colorTable[CT_WHITE] );
+	//R_SetColor( colorTable[CT_WHITE] );
 	//height = (int) (60.0f*cg.iconHUDPercent);
 	//CG_DrawPic( x2+60, y2+30+yOffset, 460, -height, drawType);	// Top half
 	//CG_DrawPic( x2+60, y2+30-2+yOffset, 460, height, drawType);	// Bottom half
@@ -1032,7 +1032,7 @@ void CG_DrawIconBackground(void)
 	}
 */
 	// Side Prongs
-//	trap->R_SetColor( colorTable[CT_WHITE]);
+//	R_SetColor( colorTable[CT_WHITE]);
 //	xAdd = (int) 8*cg.iconHUDPercent;
 //	CG_DrawPic( prongLeftX+xAdd, y2-10, 40, 80, background);
 //	CG_DrawPic( prongRightX-xAdd, y2-10, -40, 80, background);
@@ -1191,10 +1191,10 @@ void CG_DrawWeaponSelect( void ) {
 	// Background
 //	memcpy(calcColor, colorTable[CT_WHITE], sizeof(vec4_t));
 //	calcColor[3] = .35f;
-//	trap->R_SetColor( calcColor);
+//	R_SetColor( calcColor);
 
 	// Left side ICONS
-	trap->R_SetColor(colorTable[CT_WHITE]);
+	R_SetColor(colorTable[CT_WHITE]);
 	// Work backwards from current icon
 	holdX = x - ((bigIconSize/2) + pad + smallIconSize);
 //	height = smallIconSize * 1;//cg.iconHUDPercent;
@@ -1241,7 +1241,7 @@ void CG_DrawWeaponSelect( void ) {
 			CG_RegisterWeapon( i );
 		//	weaponInfo = &cg_weapons[i];
 
-			trap->R_SetColor(colorTable[CT_WHITE]);
+			R_SetColor(colorTable[CT_WHITE]);
 			if (!CG_WeaponCheck(i))
 			{
 				CG_DrawPic( holdX, y+10+yOffset, smallIconSize, smallIconSize, /*weaponInfo->weaponIconNoAmmo*/cgs.media.weaponIcons_NA[i] );
@@ -1268,7 +1268,7 @@ void CG_DrawWeaponSelect( void ) {
 		CG_RegisterWeapon( cg.weaponSelect );
 	//	weaponInfo = &cg_weapons[cg.weaponSelect];
 
-		trap->R_SetColor( colorTable[CT_WHITE]);
+		R_SetColor( colorTable[CT_WHITE]);
 		if (!CG_WeaponCheck(cg.weaponSelect))
 		{
 			CG_DrawPic( x-(bigIconSize/2), (y-((bigIconSize-smallIconSize)/2))+10+yOffset, bigIconSize, bigIconSize, cgs.media.weaponIcons_NA[cg.weaponSelect] );
@@ -1335,7 +1335,7 @@ void CG_DrawWeaponSelect( void ) {
 			CG_RegisterWeapon( i );
 		//	weaponInfo = &cg_weapons[i];
 			// No ammo for this weapon?
-			trap->R_SetColor( colorTable[CT_WHITE]);
+			R_SetColor( colorTable[CT_WHITE]);
 			if (!CG_WeaponCheck(i))
 			{
 				CG_DrawPic( holdX, y+10+yOffset, smallIconSize, smallIconSize, cgs.media.weaponIcons_NA[i] );
@@ -1374,7 +1374,7 @@ void CG_DrawWeaponSelect( void ) {
 		}
 	}
 
-	trap->R_SetColor( NULL );
+	R_SetColor( NULL );
 }
 
 

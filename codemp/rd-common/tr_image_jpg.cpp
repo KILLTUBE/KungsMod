@@ -335,7 +335,7 @@ Encodes JPEG from image in image_buffer and writes to buffer.
 Expects RGB input data
 =================
 */
-size_t RE_SaveJPGToBuffer(byte *buffer, size_t bufSize, int quality,
+size_t R_SaveJPGToBuffer(byte *buffer, size_t bufSize, int quality,
 	int image_width, int image_height, byte *image_buffer, int padding)
 {
 	struct jpeg_compress_struct cinfo;
@@ -405,7 +405,7 @@ size_t RE_SaveJPGToBuffer(byte *buffer, size_t bufSize, int quality,
 }
 
 
-void RE_SaveJPG(const char * filename, int quality, int image_width, int image_height, byte *image_buffer, int padding)
+void R_SaveJPG(const char * filename, int quality, int image_width, int image_height, byte *image_buffer, int padding)
 {
 	byte *out;
 	size_t bufSize;
@@ -413,7 +413,7 @@ void RE_SaveJPG(const char * filename, int quality, int image_width, int image_h
 	bufSize = image_width * image_height * 3;
 	out = (byte *)Hunk_AllocateTempMemory(bufSize);
 
-	bufSize = RE_SaveJPGToBuffer(out, bufSize, quality, image_width, image_height, image_buffer, padding);
+	bufSize = R_SaveJPGToBuffer(out, bufSize, quality, image_width, image_height, image_buffer, padding);
 	ri.FS_WriteFile(filename, out, bufSize);
 
 	Hunk_FreeTempMemory(out);

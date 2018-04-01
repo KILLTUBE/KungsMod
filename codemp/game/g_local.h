@@ -1537,7 +1537,7 @@ CCALL void ICARUS_InterrogateScript( const char *filename );
 CCALL void ICARUS_PrecacheEnt( sharedEntity_t *ent );
 CCALL void Q3_TaskIDClear( int *taskID );
 CCALL void ICARUS_InitEnt( sharedEntity_t *ent );
-CCALL qhandle_t SV_RE_RegisterSkin( const char *name );
+CCALL qhandle_t SV_R_RegisterSkin( const char *name );
 CCALL const char *SV_SetActiveSubBSP( int index );
 CCALL void SV_SetBrushModel( sharedEntity_t *ent, const char *name );
 CCALL qboolean SV_EntityContact( const vec3_t mins, const vec3_t maxs, const sharedEntity_t *gEnt, int capsule );

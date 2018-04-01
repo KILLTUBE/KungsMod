@@ -63,31 +63,31 @@ CCALL sfxHandle_t		S_RegisterSound						( const char *sample ) {
 
 
 CCALL qhandle_t		R_RegisterFont						( const char *fontName ) {
-	//return trap->R_RegisterFont(fontName);
+	//return R_RegisterFont(fontName);
 		__debugbreak();
 	return 0;
 }
 
 CCALL qhandle_t		R_RegisterModel						( const char *name ) {
-	//return trap->R_RegisterModel(name);
+	//return R_RegisterModel(name);
 		__debugbreak();
 	return 0;
 }
 
 CCALL qhandle_t		R_RegisterShader					( const char *name ) {
-	//return trap->R_RegisterShader(name);
+	//return R_RegisterShader(name);
 	__debugbreak();
 	return 0;
 }
 
 CCALL qhandle_t		R_RegisterShaderNoMip				( const char *name ) {
-	return trap->R_RegisterShaderNoMip(name);
+	return R_RegisterShaderNoMip(name);
 	__debugbreak();
 	return 0;
 }
 
 CCALL qhandle_t		R_RegisterSkin						( const char *name ) {
-	//return trap->R_RegisterSkin(name);
+	//return R_RegisterSkin(name);
 	__debugbreak();
 	return 0;
 }
@@ -155,7 +155,7 @@ CCALL int G_SoundIndex( const char *name ) {
 }
 
 
-CCALL qhandle_t SV_RE_RegisterSkin( const char *name ) {
+CCALL qhandle_t SV_R_RegisterSkin( const char *name ) {
 	__debugbreak();
 	return 0;
 }

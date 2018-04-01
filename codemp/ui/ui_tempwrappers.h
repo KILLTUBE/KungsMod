@@ -17,7 +17,7 @@ CCALL qhandle_t		R_RegisterSkin						( const char *name );
 CCALL int				FX_RegisterEffect					( const char *file );
 
 CCALL int G_SoundIndex( const char *name );
-CCALL qhandle_t SV_RE_RegisterSkin( const char *name );
+CCALL qhandle_t SV_R_RegisterSkin( const char *name );
 
 CCALL void G_SetAnimalVehicleFunctions( vehicleInfo_t *pVehInfo );
 CCALL void G_SetSpeederVehicleFunctions( vehicleInfo_t *pVehInfo );

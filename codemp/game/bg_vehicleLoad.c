@@ -1161,7 +1161,7 @@ int VEH_LoadVehicle( const char *vehicleName )
 
 	if (!isGame()) {
 		if ( VALIDSTRING( vehicle->skin ) )
-			trap->R_RegisterSkin( va( "models/players/%s/model_%s.skin", vehicle->model, vehicle->skin) );
+			R_RegisterSkin( va( "models/players/%s/model_%s.skin", vehicle->model, vehicle->skin) );
 	}
 
 	//sanity check and clamp the vehicle's data

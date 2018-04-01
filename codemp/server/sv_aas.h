@@ -27,7 +27,7 @@ CCALL int SV_AAS_EnableRoutingArea(int areanum,int enable);
 
 CCALL void SV_RMG_Init(void);
 CCALL int SV_CM_RegisterTerrain(const char *config);
-CCALL qhandle_t SV_RE_RegisterSkin(const char *name);
+CCALL qhandle_t SV_R_RegisterSkin(const char *name);
 CCALL int SV_PC_SourceFileAndLine(int handle,char *filename,int *line);
 CCALL int SV_PC_ReadToken(int handle,pc_token_t *pc_token);
 CCALL int SV_PC_FreeSource(int handle);

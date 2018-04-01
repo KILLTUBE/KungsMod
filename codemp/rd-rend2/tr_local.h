@@ -811,7 +811,7 @@ typedef struct shader_s {
 	qboolean	defaultShader;			// we want to return index 0 if the shader failed to
 										// load for some reason, but R_FindShader should
 										// still keep a name allocated for it, so if
-										// something calls RE_RegisterShader again with
+										// something calls R_RegisterShader again with
 										// the same name, we don't try looking for it again
 
 	qboolean	explicitlyDefined;		// found in a .shader file
@@ -1474,7 +1474,7 @@ typedef struct srfPoly_s {
 	polyVert_t		*verts;
 } srfPoly_t;
 
-typedef struct srfFlare_s {
+typedef struct srfFlaR_s {
 	surfaceType_t	surfaceType;
 	vec3_t			origin;
 	vec3_t			normal;
@@ -2163,7 +2163,7 @@ typedef struct trGlobals_s {
 	int						viewCount;		// incremented every view (twice a scene if portaled)
 											// and every R_MarkFragments call
 
-	int						frameSceneNum;	// zeroed at RE_BeginFrame
+	int						frameSceneNum;	// zeroed at R_BeginFrame
 
 	GLuint					globalVao;
 
@@ -2173,7 +2173,7 @@ typedef struct trGlobals_s {
 	vec3_t                  toneMinAvgMaxLevel;
 	world_t					*world;
 
-	const byte				*externalVisData;	// from RE_SetWorldVisData, shared with CM_Load
+	const byte				*externalVisData;	// from R_SetWorldVisData, shared with CM_Load
 
 	image_t					*defaultImage;
 	image_t					*scratchImage[32];
@@ -2606,18 +2606,18 @@ extern glconfigExt_t	glConfigExt;
 
 typedef _skinSurface_t skinSurface_t;
 
-CCALL void	RE_StretchRaw (int x, int y, int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty);
-CCALL void	RE_UploadCinematic (int cols, int rows, const byte *data, int client, qboolean dirty);
-CCALL void	RE_SetRangedFog ( float range );
-CCALL void		RE_BeginFrame( stereoFrame_t stereoFrame );
-CCALL void		RE_BeginRegistration( glconfig_t *glconfig );
-CCALL void		RE_LoadWorldMap( const char *mapname );
-CCALL void		RE_SetWorldVisData( const byte *vis );
-CCALL qhandle_t	RE_RegisterServerModel( const char *name );
-CCALL qhandle_t	RE_RegisterModel( const char *name );
-CCALL qhandle_t	RE_RegisterServerSkin( const char *name );
-CCALL qhandle_t	RE_RegisterSkin( const char *name );
-CCALL void		RE_Shutdown( qboolean destroyWindow, qboolean restarting );
+CCALL void	R_StretchRaw (int x, int y, int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty);
+CCALL void	R_UploadCinematic (int cols, int rows, const byte *data, int client, qboolean dirty);
+CCALL void	R_SetRangedFog ( float range );
+CCALL void		R_BeginFrame( stereoFrame_t stereoFrame );
+CCALL void		R_BeginRegistration( glconfig_t *glconfig );
+CCALL void		R_LoadWorldMap( const char *mapname );
+CCALL void		R_SetWorldVisData( const byte *vis );
+CCALL qhandle_t	R_RegisterServerModel( const char *name );
+CCALL qhandle_t	R_RegisterModel( const char *name );
+CCALL qhandle_t	R_RegisterServerSkin( const char *name );
+CCALL qhandle_t	R_RegisterSkin( const char *name );
+CCALL void		R_Shutdown( qboolean destroyWindow, qboolean restarting );
 CCALL world_t		*R_LoadBSP(const char *name, int *bspIndex = nullptr);
 CCALL qboolean	R_GetEntityToken( char *buffer, int size );
 CCALL model_t		*R_AllocModel( void );
@@ -2944,15 +2944,15 @@ SCENE GENERATION
 */
 
 CCALL void R_InitNextFrame( void );
-CCALL void RE_ClearScene( void );
-CCALL void RE_AddRefEntityToScene( const refEntity_t *ent );
-CCALL void RE_AddMiniRefEntityToScene( const miniRefEntity_t *miniRefEnt );
-CCALL void RE_AddPolyToScene( qhandle_t hShader , int numVerts, const polyVert_t *verts, int num );
-CCALL void RE_AddLightToScene( const vec3_t org, float intensity, float r, float g, float b );
-CCALL void RE_AddAdditiveLightToScene( const vec3_t org, float intensity, float r, float g, float b );
-CCALL void RE_BeginScene( const refdef_t *fd );
-CCALL void RE_RenderScene( const refdef_t *fd );
-CCALL void RE_EndScene( void );
+CCALL void R_ClearScene( void );
+CCALL void R_AddRefEntityToScene( const refEntity_t *ent );
+CCALL void R_AddMiniRefEntityToScene( const miniRefEntity_t *miniRefEnt );
+CCALL void R_AddPolysToScene( qhandle_t hShader , int numVerts, const polyVert_t *verts, int num );
+CCALL void R_AddLightToScene( const vec3_t org, float intensity, float r, float g, float b );
+CCALL void R_AddAdditiveLightToScene( const vec3_t org, float intensity, float r, float g, float b );
+CCALL void R_BeginScene( const refdef_t *fd );
+CCALL void R_RenderScene( const refdef_t *fd );
+CCALL void R_EndScene( void );
 
 /*
 =============================================================
@@ -3339,13 +3339,13 @@ CCALL qhandle_t R_BeginTimedBlockCmd( const char *name );
 CCALL void R_EndTimedBlockCmd( qhandle_t timerHandle );
 
 
-CCALL void RE_SetColor( const float *rgba );
-CCALL void RE_StretchPic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader );
-CCALL void RE_RotatePic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, float a, qhandle_t hShader );
-CCALL void RE_RotatePic2 ( float x, float y, float w, float h, float s1, float t1, float s2, float t2,float a, qhandle_t hShader );
-CCALL void RE_BeginFrame( stereoFrame_t stereoFrame );
-CCALL void RE_EndFrame( int *frontEndMsec, int *backEndMsec );
-CCALL void RE_TakeVideoFrame( int width, int height, byte *captureBuffer, byte *encodeBuffer, qboolean motionJpeg );
+CCALL void R_SetColor( const float *rgba );
+CCALL void R_StretchPic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader );
+CCALL void R_RotatePic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, float a, qhandle_t hShader );
+CCALL void R_RotatePic2 ( float x, float y, float w, float h, float s1, float t1, float s2, float t2,float a, qhandle_t hShader );
+CCALL void R_BeginFrame( stereoFrame_t stereoFrame );
+CCALL void R_EndFrame( int *frontEndMsec, int *backEndMsec );
+CCALL void R_TakeVideoFrame( int width, int height, byte *captureBuffer, byte *encodeBuffer, qboolean motionJpeg );
 
 // tr_ghoul2.cpp
 CCALL void Mat3x4_Multiply(mdxaBone_t *out, const mdxaBone_t *in2, const mdxaBone_t *in);
@@ -3364,22 +3364,22 @@ const mdxaBone_t operator *( const float scale, const mdxaBone_t& rhs );
 CCALL qboolean R_LoadMDXM( model_t *mod, void *buffer, const char *name, qboolean &bAlreadyCached );
 CCALL qboolean R_LoadMDXA( model_t *mod, void *buffer, const char *name, qboolean &bAlreadyCached );
 CCALL bool LoadTGAPalletteImage( const char *name, byte **pic, int *width, int *height);
-CCALL void RE_InsertModelIntoHash( const char *name, model_t *mod );
+CCALL void R_InsertModelIntoHash( const char *name, model_t *mod );
 CCALL void ResetGhoul2RenderableSurfaceHeap();
 
 CCALL void R_InitDecals( void );
-CCALL void RE_ClearDecals( void );
-CCALL void RE_AddDecalToScene ( qhandle_t shader, const vec3_t origin, const vec3_t dir, float orientation, float r, float g, float b, float a, qboolean alphaFade, float radius, qboolean temporary );
+CCALL void R_ClearDecals( void );
+CCALL void R_AddDecalToScene ( qhandle_t shader, const vec3_t origin, const vec3_t dir, float orientation, float r, float g, float b, float a, qboolean alphaFade, float radius, qboolean temporary );
 CCALL void R_AddDecals( void );
 
 CCALL image_t	*R_FindImageFile( const char *name, imgType_t type, int flags );
-CCALL qhandle_t RE_RegisterShader( const char *name );
-CCALL qhandle_t RE_RegisterShaderNoMip( const char *name );
-CCALL const char		*RE_ShaderNameFromIndex(int index);
+CCALL qhandle_t R_RegisterShader( const char *name );
+CCALL qhandle_t R_RegisterShaderNoMip( const char *name );
+CCALL const char		*R_ShaderNameFromIndex(int index);
 CCALL image_t *R_CreateImage( const char *name, byte *pic, int width, int height, imgType_t type, int flags, int internalFormat );
 
 CCALL float ProjectRadius( float r, vec3_t location );
-CCALL void RE_RegisterModels_StoreShaderRequest(const char *psModelFileName, const char *psShaderName, int *piShaderIndexPoke);
+CCALL void R_RegisterModels_StoreShaderRequest(const char *psModelFileName, const char *psShaderName, int *piShaderIndexPoke);
 CCALL qboolean ShaderHashTableExists(void);
 CCALL void R_ImageLoader_Init(void);
 CCALL void RB_SurfaceGhoul( CRenderableSurface *surf );

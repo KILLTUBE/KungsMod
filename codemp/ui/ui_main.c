@@ -657,14 +657,14 @@ void AssetCache(void) {
 
 void _UI_DrawSides(float x, float y, float w, float h, float size) {
 	size *= uiInfo.uiDC.xscale;
-	R_DrawStretchPic( x, y, size, h, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
-	R_DrawStretchPic( x + w - size, y, size, h, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
+	R_StretchPic( x, y, size, h, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
+	R_StretchPic( x + w - size, y, size, h, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
 }
 
 void _UI_DrawTopBottom(float x, float y, float w, float h, float size) {
 	size *= uiInfo.uiDC.yscale;
-	R_DrawStretchPic( x, y, w, size, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
-	R_DrawStretchPic( x, y + h - size, w, size, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
+	R_StretchPic( x, y, w, size, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
+	R_StretchPic( x, y + h - size, w, size, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
 }
 /*
 ================
@@ -9826,7 +9826,8 @@ static qhandle_t UI_RegisterShaderNoMip( const char *name ) {
 
 	return R_RegisterShaderNoMip( name );
 }
-
+	CCALL qboolean Language_IsAsian(void);
+CCALL qboolean Language_UsesSpaces(void);
 /*
 =================
 UI_Init
@@ -9870,7 +9871,7 @@ void UI_Init( qboolean inGameLoad ) {
 	uiInfo.uiDC.registerShaderNoMip				= UI_RegisterShaderNoMip;
 	uiInfo.uiDC.setColor						= &UI_SetColor;
 	uiInfo.uiDC.drawHandlePic					= &UI_DrawHandlePic;
-	uiInfo.uiDC.drawStretchPic					= R_DrawStretchPic;
+	uiInfo.uiDC.drawStretchPic					= R_StretchPic;
 	uiInfo.uiDC.drawText						= &Text_Paint;
 	uiInfo.uiDC.textWidth						= &Text_Width;
 	uiInfo.uiDC.textHeight						= &Text_Height;
@@ -9889,8 +9890,8 @@ void UI_Init( qboolean inGameLoad ) {
 	uiInfo.uiDC.Font_StrLenChars				= R_Font_StrLenChars;
 	uiInfo.uiDC.Font_HeightPixels				= R_Font_HeightPixels;
 	uiInfo.uiDC.Font_DrawString					= R_Font_DrawString;
-	uiInfo.uiDC.Language_IsAsian				= R_Language_IsAsian;
-	uiInfo.uiDC.Language_UsesSpaces				= R_Language_UsesSpaces;
+	uiInfo.uiDC.Language_IsAsian				= Language_IsAsian;
+	uiInfo.uiDC.Language_UsesSpaces				= Language_UsesSpaces;
 	uiInfo.uiDC.AnyLanguage_ReadCharFromString	= R_AnyLanguage_ReadCharFromString;
 	uiInfo.uiDC.ownerDrawItem					= &UI_OwnerDraw;
 	uiInfo.uiDC.getValue						= &UI_GetValue;

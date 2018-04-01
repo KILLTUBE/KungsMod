@@ -31,7 +31,7 @@ Loads and prepares a map file for scene rendering.
 
 A single entry point:
 
-void RE_LoadWorldMap( const char *name );
+void R_LoadWorldMap( const char *name );
 
 */
 
@@ -598,13 +598,13 @@ static int FatLightmap(int lightmapnum)
 
 /*
 =================
-RE_SetWorldVisData
+R_SetWorldVisData
 
 This is called by the clipmodel subsystem so we can share the 1.8 megs of
 space in big maps...
 =================
 */
-CCALL void RE_SetWorldVisData( const byte *vis ) {
+CCALL void R_SetWorldVisData( const byte *vis ) {
 	tr.externalVisData = vis;
 }
 
@@ -2743,7 +2743,7 @@ static void R_RenderAllCubemaps(void)
 	{
 		for (j = 0; j < 6; j++)
 		{
-			RE_ClearScene();
+			R_ClearScene();
 			R_RenderCubemapSide(i, j, qfalse);
 			R_IssuePendingRenderCommands();
 			R_InitNextFrame();
@@ -3012,7 +3012,7 @@ world_t *R_LoadBSP(const char *name, int *bspIndex)
 	{
 		if (bspIndex == nullptr)
 		{
-			R_Error (ERR_DROP, "RE_LoadWorldMap: %s not found", name);
+			R_Error (ERR_DROP, "R_LoadWorldMap: %s not found", name);
 		}
 
 		return nullptr;
@@ -3103,12 +3103,12 @@ world_t *R_LoadBSP(const char *name, int *bspIndex)
 
 /*
 =================
-RE_LoadWorldMap
+R_LoadWorldMap
 
 Called directly from cgame
 =================
 */
-CCALL void RE_LoadWorldMap( const char *name ) {
+CCALL void R_LoadWorldMap( const char *name ) {
 	if (tr.worldMapLoaded)
 	{
 		R_Error(ERR_DROP, "ERROR: attempted to redundantly load world map");

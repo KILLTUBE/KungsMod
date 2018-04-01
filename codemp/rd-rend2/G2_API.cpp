@@ -770,9 +770,9 @@ qboolean G2_ShouldRegisterServer(void)
 qhandle_t G2API_PrecacheGhoul2Model( const char *fileName )
 {
 	if ( G2_ShouldRegisterServer() )
-		return RE_RegisterServerModel( fileName );
+		return R_RegisterServerModel( fileName );
 	else
-		return RE_RegisterModel( fileName );
+		return R_RegisterModel( fileName );
 }
 
 void CL_InitRef( void );
@@ -2776,7 +2776,7 @@ char *G2API_GetGLAName(CGhoul2Info_v &ghoul2, int modelIndex)
 	{
 		if (ghoul2.size() > modelIndex)
 		{
-			//model_t	*mod = R_GetModelByHandle(RE_RegisterModel(ghoul2[modelIndex].mFileName));
+			//model_t	*mod = R_GetModelByHandle(R_RegisterModel(ghoul2[modelIndex].mFileName));
 			//return mod->mdxm->animName;
 
 			assert(ghoul2[modelIndex].currentModel && ghoul2[modelIndex].currentModel->data.glm);
@@ -2981,11 +2981,11 @@ qboolean G2_TestModelPointers(CGhoul2Info *ghlInfo) // returns true if the model
 		if (ri.Cvar_VariableIntegerValue( "dedicated" ) ||
 			(G2_ShouldRegisterServer())) //supreme hackery!
 		{
-			ghlInfo->mModel = RE_RegisterServerModel(ghlInfo->mFileName);
+			ghlInfo->mModel = R_RegisterServerModel(ghlInfo->mFileName);
 		}
 		else
 		{
-			ghlInfo->mModel = RE_RegisterModel(ghlInfo->mFileName);
+			ghlInfo->mModel = R_RegisterModel(ghlInfo->mFileName);
 		}
 		ghlInfo->currentModel = R_GetModelByHandle(ghlInfo->mModel);
 		if (ghlInfo->currentModel)
@@ -3074,11 +3074,11 @@ qboolean G2_SetupModelPointers(CGhoul2Info *ghlInfo) // returns true if the mode
 			if (ri.Cvar_VariableIntegerValue( "dedicated" ) ||
 				(G2_ShouldRegisterServer())) //supreme hackery!
 			{
-				ghlInfo->mModel = RE_RegisterServerModel(ghlInfo->mFileName);
+				ghlInfo->mModel = R_RegisterServerModel(ghlInfo->mFileName);
 			}
 			else
 			{
-				ghlInfo->mModel = RE_RegisterModel(ghlInfo->mFileName);
+				ghlInfo->mModel = R_RegisterModel(ghlInfo->mFileName);
 			}
 			ghlInfo->currentModel = R_GetModelByHandle(ghlInfo->mModel);
 		}

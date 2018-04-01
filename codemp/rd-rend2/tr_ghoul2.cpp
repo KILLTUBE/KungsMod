@@ -3179,7 +3179,7 @@ void R_AddGhoulSurfaces( trRefEntity_t *ent, int entityNum )
 #ifdef _G2_GORE
 	if ( goreShader == -1 )
 	{
-		goreShader = RE_RegisterShader("gfx/damage/burnmark1");
+		goreShader = R_RegisterShader("gfx/damage/burnmark1");
 	}
 #endif
 
@@ -3875,7 +3875,7 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 	mod->data.glm = (mdxmData_t *)ri.Hunk_Alloc (sizeof (mdxmData_t), h_low);
 	mod->data.glm->header = mdxm;
 
-	//RE_RegisterModels_Malloc(size, buffer, mod_name, &bAlreadyFound, TAG_MODEL_GLM);
+	//R_RegisterModels_Malloc(size, buffer, mod_name, &bAlreadyFound, TAG_MODEL_GLM);
 
 	assert(bAlreadyCached == bAlreadyFound);
 
@@ -3902,7 +3902,7 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 		
 	// first up, go load in the animation file we need that has the skeletal
 	// animation info for this model
-	mdxm->animIndex = RE_RegisterModel(va ("%s.gla",mdxm->animName));
+	mdxm->animIndex = R_RegisterModel(va ("%s.gla",mdxm->animName));
 
 	if (!mdxm->animIndex) 
 	{

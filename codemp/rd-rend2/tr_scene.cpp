@@ -64,11 +64,11 @@ void R_InitNextFrame( void ) {
 
 /*
 ====================
-RE_ClearScene
+R_ClearScene
 
 ====================
 */
-CCALL void RE_ClearScene( void ) {
+CCALL void R_ClearScene( void ) {
 	r_firstSceneDlight = r_numdlights;
 	r_firstSceneEntity = r_numentities;
 	r_firstScenePoly = r_numpolys;
@@ -109,11 +109,11 @@ void R_AddPolygonSurfaces( const trRefdef_t *refdef ) {
 
 /*
 =====================
-RE_AddPolyToScene
+R_AddPolysToScene
 
 =====================
 */
-CCALL void RE_AddPolyToScene( qhandle_t hShader, int numVerts, const polyVert_t *verts, int numPolys ) {
+CCALL void R_AddPolysToScene( qhandle_t hShader, int numVerts, const polyVert_t *verts, int numPolys ) {
 	srfPoly_t	*poly;
 	int			i, j;
 	int			fogIndex;
@@ -128,7 +128,7 @@ CCALL void RE_AddPolyToScene( qhandle_t hShader, int numVerts, const polyVert_t 
 		if ( (r_numpolyverts + numVerts) > max_polyverts || r_numpolys >= max_polys ) {
 			R_Printf(
 				PRINT_DEVELOPER,
-				S_COLOR_YELLOW "WARNING: RE_AddPolyToScene: r_max_polys or r_max_polyverts reached\n");
+				S_COLOR_YELLOW "WARNING: R_AddPolysToScene: r_max_polys or r_max_polyverts reached\n");
 			return;
 		}
 
@@ -183,30 +183,30 @@ CCALL void RE_AddPolyToScene( qhandle_t hShader, int numVerts, const polyVert_t 
 
 /*
 =====================
-RE_AddRefEntityToScene
+R_AddRefEntityToScene
 
 =====================
 */
-CCALL void RE_AddRefEntityToScene( const refEntity_t *ent ) {
+CCALL void R_AddRefEntityToScene( const refEntity_t *ent ) {
 	vec3_t cross;
 
 	if ( !tr.registered ) {
 		return;
 	}
 	if ( r_numentities >= MAX_REFENTITIES ) {
-		R_Printf(PRINT_DEVELOPER, "RE_AddRefEntityToScene: Dropping refEntity, reached MAX_REFENTITIES\n");
+		R_Printf(PRINT_DEVELOPER, "R_AddRefEntityToScene: Dropping refEntity, reached MAX_REFENTITIES\n");
 		return;
 	}
 	if ( Q_isnan(ent->origin[0]) || Q_isnan(ent->origin[1]) || Q_isnan(ent->origin[2]) ) {
 		static qboolean firstTime = qtrue;
 		if (firstTime) {
 			firstTime = qfalse;
-			R_Printf( PRINT_WARNING, "RE_AddRefEntityToScene passed a refEntity which has an origin with a NaN component\n");
+			R_Printf( PRINT_WARNING, "R_AddRefEntityToScene passed a refEntity which has an origin with a NaN component\n");
 		}
 		return;
 	}
 	if ( (int)ent->reType < 0 || ent->reType >= RT_MAX_REF_ENTITY_TYPE ) {
-		R_Error( ERR_DROP, "RE_AddRefEntityToScene: bad reType %i", ent->reType );
+		R_Error( ERR_DROP, "R_AddRefEntityToScene: bad reType %i", ent->reType );
 	}
 
 	backEndData->entities[r_numentities].e = *ent;
@@ -220,12 +220,12 @@ CCALL void RE_AddRefEntityToScene( const refEntity_t *ent ) {
 
 /*
 =====================
-RE_AddMiniRefEntityToScene
+R_AddMiniRefEntityToScene
 
 1:1 with how vanilla does it --eez
 =====================
 */
-CCALL void RE_AddMiniRefEntityToScene( const miniRefEntity_t *miniRefEnt ) {
+CCALL void R_AddMiniRefEntityToScene( const miniRefEntity_t *miniRefEnt ) {
 	refEntity_t entity;
 	if(!tr.registered)
 		return;
@@ -233,17 +233,17 @@ CCALL void RE_AddMiniRefEntityToScene( const miniRefEntity_t *miniRefEnt ) {
 		return;
 	memset(&entity, 0, sizeof(entity));
 	memcpy(&entity, miniRefEnt, sizeof(*miniRefEnt));
-	RE_AddRefEntityToScene(&entity);
+	R_AddRefEntityToScene(&entity);
 }
 
 
 /*
 =====================
-RE_AddDynamicLightToScene
+R_AddDynamicLightToScene
 
 =====================
 */
-void RE_AddDynamicLightToScene( const vec3_t org, float intensity, float r, float g, float b, int additive ) {
+void R_AddDynamicLightToScene( const vec3_t org, float intensity, float r, float g, float b, int additive ) {
 	dlight_t	*dl;
 
 	if ( !tr.registered ) {
@@ -266,25 +266,25 @@ void RE_AddDynamicLightToScene( const vec3_t org, float intensity, float r, floa
 
 /*
 =====================
-RE_AddLightToScene
+R_AddLightToScene
 
 =====================
 */
-CCALL void RE_AddLightToScene( const vec3_t org, float intensity, float r, float g, float b ) {
-	RE_AddDynamicLightToScene( org, intensity, r, g, b, qfalse );
+CCALL void R_AddLightToScene( const vec3_t org, float intensity, float r, float g, float b ) {
+	R_AddDynamicLightToScene( org, intensity, r, g, b, qfalse );
 }
 
 /*
 =====================
-RE_AddAdditiveLightToScene
+R_AddAdditiveLightToScene
 
 =====================
 */
-CCALL void RE_AddAdditiveLightToScene( const vec3_t org, float intensity, float r, float g, float b ) {
-	RE_AddDynamicLightToScene( org, intensity, r, g, b, qtrue );
+CCALL void R_AddAdditiveLightToScene( const vec3_t org, float intensity, float r, float g, float b ) {
+	R_AddDynamicLightToScene( org, intensity, r, g, b, qtrue );
 }
 
-void RE_BeginScene(const refdef_t *fd)
+void R_BeginScene(const refdef_t *fd)
 {
 	Com_Memcpy( tr.refdef.text, fd->text, sizeof( tr.refdef.text ) );
 
@@ -445,7 +445,7 @@ void RE_BeginScene(const refdef_t *fd)
 	tr.sceneCount++;
 }
 
-void RE_EndScene()
+void R_EndScene()
 {
 	// the next scene rendered in this frame will tack on after this one
 	r_firstSceneDrawSurf = tr.refdef.numDrawSurfs;
@@ -456,7 +456,7 @@ void RE_EndScene()
 
 /*
 @@@@@@@@@@@@@@@@@@@@@
-RE_RenderScene
+R_RenderScene
 
 Draw a 3D view into a part of the window, then return
 to 2D drawing.
@@ -465,14 +465,14 @@ Rendering a scene may require multiple views to be rendered
 to handle mirrors,
 @@@@@@@@@@@@@@@@@@@@@
 */
-CCALL void RE_RenderScene( const refdef_t *fd ) {
+CCALL void R_RenderScene( const refdef_t *fd ) {
 	viewParms_t		parms;
 	int				startTime;
 
 	if ( !tr.registered ) {
 		return;
 	}
-	GLimp_LogComment( "====== RE_RenderScene =====\n" );
+	GLimp_LogComment( "====== R_RenderScene =====\n" );
 
 	if ( r_norefresh->integer ) {
 		return;
@@ -484,7 +484,7 @@ CCALL void RE_RenderScene( const refdef_t *fd ) {
 		R_Error (ERR_DROP, "R_RenderScene: NULL worldmodel");
 	}
 
-	RE_BeginScene(fd);
+	R_BeginScene(fd);
 
 	// SmileTheory: playing with shadow mapping
 	if (!( fd->rdflags & RDF_NOWORLDMODEL ) && tr.refdef.num_dlights && r_dlightMode->integer >= 2)
@@ -568,7 +568,7 @@ CCALL void RE_RenderScene( const refdef_t *fd ) {
 		R_EndTimedBlockCmd( timer );
 	}
 
-	RE_EndScene();
+	R_EndScene();
 
 	tr.frontEndMsec += ri.Milliseconds() - startTime;
 }

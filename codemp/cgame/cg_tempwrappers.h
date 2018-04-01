@@ -14,7 +14,7 @@ CCALL qhandle_t		R_RegisterShaderNoMip				( const char *name );
 CCALL qhandle_t		R_RegisterSkin						( const char *name );
 CCALL int				FX_RegisterEffect					( const char *file );
 
-CCALL qhandle_t SV_RE_RegisterSkin( const char *name );
+CCALL qhandle_t SV_R_RegisterSkin( const char *name );
 
 CCALL void CG_GetVehicleCamPos( vec3_t camPos );
 //CCALL void NPC_SetAnim(gentity_t *ent, int setAnimParts, int anim, int setAnimFlags);
@@ -197,8 +197,8 @@ CCALL void CM_TransformedBoxTrace( trace_t *trace, const vec3_t start, const vec
 						  const vec3_t origin, const vec3_t angles, int capsule );
 
 
-CCALL void RE_BeginFrame( stereoFrame_t stereoFrame );
-CCALL void RE_EndFrame( int *frontEndMsec, int *backEndMsec );
+CCALL void R_BeginFrame( stereoFrame_t stereoFrame );
+CCALL void R_EndFrame( int *frontEndMsec, int *backEndMsec );
 
 CCALL int C_GetLevel( void );
 CCALL qboolean C_Models_LevelLoadEnd( qboolean deleteUnusedByLevel );
@@ -212,53 +212,86 @@ CCALL void R_MouseClickEvent(int key, int state);
 CCALL void R_HunkClearCrap(void);
 CCALL void R_InitShaders( qboolean server );
 
-CCALL void RE_TakeVideoFrame( int width, int height, byte *captureBuffer, byte *encodeBuffer, qboolean motionJpeg );
+CCALL void R_TakeVideoFrame( int width, int height, byte *captureBuffer, byte *encodeBuffer, qboolean motionJpeg );
 CCALL void R_SVModelInit( void );
 CCALL void	R_InitSkins( void );
-CCALL void RE_Shutdown( qboolean destroyWindow, qboolean restarting );
-CCALL void RE_BeginRegistration( glconfig_t *glconfigOut );
-CCALL qhandle_t RE_RegisterModel( const char *name );
-CCALL qhandle_t RE_RegisterServerModel( const char *name );
-CCALL qhandle_t RE_RegisterSkin( const char *name );
-CCALL qhandle_t RE_RegisterServerSkin( const char *name );
-CCALL qhandle_t RE_RegisterShader( const char *name );
-CCALL qhandle_t RE_RegisterShaderNoMip( const char *name );
-CCALL const char *RE_ShaderNameFromIndex(int index);
-CCALL void RE_LoadWorldMap( const char *name );
-CCALL void RE_SetWorldVisData( const byte *vis );
-CCALL void RE_EndRegistration( void );
+CCALL void R_Shutdown( qboolean destroyWindow, qboolean restarting );
+CCALL void R_BeginRegistration( glconfig_t *glconfigOut );
+CCALL qhandle_t R_RegisterModel( const char *name );
+CCALL qhandle_t R_RegisterServerModel( const char *name );
+CCALL qhandle_t R_RegisterSkin( const char *name );
+CCALL qhandle_t R_RegisterServerSkin( const char *name );
+CCALL qhandle_t R_RegisterShader( const char *name );
+CCALL qhandle_t R_RegisterShaderNoMip( const char *name );
+CCALL const char *R_ShaderNameFromIndex(int index);
+CCALL void R_LoadWorldMap( const char *name );
+CCALL void R_SetWorldVisData( const byte *vis );
+CCALL void R_EndRegistration( void );
 CCALL int R_MarkFragments( int numPoints, const vec3_t *points, const vec3_t projection, int maxPoints, vec3_t pointBuffer, int maxFragments, markFragment_t *fragmentBuffer );
 CCALL int R_LerpTag( orientation_t *tag, qhandle_t handle, int startFrame, int endFrame, float frac, const char *tagName );
 CCALL void R_ModelBounds( qhandle_t handle, vec3_t mins, vec3_t maxs );
-CCALL void RE_RotatePic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2,float a, qhandle_t hShader );
-CCALL void RE_RotatePic2 ( float x, float y, float w, float h, float s1, float t1, float s2, float t2,float a, qhandle_t hShader );
-CCALL void RE_ClearScene( void );
-CCALL void RE_ClearDecals( void );
-CCALL void RE_AddRefEntityToScene( const refEntity_t *ent );
-CCALL void RE_AddMiniRefEntityToScene( const miniRefEntity_t *miniRefEnt );
-CCALL void RE_AddPolyToScene( qhandle_t hShader, int numVerts, const polyVert_t *verts, int numPolys );
-CCALL void RE_AddDecalToScene( qhandle_t decalShader, const vec3_t origin, const vec3_t dir, float orientation, float red, float green, float blue, float alpha, qboolean alphaFade, float radius, qboolean temporary );
+CCALL void R_RotatePic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2,float a, qhandle_t hShader );
+CCALL void R_RotatePic2 ( float x, float y, float w, float h, float s1, float t1, float s2, float t2,float a, qhandle_t hShader );
+CCALL void R_ClearScene( void );
+
+CCALL void R_ClearDecals( void );
+CCALL void R_InitDecals( void );
+CCALL void R_FreeDecal( int type, int index );
+typedef struct decalPoly_s 
+{
+	int					time;
+	int					fadetime;
+	qhandle_t			shader;
+	float				color[4];
+	poly_t				poly;
+	// define from tr_decals.cpp
+#define	MAX_VERTS_ON_DECAL_POLY	10
+	polyVert_t			verts[MAX_VERTS_ON_DECAL_POLY];
+} decalPoly_t;
+CCALL decalPoly_t* R_AllocDecal( int type );
+
+CCALL void R_AddRefEntityToScene( const refEntity_t *ent );
+CCALL void R_AddMiniRefEntityToScene( const miniRefEntity_t *miniRefEnt );
+CCALL void R_AddPolysToScene( qhandle_t hShader, int numVerts, const polyVert_t *verts, int numPolys );
+CCALL void R_AddDecalToScene( qhandle_t decalShader, const vec3_t origin, const vec3_t dir, float orientation, float red, float green, float blue, float alpha, qboolean alphaFade, float radius, qboolean temporary );
 CCALL int R_LightForPoint( vec3_t point, vec3_t ambientLight, vec3_t directedLight, vec3_t lightDir );
-CCALL void RE_AddLightToScene( const vec3_t org, float intensity, float r, float g, float b );
-CCALL void RE_AddAdditiveLightToScene( const vec3_t org, float intensity, float r, float g, float b );
-CCALL void RE_RenderScene( const refdef_t *fd );
-CCALL void	RE_SetColor( const float *rgba );
-CCALL void RE_StretchPic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader );
-CCALL void RE_StretchRaw (int x, int y, int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty);
-CCALL void RE_UploadCinematic (int cols, int rows, const byte *data, int client, qboolean dirty);
-CCALL int RE_RegisterFont(const char *psName);
-CCALL int RE_Font_StrLenPixels( const char *psText, const int iFontHandle, const float fScale );
-CCALL int RE_Font_StrLenChars(const char *psText);
-CCALL int RE_Font_HeightPixels(const int iFontHandle, const float fScale);
-CCALL void RE_Font_DrawString(int ox, int oy, const char *psText, const float *rgba, const int iFontHandle, int iMaxPixelWidth, const float fScale);
+CCALL void R_AddLightToScene( const vec3_t org, float intensity, float r, float g, float b );
+CCALL void R_AddAdditiveLightToScene( const vec3_t org, float intensity, float r, float g, float b );
+CCALL void R_RenderScene( const refdef_t *fd );
+CCALL void	R_SetColor( const float *rgba );
+CCALL void R_StretchPic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader );
+CCALL void R_StretchRaw (int x, int y, int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty);
+CCALL void R_UploadCinematic (int cols, int rows, const byte *data, int client, qboolean dirty);
+CCALL int R_RegisterFont(const char *psName);
+CCALL int R_Font_StrLenPixels( const char *psText, const int iFontHandle, const float fScale );
+CCALL int R_Font_StrLenChars(const char *psText);
+CCALL int R_Font_HeightPixels(const int iFontHandle, const float fScale);
+CCALL void R_Font_DrawString(int ox, int oy, const char *psText, const float *rgba, const int iFontHandle, int iMaxPixelWidth, const float fScale);
 CCALL qboolean Language_IsAsian(void);
 CCALL qboolean Language_UsesSpaces(void);
 CCALL unsigned int AnyLanguage_ReadCharFromString( const char *psText, int *piAdvanceCount, qboolean *pbIsTrailingPunctuation /* = NULL */);
 CCALL void R_RemapShader(const char *shaderName, const char *newShaderName, const char *timeOffset);
 CCALL qboolean R_GetEntityToken( char *buffer, int size );
 CCALL qboolean R_inPVS( const vec3_t p1, const vec3_t p2, byte *mask );
-
-
+CCALL void R_GetLightStyle(int style, color4ub_t color);
+CCALL void R_SetLightStyle(int style, int color);
+CCALL void R_GetBModelVerts (int bModel, vec3_t *vec, float *normal);
+CCALL void R_SetRangedFog ( float range );
+CCALL void R_SetRefractionProperties ( float distortionAlpha, float distortionStretch, qboolean distortionPrePost, qboolean distortionNegate );
+CCALL float R_GetDistanceCull( void );
+CCALL void R_GetRealRes( int *w, int *h );
+CCALL qboolean stub_InitializeWireframeAutomap();
+CCALL void stub_R_AddWeatherZone ( vec3_t mins, vec3_t maxs );
+CCALL void stub_R_WorldEffectCommand ( const char *cmd );
+CCALL void C_LevelLoadBegin(const char *psMapName, ForceReload_e eForceReload);
+CCALL void C_LevelLoadEnd( void );
+CCALL void Key_SetOverstrikeMode( qboolean state );
+CCALL qboolean Key_GetOverstrikeMode( void );
+CCALL void Key_SetBinding( int keynum, const char *binding );
+CCALL void Key_GetBindingBuf( int keynum, char *buf, int buflen );
+CCALL void Key_KeynumToStringBuf( int keynum, char *buf, int buflen );
+CCALL void	Cmd_ExecuteText	( int exec_when, const char *text );
+CCALL void R_AutomapElevationAdjustment(float newHeight);
 
 
 #endif

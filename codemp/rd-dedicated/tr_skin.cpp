@@ -31,13 +31,13 @@ shader_t *R_FindServerShader( const char *name, const int *lightmapIndex, const 
 static char *CommaParse( char **data_p );
 /*
 ===============
-RE_SplitSkins
+R_SplitSkins
 input = skinname, possibly being a macro for three skins
 return= true if three part skins found
 output= qualified names to three skins if return is true, undefined if false
 ===============
 */
-bool RE_SplitSkins(const char *INname, char *skinhead, char *skintorso, char *skinlower)
+bool R_SplitSkins(const char *INname, char *skinhead, char *skintorso, char *skinlower)
 {	//INname= "models/players/jedi_tf/|head01_skin1|torso01|lower01";
 	if (strchr(INname, '|'))
 	{
@@ -87,7 +87,7 @@ bool RE_SplitSkins(const char *INname, char *skinhead, char *skintorso, char *sk
 }
 
 // given a name, go get the skin we want and return
-qhandle_t RE_RegisterIndividualSkin( const char *name , qhandle_t hSkin)
+qhandle_t R_RegisterIndividualSkin( const char *name , qhandle_t hSkin)
 {
 	skin_t			*skin;
 	skinSurface_t	*surf;
@@ -99,7 +99,7 @@ qhandle_t RE_RegisterIndividualSkin( const char *name , qhandle_t hSkin)
     ri.FS_ReadFile( name, (void **)&text );
 	if ( !text ) {
 #ifndef FINAL_BUILD
-		Com_Printf( "WARNING: RE_RegisterSkin( '%s' ) failed to load!\n", name );
+		Com_Printf( "WARNING: R_RegisterSkin( '%s' ) failed to load!\n", name );
 #endif
 		return 0;
 	}
@@ -142,7 +142,7 @@ qhandle_t RE_RegisterIndividualSkin( const char *name , qhandle_t hSkin)
 		if ((int)(sizeof( skin->surfaces) / sizeof( skin->surfaces[0] )) <= skin->numSurfaces)
 		{
 			assert( (int)(sizeof( skin->surfaces) / sizeof( skin->surfaces[0] )) > skin->numSurfaces );
-			Com_Printf( "WARNING: RE_RegisterSkin( '%s' ) more than %u surfaces!\n", name, (unsigned int)ARRAY_LEN(skin->surfaces) );
+			Com_Printf( "WARNING: R_RegisterSkin( '%s' ) more than %u surfaces!\n", name, (unsigned int)ARRAY_LEN(skin->surfaces) );
 			break;
 		}
 		surf = (skinSurface_t *) Hunk_Alloc( sizeof( *skin->surfaces[0] ), h_low );
@@ -166,12 +166,12 @@ qhandle_t RE_RegisterIndividualSkin( const char *name , qhandle_t hSkin)
 	return hSkin;
 }
 
-qhandle_t RE_RegisterSkin( const char *name ) {
+qhandle_t R_RegisterSkin( const char *name ) {
 	qhandle_t	hSkin;
 	skin_t		*skin;
 
 	if ( !name || !name[0] ) {
-		Com_Printf( "Empty name passed to RE_RegisterSkin\n" );
+		Com_Printf( "Empty name passed to R_RegisterSkin\n" );
 		return 0;
 	}
 
@@ -193,7 +193,7 @@ qhandle_t RE_RegisterSkin( const char *name ) {
 
 	// allocate a new skin
 	if ( tr.numSkins == MAX_SKINS ) {
-		Com_Printf( "WARNING: RE_RegisterSkin( '%s' ) MAX_SKINS hit\n", name );
+		Com_Printf( "WARNING: R_RegisterSkin( '%s' ) MAX_SKINS hit\n", name );
 		return 0;
 	}
 	tr.numSkins++;
@@ -217,21 +217,21 @@ qhandle_t RE_RegisterSkin( const char *name ) {
 	char skinhead[MAX_QPATH]={0};
 	char skintorso[MAX_QPATH]={0};
 	char skinlower[MAX_QPATH]={0};
-	if ( RE_SplitSkins(name, (char*)&skinhead, (char*)&skintorso, (char*)&skinlower ) )
+	if ( R_SplitSkins(name, (char*)&skinhead, (char*)&skintorso, (char*)&skinlower ) )
 	{//three part
-		hSkin = RE_RegisterIndividualSkin(skinhead, hSkin);
+		hSkin = R_RegisterIndividualSkin(skinhead, hSkin);
 		if (hSkin)
 		{
-			hSkin = RE_RegisterIndividualSkin(skintorso, hSkin);
+			hSkin = R_RegisterIndividualSkin(skintorso, hSkin);
 			if (hSkin)
 			{
-				hSkin = RE_RegisterIndividualSkin(skinlower, hSkin);
+				hSkin = R_RegisterIndividualSkin(skinlower, hSkin);
 			}
 		}
 	}
 	else
 	{//single skin
-		hSkin = RE_RegisterIndividualSkin(name, hSkin);
+		hSkin = R_RegisterIndividualSkin(name, hSkin);
 	}
 	return(hSkin);
 }
@@ -342,23 +342,23 @@ static char *CommaParse( char **data_p ) {
 
 /*
 ===============
-RE_RegisterServerSkin
+R_RegisterServerSkin
 
 Mangled version of the above function to load .skin files on the server.
 ===============
 */
-qhandle_t RE_RegisterServerSkin( const char *name ) {
+qhandle_t R_RegisterServerSkin( const char *name ) {
 	qhandle_t r;
 
 	if (ri.Cvar_VariableIntegerValue( "cl_running" ) &&
 		ri.Com_TheHunkMarkHasBeenMade() &&
 		ShaderHashTableExists())
 	{ //If the client is running then we can go straight into the normal registerskin func
-		return RE_RegisterSkin(name);
+		return R_RegisterSkin(name);
 	}
 
 	gServerSkinHack = true;
-	r = RE_RegisterSkin(name);
+	r = R_RegisterSkin(name);
 	gServerSkinHack = false;
 
 	return r;

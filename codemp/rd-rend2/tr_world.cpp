@@ -413,7 +413,7 @@ void R_AddBrushModelSurfaces ( trRefEntity_t *ent, int entityNum ) {
 	}
 }
 
-void RE_SetRangedFog ( float range )
+CCALL void R_SetRangedFog ( float range )
 {
 	tr.rangedFog = range;
 }

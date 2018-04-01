@@ -636,7 +636,7 @@ void CG_GlassShatter(int entnum, vec3_t dmgPt, vec3_t dmgDir, float dmgRadius, i
 
 	if (cgs.inlineDrawModel[cg_entities[entnum].currentState.modelindex])
 	{
-		trap->R_GetBModelVerts(cgs.inlineDrawModel[cg_entities[entnum].currentState.modelindex], verts, normal);
+		R_GetBModelVerts(cgs.inlineDrawModel[cg_entities[entnum].currentState.modelindex], verts, normal);
 		CG_DoGlass(verts, normal, dmgPt, dmgDir, dmgRadius, maxShards);
 	}
 	//otherwise something awful has happened.

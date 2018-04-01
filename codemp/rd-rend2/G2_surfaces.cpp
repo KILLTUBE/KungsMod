@@ -414,7 +414,7 @@ qboolean G2_SetRootSurface(CGhoul2Info_v &ghoul2, const int modelIndex, const ch
 //g2r	if (entstate->ghoul2)
 	{
 		CGhoul2Info_v &ghoul2 = *((CGhoul2Info_v *)entstate->ghoul2);
-		model_t				*mod_m = R_GetModelByHandle(RE_RegisterModel(ghoul2[modelIndex].mFileName));
+		model_t				*mod_m = R_GetModelByHandle(R_RegisterModel(ghoul2[modelIndex].mFileName));
 		model_t				*mod_a = R_GetModelByHandle(mod_m->mdxm->animIndex); 
 		int					surf;
 		int					flags;

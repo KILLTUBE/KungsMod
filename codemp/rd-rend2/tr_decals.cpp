@@ -1,4 +1,5 @@
 #include "../rd-rend2/tr_local.h"
+#include "../rd-rend2/include_ccall.h"
 
 #define	MAX_VERTS_ON_DECAL_POLY	10
 #define	MAX_DECAL_POLYS			500
@@ -22,7 +23,7 @@ enum
 
 #define		DECAL_FADE_TIME		1000
 
-decalPoly_t*		RE_AllocDecal( int type );
+CCALL decalPoly_t*		R_AllocDecal( int type );
 
 static decalPoly_t	re_decalPolys[DECALPOLY_TYPE_MAX][MAX_DECAL_POLYS];
 
@@ -31,29 +32,29 @@ static int			re_decalPolyTotal[DECALPOLY_TYPE_MAX];
 
 /*
 ===================
-RE_ClearDecals
+R_ClearDecals
 
 This is called to remove all decals from the world
 ===================
 */
-CCALL void RE_ClearDecals( void ) {
+CCALL void R_ClearDecals( void ) {
 	memset( re_decalPolys, 0, sizeof(re_decalPolys) );
 	memset( re_decalPolyHead, 0, sizeof(re_decalPolyHead) );
 	memset( re_decalPolyTotal, 0, sizeof(re_decalPolyTotal) );
 }
 
-void R_InitDecals( void ) {
-	RE_ClearDecals();
+CCALL void R_InitDecals( void ) {
+	R_ClearDecals();
 }
 
-void RE_FreeDecal( int type, int index ) {
+CCALL void R_FreeDecal( int type, int index ) {
 	if ( !re_decalPolys[type][index].time )
 		return;
 	
 	if ( type == DECALPOLY_TYPE_NORMAL ) {
 		decalPoly_t* fade;
 
-		fade = RE_AllocDecal( DECALPOLY_TYPE_FADE );
+		fade = R_AllocDecal( DECALPOLY_TYPE_FADE );
 
 		memcpy( fade, &re_decalPolys[type][index], sizeof( decalPoly_t ) );
 
@@ -68,17 +69,18 @@ void RE_FreeDecal( int type, int index ) {
 
 /*
 ===================
-RE_AllocDecal
+R_AllocDecal
 
 Will allways succeed, even if it requires freeing an old active mark
 ===================
 */
-decalPoly_t* RE_AllocDecal( int type ) {
+
+CCALL decalPoly_t* R_AllocDecal( int type ) {
 	decalPoly_t	*le;
 	
 	// See if the cvar changed
 	if ( re_decalPolyTotal[type] > r_markcount->integer )
-		RE_ClearDecals();
+		R_ClearDecals();
 
 	le = &re_decalPolys[type][re_decalPolyHead[type]];
 
@@ -98,13 +100,13 @@ decalPoly_t* RE_AllocDecal( int type ) {
 				if ( re_decalPolys[type][i].time != le->time )
 					break;
 
-				RE_FreeDecal ( type, i );
+				R_FreeDecal ( type, i );
 			} while ( i != re_decalPolyHead[type] );			
 
-			RE_FreeDecal( type, re_decalPolyHead[type] );
+			R_FreeDecal( type, re_decalPolyHead[type] );
 		}
 		else
-			RE_FreeDecal( type, re_decalPolyHead[type] );
+			R_FreeDecal( type, re_decalPolyHead[type] );
 	}
 
 	memset( le, 0, sizeof(decalPoly_t) );
@@ -122,7 +124,7 @@ decalPoly_t* RE_AllocDecal( int type ) {
 
 /*
 =================
-RE_AddDecalToScene
+R_AddDecalToScene
 
 origin should be a point within a unit of the plane
 dir should be the plane normal
@@ -134,7 +136,7 @@ passed to the renderer.
 #define	MAX_DECAL_FRAGMENTS	128
 #define	MAX_DECAL_POINTS		384
 
-CCALL void RE_AddDecalToScene( qhandle_t decalShader, const vec3_t origin, const vec3_t dir, float orientation, float red, float green, float blue, float alpha, qboolean alphaFade, float radius, qboolean temporary )
+CCALL void R_AddDecalToScene( qhandle_t decalShader, const vec3_t origin, const vec3_t dir, float orientation, float red, float green, float blue, float alpha, qboolean alphaFade, float radius, qboolean temporary )
 {
 	matrix3_t		axis;
 	float			texCoordScale;
@@ -152,7 +154,7 @@ CCALL void RE_AddDecalToScene( qhandle_t decalShader, const vec3_t origin, const
 		return;
 
 	if ( radius <= 0 ) 
-		Com_Error( ERR_FATAL, "RE_AddDecalToScene:  called with <= 0 radius" );
+		Com_Error( ERR_FATAL, "R_AddDecalToScene:  called with <= 0 radius" );
 
 	// create the texture axis
 	VectorNormalize2( dir, axis[0] );
@@ -209,12 +211,12 @@ CCALL void RE_AddDecalToScene( qhandle_t decalShader, const vec3_t origin, const
 		// if it is a temporary (shadow) mark, add it immediately and forget about it
 		if ( temporary ) 
 		{
-			RE_AddPolyToScene( decalShader, mf->numPoints, verts, 1 );
+			R_AddPolysToScene( decalShader, mf->numPoints, verts, 1 );
 			continue;
 		}
 
 		// otherwise save it persistantly
-		decal = RE_AllocDecal( DECALPOLY_TYPE_NORMAL );
+		decal = R_AllocDecal( (int)DECALPOLY_TYPE_NORMAL );
 		decal->time = tr.refdef.time;
 		decal->shader = decalShader;
 		decal->poly.numVerts = mf->numPoints;
@@ -239,7 +241,7 @@ void R_AddDecals( void )
 
 	if ( r_markcount->integer != lastMarkCount ) {
 		if ( lastMarkCount != -1 )
-			RE_ClearDecals();
+			R_ClearDecals();
 
 		lastMarkCount = r_markcount->integer;
 	}
@@ -275,16 +277,16 @@ void R_AddDecals( void )
 							p->verts[j].modulate[3] = fade;
 						}
 
-						RE_AddPolyToScene( p->shader, p->poly.numVerts, p->verts, 1 );
+						R_AddPolysToScene( p->shader, p->poly.numVerts, p->verts, 1 );
 					}
 					else
 					{
-						RE_FreeDecal ( type, decalPoly );
+						R_FreeDecal ( type, decalPoly );
 					}
 				}
 				else
 				{
-					RE_AddPolyToScene( p->shader, p->poly.numVerts, p->verts, 1 );
+					R_AddPolysToScene( p->shader, p->poly.numVerts, p->verts, 1 );
 				}
 			}
 

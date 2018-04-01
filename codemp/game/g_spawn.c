@@ -1422,7 +1422,7 @@ void SP_worldspawn( void )
 
 		if (precachedKyle)
 		{
-			defSkin = SV_RE_RegisterSkin("models/players/kyle/model_default.skin");
+			defSkin = SV_R_RegisterSkin("models/players/kyle/model_default.skin");
 			SV_G2API_SetSkin(precachedKyle, 0, defSkin, defSkin);
 		}
 	}

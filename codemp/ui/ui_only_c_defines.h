@@ -5,22 +5,22 @@
 
 
 // C only version of c++ tr_local.h header...
-void *R_GetCommandBuffer( int bytes );
-void RB_ExecuteRenderCommands( const void *data );
-void R_IssuePendingRenderCommands( void );
+CCALL void *R_GetCommandBuffer( int bytes );
+CCALL void RB_ExecuteRenderCommands( const void *data );
+CCALL void R_IssuePendingRenderCommands( void );
 //void R_AddDrawSurfCmd( drawSurf_t *drawSurfs, int numDrawSurfs );
-void R_AddCapShadowmapCmd( int dlight, int cubeSide );
-void R_AddConvolveCubemapCmd( int cubemap );
-void R_AddPostProcessCmd (void);
-qhandle_t R_BeginTimedBlockCmd( const char *name );
-void R_EndTimedBlockCmd( qhandle_t timerHandle );
-void RE_SetColor( const float *rgba );
-void RE_StretchPic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader );
-void RE_RotatePic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, float a, qhandle_t hShader );
-void RE_RotatePic2 ( float x, float y, float w, float h, float s1, float t1, float s2, float t2,float a, qhandle_t hShader );
-void RE_BeginFrame( stereoFrame_t stereoFrame );
-void RE_EndFrame( int *frontEndMsec, int *backEndMsec );
-void RE_TakeVideoFrame( int width, int height, byte *captureBuffer, byte *encodeBuffer, qboolean motionJpeg );
+CCALL void R_AddCapShadowmapCmd( int dlight, int cubeSide );
+CCALL void R_AddConvolveCubemapCmd( int cubemap );
+CCALL void R_AddPostProcessCmd (void);
+CCALL qhandle_t R_BeginTimedBlockCmd( const char *name );
+CCALL void R_EndTimedBlockCmd( qhandle_t timerHandle );
+CCALL void R_SetColor( const float *rgba );
+CCALL void R_StretchPic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader );
+CCALL void R_RotatePic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, float a, qhandle_t hShader );
+CCALL void R_RotatePic2 ( float x, float y, float w, float h, float s1, float t1, float s2, float t2,float a, qhandle_t hShader );
+CCALL void R_BeginFrame( stereoFrame_t stereoFrame );
+CCALL void R_EndFrame( int *frontEndMsec, int *backEndMsec );
+CCALL void R_TakeVideoFrame( int width, int height, byte *captureBuffer, byte *encodeBuffer, qboolean motionJpeg );
 
 
 
@@ -86,7 +86,7 @@ CCALL void			R_AddLightToScene		( const vec3_t org, float intensity, float r, fl
 CCALL void			R_AddPolysToScene		( qhandle_t hShader, int numVerts, const polyVert_t *verts, int num );
 CCALL void			R_AddRefEntityToScene	( const refEntity_t *re );
 CCALL void			R_ClearScene			( void );
-CCALL void			R_DrawStretchPic		( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader );
+CCALL void			R_StretchPic		( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader );
 CCALL int			R_Font_StrLenPixels		( const char *text, const int iFontIndex, const float scale );
 CCALL int			R_Font_StrLenChars		( const char *text );
 CCALL int			R_Font_HeightPixels		( const int iFontIndex, const float scale );
@@ -100,7 +100,7 @@ CCALL qhandle_t		R_RegisterFont			( const char *fontName );
 CCALL void			R_RemapShader			( const char *oldShader, const char *newShader, const char *timeOffset );
 CCALL void			R_RenderScene			( const refdef_t *fd );
 CCALL void			R_SetColor				( const float *rgba );
-CCALL void			R_ShaderNameFromIndex	( char *name, int index );
+//CCALL void			R_ShaderNameFromIndex	( char *name, int index );
 
 
 CCALL void		G2_ListModelSurfaces			( void *ghlInfo );

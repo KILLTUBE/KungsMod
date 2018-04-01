@@ -1430,14 +1430,14 @@ void	RB_SetGL2D (void) {
 
 /*
 =============
-RE_StretchRaw
+R_StretchRaw
 
 FIXME: not exactly backend
 Stretches a raw 32 bit power of 2 bitmap image over the given screen rectangle.
 Used for cinematics.
 =============
 */
-CCALL void RE_StretchRaw (int x, int y, int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty) {
+CCALL void R_StretchRaw (int x, int y, int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty) {
 	int			i, j;
 	int			start, end;
 	vec4_t quadVerts[4];
@@ -1469,7 +1469,7 @@ CCALL void RE_StretchRaw (int x, int y, int w, int h, int cols, int rows, const 
 		R_Error (ERR_DROP, "Draw_StretchRaw: size not a power of 2: %i by %i", cols, rows);
 	}
 
-	RE_UploadCinematic (cols, rows, data, client, dirty);
+	R_UploadCinematic (cols, rows, data, client, dirty);
 
 	if ( r_speeds->integer ) {
 		end = ri.Milliseconds();
@@ -1506,7 +1506,7 @@ CCALL void RE_StretchRaw (int x, int y, int w, int h, int cols, int rows, const 
 	RB_InstantQuad2(quadVerts, texCoords);
 }
 
-CCALL void RE_UploadCinematic (int cols, int rows, const byte *data, int client, qboolean dirty) {
+CCALL void R_UploadCinematic (int cols, int rows, const byte *data, int client, qboolean dirty) {
 
 	GL_Bind( tr.scratchImage[client] );
 
@@ -2235,7 +2235,7 @@ RB_ShowImages
 Draw all the images to the screen, on top of whatever
 was there.  This is used to test for texture thrashing.
 
-Also called by RE_EndRegistration
+Also called by R_EndRegistration
 ===============
 */
 void RB_ShowImages( void ) {
@@ -2417,8 +2417,8 @@ static const void	*RB_SwapBuffers( const void *data ) {
 		}
 	}
 
-	void RE_RenderImGui();
-	RE_RenderImGui();
+	void R_RenderImGui();
+	R_RenderImGui();
 
 	int frameNumber = backEndData->realFrameNumber;
 	gpuFrame_t *currentFrame = backEndData->currentFrame;

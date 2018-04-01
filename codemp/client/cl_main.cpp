@@ -626,8 +626,8 @@ void CL_ShutdownAll( qboolean shutdownRef ) {
 	// shutdown the renderer
 	if(shutdownRef)
 		CL_ShutdownRef( qfalse );
-	if ( re && RE_Shutdown ) {
-		RE_Shutdown( qfalse, qfalse );		// don't destroy window or context
+	if ( re && R_Shutdown ) {
+		R_Shutdown( qfalse, qfalse );		// don't destroy window or context
 	}
 
 	cls.uiStarted = qfalse;
@@ -2266,9 +2266,9 @@ CL_ShutdownRef
 static void CL_ShutdownRef( qboolean restarting ) {
 	if ( re )
 	{
-		if ( RE_Shutdown )
+		if ( R_Shutdown )
 		{
-			RE_Shutdown( qtrue, restarting );
+			R_Shutdown( qtrue, restarting );
 		}
 	}
 
@@ -2287,13 +2287,13 @@ CL_InitRenderer
 */
 void CL_InitRenderer( void ) {
 	// this sets up the renderer and calls R_Init
-	RE_BeginRegistration( &cls.glconfig );
+	R_BeginRegistration( &cls.glconfig );
 
 	// load character sets
-	cls.charSetShader = RE_RegisterShaderNoMip("gfx/2d/charsgrid_med");
+	cls.charSetShader = R_RegisterShaderNoMip("gfx/2d/charsgrid_med");
 
-	cls.whiteShader = RE_RegisterShader( "white" );
-	cls.consoleShader = RE_RegisterShader( "console" );
+	cls.whiteShader = R_RegisterShader( "white" );
+	cls.consoleShader = R_RegisterShader( "console" );
 	g_console_field_width = cls.glconfig.vidWidth / SMALLCHAR_WIDTH - 2;
 	g_consoleField.widthInChars = g_console_field_width;
 }

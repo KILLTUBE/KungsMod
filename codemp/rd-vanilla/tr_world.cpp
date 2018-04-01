@@ -1091,7 +1091,7 @@ WIREFRAME AUTOMAP GENERATION SYSTEM - END
 =============================================================
 */
 
-void R_AutomapElevationAdjustment(float newHeight)
+CCALL void R_AutomapElevationAdjustment(float newHeight)
 {
 	g_playerHeight = newHeight;
 }

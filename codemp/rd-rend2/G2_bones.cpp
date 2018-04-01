@@ -590,7 +590,7 @@ qboolean G2_Set_Bone_Angles_Matrix(const char *fileName, boneInfo_v &blist, cons
 	}
 	else
 	{
-		mod_m = R_GetModelByHandle(RE_RegisterModel(fileName));
+		mod_m = R_GetModelByHandle(R_RegisterModel(fileName));
 	}
 	model_t		*mod_a = R_GetModelByHandle(mod_m->data.glm->header->animIndex); 
 	int			index = G2_Find_Bone(mod_a, blist, boneName);
@@ -986,7 +986,7 @@ qboolean G2_Pause_Bone_Anim(CGhoul2Info *ghlInfo, boneInfo_v &blist, const char 
 
 qboolean	G2_IsPaused(const char *fileName, boneInfo_v &blist, const char *boneName)
 {
-  	model_t		*mod_m = R_GetModelByHandle(RE_RegisterModel(fileName)); 
+  	model_t		*mod_m = R_GetModelByHandle(R_RegisterModel(fileName)); 
 	model_t		*mod_a = R_GetModelByHandle(mod_m->data.glm->header->animIndex); 
 	int			index = G2_Find_Bone(mod_a, blist, boneName);
  
@@ -1024,7 +1024,7 @@ qboolean G2_Stop_Bone_Anim_Index(boneInfo_v &blist, const int index)
 // given a model, bonelist and bonename, lets stop an anim if it's playing.
 qboolean G2_Stop_Bone_Anim(const char *fileName, boneInfo_v &blist, const char *boneName)
 {
-  	model_t		*mod_m = R_GetModelByHandle(RE_RegisterModel(fileName)); 
+  	model_t		*mod_m = R_GetModelByHandle(R_RegisterModel(fileName)); 
 	model_t		*mod_a = R_GetModelByHandle(mod_m->data.glm->header->animIndex); 
 	int			index = G2_Find_Bone(mod_a, blist, boneName);
  
@@ -1060,7 +1060,7 @@ qboolean G2_Stop_Bone_Angles_Index(boneInfo_v &blist, const int index)
 // given a model, bonelist and bonename, lets stop an anim if it's playing.
 qboolean G2_Stop_Bone_Angles(const char *fileName, boneInfo_v &blist, const char *boneName)
 {
-  	model_t		*mod_m = R_GetModelByHandle(RE_RegisterModel(fileName)); 
+  	model_t		*mod_m = R_GetModelByHandle(R_RegisterModel(fileName)); 
 	model_t		*mod_a = R_GetModelByHandle(mod_m->data.glm->header->animIndex); 
 	int			index = G2_Find_Bone(mod_a, blist, boneName);
  
@@ -1294,7 +1294,7 @@ int G2_Find_Bone_Rag(CGhoul2Info *ghlInfo, boneInfo_v &blist, const char *boneNa
 	model_t			*animModel;
 	mdxaHeader_t	*aHeader;
 
-	currentModel = R_GetModelByHandle(RE_RegisterModel(ghlInfo->mFileName));
+	currentModel = R_GetModelByHandle(R_RegisterModel(ghlInfo->mFileName));
 	assert(currentModel);
 	animModel =  R_GetModelByHandle(currentModel->mdxm->animIndex);
 	assert(animModel);
@@ -4823,7 +4823,7 @@ void G2_RemoveRedundantBoneOverrides(boneInfo_v &blist, int *activeBones)
 
 int	G2_Get_Bone_Index(CGhoul2Info *ghoul2, const char *boneName)
 {
-  	model_t		*mod_m = R_GetModelByHandle(RE_RegisterModel(ghoul2->mFileName)); 
+  	model_t		*mod_m = R_GetModelByHandle(R_RegisterModel(ghoul2->mFileName)); 
 	model_t		*mod_a = R_GetModelByHandle(mod_m->data.glm->header->animIndex); 
 
 	return (G2_Find_Bone(mod_a, ghoul2->mBlist, boneName));

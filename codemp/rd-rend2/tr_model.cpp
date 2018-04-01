@@ -255,7 +255,7 @@ model_t *R_AllocModel( void ) {
 	return mod;
 }
 
-static qhandle_t RE_RegisterBSP(const char *name)
+static qhandle_t R_RegisterBSP(const char *name)
 {
 	char bspFilePath[MAX_QPATH];
 	Com_sprintf(bspFilePath, sizeof(bspFilePath), "maps/%s.bsp", name + 1);
@@ -281,7 +281,7 @@ static qhandle_t RE_RegisterBSP(const char *name)
 
 /*
 ====================
-RE_RegisterModel
+R_RegisterModel
 
 Loads in a model for the given name
 
@@ -291,7 +291,7 @@ optimization to prevent disk rescanning if they are
 asked for again.
 ====================
 */
-CCALL qhandle_t RE_RegisterModel( const char *name ) {
+CCALL qhandle_t R_RegisterModel( const char *name ) {
 	model_t		*mod;
 	qhandle_t	hModel;
 	qboolean	orgNameFailed = qfalse;
@@ -302,7 +302,7 @@ CCALL qhandle_t RE_RegisterModel( const char *name ) {
 	char		altName[ MAX_QPATH ];
 
 	if ( !name || !name[0] ) {
-		R_Printf( PRINT_ALL, "RE_RegisterModel: NULL name\n" );
+		R_Printf( PRINT_ALL, "R_RegisterModel: NULL name\n" );
 		return 0;
 	}
 
@@ -325,12 +325,12 @@ CCALL qhandle_t RE_RegisterModel( const char *name ) {
 
 	if( name[0] == '#' )
 	{
-		return RE_RegisterBSP(name);
+		return R_RegisterBSP(name);
 	}
 
 	// allocate a new model_t
 	if ( ( mod = R_AllocModel() ) == NULL ) {
-		R_Printf( PRINT_WARNING, "RE_RegisterModel: R_AllocModel() failed for '%s'\n", name);
+		R_Printf( PRINT_WARNING, "R_RegisterModel: R_AllocModel() failed for '%s'\n", name);
 		return 0;
 	}
 
@@ -549,7 +549,7 @@ qboolean R_LoadMDXM_Server( model_t *mod, void *buffer, const char *mod_name, qb
 	}
 		
 	// first up, go load in the animation file we need that has the skeletal animation info for this model
-	mdxm->animIndex = RE_RegisterServerModel(va ("%s.gla",mdxm->animName));
+	mdxm->animIndex = R_RegisterServerModel(va ("%s.gla",mdxm->animName));
 	if (!mdxm->animIndex) 
 	{
 		return qfalse;
@@ -734,7 +734,7 @@ static modelExtToLoaderMap_t serverModelLoaders[ ] =
 
 static int numServerModelLoaders = ARRAY_LEN(serverModelLoaders);
 
-CCALL qhandle_t RE_RegisterServerModel( const char *name ) {
+CCALL qhandle_t R_RegisterServerModel( const char *name ) {
 	model_t		*mod;
 	qhandle_t	hModel;
 	int			i;
@@ -768,7 +768,7 @@ CCALL qhandle_t RE_RegisterServerModel( const char *name ) {
 
 	// allocate a new model_t
 	if ( ( mod = R_AllocModel() ) == NULL ) {
-		R_Printf( PRINT_WARNING, "RE_RegisterModel: R_AllocModel() failed for '%s'\n", name);
+		R_Printf( PRINT_WARNING, "R_RegisterModel: R_AllocModel() failed for '%s'\n", name);
 		return 0;
 	}
 
@@ -1558,9 +1558,9 @@ static qboolean R_LoadMDR( model_t *mod, void *buffer, int filesize, const char 
 //=============================================================================
 
 /*
-** RE_BeginRegistration
+** R_BeginRegistration
 */
-CCALL void RE_BeginRegistration( glconfig_t *glconfigOut ) {
+CCALL void R_BeginRegistration( glconfig_t *glconfigOut ) {
 
 	R_Init();
 
@@ -1572,14 +1572,14 @@ CCALL void RE_BeginRegistration( glconfig_t *glconfigOut ) {
 	memset(tr.visClusters, -2, sizeof(tr.visClusters));	// force markleafs to regenerate
 
 	R_ClearFlares();
-	RE_ClearScene();
+	R_ClearScene();
 
 	tr.registered = qtrue;
 
 	// NOTE: this sucks, for some reason the first stretch pic is never drawn
 	// without this we'd see a white flash on a level load because the very
 	// first time the level shot would not be drawn
-//	RE_StretchPic(0, 0, 0, 0, 0, 0, 1, 1, 0);
+//	R_StretchPic(0, 0, 0, 0, 0, 0, 1, 1, 0);
 }
 
 //=============================================================================

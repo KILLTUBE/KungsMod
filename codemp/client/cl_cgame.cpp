@@ -554,7 +554,7 @@ void CL_InitCGame( void ) {
 
 	// have the renderer touch all its images, so they are present
 	// on the card even if the driver does deferred loading
-	RE_EndRegistration();
+	R_EndRegistration();
 
 	// make sure everything is paged in
 //	if (!Sys_LowPhysicalMemory())
@@ -684,7 +684,7 @@ void CL_FirstSnapshot( void ) {
 		return;
 	}
 
-	re->RegisterMedia_LevelLoadEnd();
+	C_LevelLoadEnd();
 
 	cls.state = CA_ACTIVE;
 

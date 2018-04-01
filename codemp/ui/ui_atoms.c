@@ -145,7 +145,7 @@ void UI_DrawHandlePic( float x, float y, float w, float h, qhandle_t hShader ) {
 		t1 = 1;
 	}
 
-	RE_StretchPic( x, y, w, h, s0, t0, s1, t1, hShader );
+	R_StretchPic( x, y, w, h, s0, t0, s1, t1, hShader );
 }
 
 /*
@@ -156,20 +156,20 @@ Coordinates are 640*480 virtual values
 =================
 */
 void UI_FillRect( float x, float y, float width, float height, const float *color ) {
-	RE_SetColor( color );
-	RE_StretchPic( x, y, width, height, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
+	R_SetColor( color );
+	R_StretchPic( x, y, width, height, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
 	
-	RE_SetColor( NULL );
+	R_SetColor( NULL );
 }
 
 void UI_DrawSides(float x, float y, float w, float h) {
-	RE_StretchPic( x, y, 1, h, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
-	RE_StretchPic( x + w - 1, y, 1, h, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
+	R_StretchPic( x, y, 1, h, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
+	R_StretchPic( x + w - 1, y, 1, h, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
 }
 
 void UI_DrawTopBottom(float x, float y, float w, float h) {
-	RE_StretchPic( x, y, w, 1, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
-	RE_StretchPic( x, y + h - 1, w, 1, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
+	R_StretchPic( x, y, w, 1, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
+	R_StretchPic( x, y + h - 1, w, 1, 0, 0, 0, 0, uiInfo.uiDC.whiteShader );
 }
 /*
 ================
@@ -179,10 +179,10 @@ Coordinates are 640*480 virtual values
 =================
 */
 void UI_DrawRect( float x, float y, float width, float height, const float *color ) {
-	RE_SetColor( color );
+	R_SetColor( color );
 
 	UI_DrawTopBottom(x, y, width, height);
 	UI_DrawSides(x, y, width, height);
 
-	RE_SetColor( NULL );
+	R_SetColor( NULL );
 }

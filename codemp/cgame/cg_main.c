@@ -322,7 +322,7 @@ CCALL void CG_MiscEnt( void ) {
 	if( staticmodel->model ) {
 		vec3_t mins, maxs;
 
-		trap->R_ModelBounds( staticmodel->model, mins, maxs );
+		R_ModelBounds( staticmodel->model, mins, maxs );
 
 		VectorScaleVector(mins, data->mScale, mins);
 		VectorScaleVector(maxs, data->mScale, maxs);
@@ -525,7 +525,7 @@ void CG_ParseWeatherEffect(const char *str)
 {
 	char *sptr = (char *)str;
 	sptr++; //pass the '*'
-	trap->R_WorldEffectCommand(sptr);
+	stub_R_WorldEffectCommand(sptr);
 }
 
 extern int cgSiegeRoundBeganTime;
@@ -1101,11 +1101,11 @@ static void CG_RegisterGraphics( void ) {
 
 	// clear any references to old media
 	memset( &cg.refdef, 0, sizeof( cg.refdef ) );
-	trap->R_ClearScene();
+	R_ClearScene();
 
 	CG_LoadingString( cgs.mapname );
 
-	trap->R_LoadWorld( cgs.mapname );
+	R_LoadWorldMap( cgs.mapname );
 
 	// precache status bar pics
 //	CG_LoadingString( "game media" );
@@ -1202,7 +1202,7 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.backTileShader = R_RegisterShader( "gfx/2d/backtile" );
 
 	//precache the fpls skin
-	//trap->R_RegisterSkin("models/players/kyle/model_fpls2.skin");
+	//R_RegisterSkin("models/players/kyle/model_fpls2.skin");
 
 	cgs.media.itemRespawningPlaceholder = R_RegisterShader("powerups/placeholder");
 	cgs.media.itemRespawningRezOut = R_RegisterShader("powerups/rezout");
@@ -1388,7 +1388,7 @@ Ghoul2 Insert End
 			break;
 		}
 
-		trap->R_ModelBounds( cgs.inlineDrawModel[i], mins, maxs );
+		R_ModelBounds( cgs.inlineDrawModel[i], mins, maxs );
 		for ( j = 0 ; j < 3 ; j++ ) {
 			cgs.inlineModelMidpoints[i][j] = mins[j] + 0.5 * ( maxs[j] - mins[j] );
 		}
@@ -1446,7 +1446,7 @@ Ghoul2 Insert Start
 
 		CL_CM_LoadMap( bspName, qtrue );
 		cgs.inlineDrawModel[breakPoint] = R_RegisterModel( bspName );
-		trap->R_ModelBounds( cgs.inlineDrawModel[breakPoint], mins, maxs );
+		R_ModelBounds( cgs.inlineDrawModel[breakPoint], mins, maxs );
 		for ( j = 0 ; j < 3 ; j++ )
 		{
 			cgs.inlineModelMidpoints[breakPoint][j] = mins[j] + 0.5 * ( maxs[j] - mins[j] );
@@ -1460,7 +1460,7 @@ Ghoul2 Insert Start
 			{
 				break;
 			}
-			trap->R_ModelBounds( cgs.inlineDrawModel[breakPoint], mins, maxs );
+			R_ModelBounds( cgs.inlineDrawModel[breakPoint], mins, maxs );
 			for ( j = 0 ; j < 3 ; j++ )
 			{
 				cgs.inlineModelMidpoints[breakPoint][j] = mins[j] + 0.5 * ( maxs[j] - mins[j] );
@@ -1479,7 +1479,7 @@ Ghoul2 Insert Start
 		if ( !modelName[0] ) {
 			break;
 		}
-		cgs.skins[i] = trap->R_RegisterSkin( modelName );
+		cgs.skins[i] = R_RegisterSkin( modelName );
 	}
 	*/
 	//rww - removed and replaced with CS_G2BONES. For custom skins
@@ -2234,30 +2234,30 @@ void CG_LoadHudMenu()
 {
 	const char *hudSet;
 
-	cgDC.registerShaderNoMip			= trap->R_RegisterShaderNoMip;
-	cgDC.setColor						= trap->R_SetColor;
+	cgDC.registerShaderNoMip			= R_RegisterShaderNoMip;
+	cgDC.setColor						= R_SetColor;
 	cgDC.drawHandlePic					= &CG_DrawPic;
-	cgDC.drawStretchPic					= trap->R_DrawStretchPic;
+	cgDC.drawStretchPic					= R_StretchPic;
 	cgDC.drawText						= &CG_Text_Paint;
 	cgDC.textWidth						= &CG_Text_Width;
 	cgDC.textHeight						= &CG_Text_Height;
 	cgDC.registerModel					= R_RegisterModel;
-	cgDC.modelBounds					= trap->R_ModelBounds;
+	cgDC.modelBounds					= R_ModelBounds;
 	cgDC.fillRect						= &CG_FillRect;
 	cgDC.drawRect						= &CG_DrawRect;
 	cgDC.drawSides						= &CG_DrawSides;
 	cgDC.drawTopBottom					= &CG_DrawTopBottom;
-	cgDC.clearScene						= trap->R_ClearScene;
-	cgDC.addRefEntityToScene			= trap->R_AddRefEntityToScene;
-	cgDC.renderScene					= trap->R_RenderScene;
-	cgDC.RegisterFont					= trap->R_RegisterFont;
-	cgDC.Font_StrLenPixels				= trap->R_Font_StrLenPixels;
-	cgDC.Font_StrLenChars				= trap->R_Font_StrLenChars;
-	cgDC.Font_HeightPixels				= trap->R_Font_HeightPixels;
-	cgDC.Font_DrawString				= trap->R_Font_DrawString;
-	cgDC.Language_IsAsian				= trap->R_Language_IsAsian;
-	cgDC.Language_UsesSpaces			= trap->R_Language_UsesSpaces;
-	cgDC.AnyLanguage_ReadCharFromString	= trap->R_AnyLanguage_ReadCharFromString;
+	cgDC.clearScene						= R_ClearScene;
+	cgDC.addRefEntityToScene			= R_AddRefEntityToScene;
+	cgDC.renderScene					= R_RenderScene;
+	cgDC.RegisterFont					= R_RegisterFont;
+	cgDC.Font_StrLenPixels				= R_Font_StrLenPixels;
+	cgDC.Font_StrLenChars				= R_Font_StrLenChars;
+	cgDC.Font_HeightPixels				= R_Font_HeightPixels;
+	cgDC.Font_DrawString				= R_Font_DrawString;
+	cgDC.Language_IsAsian				= Language_IsAsian;
+	cgDC.Language_UsesSpaces			= Language_UsesSpaces;
+	cgDC.AnyLanguage_ReadCharFromString	= AnyLanguage_ReadCharFromString;
 	cgDC.ownerDrawItem					= &CG_OwnerDraw;
 	cgDC.getValue						= &CG_GetValue;
 	cgDC.ownerDrawVisible				= &CG_OwnerDrawVisible;
@@ -2268,22 +2268,22 @@ void CG_LoadHudMenu()
 	cgDC.getCVarString					= Cvar_VariableStringBuffer;
 	cgDC.getCVarValue					= CG_Cvar_Get;
 	cgDC.drawTextWithCursor				= &CG_Text_PaintWithCursor;
-	//cgDC.setOverstrikeMode			= &trap->Key_SetOverstrikeMode;
-	//cgDC.getOverstrikeMode			= &trap->Key_GetOverstrikeMode;
+	cgDC.setOverstrikeMode			= &Key_SetOverstrikeMode;
+	cgDC.getOverstrikeMode			= &Key_GetOverstrikeMode;
 	cgDC.startLocalSound				= S_StartLocalSound;
 	cgDC.ownerDrawHandleKey				= &CG_OwnerDrawHandleKey;
 	cgDC.feederCount					= &CG_FeederCount;
 	cgDC.feederItemImage				= &CG_FeederItemImage;
 	cgDC.feederItemText					= &CG_FeederItemText;
 	cgDC.feederSelection				= &CG_FeederSelection;
-	//cgDC.setBinding					= &trap->Key_SetBinding;
-	//cgDC.getBindingBuf				= &trap->Key_GetBindingBuf;
-	//cgDC.keynumToStringBuf			= &trap->Key_KeynumToStringBuf;
-	//cgDC.executeText					= &trap->Cmd_ExecuteText;
+	cgDC.setBinding						= &Key_SetBinding;
+	cgDC.getBindingBuf					= &Key_GetBindingBuf;
+	cgDC.keynumToStringBuf				= &Key_KeynumToStringBuf;
+	cgDC.executeText					= &Cmd_ExecuteText;
 	cgDC.Error							= Com_Error;
 	cgDC.Print							= Com_Printf;
 	cgDC.ownerDrawWidth					= &CG_OwnerDrawWidth;
-	//cgDC.Pause						= &CG_Pause;
+	//cgDC.Pause							= &CG_Pause;
 	cgDC.registerSound					= S_RegisterSound;
 	cgDC.startBackgroundTrack			= S_StartBackgroundTrack;
 	cgDC.stopBackgroundTrack			= S_StopBackgroundTrack;
@@ -2310,7 +2310,7 @@ void CG_LoadHudMenu()
 
 void CG_AssetCache() {
 	//if (Assets.textFont == NULL) {
-	//  trap->R_RegisterFont("fonts/arial.ttf", 72, &Assets.textFont);
+	//  R_RegisterFont("fonts/arial.ttf", 72, &Assets.textFont);
 	//}
 	//Com_Printf("Menu Size: %i bytes\n", sizeof(Menus));
 	cgDC.Assets.gradientBar = R_RegisterShaderNoMip( ASSET_GRADIENTBAR );
@@ -2442,8 +2442,8 @@ Ghoul2 Insert End
 	//	if desired during parse.  Dunno how legal it is to store in these cgDC things, but it causes no harm
 	//	and even if/when they get overwritten they'll be legalised by the menu asset parser :-)
 //	CG_LoadFonts();
-	cgDC.Assets.qhSmallFont  = trap->R_RegisterFont("ocr_a");
-	cgDC.Assets.qhMediumFont = trap->R_RegisterFont("ergoec");
+	cgDC.Assets.qhSmallFont  = R_RegisterFont("ocr_a");
+	cgDC.Assets.qhMediumFont = R_RegisterFont("ergoec");
 	cgDC.Assets.qhBigFont = cgDC.Assets.qhMediumFont;
 
 	memset( &cgs, 0, sizeof( cgs ) );
@@ -2614,7 +2614,7 @@ Ghoul2 Insert End
 
 //	CG_LoadingString( "Creating automap data" );
 	//init automap
-	trap->R_InitializeWireframeAutomap();
+	stub_InitializeWireframeAutomap();
 
 	CG_LoadingString( "" );
 
@@ -2622,7 +2622,7 @@ Ghoul2 Insert End
 
 	S_ClearLoopingSounds();
 
-	cg.distanceCull = trap->R_GetDistanceCull();
+	cg.distanceCull = R_GetDistanceCull();
 
 	CG_ParseEntitiesFromString();
 }
@@ -2696,7 +2696,7 @@ CCALL void CG_Shutdown( void )
 	CL_ROFF_Clean();
 
 	//reset weather
-	trap->R_WorldEffectCommand("die");
+	stub_R_WorldEffectCommand("die");
 
 	UI_CleanupGhoul2();
 	//If there was any ghoul2 stuff in our side of the shared ui code, then remove it now.

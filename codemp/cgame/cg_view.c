@@ -175,7 +175,7 @@ static void CG_AddTestModel (void) {
 		}
 	}
 
-	trap->R_AddRefEntityToScene( &cg.testModelEntity );
+	R_AddRefEntityToScene( &cg.testModelEntity );
 }
 
 
@@ -1342,7 +1342,7 @@ static void CG_DamageBlendBlob( void )
 		ent.shaderRGBA[2] = 50 * ( 1.0 - ((float)t / maxTime) );
 		ent.shaderRGBA[3] = 255;
 	}
-	trap->R_AddRefEntityToScene( &ent );
+	R_AddRefEntityToScene( &ent );
 }
 
 int cg_actionCamLastTime = 0;
@@ -1819,7 +1819,7 @@ void CG_DrawSkyBoxPortal(const char *cstr)
 	}
 
 	// draw the skybox
-	trap->R_RenderScene( &cg.refdef );
+	R_RenderScene( &cg.refdef );
 
 	cg.refdef = backuprefdef;
 }
@@ -2130,7 +2130,7 @@ static void CG_AddRefentForAutoMap(centity_t *cent)
 		ent.hModel = cgs.gameModels[cent->currentState.modelindex];
 	}
 
-	trap->R_AddRefEntityToScene(&ent);
+	R_AddRefEntityToScene(&ent);
 }
 
 //add all entities that would be on the radar
@@ -2253,7 +2253,7 @@ void CG_DrawAutoMap(void)
 	refdef.fov_y = 50;
 
 	//guess this doesn't need to be done every frame, but eh
-	trap->R_GetRealRes(&vWidth, &vHeight);
+	R_GetRealRes(&vWidth, &vHeight);
 
 	//set scaling values so that the 640x480 will result at 1.0/1.0
 	hScale = vWidth/640.0f;
@@ -2276,7 +2276,7 @@ void CG_DrawAutoMap(void)
 
 	refdef.time = cg.time;
 
-	trap->R_ClearScene();
+	R_ClearScene();
 	CG_AddRadarAutomapEnts();
 
 	if (cg.predictedPlayerState.m_iVehicleNum &&
@@ -2285,7 +2285,7 @@ void CG_DrawAutoMap(void)
 		cg_entities[cg.predictedPlayerState.m_iVehicleNum].m_pVehicle &&
 		cg_entities[cg.predictedPlayerState.m_iVehicleNum].m_pVehicle->m_pVehicleInfo->type == VH_FIGHTER)
 	{ //constantly adjust to current height
-		trap->R_AutomapElevationAdjustment(cg.predictedPlayerState.origin[2]);
+		R_AutomapElevationAdjustment(cg.predictedPlayerState.origin[2]);
 	}
 	else
 	{
@@ -2299,10 +2299,10 @@ void CG_DrawAutoMap(void)
 
 		if (!tr.startsolid && !tr.allsolid)
 		{
-			trap->R_AutomapElevationAdjustment(tr.endpos[2]);
+			R_AutomapElevationAdjustment(tr.endpos[2]);
 		}
 	}
-	trap->R_RenderScene( &refdef );
+	R_RenderScene( &refdef );
 }
 
 //=========================================================================
@@ -2467,7 +2467,7 @@ CCALL void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolea
 	S_ClearLoopingSounds();
 
 	// clear all the render lists
-	trap->R_ClearScene();
+	R_ClearScene();
 
 	// set up cg.snap and possibly cg.nextSnap
 	CG_ProcessSnapshots();
@@ -2609,18 +2609,18 @@ CCALL void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolea
 
 	if (cg_linearFogOverride)
 	{
-		trap->R_SetRangedFog(-cg_linearFogOverride);
+		R_SetRangedFog(-cg_linearFogOverride);
 	}
 	else if (cg.predictedPlayerState.zoomMode)
 	{ //zooming with binoculars or sniper, set the fog range based on the zoom level -rww
 		cg_rangedFogging = qtrue;
 		//smaller the fov the less fog we have between the view and cull dist
-		trap->R_SetRangedFog(cg.refdef.fov_x*64.0f);
+		R_SetRangedFog(cg.refdef.fov_x*64.0f);
 	}
 	else if (cg_rangedFogging)
 	{ //disable it
 		cg_rangedFogging = qfalse;
-		trap->R_SetRangedFog(0.0f);
+		R_SetRangedFog(0.0f);
 	}
 
 	cstr = CG_ConfigString(CS_SKYBOXORG);

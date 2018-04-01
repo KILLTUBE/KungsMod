@@ -145,7 +145,7 @@ void CG_PrecachePlayersForSiegeTeam(int team)
 			R_RegisterModel(va("models/players/%s/model.glm", scl->forcedModel));
 			if (scl->forcedSkin[0])
 			{
-				trap->R_RegisterSkin(va("models/players/%s/model_%s.skin", scl->forcedModel, scl->forcedSkin));
+				R_RegisterSkin(va("models/players/%s/model_%s.skin", scl->forcedModel, scl->forcedSkin));
 				Q_strncpyz(fake.skinName, scl->forcedSkin, sizeof(fake.modelName));
 			}
 			else
@@ -408,7 +408,7 @@ void CG_InitSiegeMode(void)
 						useSkinName = va("models/players/%s/model_%s.skin", cl->forcedModel, cl->forcedSkin);
 					}
 
-					trap->R_RegisterSkin(useSkinName);
+					R_RegisterSkin(useSkinName);
 				}
 			}
 

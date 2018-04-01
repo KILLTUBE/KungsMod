@@ -285,7 +285,7 @@ typedef struct consoleCommand_s {
 static consoleCommand_t	commands[] = {
 	{ "modellist",			R_Modellist_f },
 	{ "modelist",			R_ModeList_f },
-	{ "modelcacheinfo",		RE_RegisterModels_Info_f },
+	{ "modelcacheinfo",		R_RegisterModels_Info_f },
 };
 
 static const size_t numCommands = ARRAY_LEN( commands );
@@ -522,12 +522,12 @@ void R_Init( void ) {
 
 /*
 ===============
-RE_Shutdown
+R_Shutdown
 ===============
 */
-void RE_Shutdown( qboolean destroyWindow, qboolean restarting ) {
+void R_Shutdown( qboolean destroyWindow, qboolean restarting ) {
 
-//	Com_Printf ("RE_Shutdown( %i )\n", destroyWindow );
+//	Com_Printf ("R_Shutdown( %i )\n", destroyWindow );
 
 	for ( size_t i = 0; i < numCommands; i++ )
 		ri.Cmd_RemoveCommand( commands[i].cmd );
@@ -541,7 +541,7 @@ static void G2API_BoltMatrixSPMethod( qboolean spMethod ) { gG2_GBMUseSPMethod =
 CCALL void R_SVModelInit( void ); //tr_model.cpp
 extern qboolean gG2_GBMNoReconstruct;
 extern qboolean gG2_GBMUseSPMethod;
-extern qhandle_t RE_RegisterServerSkin( const char *name );
+extern qhandle_t R_RegisterServerSkin( const char *name );
 
 /*
 @@@@@@@@@@@@@@@@@@@@@
@@ -562,16 +562,16 @@ refexport_t *GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 		return NULL;
 	}
 
-	// the RE_ functions are Renderer Entry points
+	// the R_ functions are Renderer Entry points
 
-	re.Shutdown = RE_Shutdown;
+	re.Shutdown = R_Shutdown;
 
-	re.RegisterMedia_LevelLoadBegin			= RE_RegisterMedia_LevelLoadBegin;
-	re.RegisterMedia_LevelLoadEnd			= RE_RegisterMedia_LevelLoadEnd;
-	re.RegisterMedia_GetLevel				= RE_RegisterMedia_GetLevel;
-	re.RegisterModels_LevelLoadEnd			= RE_RegisterModels_LevelLoadEnd;
+	re.RegisterMedia_LevelLoadBegin			= R_RegisterMedia_LevelLoadBegin;
+	re.RegisterMedia_LevelLoadEnd			= R_RegisterMedia_LevelLoadEnd;
+	re.RegisterMedia_GetLevel				= R_RegisterMedia_GetLevel;
+	re.RegisterModels_LevelLoadEnd			= R_RegisterModels_LevelLoadEnd;
 
-	re.RegisterServerSkin					= RE_RegisterServerSkin;
+	re.RegisterServerSkin					= R_RegisterServerSkin;
 
 	// G2 stuff
 	re.InitSkins							= R_InitSkins;

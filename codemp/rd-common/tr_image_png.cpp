@@ -33,7 +33,7 @@ void user_flush_data( png_structp png_ptr ) {
 	//TODO: ri.FS_Flush?
 }
 
-int RE_SavePNG( const char *filename, byte *buf, size_t width, size_t height, int byteDepth ) {
+int R_SavePNG( const char *filename, byte *buf, size_t width, size_t height, int byteDepth ) {
 	fileHandle_t fp;
 	png_structp png_ptr = NULL;
 	png_infop info_ptr = NULL;

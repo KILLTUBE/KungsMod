@@ -285,9 +285,9 @@ typedef struct cgameImport_s {
 	void			(*R_AutomapElevationAdjustment)			( float newHeight );
 	void			(*R_ClearDecals)						( void );
 	void			(*R_ClearScene)							( void );
-	void			(*R_DrawStretchPic)						( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader );	// 0 = white
-	void			(*R_DrawRotatePic)						( float x, float y, float w, float h, float s1, float t1, float s2, float t2, float a1, qhandle_t hShader );	// 0 = white
-	void			(*R_DrawRotatePic2)						( float x, float y, float w, float h, float s1, float t1, float s2, float t2, float a1, qhandle_t hShader );	// 0 = white
+	void			(*R_StretchPic)						( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader );	// 0 = white
+	void			(*R_RotatePic)						( float x, float y, float w, float h, float s1, float t1, float s2, float t2, float a1, qhandle_t hShader );	// 0 = white
+	void			(*R_RotatePic2)						( float x, float y, float w, float h, float s1, float t1, float s2, float t2, float a1, qhandle_t hShader );	// 0 = white
 	void			(*R_Font_DrawString)					( int ox, int oy, const char *text, const float *rgba, const int setIndex, int iCharLimit, const float scale );
 	int				(*R_Font_HeightPixels)					( const int iFontIndex, const float scale );
 	int				(*R_Font_StrLenChars)					( const char *text );
@@ -298,7 +298,7 @@ typedef struct cgameImport_s {
 	void			(*R_GetLightStyle)						( int style, color4ub_t color );
 	void			(*R_GetRealRes)							( int *w, int *h );
 	qboolean		(*R_InitializeWireframeAutomap)			( void );
-	qboolean		(*R_InPVS)								( const vec3_t p1, const vec3_t p2, byte *mask );
+	qboolean		(*R_inPVS)								( const vec3_t p1, const vec3_t p2, byte *mask );
 	qboolean		(*R_Language_IsAsian)					( void );
 	qboolean		(*R_Language_UsesSpaces)				( void );
 	int				(*R_LerpTag)							( orientation_t *tag,  qhandle_t model, int startFrame, int endFrame, float frac, const char *tagName );
@@ -318,7 +318,7 @@ typedef struct cgameImport_s {
 	void			(*R_SetRangedFog)						( float range );
 	void			(*R_SetRefractionProperties)			( float distortionAlpha, float distortionStretch, qboolean distortionPrePost, qboolean distortionNegate );
 	void			(*R_WorldEffectCommand)					( const char *cmd );
-	void			(*RE_InitRendererTerrain)				( const char *info );
+	void			(*R_InitRendererTerrain)				( const char *info );
 	void			(*WE_AddWeatherZone)					( vec3_t mins, vec3_t maxs );
 
 	// client

@@ -912,7 +912,7 @@ CFontInfo::CFontInfo(const char *_fontName)
 
 	Q_strncpyz(m_sFontName, fontName, sizeof(m_sFontName));
 	COM_StripExtension( m_sFontName, m_sFontName, sizeof( m_sFontName ) );	// so we get better error printing if failed to load shader (ie lose ".fontdat")
-	mShader = RE_RegisterShaderNoMip(m_sFontName);
+	mShader = R_RegisterShaderNoMip(m_sFontName);
 
 	FlagNoAsianGlyphs();
 	UpdateAsianIfNeeded(true);
@@ -981,7 +981,7 @@ CFontInfo::CFontInfo(const char *_fontName)
 				{
 					Com_sprintf(sTemp,sizeof(sTemp), "fonts/%s_%d_1024_%d.tga", psLang, 1024/m_iAsianGlyphsAcross, i);
 
-					// RE_RegisterShaderNoMip( sTemp );	// don't actually need to load it, so...
+					// R_RegisterShaderNoMip( sTemp );	// don't actually need to load it, so...
 					ri.FS_FOpenFileRead( sTemp, &f, qfalse );
 					if (f) {
 						ri.FS_FCloseFile( f );
@@ -1059,7 +1059,7 @@ void CFontInfo::UpdateAsianIfNeeded( bool bForceReEval /* = false */ )
 					//
 					// returning 0 here will automatically inhibit Asian glyph calculations at runtime...
 					//
-					m_hAsianShaders[i] = RE_RegisterShaderNoMip( sTemp );
+					m_hAsianShaders[i] = R_RegisterShaderNoMip( sTemp );
 				}
 
 				// for now I'm hardwiring these, but if we ever have more than one glyph set per language then they'll be changed...
@@ -1296,7 +1296,7 @@ static CFontInfo *GetFont_SBCSOverride(CFontInfo *pFont, Language_e eLanguageSBC
 			{
 				// need to register this alternative SBCS font...
 				//
-				int iAltFontIndex = RE_RegisterFont( va("%s/%s",COM_SkipPath(pFont->m_sFontName),psLanguageNameSBCS) );	// ensure unique name (eg: "lcd/russian")
+				int iAltFontIndex = R_RegisterFont( va("%s/%s",COM_SkipPath(pFont->m_sFontName),psLanguageNameSBCS) );	// ensure unique name (eg: "lcd/russian")
 				CFontInfo *pAltFont = GetFont_Actual( iAltFontIndex );
 				if ( pAltFont )
 				{
@@ -1355,7 +1355,7 @@ CFontInfo *GetFont(int index)
 	return pFont;
 }
 
-float RE_Font_StrLenPixelsNew( const char *psText, const int iFontHandle, const float fScale ) {
+float R_Font_StrLenPixelsNew( const char *psText, const int iFontHandle, const float fScale ) {
 	CFontInfo *curfont = GetFont(iFontHandle);
 	if ( !curfont ) {
 		return 0.0f;
@@ -1411,15 +1411,15 @@ float RE_Font_StrLenPixelsNew( const char *psText, const int iFontHandle, const 
 	return maxLineWidth;
 }
 
-CCALL int RE_Font_StrLenPixels( const char *psText, const int iFontHandle, const float fScale ) {
-	return (int)ceilf( RE_Font_StrLenPixelsNew( psText, iFontHandle, fScale ) );
+CCALL int R_Font_StrLenPixels( const char *psText, const int iFontHandle, const float fScale ) {
+	return (int)ceilf( R_Font_StrLenPixelsNew( psText, iFontHandle, fScale ) );
 }
 
 // not really a font function, but keeps naming consistant...
 //
-CCALL int RE_Font_StrLenChars(const char *psText)
+CCALL int R_Font_StrLenChars(const char *psText)
 {
-	// logic for this function's letter counting must be kept same in this function and RE_Font_DrawString()
+	// logic for this function's letter counting must be kept same in this function and R_Font_DrawString()
 	//
 	int iCharCount = 0;
 
@@ -1454,7 +1454,7 @@ CCALL int RE_Font_StrLenChars(const char *psText)
 	return iCharCount;
 }
 
-CCALL int RE_Font_HeightPixels(const int iFontHandle, const float fScale)
+CCALL int R_Font_HeightPixels(const int iFontHandle, const float fScale)
 {
 	CFontInfo	*curfont;
 
@@ -1469,7 +1469,7 @@ CCALL int RE_Font_HeightPixels(const int iFontHandle, const float fScale)
 
 // iMaxPixelWidth is -1 for "all of string", else pixel display count...
 //
-CCALL void RE_Font_DrawString(int ox, int oy, const char *psText, const float *rgba, const int iFontHandle, int iMaxPixelWidth, const float fScale)
+CCALL void R_Font_DrawString(int ox, int oy, const char *psText, const float *rgba, const int iFontHandle, int iMaxPixelWidth, const float fScale)
 {
 	static qboolean gbInShadow = qfalse;	// MUST default to this
 	float				fox, foy, fx, fy;
@@ -1554,11 +1554,11 @@ CCALL void RE_Font_DrawString(int ox, int oy, const char *psText, const float *r
 		const vec4_t v4DKGREY2 = {0.15f, 0.15f, 0.15f, rgba?rgba[3]:1.0f};
 
 		gbInShadow = qtrue;
-		RE_Font_DrawString(ox + offset, oy + offset, psText, v4DKGREY2, iFontHandle & SET_MASK, iMaxPixelWidth, fScale);
+		R_Font_DrawString(ox + offset, oy + offset, psText, v4DKGREY2, iFontHandle & SET_MASK, iMaxPixelWidth, fScale);
 		gbInShadow = qfalse;
 	}
 
-	RE_SetColor( rgba );
+	R_SetColor( rgba );
 
 	// Now we take off the training wheels and become a big font renderer
 	// It's all floats from here on out
@@ -1610,7 +1610,7 @@ CCALL void RE_Font_DrawString(int ox, int oy, const char *psText, const float *r
 						vec4_t color;
 						Com_Memcpy( color, g_color_table[colour], sizeof( color ) );
 						color[3] = rgba ? rgba[3] : 1.0f;
-						RE_SetColor( color );
+						R_SetColor( color );
 					}
 					break;
 				}
@@ -1644,7 +1644,7 @@ CCALL void RE_Font_DrawString(int ox, int oy, const char *psText, const float *r
 					fy += 3.0f; // I'm sick and tired of going round in circles trying to do this legally, so bollocks to it
 				}
 
-				RE_StretchPic(curfont->mbRoundCalcs ? fx + Round(pLetter->horizOffset * fThisScale) : fx + pLetter->horizOffset * fThisScale, // float x
+				R_StretchPic(curfont->mbRoundCalcs ? fx + Round(pLetter->horizOffset * fThisScale) : fx + pLetter->horizOffset * fThisScale, // float x
 								(uiLetter > (unsigned)g_iNonScaledCharRange) ? fy - fAsianYAdjust : fy,	// float y
 								curfont->mbRoundCalcs ? Round(pLetter->width * fThisScale) : pLetter->width * fThisScale,	// float w
 								curfont->mbRoundCalcs ? Round(pLetter->height * fThisScale) : pLetter->height * fThisScale, // float h
@@ -1670,10 +1670,10 @@ CCALL void RE_Font_DrawString(int ox, int oy, const char *psText, const float *r
 			break;
 		}
 	}
-	//let it remember the old color //RE_SetColor(NULL);
+	//let it remember the old color //R_SetColor(NULL);
 }
 
-CCALL int RE_RegisterFont(const char *psName)
+CCALL int R_RegisterFont(const char *psName)
 {
 	FontIndexMap_t::iterator it = g_mapFontIndexes.find(psName);
 	if (it != g_mapFontIndexes.end() )
@@ -1779,10 +1779,10 @@ void R_ReloadFonts_f(void)
 		for (size_t iFont = 0; iFont < vstrFonts.size(); iFont++)
 		{
 #ifdef _DEBUG
-			int iNewFontHandle = RE_RegisterFont( vstrFonts[iFont].c_str() );
+			int iNewFontHandle = R_RegisterFont( vstrFonts[iFont].c_str() );
 			assert( iNewFontHandle == (int)(iFont+1) );
 #else
-			RE_RegisterFont( vstrFonts[iFont].c_str() );
+			R_RegisterFont( vstrFonts[iFont].c_str() );
 #endif
 		}
 		Com_Printf( "Done.\n" );

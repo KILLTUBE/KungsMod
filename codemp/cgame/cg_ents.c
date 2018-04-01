@@ -52,7 +52,7 @@ void CG_PositionEntityOnTag( refEntity_t *entity, const refEntity_t *parent,
 	orientation_t	lerped;
 
 	// lerp the tag
-	trap->R_LerpTag( &lerped, parentModel, parent->oldframe, parent->frame,
+	R_LerpTag( &lerped, parentModel, parent->oldframe, parent->frame,
 		1.0 - parent->backlerp, tagName );
 
 	// FIXME: allow origin offsets along tag?
@@ -83,7 +83,7 @@ void CG_PositionRotatedEntityOnTag( refEntity_t *entity, const refEntity_t *pare
 
 //AxisClear( entity->axis );
 	// lerp the tag
-	trap->R_LerpTag( &lerped, parentModel, parent->oldframe, parent->frame,
+	R_LerpTag( &lerped, parentModel, parent->oldframe, parent->frame,
 		1.0 - parent->backlerp, tagName );
 
 	// FIXME: allow origin offsets along tag?
@@ -355,7 +355,7 @@ static void CG_EntityEffects( centity_t *cent ) {
 		g = (float) ((cl >> 8) & 0xFF) / 255.0;
 		b = (float) ((cl >> 16) & 0xFF) / 255.0;
 		i = (float) ((cl >> 24) & 0xFF) * 4.0;
-		trap->R_AddLightToScene( cent->lerpOrigin, i, r, g, b );
+		R_AddLightToScene( cent->lerpOrigin, i, r, g, b );
 	}
 
 }
@@ -591,7 +591,7 @@ void CG_CreateBBRefEnts(entityState_t *s1, vec3_t origin )
 		// add the original origin to each point and then stuff them out there
 		VectorAdd(point[i].origin, origin, point[i].origin);
 
-		trap->R_AddRefEntityToScene (&point[i]);
+		R_AddRefEntityToScene (&point[i]);
 	}
 #endif
 	*/
@@ -699,12 +699,12 @@ void CG_Disintegration(centity_t *cent, refEntity_t *ent)
 
 	ent->renderfx |= RF_DISINTEGRATE2;
 	ent->customShader = cgs.media.disruptorShader;
-	trap->R_AddRefEntityToScene( ent );
+	R_AddRefEntityToScene( ent );
 
 	ent->renderfx &= ~(RF_DISINTEGRATE2);
 	ent->renderfx |= (RF_DISINTEGRATE1);
 	ent->customShader = 0;
-	trap->R_AddRefEntityToScene( ent );
+	R_AddRefEntityToScene( ent );
 
 	if ( cg.time - ent->endTime < 1000 && (timescale->value * timescale->value * Q_flrand(0.0f, 1.0f)) > 0.05f )
 	{
@@ -822,7 +822,7 @@ static void CG_SiegeEntRenderAboveHead(centity_t *cent)
 	ent.shaderRGBA[3] = 100;
 
 	//And finally add it
-	trap->R_AddRefEntityToScene(&ent);
+	R_AddRefEntityToScene(&ent);
 }
 */
 
@@ -1402,7 +1402,7 @@ Ghoul2 Insert End
 					skinName[l] = 0;
 					Q_strcat(skinName, MAX_QPATH, "model_default.skin");
 
-					skin = trap->R_RegisterSkin(skinName);
+					skin = R_RegisterSkin(skinName);
 				}
 				trap->G2API_SetSkin(cent->ghoul2, 0, skin, skin);
 			}
@@ -1477,13 +1477,13 @@ Ghoul2 Insert End
 		ent.shaderRGBA[1] = ent.shaderRGBA[2] = 0;
 
 		ent.shaderRGBA[3] = 100;
-		trap->R_AddRefEntityToScene( &ent );
+		R_AddRefEntityToScene( &ent );
 		ent.customShader = 0;
 	}
 	else if ( cent->currentState.time == -1 && cent->currentState.weapon == WP_EMPLACED_GUN)
 	{
 		ent.customShader = R_RegisterShader( "models/map_objects/imp_mine/turret_chair_dmg.tga" );
-		//trap->R_AddRefEntityToScene( &ent );
+		//R_AddRefEntityToScene( &ent );
 	}
 
 	if ((cent->currentState.eFlags & EF_DISINTEGRATION) && cent->currentState.eType == ET_BODY)
@@ -1526,7 +1526,7 @@ Ghoul2 Insert End
 
 			if (ent.shaderRGBA[3] >= 1)
 			{ //add the transparent body section
-				trap->R_AddRefEntityToScene (&ent);
+				R_AddRefEntityToScene (&ent);
 			}
 
 			ent.renderfx &= ~RF_FORCE_ENT_ALPHA;
@@ -1585,7 +1585,7 @@ Ghoul2 Insert End
 			ent.origin[2] = cent->bodyHeight;
 			*/
 
-			trap->R_AddRefEntityToScene( &ent );
+			R_AddRefEntityToScene( &ent );
 			ent.renderfx &= ~RF_DISINTEGRATE2;
 			ent.customShader = 0;
 
@@ -1616,7 +1616,7 @@ Ghoul2 Insert End
 					{
 						S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, cgs.media.crackleSound );
 					}
-					trap->R_AddRefEntityToScene( &ent );
+					R_AddRefEntityToScene( &ent );
 				}
 			}
 
@@ -1636,7 +1636,7 @@ Ghoul2 Insert End
 	}
 
 	// add to refresh list
-	trap->R_AddRefEntityToScene (&ent);
+	R_AddRefEntityToScene (&ent);
 
 	if (cent->bolt3 == 999)
 	{ //this is an in-flight saber being rendered manually
@@ -1653,7 +1653,7 @@ Ghoul2 Insert End
 		ent.shaderRGBA[0] = wv * 255;
 		ent.shaderRGBA[1] = wv * 255;
 		ent.shaderRGBA[2] = wv * 0;
-		trap->R_AddRefEntityToScene (&ent);
+		R_AddRefEntityToScene (&ent);
 
 		for ( i = -4; i < 10; i += 1 )
 		{
@@ -1725,7 +1725,7 @@ Ghoul2 Insert End
 		ent.origin[2] -= 2;
 		ScaleModelAxis(&ent);
 
-		trap->R_AddRefEntityToScene (&ent);
+		R_AddRefEntityToScene (&ent);
 
 		VectorMA( ent.origin, 1, ent.axis[2], org );
 
@@ -1946,7 +1946,7 @@ Ghoul2 Insert Start
 			ent.shaderRGBA[2] = 150;
 		}
 
-		trap->R_AddRefEntityToScene(&ent);
+		R_AddRefEntityToScene(&ent);
 
 		if (!doGrey)
 		{
@@ -2013,7 +2013,7 @@ Ghoul2 Insert End
 				ent.customShader = R_RegisterShader("gfx/misc/mp_dark_enlight_disable");
 			}
 		}
-		trap->R_AddRefEntityToScene(&ent);
+		R_AddRefEntityToScene(&ent);
 		return;
 	}
 
@@ -2181,7 +2181,7 @@ Ghoul2 Insert End
 			ent.customShader = R_RegisterShader("gfx/misc/mp_dark_enlight_disable");
 		}
 
-		trap->R_AddRefEntityToScene( &ent );
+		R_AddRefEntityToScene( &ent );
 		return;
 	}
 
@@ -2227,7 +2227,7 @@ Ghoul2 Insert End
 		{ //boon model uses a different blending mode for the sprite inside and doesn't look proper with this method
 			ent.renderfx |= RF_FORCE_ENT_ALPHA;
 		}
-		trap->R_AddRefEntityToScene(&ent);
+		R_AddRefEntityToScene(&ent);
 
 		ent.renderfx &= ~RF_FORCE_ENT_ALPHA;
 
@@ -2268,7 +2268,7 @@ Ghoul2 Insert End
 		ent.shaderRGBA[1] = 200;
 		ent.shaderRGBA[2] = 85;
 
-		trap->R_AddRefEntityToScene( &ent );
+		R_AddRefEntityToScene( &ent );
 	}
 	else
 	{	// add to refresh list  -- normal item
@@ -2280,7 +2280,7 @@ Ghoul2 Insert End
 			ent.modelScale[2] = 0.7f;
 			ScaleModelAxis(&ent);
 		}
-		trap->R_AddRefEntityToScene(&ent);
+		R_AddRefEntityToScene(&ent);
 	}
 
 	//rww - As far as I can see, this is useless.
@@ -2303,7 +2303,7 @@ Ghoul2 Insert End
 		AxisCopy( ent.axis, barrel.axis );
 		barrel.nonNormalizedAxes = ent.nonNormalizedAxes;
 
-		trap->R_AddRefEntityToScene( &barrel );
+		R_AddRefEntityToScene( &barrel );
 	}
 	*/
 
@@ -2325,7 +2325,7 @@ Ghoul2 Insert End
 				}
 				AnglesToAxis( spinAngles, ent.axis );
 
-				trap->R_AddRefEntityToScene( &ent );
+				R_AddRefEntityToScene( &ent );
 			}
 		}
 	}
@@ -2394,7 +2394,7 @@ void CG_CreateDistortionTrailPart(centity_t *cent, float scale, vec3_t pos)
 	ent.renderfx = RF_DISTORTION;
 #endif
 
-	trap->R_AddRefEntityToScene( &ent );
+	R_AddRefEntityToScene( &ent );
 }
 
 //distortion trail effect for rockets -rww
@@ -2540,7 +2540,7 @@ static void CG_Missile( centity_t *cent ) {
 		// add dynamic light
 		if ( weapon->altMissileDlight )
 		{
-			trap->R_AddLightToScene(cent->lerpOrigin, weapon->altMissileDlight,
+			R_AddLightToScene(cent->lerpOrigin, weapon->altMissileDlight,
 				weapon->altMissileDlightColor[0], weapon->altMissileDlightColor[1], weapon->altMissileDlightColor[2] );
 		}
 
@@ -2568,7 +2568,7 @@ static void CG_Missile( centity_t *cent ) {
 		// add dynamic light
 		if ( weapon->missileDlight )
 		{
-			trap->R_AddLightToScene(cent->lerpOrigin, weapon->missileDlight,
+			R_AddLightToScene(cent->lerpOrigin, weapon->missileDlight,
 				weapon->missileDlightColor[0], weapon->missileDlightColor[1], weapon->missileDlightColor[2] );
 		}
 
@@ -2693,7 +2693,7 @@ Ghoul2 Insert End
 		ent.shaderRGBA[0] = wv * 255;
 		ent.shaderRGBA[1] = wv * 255;
 		ent.shaderRGBA[2] = wv * 0;
-		trap->R_AddRefEntityToScene (&ent);
+		R_AddRefEntityToScene (&ent);
 
 		for ( i = -4; i < 10; i += 1 )
 		{
@@ -2725,7 +2725,7 @@ Ghoul2 Insert End
 			ent.renderfx |= RF_DEPTHHACK;
 			ent.customShader = cgs.media.forceSightBubble;
 
-			trap->R_AddRefEntityToScene( &ent );
+			R_AddRefEntityToScene( &ent );
 		}
 	}
 
@@ -2906,7 +2906,7 @@ Ghoul2 Insert End
 	}
 
 	// add to refresh list
-	trap->R_AddRefEntityToScene(&ent);
+	R_AddRefEntityToScene(&ent);
 
 	// add the secondary model
 	if ( s1->modelindex2 && s1->modelindex2 < MAX_MODELS )
@@ -2918,7 +2918,7 @@ Ghoul2 Insert End
 			ent.modelScale[0] = ent.modelScale[1] = ent.modelScale[2] = s1->iModelScale/100.0f;
 			ScaleModelAxis(&ent);
 		}
-		trap->R_AddRefEntityToScene(&ent);
+		R_AddRefEntityToScene(&ent);
 	}
 
 }
@@ -2953,7 +2953,7 @@ Ghoul2 Insert Start
 Ghoul2 Insert End
 */
 	// add to refresh list
-	trap->R_AddRefEntityToScene(&ent);
+	R_AddRefEntityToScene(&ent);
 }
 
 
@@ -2992,7 +2992,7 @@ Ghoul2 Insert Start
 Ghoul2 Insert End
 */
 	// add to refresh list
-	trap->R_AddRefEntityToScene(&ent);
+	R_AddRefEntityToScene(&ent);
 }
 
 

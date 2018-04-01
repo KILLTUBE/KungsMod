@@ -734,7 +734,7 @@ R_SaveScreenshotPNG
 static void R_SaveScreenshotPNG(
 	const screenshotReadback_t *screenshotReadback, byte *pixels)
 {
-	RE_SavePNG(
+	R_SavePNG(
 		screenshotReadback->filename,
 		pixels,
 		screenshotReadback->width,
@@ -750,7 +750,7 @@ R_SaveScreenshotJPG
 static void R_SaveScreenshotJPG(
 	const screenshotReadback_t *screenshotReadback, byte *pixels)
 {
-	RE_SaveJPG(
+	R_SaveJPG(
 		screenshotReadback->filename,
 		r_screenshotJpegQuality->integer,
 		screenshotReadback->width,
@@ -1113,7 +1113,7 @@ const void *RB_TakeVideoFrameCmd( const void *data )
 
 	if(cmd->motionJpeg)
 	{
-		memcount = RE_SaveJPGToBuffer(cmd->encodeBuffer, linelen * cmd->height,
+		memcount = R_SaveJPGToBuffer(cmd->encodeBuffer, linelen * cmd->height,
 			r_aviMotionJpegQuality->integer,
 			cmd->width, cmd->height, cBuf, padlen);
 		ri.CL_WriteAVIVideoFrame(cmd->encodeBuffer, memcount);
@@ -1339,7 +1339,7 @@ void GfxMemInfo_f( void )
 			R_Printf(PRINT_ALL, "VBO_FREE_MEMORY_ATI: %ikb total %ikb largest aux: %ikb total %ikb largest\n", value[0], value[1], value[2], value[3]);
 
 			qglGetIntegerv(GL_TEXTURE_FREE_MEMORY_ATI, &value[0]);
-			R_Printf(PRINT_ALL, "TEXTURE_FREE_MEMORY_ATI: %ikb total %ikb largest aux: %ikb total %ikb largest\n", value[0], value[1], value[2], value[3]);
+			R_Printf(PRINT_ALL, "TEXTUR_FREE_MEMORY_ATI: %ikb total %ikb largest aux: %ikb total %ikb largest\n", value[0], value[1], value[2], value[3]);
 
 			qglGetIntegerv(GL_RENDERBUFFER_FREE_MEMORY_ATI, &value[0]);
 			R_Printf(PRINT_ALL, "RENDERBUFFER_FREE_MEMORY_ATI: %ikb total %ikb largest aux: %ikb total %ikb largest\n", value[0], value[1], value[2], value[3]);
@@ -1388,9 +1388,9 @@ static consoleCommand_t	commands[] = {
 	{ "gfxinfo",			GfxInfo_f },
 	{ "gfxmeminfo",			GfxMemInfo_f },
 	//{ "r_we",				R_WorldEffect_f },
-	//{ "imagecacheinfo",		RE_RegisterImages_Info_f },
+	//{ "imagecacheinfo",		R_RegisterImages_Info_f },
 	{ "modellist",			R_Modellist_f },
-	//{ "modelcacheinfo",		RE_RegisterModels_Info_f },
+	//{ "modelcacheinfo",		R_RegisterModels_Info_f },
 	{ "vbolist",			R_VBOList_f },
 	{ "capframes",			R_CaptureFrameData_f },
 };
@@ -1639,7 +1639,7 @@ void R_ShutDownQueries(void)
 		qglDeleteQueries(ARRAY_LEN(tr.sunFlareQuery), tr.sunFlareQuery);
 }
 
-void RE_SetLightStyle (int style, int color);
+void R_SetLightStyle (int style, int color);
 
 static void R_InitBackEndFrameData()
 {
@@ -1801,7 +1801,7 @@ void R_Init( void ) {
 
 	for ( int i = 0; i < MAX_LIGHT_STYLES; i++ )
 	{
-		RE_SetLightStyle (i, -1);
+		R_SetLightStyle (i, -1);
 	}
 
 	R_InitImagesPool();
@@ -1846,12 +1846,12 @@ void R_Init( void ) {
 
 /*
 ===============
-RE_Shutdown
+R_Shutdown
 ===============
 */
-CCALL void RE_Shutdown( qboolean destroyWindow, qboolean restarting ) {
+CCALL void R_Shutdown( qboolean destroyWindow, qboolean restarting ) {
 
-	R_Printf( PRINT_ALL, "RE_Shutdown( %i )\n", destroyWindow );
+	R_Printf( PRINT_ALL, "R_Shutdown( %i )\n", destroyWindow );
 
 	for ( size_t i = 0; i < numCommands; i++ )
 		ri.Cmd_RemoveCommand( commands[i].cmd );
@@ -1890,16 +1890,21 @@ CCALL void RE_Shutdown( qboolean destroyWindow, qboolean restarting ) {
 
 /*
 =============
-RE_EndRegistration
+R_EndRegistration
 
 Touch all images to make sure they are resident
 =============
 */
-CCALL void RE_EndRegistration( void ) {
+CCALL void R_EndRegistration( void ) {
 	R_IssuePendingRenderCommands();
 	if (!ri.Sys_LowPhysicalMemory()) {
 		RB_ShowImages();
 	}
+}
+
+CCALL void R_AutomapElevationAdjustment(float newHeight)
+{
+	// todo i guess
 }
 
 // HACK
@@ -1908,23 +1913,23 @@ extern qboolean gG2_GBMUseSPMethod;
 static void G2API_BoltMatrixReconstruction( qboolean reconstruct ) { gG2_GBMNoReconstruct = (qboolean)!reconstruct; }
 static void G2API_BoltMatrixSPMethod( qboolean spMethod ) { gG2_GBMUseSPMethod = spMethod; }
 
-CCALL float GetDistanceCull( void ) { return tr.distanceCull; }
+CCALL float R_GetDistanceCull( void ) { return tr.distanceCull; }
 
 CCALL void R_SVModelInit( void ); //tr_model.cpp
 
-CCALL void GetRealRes( int *w, int *h ) {
+CCALL void R_GetRealRes( int *w, int *h ) {
 	*w = glConfig.vidWidth;
 	*h = glConfig.vidHeight;
 }
 
 // STUBS, REPLACEME
-qboolean stub_InitializeWireframeAutomap() { return qtrue; }
+CCALL qboolean stub_InitializeWireframeAutomap() { return qtrue; }
 
-void RE_GetLightStyle(int style, color4ub_t color)
+CCALL void R_GetLightStyle(int style, color4ub_t color)
 {
 	if (style >= MAX_LIGHT_STYLES)
 	{
-	    Com_Error( ERR_FATAL, "RE_GetLightStyle: %d is out of range", style );
+	    Com_Error( ERR_FATAL, "R_GetLightStyle: %d is out of range", style );
 		return;
 	}
 
@@ -1932,11 +1937,11 @@ void RE_GetLightStyle(int style, color4ub_t color)
 	baDest->i = baSource->i;
 }
 
-void RE_SetLightStyle(int style, int color)
+CCALL void R_SetLightStyle(int style, int color)
 {
 	if (style >= MAX_LIGHT_STYLES)
 	{
-	    Com_Error( ERR_FATAL, "RE_SetLightStyle: %d is out of range", style );
+	    Com_Error( ERR_FATAL, "R_SetLightStyle: %d is out of range", style );
 		return;
 	}
 
@@ -1946,12 +1951,12 @@ void RE_SetLightStyle(int style, int color)
 	}
 }
 
-void stub_RE_GetBModelVerts (int bModel, vec3_t *vec, float *normal) {}
-void stub_RE_WorldEffectCommand ( const char *cmd ){}
-void stub_RE_AddWeatherZone ( vec3_t mins, vec3_t maxs ) {}
-static void RE_SetRefractionProperties ( float distortionAlpha, float distortionStretch, qboolean distortionPrePost, qboolean distortionNegate ) { }
+CCALL void R_GetBModelVerts (int bModel, vec3_t *vec, float *normal) {}
+CCALL void stub_R_WorldEffectCommand ( const char *cmd ){}
+CCALL void stub_R_AddWeatherZone ( vec3_t mins, vec3_t maxs ) {}
+CCALL void R_SetRefractionProperties ( float distortionAlpha, float distortionStretch, qboolean distortionPrePost, qboolean distortionNegate ) { }
 
-void C_LevelLoadBegin(const char *psMapName, ForceReload_e eForceReload)
+CCALL void C_LevelLoadBegin(const char *psMapName, ForceReload_e eForceReload)
 {
 	static char sPrevMapName[MAX_QPATH]={0};
 	bool bDeleteModels = eForceReload == eForceReload_MODELS || eForceReload == eForceReload_ALL;
@@ -1976,7 +1981,7 @@ CCALL int C_GetLevel( void )
 	return tr.currentLevel;
 }
 
-void C_LevelLoadEnd( void )
+CCALL void C_LevelLoadEnd( void )
 {
 	CModelCache->LevelLoadEnd( qfalse );
 	ri.SND_RegisterAudio_LevelLoadEnd( qfalse );
@@ -2009,23 +2014,6 @@ Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 			REF_API_VERSION, apiVersion );
 		return NULL;
 	}
-
-	re.GetLightStyle = RE_GetLightStyle;
-	re.SetLightStyle = RE_SetLightStyle;
-	re.GetBModelVerts = stub_RE_GetBModelVerts;
-
-	re.SetRangedFog = RE_SetRangedFog;
-	re.SetRefractionProperties = RE_SetRefractionProperties;
-	re.GetDistanceCull = GetDistanceCull;
-	re.GetRealRes = GetRealRes;
-	// R_AutomapElevationAdjustment
-	re.InitializeWireframeAutomap = stub_InitializeWireframeAutomap;
-	re.AddWeatherZone = stub_RE_AddWeatherZone;
-	re.WorldEffectCommand = stub_RE_WorldEffectCommand;
-	re.RegisterMedia_LevelLoadBegin = C_LevelLoadBegin;
-	re.RegisterMedia_LevelLoadEnd = C_LevelLoadEnd;
-
-
 
 	re.G2API_AddBolt						= G2API_AddBolt;
 	re.G2API_AddBoltSurfNum					= G2API_AddBoltSurfNum;

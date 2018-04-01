@@ -3058,7 +3058,7 @@ int BG_ModelCache(const char *modelName, const char *skinName)
 		void *g2 = NULL;
 
 		if ( VALIDSTRING( skinName ) )
-			SV_RE_RegisterSkin( skinName );
+			SV_R_RegisterSkin( skinName );
 
 		//I could hook up a precache ghoul2 function, but oh well, this works
 		SV_G2API_InitGhoul2Model( &g2, modelName, 0, 0, 0, 0, 0 );
@@ -3068,7 +3068,7 @@ int BG_ModelCache(const char *modelName, const char *skinName)
 		return 0;
 	} else {
 		if ( VALIDSTRING( skinName ) ) {
-			trap->R_RegisterSkin( skinName );
+			R_RegisterSkin( skinName );
 		}
 		return R_RegisterModel( modelName );
 	}

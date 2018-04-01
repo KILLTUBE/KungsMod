@@ -147,7 +147,7 @@ void CG_DrawInformation( void ) {
 	if ( !levelshot ) {
 		levelshot = R_RegisterShaderNoMip( "menu/art/unknownmap_mp" );
 	}
-	trap->R_SetColor( NULL );
+	R_SetColor( NULL );
 	CG_DrawPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, levelshot );
 
 	CG_LoadBar();
@@ -181,7 +181,7 @@ void CG_DrawInformation( void ) {
 		// pure server
 		s = Info_ValueForKey( sysInfo, "sv_pure" );
 		if ( s[0] == '1' ) {
-			const char *psPure = CG_GetStringEdString("MP_INGAME", "PURE_SERVER");
+			const char *psPure = CG_GetStringEdString("MP_INGAME", "PUR_SERVER");
 			CG_DrawProportionalString( 320, y, psPure, UI_CENTER|UI_INFOFONT|UI_DROPSHADOW, colorWhite );
 			y += iPropHeight;
 		}
@@ -382,7 +382,7 @@ void CG_LoadBar(void)
 	const int barheight = tickheight + tickpady*2, bartop = 480-barheight;
 	const int capleft = barleft+tickpadx, tickleft = capleft+capwidth, ticktop = bartop+tickpady;
 
-	trap->R_SetColor( colorWhite );
+	R_SetColor( colorWhite );
 	// Draw background
 	CG_DrawPic(barleft, bartop, barwidth, barheight, cgs.media.loadBarLEDSurround);
 

@@ -149,7 +149,7 @@ void CG_ImpactMark( qhandle_t markShader, const vec3_t origin, const vec3_t dir,
 	}
 	else if (cg_marks->integer == 2)
 	{
-		trap->R_AddDecalToScene(markShader, origin, dir, orientation, red, green, blue, alpha,
+		R_AddDecalToScene(markShader, origin, dir, orientation, red, green, blue, alpha,
 			alphaFade, radius, temporary);
 		return;
 	}
@@ -180,7 +180,7 @@ void CG_ImpactMark( qhandle_t markShader, const vec3_t origin, const vec3_t dir,
 
 	// get the fragments
 	VectorScale( dir, -20, projection );
-	numFragments = trap->R_MarkFragments( 4, (const vec3_t *) originalPoints, projection, MAX_MARK_POINTS, markPoints[0], MAX_MARK_FRAGMENTS, markFragments );
+	numFragments = R_MarkFragments( 4, (const vec3_t *) originalPoints, projection, MAX_MARK_POINTS, markPoints[0], MAX_MARK_FRAGMENTS, markFragments );
 
 	colors[0] = red * 255;
 	colors[1] = green * 255;
@@ -211,7 +211,7 @@ void CG_ImpactMark( qhandle_t markShader, const vec3_t origin, const vec3_t dir,
 
 		// if it is a temporary (shadow) mark, add it immediately and forget about it
 		if ( temporary ) {
-			trap->R_AddPolysToScene( markShader, mf->numPoints, verts, 1 );
+			R_AddPolysToScene( markShader, mf->numPoints, verts, 1 );
 			continue;
 		}
 
@@ -308,6 +308,6 @@ void CG_AddMarks( void ) {
 			}
 		}
 
-		trap->R_AddPolysToScene( mp->markShader, mp->poly.numVerts, mp->verts, 1 );
+		R_AddPolysToScene( mp->markShader, mp->poly.numVerts, mp->verts, 1 );
 	}
 }

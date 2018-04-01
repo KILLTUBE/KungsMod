@@ -42,7 +42,7 @@ EXTERNC cgameImport_t *trap;
 //
 //
 //CCALL qhandle_t		R_RegisterShader					( const char *name ) {
-//	return trap->R_RegisterShader(name);
+//	return R_RegisterShader(name);
 //}
 //
 //
@@ -94,7 +94,7 @@ CCALL int	FS_GetFileList( const char *path, const char *extension, char *listbuf
 }
 
 
-CCALL qhandle_t SV_RE_RegisterSkin( const char *name ) {
+CCALL qhandle_t SV_R_RegisterSkin( const char *name ) {
 	__debugbreak();
 	return 0;
 }

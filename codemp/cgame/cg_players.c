@@ -500,7 +500,7 @@ retryModel:
 		useSkinName = va("models/players/%s/model_%s.skin", modelName, skinName);
 	}
 
-	checkSkin = trap->R_RegisterSkin(useSkinName);
+	checkSkin = R_RegisterSkin(useSkinName);
 
 	if (checkSkin)
 	{
@@ -508,7 +508,7 @@ retryModel:
 	}
 	else
 	{ //fallback to the default skin
-		ci->torsoSkin = trap->R_RegisterSkin(va("models/players/%s/model_default.skin", modelName, skinName));
+		ci->torsoSkin = R_RegisterSkin(va("models/players/%s/model_default.skin", modelName, skinName));
 	}
 	Com_sprintf( afilename, sizeof( afilename ), "models/players/%s/model.glm", modelName );
 	handle = trap->G2API_InitGhoul2Model(&ci->ghoul2Model, afilename, 0, ci->torsoSkin, 0, 0, 0);
@@ -1154,7 +1154,7 @@ void CG_LoadClientInfo( clientInfo_t *ci ) {
 	if ( ci->torsoModel ) {
 		orientation_t tag;
 		// if the torso model has the "tag_flag"
-		if ( trap->R_LerpTag( &tag, ci->torsoModel, 0, 0, 1, "tag_flag" ) ) {
+		if ( R_LerpTag( &tag, ci->torsoModel, 0, 0, 1, "tag_flag" ) ) {
 			ci->newAnims = qtrue;
 		}
 	}
@@ -4399,7 +4399,7 @@ static void CG_TrailItem( centity_t *cent, qhandle_t hModel ) {
 	AnglesToAxis( angles, ent.axis );
 
 	ent.hModel = hModel;
-	trap->R_AddRefEntityToScene( &ent );
+	R_AddRefEntityToScene( &ent );
 }
 #endif
 
@@ -4481,7 +4481,7 @@ static void CG_PlayerFlag( centity_t *cent, qhandle_t hModel ) {
 	*/
 	//FIXME: Not doing this at the moment because sorting totally messes up
 
-	trap->R_AddRefEntityToScene( &ent );
+	R_AddRefEntityToScene( &ent );
 }
 
 
@@ -4501,7 +4501,7 @@ static void CG_PlayerPowerups( centity_t *cent, refEntity_t *torso ) {
 	#ifdef BASE_COMPAT
 		// quad gives a dlight
 		if ( powerups & ( 1 << PW_QUAD ) )
-			trap->R_AddLightToScene( cent->lerpOrigin, 200 + (rand()&31), 0.2f, 0.2f, 1 );
+			R_AddLightToScene( cent->lerpOrigin, 200 + (rand()&31), 0.2f, 0.2f, 1 );
 	#endif // BASE_COMPAT
 
 	if (cent->currentState.eType == ET_NPC)
@@ -4510,18 +4510,18 @@ static void CG_PlayerPowerups( centity_t *cent, refEntity_t *torso ) {
 	// redflag
 	if ( powerups & ( 1 << PW_REDFLAG ) ) {
 		CG_PlayerFlag( cent, cgs.media.redFlagModel );
-		trap->R_AddLightToScene( cent->lerpOrigin, 200 + (rand()&31), 1.0, 0.2f, 0.2f );
+		R_AddLightToScene( cent->lerpOrigin, 200 + (rand()&31), 1.0, 0.2f, 0.2f );
 	}
 
 	// blueflag
 	if ( powerups & ( 1 << PW_BLUEFLAG ) ) {
 		CG_PlayerFlag( cent, cgs.media.blueFlagModel );
-		trap->R_AddLightToScene( cent->lerpOrigin, 200 + (rand()&31), 0.2f, 0.2f, 1.0 );
+		R_AddLightToScene( cent->lerpOrigin, 200 + (rand()&31), 0.2f, 0.2f, 1.0 );
 	}
 
 	// neutralflag
 	if ( powerups & ( 1 << PW_NEUTRALFLAG ) ) {
-		trap->R_AddLightToScene( cent->lerpOrigin, 200 + (rand()&31), 1.0, 1.0, 1.0 );
+		R_AddLightToScene( cent->lerpOrigin, 200 + (rand()&31), 1.0, 1.0, 1.0 );
 	}
 
 	// haste leaves smoke trails
@@ -4561,7 +4561,7 @@ static void CG_PlayerFloatSprite( centity_t *cent, qhandle_t shader ) {
 	ent.shaderRGBA[1] = 255;
 	ent.shaderRGBA[2] = 255;
 	ent.shaderRGBA[3] = 255;
-	trap->R_AddRefEntityToScene( &ent );
+	R_AddRefEntityToScene( &ent );
 }
 
 
@@ -4595,7 +4595,7 @@ static void CG_PlayerFloatSpriteRGBA( centity_t *cent, qhandle_t shader, vec4_t 
 	ent.shaderRGBA[1] = rgba[1];
 	ent.shaderRGBA[2] = rgba[2];
 	ent.shaderRGBA[3] = rgba[3];
-	trap->R_AddRefEntityToScene( &ent );
+	R_AddRefEntityToScene( &ent );
 }
 #endif
 
@@ -4829,7 +4829,7 @@ static void CG_PlayerSplash( centity_t *cent ) {
 	verts[3].modulate[2] = 255;
 	verts[3].modulate[3] = 255;
 
-	trap->R_AddPolysToScene( cgs.media.wakeMarkShader, 4, verts, 1 );
+	R_AddPolysToScene( cgs.media.wakeMarkShader, 4, verts, 1 );
 }
 
 #define REFRACT_EFFECT_DURATION		500
@@ -4976,7 +4976,7 @@ static void CG_ForcePushBlur( vec3_t org, centity_t *cent )
 		ent.shaderRGBA[2] = 255.0f;
 		ent.shaderRGBA[3] = alpha;
 
-		trap->R_AddRefEntityToScene( &ent );
+		R_AddRefEntityToScene( &ent );
 	}
 }
 
@@ -5105,7 +5105,7 @@ void CG_AddRefEntityWithPowerups( refEntity_t *ent, entityState_t *state, int te
 		return; //this entity is mind-tricking the current client, so don't render it
 	}
 
-	trap->R_AddRefEntityToScene( ent );
+	R_AddRefEntityToScene( ent );
 }
 
 #define MAX_SHIELD_TIME	2000.0
@@ -5176,7 +5176,7 @@ void CG_DrawPlayerShield(centity_t *cent, vec3_t origin)
 	ent.shaderRGBA[1] = alpha;
 	ent.shaderRGBA[2] = alpha;
 	ent.shaderRGBA[3] = 255;
-	trap->R_AddRefEntityToScene( &ent );
+	R_AddRefEntityToScene( &ent );
 }
 
 
@@ -5210,7 +5210,7 @@ int CG_LightVerts( vec3_t normal, int numVerts, polyVert_t *verts )
 	vec3_t			lightDir;
 	vec3_t			directedLight;
 
-	trap->R_LightForPoint( verts[0].xyz, ambientLight, directedLight, lightDir );
+	R_LightForPoint( verts[0].xyz, ambientLight, directedLight, lightDir );
 
 	for (i = 0; i < numVerts; i++) {
 		incoming = DotProduct (normal, lightDir);
@@ -5353,7 +5353,7 @@ static void CG_DoSaberLight( saberInfo_t *saber )
 			}
 		}
 
-		trap->R_AddLightToScene( mid, diameter + (Q_flrand(0.0f, 1.0f)*8.0f), rgb[0], rgb[1], rgb[2] );
+		R_AddLightToScene( mid, diameter + (Q_flrand(0.0f, 1.0f)*8.0f), rgb[0], rgb[1], rgb[2] );
 	}
 }
 
@@ -5411,7 +5411,7 @@ void CG_DoSaber( vec3_t origin, vec3_t dir, float length, float lengthMax, float
 	{	// always add a light because sabers cast a nice glow before they slice you in half!!  or something...
 		vec3_t rgb={1,1,1};
 		CG_RGBForSaberColor( color, rgb );
-		trap->R_AddLightToScene( mid, (length*1.4f) + (Q_flrand(0.0f, 1.0f)*3.0f), rgb[0], rgb[1], rgb[2] );
+		R_AddLightToScene( mid, (length*1.4f) + (Q_flrand(0.0f, 1.0f)*3.0f), rgb[0], rgb[1], rgb[2] );
 	}
 
 	memset( &saber, 0, sizeof( refEntity_t ));
@@ -5449,7 +5449,7 @@ void CG_DoSaber( vec3_t origin, vec3_t dir, float length, float lengthMax, float
 	saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;
 	saber.renderfx = rfx;
 
-	trap->R_AddRefEntityToScene( &saber );
+	R_AddRefEntityToScene( &saber );
 
 	// Do the hot core
 	VectorMA( origin, length, dir, saber.origin );
@@ -5466,7 +5466,7 @@ void CG_DoSaber( vec3_t origin, vec3_t dir, float length, float lengthMax, float
 	saber.shaderTexCoord[0] = saber.shaderTexCoord[1] = 1.0f;
 	saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;
 
-	trap->R_AddRefEntityToScene( &saber );
+	R_AddRefEntityToScene( &saber );
 }
 
 //--------------------------------------------------------------
@@ -5480,7 +5480,7 @@ void CG_GetTagWorldPosition( refEntity_t *model, char *tag, vec3_t pos, matrix3_
 	int i = 0;
 
 	// Get the requested tag
-	trap->R_LerpTag( &orientation, model->hModel, model->oldframe, model->frame,
+	R_LerpTag( &orientation, model->hModel, model->oldframe, model->frame,
 		1.0f - model->backlerp, tag );
 
 	VectorCopy( model->origin, pos );
@@ -5537,7 +5537,7 @@ void CG_CreateSaberMarks( vec3_t start, vec3_t end, vec3_t normal )
 	VectorScale( normal, -1, projection );
 
 	// get the fragments
-	numFragments = trap->R_MarkFragments( 4, (const float (*)[3])originalPoints,
+	numFragments = R_MarkFragments( 4, (const float (*)[3])originalPoints,
 					projection, MAX_MARK_POINTS, markPoints[0], MAX_MARK_FRAGMENTS, markFragments );
 
 	for ( i = 0, mf = markFragments ; i < numFragments ; i++, mf++ )
@@ -6359,10 +6359,10 @@ CheckTrail:
 					verts[3].modulate[3] = 255;
 
 					//don't capture postrender objects (now we'll postrender the saber so it doesn't get in the capture)
-					trap->R_SetRefractProp(1.0f, 0.0f, qtrue, qtrue);
+					R_SetRefractProp(1.0f, 0.0f, qtrue, qtrue);
 
 					//shader 2 is always the crazy refractive shader.
-					trap->R_AddPolyToScene( 2, 4, verts );
+					R_AddPolysToScene( 2, 4, verts );
 				}
 				else
 	#endif
@@ -6473,7 +6473,7 @@ CheckTrail:
 
 						if (cg_saberTrail->integer == 2 && cg_shadows->integer != 2 && cgs.glconfig.stencilBits >= 4)
 						{
-							trap->R_SetRefractionProperties(1.0f, 0.0f, qtrue, qtrue); //don't need to do this every frame.. but..
+							R_SetRefractionProperties(1.0f, 0.0f, qtrue, qtrue); //don't need to do this every frame.. but..
 
 							if (BG_SaberInAttack(cent->currentState.saberMove)
 								||BG_SuperBreakWinAnim(cent->currentState.torsoAnim))
@@ -6615,7 +6615,7 @@ void CG_DrawPlayerSphere(centity_t *cent, vec3_t origin, float scale, int shader
 	ent.hModel = cgs.media.halfShieldModel;
 	ent.customShader = shader;
 
-	trap->R_AddRefEntityToScene( &ent );
+	R_AddRefEntityToScene( &ent );
 
 	if (!cg.renderingThirdPerson && cent->currentState.number == cg.predictedPlayerState.clientNum)
 	{ //don't do the rest then
@@ -6675,7 +6675,7 @@ void CG_DrawPlayerSphere(centity_t *cent, vec3_t origin, float scale, int shader
 	VectorMA(ent.origin, 40.0f, viewDir, ent.origin);
 
 	ent.customShader = R_RegisterShader("effects/refract_2");
-	trap->R_AddRefEntityToScene( &ent );
+	R_AddRefEntityToScene( &ent );
 }
 
 void CG_AddLightningBeam(vec3_t start, vec3_t end)
@@ -6860,7 +6860,7 @@ void CG_DrawNoForceSphere(centity_t *cent, vec3_t origin, float scale, int shade
 	ent.hModel = cgs.media.halfShieldModel;
 	ent.customShader = shader;
 
-	trap->R_AddRefEntityToScene( &ent );
+	R_AddRefEntityToScene( &ent );
 }
 #endif
 
@@ -6912,7 +6912,7 @@ int CG_HandleAppendedSkin(char *modelName)
 					useSkinName = va("%s/model_%s.skin", baseFolder, skinName);
 				}
 
-				skinID = trap->R_RegisterSkin(useSkinName);
+				skinID = R_RegisterSkin(useSkinName);
 			}
 		}
 	}
@@ -6941,11 +6941,11 @@ void CG_CacheG2AnimInfo(char *modelName)
 		BG_GetVehicleSkinName(useSkin, sizeof( useSkin ) );
 		if ( useSkin[0] )
 		{ //use a custom skin
-			trap->R_RegisterSkin(va("models/players/%s/model_%s.skin", useModel, useSkin));
+			R_RegisterSkin(va("models/players/%s/model_%s.skin", useModel, useSkin));
 		}
 		else
 		{
-			trap->R_RegisterSkin(va("models/players/%s/model_default.skin", useModel));
+			R_RegisterSkin(va("models/players/%s/model_default.skin", useModel));
 		}
 		Q_strncpyz(useModel, va("models/players/%s/model.glm", useModel), sizeof( useModel ) );
 	}
@@ -7103,11 +7103,11 @@ void CG_G2AnimEntModelLoad(centity_t *cent)
 			if (cent->m_pVehicle->m_pVehicleInfo->skin &&
 				cent->m_pVehicle->m_pVehicleInfo->skin[0])
 			{ //use a custom skin
-				skinID = trap->R_RegisterSkin(va("models/players/%s/model_%s.skin", modelName, cent->m_pVehicle->m_pVehicleInfo->skin));
+				skinID = R_RegisterSkin(va("models/players/%s/model_%s.skin", modelName, cent->m_pVehicle->m_pVehicleInfo->skin));
 			}
 			else
 			{
-				skinID = trap->R_RegisterSkin(va("models/players/%s/model_default.skin", modelName));
+				skinID = R_RegisterSkin(va("models/players/%s/model_default.skin", modelName));
 			}
 			strcpy(modelName, va("models/players/%s/model.glm", modelName));
 
@@ -7630,7 +7630,7 @@ void CG_ForceFPLSPlayerModel(centity_t *cent, clientInfo_t *ci)
 	{
 		int				skinHandle;
 
-		skinHandle = trap->R_RegisterSkin("models/players/kyle/model_fpls2.skin");
+		skinHandle = R_RegisterSkin("models/players/kyle/model_fpls2.skin");
 
 		trap->G2API_CleanGhoul2Models(&(ci->ghoul2Model));
 
@@ -8002,7 +8002,7 @@ static void CG_VehicleHeatEffect( vec3_t org, centity_t *cent )
 	ent.shaderRGBA[2] = 255.0f;
 	ent.shaderRGBA[3] = alpha;
 
-	trap->R_AddRefEntityToScene( &ent );
+	R_AddRefEntityToScene( &ent );
 }
 #endif
 
@@ -9190,7 +9190,7 @@ void CG_Player( centity_t *cent ) {
 		AnglesToAxis( angles, seeker.axis );
 
 		seeker.hModel = R_RegisterModel("models/items/remote.md3");
-		trap->R_AddRefEntityToScene( &seeker );
+		R_AddRefEntityToScene( &seeker );
 	}
 
 	// add a water splash if partially in and out of water
@@ -9364,7 +9364,7 @@ void CG_Player( centity_t *cent ) {
 
 			//reframe_minus1.customShader = 2;
 
-			trap->R_AddRefEntityToScene(&reframe_minus1);
+			R_AddRefEntityToScene(&reframe_minus1);
 		}
 
 		if (cent->frame_minus2_refreshed)
@@ -9389,7 +9389,7 @@ void CG_Player( centity_t *cent ) {
 
 			//reframe_minus2.customShader = 2;
 
-			trap->R_AddRefEntityToScene(&reframe_minus2);
+			R_AddRefEntityToScene(&reframe_minus2);
 		}
 	}
 
@@ -9632,7 +9632,7 @@ void CG_Player( centity_t *cent ) {
 				regrip_arm.shaderRGBA[1] = regrip_arm.shaderRGBA[2] = regrip_arm.shaderRGBA[0];
 
 				regrip_arm.ghoul2 = cent->grip_arm;
-				trap->R_AddRefEntityToScene( &regrip_arm );
+				R_AddRefEntityToScene( &regrip_arm );
 			}
 			*/
 		}
@@ -9714,7 +9714,7 @@ void CG_Player( centity_t *cent ) {
 			legs.shaderRGBA[3] = ((cent->teamPowerEffectTime - cg.time)/8);
 
 			legs.customShader = R_RegisterShader( "powerups/ysalimarishell" );
-			trap->R_AddRefEntityToScene(&legs);
+			R_AddRefEntityToScene(&legs);
 
 			legs.customShader = 0;
 			legs.renderfx = preRFX;
@@ -9901,7 +9901,7 @@ void CG_Player( centity_t *cent ) {
 				}
 
 				holoRef.hModel = R_RegisterModel(forceHolocronModels[i]);
-				trap->R_AddRefEntityToScene( &holoRef );
+				R_AddRefEntityToScene( &holoRef );
 
 				renderedHolos++;
 			}
@@ -10606,7 +10606,7 @@ stillDoSaber:
 					legs.renderfx &= ~RF_FORCE_ENT_ALPHA;
 					legs.customShader = cgs.media.forceShell;
 
-					trap->R_AddRefEntityToScene( &legs );	//draw the shell
+					R_AddRefEntityToScene( &legs );	//draw the shell
 
 					legs.customShader = 0;	//reset to player model
 
@@ -10689,7 +10689,7 @@ stillDoSaber:
 		if ((cg.snap->ps.fd.forcePowersActive & (1 << FP_SEE))
 			&& cg.snap->ps.clientNum != cent->currentState.number)
 		{//just draw him
-			trap->R_AddRefEntityToScene( &legs );
+			R_AddRefEntityToScene( &legs );
 		}
 		else
 		{
@@ -10706,14 +10706,14 @@ stillDoSaber:
 				legs.shaderRGBA[0] = legs.shaderRGBA[1] = legs.shaderRGBA[2] = 255.0f * perc;
 				legs.shaderRGBA[3] = 0;
 				legs.customShader = cgs.media.cloakedShader;
-				trap->R_AddRefEntityToScene( &legs );
+				R_AddRefEntityToScene( &legs );
 
 				legs.shaderRGBA[0] = legs.shaderRGBA[1] = legs.shaderRGBA[2] = 255;
 				legs.shaderRGBA[3] = 255 * (1.0f - perc); // let model alpha in
 				legs.customShader = 0; // use regular skin
 				legs.renderfx &= ~RF_RGB_TINT;
 				legs.renderfx |= RF_FORCE_ENT_ALPHA;
-				trap->R_AddRefEntityToScene( &legs );
+				R_AddRefEntityToScene( &legs );
 			}
 		}
 	}
@@ -10722,7 +10722,7 @@ stillDoSaber:
 		if ((cg.snap->ps.fd.forcePowersActive & (1 << FP_SEE))
 			&& cg.snap->ps.clientNum != cent->currentState.number)
 		{//just draw him
-			trap->R_AddRefEntityToScene( &legs );
+			R_AddRefEntityToScene( &legs );
 		}
 		else
 		{
@@ -10744,7 +10744,7 @@ stillDoSaber:
 
 				ScaleModelAxis(&legs);
 
-				trap->R_AddRefEntityToScene( &legs );
+				R_AddRefEntityToScene( &legs );
 
 				legs.modelScale[0] = 0.98f;
 				legs.modelScale[1] = 0.98f;
@@ -10758,9 +10758,9 @@ stillDoSaber:
 
 				if (cg_shadows->integer != 2 && cgs.glconfig.stencilBits >= 4 && cg_renderToTextureFX->integer)
 				{
-					trap->R_SetRefractionProperties(1.0f, 0.0f, qfalse, qfalse); //don't need to do this every frame.. but..
+					R_SetRefractionProperties(1.0f, 0.0f, qfalse, qfalse); //don't need to do this every frame.. but..
 					legs.customShader = 2; //crazy "refractive" shader
-					trap->R_AddRefEntityToScene( &legs );
+					R_AddRefEntityToScene( &legs );
 					legs.customShader = 0;
 				}
 				else
@@ -10768,7 +10768,7 @@ stillDoSaber:
 					legs.renderfx = 0;//&= ~(RF_RGB_TINT|RF_ALPHA_FADE);
 					legs.shaderRGBA[0] = legs.shaderRGBA[1] = legs.shaderRGBA[2] = legs.shaderRGBA[3] = 255;
 					legs.customShader = cgs.media.cloakedShader;
-					trap->R_AddRefEntityToScene( &legs );
+					R_AddRefEntityToScene( &legs );
 					legs.customShader = 0;
 				}
 			}
@@ -10778,7 +10778,7 @@ stillDoSaber:
 	if (!(cent->currentState.powerups & (1 << PW_CLOAKED)))
 	{ //don't add the normal model if cloaked
 		CG_CheckThirdPersonAlpha( cent, &legs );
-		trap->R_AddRefEntityToScene(&legs);
+		R_AddRefEntityToScene(&legs);
 	}
 
 	//cent->frame_minus2 = cent->frame_minus1;
@@ -10838,7 +10838,7 @@ stillDoSaber:
 		}
 
 		reframe_hold.ghoul2 = cent->frame_hold;
-		trap->R_AddRefEntityToScene(&reframe_hold);
+		R_AddRefEntityToScene(&reframe_hold);
 	}
 	else
 	{
@@ -10876,7 +10876,7 @@ stillDoSaber:
 			legs.customShader = cgs.media.electricBody2Shader;
 		}
 
-		trap->R_AddRefEntityToScene(&legs);
+		R_AddRefEntityToScene(&legs);
 	}
 
 	if (!cg.snap->ps.duelInProgress && cent->currentState.bolt1 && !(cent->currentState.eFlags & EF_DEAD) && cent->currentState.number != cg.snap->ps.clientNum && (!cg.snap->ps.duelInProgress || cg.snap->ps.duelIndex != cent->currentState.number))
@@ -10889,7 +10889,7 @@ stillDoSaber:
 		legs.renderfx &= ~RF_FORCE_ENT_ALPHA;
 		legs.customShader = cgs.media.forceSightBubble;
 
-		trap->R_AddRefEntityToScene( &legs );
+		R_AddRefEntityToScene( &legs );
 	}
 
 	if ( CG_VehicleShouldDrawShields( cent ) //vehicle
@@ -10919,7 +10919,7 @@ stillDoSaber:
 			legs.customShader = cgs.media.playerShieldDamage;
 		}
 
-		trap->R_AddRefEntityToScene( &legs );
+		R_AddRefEntityToScene( &legs );
 	}
 	//For now, these two are using the old shield shader. This is just so that you
 	//can tell it apart from the JM/duel shaders, but it's still very obvious.
@@ -10948,7 +10948,7 @@ stillDoSaber:
 		ScaleModelAxis(&prot);
 		*/
 
-		trap->R_AddRefEntityToScene( &prot );
+		R_AddRefEntityToScene( &prot );
 	}
 	//if (cent->currentState.forcePowersActive & (1 << FP_ABSORB))
 	//Showing only when the power has been active (absorbed something) recently now, instead of always.
@@ -10966,7 +10966,7 @@ stillDoSaber:
 		legs.renderfx &= ~RF_FORCE_ENT_ALPHA;
 		legs.customShader = cgs.media.playerShieldDamage;
 
-		trap->R_AddRefEntityToScene( &legs );
+		R_AddRefEntityToScene( &legs );
 	}
 
 	if (cent->currentState.isJediMaster && cg.snap->ps.clientNum != cent->currentState.number)
@@ -10980,7 +10980,7 @@ stillDoSaber:
 		legs.renderfx |= RF_NODEPTH;
 		legs.customShader = cgs.media.forceShell;
 
-		trap->R_AddRefEntityToScene( &legs );
+		R_AddRefEntityToScene( &legs );
 
 		legs.renderfx &= ~RF_NODEPTH;
 	}
@@ -11055,7 +11055,7 @@ stillDoSaber:
 		legs.renderfx &= ~RF_FORCE_ENT_ALPHA;
 		legs.customShader = cgs.media.sightShell;
 
-		trap->R_AddRefEntityToScene( &legs );
+		R_AddRefEntityToScene( &legs );
 	}
 
 	// Electricity
@@ -11091,7 +11091,7 @@ stillDoSaber:
 				legs.customShader = cgs.media.electricBody2Shader;
 			}
 
-			trap->R_AddRefEntityToScene( &legs );
+			R_AddRefEntityToScene( &legs );
 
 			if ( Q_flrand(0.0f, 1.0f) > 0.9f )
 				S_StartSound ( NULL, cent->currentState.number, CHAN_AUTO, cgs.media.crackleSound );
@@ -11117,7 +11117,7 @@ stillDoSaber:
 		legs.renderfx &= ~RF_RGB_TINT;
 		legs.customShader = cgs.media.playerShieldDamage;
 
-		trap->R_AddRefEntityToScene( &legs );
+		R_AddRefEntityToScene( &legs );
 	}
 #if 0
 endOfCall:

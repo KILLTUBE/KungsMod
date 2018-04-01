@@ -140,7 +140,7 @@ void R_RemapShader(const char *shaderName, const char *newShaderName, const char
 
 	sh = R_FindShaderByName( shaderName );
 	if (sh == NULL || sh == tr.defaultShader) {
-		h = RE_RegisterShaderLightMap(shaderName, lightmapsNone, stylesDefault);
+		h = R_RegisterShaderLightMap(shaderName, lightmapsNone, stylesDefault);
 		sh = R_GetShaderByHandle(h);
 	}
 	if (sh == NULL || sh == tr.defaultShader) {
@@ -150,7 +150,7 @@ void R_RemapShader(const char *shaderName, const char *newShaderName, const char
 
 	sh2 = R_FindShaderByName( newShaderName );
 	if (sh2 == NULL || sh2 == tr.defaultShader) {
-		h = RE_RegisterShaderLightMap(newShaderName, lightmapsNone, stylesDefault);
+		h = R_RegisterShaderLightMap(newShaderName, lightmapsNone, stylesDefault);
 		sh2 = R_GetShaderByHandle(h);
 	}
 
@@ -3185,7 +3185,7 @@ shader_t *R_FindServerShader( const char *name, const int *lightmapIndex, const 
 	return FinishShader();
 }
 
-qhandle_t RE_RegisterShaderFromImage(const char *name, int *lightmapIndex, byte *styles, image_t *image, qboolean mipRawImage) {
+qhandle_t R_RegisterShaderFromImage(const char *name, int *lightmapIndex, byte *styles, image_t *image, qboolean mipRawImage) {
 	int			i, hash;
 	shader_t	*sh;
 
@@ -3282,7 +3282,7 @@ qhandle_t RE_RegisterShaderFromImage(const char *name, int *lightmapIndex, byte 
 
 /*
 ====================
-RE_RegisterShader
+R_RegisterShader
 
 This is the exported shader entry point for the rest of the system
 It will always return an index that will be valid.
@@ -3291,7 +3291,7 @@ This should really only be used for explicit shaders, because there is no
 way to ask for different implicit lighting modes (vertex, lightmap, etc)
 ====================
 */
-qhandle_t RE_RegisterShaderLightMap( const char *name, const int *lightmapIndex, const byte *styles )
+qhandle_t R_RegisterShaderLightMap( const char *name, const int *lightmapIndex, const byte *styles )
 {
 	shader_t	*sh;
 
@@ -3305,7 +3305,7 @@ qhandle_t RE_RegisterShaderLightMap( const char *name, const int *lightmapIndex,
 	// we want to return 0 if the shader failed to
 	// load for some reason, but R_FindShader should
 	// still keep a name allocated for it, so if
-	// something calls RE_RegisterShader again with
+	// something calls R_RegisterShader again with
 	// the same name, we don't try looking for it again
 	if ( sh->defaultShader ) {
 		return 0;
@@ -3317,7 +3317,7 @@ qhandle_t RE_RegisterShaderLightMap( const char *name, const int *lightmapIndex,
 
 /*
 ====================
-RE_RegisterShader
+R_RegisterShader
 
 This is the exported shader entry point for the rest of the system
 It will always return an index that will be valid.
@@ -3326,7 +3326,7 @@ This should really only be used for explicit shaders, because there is no
 way to ask for different implicit lighting modes (vertex, lightmap, etc)
 ====================
 */
-qhandle_t RE_RegisterShader( const char *name ) {
+qhandle_t R_RegisterShader( const char *name ) {
 	shader_t	*sh;
 
 	if ( strlen( name ) >= MAX_QPATH ) {
@@ -3339,7 +3339,7 @@ qhandle_t RE_RegisterShader( const char *name ) {
 	// we want to return 0 if the shader failed to
 	// load for some reason, but R_FindShader should
 	// still keep a name allocated for it, so if
-	// something calls RE_RegisterShader again with
+	// something calls R_RegisterShader again with
 	// the same name, we don't try looking for it again
 	if ( sh->defaultShader ) {
 		return 0;
@@ -3351,12 +3351,12 @@ qhandle_t RE_RegisterShader( const char *name ) {
 
 /*
 ====================
-RE_RegisterShaderNoMip
+R_RegisterShaderNoMip
 
 For menu graphics that should never be picmiped
 ====================
 */
-qhandle_t RE_RegisterShaderNoMip( const char *name ) {
+qhandle_t R_RegisterShaderNoMip( const char *name ) {
 	shader_t	*sh;
 
 	if ( strlen( name ) >= MAX_QPATH ) {
@@ -3369,7 +3369,7 @@ qhandle_t RE_RegisterShaderNoMip( const char *name ) {
 	// we want to return 0 if the shader failed to
 	// load for some reason, but R_FindShader should
 	// still keep a name allocated for it, so if
-	// something calls RE_RegisterShader again with
+	// something calls R_RegisterShader again with
 	// the same name, we don't try looking for it again
 	if ( sh->defaultShader ) {
 		return 0;
@@ -3380,7 +3380,7 @@ qhandle_t RE_RegisterShaderNoMip( const char *name ) {
 
 
 //added for ui -rww
-const char *RE_ShaderNameFromIndex(int index)
+const char *R_ShaderNameFromIndex(int index)
 {
 	assert(index >= 0 && index < tr.numShaders && tr.shaders[index]);
 	return tr.shaders[index]->name;
