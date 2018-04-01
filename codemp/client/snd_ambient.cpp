@@ -778,7 +778,7 @@ AS_AddPrecacheEntry
 -------------------------
 */
 
-void AS_AddPrecacheEntry( const char *name )
+CCALL void AS_AddPrecacheEntry( const char *name )
 {
 	if (!Q_stricmp(name,"#clear"))
 	{
@@ -798,7 +798,7 @@ Called on the client side to load and precache all the ambient sound sets
 -------------------------
 */
 
-void AS_ParseSets( void )
+CCALL void AS_ParseSets( void )
 {
 	AS_Init();
 
@@ -1129,7 +1129,7 @@ AS_GetBModelSound
 -------------------------
 */
 
-sfxHandle_t AS_GetBModelSound( const char *name, int stage )
+CCALL sfxHandle_t AS_GetBModelSound( const char *name, int stage )
 {
 	ambientSet_t	*set;
 

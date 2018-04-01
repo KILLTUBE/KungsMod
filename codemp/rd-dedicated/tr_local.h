@@ -1348,59 +1348,44 @@ void	GL_Cull( int cullType );
 #define GLS_DEFAULT			GLS_DEPTHMASK_TRUE
 #define GLS_ALPHA			(GLS_SRCBLEND_SRC_ALPHA | GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA)
 
-void	RE_StretchRaw (int x, int y, int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty);
-void	RE_UploadCinematic (int cols, int rows, const byte *data, int client, qboolean dirty);
-
-void		RE_BeginFrame( stereoFrame_t stereoFrame );
-void		RE_BeginRegistration( glconfig_t *glconfig );
-void		RE_LoadWorldMap( const char *mapname );
-
-void		RE_SetWorldVisData( const byte *vis );
-
-qhandle_t	RE_RegisterServerModel( const char *name );
-qhandle_t	RE_RegisterModel( const char *name );
-qhandle_t	RE_RegisterSkin( const char *name );
-void		RE_Shutdown( qboolean destroyWindow );
-
-void		RE_RegisterMedia_LevelLoadBegin(const char *psMapName, ForceReload_e eForceReload);
-void		RE_RegisterMedia_LevelLoadEnd(void);
-int			RE_RegisterMedia_GetLevel(void);
-//
-qboolean	RE_RegisterModels_LevelLoadEnd(qboolean bDeleteEverythingNotUsedThisLevel = qfalse);
-void*		RE_RegisterModels_Malloc(int iSize, void *pvDiskBufferIfJustLoaded, const char *psModelFileName, qboolean *pqbAlreadyFound, memtag_t eTag);
-void		RE_RegisterModels_StoreShaderRequest(const char *psModelFileName, const char *psShaderName, int *piShaderIndexPoke);
-void		RE_RegisterModels_Info_f(void);
-//
-qboolean	RE_RegisterImages_LevelLoadEnd(void);
-void		RE_RegisterImages_Info_f(void);
-
-
-qboolean	R_GetEntityToken( char *buffer, int size );
-
-model_t		*R_AllocModel( void );
-
-void    	R_Init( void );
-
-image_t		*R_FindImageFile( const char *name, qboolean mipmap, qboolean allowPicmip, qboolean allowTC, int glWrapClampMode );
-
-qboolean	R_GetModeInfo( int *width, int *height, int mode );
-
-void		R_SetColorMappings( void );
-void		R_GammaCorrect( byte *buffer, int bufSize );
-
-void	R_ImageList_f( void );
-void	R_SkinList_f( void );
-void	R_FontList_f( void );
-
-void	R_InitFogTable( void );
-float	R_FogFactor( float s, float t );
-void	R_InitImages( void );
-void	R_DeleteTextures( void );
-float	R_SumOfUsedImages( qboolean bUseFormat );
-void	R_InitSkins( void );
-skin_t	*R_GetSkinByHandle( qhandle_t hSkin );
-const void *RB_TakeVideoFrameCmd( const void *data );
-void RE_HunkClearCrap(void);
+CCALL void	RE_StretchRaw (int x, int y, int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty);
+CCALL void	RE_UploadCinematic (int cols, int rows, const byte *data, int client, qboolean dirty);
+CCALL void		RE_BeginFrame( stereoFrame_t stereoFrame );
+CCALL void		RE_BeginRegistration( glconfig_t *glconfig );
+CCALL void		RE_LoadWorldMap( const char *mapname );
+CCALL void		RE_SetWorldVisData( const byte *vis );
+CCALL qhandle_t	RE_RegisterServerModel( const char *name );
+CCALL qhandle_t	RE_RegisterModel( const char *name );
+CCALL qhandle_t	RE_RegisterSkin( const char *name );
+CCALL void		RE_Shutdown( qboolean destroyWindow );
+CCALL void		RE_RegisterMedia_LevelLoadBegin(const char *psMapName, ForceReload_e eForceReload);
+CCALL void		RE_RegisterMedia_LevelLoadEnd(void);
+CCALL int			RE_RegisterMedia_GetLevel(void);
+CCALL qboolean	RE_RegisterModels_LevelLoadEnd(qboolean bDeleteEverythingNotUsedThisLevel = qfalse);
+CCALL void*		RE_RegisterModels_Malloc(int iSize, void *pvDiskBufferIfJustLoaded, const char *psModelFileName, qboolean *pqbAlreadyFound, memtag_t eTag);
+CCALL void		RE_RegisterModels_StoreShaderRequest(const char *psModelFileName, const char *psShaderName, int *piShaderIndexPoke);
+CCALL void		RE_RegisterModels_Info_f(void);
+CCALL qboolean	RE_RegisterImages_LevelLoadEnd(void);
+CCALL void		RE_RegisterImages_Info_f(void);
+CCALL qboolean	R_GetEntityToken( char *buffer, int size );
+CCALL model_t		*R_AllocModel( void );
+CCALL void    	R_Init( void );
+CCALL image_t		*R_FindImageFile( const char *name, qboolean mipmap, qboolean allowPicmip, qboolean allowTC, int glWrapClampMode );
+CCALL qboolean	R_GetModeInfo( int *width, int *height, int mode );
+CCALL void		R_SetColorMappings( void );
+CCALL void		R_GammaCorrect( byte *buffer, int bufSize );
+CCALL void	R_ImageList_f( void );
+CCALL void	R_SkinList_f( void );
+CCALL void	R_FontList_f( void );
+CCALL void	R_InitFogTable( void );
+CCALL float	R_FogFactor( float s, float t );
+CCALL void	R_InitImages( void );
+CCALL void	R_DeleteTextures( void );
+CCALL float	R_SumOfUsedImages( qboolean bUseFormat );
+CCALL void	R_InitSkins( void );
+CCALL skin_t	*R_GetSkinByHandle( qhandle_t hSkin );
+CCALL const void *RB_TakeVideoFrameCmd( const void *data );
+CCALL void RE_HunkClearCrap(void);
 
 
 //
@@ -1412,19 +1397,18 @@ extern	const int	lightmapsVertex[MAXLIGHTMAPS];
 extern	const int	lightmapsFullBright[MAXLIGHTMAPS];
 extern	const byte	stylesDefault[MAXLIGHTMAPS];
 
-qhandle_t RE_RegisterShaderLightMap( const char *name, const int *lightmapIndex, const byte *styles ) ;
-qhandle_t		 RE_RegisterShader( const char *name );
-qhandle_t		 RE_RegisterShaderNoMip( const char *name );
-const char		*RE_ShaderNameFromIndex(int index);
-qhandle_t RE_RegisterShaderFromImage(const char *name, int *lightmapIndex, byte *styles, image_t *image, qboolean mipRawImage);
-
-shader_t	*R_FindShader( const char *name, const int *lightmapIndex, const byte *styles, qboolean mipRawImage );
-shader_t	*R_GetShaderByHandle( qhandle_t hShader );
-shader_t	*R_GetShaderByState( int index, long *cycleTime );
-shader_t *R_FindShaderByName( const char *name );
-void		R_InitShaders(qboolean server);
-void		R_ShaderList_f( void );
-void    R_RemapShader(const char *oldShader, const char *newShader, const char *timeOffset);
+CCALL qhandle_t RE_RegisterShaderLightMap( const char *name, const int *lightmapIndex, const byte *styles ) ;
+CCALL qhandle_t		 RE_RegisterShader( const char *name );
+CCALL qhandle_t		 RE_RegisterShaderNoMip( const char *name );
+CCALL const char		*RE_ShaderNameFromIndex(int index);
+CCALL qhandle_t RE_RegisterShaderFromImage(const char *name, int *lightmapIndex, byte *styles, image_t *image, qboolean mipRawImage);
+CCALL shader_t	*R_FindShader( const char *name, const int *lightmapIndex, const byte *styles, qboolean mipRawImage );
+CCALL shader_t	*R_GetShaderByHandle( qhandle_t hShader );
+CCALL shader_t	*R_GetShaderByState( int index, long *cycleTime );
+CCALL shader_t *R_FindShaderByName( const char *name );
+CCALL void		R_InitShaders(qboolean server);
+CCALL void		R_ShaderList_f( void );
+CCALL void    R_RemapShader(const char *oldShader, const char *newShader, const char *timeOffset);
 
 
 /*
@@ -1435,14 +1419,12 @@ IMPLEMENTATION SPECIFIC FUNCTIONS
 ====================================================================
 */
 
-void		GLimp_Init( void );
-void		GLimp_Shutdown( void );
-void		GLimp_EndFrame( void );
-
-void		GLimp_LogComment( char *comment );
-void		GLimp_Minimize(void);
-
-void		GLimp_SetGamma( unsigned char red[256], unsigned char green[256], unsigned char blue[256] );
+CCALL void		GLimp_Init( void );
+CCALL void		GLimp_Shutdown( void );
+CCALL void		GLimp_EndFrame( void );
+CCALL void		GLimp_LogComment( char *comment );
+CCALL void		GLimp_Minimize(void);
+CCALL void		GLimp_SetGamma( unsigned char red[256], unsigned char green[256], unsigned char blue[256] );
 
 /*
 ====================================================================
@@ -1686,8 +1668,8 @@ CRenderableSurface():
 #endif
 };
 
-void R_AddGhoulSurfaces( trRefEntity_t *ent );
-void RB_SurfaceGhoul( CRenderableSurface *surface );
+CCALL void R_AddGhoulSurfaces( trRefEntity_t *ent );
+CCALL void RB_SurfaceGhoul( CRenderableSurface *surface );
 /*
 Ghoul2 Insert End
 */
@@ -1695,34 +1677,31 @@ Ghoul2 Insert End
 =============================================================
 =============================================================
 */
-void	R_TransformModelToClip( const vec3_t src, const float *modelMatrix, const float *projectionMatrix,
-							vec4_t eye, vec4_t dst );
-void	R_TransformClipToWindow( const vec4_t clip, const viewParms_t *view, vec4_t normalized, vec4_t window );
-
-void	RB_DeformTessGeometry( void );
-
-void	RB_CalcEnvironmentTexCoords( float *dstTexCoords );
-void	RB_CalcFogTexCoords( float *dstTexCoords );
-void	RB_CalcScrollTexCoords( const float scroll[2], float *dstTexCoords );
-void	RB_CalcRotateTexCoords( float rotSpeed, float *dstTexCoords );
-void	RB_CalcScaleTexCoords( const float scale[2], float *dstTexCoords );
-void	RB_CalcTurbulentTexCoords( const waveForm_t *wf, float *dstTexCoords );
-void	RB_CalcTransformTexCoords( const texModInfo_t *tmi, float *dstTexCoords );
-void	RB_CalcStretchTexCoords( const waveForm_t *wf, float *texCoords );
-void	RB_CalcModulateColorsByFog( unsigned char *dstColors );
-void	RB_CalcModulateAlphasByFog( unsigned char *dstColors );
-void	RB_CalcModulateRGBAsByFog( unsigned char *dstColors );
-void	RB_CalcWaveAlpha( const waveForm_t *wf, unsigned char *dstColors );
-void	RB_CalcWaveColor( const waveForm_t *wf, unsigned char *dstColors );
-void	RB_CalcAlphaFromEntity( unsigned char *dstColors );
-void	RB_CalcAlphaFromOneMinusEntity( unsigned char *dstColors );
-void	RB_CalcColorFromEntity( unsigned char *dstColors );
-void	RB_CalcColorFromOneMinusEntity( unsigned char *dstColors );
-void	RB_CalcSpecularAlpha( unsigned char *alphas );
-void	RB_CalcDisintegrateColors( unsigned char *colors );
-void	RB_CalcDiffuseColor( unsigned char *colors );
-void	RB_CalcDiffuseEntityColor( unsigned char *colors );
-void	RB_CalcDisintegrateVertDeform( void );
+CCALL void	R_TransformModelToClip( const vec3_t src, const float *modelMatrix, const float *projectionMatrix, vec4_t eye, vec4_t dst );
+CCALL void	R_TransformClipToWindow( const vec4_t clip, const viewParms_t *view, vec4_t normalized, vec4_t window );
+CCALL void	RB_DeformTessGeometry( void );
+CCALL void	RB_CalcEnvironmentTexCoords( float *dstTexCoords );
+CCALL void	RB_CalcFogTexCoords( float *dstTexCoords );
+CCALL void	RB_CalcScrollTexCoords( const float scroll[2], float *dstTexCoords );
+CCALL void	RB_CalcRotateTexCoords( float rotSpeed, float *dstTexCoords );
+CCALL void	RB_CalcScaleTexCoords( const float scale[2], float *dstTexCoords );
+CCALL void	RB_CalcTurbulentTexCoords( const waveForm_t *wf, float *dstTexCoords );
+CCALL void	RB_CalcTransformTexCoords( const texModInfo_t *tmi, float *dstTexCoords );
+CCALL void	RB_CalcStretchTexCoords( const waveForm_t *wf, float *texCoords );
+CCALL void	RB_CalcModulateColorsByFog( unsigned char *dstColors );
+CCALL void	RB_CalcModulateAlphasByFog( unsigned char *dstColors );
+CCALL void	RB_CalcModulateRGBAsByFog( unsigned char *dstColors );
+CCALL void	RB_CalcWaveAlpha( const waveForm_t *wf, unsigned char *dstColors );
+CCALL void	RB_CalcWaveColor( const waveForm_t *wf, unsigned char *dstColors );
+CCALL void	RB_CalcAlphaFromEntity( unsigned char *dstColors );
+CCALL void	RB_CalcAlphaFromOneMinusEntity( unsigned char *dstColors );
+CCALL void	RB_CalcColorFromEntity( unsigned char *dstColors );
+CCALL void	RB_CalcColorFromOneMinusEntity( unsigned char *dstColors );
+CCALL void	RB_CalcSpecularAlpha( unsigned char *alphas );
+CCALL void	RB_CalcDisintegrateColors( unsigned char *colors );
+CCALL void	RB_CalcDiffuseColor( unsigned char *colors );
+CCALL void	RB_CalcDiffuseEntityColor( unsigned char *colors );
+CCALL void	RB_CalcDisintegrateVertDeform( void );
 
 /*
 =============================================================
@@ -1732,7 +1711,7 @@ RENDERER BACK END FUNCTIONS
 =============================================================
 */
 
-void RB_ExecuteRenderCommands( const void *data );
+CCALL void RB_ExecuteRenderCommands( const void *data );
 
 /*
 =============================================================
@@ -1845,32 +1824,26 @@ extern	int		max_polyverts;
 extern	backEndData_t	*backEndData;
 
 
-void *R_GetCommandBuffer( int bytes );
-void RB_ExecuteRenderCommands( const void *data );
-
-void R_IssuePendingRenderCommands( void );
-
-void R_AddDrawSurfCmd( drawSurf_t *drawSurfs, int numDrawSurfs );
-
-void RE_SetColor( const float *rgba );
-void RE_StretchPic ( float x, float y, float w, float h,
-					  float s1, float t1, float s2, float t2, qhandle_t hShader );
-void RE_RotatePic ( float x, float y, float w, float h,
-					  float s1, float t1, float s2, float t2,float a, qhandle_t hShader );
-void RE_RotatePic2 ( float x, float y, float w, float h,
-					  float s1, float t1, float s2, float t2,float a, qhandle_t hShader );
-void RE_BeginFrame( stereoFrame_t stereoFrame );
-void RE_EndFrame( int *frontEndMsec, int *backEndMsec );
-void RE_TakeVideoFrame( int width, int height, byte *captureBuffer, byte *encodeBuffer, qboolean motionJpeg );
+CCALL void *R_GetCommandBuffer( int bytes );
+CCALL void RB_ExecuteRenderCommands( const void *data );
+CCALL void R_IssuePendingRenderCommands( void );
+CCALL void R_AddDrawSurfCmd( drawSurf_t *drawSurfs, int numDrawSurfs );
+CCALL void RE_SetColor( const float *rgba );
+CCALL void RE_StretchPic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader );
+CCALL void RE_RotatePic ( float x, float y, float w, float h, float s1, float t1, float s2, float t2,float a, qhandle_t hShader );
+CCALL void RE_RotatePic2 ( float x, float y, float w, float h, float s1, float t1, float s2, float t2,float a, qhandle_t hShader );
+CCALL void RE_BeginFrame( stereoFrame_t stereoFrame );
+CCALL void RE_EndFrame( int *frontEndMsec, int *backEndMsec );
+CCALL void RE_TakeVideoFrame( int width, int height, byte *captureBuffer, byte *encodeBuffer, qboolean motionJpeg );
 
 /*
 Ghoul2 Insert Start
 */
 // tr_ghoul2.cpp
-void		Multiply_3x4Matrix(mdxaBone_t *out, mdxaBone_t *in2, mdxaBone_t *in);
-extern qboolean R_LoadMDXM (model_t *mod, void *buffer, const char *name, qboolean &bAlreadyCached );
-extern qboolean R_LoadMDXA (model_t *mod, void *buffer, const char *name, qboolean &bAlreadyCached );
-void		RE_InsertModelIntoHash(const char *name, model_t *mod);
+CCALL void		Multiply_3x4Matrix(mdxaBone_t *out, mdxaBone_t *in2, mdxaBone_t *in);
+CCALL qboolean R_LoadMDXM (model_t *mod, void *buffer, const char *name, qboolean &bAlreadyCached );
+CCALL qboolean R_LoadMDXA (model_t *mod, void *buffer, const char *name, qboolean &bAlreadyCached );
+CCALL void		RE_InsertModelIntoHash(const char *name, model_t *mod);
 /*
 Ghoul2 Insert End
 */

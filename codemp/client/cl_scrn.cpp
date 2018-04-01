@@ -27,6 +27,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "client.h"
 #include "cl_uiapi.h"
 
+#include "cgame/cg_tempwrappers.h"
+
 extern console_t con;
 qboolean	scr_initialized;		// ready to draw
 
@@ -415,7 +417,7 @@ This will be called twice if rendering in stereo mode
 ==================
 */
 void SCR_DrawScreenField( stereoFrame_t stereoFrame ) {
-	re->BeginFrame( stereoFrame );
+	RE_BeginFrame( stereoFrame );
 
 	qboolean uiFullscreen = (qboolean)(cls.uiStarted && UIVM_IsFullscreen());
 
@@ -514,9 +516,9 @@ CCALL void SCR_UpdateScreen( void ) {
 		}
 
 		if ( com_speeds->integer ) {
-			re->EndFrame( &time_frontend, &time_backend );
+			RE_EndFrame( &time_frontend, &time_backend );
 		} else {
-			re->EndFrame( NULL, NULL );
+			RE_EndFrame( NULL, NULL );
 		}
 	}
 

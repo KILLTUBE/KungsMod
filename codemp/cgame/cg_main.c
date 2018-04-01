@@ -491,7 +491,7 @@ static void CG_AS_Register(void)
 
 	//Load the ambient sets
 #if 0 //as_preCacheMap was game-side.. that is evil.
-	trap->AS_AddPrecacheEntry( "#clear" );	// ;-)
+	AS_AddPrecacheEntry( "#clear" );	// ;-)
 	//FIXME: Don't ask... I had to get around a really nasty MS error in the templates with this...
 	namePrecache_m::iterator	pi;
 	STL_ITERATE( pi, as_preCacheMap )
@@ -499,7 +499,7 @@ static void CG_AS_Register(void)
 		cgi_AS_AddPrecacheEntry( ((*pi).first).c_str() );
 	}
 #else
-	trap->AS_AddPrecacheEntry( "#clear" );
+	AS_AddPrecacheEntry( "#clear" );
 
 	for ( i = 1 ; i < MAX_AMBIENT_SETS ; i++ ) {
 		soundName = CG_ConfigString( CS_AMBIENT_SET+i );
@@ -508,16 +508,16 @@ static void CG_AS_Register(void)
 			break;
 		}
 
-		trap->AS_AddPrecacheEntry(soundName);
+		AS_AddPrecacheEntry(soundName);
 	}
 	soundName = CG_ConfigString( CS_GLOBAL_AMBIENT_SET );
 	if (soundName && soundName[0] && Q_stricmp(soundName, "default"))
 	{ //global soundset
-		trap->AS_AddPrecacheEntry(soundName);
+		AS_AddPrecacheEntry(soundName);
 	}
 #endif
 
-	trap->AS_ParseSets();
+	AS_ParseSets();
 }
 
 //a global weather effect (rain, snow, etc)
@@ -1374,7 +1374,7 @@ Ghoul2 Insert End
 	cgs.media.viewPainShader_ShieldsAndHealth	= R_RegisterShader( "gfx/mp/dmgshader_shieldsandhealth" );
 
 	// register the inline models
-	breakPoint = cgs.numInlineModels = trap->CM_NumInlineModels();
+	breakPoint = cgs.numInlineModels = CM_NumInlineModels();
 	for ( i = 1 ; i < cgs.numInlineModels ; i++ ) {
 		char	name[10];
 		vec3_t			mins, maxs;

@@ -2052,7 +2052,7 @@ static void _PlayerFootStep( const vec3_t origin,
 	VectorCopy( origin, end );
 	end[2] -= FOOTSTEP_DISTANCE;
 
-	trap->CM_Trace( &trace, origin, end, mins, maxs, 0, MASK_PLAYERSOLID, 0);
+	CM_BoxTrace( &trace, origin, end, mins, maxs, 0, MASK_PLAYERSOLID, 0);
 
 	// no shadow if too high
 	if ( trace.fraction >= 1.0f )
@@ -3451,7 +3451,7 @@ But I don't want to slow it down..
 */
 void	CG_Rag_Trace( trace_t *result, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end,
 					 int skipNumber, int mask ) {
-	trap->CM_Trace ( result, start, end, mins, maxs, 0, mask, 0);
+	CM_BoxTrace ( result, start, end, mins, maxs, 0, mask, 0);
 	result->entityNum = result->fraction != 1.0 ? ENTITYNUM_WORLD : ENTITYNUM_NONE;
 }
 
@@ -4693,7 +4693,7 @@ static qboolean CG_PlayerShadow( centity_t *cent, float *shadowPlane ) {
 	{ //stencil
 		end[2] -= 4096.0f;
 
-		trap->CM_Trace( &trace, cent->lerpOrigin, end, mins, maxs, 0, MASK_PLAYERSOLID, 0 );
+		CM_BoxTrace( &trace, cent->lerpOrigin, end, mins, maxs, 0, MASK_PLAYERSOLID, 0 );
 
 		if ( trace.fraction == 1.0 || trace.startsolid || trace.allsolid )
 		{
@@ -4704,7 +4704,7 @@ static qboolean CG_PlayerShadow( centity_t *cent, float *shadowPlane ) {
 	{
 		end[2] -= SHADOW_DISTANCE;
 
-		trap->CM_Trace( &trace, cent->lerpOrigin, end, mins, maxs, 0, MASK_PLAYERSOLID, 0 );
+		CM_BoxTrace( &trace, cent->lerpOrigin, end, mins, maxs, 0, MASK_PLAYERSOLID, 0 );
 
 		// no shadow if too high
 		if ( trace.fraction == 1.0 || trace.startsolid || trace.allsolid ) {
@@ -4782,7 +4782,7 @@ static void CG_PlayerSplash( centity_t *cent ) {
 	}
 
 	// trace down to find the surface
-	trap->CM_Trace( &trace, start, end, NULL, NULL, 0, ( CONTENTS_WATER | CONTENTS_SLIME | CONTENTS_LAVA ), 0 );
+	CM_BoxTrace( &trace, start, end, NULL, NULL, 0, ( CONTENTS_WATER | CONTENTS_SLIME | CONTENTS_LAVA ), 0 );
 
 	if ( trace.fraction == 1.0 ) {
 		return;

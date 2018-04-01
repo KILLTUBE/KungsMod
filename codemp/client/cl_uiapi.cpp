@@ -771,9 +771,7 @@ CCALL qhandle_t		R_RegisterShaderNoMip	( const char *name ) {
 CCALL qhandle_t		R_RegisterFont			( const char *fontName ) {
 	return re->RegisterFont(fontName);
 }
-CCALL void			R_RemapShader			( const char *oldShader, const char *newShader, const char *timeOffset ) {
-	re->RemapShader(oldShader, newShader, timeOffset);
-}
+
 CCALL void			R_RenderScene			( const refdef_t *fd ) {
 	re->RenderScene(fd);
 }

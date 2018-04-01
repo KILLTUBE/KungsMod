@@ -314,7 +314,7 @@ static void CG_EntityEffects( centity_t *cent ) {
 
 			if (soundSet && soundSet[0])
 			{
-				realSoundIndex = trap->AS_GetBModelSound(soundSet, cent->currentState.loopSound);
+				realSoundIndex = AS_GetBModelSound(soundSet, cent->currentState.loopSound);
 			}
 		}
 		else
@@ -2767,7 +2767,7 @@ void CG_PlayDoorLoopSound( centity_t *cent )
 		return;
 	}
 
-	sfx = trap->AS_GetBModelSound( soundSet, CG_BMS_MID );
+	sfx = AS_GetBModelSound( soundSet, CG_BMS_MID );
 
 	if ( sfx == -1 )
 	{
@@ -2811,7 +2811,7 @@ void CG_PlayDoorSound( centity_t *cent, int type )
 		return;
 	}
 
-	sfx = trap->AS_GetBModelSound( soundSet, type );
+	sfx = AS_GetBModelSound( soundSet, type );
 
 	if ( sfx == -1 )
 	{

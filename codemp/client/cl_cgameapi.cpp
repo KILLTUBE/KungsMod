@@ -213,7 +213,7 @@ CCALL void CL_AddReliableCommand2( const char *cmd ) {
 	CL_AddReliableCommand( cmd, qfalse );
 }
 
-static int CL_CM_RegisterTerrain( const char *config ) {
+CCALL int CL_CM_RegisterTerrain( const char *config ) {
 	return 0;
 }
 
@@ -704,14 +704,6 @@ CCALL qhandle_t	R_RegisterShader	( const char *name ) {
 }
 
 
-CCALL void	RE_StretchPic( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader ) {
-	re->DrawStretchPic(x, y, w, h, s1, t1, s2, t2, hShader);
-}
-
-CCALL void		RE_SetColor		( const float *rgba ) {
-	re->SetColor(rgba);
-}
-
 //typedef int cgameExport_t;
 //typedef int cgameImport_t;
 
@@ -726,25 +718,6 @@ void CL_BindCGame( void ) {
 
 	cgvm = VM_Create( VM_CGAME );
 	if ( cgvm && !cgvm->isLegacy ) {
-
-
-
-		cgi.CM_InlineModel						= CM_InlineModel;
-		cgi.CM_LoadMap							= CL_CM_LoadMap;
-		cgi.CM_NumInlineModels					= CM_NumInlineModels;
-		cgi.CM_PointContents					= CM_PointContents;
-		cgi.CM_RegisterTerrain					= CL_CM_RegisterTerrain;
-		cgi.CM_TempModel						= CM_TempBoxModel;
-		cgi.CM_Trace							= CM_BoxTrace;
-		cgi.CM_TransformedPointContents			= CM_TransformedPointContents;
-		cgi.CM_TransformedTrace					= CM_TransformedBoxTrace;
-
-		cgi.RMG_Init							= CL_RMG_Init;
-		
-		cgi.AS_AddPrecacheEntry					= AS_AddPrecacheEntry;
-		cgi.AS_GetBModelSound					= AS_GetBModelSound;
-		cgi.AS_ParseSets						= AS_ParseSets;
-
 
 		cgi.R_AddAdditiveLightToScene			= re->AddAdditiveLightToScene;
 		cgi.R_AddDecalToScene					= re->AddDecalToScene;
@@ -788,7 +761,6 @@ void CL_BindCGame( void ) {
 		cgi.R_SetRangedFog						= re->SetRangedFog;
 		cgi.R_SetRefractionProperties			= re->SetRefractionProperties;
 		cgi.R_WorldEffectCommand				= re->WorldEffectCommand;
-		cgi.RE_InitRendererTerrain				= RE_InitRendererTerrain;
 		cgi.WE_AddWeatherZone					= re->AddWeatherZone;
 		
 		cgi.PC_AddGlobalDefine					= botlib_export->PC_AddGlobalDefine;

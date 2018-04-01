@@ -287,7 +287,7 @@ static void CG_ClipMoveToEntities ( const vec3_t start, const vec3_t mins, const
 				cent->m_pVehicle->m_vOrientation = old;
 			}
 
-			cmodel = trap->CM_TempModel( bmins, bmaxs, 0 );
+			cmodel = CM_TempBoxModel( bmins, bmaxs, 0 );
 			VectorCopy( vec3_origin, angles );
 
 			VectorCopy( cent->lerpOrigin, origin );
@@ -375,7 +375,7 @@ void	CG_Trace( trace_t *result, const vec3_t start, const vec3_t mins, const vec
 					 int skipNumber, int mask ) {
 	trace_t	t;
 
-	trap->CM_Trace ( &t, start, end, mins, maxs, 0, mask, 0);
+	CM_BoxTrace ( &t, start, end, mins, maxs, 0, mask, 0);
 	t.entityNum = t.fraction != 1.0 ? ENTITYNUM_WORLD : ENTITYNUM_NONE;
 	// check all other solid models
 	CG_ClipMoveToEntities (start, mins, maxs, end, skipNumber, mask, &t, qfalse);
@@ -392,7 +392,7 @@ void	CG_G2Trace( trace_t *result, const vec3_t start, const vec3_t mins, const v
 					 int skipNumber, int mask ) {
 	trace_t	t;
 
-	trap->CM_Trace ( &t, start, end, mins, maxs, 0, mask, 0);
+	CM_BoxTrace ( &t, start, end, mins, maxs, 0, mask, 0);
 	t.entityNum = t.fraction != 1.0 ? ENTITYNUM_WORLD : ENTITYNUM_NONE;
 	// check all other solid models
 	CG_ClipMoveToEntities (start, mins, maxs, end, skipNumber, mask, &t, qtrue);
@@ -412,7 +412,7 @@ int		CG_PointContents( const vec3_t point, int passEntityNum ) {
 	clipHandle_t cmodel;
 	int			contents;
 
-	contents = trap->CM_PointContents (point, 0);
+	contents = CM_PointContents (point, 0);
 
 	for ( i = 0 ; i < cg_numSolidEntities ; i++ ) {
 		cent = cg_solidEntities[ i ];
@@ -720,7 +720,7 @@ static void CG_TouchTriggerPrediction( void ) {
 			continue;
 		}
 
-		trap->CM_Trace( &trace, cg.predictedPlayerState.origin, cg.predictedPlayerState.origin, cg_pmove.mins, cg_pmove.maxs, cmodel, -1, 0 );
+		CM_BoxTrace( &trace, cg.predictedPlayerState.origin, cg.predictedPlayerState.origin, cg_pmove.mins, cg_pmove.maxs, cmodel, -1, 0 );
 
 		if ( !trace.startsolid ) {
 			continue;

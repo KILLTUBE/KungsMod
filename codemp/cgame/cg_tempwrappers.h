@@ -178,8 +178,27 @@ CCALL void S_StopLoopingSound( int entityNum );
 CCALL void S_UpdateEntityPosition( int entityNum, const vec3_t origin );
 CCALL void S_UpdateAmbientSet ( const char *name, vec3_t origin );
 
+CCALL void AS_AddPrecacheEntry( const char *name );
+CCALL sfxHandle_t AS_GetBModelSound( const char *name, int stage );
+CCALL void AS_ParseSets( void );
+
+CCALL clipHandle_t	CM_InlineModel( int index );
+CCALL void CL_CM_LoadMap( const char *mapname, qboolean subBSP );
+CCALL int CM_PointContents( const vec3_t p, clipHandle_t model );
+CCALL int CL_CM_RegisterTerrain( const char *config );
+CCALL clipHandle_t CM_TempBoxModel( const vec3_t mins, const vec3_t maxs, int capsule );
+CCALL void CM_BoxTrace( trace_t *results, const vec3_t start, const vec3_t end,
+						  const vec3_t mins, const vec3_t maxs,
+						  clipHandle_t model, int brushmask, int capsule );
+CCALL int	CM_TransformedPointContents( const vec3_t p, clipHandle_t model, const vec3_t origin, const vec3_t angles);
+CCALL void CM_TransformedBoxTrace( trace_t *trace, const vec3_t start, const vec3_t end,
+						  const vec3_t mins, const vec3_t maxs,
+						  clipHandle_t model, int brushmask,
+						  const vec3_t origin, const vec3_t angles, int capsule );
 
 
+CCALL void RE_BeginFrame( stereoFrame_t stereoFrame );
+CCALL void RE_EndFrame( int *frontEndMsec, int *backEndMsec );
 
 
 

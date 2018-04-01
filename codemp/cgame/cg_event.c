@@ -3106,7 +3106,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 				break;
 			}
 
-			sfx = trap->AS_GetBModelSound(soundSet, es->eventParm);
+			sfx = AS_GetBModelSound(soundSet, es->eventParm);
 
 			if (sfx == -1)
 			{
