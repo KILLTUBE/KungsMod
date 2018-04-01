@@ -509,10 +509,10 @@ void NPC_PrecacheAnimationCFG( const char *NPC_type )
 			char	*slash = NULL;
 			char	*strippedName;
 
-			int handle = trap->G2API_PrecacheGhoul2Model( va( "models/players/%s/model.glm", value ) );
+			int handle = CL_G2API_PrecacheGhoul2Model( va( "models/players/%s/model.glm", value ) );
 			if ( handle > 0 )//FIXME: isn't 0 a valid handle?
 			{
-				GLAName = trap->G2API_GetAnimFileNameIndex( handle );
+				GLAName = CL_G2API_GetAnimFileNameIndex( handle );
 				if ( GLAName )
 				{
 					Q_strncpyz( animName, GLAName, sizeof( animName ), qtrue );
@@ -574,7 +574,7 @@ void NPC_PrecacheWeapons( team_t playerTeam, int spawnflags, char *NPCtype )
 				}
 				strcat (weaponModel, ".glm");	//and change to ghoul2
 			}
-			trap->G2API_PrecacheGhoul2Model( weaponModel ); // correct way is item->world_model
+			CL_G2API_PrecacheGhoul2Model( weaponModel ); // correct way is item->world_model
 		}
 	}
 #endif

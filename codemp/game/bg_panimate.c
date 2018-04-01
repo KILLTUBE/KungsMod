@@ -2067,7 +2067,7 @@ void ParseAnimationEvtBlock(const char *aeb_filename, animevent_t *animEvents, a
 				strcpy(animEvents[curAnimEvent].stringData, token);
 			}
 			//NOTE: this string will later be used to add a bolt and store the index, as below:
-			//animEvent->eventData[AED_BOLTINDEX] = trap->G2API_AddBolt( &cent->gent->ghoul2[cent->gent->playerModel], animEvent->stringData );
+			//animEvent->eventData[AED_BOLTINDEX] = CL_G2API_AddBolt( &cent->gent->ghoul2[cent->gent->playerModel], animEvent->stringData );
 			//get probability
 			token = COM_Parse( text_p );
 			if ( !token )

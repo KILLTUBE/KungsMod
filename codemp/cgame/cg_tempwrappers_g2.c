@@ -25,7 +25,7 @@ CCALL qboolean SV_G2API_HaveWeGhoul2Models( void *ghoul2) {
 }
 
 CCALL qboolean SV_G2API_GetBoltMatrix( void *ghoul2, const int modelIndex, const int boltIndex, mdxaBone_t *matrix, const vec3_t angles, const vec3_t position, const int frameNum, qhandle_t *modelList, vec3_t scale ) {
-	return trap->G2API_GetBoltMatrix( ghoul2, modelIndex, boltIndex, matrix, angles, position, frameNum, modelList, scale );
+	return CL_G2API_GetBoltMatrix( ghoul2, modelIndex, boltIndex, matrix, angles, position, frameNum, modelList, scale );
 	assert(0);
 	return qfalse;
 }
@@ -38,16 +38,16 @@ CCALL qboolean SV_G2API_GetBoltMatrix_NoReconstruct( void *ghoul2, const int mod
 }
 
 CCALL qboolean SV_G2API_GetBoltMatrix_NoRecNoRot( void *ghoul2, const int modelIndex, const int boltIndex, mdxaBone_t *matrix, const vec3_t angles, const vec3_t position, const int frameNum, qhandle_t *modelList, vec3_t scale ) {
-	//trap->G2API_BoltMatrixReconstruction( qfalse );
-	//trap->G2API_BoltMatrixSPMethod( qtrue );
-	//return trap->G2API_GetBoltMatrix( ghoul2, modelIndex, boltIndex, matrix, angles, position, frameNum, modelList, scale );
+	//CL_G2API_BoltMatrixReconstruction( qfalse );
+	//CL_G2API_BoltMatrixSPMethod( qtrue );
+	//return CL_G2API_GetBoltMatrix( ghoul2, modelIndex, boltIndex, matrix, angles, position, frameNum, modelList, scale );
 
 
 	if ( !ghoul2 ) { 
 		assert(0);
 		return qfalse;
 	}
-	return trap->G2API_GetBoltMatrix_NoRecNoRot( ghoul2, modelIndex, boltIndex, matrix, angles, position, frameNum, modelList, scale );
+	return CL_G2API_GetBoltMatrix_NoRecNoRot( ghoul2, modelIndex, boltIndex, matrix, angles, position, frameNum, modelList, scale );
 
 	assert(0);
 	return qfalse;
@@ -85,7 +85,7 @@ CCALL void SV_G2API_CleanGhoul2Models( void **ghoul2Ptr ) {
 }
 
 CCALL qboolean SV_G2API_SetBoneAngles( void *ghoul2, int modelIndex, const char *boneName, const vec3_t angles, const int flags, const int up, const int right, const int forward, qhandle_t *modelList, int blendTime , int currentTime ) {
-	return trap->G2API_SetBoneAngles( ghoul2, modelIndex, boneName, angles, flags, up, right, forward, modelList, blendTime , currentTime );
+	return CL_G2API_SetBoneAngles( ghoul2, modelIndex, boneName, angles, flags, up, right, forward, modelList, blendTime , currentTime );
 	assert(0);
 	return qfalse;
 }

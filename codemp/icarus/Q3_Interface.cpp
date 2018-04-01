@@ -878,7 +878,7 @@ CCALL  void Q3_Use( int entID, const char *target )
 	sharedMem->entID = entID;
 	strcpy(sharedMem->target, target);
 
-	GVM_ICARUS_Use();
+	//GVM_ICARUS_Use();
 }
 
 CCALL  void Q3_Kill( int entID, const char *name )

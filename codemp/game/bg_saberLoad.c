@@ -2184,7 +2184,7 @@ void WP_RemoveSaber( saberInfo_t *sabers, int saberNum )
 	BG_SI_SetLength(&sabers[saberNum], 0.0f);
 //	if ( ent->weaponModel[saberNum] > 0 )
 //	{
-//		trap->G2API_RemoveGhoul2Model( ent->ghoul2, ent->weaponModel[saberNum] );
+//		CL_G2API_RemoveGhoul2Model( ent->ghoul2, ent->weaponModel[saberNum] );
 //		ent->weaponModel[saberNum] = -1;
 //	}
 //	if ( saberNum == 1 )

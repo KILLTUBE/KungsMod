@@ -1454,11 +1454,11 @@ qboolean CG_CheckPassengerTurretView( void )
 							hackPosAndAngle = qtrue;
 							if ( vehCent->m_pVehicle->m_pVehicleInfo->turret[turretNum].yawBone )
 							{
-								boltIndex = trap->G2API_AddBolt( vehCent->ghoul2, 0, vehCent->m_pVehicle->m_pVehicleInfo->turret[turretNum].yawBone );
+								boltIndex = CL_G2API_AddBolt( vehCent->ghoul2, 0, vehCent->m_pVehicle->m_pVehicleInfo->turret[turretNum].yawBone );
 							}
 							else if ( vehCent->m_pVehicle->m_pVehicleInfo->turret[turretNum].pitchBone )
 							{
-								boltIndex = trap->G2API_AddBolt( vehCent->ghoul2, 0, vehCent->m_pVehicle->m_pVehicleInfo->turret[turretNum].pitchBone );
+								boltIndex = CL_G2API_AddBolt( vehCent->ghoul2, 0, vehCent->m_pVehicle->m_pVehicleInfo->turret[turretNum].pitchBone );
 							}
 							else
 							{//well, no way of knowing, so screw it
@@ -1469,7 +1469,7 @@ qboolean CG_CheckPassengerTurretView( void )
 						{
 							mdxaBone_t boltMatrix;
 							vec3_t fwd, up;
-							trap->G2API_GetBoltMatrix_NoRecNoRot(vehCent->ghoul2, 0, boltIndex, &boltMatrix, vehCent->lerpAngles,
+							CL_G2API_GetBoltMatrix_NoRecNoRot(vehCent->ghoul2, 0, boltIndex, &boltMatrix, vehCent->lerpAngles,
 								vehCent->lerpOrigin, cg.time, NULL, vehCent->modelScale);
 							BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, cg.refdef.vieworg);
 							if ( hackPosAndAngle )

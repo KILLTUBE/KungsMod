@@ -945,7 +945,7 @@ void CG_KillCEntityG2(int entNum)
 		}
 		else if (ci->ghoul2Model && trap->G2_HaveWeGhoul2Models(ci->ghoul2Model))
 		{
-			trap->G2API_CleanGhoul2Models(&ci->ghoul2Model);
+			CL_G2API_CleanGhoul2Models(&ci->ghoul2Model);
 			ci->ghoul2Model = NULL;
 		}
 
@@ -955,7 +955,7 @@ void CG_KillCEntityG2(int entNum)
 		{
 			if (ci->ghoul2Weapons[j] && trap->G2_HaveWeGhoul2Models(ci->ghoul2Weapons[j]))
 			{
-				trap->G2API_CleanGhoul2Models(&ci->ghoul2Weapons[j]);
+				CL_G2API_CleanGhoul2Models(&ci->ghoul2Weapons[j]);
 				ci->ghoul2Weapons[j] = NULL;
 			}
 
@@ -965,19 +965,19 @@ void CG_KillCEntityG2(int entNum)
 
 	if (cent->ghoul2 && trap->G2_HaveWeGhoul2Models(cent->ghoul2))
 	{
-		trap->G2API_CleanGhoul2Models(&cent->ghoul2);
+		CL_G2API_CleanGhoul2Models(&cent->ghoul2);
 		cent->ghoul2 = NULL;
 	}
 
 	if (cent->grip_arm && trap->G2_HaveWeGhoul2Models(cent->grip_arm))
 	{
-		trap->G2API_CleanGhoul2Models(&cent->grip_arm);
+		CL_G2API_CleanGhoul2Models(&cent->grip_arm);
 		cent->grip_arm = NULL;
 	}
 
 	if (cent->frame_hold && trap->G2_HaveWeGhoul2Models(cent->frame_hold))
 	{
-		trap->G2API_CleanGhoul2Models(&cent->frame_hold);
+		CL_G2API_CleanGhoul2Models(&cent->frame_hold);
 		cent->frame_hold = NULL;
 	}
 
@@ -1191,7 +1191,7 @@ static void CG_BodyQueueCopy(centity_t *cent, int clientNum, int knownWeapon)
 
 	if (cent->ghoul2)
 	{
-		trap->G2API_CleanGhoul2Models(&cent->ghoul2);
+		CL_G2API_CleanGhoul2Models(&cent->ghoul2);
 	}
 
 	if (clientNum < 0 || clientNum >= MAX_CLIENTS)
@@ -1223,22 +1223,22 @@ static void CG_BodyQueueCopy(centity_t *cent, int clientNum, int knownWeapon)
 
 	cent->dustTrailTime = source->dustTrailTime;
 
-	trap->G2API_DuplicateGhoul2Instance(source->ghoul2, &cent->ghoul2);
+	CL_G2API_DuplicateGhoul2Instance(source->ghoul2, &cent->ghoul2);
 
 	if (source->isRagging)
 	{ //just reset it now.
 		source->isRagging = qfalse;
-		trap->G2API_SetRagDoll(source->ghoul2, NULL); //calling with null parms resets to no ragdoll.
+		CL_G2API_SetRagDoll(source->ghoul2, NULL); //calling with null parms resets to no ragdoll.
 	}
 
 	//either force the weapon from when we died or remove it if it was a dropped weapon
-	if (knownWeapon > WP_BRYAR_PISTOL && trap->G2API_HasGhoul2ModelOnIndex(&(cent->ghoul2), 1))
+	if (knownWeapon > WP_BRYAR_PISTOL && CL_G2API_HasGhoul2ModelOnIndex(&(cent->ghoul2), 1))
 	{
-		trap->G2API_RemoveGhoul2Model(&(cent->ghoul2), 1);
+		CL_G2API_RemoveGhoul2Model(&(cent->ghoul2), 1);
 	}
-	else if (trap->G2API_HasGhoul2ModelOnIndex(&(cent->ghoul2), 1))
+	else if (CL_G2API_HasGhoul2ModelOnIndex(&(cent->ghoul2), 1))
 	{
-		trap->G2API_CopySpecificGhoul2Model(CG_G2WeaponInstance(cent, knownWeapon), 0, cent->ghoul2, 1);
+		CL_G2API_CopySpecificGhoul2Model(CG_G2WeaponInstance(cent, knownWeapon), 0, cent->ghoul2, 1);
 	}
 
 	if (!cent->ownerRagging)
@@ -1286,9 +1286,9 @@ static void CG_BodyQueueCopy(centity_t *cent, int clientNum, int knownWeapon)
 		//	aNum = (anim->firstFrame+anim->numFrames)-1;
 		//}
 
-		trap->G2API_SetBoneAnim(cent->ghoul2, 0, "upper_lumbar", aNum, eFrame, flags, animSpeed, cg.time, -1, 150);
-		trap->G2API_SetBoneAnim(cent->ghoul2, 0, "model_root", aNum, eFrame, flags, animSpeed, cg.time, -1, 150);
-		trap->G2API_SetBoneAnim(cent->ghoul2, 0, "Motion", aNum, eFrame, flags, animSpeed, cg.time, -1, 150);
+		CL_G2API_SetBoneAnim(cent->ghoul2, 0, "upper_lumbar", aNum, eFrame, flags, animSpeed, cg.time, -1, 150);
+		CL_G2API_SetBoneAnim(cent->ghoul2, 0, "model_root", aNum, eFrame, flags, animSpeed, cg.time, -1, 150);
+		CL_G2API_SetBoneAnim(cent->ghoul2, 0, "Motion", aNum, eFrame, flags, animSpeed, cg.time, -1, 150);
 	}
 
 	//After we create the bodyqueue, regenerate any limbs on the real instance
@@ -1460,11 +1460,11 @@ static void CG_RestoreClientGhoul_f( void ) {
 	//make sure ragdoll state is reset
 	if ( clent->isRagging ) {
 		clent->isRagging = qfalse;
-		trap->G2API_SetRagDoll( clent->ghoul2, NULL ); //calling with null parms resets to no ragdoll.
+		CL_G2API_SetRagDoll( clent->ghoul2, NULL ); //calling with null parms resets to no ragdoll.
 	}
 
 	//clear all the decals as well
-	trap->G2API_ClearSkinGore( clent->ghoul2 );
+	CL_G2API_ClearSkinGore( clent->ghoul2 );
 
 	clent->weapon = 0;
 	clent->ghoul2weapon = NULL; //force a weapon reinit

@@ -108,10 +108,10 @@ void CG_SetInitialSnapshot( snapshot_t *snap ) {
 
 	if ((cg_entities[snap->ps.clientNum].ghoul2 == NULL) && trap->G2_HaveWeGhoul2Models(cgs.clientinfo[snap->ps.clientNum].ghoul2Model))
 	{
-		trap->G2API_DuplicateGhoul2Instance(cgs.clientinfo[snap->ps.clientNum].ghoul2Model, &cg_entities[snap->ps.clientNum].ghoul2);
+		CL_G2API_DuplicateGhoul2Instance(cgs.clientinfo[snap->ps.clientNum].ghoul2Model, &cg_entities[snap->ps.clientNum].ghoul2);
 		CG_CopyG2WeaponInstance(&cg_entities[snap->ps.clientNum], FIRST_WEAPON, cg_entities[snap->ps.clientNum].ghoul2);
 
-		if (trap->G2API_AddBolt(cg_entities[snap->ps.clientNum].ghoul2, 0, "face") == -1)
+		if (CL_G2API_AddBolt(cg_entities[snap->ps.clientNum].ghoul2, 0, "face") == -1)
 		{ //check now to see if we have this bone for setting anims and such
 			cg_entities[snap->ps.clientNum].noFace = qtrue;
 		}

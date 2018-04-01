@@ -88,7 +88,7 @@ Ghoul2 Insert Start
 */
 	if (!Q_stricmp(&item->world_model[0][strlen(item->world_model[0]) - 4], ".glm"))
 	{
-		handle = trap->G2API_InitGhoul2Model(&itemInfo->g2Models[0], item->world_model[0], 0 , 0, 0, 0, 0);
+		handle = CL_G2API_InitGhoul2Model(&itemInfo->g2Models[0], item->world_model[0], 0 , 0, 0, 0, 0);
 		if (handle<0)
 		{
 			itemInfo->g2Models[0] = NULL;
@@ -602,13 +602,13 @@ Ghoul2 Insert End
 		{
 			mdxaBone_t 		boltMatrix;
 
-			if (!trap->G2API_HasGhoul2ModelOnIndex(&(cent->ghoul2), 1))
+			if (!CL_G2API_HasGhoul2ModelOnIndex(&(cent->ghoul2), 1))
 			{ //it's quite possible that we may have have no weapon model and be in a valid state, so return here if this is the case
 				return;
 			}
 
 			// go away and get me the bolt position for this frame please
- 			if (!(trap->G2API_GetBoltMatrix(cent->ghoul2, 1, 0, &boltMatrix, newAngles, cent->lerpOrigin, cg.time, cgs.gameModels, cent->modelScale)))
+ 			if (!(CL_G2API_GetBoltMatrix(cent->ghoul2, 1, 0, &boltMatrix, newAngles, cent->lerpOrigin, cg.time, cgs.gameModels, cent->modelScale)))
 			{	// Couldn't find bolt point.
 				return;
 			}
@@ -716,13 +716,13 @@ Ghoul2 Insert End
 		{
 			mdxaBone_t 		boltMatrix;
 
-			if (!trap->G2API_HasGhoul2ModelOnIndex(&(cent->ghoul2), 1))
+			if (!CL_G2API_HasGhoul2ModelOnIndex(&(cent->ghoul2), 1))
 			{ //it's quite possible that we may have have no weapon model and be in a valid state, so return here if this is the case
 				return;
 			}
 
 			// go away and get me the bolt position for this frame please
- 			if (!(trap->G2API_GetBoltMatrix(cent->ghoul2, 1, 0, &boltMatrix, newAngles, cent->lerpOrigin, cg.time, cgs.gameModels, cent->modelScale)))
+ 			if (!(CL_G2API_GetBoltMatrix(cent->ghoul2, 1, 0, &boltMatrix, newAngles, cent->lerpOrigin, cg.time, cgs.gameModels, cent->modelScale)))
 			{	// Couldn't find bolt point.
 				return;
 			}
@@ -876,7 +876,7 @@ void CG_AddViewWeapon( playerState_t *ps ) {
 			ci = &cgs.clientinfo[ cent->currentState.clientNum ];
 		}
 
-		trap->G2API_GetBoneFrame(cent->ghoul2, "lower_lumbar", cg.time, &currentFrame, cgs.gameModels, 0);
+		CL_G2API_GetBoneFrame(cent->ghoul2, "lower_lumbar", cg.time, &currentFrame, cgs.gameModels, 0);
 		hand.frame = CG_MapTorsoToWeaponFrame( ci, ceil( currentFrame ), ps->torsoAnim );
 		hand.oldframe = CG_MapTorsoToWeaponFrame( ci, floor( currentFrame ), ps->torsoAnim );
 		hand.backlerp = 1.0f - (currentFrame-floor(currentFrame));
@@ -1813,12 +1813,12 @@ void CG_GetClientWeaponMuzzleBoltPoint(int clIndex, vec3_t to)
 	cent = &cg_entities[clIndex];
 
 	if (!cent || !cent->ghoul2 || !trap->G2_HaveWeGhoul2Models(cent->ghoul2) ||
-		!trap->G2API_HasGhoul2ModelOnIndex(&(cent->ghoul2), 1))
+		!CL_G2API_HasGhoul2ModelOnIndex(&(cent->ghoul2), 1))
 	{
 		return;
 	}
 
-	trap->G2API_GetBoltMatrix(cent->ghoul2, 1, 0, &boltMatrix, cent->turAngles, cent->lerpOrigin, cg.time, cgs.gameModels, cent->modelScale);
+	CL_G2API_GetBoltMatrix(cent->ghoul2, 1, 0, &boltMatrix, cent->turAngles, cent->lerpOrigin, cg.time, cgs.gameModels, cent->modelScale);
 	BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, to);
 }
 
@@ -2340,20 +2340,20 @@ void CG_InitG2Weapons(void)
 			assert(item->giTag < MAX_WEAPONS);
 
 			// initialise model
-			trap->G2API_InitGhoul2Model(&g2WeaponInstances[/*i*/item->giTag], item->world_model[0], 0, 0, 0, 0, 0);
-//			trap->G2API_InitGhoul2Model(&g2WeaponInstances[i], item->world_model[0],G_ModelIndex( item->world_model[0] ) , 0, 0, 0, 0);
+			CL_G2API_InitGhoul2Model(&g2WeaponInstances[/*i*/item->giTag], item->world_model[0], 0, 0, 0, 0, 0);
+//			CL_G2API_InitGhoul2Model(&g2WeaponInstances[i], item->world_model[0],G_ModelIndex( item->world_model[0] ) , 0, 0, 0, 0);
 			if (g2WeaponInstances[/*i*/item->giTag])
 			{
 				// indicate we will be bolted to model 0 (ie the player) on bolt 0 (always the right hand) when we get copied
-				trap->G2API_SetBoltInfo(g2WeaponInstances[/*i*/item->giTag], 0, 0);
+				CL_G2API_SetBoltInfo(g2WeaponInstances[/*i*/item->giTag], 0, 0);
 				// now set up the gun bolt on it
 				if (item->giTag == WP_SABER)
 				{
-					trap->G2API_AddBolt(g2WeaponInstances[/*i*/item->giTag], 0, "*blade1");
+					CL_G2API_AddBolt(g2WeaponInstances[/*i*/item->giTag], 0, "*blade1");
 				}
 				else
 				{
-					trap->G2API_AddBolt(g2WeaponInstances[/*i*/item->giTag], 0, "*flash");
+					CL_G2API_AddBolt(g2WeaponInstances[/*i*/item->giTag], 0, "*flash");
 				}
 				i++;
 			}
@@ -2373,7 +2373,7 @@ void CG_ShutDownG2Weapons(void)
 	int i;
 	for (i=0; i<MAX_WEAPONS; i++)
 	{
-		trap->G2API_CleanGhoul2Models(&g2WeaponInstances[i]);
+		CL_G2API_CleanGhoul2Models(&g2WeaponInstances[i]);
 	}
 }
 
@@ -2439,7 +2439,7 @@ void CG_CopyG2WeaponInstance(centity_t *cent, int weaponNum, void *toGhoul2)
 
 			if (!ci)
 			{
-				trap->G2API_CopySpecificGhoul2Model(CG_G2WeaponInstance(cent, weaponNum/*-1*/), 0, toGhoul2, 1);
+				CL_G2API_CopySpecificGhoul2Model(CG_G2WeaponInstance(cent, weaponNum/*-1*/), 0, toGhoul2, 1);
 			}
 			else
 			{ //Try both the left hand saber and the right hand saber
@@ -2450,17 +2450,17 @@ void CG_CopyG2WeaponInstance(centity_t *cent, int weaponNum, void *toGhoul2)
 					if (ci->saber[i].model[0] &&
 						ci->ghoul2Weapons[i])
 					{
-						trap->G2API_CopySpecificGhoul2Model(ci->ghoul2Weapons[i], 0, toGhoul2, i+1);
+						CL_G2API_CopySpecificGhoul2Model(ci->ghoul2Weapons[i], 0, toGhoul2, i+1);
 					}
 					else if (ci->ghoul2Weapons[i])
 					{ //if the second saber has been removed, then be sure to remove it and free the instance.
-						qboolean g2HasSecondSaber = trap->G2API_HasGhoul2ModelOnIndex(&(toGhoul2), 2);
+						qboolean g2HasSecondSaber = CL_G2API_HasGhoul2ModelOnIndex(&(toGhoul2), 2);
 
 						if (g2HasSecondSaber)
 						{ //remove it now since we're switching away from sabers
-							trap->G2API_RemoveGhoul2Model(&(toGhoul2), 2);
+							CL_G2API_RemoveGhoul2Model(&(toGhoul2), 2);
 						}
-						trap->G2API_CleanGhoul2Models(&ci->ghoul2Weapons[i]);
+						CL_G2API_CleanGhoul2Models(&ci->ghoul2Weapons[i]);
 					}
 
 					i++;
@@ -2469,30 +2469,30 @@ void CG_CopyG2WeaponInstance(centity_t *cent, int weaponNum, void *toGhoul2)
 		}
 		else
 		{
-			qboolean g2HasSecondSaber = trap->G2API_HasGhoul2ModelOnIndex(&(toGhoul2), 2);
+			qboolean g2HasSecondSaber = CL_G2API_HasGhoul2ModelOnIndex(&(toGhoul2), 2);
 
 			if (g2HasSecondSaber)
 			{ //remove it now since we're switching away from sabers
-				trap->G2API_RemoveGhoul2Model(&(toGhoul2), 2);
+				CL_G2API_RemoveGhoul2Model(&(toGhoul2), 2);
 			}
 
 			if (weaponNum == WP_EMPLACED_GUN)
 			{ //a bit of a hack to remove gun model when using an emplaced weap
-				if (trap->G2API_HasGhoul2ModelOnIndex(&(toGhoul2), 1))
+				if (CL_G2API_HasGhoul2ModelOnIndex(&(toGhoul2), 1))
 				{
-					trap->G2API_RemoveGhoul2Model(&(toGhoul2), 1);
+					CL_G2API_RemoveGhoul2Model(&(toGhoul2), 1);
 				}
 			}
 			else if (weaponNum == WP_MELEE)
 			{ //don't want a weapon on the model for this one
-				if (trap->G2API_HasGhoul2ModelOnIndex(&(toGhoul2), 1))
+				if (CL_G2API_HasGhoul2ModelOnIndex(&(toGhoul2), 1))
 				{
-					trap->G2API_RemoveGhoul2Model(&(toGhoul2), 1);
+					CL_G2API_RemoveGhoul2Model(&(toGhoul2), 1);
 				}
 			}
 			else
 			{
-				trap->G2API_CopySpecificGhoul2Model(CG_G2WeaponInstance(cent, weaponNum/*-1*/), 0, toGhoul2, 1);
+				CL_G2API_CopySpecificGhoul2Model(CG_G2WeaponInstance(cent, weaponNum/*-1*/), 0, toGhoul2, 1);
 			}
 		}
 	}

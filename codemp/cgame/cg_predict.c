@@ -984,8 +984,8 @@ void CG_PredictPlayerState( void ) {
 			cg.snap->ps.persistant[PERS_TEAM] != TEAM_SPECTATOR)
 		{
 			cg_pmove.ghoul2 = pEnt->ghoul2;
-			cg_pmove.g2Bolts_LFoot = trap->G2API_AddBolt(pEnt->ghoul2, 0, "*l_leg_foot");
-			cg_pmove.g2Bolts_RFoot = trap->G2API_AddBolt(pEnt->ghoul2, 0, "*r_leg_foot");
+			cg_pmove.g2Bolts_LFoot = CL_G2API_AddBolt(pEnt->ghoul2, 0, "*l_leg_foot");
+			cg_pmove.g2Bolts_RFoot = CL_G2API_AddBolt(pEnt->ghoul2, 0, "*r_leg_foot");
 		}
 		else
 		{
