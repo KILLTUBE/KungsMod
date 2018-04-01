@@ -4430,7 +4430,7 @@ This should really only be used for explicit shaders, because there is no
 way to ask for different implicit lighting modes (vertex, lightmap, etc)
 ====================
 */
-qhandle_t RE_RegisterShader( const char *name ) {
+CCALL qhandle_t RE_RegisterShader( const char *name ) {
 	shader_t	*sh;
 
 	if ( strlen( name ) >= MAX_QPATH ) {
@@ -4460,7 +4460,7 @@ RE_RegisterShaderNoMip
 For menu graphics that should never be picmiped
 ====================
 */
-qhandle_t RE_RegisterShaderNoMip( const char *name ) {
+CCALL qhandle_t RE_RegisterShaderNoMip( const char *name ) {
 	shader_t	*sh;
 
 	if ( strlen( name ) >= MAX_QPATH ) {
@@ -4483,7 +4483,7 @@ qhandle_t RE_RegisterShaderNoMip( const char *name ) {
 }
 
 //added for ui -rww
-const char *RE_ShaderNameFromIndex(int index)
+CCALL const char *RE_ShaderNameFromIndex(int index)
 {
 	assert(index >= 0 && index < tr.numShaders && tr.shaders[index]);
 	return tr.shaders[index]->name;

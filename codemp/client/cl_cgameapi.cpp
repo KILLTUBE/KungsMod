@@ -700,7 +700,7 @@ static void RE_InitRendererTerrain ( const char * /*info*/ ) {}
 
 
 CCALL qhandle_t	R_RegisterShader	( const char *name ) {
-	return re->RegisterShader(name);
+	return RE_RegisterShader(name);
 }
 
 
@@ -744,16 +744,16 @@ void CL_BindCGame( void ) {
 		cgi.R_InPVS								= re->inPVS;
 		cgi.R_Language_IsAsian					= re->Language_IsAsian;
 		cgi.R_Language_UsesSpaces				= re->Language_UsesSpaces;
-		cgi.R_LerpTag							= re->LerpTag;
+		cgi.R_LerpTag							= R_LerpTag;
 		cgi.R_LightForPoint						= re->LightForPoint;
-		cgi.R_LoadWorld							= re->LoadWorld;
-		cgi.R_MarkFragments						= re->MarkFragments;
-		cgi.R_ModelBounds						= re->ModelBounds;
+		cgi.R_LoadWorld							= RE_LoadWorldMap;
+		cgi.R_MarkFragments						= R_MarkFragments;
+		cgi.R_ModelBounds						= R_ModelBounds;
 		cgi.R_RegisterFont						= re->RegisterFont;
-		cgi.R_RegisterModel						= re->RegisterModel;
-		cgi.R_RegisterShader					= re->RegisterShader;
-		cgi.R_RegisterShaderNoMip				= re->RegisterShaderNoMip;
-		cgi.R_RegisterSkin						= re->RegisterSkin;
+		cgi.R_RegisterModel						= RE_RegisterModel;
+		cgi.R_RegisterShader					= RE_RegisterShader;
+		cgi.R_RegisterShaderNoMip				= RE_RegisterShaderNoMip;
+		cgi.R_RegisterSkin						= RE_RegisterSkin;
 		cgi.R_RemapShader						= re->RemapShader;
 		cgi.R_RenderScene						= re->RenderScene;
 		cgi.R_SetColor							= re->SetColor;

@@ -604,7 +604,7 @@ This is called by the clipmodel subsystem so we can share the 1.8 megs of
 space in big maps...
 =================
 */
-void RE_SetWorldVisData( const byte *vis ) {
+CCALL void RE_SetWorldVisData( const byte *vis ) {
 	tr.externalVisData = vis;
 }
 
@@ -3108,7 +3108,7 @@ RE_LoadWorldMap
 Called directly from cgame
 =================
 */
-void RE_LoadWorldMap( const char *name ) {
+CCALL void RE_LoadWorldMap( const char *name ) {
 	if (tr.worldMapLoaded)
 	{
 		R_Error(ERR_DROP, "ERROR: attempted to redundantly load world map");

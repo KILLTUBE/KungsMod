@@ -291,7 +291,7 @@ optimization to prevent disk rescanning if they are
 asked for again.
 ====================
 */
-qhandle_t RE_RegisterModel( const char *name ) {
+CCALL qhandle_t RE_RegisterModel( const char *name ) {
 	model_t		*mod;
 	qhandle_t	hModel;
 	qboolean	orgNameFailed = qfalse;
@@ -734,7 +734,7 @@ static modelExtToLoaderMap_t serverModelLoaders[ ] =
 
 static int numServerModelLoaders = ARRAY_LEN(serverModelLoaders);
 
-qhandle_t RE_RegisterServerModel( const char *name ) {
+CCALL qhandle_t RE_RegisterServerModel( const char *name ) {
 	model_t		*mod;
 	qhandle_t	hModel;
 	int			i;
@@ -1560,7 +1560,7 @@ static qboolean R_LoadMDR( model_t *mod, void *buffer, int filesize, const char 
 /*
 ** RE_BeginRegistration
 */
-void RE_BeginRegistration( glconfig_t *glconfigOut ) {
+CCALL void RE_BeginRegistration( glconfig_t *glconfigOut ) {
 
 	R_Init();
 
@@ -1726,7 +1726,7 @@ void R_GetAnimTag( mdrHeader_t *mod, int framenum, const char *tagName, mdvTag_t
 R_LerpTag
 ================
 */
-int R_LerpTag( orientation_t *tag, qhandle_t handle, int startFrame, int endFrame, 
+CCALL int R_LerpTag( orientation_t *tag, qhandle_t handle, int startFrame, int endFrame, 
 					 float frac, const char *tagName ) {
 	mdvTag_t	*start, *end;
 	mdvTag_t	start_space, end_space;
@@ -1788,7 +1788,7 @@ int R_LerpTag( orientation_t *tag, qhandle_t handle, int startFrame, int endFram
 R_ModelBounds
 ====================
 */
-void R_ModelBounds( qhandle_t handle, vec3_t mins, vec3_t maxs ) {
+CCALL void R_ModelBounds( qhandle_t handle, vec3_t mins, vec3_t maxs ) {
 	model_t		*model;
 
 	model = R_GetModelByHandle( handle );

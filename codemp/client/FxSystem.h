@@ -183,11 +183,11 @@ public:
 
 	inline	int		RegisterShader( const char *shader )
 	{
-		return re->RegisterShader( shader );
+		return RE_RegisterShader( shader );
 	}
 	inline	int		RegisterModel( const char *model )
 	{
-		return re->RegisterModel( model );
+		return RE_RegisterModel( model );
 	}
 
 	inline	void	AddPolyToScene( int shader, int count, polyVert_t *verts )

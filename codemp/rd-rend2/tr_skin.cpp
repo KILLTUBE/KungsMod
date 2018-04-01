@@ -160,7 +160,7 @@ qhandle_t RE_RegisterIndividualSkin( const char *name , qhandle_t hSkin)
 	return hSkin;
 }
 
-qhandle_t RE_RegisterSkin( const char *name ) {
+CCALL qhandle_t RE_RegisterSkin( const char *name ) {
 	qhandle_t	hSkin;
 	skin_t		*skin;
 
@@ -346,7 +346,7 @@ RE_RegisterServerSkin
 Mangled version of the above function to load .skin files on the server.
 ===============
 */
-qhandle_t RE_RegisterServerSkin( const char *name ) {
+CCALL qhandle_t RE_RegisterServerSkin( const char *name ) {
 	qhandle_t r;
 
 	if (ri.Cvar_VariableIntegerValue( "cl_running" ) &&

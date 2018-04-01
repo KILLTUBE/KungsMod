@@ -1849,7 +1849,7 @@ void R_Init( void ) {
 RE_Shutdown
 ===============
 */
-void RE_Shutdown( qboolean destroyWindow, qboolean restarting ) {
+CCALL void RE_Shutdown( qboolean destroyWindow, qboolean restarting ) {
 
 	R_Printf( PRINT_ALL, "RE_Shutdown( %i )\n", destroyWindow );
 
@@ -1895,7 +1895,7 @@ RE_EndRegistration
 Touch all images to make sure they are resident
 =============
 */
-void RE_EndRegistration( void ) {
+CCALL void RE_EndRegistration( void ) {
 	R_IssuePendingRenderCommands();
 	if (!ri.Sys_LowPhysicalMemory()) {
 		RB_ShowImages();
@@ -2012,24 +2012,6 @@ Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 
 	// the RE_ functions are Renderer Entry points
 
-	re.Shutdown = RE_Shutdown;
-
-	re.BeginRegistration = RE_BeginRegistration;
-	re.RegisterModel = RE_RegisterModel;
-	re.RegisterServerModel = RE_RegisterServerModel;
-	re.RegisterSkin = RE_RegisterSkin;
-	re.RegisterServerSkin = RE_RegisterServerSkin;
-	re.RegisterShader = RE_RegisterShader;
-	re.RegisterShaderNoMip = RE_RegisterShaderNoMip;
-	re.ShaderNameFromIndex = RE_ShaderNameFromIndex;
-	re.LoadWorld = RE_LoadWorldMap;
-	re.SetWorldVisData = RE_SetWorldVisData;
-	re.EndRegistration = RE_EndRegistration;
-
-
-	re.MarkFragments = R_MarkFragments;
-	re.LerpTag = R_LerpTag;
-	re.ModelBounds = R_ModelBounds;
 
 	re.DrawRotatePic = RE_RotatePic;
 	re.DrawRotatePic2 = RE_RotatePic2;

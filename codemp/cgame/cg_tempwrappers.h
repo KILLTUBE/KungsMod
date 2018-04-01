@@ -215,6 +215,23 @@ CCALL void R_InitShaders( qboolean server );
 CCALL void RE_TakeVideoFrame( int width, int height, byte *captureBuffer, byte *encodeBuffer, qboolean motionJpeg );
 CCALL void R_SVModelInit( void );
 CCALL void	R_InitSkins( void );
+CCALL void RE_Shutdown( qboolean destroyWindow, qboolean restarting );
+CCALL void RE_BeginRegistration( glconfig_t *glconfigOut );
+CCALL qhandle_t RE_RegisterModel( const char *name );
+CCALL qhandle_t RE_RegisterServerModel( const char *name );
+CCALL qhandle_t RE_RegisterSkin( const char *name );
+CCALL qhandle_t RE_RegisterServerSkin( const char *name );
+CCALL qhandle_t RE_RegisterShader( const char *name );
+CCALL qhandle_t RE_RegisterShaderNoMip( const char *name );
+CCALL const char *RE_ShaderNameFromIndex(int index);
+CCALL void RE_LoadWorldMap( const char *name );
+CCALL void RE_SetWorldVisData( const byte *vis );
+CCALL void RE_EndRegistration( void );
+CCALL int R_MarkFragments( int numPoints, const vec3_t *points, const vec3_t projection, int maxPoints, vec3_t pointBuffer, int maxFragments, markFragment_t *fragmentBuffer );
+CCALL int R_LerpTag( orientation_t *tag, qhandle_t handle, int startFrame, int endFrame, float frac, const char *tagName );
+CCALL void R_ModelBounds( qhandle_t handle, vec3_t mins, vec3_t maxs );
+
+
 
 
 #endif

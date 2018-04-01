@@ -1945,14 +1945,11 @@ typedef struct model_s {
 
 #define	MAX_MOD_KNOWN	1024
 
-void		R_ModelInit (void);
-
-model_t		*R_GetModelByHandle( qhandle_t hModel );
-int			R_LerpTag( orientation_t *tag, qhandle_t handle, int startFrame, int endFrame, 
-					 float frac, const char *tagName );
-void		R_ModelBounds( qhandle_t handle, vec3_t mins, vec3_t maxs );
-
-void		R_Modellist_f (void);
+CCALL void		R_ModelInit (void);
+CCALL model_t		*R_GetModelByHandle( qhandle_t hModel );
+CCALL int			R_LerpTag( orientation_t *tag, qhandle_t handle, int startFrame, int endFrame, float frac, const char *tagName );
+CCALL void		R_ModelBounds( qhandle_t handle, vec3_t mins, vec3_t maxs );
+CCALL void		R_Modellist_f (void);
 
 //====================================================
 
@@ -2620,7 +2617,7 @@ CCALL qhandle_t	RE_RegisterServerModel( const char *name );
 CCALL qhandle_t	RE_RegisterModel( const char *name );
 CCALL qhandle_t	RE_RegisterServerSkin( const char *name );
 CCALL qhandle_t	RE_RegisterSkin( const char *name );
-CCALL void		RE_Shutdown( qboolean destroyWindow );
+CCALL void		RE_Shutdown( qboolean destroyWindow, qboolean restarting );
 CCALL world_t		*R_LoadBSP(const char *name, int *bspIndex = nullptr);
 CCALL qboolean	R_GetEntityToken( char *buffer, int size );
 CCALL model_t		*R_AllocModel( void );

@@ -188,7 +188,7 @@ static void CL_SE_GetLanguageName( const int languageIndex, char *buffer ) {
 //}
 
 static void CL_R_ShaderNameFromIndex( char *name, int index ) {
-	const char *retMem = re->ShaderNameFromIndex( index );
+	const char *retMem = RE_ShaderNameFromIndex( index );
 	if ( retMem )
 		strcpy( name, retMem );
 	else
@@ -753,20 +753,14 @@ CCALL int			R_Font_HeightPixels		( const int iFontIndex, const float scale ) {
 CCALL void			R_Font_DrawString		( int ox, int oy, const char *text, const float *rgba, const int setIndex, int iCharLimit, const float scale ) {
 	re->Font_DrawString(ox, oy, text, rgba, setIndex, iCharLimit, scale);
 }
-CCALL int			R_LerpTag				( orientation_t *tag, clipHandle_t mod, int startFrame, int endFrame, float frac, const char *tagName ) {
-	return re->LerpTag(tag, mod, startFrame, endFrame, frac, tagName);
-}
-CCALL void			R_ModelBounds			( clipHandle_t model, vec3_t mins, vec3_t maxs ) {
-	re->ModelBounds(model, mins, maxs);
-}
 CCALL qhandle_t		R_RegisterModel			( const char *name ) {
-	return re->RegisterModel(name);
+	return RE_RegisterModel(name);
 }
 CCALL qhandle_t		R_RegisterSkin			( const char *name ) {
-	return re->RegisterSkin(name);
+	return RE_RegisterSkin(name);
 }
 CCALL qhandle_t		R_RegisterShaderNoMip	( const char *name ) {
-	return re->RegisterShaderNoMip(name);
+	return RE_RegisterShaderNoMip(name);
 }
 CCALL qhandle_t		R_RegisterFont			( const char *fontName ) {
 	return re->RegisterFont(fontName);
