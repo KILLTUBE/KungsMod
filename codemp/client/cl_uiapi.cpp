@@ -116,10 +116,6 @@ CCALL void CL_GetClientState( uiClientState_t *state ) {
 	state->clientNum = cl.snap.ps.clientNum;
 }
 
-CCALL void CL_GetGlconfig( glconfig_t *config ) {
-	*config = cls.glconfig;
-}
-
 static void GetClipboardData( char *buf, int buflen ) {
 	char	*cbd, *c;
 
@@ -185,11 +181,11 @@ static void CL_SE_GetLanguageName( const int languageIndex, char *buffer ) {
 	Q_strncpyz( buffer, SE_GetLanguageName( languageIndex ), 128 );
 }
 
-CCALL qboolean CL_SE_GetStringTextString( const char *text, char *buffer, int bufferLength ) {
-	assert( text && buffer );
-	Q_strncpyz( buffer, SE_GetString( text ), bufferLength );
-	return qtrue;
-}
+//CCALL qboolean CL_SE_GetStringTextString( const char *text, char *buffer, int bufferLength ) {
+//	assert( text && buffer );
+//	Q_strncpyz( buffer, SE_GetString( text ), bufferLength );
+//	return qtrue;
+//}
 
 static void CL_R_ShaderNameFromIndex( char *name, int index ) {
 	const char *retMem = re->ShaderNameFromIndex( index );

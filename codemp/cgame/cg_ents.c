@@ -720,11 +720,11 @@ void CG_Disintegration(centity_t *cent, refEntity_t *ent)
 
 		VectorMA( fxOrg, -18, cg.refdef.viewaxis[0], fxOrg );
 		fxOrg[2] += Q_flrand(-1.0f, 1.0f) * 20;
-		trap->FX_PlayEffectID( cgs.effects.mDisruptorDeathSmoke, fxOrg, fxDir, -1, -1, qfalse );
+		FX_PlayEffectID( cgs.effects.mDisruptorDeathSmoke, fxOrg, fxDir, -1, -1, qfalse );
 
 		if ( Q_flrand(0.0f, 1.0f) > 0.5f )
 		{
-			trap->FX_PlayEffectID( cgs.effects.mDisruptorDeathSmoke, fxOrg, fxDir, -1, -1, qfalse );
+			FX_PlayEffectID( cgs.effects.mDisruptorDeathSmoke, fxOrg, fxDir, -1, -1, qfalse );
 		}
 	}
 }
@@ -1217,7 +1217,7 @@ static void CG_General( centity_t *cent ) {
 				BG_GiveMeVectorFromMatrix(&matrix, ORIGIN, boltOrg);
 				BG_GiveMeVectorFromMatrix(&matrix, NEGATIVE_Y, boltAng);
 
-				trap->FX_PlayEffectID(cgs.effects.mBlasterSmoke, boltOrg, boltAng, -1, -1, qfalse);
+				FX_PlayEffectID(cgs.effects.mBlasterSmoke, boltOrg, boltAng, -1, -1, qfalse);
 			}
 
 			cent->bolt4 = newBolt;
@@ -1241,7 +1241,7 @@ static void CG_General( centity_t *cent ) {
 				BG_GiveMeVectorFromMatrix(&matrix, ORIGIN, boltOrg);
 				BG_GiveMeVectorFromMatrix(&matrix, NEGATIVE_Y, boltAng);
 
-				trap->FX_PlayEffectID(cgs.effects.mBlasterSmoke, boltOrg, boltAng, -1, -1, qfalse);
+				FX_PlayEffectID(cgs.effects.mBlasterSmoke, boltOrg, boltAng, -1, -1, qfalse);
 			}
 
 			if (cent->currentState.modelGhoul2 == G2_MODELPART_RARM || cent->currentState.modelGhoul2 == G2_MODELPART_RHAND || cent->currentState.modelGhoul2 == G2_MODELPART_WAIST)
@@ -1302,7 +1302,7 @@ static void CG_General( centity_t *cent ) {
 				{
 					boltAng[1] = 1;
 				}
-				trap->FX_PlayEffectID(cgs.effects.mBlasterSmoke, boltOrg, boltAng, -1, -1, qfalse);
+				FX_PlayEffectID(cgs.effects.mBlasterSmoke, boltOrg, boltAng, -1, -1, qfalse);
 
 				cent->trailTime = cg.time + 400;
 			}
@@ -1672,8 +1672,8 @@ Ghoul2 Insert End
 			fxSArgs.shader = cgs.media.yellowDroppedSaberShader;
 			fxSArgs.flags = 0x08000000;
 
-			//trap->FX_AddSprite( org, NULL, NULL, 5.5f, 5.5f, wv, wv, 0.0f, 0.0f, 1.0f, cgs.media.yellowSaberGlowShader, 0x08000000 );
-			trap->FX_AddSprite(&fxSArgs);
+			//CGFX_AddSprite( org, NULL, NULL, 5.5f, 5.5f, wv, wv, 0.0f, 0.0f, 1.0f, cgs.media.yellowSaberGlowShader, 0x08000000 );
+			CGFX_AddSprite(&fxSArgs);
 		}
 	}
 	else if (cent->currentState.trickedentindex3)
@@ -1751,18 +1751,18 @@ Ghoul2 Insert End
 			fxSArgs.sAlpha *= 3;
 			fxSArgs.eAlpha *= 3;
 			fxSArgs.shader = cgs.media.redSaberGlowShader;
-			trap->FX_AddSprite(&fxSArgs);
+			CGFX_AddSprite(&fxSArgs);
 		}
 		else if (cent->currentState.trickedentindex3 == 2)
 		{ //light
 			fxSArgs.sAlpha *= 1.5;
 			fxSArgs.eAlpha *= 1.5;
 			fxSArgs.shader = cgs.media.redSaberGlowShader;
-			trap->FX_AddSprite(&fxSArgs);
+			CGFX_AddSprite(&fxSArgs);
 			fxSArgs.shader = cgs.media.greenSaberGlowShader;
-			trap->FX_AddSprite(&fxSArgs);
+			CGFX_AddSprite(&fxSArgs);
 			fxSArgs.shader = cgs.media.blueSaberGlowShader;
-			trap->FX_AddSprite(&fxSArgs);
+			CGFX_AddSprite(&fxSArgs);
 		}
 		else
 		{ //neutral
@@ -1773,16 +1773,16 @@ Ghoul2 Insert End
 				fxSArgs.sAlpha *= 1.5;
 				fxSArgs.eAlpha *= 1.5;
 				fxSArgs.shader = cgs.media.greenSaberGlowShader;
-				trap->FX_AddSprite(&fxSArgs);
+				CGFX_AddSprite(&fxSArgs);
 			}
 			else
 			{
 				fxSArgs.sAlpha *= 0.5;
 				fxSArgs.eAlpha *= 0.5;
 				fxSArgs.shader = cgs.media.greenSaberGlowShader;
-				trap->FX_AddSprite(&fxSArgs);
+				CGFX_AddSprite(&fxSArgs);
 				fxSArgs.shader = cgs.media.blueSaberGlowShader;
-				trap->FX_AddSprite(&fxSArgs);
+				CGFX_AddSprite(&fxSArgs);
 			}
 		}
 	}
@@ -1793,7 +1793,7 @@ Ghoul2 Insert End
 		{
 			VectorMA( ent.origin, 6.6f, ent.axis[0], beamOrg );// forward
 			beamID = cgs.effects.tripmineGlowFX;
-			trap->FX_PlayEffectID( beamID, beamOrg, cent->currentState.pos.trDelta, -1, -1, qfalse );
+			FX_PlayEffectID( beamID, beamOrg, cent->currentState.pos.trDelta, -1, -1, qfalse );
 		}
 		else
 		{
@@ -1808,13 +1808,13 @@ Ghoul2 Insert End
 
 				while (i > 0)
 				{
-					trap->FX_PlayEffectID( beamID, beamOrg, cent->currentState.pos.trDelta, -1, -1, qfalse );
-					trap->FX_PlayEffectID( beamID, beamOrg, cent->currentState.pos.trDelta, -1, -1, qfalse );
+					FX_PlayEffectID( beamID, beamOrg, cent->currentState.pos.trDelta, -1, -1, qfalse );
+					FX_PlayEffectID( beamID, beamOrg, cent->currentState.pos.trDelta, -1, -1, qfalse );
 					i--;
 				}
 			}
 
-			trap->FX_PlayEffectID( beamID, beamOrg, cent->currentState.pos.trDelta, -1, -1, qfalse );
+			FX_PlayEffectID( beamID, beamOrg, cent->currentState.pos.trDelta, -1, -1, qfalse );
 		}
 	}
 /*
@@ -1950,7 +1950,7 @@ Ghoul2 Insert Start
 
 		if (!doGrey)
 		{
-			trap->FX_PlayEffectID(cgs.effects.itemCone, ent.origin, uNorm, -1, -1, qfalse);
+			FX_PlayEffectID(cgs.effects.itemCone, ent.origin, uNorm, -1, -1, qfalse);
 		}
 	}
 
@@ -2503,7 +2503,7 @@ static void CG_Missile( centity_t *cent ) {
 			&& (g_vehWeaponInfo[s1->otherEntityNum2].iShotFX
 				|| g_vehWeaponInfo[s1->otherEntityNum2].iModel != NULL_HANDLE) )
 		{ //a vehicle with an override for the weapon trail fx or model
-			trap->FX_PlayEffectID( g_vehWeaponInfo[s1->otherEntityNum2].iShotFX, cent->lerpOrigin, forward, -1, -1, qfalse );
+			FX_PlayEffectID( g_vehWeaponInfo[s1->otherEntityNum2].iShotFX, cent->lerpOrigin, forward, -1, -1, qfalse );
 			if ( g_vehWeaponInfo[s1->otherEntityNum2].iLoopSound )
 			{
 				vec3_t	velocity;
@@ -2518,7 +2518,7 @@ static void CG_Missile( centity_t *cent ) {
 		}
 		else
 		{//a regular missile
-			trap->FX_PlayEffectID( cgs.gameEffects[s1->otherEntityNum2], cent->lerpOrigin, forward, -1, -1, qfalse );
+			FX_PlayEffectID( cgs.gameEffects[s1->otherEntityNum2], cent->lerpOrigin, forward, -1, -1, qfalse );
 			if ( s1->loopSound )
 			{
 				vec3_t	velocity;
@@ -2712,8 +2712,8 @@ Ghoul2 Insert End
 			fxSArgs.shader = cgs.media.yellowDroppedSaberShader;
 			fxSArgs.flags = 0x08000000;
 
-			//trap->FX_AddSprite( org, NULL, NULL, 5.5f, 5.5f, wv, wv, 0.0f, 0.0f, 1.0f, cgs.media.yellowSaberGlowShader, 0x08000000 );
-			trap->FX_AddSprite(&fxSArgs);
+			//CGFX_AddSprite( org, NULL, NULL, 5.5f, 5.5f, wv, wv, 0.0f, 0.0f, 1.0f, cgs.media.yellowSaberGlowShader, 0x08000000 );
+			CGFX_AddSprite(&fxSArgs);
 		}
 
 		if (cgs.gametype == GT_JEDIMASTER)
@@ -2734,7 +2734,7 @@ Ghoul2 Insert End
 		vec3_t	beamOrg;
 
 		VectorMA( ent.origin, 8, ent.axis[0], beamOrg );// forward
-		trap->FX_PlayEffectID( cgs.effects.mTripMineLaser, beamOrg, ent.axis[0], -1, -1, qfalse );
+		FX_PlayEffectID( cgs.effects.mTripMineLaser, beamOrg, ent.axis[0], -1, -1, qfalse );
 	}
 }
 
@@ -3267,11 +3267,11 @@ static void CG_FX( centity_t *cent )
 	{
 		if (s1->isPortalEnt)
 		{
-			trap->FX_PlayEffectID(efxIndex, cent->lerpOrigin, fxDir, -1, -1, qtrue );
+			FX_PlayEffectID(efxIndex, cent->lerpOrigin, fxDir, -1, -1, qtrue );
 		}
 		else
 		{
-			trap->FX_PlayEffectID(efxIndex, cent->lerpOrigin, fxDir, -1, -1, qfalse );
+			FX_PlayEffectID(efxIndex, cent->lerpOrigin, fxDir, -1, -1, qfalse );
 		}
 	}
 
@@ -3701,7 +3701,7 @@ defaultoffsetposition:
 			useOrigin[1] += up[1]*parsedOffset[2];
 			useOrigin[2] += up[2]*parsedOffset[2];
 
-			trap->FX_PlayEffectID(objectID, useOrigin, useAngles, -1, -1, qfalse);
+			FX_PlayEffectID(objectID, useOrigin, useAngles, -1, -1, qfalse);
 		}
 	}
 	else if (strcmp(type, "sound") == 0)
@@ -3775,11 +3775,11 @@ void CG_Cube( vec3_t mins, vec3_t maxs, vec3_t color, float alpha )
 		apArgs.killTime = cg.frametime;
 		apArgs.shader = cgs.media.solidWhite;
 
-		trap->FX_AddPoly( &apArgs );
+		CGFX_AddPoly( &apArgs );
 
 		//+ face
 		apArgs.p[0][vec[0]] = apArgs.p[1][vec[0]] = apArgs.p[2][vec[0]] = apArgs.p[3][vec[0]] = maxs[vec[0]];
 
-		trap->FX_AddPoly( &apArgs );
+		CGFX_AddPoly( &apArgs );
 	}
 }

@@ -344,7 +344,7 @@ static void CG_DoGlassQuad( vec3_t p[4], vec2_t uv[4], qboolean stick, int time,
 	apArgs.shader = cgs.media.glassShardShader;
 	apArgs.flags = (FX_APPLY_PHYSICS | FX_ALPHA_NONLINEAR | FX_USE_ALPHA);
 
-	trap->FX_AddPoly(&apArgs);
+	CGFX_AddPoly(&apArgs);
 }
 
 static void CG_CalcBiLerp( vec3_t verts[4], vec3_t subVerts[4], vec2_t uv[4] )
@@ -782,11 +782,11 @@ void CG_MiscModelExplosion( vec3_t mins, vec3_t maxs, int size, material_t chunk
 
 		if ( effect2 && effect2[0] && ( rand() & 1 ))
 		{
-			trap->FX_PlayEffectID( eID2, org, dir, -1, -1, qfalse );
+			FX_PlayEffectID( eID2, org, dir, -1, -1, qfalse );
 		}
 		else
 		{
-			trap->FX_PlayEffectID( eID1, org, dir, -1, -1, qfalse );
+			FX_PlayEffectID( eID1, org, dir, -1, -1, qfalse );
 		}
 	}
 }

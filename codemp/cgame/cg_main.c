@@ -1144,7 +1144,7 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.lagometerShader = R_RegisterShaderNoMip("gfx/2d/lag" );
 	cgs.media.connectionShader = R_RegisterShaderNoMip( "gfx/2d/net" );
 
-	trap->FX_InitSystem(&cg.refdef);
+	FX_InitSystem(&cg.refdef);
 	CG_RegisterEffects();
 
 	cgs.media.boltShader = R_RegisterShader( "gfx/misc/blueLine" );
@@ -1521,7 +1521,7 @@ const char *CG_GetStringEdString(char *refSection, char *refName)
 	static int		index = 0;
 
 	index ^= 1;
-	trap->SE_GetStringTextString(va("%s_%s", refSection, refName), text[index], sizeof(text[0]));
+	CL_SE_GetStringTextString(va("%s_%s", refSection, refName), text[index], sizeof(text[0]));
 	return text[index];
 }
 
@@ -2136,20 +2136,20 @@ static int CG_OwnerDrawWidth(int ownerDraw, float scale) {
 }
 
 static int CG_PlayCinematic(const char *name, float x, float y, float w, float h) {
-	return trap->CIN_PlayCinematic(name, x, y, w, h, CIN_loop);
+	return CIN_PlayCinematic(name, x, y, w, h, CIN_loop);
 }
 
 static void CG_StopCinematic(int handle) {
-	trap->CIN_StopCinematic(handle);
+	CIN_StopCinematic(handle);
 }
 
 static void CG_DrawCinematic(int handle, float x, float y, float w, float h) {
-	trap->CIN_SetExtents(handle, x, y, w, h);
-	trap->CIN_DrawCinematic(handle);
+	CIN_SetExtents(handle, x, y, w, h);
+	CIN_DrawCinematic(handle);
 }
 
 static void CG_RunCinematicFrame(int handle) {
-	trap->CIN_RunCinematic(handle);
+	CIN_RunCinematic(handle);
 }
 
 /*
@@ -2365,7 +2365,7 @@ void CG_TransitionPermanent(void)
 	cg_numpermanents = 0;
 	for(i=0;i<MAX_GENTITIES;i++,cent++)
 	{
-		if (trap->GetDefaultState(i, &cent->currentState))
+		if (CL_GetDefaultState(i, &cent->currentState))
 		{
 			cent->nextState = cent->currentState;
 			VectorCopy (cent->currentState.origin, cent->lerpOrigin);
@@ -2550,12 +2550,12 @@ Ghoul2 Insert End
 	// old servers
 
 	// get the rendering configuration from the client system
-	trap->GetGlconfig( &cgs.glconfig );
+	CL_GetGlconfig( &cgs.glconfig );
 	cgs.screenXScale = cgs.glconfig.vidWidth / 640.0;
 	cgs.screenYScale = cgs.glconfig.vidHeight / 480.0;
 
 	// get the gamestate from the client system
-	trap->GetGameState( &cgs.gameState );
+	CL_GetGameState( &cgs.gameState );
 
 	CG_TransitionPermanent(); //rwwRMG - added
 
@@ -2637,7 +2637,7 @@ const char *CG_GetLocationString(const char *loc)
 		return loc;
 	}
 
-	trap->SE_GetStringTextString(loc+1, text, sizeof(text));
+	CL_SE_GetStringTextString(loc+1, text, sizeof(text));
 	return text;
 }
 
@@ -2692,8 +2692,8 @@ CCALL void CG_Shutdown( void )
     CG_DestroyAllGhoul2();
 
 //	Com_Printf("... FX System Cleanup\n");
-	trap->FX_FreeSystem();
-	trap->ROFF_Clean();
+	FX_FreeSystem();
+	CL_ROFF_Clean();
 
 	//reset weather
 	trap->R_WorldEffectCommand("die");
@@ -2724,8 +2724,8 @@ void CG_NextForcePower_f( void )
 		return;
 	}
 
-	current = trap->GetCurrentCmdNumber();
-	trap->GetUserCmd(current, &cmd);
+	current = CL_GetCurrentCmdNumber();
+	CL_GetUserCmd(current, &cmd);
 	if ((cmd.buttons & BUTTON_USE) || CG_NoUseableForce())
 	{
 		CG_NextInventory_f();
@@ -2771,8 +2771,8 @@ void CG_PrevForcePower_f( void )
 		return;
 	}
 
-	current = trap->GetCurrentCmdNumber();
-	trap->GetUserCmd(current, &cmd);
+	current = CL_GetCurrentCmdNumber();
+	CL_GetUserCmd(current, &cmd);
 	if ((cmd.buttons & BUTTON_USE) || CG_NoUseableForce())
 	{
 		CG_PrevInventory_f();

@@ -93,7 +93,7 @@ CCALL qhandle_t		R_RegisterSkin						( const char *name ) {
 }
 
 CCALL int				FX_RegisterEffect					( const char *file ) {
-	//return trap->FX_RegisterEffect(file);
+	//return FX_RegisterEffect(file);
 	__debugbreak();
 	return 0;
 }

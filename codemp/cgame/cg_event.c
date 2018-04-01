@@ -75,11 +75,11 @@ const char	*CG_PlaceString( int rank ) {
 	char sTH[10];
 	char sTiedFor[64];	// german is much longer, super safe...
 
-	trap->SE_GetStringTextString("MP_INGAME_NUMBER_ST",sST, sizeof(sST) );
-	trap->SE_GetStringTextString("MP_INGAME_NUMBER_ND",sND, sizeof(sND) );
-	trap->SE_GetStringTextString("MP_INGAME_NUMBER_RD",sRD, sizeof(sRD) );
-	trap->SE_GetStringTextString("MP_INGAME_NUMBER_TH",sTH, sizeof(sTH) );
-	trap->SE_GetStringTextString("MP_INGAME_TIED_FOR" ,sTiedFor,sizeof(sTiedFor) );
+	CL_SE_GetStringTextString("MP_INGAME_NUMBER_ST",sST, sizeof(sST) );
+	CL_SE_GetStringTextString("MP_INGAME_NUMBER_ND",sND, sizeof(sND) );
+	CL_SE_GetStringTextString("MP_INGAME_NUMBER_RD",sRD, sizeof(sRD) );
+	CL_SE_GetStringTextString("MP_INGAME_NUMBER_TH",sTH, sizeof(sTH) );
+	CL_SE_GetStringTextString("MP_INGAME_TIED_FOR" ,sTiedFor,sizeof(sTiedFor) );
 	strcat(sTiedFor," ");	// save worrying about translators adding spaces or not
 
 	if ( rank & RANK_TIED_FLAG ) {
@@ -285,8 +285,8 @@ clientkilled:
 			{
 				char part1[512];
 				char part2[512];
-				trap->SE_GetStringTextString("MP_INGAME_KILLED_MESSAGE", part1, sizeof(part1));
-				trap->SE_GetStringTextString("MP_INGAME_JMKILLED_NOTJM", part2, sizeof(part2));
+				CL_SE_GetStringTextString("MP_INGAME_KILLED_MESSAGE", part1, sizeof(part1));
+				CL_SE_GetStringTextString("MP_INGAME_JMKILLED_NOTJM", part2, sizeof(part2));
 				s = va("%s %s\n%s\n", part1, targetName, part2);
 			}
 			else if (cgs.gametype == GT_JEDIMASTER &&
@@ -295,7 +295,7 @@ clientkilled:
 				!cg.snap->ps.isJediMaster)
 			{ //no JM, saber must be out
 				char part1[512];
-				trap->SE_GetStringTextString("MP_INGAME_KILLED_MESSAGE", part1, sizeof(part1));
+				CL_SE_GetStringTextString("MP_INGAME_KILLED_MESSAGE", part1, sizeof(part1));
 				/*
 				kmsg1 = "for 0 points.\nGo for the saber!";
 				strcpy(part2, kmsg1);
@@ -312,8 +312,8 @@ clientkilled:
 			{
 				char sPlaceWith[256];
 				char sKilledStr[256];
-				trap->SE_GetStringTextString("MP_INGAME_PLACE_WITH",     sPlaceWith, sizeof(sPlaceWith));
-				trap->SE_GetStringTextString("MP_INGAME_KILLED_MESSAGE", sKilledStr, sizeof(sKilledStr));
+				CL_SE_GetStringTextString("MP_INGAME_PLACE_WITH",     sPlaceWith, sizeof(sPlaceWith));
+				CL_SE_GetStringTextString("MP_INGAME_KILLED_MESSAGE", sKilledStr, sizeof(sKilledStr));
 
 				s = va("%s %s.\n%s %s %i.", sKilledStr, targetName,
 					CG_PlaceString( cg.snap->ps.persistant[PERS_RANK] + 1 ),
@@ -322,7 +322,7 @@ clientkilled:
 			}
 		} else {
 			char sKilledStr[256];
-			trap->SE_GetStringTextString("MP_INGAME_KILLED_MESSAGE", sKilledStr, sizeof(sKilledStr));
+			CL_SE_GetStringTextString("MP_INGAME_KILLED_MESSAGE", sKilledStr, sizeof(sKilledStr));
 			s = va("%s %s", sKilledStr, targetName );
 		}
 		//if (!(cg_singlePlayerActive->integer && cg_cameraOrbit->integer)) {
@@ -665,7 +665,7 @@ static void CG_ItemPickup( int itemNum ) {
 
 		strcpy(upperKey, bg_itemlist[itemNum].classname);
 
-		if ( trap->SE_GetStringTextString( va("SP_INGAME_%s",Q_strupr(upperKey)), text, sizeof( text )))
+		if ( CL_SE_GetStringTextString( va("SP_INGAME_%s",Q_strupr(upperKey)), text, sizeof( text )))
 		{
 			Com_Printf("%s %s\n", CG_GetStringEdString("MP_INGAME", "PICKUPLINE"), text);
 		}
@@ -1226,8 +1226,8 @@ void CG_VehMuzzleFireFX(centity_t *veh, entityState_t *broadcaster)
 			if ( muzFX )
 			{
 				//CG_CalcVehMuzzle(pVeh, veh, curMuz);
-				//trap->FX_PlayEffectID(muzFX, pVeh->m_vMuzzlePos[curMuz], pVeh->m_vMuzzleDir[curMuz], -1, -1, qfalse);
-				trap->FX_PlayBoltedEffectID(muzFX, veh->currentState.origin, veh->ghoul2, pVeh->m_iMuzzleTag[curMuz], veh->currentState.number, 0, 0, qtrue);
+				//FX_PlayEffectID(muzFX, pVeh->m_vMuzzlePos[curMuz], pVeh->m_vMuzzleDir[curMuz], -1, -1, qfalse);
+				CGFX_PlayBoltedEffectID(muzFX, veh->currentState.origin, veh->ghoul2, pVeh->m_iMuzzleTag[curMuz], veh->currentState.number, 0, 0, qtrue);
 			}
 		}
 	}
@@ -2081,7 +2081,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			gunangle[1] = -matrix.matrix[1][0];
 			gunangle[2] = -matrix.matrix[2][0];
 
-			trap->FX_PlayEffectID(cgs.effects.mEmplacedMuzzleFlash, gunpoint, gunangle, -1, -1, qfalse);
+			FX_PlayEffectID(cgs.effects.mEmplacedMuzzleFlash, gunpoint, gunangle, -1, -1, qfalse);
 		}
 		else if (cent->currentState.weapon != WP_EMPLACED_GUN || cent->currentState.eType == ET_NPC)
 		{
@@ -2212,12 +2212,12 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 					fxDir[1] = 1;
 				}
 				trap->S_StartSound(es->origin, es->number, CHAN_AUTO, hitSound );
-				trap->FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
-				trap->FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
-				trap->FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
-				trap->FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
-				trap->FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
-				trap->FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
+				FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
+				FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
+				FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
+				FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
+				FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
+				FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
 			}
 			else if (es->eventParm)
 			{ //hit a person
@@ -2230,17 +2230,17 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 				trap->S_StartSound(es->origin, es->number, CHAN_AUTO, hitSound );
 				if ( es->eventParm == 3 )
 				{	// moderate or big hits.
-					trap->FX_PlayEffectID( hitPersonSmallFxID, es->origin, fxDir, -1, -1, qfalse );
+					FX_PlayEffectID( hitPersonSmallFxID, es->origin, fxDir, -1, -1, qfalse );
 				}
 				else if ( es->eventParm == 2 )
 				{	// this is for really big hits.
-					trap->FX_PlayEffectID( hitPersonMidFxID, es->origin, fxDir, -1, -1, qfalse );
+					FX_PlayEffectID( hitPersonMidFxID, es->origin, fxDir, -1, -1, qfalse );
 				}
 				else
 				{	// this should really just be done in the effect itself, no?
-					trap->FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
-					trap->FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
-					trap->FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
+					FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
+					FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
+					FX_PlayEffectID( hitPersonFxID, es->origin, fxDir, -1, -1, qfalse );
 				}
 			}
 			else
@@ -2254,10 +2254,10 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 				//old jk2mp method
 				/*
 				trap->S_StartSound(es->origin, es->number, CHAN_AUTO, S_RegisterSound("sound/weapons/saber/saberhit.wav"));
-				trap->FX_PlayEffectID( FX_RegisterEffect("saber/spark.efx"), es->origin, fxDir, -1, -1, qfalse );
+				FX_PlayEffectID( FX_RegisterEffect("saber/spark.efx"), es->origin, fxDir, -1, -1, qfalse );
 				*/
 
-				trap->FX_PlayEffectID( hitOtherFxID, es->origin, fxDir, -1, -1, qfalse );
+				FX_PlayEffectID( hitOtherFxID, es->origin, fxDir, -1, -1, qfalse );
 			}
 
 			//rww - this means we have the number of the ent being hit and the ent that owns the saber doing
@@ -2348,7 +2348,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 						fxDir[1] = 1;
 					}
 					trap->S_StartSound(es->origin, es->number, CHAN_AUTO, blockSound );
-					trap->FX_PlayEffectID( blockFXID, es->origin, fxDir, -1, -1, qfalse );
+					FX_PlayEffectID( blockFXID, es->origin, fxDir, -1, -1, qfalse );
 
 					if ( !noFlare )
 					{
@@ -2365,7 +2365,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 				{
 					fxDir[1] = 1;
 				}
-				trap->FX_PlayEffectID(cgs.effects.mBlasterDeflect, es->origin, fxDir, -1, -1, qfalse);
+				FX_PlayEffectID(cgs.effects.mBlasterDeflect, es->origin, fxDir, -1, -1, qfalse);
 			}
 		}
 		break;
@@ -2428,7 +2428,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			{
 				break;
 			}
-			trap->FX_PlayEffectID(cgs.effects.mJediSpawn, pos, ang, -1, -1, qfalse);
+			FX_PlayEffectID(cgs.effects.mJediSpawn, pos, ang, -1, -1, qfalse);
 
 			trap->S_StartSound (NULL, es->number, CHAN_AUTO, S_RegisterSound( "sound/weapons/saber/saberon.wav" ) );
 
@@ -2720,7 +2720,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			{
 				break;
 			}
-			trap->FX_PlayEffectID(cgs.effects.mSpawn, pos, ang, -1, -1, qfalse);
+			FX_PlayEffectID(cgs.effects.mSpawn, pos, ang, -1, -1, qfalse);
 		}
 		break;
 
@@ -2747,7 +2747,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			{
 				break;
 			}
-			trap->FX_PlayEffectID(cgs.effects.mSpawn, pos, ang, -1, -1, qfalse);
+			FX_PlayEffectID(cgs.effects.mSpawn, pos, ang, -1, -1, qfalse);
 		}
 		break;
 
@@ -2836,9 +2836,9 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 
 			trap->Cvar_Set("ui_myteam", va("%i", es->bolt2));
 
-			if (!( trap->Key_GetCatcher() & KEYCATCH_UI ) && !es->bolt1)
+			if (!( Key_GetCatcher() & KEYCATCH_UI ) && !es->bolt1)
 			{
-				trap->OpenUIMenu(UIMENU_PLAYERCONFIG);
+				CL_OpenUIMenu(UIMENU_PLAYERCONFIG);
 			}
 		}
 		break;
@@ -2868,7 +2868,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			for (dist = 0.0f; dist < shotDist; dist += 64.0f)
 			{ //one effect would be.. a whole lot better
 				VectorMA( es->origin2, dist, es->angles, spot );
-                trap->FX_PlayEffectID(cgs.effects.mConcussionAltRing, spot, es->angles2, -1, -1, qfalse);
+                FX_PlayEffectID(cgs.effects.mConcussionAltRing, spot, es->angles2, -1, -1, qfalse);
 			}
 
 			ByteToDir( es->eventParm, dir );
@@ -2891,7 +2891,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		ByteToDir( es->eventParm, dir );
 		if ( es->emplacedOwner )
 		{//hack: this is an index to a custom effect to use
-			trap->FX_PlayEffectID(cgs.gameEffects[es->emplacedOwner], position, dir, -1, -1, qfalse);
+			FX_PlayEffectID(cgs.gameEffects[es->emplacedOwner], position, dir, -1, -1, qfalse);
 		}
 		else if ( CG_VehicleWeaponImpact( cent ) )
 		{//a vehicle missile that uses an overridden impact effect...
@@ -2917,7 +2917,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		ByteToDir( es->eventParm, dir );
 		if ( es->emplacedOwner )
 		{//hack: this is an index to a custom effect to use
-			trap->FX_PlayEffectID(cgs.gameEffects[es->emplacedOwner], position, dir, -1, -1, qfalse);
+			FX_PlayEffectID(cgs.gameEffects[es->emplacedOwner], position, dir, -1, -1, qfalse);
 		}
 		else if ( CG_VehicleWeaponImpact( cent ) )
 		{//a vehicle missile that used an overridden impact effect...
@@ -2943,7 +2943,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		ByteToDir( es->eventParm, dir );
 		if ( es->emplacedOwner )
 		{//hack: this is an index to a custom effect to use
-			trap->FX_PlayEffectID(cgs.gameEffects[es->emplacedOwner], position, dir, -1, -1, qfalse);
+			FX_PlayEffectID(cgs.gameEffects[es->emplacedOwner], position, dir, -1, -1, qfalse);
 		}
 		else if ( CG_VehicleWeaponImpact( cent ) )
 		{//a vehicle missile that used an overridden impact effect...
@@ -3036,7 +3036,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 				fxDir[1] = 1;
 			}
 
-			trap->FX_PlayEffectID(eID, es->origin, fxDir, -1, -1, qfalse);
+			FX_PlayEffectID(eID, es->origin, fxDir, -1, -1, qfalse);
 		}
 		break;
 
@@ -3077,11 +3077,11 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			{
 				if (portalEffect)
 				{
-					trap->FX_PlayEffectID(efxIndex, position, fxDir, -1, -1, qtrue );
+					FX_PlayEffectID(efxIndex, position, fxDir, -1, -1, qtrue );
 				}
 				else
 				{
-					trap->FX_PlayEffectID(efxIndex, position, fxDir, -1, -1, qfalse );
+					FX_PlayEffectID(efxIndex, position, fxDir, -1, -1, qfalse );
 				}
 			}
 		}
@@ -3290,7 +3290,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 
 	case EV_PLAY_ROFF:
 		DEBUGNAME("EV_PLAY_ROFF");
-		trap->ROFF_Play(es->weapon, es->eventParm, es->trickedentindex);
+		CL_ROFF_Play(es->weapon, es->eventParm, es->trickedentindex);
 		break;
 
 	case EV_GLASS_SHATTER:

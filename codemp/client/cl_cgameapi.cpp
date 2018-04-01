@@ -193,11 +193,11 @@ CCALL void CL_CM_LoadMap( const char *mapname, qboolean subBSP ) {
 	else			CM_LoadMap( mapname, qtrue, NULL );
 }
 
-static void CL_GetGlconfig( glconfig_t *glconfig ) {
+CCALL void CL_GetGlconfig( glconfig_t *glconfig ) {
 	*glconfig = cls.glconfig;
 }
 
-static void CL_GetGameState( gameState_t *gs ) {
+CCALL void CL_GetGameState( gameState_t *gs ) {
 	*gs = cl.gameState;
 }
 
@@ -226,16 +226,16 @@ static void CL_S_Shutup( qboolean shutup ) {
 	s_shutUp = shutup;
 }
 
-static int CL_GetCurrentCmdNumber( void ) {
+CCALL int CL_GetCurrentCmdNumber( void ) {
 	return cl.cmdNumber;
 }
 
-static void _CL_SetUserCmdValue( int stateValue, float sensitivityScale, float mPitchOverride, float mYawOverride, float mSensitivityOverride, int fpSel, int invenSel, qboolean fighterControls ) {
+CCALL void _CL_SetUserCmdValue( int stateValue, float sensitivityScale, float mPitchOverride, float mYawOverride, float mSensitivityOverride, int fpSel, int invenSel, qboolean fighterControls ) {
 	cl_bUseFighterPitch = fighterControls;
 	CL_SetUserCmdValue( stateValue, sensitivityScale, mPitchOverride, mYawOverride, mSensitivityOverride, fpSel, invenSel );
 }
 
-static void CL_OpenUIMenu( int menuID ) {
+CCALL void CL_OpenUIMenu( int menuID ) {
 	UIVM_SetActiveMenu( (uiMenuCommand_t)menuID );
 }
 
@@ -243,7 +243,7 @@ CCALL void CGFX_AddLine( vec3_t start, vec3_t end, float size1, float size2, flo
 	FX_AddLine( start, end, size1, size2, sizeParm, alpha1, alpha2, alphaParm, sRGB, eRGB, rgbParm, killTime, shader, flags );
 }
 
-static void CGFX_AddPoly( addpolyArgStruct_t *p ) {
+CCALL void CGFX_AddPoly( addpolyArgStruct_t *p ) {
 	FX_AddPoly( p->p, p->ev, p->numVerts, p->vel, p->accel, p->alpha1, p->alpha2, p->alphaParm, p->rgb1, p->rgb2, p->rgbParm, p->rotationDelta, p->bounce, p->motionDelay, p->killTime, p->shader, p->flags );
 }
 
@@ -251,56 +251,56 @@ CCALL void CGFX_AddBezier( addbezierArgStruct_t *b ) {
 	FX_AddBezier( b->start, b->end, b->control1, b->control1Vel, b->control2, b->control2Vel, b->size1, b->size2, b->sizeParm, b->alpha1, b->alpha2, b->alphaParm, b->sRGB, b->eRGB, b->rgbParm, b->killTime, b->shader, b->flags );
 }
 
-static void CGFX_AddPrimitive( effectTrailArgStruct_t *e ) {
+CCALL void CGFX_AddPrimitive( effectTrailArgStruct_t *e ) {
 	FX_FeedTrail( e );
 }
 
-static void CGFX_AddSprite( addspriteArgStruct_t *s ) {
+CCALL void CGFX_AddSprite( addspriteArgStruct_t *s ) {
 	vec3_t rgb = { 1.0f, 1.0f, 1.0f };
 	FX_AddParticle( s->origin, s->vel, s->accel, s->scale, s->dscale, 0, s->sAlpha, s->eAlpha, 0, rgb, rgb, 0, s->rotation, 0, vec3_origin, vec3_origin, s->bounce, 0, 0, s->life, s->shader, s->flags );
 }
 
-static void CGFX_AddElectricity( addElectricityArgStruct_t *p ) {
+CCALL void CGFX_AddElectricity( addElectricityArgStruct_t *p ) {
 	FX_AddElectricity( p->start, p->end, p->size1, p->size2, p->sizeParm, p->alpha1, p->alpha2, p->alphaParm, p->sRGB, p->eRGB, p->rgbParm, p->chaos, p->killTime, p->shader, p->flags );
 }
 
-static qboolean CL_ROFF_Clean( void ) {
+CCALL qboolean CL_ROFF_Clean( void ) {
 	return theROFFSystem.Clean( qtrue );
 }
 
-static void CL_ROFF_UpdateEntities( void ) {
+CCALL void CL_ROFF_UpdateEntities( void ) {
 	theROFFSystem.UpdateEntities( qtrue );
 }
 
-static int CL_ROFF_Cache( char *file ) {
+CCALL int CL_ROFF_Cache( char *file ) {
 	return theROFFSystem.Cache( file, qtrue );
 }
 
-static qboolean CL_ROFF_Play( int entID, int roffID, qboolean doTranslation ) {
+CCALL qboolean CL_ROFF_Play( int entID, int roffID, qboolean doTranslation ) {
 	return theROFFSystem.Play( entID, roffID, doTranslation, qtrue );
 }
 
-static qboolean CL_ROFF_Purge_Ent( int entID ) {
+CCALL qboolean CL_ROFF_Purge_Ent( int entID ) {
 	return theROFFSystem.PurgeEnt( entID, qtrue );
 }
 
-static void CL_GetCurrentSnapshotNumber( int *snapshotNumber, int *serverTime ) {
+CCALL void CL_GetCurrentSnapshotNumber( int *snapshotNumber, int *serverTime ) {
 	*snapshotNumber = cl.snap.messageNum;
 	*serverTime = cl.snap.serverTime;
 }
 
-static void CL_SetClientForceAngle( int time, vec3_t angle ) {
+CCALL void CL_SetClientForceAngle( int time, vec3_t angle ) {
 	cl.cgameViewAngleForceTime = time;
 	VectorCopy(angle, cl.cgameViewAngleForce);
 }
 
-static void CL_PrecisionTimerStart( void **p ) {
+CCALL void CL_PrecisionTimerStart( void **p ) {
 	timing_c *newTimer = new timing_c; //create the new timer
 	*p = newTimer; //assign the pointer within the pointer to point at the mem addr of our new timer
 	newTimer->Start(); //start the timer
 }
 
-static int CL_PrecisionTimerEnd( void *p ) {
+CCALL int CL_PrecisionTimerEnd( void *p ) {
 	int r = 0;
 	timing_c *timer = (timing_c *)p; //this is the pointer we assigned in start, so we can directly cast it back
 	r = timer->End(); //get the result
@@ -308,9 +308,9 @@ static int CL_PrecisionTimerEnd( void *p ) {
 	return r; //return the result
 }
 
-static void CL_RMG_Init( int /* terrainID */, const char * /* terrainInfo */ ) { }
+CCALL void CL_RMG_Init( int /* terrainID */, const char * /* terrainInfo */ ) { }
 
-static qboolean CGFX_PlayBoltedEffectID( int id, vec3_t org, void *ghoul2, const int boltNum, const int entNum, const int modelNum, int iLooptime, qboolean isRelative ) {
+CCALL qboolean CGFX_PlayBoltedEffectID( int id, vec3_t org, void *ghoul2, const int boltNum, const int entNum, const int modelNum, int iLooptime, qboolean isRelative ) {
 	if ( !ghoul2 ) return qfalse;
 
 	CGhoul2Info_v &g2 = *((CGhoul2Info_v *)ghoul2);
@@ -323,7 +323,7 @@ static qboolean CGFX_PlayBoltedEffectID( int id, vec3_t org, void *ghoul2, const
 	return qfalse;
 }
 
-static qboolean CL_SE_GetStringTextString( const char *text, char *buffer, int bufferLength ) {
+CCALL qboolean CL_SE_GetStringTextString( const char *text, char *buffer, int bufferLength ) {
 	const char *str;
 
 	assert( text && buffer );
@@ -685,11 +685,6 @@ static void CL_G2API_GetSurfaceName( void *ghoul2, int surfNumber, int modelInde
 	strcpy( fillBuf, tmp );
 }
 
-static void CL_Key_SetCatcher( int catcher ) {
-	// Don't allow the cgame module to close the console
-	Key_SetCatcher( catcher | ( Key_GetCatcher( ) & KEYCATCH_CONSOLE ) );
-}
-
 static void CGVM_Cvar_Set( const char *var_name, const char *value ) {
 	Cvar_VM_Set( var_name, value, VM_CGAME );
 }
@@ -772,6 +767,8 @@ void CL_BindCGame( void ) {
 		cgi.AS_AddPrecacheEntry					= AS_AddPrecacheEntry;
 		cgi.AS_GetBModelSound					= AS_GetBModelSound;
 		cgi.AS_ParseSets						= AS_ParseSets;
+
+
 		cgi.R_AddAdditiveLightToScene			= re->AddAdditiveLightToScene;
 		cgi.R_AddDecalToScene					= re->AddDecalToScene;
 		cgi.R_AddLightToScene					= re->AddLightToScene;
@@ -816,21 +813,7 @@ void CL_BindCGame( void ) {
 		cgi.R_WorldEffectCommand				= re->WorldEffectCommand;
 		cgi.RE_InitRendererTerrain				= RE_InitRendererTerrain;
 		cgi.WE_AddWeatherZone					= re->AddWeatherZone;
-		cgi.GetCurrentSnapshotNumber			= CL_GetCurrentSnapshotNumber;
-		cgi.GetCurrentCmdNumber					= CL_GetCurrentCmdNumber;
-		cgi.GetDefaultState						= CL_GetDefaultState;
-		cgi.GetGameState						= CL_GetGameState;
-		cgi.GetGlconfig							= CL_GetGlconfig;
-		cgi.GetServerCommand					= CL_GetServerCommand;
-		cgi.GetSnapshot							= CL_GetSnapshot;
-		cgi.GetUserCmd							= CL_GetUserCmd;
-		cgi.OpenUIMenu							= CL_OpenUIMenu;
-		cgi.SetClientForceAngle					= CL_SetClientForceAngle;
-		cgi.SetUserCmdValue						= _CL_SetUserCmdValue;
-		cgi.Key_GetCatcher						= Key_GetCatcher;
-		cgi.Key_GetKey							= Key_GetKey;
-		cgi.Key_IsDown							= Key_IsDown;
-		cgi.Key_SetCatcher						= CL_Key_SetCatcher;
+		
 		cgi.PC_AddGlobalDefine					= botlib_export->PC_AddGlobalDefine;
 		cgi.PC_FreeSource						= botlib_export->PC_FreeSourceHandle;
 		cgi.PC_LoadGlobalDefines				= botlib_export->PC_LoadGlobalDefines;
@@ -838,34 +821,7 @@ void CL_BindCGame( void ) {
 		cgi.PC_ReadToken						= botlib_export->PC_ReadTokenHandle;
 		cgi.PC_RemoveAllGlobalDefines			= botlib_export->PC_RemoveAllGlobalDefines;
 		cgi.PC_SourceFileAndLine				= botlib_export->PC_SourceFileAndLine;
-		cgi.CIN_DrawCinematic					= CIN_DrawCinematic;
-		cgi.CIN_PlayCinematic					= CIN_PlayCinematic;
-		cgi.CIN_RunCinematic					= CIN_RunCinematic;
-		cgi.CIN_SetExtents						= CIN_SetExtents;
-		cgi.CIN_StopCinematic					= CIN_StopCinematic;
-		cgi.FX_AddLine							= CGFX_AddLine;
-		cgi.FX_RegisterEffect					= FX_RegisterEffect;
-		cgi.FX_PlayEffect						= FX_PlayEffect;
-		cgi.FX_PlayEffectID						= FX_PlayEffectID;
-		cgi.FX_PlayEntityEffectID				= FX_PlayEntityEffectID;
-		cgi.FX_PlayBoltedEffectID				= CGFX_PlayBoltedEffectID;
-		cgi.FX_AddScheduledEffects				= FX_AddScheduledEffects;
-		cgi.FX_InitSystem						= FX_InitSystem;
-		cgi.FX_SetRefDef						= FX_SetRefDef;
-		cgi.FX_FreeSystem						= FX_FreeSystem;
-		cgi.FX_AdjustTime						= FX_AdjustTime;
-		cgi.FX_Draw2DEffects					= FX_Draw2DEffects;
-		cgi.FX_AddPoly							= CGFX_AddPoly;
-		cgi.FX_AddBezier						= CGFX_AddBezier;
-		cgi.FX_AddPrimitive						= CGFX_AddPrimitive;
-		cgi.FX_AddSprite						= CGFX_AddSprite;
-		cgi.FX_AddElectricity					= CGFX_AddElectricity;
-		cgi.SE_GetStringTextString				= CL_SE_GetStringTextString;
-		cgi.ROFF_Clean							= CL_ROFF_Clean;
-		cgi.ROFF_UpdateEntities					= CL_ROFF_UpdateEntities;
-		cgi.ROFF_Cache							= CL_ROFF_Cache;
-		cgi.ROFF_Play							= CL_ROFF_Play;
-		cgi.ROFF_Purge_Ent						= CL_ROFF_Purge_Ent;
+
 		cgi.G2_ListModelSurfaces				= CL_G2API_ListModelSurfaces;
 		cgi.G2_ListModelBones					= CL_G2API_ListModelBones;
 		cgi.G2_SetGhoul2ModelIndexes			= CL_G2API_SetGhoul2ModelIndexes;

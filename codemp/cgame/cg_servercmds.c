@@ -729,7 +729,7 @@ static void CG_ConfigStringModified( void ) {
 
 	// get the gamestate from the client system, which will have the
 	// new configstring already integrated
-	trap->GetGameState( &cgs.gameState );
+	CL_GetGameState( &cgs.gameState );
 
 	// look up the individual string that was modified
 	str = CG_ConfigString( num );
@@ -1305,15 +1305,15 @@ static void CG_SiegeBriefingDisplay_f( void ) {
 }
 
 static void CG_SiegeClassSelect_f( void ) {
-	//if (!( trap->Key_GetCatcher() & KEYCATCH_UI ))
+	//if (!( Key_GetCatcher() & KEYCATCH_UI ))
 	//Well, I want it to come up even if the briefing display is up.
-	trap->OpenUIMenu( UIMENU_CLASSSEL ); //UIMENU_CLASSSEL
+	CL_OpenUIMenu( UIMENU_CLASSSEL ); //UIMENU_CLASSSEL
 }
 
 static void CG_SiegeProfileMenu_f( void ) {
 	if ( !cg.demoPlayback ) {
 		trap->Cvar_Set( "ui_myteam", "3" );
-		trap->OpenUIMenu( UIMENU_PLAYERCONFIG ); //UIMENU_CLASSSEL
+		CL_OpenUIMenu( UIMENU_PLAYERCONFIG ); //UIMENU_CLASSSEL
 	}
 }
 
@@ -1338,8 +1338,8 @@ static void CG_NewForceRank_f( void ) {
 
 	trap->Cvar_Set( "ui_myteam", va( "%i", setTeam ) );
 
-	if ( !( trap->Key_GetCatcher() & KEYCATCH_UI ) && doMenu && !cg.demoPlayback )
-		trap->OpenUIMenu( UIMENU_PLAYERCONFIG );
+	if ( !( Key_GetCatcher() & KEYCATCH_UI ) && doMenu && !cg.demoPlayback )
+		CL_OpenUIMenu( UIMENU_PLAYERCONFIG );
 }
 
 static void CG_KillGhoul2_f( void ) {
@@ -1484,7 +1484,7 @@ static void CG_CenterPrintSE_f( void ) {
 	if ( x[0] == '@' )
 		x++;
 
-	trap->SE_GetStringTextString( x, strEd, MAX_STRINGED_SV_STRING );
+	CL_SE_GetStringTextString( x, strEd, MAX_STRINGED_SV_STRING );
 	CG_CenterPrint( strEd, SCREEN_HEIGHT * 0.30, BIGCHAR_WIDTH );
 }
 
@@ -1526,7 +1526,7 @@ static void CG_Chat_f( void ) {
 
 			//get localized text
 			if ( loc[0] == '@' )
-				trap->SE_GetStringTextString( loc+1, loc, sizeof( loc ) );
+				CL_SE_GetStringTextString( loc+1, loc, sizeof( loc ) );
 
 			if( cg_chatBeep->integer )
 				trap->S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
@@ -1558,7 +1558,7 @@ static void CG_Chat_f( void ) {
 
 		//get localized text
 		if ( loc[0] == '@' )
-			trap->SE_GetStringTextString( loc+1, loc, sizeof( loc ) );
+			CL_SE_GetStringTextString( loc+1, loc, sizeof( loc ) );
 
 		if( cg_teamChatBeep->integer )
 			trap->S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
@@ -1660,7 +1660,7 @@ with this this snapshot.
 */
 void CG_ExecuteNewServerCommands( int latestSequence ) {
 	while ( cgs.serverCommandSequence < latestSequence ) {
-		if ( trap->GetServerCommand( ++cgs.serverCommandSequence ) ) {
+		if ( CL_GetServerCommand( ++cgs.serverCommandSequence ) ) {
 			CG_ServerCommand();
 		}
 	}

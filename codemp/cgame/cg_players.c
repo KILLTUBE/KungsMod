@@ -2189,7 +2189,7 @@ static void _PlayerFootStep( const vec3_t origin,
 
 	if ( effectID != -1 )
 	{
-		trap->FX_PlayEffectID( effectID, trace.endpos, trace.plane.normal, -1, -1, qfalse );
+		FX_PlayEffectID( effectID, trace.endpos, trace.plane.normal, -1, -1, qfalse );
 	}
 
 	if ( cg_footsteps->integer < 4 )
@@ -2442,14 +2442,14 @@ void CG_PlayerAnimEventDo( centity_t *cent, animevent_t *animEvent )
 			BG_GiveMeVectorFromMatrix(&matrix, ORIGIN, bPoint);
 			VectorSet(bAngle, 0, 1, 0);
 
-			trap->FX_PlayEffectID(animEvent->eventData[AED_EFFECTINDEX], bPoint, bAngle, -1, -1, qfalse);
+			FX_PlayEffectID(animEvent->eventData[AED_EFFECTINDEX], bPoint, bAngle, -1, -1, qfalse);
 		}
 		else
 		{
 			vec3_t bAngle;
 
 			VectorSet(bAngle, 0, 1, 0);
-			trap->FX_PlayEffectID(animEvent->eventData[AED_EFFECTINDEX], cent->lerpOrigin, bAngle, -1, -1, qfalse);
+			FX_PlayEffectID(animEvent->eventData[AED_EFFECTINDEX], cent->lerpOrigin, bAngle, -1, -1, qfalse);
 		}
 #endif
 		break;
@@ -5628,7 +5628,7 @@ void CG_CreateSaberMarks( vec3_t start, vec3_t end, vec3_t normal )
 			apArgs.shader = cgs.media.rivetMarkShader;
 			apArgs.flags = 0x08000000|0x00000004;
 
-			trap->FX_AddPoly(&apArgs);
+			CGFX_AddPoly(&apArgs);
 
 			apArgs.shader = cgs.media.mSaberDamageGlow;
 			apArgs.rgb1[0] = 215 + Q_flrand(0.0f, 1.0f) * 40.0f;
@@ -5642,7 +5642,7 @@ void CG_CreateSaberMarks( vec3_t start, vec3_t end, vec3_t normal )
 
 			apArgs.killTime = 100;
 
-			trap->FX_AddPoly(&apArgs);
+			CGFX_AddPoly(&apArgs);
 		}
 		else
 		{
@@ -5758,7 +5758,7 @@ void CG_G2SaberEffects(vec3_t start, vec3_t end, centity_t *owner)
 
 			if (trace.entityNum != ENTITYNUM_NONE)
 			{ //it succeeded with the ghoul2 trace
-				trap->FX_PlayEffectID( cgs.effects.mSaberBloodSparks, trace.endpos, trace.plane.normal, -1, -1, qfalse );
+				FX_PlayEffectID( cgs.effects.mSaberBloodSparks, trace.endpos, trace.plane.normal, -1, -1, qfalse );
 				trap->S_StartSound(trace.endpos, trace.entityNum, CHAN_AUTO, S_RegisterSound(va("sound/weapons/saber/saberhit%i.wav", Q_irand(1, 3))));
 			}
 		}
@@ -5999,12 +5999,12 @@ void CG_SaberCompWork(vec3_t start, vec3_t end, centity_t *owner, int saberNum, 
 
 				if (owner->serverSaberFleshImpact)
 				{ //do standard player/live ent hit sparks
-					trap->FX_PlayEffectID( hitPersonFxID, trace.endpos, trace.plane.normal, -1, -1, qfalse );
+					FX_PlayEffectID( hitPersonFxID, trace.endpos, trace.plane.normal, -1, -1, qfalse );
 					//trap->S_StartSound(trace.endpos, trace.entityNum, CHAN_AUTO, S_RegisterSound(va("sound/weapons/saber/saberhit%i.wav", Q_irand(1, 3))));
 				}
 				else
 				{ //do the cut effect
-					trap->FX_PlayEffectID( hitOtherFxID, trace.endpos, trace.plane.normal, -1, -1, qfalse );
+					FX_PlayEffectID( hitOtherFxID, trace.endpos, trace.plane.normal, -1, -1, qfalse );
 				}
 				doEffect = qfalse;
 			}
@@ -6083,13 +6083,13 @@ void CG_AddSaberBlade( centity_t *cent, centity_t *scent, refEntity_t *saber, in
 	if (  !WP_SaberBladeUseSecondBladeStyle( &client->saber[saberNum], bladeNum )
 			&& client->saber[saberNum].bladeEffect )
 	{
-		trap->FX_PlayBoltedEffectID(client->saber[saberNum].bladeEffect, scent->lerpOrigin,
+		CGFX_PlayBoltedEffectID(client->saber[saberNum].bladeEffect, scent->lerpOrigin,
 			scent->ghoul2, bladeNum, scent->currentState.number, useModelIndex, -1, qfalse);
 	}
 	else if ( WP_SaberBladeUseSecondBladeStyle( &client->saber[saberNum], bladeNum )
 			&& client->saber[saberNum].bladeEffect2 )
 	{
-		trap->FX_PlayBoltedEffectID(client->saber[saberNum].bladeEffect2, scent->lerpOrigin,
+		CGFX_PlayBoltedEffectID(client->saber[saberNum].bladeEffect2, scent->lerpOrigin,
 			scent->ghoul2, bladeNum, scent->currentState.number, useModelIndex, -1, qfalse);
 	}
 	//get the boltMatrix
@@ -6219,7 +6219,7 @@ void CG_AddSaberBlade( centity_t *cent, centity_t *scent, refEntity_t *saber, in
 				{
 					if (!(trace.surfaceFlags & SURF_NOIMPACT) ) // never spark on sky
 					{
-						trap->FX_PlayEffectID( cgs.effects.mSparks, trace.endpos, trDir, -1, -1, qfalse );
+						FX_PlayEffectID( cgs.effects.mSparks, trace.endpos, trDir, -1, -1, qfalse );
 					}
 				}
 
@@ -6496,7 +6496,7 @@ CheckTrail:
 						}
 						*/
 
-						trap->FX_AddPrimitive(&fx);
+						CGFX_AddPrimitive(&fx);
 					}
 				}
 			}
@@ -6746,7 +6746,7 @@ void CG_AddLightningBeam(vec3_t start, vec3_t end)
 	b.shader = R_RegisterShader( "gfx/misc/electric2" );
 	b.flags = 0x00000001; //FX_ALPHA_LINEAR
 
-	trap->FX_AddBezier(&b);
+	CGFX_AddBezier(&b);
 }
 
 void CG_AddRandomLightning(vec3_t start, vec3_t end)
@@ -7391,12 +7391,12 @@ static void CG_CreateSurfaceDebris(centity_t *cent, int surfNum, int fxID, qbool
 	BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, v);
 	BG_GiveMeVectorFromMatrix(&boltMatrix, POSITIVE_Z, d);
 
-	trap->FX_PlayEffectID(fxID, v, d, -1, -1, qfalse);
+	FX_PlayEffectID(fxID, v, d, -1, -1, qfalse);
 	if ( throwPart && lostPartFX )
 	{//throw off a ship part, too
 		vec3_t	fxFwd;
 		AngleVectors( cent->lerpAngles, fxFwd, NULL, NULL );
-		trap->FX_PlayEffectID(lostPartFX, v, fxFwd, -1, -1, qfalse);
+		FX_PlayEffectID(lostPartFX, v, fxFwd, -1, -1, qfalse);
 	}
 }
 
@@ -7447,7 +7447,7 @@ static void CG_CreateSurfaceSmoke(centity_t *cent, int shipSurf, int fxID)
 	BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, v);
 	BG_GiveMeVectorFromMatrix(&boltMatrix, POSITIVE_Z, d);
 
-	trap->FX_PlayEffectID(fxID, v, d, -1, -1, qfalse);
+	FX_PlayEffectID(fxID, v, d, -1, -1, qfalse);
 }
 
 #define SMOOTH_G2ANIM_LERPANGLES
@@ -7902,7 +7902,7 @@ static void CG_ForceElectrocution( centity_t *cent, const vec3_t origin, vec3_t 
 		p.shader = shader;
 		p.flags = (0x00000001 | 0x00000100 | 0x02000000 | 0x04000000 | 0x01000000);
 
-		trap->FX_AddElectricity(&p);
+		CGFX_AddElectricity(&p);
 
 		//In other words:
 		/*
@@ -8031,7 +8031,7 @@ static QINLINE void CG_VehicleEffects(centity_t *cent)
 			if ( !cg_lastHyperSpaceEffectTime
 				|| (cg.time - cg_lastHyperSpaceEffectTime) > HYPERSPACE_TIME+500 )
 			{//can't be from the last time we were in hyperspace, so play the effect!
-				trap->FX_PlayBoltedEffectID( cgs.effects.mHyperspaceStars, cent->lerpOrigin, cent->ghoul2, 0,
+				CGFX_PlayBoltedEffectID( cgs.effects.mHyperspaceStars, cent->lerpOrigin, cent->ghoul2, 0,
 											cent->currentState.number, 0, 0, qtrue );
 				cg_lastHyperSpaceEffectTime = cg.time;
 			}
@@ -8134,11 +8134,11 @@ static QINLINE void CG_VehicleEffects(centity_t *cent)
 				//if ( pVehNPC->m_iArmor <= 75 )
 				if (0)
 				{//hurt
-					trap->FX_PlayEffectID( cgs.effects.mBlackSmoke, org, fwd, -1, -1, qfalse );
+					FX_PlayEffectID( cgs.effects.mBlackSmoke, org, fwd, -1, -1, qfalse );
 				}
 				else if ( pVehNPC->m_pVehicleInfo->iTrailFX )
 				{//okay, do normal trail
-					trap->FX_PlayEffectID( pVehNPC->m_pVehicleInfo->iTrailFX, org, fwd, -1, -1, qfalse );
+					FX_PlayEffectID( pVehNPC->m_pVehicleInfo->iTrailFX, org, fwd, -1, -1, qfalse );
 				}
 				//=====================================================================
 				//EXHAUST FX
@@ -8192,7 +8192,7 @@ static QINLINE void CG_VehicleEffects(centity_t *cent)
 
 						if (pVehNPC->m_pVehicleInfo->type == VH_FIGHTER)
 						{
-							trap->FX_PlayBoltedEffectID(fx, cent->lerpOrigin, cent->ghoul2, pVehNPC->m_iExhaustTag[i],
+							CGFX_PlayBoltedEffectID(fx, cent->lerpOrigin, cent->ghoul2, pVehNPC->m_iExhaustTag[i],
 														cent->currentState.number, 0, 0, qtrue);
 						}
 						else
@@ -8206,7 +8206,7 @@ static QINLINE void CG_VehicleEffects(centity_t *cent)
 							BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, boltOrg);
 							VectorCopy(fwd, boltDir); //fixme?
 
-							trap->FX_PlayEffectID( fx, boltOrg, boltDir, -1, -1, qfalse );
+							FX_PlayEffectID( fx, boltOrg, boltDir, -1, -1, qfalse );
 						}
 					}
 				}
@@ -8243,7 +8243,7 @@ static QINLINE void CG_VehicleEffects(centity_t *cent)
 						BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, boltOrg);
 						VectorCopy(fwd, boltDir); //fixme?
 
-						trap->FX_PlayEffectID( pVehNPC->m_pVehicleInfo->iTrailFX, boltOrg, boltDir, -1, -1, qfalse );
+						FX_PlayEffectID( pVehNPC->m_pVehicleInfo->iTrailFX, boltOrg, boltDir, -1, -1, qfalse );
 					}
 				}
 			}
@@ -8274,7 +8274,7 @@ static QINLINE void CG_VehicleEffects(centity_t *cent)
 
 					//	BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, boltOrg);
 					//}
-					trap->FX_PlayEffectID( cgs.effects.mShipDestBurning, boltOrg, up, -1, -1, qfalse );
+					FX_PlayEffectID( cgs.effects.mShipDestBurning, boltOrg, up, -1, -1, qfalse );
 				}
 			}
 			if ( cent->currentState.brokenLimbs )
@@ -8311,7 +8311,7 @@ static QINLINE void CG_VehicleEffects(centity_t *cent)
 				VectorMA( cent->lerpOrigin, 64, fwd, org );
 				VectorScale( fwd, -1, fwd );
 
-				trap->FX_PlayEffectID( cgs.effects.mBlackSmoke, org, fwd, -1, -1, qfalse );
+				FX_PlayEffectID( cgs.effects.mBlackSmoke, org, fwd, -1, -1, qfalse );
 			}
 			if ( pVehNPC->m_iArmor <= 0 )
 			{//FIXME: should use something attached.. but want it to build up over time, so...
@@ -8319,7 +8319,7 @@ static QINLINE void CG_VehicleEffects(centity_t *cent)
 				{//flaming!
 					VectorMA( cent->lerpOrigin, flrand(-64, 64), fwd, org );
 					VectorScale( fwd, -1, fwd );
-					trap->FX_PlayEffectID( FX_RegisterEffect("ships/fire"), org, fwd, -1, -1, qfalse );
+					FX_PlayEffectID( FX_RegisterEffect("ships/fire"), org, fwd, -1, -1, qfalse );
 					nextFXDelay = 50;
 				}
 			}
@@ -8784,8 +8784,8 @@ void CG_Player( centity_t *cent ) {
 				{ //create effects
 					//FIXME: Just one big effect
 					//Play the effect
-					trap->FX_PlayEffectID(cgs.effects.mBobaJet, flamePos, flameDir, -1, -1, qfalse);
-					trap->FX_PlayEffectID(cgs.effects.mBobaJet, flamePos, flameDir, -1, -1, qfalse);
+					FX_PlayEffectID(cgs.effects.mBobaJet, flamePos, flameDir, -1, -1, qfalse);
+					FX_PlayEffectID(cgs.effects.mBobaJet, flamePos, flameDir, -1, -1, qfalse);
 
 					//Keep the jet fire sound looping
 					S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin,
@@ -8795,7 +8795,7 @@ void CG_Player( centity_t *cent ) {
 				{ //just idling
 					//FIXME: Different smaller effect for idle
 					//Play the effect
-					trap->FX_PlayEffectID(cgs.effects.mBobaJet, flamePos, flameDir, -1, -1, qfalse);
+					FX_PlayEffectID(cgs.effects.mBobaJet, flamePos, flameDir, -1, -1, qfalse);
 				}
 
 				n++;
@@ -9449,15 +9449,15 @@ void CG_Player( centity_t *cent ) {
 
 		if ( realForceLev > FORCE_LEVEL_2 )
 		{//arc
-			//trap->FX_PlayEffectID( cgs.effects.forceLightningWide, efOrg, fxDir );
-			//trap->FX_PlayEntityEffectID(cgs.effects.forceDrainWide, efOrg, axis, cent->boltInfo, cent->currentState.number, -1, -1);
-			trap->FX_PlayEntityEffectID(cgs.effects.forceDrainWide, efOrg, axis, -1, -1, -1, -1);
+			//FX_PlayEffectID( cgs.effects.forceLightningWide, efOrg, fxDir );
+			//FX_PlayEntityEffectID(cgs.effects.forceDrainWide, efOrg, axis, cent->boltInfo, cent->currentState.number, -1, -1);
+			FX_PlayEntityEffectID(cgs.effects.forceDrainWide, efOrg, axis, -1, -1, -1, -1);
 		}
 		else
 		{//line
-			//trap->FX_PlayEffectID( cgs.effects.forceLightning, efOrg, fxDir );
-			//trap->FX_PlayEntityEffectID(cgs.effects.forceDrain, efOrg, axis, cent->boltInfo, cent->currentState.number, -1, -1);
-			trap->FX_PlayEntityEffectID(cgs.effects.forceDrain, efOrg, axis, -1, -1, -1, -1);
+			//FX_PlayEffectID( cgs.effects.forceLightning, efOrg, fxDir );
+			//FX_PlayEntityEffectID(cgs.effects.forceDrain, efOrg, axis, cent->boltInfo, cent->currentState.number, -1, -1);
+			FX_PlayEntityEffectID(cgs.effects.forceDrain, efOrg, axis, -1, -1, -1, -1);
 		}
 
 		/*
@@ -9496,15 +9496,15 @@ void CG_Player( centity_t *cent ) {
 
 		if ( cent->currentState.activeForcePass > FORCE_LEVEL_2 )
 		{//arc
-			//trap->FX_PlayEffectID( cgs.effects.forceLightningWide, efOrg, fxDir );
-			//trap->FX_PlayEntityEffectID(cgs.effects.forceLightningWide, efOrg, axis, cent->boltInfo, cent->currentState.number, -1, -1);
-			trap->FX_PlayEntityEffectID(cgs.effects.forceLightningWide, efOrg, axis, -1, -1, -1, -1);
+			//FX_PlayEffectID( cgs.effects.forceLightningWide, efOrg, fxDir );
+			//FX_PlayEntityEffectID(cgs.effects.forceLightningWide, efOrg, axis, cent->boltInfo, cent->currentState.number, -1, -1);
+			FX_PlayEntityEffectID(cgs.effects.forceLightningWide, efOrg, axis, -1, -1, -1, -1);
 		}
 		else
 		{//line
-			//trap->FX_PlayEffectID( cgs.effects.forceLightning, efOrg, fxDir );
-			//trap->FX_PlayEntityEffectID(cgs.effects.forceLightning, efOrg, axis, cent->boltInfo, cent->currentState.number, -1, -1);
-			trap->FX_PlayEntityEffectID(cgs.effects.forceLightning, efOrg, axis, -1, -1, -1, -1);
+			//FX_PlayEffectID( cgs.effects.forceLightning, efOrg, fxDir );
+			//FX_PlayEntityEffectID(cgs.effects.forceLightning, efOrg, axis, cent->boltInfo, cent->currentState.number, -1, -1);
+			FX_PlayEntityEffectID(cgs.effects.forceLightning, efOrg, axis, -1, -1, -1, -1);
 		}
 
 		/*
@@ -9758,8 +9758,8 @@ void CG_Player( centity_t *cent ) {
  			axis[2][1] = boltMatrix.matrix[1][2];
 		 	axis[2][2] = boltMatrix.matrix[2][2];
 
-			//trap->FX_PlayEntityEffectID(FX_RegisterEffect("force/confusion.efx"), efOrg, axis, cent->boltInfo, cent->currentState.number);
-			trap->FX_PlayEntityEffectID(cgs.effects.mForceConfustionOld, efOrg, axis, -1, -1, -1, -1);
+			//FX_PlayEntityEffectID(FX_RegisterEffect("force/confusion.efx"), efOrg, axis, cent->boltInfo, cent->currentState.number);
+			FX_PlayEntityEffectID(cgs.effects.mForceConfustionOld, efOrg, axis, -1, -1, -1, -1);
 		}
 	}
 
@@ -9864,18 +9864,18 @@ void CG_Player( centity_t *cent ) {
 						fxSArgs.sAlpha *= 3;
 						fxSArgs.eAlpha *= 3;
 						fxSArgs.shader = cgs.media.redSaberGlowShader;
-						trap->FX_AddSprite(&fxSArgs);
+						CGFX_AddSprite(&fxSArgs);
 					}
 					else if (forcePowerDarkLight[i] == FORCE_LIGHTSIDE)
 					{ //light
 						fxSArgs.sAlpha *= 1.5;
 						fxSArgs.eAlpha *= 1.5;
 						fxSArgs.shader = cgs.media.redSaberGlowShader;
-						trap->FX_AddSprite(&fxSArgs);
+						CGFX_AddSprite(&fxSArgs);
 						fxSArgs.shader = cgs.media.greenSaberGlowShader;
-						trap->FX_AddSprite(&fxSArgs);
+						CGFX_AddSprite(&fxSArgs);
 						fxSArgs.shader = cgs.media.blueSaberGlowShader;
-						trap->FX_AddSprite(&fxSArgs);
+						CGFX_AddSprite(&fxSArgs);
 					}
 					else
 					{ //neutral
@@ -9886,16 +9886,16 @@ void CG_Player( centity_t *cent ) {
 							fxSArgs.sAlpha *= 1.5;
 							fxSArgs.eAlpha *= 1.5;
 							fxSArgs.shader = cgs.media.greenSaberGlowShader;
-							trap->FX_AddSprite(&fxSArgs);
+							CGFX_AddSprite(&fxSArgs);
 						}
 						else
 						{
 							fxSArgs.sAlpha *= 0.5;
 							fxSArgs.eAlpha *= 0.5;
 							fxSArgs.shader = cgs.media.greenSaberGlowShader;
-							trap->FX_AddSprite(&fxSArgs);
+							CGFX_AddSprite(&fxSArgs);
 							fxSArgs.shader = cgs.media.blueSaberGlowShader;
-							trap->FX_AddSprite(&fxSArgs);
+							CGFX_AddSprite(&fxSArgs);
 						}
 					}
 				}
@@ -10321,7 +10321,7 @@ stillDoSaber:
 
 				wv = sin( cg.time * 0.003f ) * 0.08f + 0.1f;
 
-				//trap->FX_AddSprite( NULL, efOrg, NULL, NULL, 8.0f, 8.0f, wv, wv, 0.0f, 0.0f, 1.0f, cgs.media.yellowSaberGlowShader, 0x08000000 );
+				//CGFX_AddSprite( NULL, efOrg, NULL, NULL, 8.0f, 8.0f, wv, wv, 0.0f, 0.0f, 1.0f, cgs.media.yellowSaberGlowShader, 0x08000000 );
 				VectorCopy(efOrg, fxSArgs.origin);
 				VectorClear(fxSArgs.vel);
 				VectorClear(fxSArgs.accel);
@@ -10334,7 +10334,7 @@ stillDoSaber:
 				fxSArgs.life = 1.0f;
 				fxSArgs.shader = cgs.media.yellowDroppedSaberShader;
 				fxSArgs.flags = 0x08000000;
-				trap->FX_AddSprite(&fxSArgs);
+				CGFX_AddSprite(&fxSArgs);
 			}
 		}
 		else

@@ -245,7 +245,7 @@ const char *CG_GetGameStatusText(void) {
 		if (cg.snap->ps.persistant[PERS_TEAM] != TEAM_SPECTATOR )
 		{
 			char sPlaceWith[256];
-			trap->SE_GetStringTextString("MP_INGAME_PLACE_WITH", sPlaceWith, sizeof(sPlaceWith));
+			CL_SE_GetStringTextString("MP_INGAME_PLACE_WITH", sPlaceWith, sizeof(sPlaceWith));
 
 			s = va("%s %s %i",CG_PlaceString( cg.snap->ps.persistant[PERS_RANK] + 1 ), sPlaceWith, cg.snap->ps.persistant[PERS_SCORE] );
 		}
@@ -752,7 +752,7 @@ void CG_MouseEvent(int x, int y) {
 
 	/*
 	if ( (cg.predictedPlayerState.pm_type == PM_NORMAL || cg.predictedPlayerState.pm_type == PM_JETPACK || cg.predictedPlayerState.pm_type == PM_FLOAT || cg.predictedPlayerState.pm_type == PM_SPECTATOR) && cg.showScores == qfalse) {
-		trap->Key_SetCatcher(0);
+		CL_Key_SetCatcher(0);
 		return;
 	}
 	*/
@@ -839,14 +839,14 @@ CCALL void CG_KeyEvent(int key, qboolean down) {
 
 	if ( cg.predictedPlayerState.pm_type == PM_NORMAL || cg.predictedPlayerState.pm_type == PM_JETPACK || cg.predictedPlayerState.pm_type == PM_NORMAL || (cg.predictedPlayerState.pm_type == PM_SPECTATOR && cg.showScores == qfalse)) {
 		CG_EventHandling(CGAME_EVENT_NONE);
-		trap->Key_SetCatcher(0);
+		Key_SetCatcher(0);
 		return;
 	}
 
-	//if (key == trap->Key_GetKey("teamMenu") || !Display_CaptureItem(cgs.cursorX, cgs.cursorY)) {
+	//if (key == Key_GetKey("teamMenu") || !Display_CaptureItem(cgs.cursorX, cgs.cursorY)) {
 	// if we see this then we should always be visible
 	//  CG_EventHandling(CGAME_EVENT_NONE);
-	//  trap->Key_SetCatcher(0);
+	//  CL_Key_SetCatcher(0);
 	//}
 
 

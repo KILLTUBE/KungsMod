@@ -673,7 +673,7 @@ Ghoul2 Insert End
 		fxSArgs.flags = 0x08000000;
 
 		//FX_AddSprite( flash.origin, NULL, NULL, 3.0f * val, 0.0f, 0.7f, 0.7f, WHITE, WHITE, Q_flrand(0.0f, 1.0f) * 360, 0.0f, 1.0f, shader, FX_USE_ALPHA );
-		trap->FX_AddSprite(&fxSArgs);
+		CGFX_AddSprite(&fxSArgs);
 	}
 
 	// make sure we aren't looking at cg.predictedPlayerEntity for LG
@@ -739,11 +739,11 @@ Ghoul2 Insert End
 				{
 					if (!thirdPerson)
 					{
-						trap->FX_PlayEntityEffectID(weapon->altMuzzleEffect, flashorigin, flash.axis, -1, -1, -1, -1  );
+						FX_PlayEntityEffectID(weapon->altMuzzleEffect, flashorigin, flash.axis, -1, -1, -1, -1  );
 					}
 					else
 					{
-						trap->FX_PlayEffectID(weapon->altMuzzleEffect, flashorigin, flashdir, -1, -1, qfalse);
+						FX_PlayEffectID(weapon->altMuzzleEffect, flashorigin, flashdir, -1, -1, qfalse);
 					}
 				}
 			}
@@ -753,11 +753,11 @@ Ghoul2 Insert End
 				{
 					if (!thirdPerson)
 					{
-						trap->FX_PlayEntityEffectID(weapon->muzzleEffect, flashorigin, flash.axis, -1, -1, -1, -1  );
+						FX_PlayEntityEffectID(weapon->muzzleEffect, flashorigin, flash.axis, -1, -1, -1, -1  );
 					}
 					else
 					{
-						trap->FX_PlayEffectID(weapon->muzzleEffect, flashorigin, flashdir, -1, -1, qfalse);
+						FX_PlayEffectID(weapon->muzzleEffect, flashorigin, flashdir, -1, -1, qfalse);
 					}
 				}
 			}
@@ -1364,7 +1364,7 @@ void CG_DrawWeaponSelect( void ) {
 
 		strcpy(upperKey, cg_weapons[ cg.weaponSelect ].item->classname);
 
-		if ( trap->SE_GetStringTextString( va("SP_INGAME_%s",Q_strupr(upperKey)), text, sizeof( text )))
+		if ( CL_SE_GetStringTextString( va("SP_INGAME_%s",Q_strupr(upperKey)), text, sizeof( text )))
 		{
 			CG_DrawProportionalString(320, y+45+yOffset, text, UI_CENTER|UI_SMALLFONT, textColor);
 		}
@@ -1967,7 +1967,7 @@ qboolean CG_VehicleWeaponImpact( centity_t *cent )
 		vec3_t normal;
 		ByteToDir( cent->currentState.eventParm, normal );
 
-		trap->FX_PlayEffectID( g_vehWeaponInfo[cent->currentState.otherEntityNum2].iImpactFX, cent->lerpOrigin, normal, -1, -1, qfalse );
+		FX_PlayEffectID( g_vehWeaponInfo[cent->currentState.otherEntityNum2].iImpactFX, cent->lerpOrigin, normal, -1, -1, qfalse );
 		return qtrue;
 	}
 	return qfalse;
@@ -2045,7 +2045,7 @@ void CG_MissileHitWall(int weapon, int clientNum, vec3_t origin, vec3_t dir, imp
 	case WP_DEMP2:
 		if (altFire)
 		{
-			trap->FX_PlayEffectID(cgs.effects.mAltDetonate, origin, dir, -1, -1, qfalse);
+			FX_PlayEffectID(cgs.effects.mAltDetonate, origin, dir, -1, -1, qfalse);
 		}
 		else
 		{
@@ -2071,8 +2071,8 @@ void CG_MissileHitWall(int weapon, int clientNum, vec3_t origin, vec3_t dir, imp
 		break;
 
 	case WP_THERMAL:
-		trap->FX_PlayEffectID( cgs.effects.thermalExplosionEffect, origin, dir, -1, -1, qfalse );
-		trap->FX_PlayEffectID( cgs.effects.thermalShockwaveEffect, origin, up, -1, -1, qfalse );
+		FX_PlayEffectID( cgs.effects.thermalExplosionEffect, origin, dir, -1, -1, qfalse );
+		FX_PlayEffectID( cgs.effects.thermalShockwaveEffect, origin, up, -1, -1, qfalse );
 		break;
 
 	case WP_EMPLACED_GUN:
@@ -2174,7 +2174,7 @@ void CG_MissileHitPlayer(int weapon, vec3_t origin, vec3_t dir, int entityNum, q
 		*/
 		if (altFire)
 		{
-			trap->FX_PlayEffectID(cgs.effects.mAltDetonate, origin, dir, -1, -1, qfalse);
+			FX_PlayEffectID(cgs.effects.mAltDetonate, origin, dir, -1, -1, qfalse);
 		}
 		else
 		{
@@ -2191,8 +2191,8 @@ void CG_MissileHitPlayer(int weapon, vec3_t origin, vec3_t dir, int entityNum, q
 		break;
 
 	case WP_THERMAL:
-		trap->FX_PlayEffectID( cgs.effects.thermalExplosionEffect, origin, dir, -1, -1, qfalse );
-		trap->FX_PlayEffectID( cgs.effects.thermalShockwaveEffect, origin, up, -1, -1, qfalse );
+		FX_PlayEffectID( cgs.effects.thermalExplosionEffect, origin, dir, -1, -1, qfalse );
+		FX_PlayEffectID( cgs.effects.thermalShockwaveEffect, origin, up, -1, -1, qfalse );
 		break;
 	case WP_EMPLACED_GUN:
 		//FIXME: Its own effect?

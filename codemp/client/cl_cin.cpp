@@ -1334,7 +1334,7 @@ static void RoQShutdown( void ) {
 CIN_StopCinematic
 ==================
 */
-e_status CIN_StopCinematic(int handle) {
+CCALL e_status CIN_StopCinematic(int handle) {
 
 	if (handle < 0 || handle>= MAX_VIDEO_HANDLES || cinTable[handle].status == FMV_EOF) return FMV_EOF;
 	currentHandle = handle;
@@ -1365,7 +1365,7 @@ Fetch and decompress the pending frame
 */
 
 
-e_status CIN_RunCinematic (int handle)
+CCALL e_status CIN_RunCinematic (int handle)
 {
 	int	start = 0;
 	int     thisTime = 0;
@@ -1436,7 +1436,7 @@ e_status CIN_RunCinematic (int handle)
 CIN_PlayCinematic
 ==================
 */
-int CIN_PlayCinematic( const char *arg, int x, int y, int w, int h, int systemBits ) {
+CCALL int CIN_PlayCinematic( const char *arg, int x, int y, int w, int h, int systemBits ) {
 	unsigned short RoQID;
 	char	name[MAX_OSPATH];
 	int		i;
@@ -1524,7 +1524,7 @@ int CIN_PlayCinematic( const char *arg, int x, int y, int w, int h, int systemBi
 	return -1;
 }
 
-void CIN_SetExtents (int handle, int x, int y, int w, int h) {
+CCALL void CIN_SetExtents (int handle, int x, int y, int w, int h) {
 	if (handle < 0 || handle>= MAX_VIDEO_HANDLES || cinTable[handle].status == FMV_EOF) return;
 	cinTable[handle].xpos = x;
 	cinTable[handle].ypos = y;
@@ -1603,7 +1603,7 @@ void CIN_ResampleCinematic(int handle, int *buf2) {
 CIN_DrawCinematic
 ==================
 */
-void CIN_DrawCinematic (int handle) {
+CCALL void CIN_DrawCinematic (int handle) {
 	float	x, y, w, h;
 	byte	*buf;
 

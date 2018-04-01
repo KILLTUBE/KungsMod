@@ -1797,7 +1797,7 @@ void CG_DrawSkyBoxPortal(const char *cstr)
 
 	if ( !cg.hyperspace)
 	{ //rww - also had to add this to add effects being rendered in portal sky areas properly.
-		trap->FX_AddScheduledEffects(qtrue);
+		FX_AddScheduledEffects(qtrue);
 	}
 
 	CG_AddPacketEntities(qtrue); //rww - There was no proper way to put real entities inside the portal view before.
@@ -2078,7 +2078,7 @@ void CG_EmplacedView(vec3_t angles)
 
 		if (override == 2)
 		{
-			trap->SetClientForceAngle(cg.time + 5000, cg.refdef.viewangles);
+			CL_SetClientForceAngle(cg.time + 5000, cg.refdef.viewangles);
 		}
 	}
 
@@ -2458,7 +2458,7 @@ CCALL void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolea
 		return;
 	}
 
-	trap->FX_AdjustTime( cg.time );
+	FX_AdjustTime( cg.time );
 
 	CG_RunLightStyles();
 
@@ -2472,7 +2472,7 @@ CCALL void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolea
 	// set up cg.snap and possibly cg.nextSnap
 	CG_ProcessSnapshots();
 
-	trap->ROFF_UpdateEntities();
+	CL_ROFF_UpdateEntities();
 
 	// if we haven't received any snapshots yet, all
 	// we can draw is the information screen
@@ -2527,7 +2527,7 @@ CCALL void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolea
 			//mSensitivityOverride = 5.0f;//old default value
 			mSensitivityOverride = 0.0f;
 			bUseFighterPitch = qtrue;
-			trap->SetUserCmdValue( cg.weaponSelect, mSensitivity, mPitchOverride, mYawOverride, mSensitivityOverride, cg.forceSelect, cg.itemSelect, bUseFighterPitch );
+			_CL_SetUserCmdValue( cg.weaponSelect, mSensitivity, mPitchOverride, mYawOverride, mSensitivityOverride, cg.forceSelect, cg.itemSelect, bUseFighterPitch );
 			isFighter = qtrue;
 		}
 	}
@@ -2546,12 +2546,12 @@ CCALL void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolea
 			veh->m_pVehicle->m_pVehicleInfo->type == VH_FIGHTER &&
 			bg_fighterAltControl->integer)
 		{
-			trap->SetUserCmdValue( cg.weaponSelect, mSensitivity, mPitchOverride, mYawOverride, 0.0f, cg.forceSelect, cg.itemSelect, qtrue );
+			_CL_SetUserCmdValue( cg.weaponSelect, mSensitivity, mPitchOverride, mYawOverride, 0.0f, cg.forceSelect, cg.itemSelect, qtrue );
 			veh = NULL; //this is done because I don't want an extra assign each frame because I am so perfect and super efficient.
 		}
 		else
 		{
-			trap->SetUserCmdValue( cg.weaponSelect, mSensitivity, mPitchOverride, mYawOverride, 0.0f, cg.forceSelect, cg.itemSelect, qfalse );
+			_CL_SetUserCmdValue( cg.weaponSelect, mSensitivity, mPitchOverride, mYawOverride, 0.0f, cg.forceSelect, cg.itemSelect, qfalse );
 		}
 	}
 
@@ -2647,7 +2647,7 @@ CCALL void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolea
 
 	if ( !cg.hyperspace)
 	{
-		trap->FX_AddScheduledEffects(qfalse);
+		FX_AddScheduledEffects(qfalse);
 	}
 
 	// add buffered sounds

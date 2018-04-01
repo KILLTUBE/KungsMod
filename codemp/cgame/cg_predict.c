@@ -464,8 +464,8 @@ static void CG_InterpolatePlayerState( qboolean grabAngles ) {
 		usercmd_t	cmd;
 		int			cmdNum;
 
-		cmdNum = trap->GetCurrentCmdNumber();
-		trap->GetUserCmd( cmdNum, &cmd );
+		cmdNum = CL_GetCurrentCmdNumber();
+		CL_GetUserCmd( cmdNum, &cmd );
 
 		PM_UpdateViewAngles( out, &cmd );
 	}
@@ -516,8 +516,8 @@ static void CG_InterpolateVehiclePlayerState( qboolean grabAngles ) {
 		usercmd_t	cmd;
 		int			cmdNum;
 
-		cmdNum = trap->GetCurrentCmdNumber();
-		trap->GetUserCmd( cmdNum, &cmd );
+		cmdNum = CL_GetCurrentCmdNumber();
+		CL_GetUserCmd( cmdNum, &cmd );
 
 		PM_UpdateViewAngles( out, &cmd );
 	}
@@ -1017,13 +1017,13 @@ void CG_PredictPlayerState( void ) {
 		oldVehicleState = cg.predictedVehicleState;
 	}
 
-	current = trap->GetCurrentCmdNumber();
+	current = CL_GetCurrentCmdNumber();
 
 	// if we don't have the commands right after the snapshot, we
 	// can't accurately predict a current position, so just freeze at
 	// the last good position we had
 	cmdNum = current - CMD_BACKUP + 1;
-	trap->GetUserCmd( cmdNum, &oldestCmd );
+	CL_GetUserCmd( cmdNum, &oldestCmd );
 	if ( oldestCmd.serverTime > cg.snap->ps.commandTime
 		&& oldestCmd.serverTime < cg.time ) {	// special check for map_restart
 		if ( cg_showMiss->integer ) {
@@ -1033,7 +1033,7 @@ void CG_PredictPlayerState( void ) {
 	}
 
 	// get the latest command so we can know which commands are from previous map_restarts
-	trap->GetUserCmd( current, &latestCmd );
+	CL_GetUserCmd( current, &latestCmd );
 
 	// get the most recent information we have, even if
 	// the server time is beyond our current cg.time,
@@ -1105,7 +1105,7 @@ void CG_PredictPlayerState( void ) {
 	moved = qfalse;
 	for ( cmdNum = current - CMD_BACKUP + 1 ; cmdNum <= current ; cmdNum++ ) {
 		// get the command
-		trap->GetUserCmd( cmdNum, &cg_pmove.cmd );
+		CL_GetUserCmd( cmdNum, &cg_pmove.cmd );
 
 		if ( cg_pmove.pmove_fixed ) {
 			PM_UpdateViewAngles( cg_pmove.ps, &cg_pmove.cmd );
@@ -1294,7 +1294,7 @@ void CG_PredictPlayerState( void ) {
 				//keep this updated based on what the playerstate says
 				veh->m_pVehicle->m_iRemovedSurfaces = cg.predictedVehicleState.vehSurfaces;
 
-				trap->GetUserCmd( cmdNum, &veh->m_pVehicle->m_ucmd );
+				CL_GetUserCmd( cmdNum, &veh->m_pVehicle->m_ucmd );
 
 				if ( veh->m_pVehicle->m_ucmd.buttons & BUTTON_TALK )
 				{ //forced input if "chat bubble" is up

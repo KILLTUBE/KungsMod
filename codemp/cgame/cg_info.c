@@ -277,7 +277,7 @@ void CG_DrawInformation( void ) {
 		if ( value && !valueNOFP && (value < NUM_FORCE_MASTERY_LEVELS) ) {
 			char fmStr[1024];
 
-			trap->SE_GetStringTextString("MP_INGAME_MAXFORCERANK",fmStr, sizeof(fmStr));
+			CL_SE_GetStringTextString("MP_INGAME_MAXFORCERANK",fmStr, sizeof(fmStr));
 
 			CG_DrawProportionalString( 320, y, va( "%s %s", fmStr, CG_GetStringEdString("MP_INGAME", forceMasteryLevels[value]) ), UI_CENTER|UI_INFOFONT|UI_DROPSHADOW, colorWhite );
 			y += iPropHeight;
@@ -285,7 +285,7 @@ void CG_DrawInformation( void ) {
 		else if (!valueNOFP)
 		{
 			char fmStr[1024];
-			trap->SE_GetStringTextString("MP_INGAME_MAXFORCERANK",fmStr, sizeof(fmStr));
+			CL_SE_GetStringTextString("MP_INGAME_MAXFORCERANK",fmStr, sizeof(fmStr));
 
 			CG_DrawProportionalString( 320, y, va( "%s %s", fmStr, (char *)CG_GetStringEdString("MP_INGAME", forceMasteryLevels[7]) ), UI_CENTER|UI_INFOFONT|UI_DROPSHADOW, colorWhite );
 			y += iPropHeight;

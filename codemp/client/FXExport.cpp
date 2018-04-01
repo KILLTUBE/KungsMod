@@ -80,8 +80,7 @@ CCALL void FX_PlayBoltedEffectID( int id, vec3_t org,
 	theFxScheduler.PlayEffect(id, org, 0, boltInfo, ghoul2, -1, -1, -1, qfalse, iLooptime, !!isRelative  );
 }
 
-CCALL void FX_PlayEntityEffectID( int id, vec3_t org,
-						matrix3_t axis, const int boltInfo, const int entNum, int vol, int rad )
+CCALL void FX_PlayEntityEffectID( int id, vec3_t org, matrix3_t axis, const int boltInfo, const int entNum, int vol, int rad )
 {
 #ifdef __FXCHECKER
 	if (_isnan(org[0]) || _isnan(org[1]) || _isnan(org[2]))

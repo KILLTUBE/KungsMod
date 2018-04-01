@@ -164,7 +164,7 @@ void PM_VehicleImpact(bgEntity_t *pEnt, trace_t *trace)
 #ifdef _GAME
 			G_PlayEffectID( pSelfVeh->m_pVehicleInfo->iImpactFX, pm->ps->origin, up );
 #else
-			trap->FX_PlayEffectID( pSelfVeh->m_pVehicleInfo->iImpactFX, pm->ps->origin, up, -1, -1, qfalse );
+			FX_PlayEffectID( pSelfVeh->m_pVehicleInfo->iImpactFX, pm->ps->origin, up, -1, -1, qfalse );
 #endif
 		}
 		*/
@@ -563,7 +563,7 @@ void PM_VehicleImpact(bgEntity_t *pEnt, trace_t *trace)
 			{ //don't hit your own missiles!
 				AngleVectors( pSelfVeh->m_vOrientation, NULL, NULL, vehUp );
 				pEnt->m_pVehicle->m_iHitDebounce = pm->cmd.serverTime + 200;
-				trap->FX_PlayEffectID( pSelfVeh->m_pVehicleInfo->iImpactFX, pm->ps->origin, vehUp, -1, -1, qfalse );
+				FX_PlayEffectID( pSelfVeh->m_pVehicleInfo->iImpactFX, pm->ps->origin, vehUp, -1, -1, qfalse );
 
 				pSelfVeh->m_ulFlags |= VEH_CRASHING;
 			}

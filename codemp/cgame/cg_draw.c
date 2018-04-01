@@ -1822,7 +1822,7 @@ void CG_DrawInvenSelect( void )
 
 			strcpy(upperKey, bg_itemlist[itemNdex].classname);
 
-			if ( trap->SE_GetStringTextString( va("SP_INGAME_%s",Q_strupr(upperKey)), text, sizeof( text )))
+			if ( CL_SE_GetStringTextString( va("SP_INGAME_%s",Q_strupr(upperKey)), text, sizeof( text )))
 			{
 				CG_DrawProportionalString(320, y+45, text, UI_CENTER | UI_SMALLFONT, textColor);
 			}
@@ -4265,8 +4265,8 @@ static void CG_DrawDisconnect( void ) {
 	}
 
 	// draw the phone jack if we are completely past our buffers
-	cmdNum = trap->GetCurrentCmdNumber() - CMD_BACKUP + 1;
-	trap->GetUserCmd( cmdNum, &cmd );
+	cmdNum = CL_GetCurrentCmdNumber() - CMD_BACKUP + 1;
+	CL_GetUserCmd( cmdNum, &cmd );
 	if ( cmd.serverTime <= cg.snap->ps.commandTime
 		|| cmd.serverTime > cg.time ) {	// special check for map_restart // bk 0102165 - FIXME
 		return;
@@ -4400,17 +4400,17 @@ static void CG_DrawLagometer( void ) {
 
 void CG_DrawSiegeMessage( const char *str, int objectiveScreen )
 {
-//	if (!( trap->Key_GetCatcher() & KEYCATCH_UI ))
+//	if (!( Key_GetCatcher() & KEYCATCH_UI ))
 	{
-		trap->OpenUIMenu(UIMENU_CLOSEALL);
+		CL_OpenUIMenu(UIMENU_CLOSEALL);
 		trap->Cvar_Set("cg_siegeMessage", str);
 		if (objectiveScreen)
 		{
-			trap->OpenUIMenu(UIMENU_SIEGEOBJECTIVES);
+			CL_OpenUIMenu(UIMENU_SIEGEOBJECTIVES);
 		}
 		else
 		{
-			trap->OpenUIMenu(UIMENU_SIEGEMESSAGE);
+			CL_OpenUIMenu(UIMENU_SIEGEMESSAGE);
 		}
 	}
 }
@@ -4420,7 +4420,7 @@ void CG_DrawSiegeMessageNonMenu( const char *str )
 	char	text[1024];
 	if (str[0]=='@')
 	{
-		trap->SE_GetStringTextString(str+1, text, sizeof(text));
+		CL_SE_GetStringTextString(str+1, text, sizeof(text));
 		str = text;
 	}
 	CG_CenterPrint(str, SCREEN_HEIGHT * 0.30, BIGCHAR_WIDTH);
@@ -6533,13 +6533,13 @@ static void CG_DrawVote(void) {
 	}
 
 	if ( !Q_strncmp( cgs.voteString, "map_restart", 11 ) )
-		trap->SE_GetStringTextString( "MENUS_RESTART_MAP", sCmd, sizeof( sCmd ) );
+		CL_SE_GetStringTextString( "MENUS_RESTART_MAP", sCmd, sizeof( sCmd ) );
 	else if ( !Q_strncmp( cgs.voteString, "vstr nextmap", 12 ) )
-		trap->SE_GetStringTextString( "MENUS_NEXT_MAP", sCmd, sizeof( sCmd ) );
+		CL_SE_GetStringTextString( "MENUS_NEXT_MAP", sCmd, sizeof( sCmd ) );
 	else if ( !Q_strncmp( cgs.voteString, "g_doWarmup", 10 ) )
-		trap->SE_GetStringTextString( "MENUS_WARMUP", sCmd, sizeof( sCmd ) );
+		CL_SE_GetStringTextString( "MENUS_WARMUP", sCmd, sizeof( sCmd ) );
 	else if ( !Q_strncmp( cgs.voteString, "g_gametype", 10 ) ) {
-		trap->SE_GetStringTextString( "MENUS_GAME_TYPE", sCmd, sizeof( sCmd ) );
+		CL_SE_GetStringTextString( "MENUS_GAME_TYPE", sCmd, sizeof( sCmd ) );
 
 			 if ( !Q_stricmp( "Free For All", cgs.voteString+11 ) )				sParm = CG_GetStringEdString( "MENUS", "FREE_FOR_ALL" );
 		else if ( !Q_stricmp( "Duel", cgs.voteString+11 ) )						sParm = CG_GetStringEdString( "MENUS", "DUEL" );
@@ -6551,11 +6551,11 @@ static void CG_DrawVote(void) {
 		else if ( !Q_stricmp( "Capture the Ysalamiri", cgs.voteString+11 ) )	sParm = CG_GetStringEdString( "MENUS", "CAPTURE_THE_YSALIMARI" );
 	}
 	else if ( !Q_strncmp( cgs.voteString, "map", 3 ) ) {
-		trap->SE_GetStringTextString( "MENUS_NEW_MAP", sCmd, sizeof( sCmd ) );
+		CL_SE_GetStringTextString( "MENUS_NEW_MAP", sCmd, sizeof( sCmd ) );
 		sParm = cgs.voteString+4;
 	}
 	else if ( !Q_strncmp( cgs.voteString, "kick", 4 ) ) {
-		trap->SE_GetStringTextString( "MENUS_KICK_PLAYER", sCmd, sizeof( sCmd ) );
+		CL_SE_GetStringTextString( "MENUS_KICK_PLAYER", sCmd, sizeof( sCmd ) );
 		sParm = cgs.voteString+5;
 	}
 	else
@@ -6565,9 +6565,9 @@ static void CG_DrawVote(void) {
 
 
 
-	trap->SE_GetStringTextString( "MENUS_VOTE", sVote, sizeof( sVote ) );
-	trap->SE_GetStringTextString( "MENUS_YES", sYes, sizeof( sYes ) );
-	trap->SE_GetStringTextString( "MENUS_NO", sNo, sizeof( sNo ) );
+	CL_SE_GetStringTextString( "MENUS_VOTE", sVote, sizeof( sVote ) );
+	CL_SE_GetStringTextString( "MENUS_YES", sYes, sizeof( sYes ) );
+	CL_SE_GetStringTextString( "MENUS_NO", sNo, sizeof( sNo ) );
 
 	if (sParm && sParm[0])
 		s = va( "%s(%i):<%s %s> %s:%i %s:%i", sVote, sec, sCmd, sParm, sYes, cgs.voteYes, sNo, cgs.voteNo);

@@ -144,10 +144,10 @@ CCALL void			G2API_CleanGhoul2Models				( void **ghoul2Ptr ) {
 
 
 CCALL qboolean Key_IsDown( int keynum ) {
-	return trap->Key_IsDown(keynum);
+	return Key_IsDown(keynum);
 
 }
 
 CCALL qboolean		CL_SE_GetStringTextString				( const char *text, char *buffer, int bufferLength ) {
-	return trap->SE_GetStringTextString(text, buffer, bufferLength);
+	return CL_SE_GetStringTextString(text, buffer, bufferLength);
 }

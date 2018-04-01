@@ -217,7 +217,7 @@ void CG_InitSiegeMode(void)
 		if (team1[0] == '@')
 		{ //it's a damn stringed reference.
 			char b[256];
-			trap->SE_GetStringTextString(team1+1, b, 256);
+			CL_SE_GetStringTextString(team1+1, b, 256);
 			trap->Cvar_Set("cg_siegeTeam1Name", b);
 		}
 		else
@@ -238,7 +238,7 @@ void CG_InitSiegeMode(void)
 		if (team2[0] == '@')
 		{ //it's a damn stringed reference.
 			char b[256];
-			trap->SE_GetStringTextString(team2+1, b, 256);
+			CL_SE_GetStringTextString(team2+1, b, 256);
 			trap->Cvar_Set("cg_siegeTeam2Name", b);
 		}
 		else

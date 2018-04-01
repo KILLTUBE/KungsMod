@@ -48,7 +48,7 @@ EXTERNC cgameImport_t *trap;
 //
 //
 //CCALL int				FX_RegisterEffect					( const char *file ) {
-//	return trap->FX_RegisterEffect(file);
+//	return FX_RegisterEffect(file);
 //}
 #if 0
 CCALL qboolean isGame() {

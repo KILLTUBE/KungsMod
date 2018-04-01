@@ -414,9 +414,9 @@ qboolean CG_DrawOldScoreboard( void ) {
 			char sOf[256];
 			char sWith[256];
 
-			trap->SE_GetStringTextString("MP_INGAME_PLACE",	sPlace,	sizeof(sPlace));
-			trap->SE_GetStringTextString("MP_INGAME_OF",		sOf,	sizeof(sOf));
-			trap->SE_GetStringTextString("MP_INGAME_WITH",	sWith,	sizeof(sWith));
+			CL_SE_GetStringTextString("MP_INGAME_PLACE",	sPlace,	sizeof(sPlace));
+			CL_SE_GetStringTextString("MP_INGAME_OF",		sOf,	sizeof(sOf));
+			CL_SE_GetStringTextString("MP_INGAME_WITH",	sWith,	sizeof(sWith));
 
 			s = va("%s %s (%s %i) %s %i",
 				CG_PlaceString( cg.snap->ps.persistant[PERS_RANK] + 1 ),
@@ -473,7 +473,7 @@ qboolean CG_DrawOldScoreboard( void ) {
 	if (cgs.gametype == GT_DUEL || cgs.gametype == GT_POWERDUEL)
 	{
 		char sWL[100];
-		trap->SE_GetStringTextString("MP_INGAME_W_L", sWL,	sizeof(sWL));
+		CL_SE_GetStringTextString("MP_INGAME_W_L", sWL,	sizeof(sWL));
 
 		CG_Text_Paint ( SB_SCORE_X, y, 1.0f, colorWhite, sWL, 0, 0, ITEM_TEXTSTYLE_OUTLINED, FONT_MEDIUM );
 	}

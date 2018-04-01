@@ -308,9 +308,9 @@ static snapshot_t *CG_ReadNextSnapshot( void ) {
 
 		// try to read the snapshot from the client system
 		cgs.processedSnapshotNum++;
-		r = trap->GetSnapshot( cgs.processedSnapshotNum, dest );
+		r = CL_GetSnapshot( cgs.processedSnapshotNum, dest );
 
-		// FIXME: why would trap->GetSnapshot return a snapshot with the same server time
+		// FIXME: why would CL_GetSnapshot return a snapshot with the same server time
 		if ( cg.snap && r && dest->serverTime == cg.snap->serverTime ) {
 			//[BugFix30]
 			//According to dumbledore, this situation occurs when you're playing back a demo that was record when
@@ -369,7 +369,7 @@ void CG_ProcessSnapshots( void ) {
 	int				n;
 
 	// see what the latest snapshot the client system has is
-	trap->GetCurrentSnapshotNumber( &n, &cg.latestSnapshotTime );
+	CL_GetCurrentSnapshotNumber( &n, &cg.latestSnapshotTime );
 	if ( n != cg.latestSnapshotNum ) {
 		if ( n < cg.latestSnapshotNum ) {
 			// this should never happen

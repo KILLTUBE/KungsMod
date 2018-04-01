@@ -118,7 +118,7 @@ int	FX_Init( refdef_t* refdef )
 	return true;
 }
 
-void FX_SetRefDef(refdef_t *refdef)
+CCALL void FX_SetRefDef(refdef_t *refdef)
 {
 	theFxHelper.refdef = refdef;
 }

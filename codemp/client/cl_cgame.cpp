@@ -51,7 +51,7 @@ extern qboolean getCameraInfo(int time, vec3_t *origin, vec3_t *angles);
 CL_GetUserCmd
 ====================
 */
-qboolean CL_GetUserCmd( int cmdNumber, usercmd_t *ucmd ) {
+CCALL qboolean CL_GetUserCmd( int cmdNumber, usercmd_t *ucmd ) {
 	// cmds[cmdNumber] is the last properly generated command
 
 	// can't return anything that we haven't created yet
@@ -96,7 +96,7 @@ qboolean	CL_GetParseEntityState( int parseEntityNumber, entityState_t *state ) {
 CL_GetSnapshot
 ====================
 */
-qboolean CL_GetSnapshot( int snapshotNumber, snapshot_t *snapshot ) {
+CCALL qboolean CL_GetSnapshot( int snapshotNumber, snapshot_t *snapshot ) {
 	clSnapshot_t	*clSnap;
 	int				i, count;
 
@@ -149,7 +149,7 @@ qboolean CL_GetSnapshot( int snapshotNumber, snapshot_t *snapshot ) {
 	return qtrue;
 }
 
-qboolean CL_GetDefaultState(int index, entityState_t *state)
+CCALL qboolean CL_GetDefaultState(int index, entityState_t *state)
 {
 	if (index < 0 || index >= MAX_GENTITIES)
 	{
@@ -371,7 +371,7 @@ CL_GetServerCommand
 Set up argc/argv for the given command
 ===================
 */
-qboolean CL_GetServerCommand( int serverCommandNumber ) {
+CCALL qboolean CL_GetServerCommand( int serverCommandNumber ) {
 	char	*s;
 	char	*cmd;
 	static char bigConfigString[BIG_INFO_STRING];
