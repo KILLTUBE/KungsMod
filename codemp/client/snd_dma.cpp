@@ -1878,7 +1878,7 @@ S_ClearLoopingSounds
 
 ==================
 */
-void S_ClearLoopingSounds( void )
+CCALL void S_ClearLoopingSounds( void )
 {
 #ifdef USE_OPENAL
 	if (s_UseOpenAL)
@@ -1928,7 +1928,7 @@ Called during entity generation for a frame
 Include velocity in case I get around to doing doppler...
 ==================
 */
-void S_AddLoopingSound( int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfxHandle ) {
+CCALL void S_AddLoopingSound( int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfxHandle ) {
 	/*const*/ sfx_t *sfx;
 
   	if ( !s_soundStarted || s_soundMuted ) {

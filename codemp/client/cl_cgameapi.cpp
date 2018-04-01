@@ -184,11 +184,11 @@ void FX_FeedTrail( effectTrailArgStruct_t *a ); //FxPrimitives.cpp
 
 // wrappers and such
 
-static void CL_AddCgameCommand( const char *cmdName ) {
+CCALL void CL_AddCgameCommand( const char *cmdName ) {
 	Cmd_AddCommand( cmdName, NULL );
 }
 
-static void CL_CM_LoadMap( const char *mapname, qboolean subBSP ) {
+CCALL void CL_CM_LoadMap( const char *mapname, qboolean subBSP ) {
 	if ( subBSP )	CM_LoadSubBSP( va( "maps/%s.bsp", mapname+1 ), qfalse );
 	else			CM_LoadMap( mapname, qtrue, NULL );
 }
@@ -209,7 +209,7 @@ static int CL_Milliseconds( void ) {
 	return Sys_Milliseconds();
 }
 
-static void CL_AddReliableCommand2( const char *cmd ) {
+CCALL void CL_AddReliableCommand2( const char *cmd ) {
 	CL_AddReliableCommand( cmd, qfalse );
 }
 
@@ -694,7 +694,7 @@ static void CGVM_Cvar_Set( const char *var_name, const char *value ) {
 	Cvar_VM_Set( var_name, value, VM_CGAME );
 }
 
-static void CGVM_Cmd_RemoveCommand( const char *cmd_name ) {
+CCALL void CGVM_Cmd_RemoveCommand( const char *cmd_name ) {
 	Cmd_VM_RemoveCommand( cmd_name, VM_CGAME );
 }
 
@@ -743,21 +743,7 @@ void CL_BindCGame( void ) {
 		cgi.Cvar_Register						= Cvar_Register;
 		cgi.Cvar_Set							= CGVM_Cvar_Set;
 		cgi.Cvar_Update							= Cvar_Update;
-		cgi.Cvar_VariableStringBuffer			= Cvar_VariableStringBuffer;
-		cgi.GetRealCvar = Cvar_Get;
-		cgi.AddCommand							= CL_AddCgameCommand;
-		cgi.Cmd_Argc							= Cmd_Argc;
-		cgi.Cmd_Args							= Cmd_ArgsBuffer;
-		cgi.Cmd_Argv							= Cmd_ArgvBuffer;
-		cgi.RemoveCommand						= CGVM_Cmd_RemoveCommand;
-		cgi.SendClientCommand					= CL_AddReliableCommand2;
-		cgi.SendConsoleCommand					= Cbuf_AddText;
-		cgi.FS_Close							= FS_FCloseFile;
-		cgi.FS_GetFileList						= FS_GetFileList;
-		cgi.FS_Open								= FS_FOpenFileByMode;
-		cgi.FS_Read								= FS_Read;
-		cgi.FS_Write							= FS_Write;
-		cgi.UpdateScreen						= SCR_UpdateScreen;
+
 		cgi.CM_InlineModel						= CM_InlineModel;
 		cgi.CM_LoadMap							= CL_CM_LoadMap;
 		cgi.CM_NumInlineModels					= CM_NumInlineModels;

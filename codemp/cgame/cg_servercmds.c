@@ -1074,7 +1074,7 @@ static void CG_MapRestart( void ) {
 
 	CG_StartMusic(qtrue);
 
-	trap->S_ClearLoopingSounds();
+	S_ClearLoopingSounds();
 
 	// we really should clear more parts of cg here and stop sounds
 
@@ -1087,7 +1087,7 @@ static void CG_MapRestart( void ) {
 	if (cg_singlePlayerActive->integer) {
 		trap->Cvar_Set("ui_matchStartTime", va("%i", cg.time));
 		if (cg_recordSPDemo->integer && cg_recordSPDemoName.string && *cg_recordSPDemoName.string) {
-			trap->SendConsoleCommand(va("set g_synchronousclients 1 ; record %s \n", cg_recordSPDemoName.string));
+			Cbuf_AddText(va("set g_synchronousclients 1 ; record %s \n", cg_recordSPDemoName.string));
 		}
 	}
 	*/
@@ -1323,7 +1323,7 @@ static void CG_NewForceRank_f( void ) {
 	int setTeam = 0;
 	int newRank = 0;
 
-	if ( trap->Cmd_Argc() < 3 ) {
+	if ( Cmd_Argc() < 3 ) {
 #ifdef _DEBUG
 		Com_Printf("WARNING: Invalid newForceRank string\n");
 #endif
@@ -1347,7 +1347,7 @@ static void CG_KillGhoul2_f( void ) {
 	//If it has been occupied since this message was sent somehow, the worst that can (should) happen
 	//is the instance will have to reinit with its current info.
 	int indexNum = 0;
-	int argNum = trap->Cmd_Argc();
+	int argNum = Cmd_Argc();
 	int i;
 
 	if ( argNum < 1 )
@@ -1372,7 +1372,7 @@ static void CG_KillGhoul2_f( void ) {
 static void CG_KillLoopSounds_f( void ) {
 	//kill looping sounds
 	int indexNum = 0;
-	int argNum = trap->Cmd_Argc();
+	int argNum = Cmd_Argc();
 	centity_t *clent = NULL;
 	centity_t *trackerent = NULL;
 
@@ -1402,7 +1402,7 @@ static void CG_KillLoopSounds_f( void ) {
 static void CG_RestoreClientGhoul_f( void ) {
 	//rcg - Restore Client Ghoul (make sure limbs are reattached and ragdoll state is reset - this must be done reliably)
 	int			indexNum = 0;
-	int			argNum = trap->Cmd_Argc();
+	int			argNum = Cmd_Argc();
 	centity_t	*clent;
 	qboolean	IRCG = qfalse;
 
@@ -1499,13 +1499,13 @@ void CG_ChatBox_AddString(char *chatStr);
 static void CG_Chat_f( void ) {
 	char cmd[MAX_STRING_CHARS] = {0}, text[MAX_SAY_TEXT] = {0};
 
-	trap->Cmd_Argv( 0, cmd, sizeof( cmd ) );
+	Cmd_ArgvBuffer( 0, cmd, sizeof( cmd ) );
 
 	if ( !strcmp( cmd, "chat" ) ) {
 		if ( !cg_teamChatsOnly->integer ) {
 			if( cg_chatBeep->integer )
 				trap->S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
-			trap->Cmd_Argv( 1, text, sizeof( text ) );
+			Cmd_ArgvBuffer( 1, text, sizeof( text ) );
 			CG_RemoveChatEscapeChar( text );
 			CG_ChatBox_AddString( text );
 			Com_Printf( "*%s\n", text );
@@ -1516,13 +1516,13 @@ static void CG_Chat_f( void ) {
 			char	name[MAX_NETNAME]={0},	loc[MAX_STRING_CHARS]={0},
 					color[8]={0},			message[MAX_STRING_CHARS]={0};
 
-			if ( trap->Cmd_Argc() < 4 )
+			if ( Cmd_Argc() < 4 )
 				return;
 
-			trap->Cmd_Argv( 1, name, sizeof( name ) );
-			trap->Cmd_Argv( 2, loc, sizeof( loc ) );
-			trap->Cmd_Argv( 3, color, sizeof( color ) );
-			trap->Cmd_Argv( 4, message, sizeof( message ) );
+			Cmd_ArgvBuffer( 1, name, sizeof( name ) );
+			Cmd_ArgvBuffer( 2, loc, sizeof( loc ) );
+			Cmd_ArgvBuffer( 3, color, sizeof( color ) );
+			Cmd_ArgvBuffer( 4, message, sizeof( message ) );
 
 			//get localized text
 			if ( loc[0] == '@' )
@@ -1539,7 +1539,7 @@ static void CG_Chat_f( void ) {
 	else if ( !strcmp( cmd, "tchat" ) ) {
 		if( cg_teamChatBeep->integer )
 			trap->S_StartLocalSound( cgs.media.talkSound, CHAN_LOCAL_SOUND );
-		trap->Cmd_Argv( 1, text, sizeof( text ) );
+		Cmd_ArgvBuffer( 1, text, sizeof( text ) );
 		CG_RemoveChatEscapeChar( text );
 		CG_ChatBox_AddString( text );
 		Com_Printf( "*%s\n", text );
@@ -1548,13 +1548,13 @@ static void CG_Chat_f( void ) {
 		char	name[MAX_NETNAME]={0},	loc[MAX_STRING_CHARS]={0},
 				color[8]={0},			message[MAX_STRING_CHARS]={0};
 
-		if ( trap->Cmd_Argc() < 4 )
+		if ( Cmd_Argc() < 4 )
 			return;
 
-		trap->Cmd_Argv( 1, name, sizeof( name ) );
-		trap->Cmd_Argv( 2, loc, sizeof( loc ) );
-		trap->Cmd_Argv( 3, color, sizeof( color ) );
-		trap->Cmd_Argv( 4, message, sizeof( message ) );
+		Cmd_ArgvBuffer( 1, name, sizeof( name ) );
+		Cmd_ArgvBuffer( 2, loc, sizeof( loc ) );
+		Cmd_ArgvBuffer( 3, color, sizeof( color ) );
+		Cmd_ArgvBuffer( 4, message, sizeof( message ) );
 
 		//get localized text
 		if ( loc[0] == '@' )
@@ -1570,11 +1570,11 @@ static void CG_Chat_f( void ) {
 }
 
 static void CG_RemapShader_f( void ) {
-	if ( trap->Cmd_Argc() == 4 ) {
+	if ( Cmd_Argc() == 4 ) {
 		char shader1[MAX_QPATH]={0},	shader2[MAX_QPATH]={0};
 
-		trap->Cmd_Argv( 1, shader1, sizeof( shader1 ) );
-		trap->Cmd_Argv( 2, shader2, sizeof( shader2 ) );
+		Cmd_ArgvBuffer( 1, shader1, sizeof( shader1 ) );
+		Cmd_ArgvBuffer( 2, shader2, sizeof( shader2 ) );
 		trap->R_RemapShader( shader1, shader2, CG_Argv( 3 ) );
 	}
 }

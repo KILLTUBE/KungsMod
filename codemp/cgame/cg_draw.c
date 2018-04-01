@@ -3385,7 +3385,7 @@ float CG_DrawRadar ( float y )
 
 						//we only want to draw it if the objective for it is not complete.
 						//frame represents objective num.
-						trap->Cvar_VariableStringBuffer(va("team%i_objective%i", cent->currentState.brokenLimbs, cent->currentState.frame), objState, 1024);
+						Cvar_VariableStringBuffer(va("team%i_objective%i", cent->currentState.brokenLimbs, cent->currentState.frame), objState, 1024);
 
 						complete = atoi(objState);
 

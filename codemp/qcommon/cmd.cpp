@@ -91,7 +91,7 @@ Cbuf_AddText
 Adds command text at the end of the buffer, does NOT add a final \n
 ============
 */
-void Cbuf_AddText( const char *text ) {
+CCALL void Cbuf_AddText( const char *text ) {
 	int		l;
 
 	l = strlen (text);

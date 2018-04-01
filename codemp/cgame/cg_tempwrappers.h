@@ -61,14 +61,24 @@ CCALL void CG_AutomapInput( void );
 CCALL void CG_MiscEnt( void );
 CCALL void CG_FX_CameraShake( void );
 
+CCALL void Cvar_VariableStringBuffer( const char *var_name, char *buffer, int bufsize );
+CCALL cvar_t *Cvar_Get( const char *var_name, const char *var_value, uint32_t flags, const char *var_desc );
+CCALL void CL_AddCgameCommand( const char *cmdName );
+CCALL void CGVM_Cmd_RemoveCommand( const char *cmd_name );
+CCALL void CL_AddReliableCommand2( const char *cmd );
 
-
-
-
-
-
-
-
+CCALL void Cbuf_AddText( const char *text );
+CCALL void SCR_UpdateScreen( void );
+CCALL clipHandle_t	CM_InlineModel( int index );
+CCALL void CL_CM_LoadMap( const char *mapname, qboolean subBSP );
+CCALL void CM_TransformedBoxTrace( trace_t *trace, const vec3_t start, const vec3_t end,
+						  const vec3_t mins, const vec3_t maxs,
+						  clipHandle_t model, int brushmask,
+						  const vec3_t origin, const vec3_t angles, int capsule );
+CCALL int	CM_TransformedPointContents( const vec3_t p, clipHandle_t model, const vec3_t origin, const vec3_t angles);
+CCALL int S_AddLocalSet( const char *name, vec3_t listener_origin, vec3_t origin, int entID, int time );
+CCALL void S_AddLoopingSound( int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfxHandle );
+CCALL void S_ClearLoopingSounds( void );
 
 
 #endif

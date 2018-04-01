@@ -4,7 +4,7 @@
 EXTERNC cgameImport_t *trap;
 
 //CCALL cvar_t *Cvar_Get( const char *var_name, const char *var_value, uint32_t flags, const char *var_desc ) {
-//	return trap->GetRealCvar(var_name, var_value, flags, var_desc);
+//	return Cvar_Get(var_name, var_value, flags, var_desc);
 //}
 
 //NORETURN void QDECL CG_Error( int level, const char *error, ... ) {
@@ -62,15 +62,15 @@ CCALL qboolean isUI() {
 }
 #endif
 //CCALL int	FS_Read	( void *buffer, int len, fileHandle_t f ) {
-//	return trap->FS_Read(buffer, len, f);
+//	return FS_Read(buffer, len, f);
 //}
 //
 //CCALL void FS_FCloseFile( fileHandle_t f ) {
-//	trap->FS_Close(f);
+//	FS_FCloseFile(f);
 //}
 //
 //CCALL int		FS_FOpenFileByMode( const char *qpath, fileHandle_t *f, fsMode_t mode ) {
-//	return trap->FS_Open(qpath, f, mode);
+//	return FS_FOpenFileByMode(qpath, f, mode);
 //	__debugbreak(); // shouldnt be called?
 //	//return trap->FS_FOpenFileByMod
 //}
@@ -90,7 +90,7 @@ CCALL void NPC_SetAnim(gentity_t *ent, int setAnimParts, int anim, int setAnimFl
 }
 
 CCALL int	FS_GetFileList( const char *path, const char *extension, char *listbuf, int bufsize ) {
-	return trap->FS_GetFileList(path, extension, listbuf, bufsize);
+	return FS_GetFileList(path, extension, listbuf, bufsize);
 }
 
 

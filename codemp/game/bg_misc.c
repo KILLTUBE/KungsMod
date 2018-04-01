@@ -336,16 +336,16 @@ qboolean BG_FileExists(const char *fileName)
 	if (isGame()) {
 		FS_FOpenFileByMode(fileName, &fh, FS_READ);
 	} else if (isCGame()) {
-		trap->FS_Open(fileName, &fh, FS_READ);
+		FS_FOpenFileByMode(fileName, &fh, FS_READ);
 	} else if (isUI()) {
-		trap->FS_Open(fileName, &fh, FS_READ);
+		FS_FOpenFileByMode(fileName, &fh, FS_READ);
 	}
 		if (fh > 0)
 		{
 			if (isGame()) {
 				FS_FCloseFile(fh);
 			} else {
-				trap->FS_Close(fh);
+				FS_FCloseFile(fh);
 			}
 			return qtrue;
 		}

@@ -1106,7 +1106,7 @@ S_AddLocalSet
 -------------------------
 */
 
-int S_AddLocalSet( const char *name, vec3_t listener_origin, vec3_t origin, int entID, int time )
+CCALL int S_AddLocalSet( const char *name, vec3_t listener_origin, vec3_t origin, int entID, int time )
 {
 	ambientSet_t	*set;
 	int				currentTime = 0;

@@ -263,7 +263,7 @@ static void CG_ClipMoveToEntities ( const vec3_t start, const vec3_t mins, const
 
 		if ( ent->solid == SOLID_BMODEL ) {
 			// special value for bmodel
-			cmodel = trap->CM_InlineModel( ent->modelindex );
+			cmodel = CM_InlineModel( ent->modelindex );
 			VectorCopy( cent->lerpAngles, angles );
 			BG_EvaluateTrajectory( &cent->currentState.pos, cg.physicsTime, origin );
 		} else {
@@ -294,7 +294,7 @@ static void CG_ClipMoveToEntities ( const vec3_t start, const vec3_t mins, const
 		}
 
 
-		trap->CM_TransformedTrace ( &trace, start, end, mins, maxs, cmodel,  mask, origin, angles, 0);
+		CM_TransformedBoxTrace ( &trace, start, end, mins, maxs, cmodel,  mask, origin, angles, 0);
 		trace.entityNum = trace.fraction != 1.0 ? ent->number : ENTITYNUM_NONE;
 
 		if (g2Check || (ignored && ignored->currentState.m_iVehicleNum))
@@ -427,12 +427,12 @@ int		CG_PointContents( const vec3_t point, int passEntityNum ) {
 			continue;
 		}
 
-		cmodel = trap->CM_InlineModel( ent->modelindex );
+		cmodel = CM_InlineModel( ent->modelindex );
 		if ( !cmodel ) {
 			continue;
 		}
 
-		contents |= trap->CM_TransformedPointContents( point, cmodel, cent->lerpOrigin, cent->lerpAngles );
+		contents |= CM_TransformedPointContents( point, cmodel, cent->lerpOrigin, cent->lerpAngles );
 	}
 
 	return contents;
@@ -715,7 +715,7 @@ static void CG_TouchTriggerPrediction( void ) {
 			continue;
 		}
 
-		cmodel = trap->CM_InlineModel( ent->modelindex );
+		cmodel = CM_InlineModel( ent->modelindex );
 		if ( !cmodel ) {
 			continue;
 		}

@@ -2222,14 +2222,14 @@ int BG_ParseAnimationEvtFile( const char *as_filename, int animFileIndex, int ev
 	}
 
 	// load the file
-	len = trap->FS_Open( sfilename, &f, FS_READ );
+	len = FS_FOpenFileByMode( sfilename, &f, FS_READ );
 	if ( len <= 0 )
 	{//no file
 		goto fin;
 	}
 	if ( len >= sizeof( text ) - 1 )
 	{
-		trap->FS_Close(f);
+		FS_FCloseFile(f);
 #ifndef FINAL_BUILD
 		Com_Error(ERR_DROP, "File %s too long\n", sfilename );
 #else
@@ -2240,7 +2240,7 @@ int BG_ParseAnimationEvtFile( const char *as_filename, int animFileIndex, int ev
 
 	FS_Read( text, len, f );
 	text[len] = 0;
-	trap->FS_Close( f );
+	FS_FCloseFile( f );
 
 	// parse the text
 	text_p = text;

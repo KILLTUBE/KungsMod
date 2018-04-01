@@ -489,7 +489,7 @@ This is called every frame, and can also be called explicitly to flush
 text to the screen.
 ==================
 */
-void SCR_UpdateScreen( void ) {
+CCALL void SCR_UpdateScreen( void ) {
 	static int	recursive;
 
 	if ( !scr_initialized ) {

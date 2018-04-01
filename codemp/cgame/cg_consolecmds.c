@@ -45,8 +45,8 @@ void CG_TargetCommand_f( void ) {
 		return;
 	}
 
-	trap->Cmd_Argv( 1, test, 4 );
-	trap->SendClientCommand( va( "gc %i %i", targetNum, atoi( test ) ) );
+	Cmd_ArgvBuffer( 1, test, 4 );
+	CL_AddReliableCommand2( va( "gc %i %i", targetNum, atoi( test ) ) );
 }
 
 /*
@@ -97,7 +97,7 @@ static void CG_ScoresDown_f( void ) {
 		// the scores are more than two seconds out of data,
 		// so request new ones
 		cg.scoresRequestTime = cg.time;
-		trap->SendClientCommand( "score" );
+		CL_AddReliableCommand2( "score" );
 
 		// leave the current scores up if they were already
 		// displayed, but if this is the first hit, clear them out
@@ -178,7 +178,7 @@ static void CG_TellTarget_f( void ) {
 
 	Cmd_ArgsBuffer( message, sizeof(message) );
 	Com_sprintf( command, sizeof(command), "tell %i %s", clientNum, message );
-	trap->SendClientCommand( command );
+	CL_AddReliableCommand2( command );
 }
 
 static void CG_TellAttacker_f( void ) {
@@ -193,7 +193,7 @@ static void CG_TellAttacker_f( void ) {
 
 	Cmd_ArgsBuffer( message, sizeof(message) );
 	Com_sprintf( command, sizeof(command), "tell %i %s", clientNum, message );
-	trap->SendClientCommand( command );
+	CL_AddReliableCommand2( command );
 }
 
 /*
@@ -205,7 +205,7 @@ CG_StartOrbit_f
 static void CG_StartOrbit_f( void ) {
 	char var[MAX_TOKEN_CHARS];
 
-	trap->Cvar_VariableStringBuffer( "developer", var, sizeof( var ) );
+	Cvar_VariableStringBuffer( "developer", var, sizeof( var ) );
 	if ( !atoi(var) ) {
 		return;
 	}
@@ -393,12 +393,12 @@ void CG_InitConsoleCommands( void ) {
 	size_t i;
 
 	for ( i = 0; i < numCommands; i++ )
-		trap->AddCommand( commands[i].cmd );
+		CL_AddCgameCommand( commands[i].cmd );
 
 	//
 	// the game server will interpret these commands, which will be automatically
 	// forwarded to the server after they are not recognized locally
 	//
 	for( i = 0; i < numgcmds; i++ )
-		trap->AddCommand( gcmds[i] );
+		CL_AddCgameCommand( gcmds[i] );
 }

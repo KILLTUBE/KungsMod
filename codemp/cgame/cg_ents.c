@@ -279,9 +279,9 @@ void CG_S_UpdateLoopingSounds(int entityNum)
 	{
 		cSound = &cent->loopingSound[i];
 
-		//trap->S_AddLoopingSound(entityNum, cSound->origin, cSound->velocity, cSound->sfx);
+		//S_AddLoopingSound(entityNum, cSound->origin, cSound->velocity, cSound->sfx);
 		//I guess just keep using lerpOrigin for now,
-		trap->S_AddLoopingSound(entityNum, lerpOrg, cSound->velocity, cSound->sfx);
+		S_AddLoopingSound(entityNum, lerpOrg, cSound->velocity, cSound->sfx);
 		i++;
 	}
 }
@@ -332,13 +332,13 @@ static void CG_EntityEffects( centity_t *cent ) {
 
 				v = cgs.inlineModelMidpoints[ cent->currentState.modelindex ];
 				VectorAdd( cent->lerpOrigin, v, origin );
-				trap->S_AddLoopingSound( cent->currentState.number, origin, vec3_origin,
+				S_AddLoopingSound( cent->currentState.number, origin, vec3_origin,
 					realSoundIndex );
 			}
 			else if (cent->currentState.eType != ET_SPEAKER) {
-				trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, realSoundIndex );
+				S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, realSoundIndex );
 			} else {
-				trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, realSoundIndex );
+				S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, realSoundIndex );
 			//	trap->S_AddRealLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, realSoundIndex );
 			}
 		}
@@ -2203,7 +2203,7 @@ Ghoul2 Insert End
 		VectorScale( ent.axis[1], 1.5, ent.axis[1] );
 		VectorScale( ent.axis[2], 1.5, ent.axis[2] );
 		ent.nonNormalizedAxes = qtrue;
-		//trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, cgs.media.weaponHoverSound );
+		//S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, cgs.media.weaponHoverSound );
 	}
 
 	if (!(cent->currentState.eFlags & EF_DROPPEDWEAPON) &&
@@ -2508,7 +2508,7 @@ static void CG_Missile( centity_t *cent ) {
 			{
 				vec3_t	velocity;
 				BG_EvaluateTrajectoryDelta( &cent->currentState.pos, cg.time, velocity );
-				trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, velocity, g_vehWeaponInfo[s1->otherEntityNum2].iLoopSound );
+				S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, velocity, g_vehWeaponInfo[s1->otherEntityNum2].iLoopSound );
 			}
 			//add custom model
 			if ( g_vehWeaponInfo[s1->otherEntityNum2].iModel == NULL_HANDLE )
@@ -2523,7 +2523,7 @@ static void CG_Missile( centity_t *cent ) {
 			{
 				vec3_t	velocity;
 				BG_EvaluateTrajectoryDelta( &cent->currentState.pos, cg.time, velocity );
-				trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, velocity, s1->loopSound );
+				S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, velocity, s1->loopSound );
 			}
 			//FIXME: if has a custom model, too, then set it and do rest of code below?
 			return;
@@ -2550,7 +2550,7 @@ static void CG_Missile( centity_t *cent ) {
 
 			BG_EvaluateTrajectoryDelta( &cent->currentState.pos, cg.time, velocity );
 
-			trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, velocity, weapon->altMissileSound );
+			S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, velocity, weapon->altMissileSound );
 		}
 
 		//Don't draw something without a model
@@ -2579,7 +2579,7 @@ static void CG_Missile( centity_t *cent ) {
 
 			BG_EvaluateTrajectoryDelta( &cent->currentState.pos, cg.time, velocity );
 
-			trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, velocity, weapon->missileSound );
+			S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, velocity, weapon->missileSound );
 		}
 
 		//Don't draw something without a model
@@ -3329,7 +3329,7 @@ Ghoul2 Insert Start
 
 		if (soundSet && soundSet[0])
 		{
-			trap->S_AddLocalSet(soundSet, cg.refdef.vieworg, cent->lerpOrigin, cent->currentState.number, cg.time);
+			S_AddLocalSet(soundSet, cg.refdef.vieworg, cent->lerpOrigin, cent->currentState.number, cg.time);
 		}
 	}
 /*

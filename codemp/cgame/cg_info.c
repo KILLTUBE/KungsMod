@@ -43,7 +43,7 @@ CG_LoadingString
 void CG_LoadingString( const char *s ) {
 	Q_strncpyz( cg.infoScreenText, s, sizeof( cg.infoScreenText ) );
 
-	trap->UpdateScreen();
+	SCR_UpdateScreen();
 }
 
 /*
@@ -170,7 +170,7 @@ void CG_DrawInformation( void ) {
 	y = 180-32;
 
 	// don't print server lines if playing a local game
-	trap->Cvar_VariableStringBuffer( "sv_running", buf, sizeof( buf ) );
+	Cvar_VariableStringBuffer( "sv_running", buf, sizeof( buf ) );
 	if ( !atoi( buf ) ) {
 		// server hostname
 		Q_strncpyz(buf, Info_ValueForKey( info, "sv_hostname" ), sizeof( buf ) );
@@ -195,7 +195,7 @@ void CG_DrawInformation( void ) {
 
 		{	// display global MOTD at bottom (mirrors ui_main UI_DrawConnectScreen
 			char motdString[1024];
-			trap->Cvar_VariableStringBuffer( "cl_motdString", motdString, sizeof( motdString ) );
+			Cvar_VariableStringBuffer( "cl_motdString", motdString, sizeof( motdString ) );
 
 			if (motdString[0])
 			{

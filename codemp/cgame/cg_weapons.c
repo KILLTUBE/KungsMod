@@ -474,10 +474,10 @@ Ghoul2 Insert Start
 			cent->pe.lightningFiring = qfalse;
 			if ( ( cent->currentState.eFlags & EF_FIRING ) && weapon->firingSound ) {
 				// lightning gun and gauntlet make a different sound when fire is held down
-				trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, weapon->firingSound );
+				S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, weapon->firingSound );
 				cent->pe.lightningFiring = qtrue;
 			} else if ( weapon->readySound ) {
-				trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, weapon->readySound );
+				S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, weapon->readySound );
 			}
 		}
 
@@ -1541,7 +1541,7 @@ void CG_Weapon_f( void ) {
 		if (cg.predictedPlayerState.weaponTime < 1)
 	//	if (cg.snap->ps.weaponTime < 1)
 		{
-			trap->SendConsoleCommand("sv_saberswitch\n");
+			Cbuf_AddText("sv_saberswitch\n");
 		}
 		return;
 	}
@@ -1664,7 +1664,7 @@ void CG_WeaponClean_f( void ) {
 	{
 		if (cg.snap->ps.weaponTime < 1)
 		{
-			trap->SendConsoleCommand("sv_saberswitch\n");
+			Cbuf_AddText("sv_saberswitch\n");
 		}
 		return;
 	}

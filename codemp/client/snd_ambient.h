@@ -108,12 +108,10 @@ protected:
 
 // Prototypes
 
-extern void AS_Init( void );
-extern void AS_Free( void );
-extern void AS_ParseSets( void );
-extern void AS_AddPrecacheEntry( const char *name );
-
-extern void S_UpdateAmbientSet ( const char *name, vec3_t origin );
-extern int S_AddLocalSet( const char *name, vec3_t listener_origin, vec3_t origin, int entID, int time );
-
-extern sfxHandle_t	AS_GetBModelSound( const char *name, int stage );
+CCALL void AS_Init( void );
+CCALL void AS_Free( void );
+CCALL void AS_ParseSets( void );
+CCALL void AS_AddPrecacheEntry( const char *name );
+CCALL void S_UpdateAmbientSet ( const char *name, vec3_t origin );
+CCALL int S_AddLocalSet( const char *name, vec3_t listener_origin, vec3_t origin, int entID, int time );
+CCALL sfxHandle_t	AS_GetBModelSound( const char *name, int stage );

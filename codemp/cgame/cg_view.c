@@ -80,14 +80,14 @@ void CG_TestModel_f (void) {
 	vec3_t		angles;
 
 	memset( &cg.testModelEntity, 0, sizeof(cg.testModelEntity) );
-	if ( trap->Cmd_Argc() < 2 ) {
+	if ( Cmd_Argc() < 2 ) {
 		return;
 	}
 
 	Q_strncpyz (cg.testModelName, CG_Argv( 1 ), MAX_QPATH );
 	cg.testModelEntity.hModel = R_RegisterModel( cg.testModelName );
 
-	if ( trap->Cmd_Argc() == 3 ) {
+	if ( Cmd_Argc() == 3 ) {
 		cg.testModelEntity.backlerp = atof( CG_Argv( 2 ) );
 		cg.testModelEntity.frame = 1;
 		cg.testModelEntity.oldframe = 0;
@@ -2464,7 +2464,7 @@ CCALL void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolea
 
 	// any looped sounds will be respecified as entities
 	// are added to the render list
-	trap->S_ClearLoopingSounds();
+	S_ClearLoopingSounds();
 
 	// clear all the render lists
 	trap->R_ClearScene();

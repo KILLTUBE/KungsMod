@@ -64,79 +64,7 @@ void CG_DoCameraShake( vec3_t origin, float intensity, int radius, int time );
 //#ifdef _CGAME
 
 
-
-// just need to make sure that i can build cgame.dll as DLL again, so i gotta have some fake functions for old game.lib stuff
-
-
-
-
 #include "game/g_local.h"
-
-#if 0
-CCALL void Vehicle_SetAnim(gentity_t *ent,int setAnimParts,int anim,int setAnimFlags, int iBlend) {
-}
-CCALL void G_Knockdown( gentity_t *self, gentity_t *attacker, const vec3_t pushDir, float strength, qboolean breakSaberLock ) {
-}
-CCALL void G_VehicleTrace( trace_t *results, const vec3_t start, const vec3_t tMins, const vec3_t tMaxs, const vec3_t end, int passEntityNum, int contentmask ) {
-}
-
-int G_SoundIndex( const char *name ) {}
-
-level_locals_t	level;
-
-gentity_t g_entities[1024];
-
-cvar_t	*cl_paused = NULL;
-cvar_t	*com_buildScript = NULL;		// for building release pak files
-cvar_t	*com_cameraMode = NULL;
-cvar_t	*com_optvehtrace = NULL;
-cvar_t *bg_showevents = NULL;
-cvar_t *g_gravity = NULL;
-
-
-
-
-
-
-
-void G_AddEvent( gentity_t *ent, int event, int eventParm ) {
-	assert(0);
-}
-
-gentity_t *G_PlayEffectID(const int fxID, vec3_t org, vec3_t ang) {
-	assert(0);
-	return NULL;
-}
-
-
-gentity_t *G_PlayEffect(int fxID, vec3_t org, vec3_t ang) {
-	assert(0);
-	return NULL;
-}
-
-void G_CheapWeaponFire(int entNum, int ev) {
-	assert(0);
-}
-
-qboolean TryGrapple(gentity_t *ent) {
-	assert(0);
-	return qfalse;
-}
-
-
-CCALL void	Cvar_Register( cvar_t *cvar, const char *varName, const char *defaultValue, uint32_t flags ) {
-	assert(0);
-}
-
-void G_EntitySound( gentity_t *ent, int channel, int soundIndex ) {
-	assert(0);
-}
-
-void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker, vec3_t dir, vec3_t point, int damage, int dflags, int mod ) {
-	assert(0);
-}
-
-#endif
 
 EXTERNC cvar_t *bg_showevents;
 
@@ -472,7 +400,7 @@ CG_Argv
 const char *CG_Argv( int arg ) {
 	static char	buffer[MAX_STRING_CHARS] = {0};
 
-	trap->Cmd_Argv( arg, buffer, sizeof( buffer ) );
+	Cmd_ArgvBuffer( arg, buffer, sizeof( buffer ) );
 
 	return buffer;
 }
@@ -802,12 +730,12 @@ static void CG_RegisterSounds( void ) {
 	S_RegisterSound("sound/weapons/force/jump.mp3"); //PDSOUND_FORCEJUMP
 	S_RegisterSound("sound/weapons/force/grip.mp3"); //PDSOUND_FORCEGRIP
 
-	com_buildScript = trap->GetRealCvar("com_buildScript", "0", 0, 0);
-	cl_paused = trap->GetRealCvar("cl_paused", "0", CVAR_ROM, 0);
-	com_cameraMode = trap->GetRealCvar("com_cameraMode", "0", CVAR_CHEAT, 0);
+	com_buildScript = Cvar_Get("com_buildScript", "0", 0, 0);
+	cl_paused = Cvar_Get("cl_paused", "0", CVAR_ROM, 0);
+	com_cameraMode = Cvar_Get("com_cameraMode", "0", CVAR_CHEAT, 0);
 
-	bg_showevents = trap->GetRealCvar( "bg_showevents", "0", 0, 0 );
-	com_optvehtrace = trap->GetRealCvar( "com_optvehtrace", "0", 0, 0 );
+	bg_showevents = Cvar_Get( "bg_showevents", "0", 0, 0 );
+	com_optvehtrace = Cvar_Get( "com_optvehtrace", "0", 0, 0 );
 
 	if ( cgs.gametype >= GT_TEAM || com_buildScript->integer ) {
 
@@ -1516,7 +1444,7 @@ Ghoul2 Insert Start
 			break;
 		}
 
-		trap->CM_LoadMap( bspName, qtrue );
+		CL_CM_LoadMap( bspName, qtrue );
 		cgs.inlineDrawModel[breakPoint] = R_RegisterModel( bspName );
 		trap->R_ModelBounds( cgs.inlineDrawModel[breakPoint], mins, maxs );
 		for ( j = 0 ; j < 3 ; j++ )
@@ -1725,20 +1653,20 @@ char *CG_GetMenuBuffer(const char *filename) {
 	fileHandle_t	f;
 	static char buf[MAX_MENUFILE];
 
-	len = trap->FS_Open( filename, &f, FS_READ );
+	len = FS_FOpenFileByMode( filename, &f, FS_READ );
 	if ( !f ) {
 		Com_Printf( S_COLOR_RED "menu file not found: %s, using default\n", filename );
 		return NULL;
 	}
 	if ( len >= MAX_MENUFILE ) {
 		Com_Printf( S_COLOR_RED "menu file too large: %s is %i, max allowed is %i\n", filename, len, MAX_MENUFILE );
-		trap->FS_Close( f );
+		FS_FCloseFile( f );
 		return NULL;
 	}
 
-	trap->FS_Read( buf, len, f );
+	FS_Read( buf, len, f );
 	buf[len] = 0;
-	trap->FS_Close( f );
+	FS_FCloseFile( f );
 
 	return buf;
 }
@@ -2179,7 +2107,7 @@ static qboolean CG_FeederSelection(float feederID, int index, itemDef_t *item) {
 static float CG_Cvar_Get(const char *cvar) {
 	char buff[128];
 	memset(buff, 0, sizeof(buff));
-	trap->Cvar_VariableStringBuffer(cvar, buff, sizeof(buff));
+	Cvar_VariableStringBuffer(cvar, buff, sizeof(buff));
 	return atof(buff);
 }
 
@@ -2238,7 +2166,7 @@ void CG_LoadMenus(const char *menuFile)
 	fileHandle_t	f;
 	static char buf[MAX_MENUDEFFILE];
 
-	len = trap->FS_Open( menuFile, &f, FS_READ );
+	len = FS_FOpenFileByMode( menuFile, &f, FS_READ );
 
 	if ( !f )
 	{
@@ -2247,7 +2175,7 @@ void CG_LoadMenus(const char *menuFile)
 		else
 			Com_Printf( S_COLOR_YELLOW "hud menu file not found: %s, using default\n", menuFile );
 
-		len = trap->FS_Open( "ui/jahud.txt", &f, FS_READ );
+		len = FS_FOpenFileByMode( "ui/jahud.txt", &f, FS_READ );
 		if (!f)
 		{
 			Com_Error( ERR_DROP, S_COLOR_RED "default hud menu file not found: ui/jahud.txt, unable to continue!" );
@@ -2256,13 +2184,13 @@ void CG_LoadMenus(const char *menuFile)
 
 	if ( len >= MAX_MENUDEFFILE )
 	{
-		trap->FS_Close( f );
+		FS_FCloseFile( f );
 		Com_Error( ERR_DROP, S_COLOR_RED "menu file too large: %s is %i, max allowed is %i", menuFile, len, MAX_MENUDEFFILE );
 	}
 
-	trap->FS_Read( buf, len, f );
+	FS_Read( buf, len, f );
 	buf[len] = 0;
-	trap->FS_Close( f );
+	FS_FCloseFile( f );
 
 	p = buf;
 
@@ -2337,7 +2265,7 @@ void CG_LoadHudMenu()
 	cgDC.deferScript					= &CG_DeferMenuScript;
 	cgDC.getTeamColor					= &CG_GetTeamColor;
 	cgDC.setCVar						= trap->Cvar_Set;
-	cgDC.getCVarString					= trap->Cvar_VariableStringBuffer;
+	cgDC.getCVarString					= Cvar_VariableStringBuffer;
 	cgDC.getCVarValue					= CG_Cvar_Get;
 	cgDC.drawTextWithCursor				= &CG_Text_PaintWithCursor;
 	//cgDC.setOverstrikeMode			= &trap->Key_SetOverstrikeMode;
@@ -2561,7 +2489,7 @@ Ghoul2 Insert End
 		}
 		i++;
 	}
-	trap->Cvar_VariableStringBuffer("com_buildscript", buf, sizeof(buf));
+	Cvar_VariableStringBuffer("com_buildscript", buf, sizeof(buf));
 	if (atoi(buf))
 	{
 		R_RegisterShaderNoMip("gfx/hud/w_icon_saberstaff");
@@ -2645,7 +2573,7 @@ Ghoul2 Insert End
 	// load the new map
 //	CG_LoadingString( "collision map" );
 
-	trap->CM_LoadMap( cgs.mapname, qfalse );
+	CL_CM_LoadMap( cgs.mapname, qfalse );
 
 	String_Init();
 
@@ -2692,7 +2620,7 @@ Ghoul2 Insert End
 
 	CG_ShaderStateChanged();
 
-	trap->S_ClearLoopingSounds();
+	S_ClearLoopingSounds();
 
 	cg.distanceCull = trap->R_GetDistanceCull();
 
@@ -3024,141 +2952,4 @@ Q_EXPORT void QDECL GetModuleAPI( int apiVersion, cgameImport_t *import )
 		Com_Printf( "Mismatched CGAME_API_VERSION: expected %i, got %i\n", CGAME_API_VERSION, apiVersion );
 		return NULL;
 	}
-}
-
-/*
-================
-vmMain
-
-This is the only way control passes into the module.
-This must be the very first function compiled into the .q3vm file
-================
-*/
-Q_EXPORT intptr_t vmMain( int command, intptr_t arg0, intptr_t arg1, intptr_t arg2, intptr_t arg3, intptr_t arg4,
-	intptr_t arg5, intptr_t arg6, intptr_t arg7, intptr_t arg8, intptr_t arg9, intptr_t arg10, intptr_t arg11 )
-{
-	switch ( command ) {
-	case CG_INIT:
-		CG_Init( arg0, arg1, arg2 );
-		return 0;
-
-	case CG_SHUTDOWN:
-		CG_Shutdown();
-		return 0;
-
-	case CG_CONSOLE_COMMAND:
-		return CG_ConsoleCommand();
-
-	case CG_DRAW_ACTIVE_FRAME:
-		CG_DrawActiveFrame( arg0, arg1, arg2 );
-		return 0;
-
-	case CG_CROSSHAIR_PLAYER:
-		return CG_CrosshairPlayer();
-
-	case CG_LAST_ATTACKER:
-		return CG_LastAttacker();
-
-	case CG_KEY_EVENT:
-		CG_KeyEvent( arg0, arg1 );
-		return 0;
-
-	case CG_MOUSE_EVENT:
-		_CG_MouseEvent( arg0, arg1 );
-		return 0;
-
-	case CG_EVENT_HANDLING:
-		CG_EventHandling( arg0 );
-		return 0;
-
-	case CG_POINT_CONTENTS:
-		return C_PointContents();
-
-	case CG_GET_LERP_ORIGIN:
-		C_GetLerpOrigin();
-		return 0;
-
-	case CG_GET_LERP_DATA:
-		C_GetLerpData();
-		return 0;
-
-	case CG_GET_GHOUL2:
-		return (intptr_t)cg_entities[arg0].ghoul2; //NOTE: This is used by the effect bolting which is actually not used at all.
-											  //I'm fairly sure if you try to use it with vm's it will just give you total
-											  //garbage. In other words, use at your own risk.
-
-	case CG_GET_MODEL_LIST:
-		return (intptr_t)cgs.gameModels;
-
-	case CG_CALC_LERP_POSITIONS:
-		CG_CalcEntityLerpPositions( &cg_entities[arg0] );
-		return 0;
-
-	case CG_TRACE:
-		C_Trace();
-		return 0;
-
-	case CG_GET_SORTED_FORCE_POWER:
-		return forcePowerSorted[arg0];
-
-	case CG_G2TRACE:
-		C_G2Trace();
-		return 0;
-
-	case CG_G2MARK:
-		C_G2Mark();
-		return 0;
-
-	case CG_RAG_CALLBACK:
-		return CG_RagCallback( arg0 );
-
-	case CG_INCOMING_CONSOLE_COMMAND:
-		return CG_IncomingConsoleCommand();
-
-	case CG_GET_USEABLE_FORCE:
-		return CG_NoUseableForce();
-
-	case CG_GET_ORIGIN:
-		CG_GetOrigin( arg0, (float *)arg1 );
-		return 0;
-
-	case CG_GET_ANGLES:
-		CG_GetAngles( arg0, (float *)arg1 );
-		return 0;
-
-	case CG_GET_ORIGIN_TRAJECTORY:
-		return (intptr_t)CG_GetOriginTrajectory( arg0 );
-
-	case CG_GET_ANGLE_TRAJECTORY:
-		return (intptr_t)CG_GetAngleTrajectory( arg0 );
-
-	case CG_ROFF_NOTETRACK_CALLBACK:
-		_CG_ROFF_NotetrackCallback( arg0, (const char *)arg1 );
-		return 0;
-
-	case CG_IMPACT_MARK:
-		C_ImpactMark();
-		return 0;
-
-	case CG_MAP_CHANGE:
-		CG_MapChange();
-		return 0;
-
-	case CG_AUTOMAP_INPUT:
-		CG_AutomapInput();
-		return 0;
-
-	case CG_MISC_ENT:
-		CG_MiscEnt();
-		return 0;
-
-	case CG_FX_CAMERASHAKE:
-		CG_FX_CameraShake();
-		return 0;
-
-	default:
-		Com_Error( ERR_DROP, "vmMain: unknown command %i", command );
-		break;
-	}
-	return -1;
 }

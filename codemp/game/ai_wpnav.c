@@ -2720,9 +2720,9 @@ void G_DebugNodeFile()
 		i++;
 	}
 
-	trap->FS_Open("ROUTEDEBUG.txt", &f, FS_WRITE);
-	trap->FS_Write(fileString, strlen(fileString), f);
-	trap->FS_Close(f);
+	FS_FOpenFileByMode("ROUTEDEBUG.txt", &f, FS_WRITE);
+	FS_Write(fileString, strlen(fileString), f);
+	FS_FCloseFile(f);
 }
 #endif
 
@@ -2852,9 +2852,9 @@ void CreateAsciiTableRepresentation()
 
 	fileString[sP] = 0;
 
-	trap->FS_Open("ROUTEDRAWN.txt", &f, FS_WRITE);
-	trap->FS_Write(fileString, strlen(fileString), f);
-	trap->FS_Close(f);
+	FS_FOpenFileByMode("ROUTEDRAWN.txt", &f, FS_WRITE);
+	FS_Write(fileString, strlen(fileString), f);
+	FS_FCloseFile(f);
 }
 
 void CreateAsciiNodeTableRepresentation(int start, int end)
@@ -2976,9 +2976,9 @@ void CreateAsciiNodeTableRepresentation(int start, int end)
 
 	fileString[sP] = 0;
 
-	trap->FS_Open("ROUTEDRAWN.txt", &f, FS_WRITE);
-	trap->FS_Write(fileString, strlen(fileString), f);
-	trap->FS_Close(f);
+	FS_FOpenFileByMode("ROUTEDRAWN.txt", &f, FS_WRITE);
+	FS_Write(fileString, strlen(fileString), f);
+	FS_FCloseFile(f);
 }
 #endif
 

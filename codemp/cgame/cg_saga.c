@@ -187,16 +187,16 @@ void CG_InitSiegeMode(void)
 		goto failure;
 	}
 
-	len = trap->FS_Open(levelname, &f, FS_READ);
+	len = FS_FOpenFileByMode(levelname, &f, FS_READ);
 
 	if (!f || len >= MAX_SIEGE_INFO_SIZE)
 	{
 		goto failure;
 	}
 
-	trap->FS_Read(siege_info, len, f);
+	FS_Read(siege_info, len, f);
 
-	trap->FS_Close(f);
+	FS_FCloseFile(f);
 
 	siege_valid = 1;
 
@@ -204,7 +204,7 @@ void CG_InitSiegeMode(void)
 	{
 		char buf[1024];
 
-		trap->Cvar_VariableStringBuffer("cg_siegeTeam1", buf, 1024);
+		Cvar_VariableStringBuffer("cg_siegeTeam1", buf, 1024);
 		if (buf[0] && Q_stricmp(buf, "none"))
 		{
 			Q_strncpyz(team1, buf, sizeof(team1));
@@ -225,7 +225,7 @@ void CG_InitSiegeMode(void)
 			trap->Cvar_Set("cg_siegeTeam1Name", team1);
 		}
 
-		trap->Cvar_VariableStringBuffer("cg_siegeTeam2", buf, 1024);
+		Cvar_VariableStringBuffer("cg_siegeTeam2", buf, 1024);
 		if (buf[0] && Q_stricmp(buf, "none"))
 		{
 			Q_strncpyz(team2, buf, sizeof(team2));
@@ -767,7 +767,7 @@ void CG_SiegeBriefingDisplay(int team, int dontshow)
 		primary = (CG_SiegeGetObjectiveFinal(useTeam, i)>0)?qtrue:qfalse;
 
 		properValue[0] = 0;
-		trap->Cvar_VariableStringBuffer(va("team%i_objective%i", useTeam, i), properValue, 1024);
+		Cvar_VariableStringBuffer(va("team%i_objective%i", useTeam, i), properValue, 1024);
 		if (primary)
 		{
 			trap->Cvar_Set(va("siege_primobj"), properValue);
@@ -779,7 +779,7 @@ void CG_SiegeBriefingDisplay(int team, int dontshow)
 
 		//Now set the long desc cvar for the menu to display.
 		properValue[0] = 0;
-		trap->Cvar_VariableStringBuffer(va("team%i_objective%i_longdesc", useTeam, i), properValue, 1024);
+		Cvar_VariableStringBuffer(va("team%i_objective%i_longdesc", useTeam, i), properValue, 1024);
 		if (primary)
 		{
 			trap->Cvar_Set(va("siege_primobj_longdesc"), properValue);
@@ -791,7 +791,7 @@ void CG_SiegeBriefingDisplay(int team, int dontshow)
 
 		//Now set the gfx cvar for the menu to display.
 		properValue[0] = 0;
-		trap->Cvar_VariableStringBuffer(va("team%i_objective%i_gfx", useTeam, i), properValue, 1024);
+		Cvar_VariableStringBuffer(va("team%i_objective%i_gfx", useTeam, i), properValue, 1024);
 		if (primary)
 		{
 			trap->Cvar_Set(va("siege_primobj_gfx"), properValue);
@@ -803,7 +803,7 @@ void CG_SiegeBriefingDisplay(int team, int dontshow)
 
 		//Now set the mapicon cvar for the menu to display.
 		properValue[0] = 0;
-		trap->Cvar_VariableStringBuffer(va("team%i_objective%i_mapicon", useTeam, i), properValue, 1024);
+		Cvar_VariableStringBuffer(va("team%i_objective%i_mapicon", useTeam, i), properValue, 1024);
 		if (primary)
 		{
 			trap->Cvar_Set(va("siege_primobj_mapicon"), properValue);
@@ -815,7 +815,7 @@ void CG_SiegeBriefingDisplay(int team, int dontshow)
 
 		//Now set the mappos cvar for the menu to display.
 		properValue[0] = 0;
-		trap->Cvar_VariableStringBuffer(va("team%i_objective%i_mappos", useTeam, i), properValue, 1024);
+		Cvar_VariableStringBuffer(va("team%i_objective%i_mappos", useTeam, i), properValue, 1024);
 		if (primary)
 		{
 			trap->Cvar_Set(va("siege_primobj_mappos"), properValue);
@@ -1067,7 +1067,7 @@ void CG_ParseSiegeExtendedDataEntry(const char *conStr)
 //parse incoming siege data, see counterpart in g_saga.c
 void CG_ParseSiegeExtendedData(void)
 {
-	int numEntries = trap->Cmd_Argc();
+	int numEntries = Cmd_Argc();
 	int i = 0;
 
 	if (numEntries < 1)

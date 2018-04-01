@@ -358,7 +358,7 @@ qboolean CG_ParseSurfsFile( const char *modelName, const char *skinName, char *s
 	Com_sprintf( sfilename, sizeof( sfilename ), "models/players/%s/model_%s.surf", modelName, skinName );
 
 	// load the file
-	len = trap->FS_Open( sfilename, &f, FS_READ );
+	len = FS_FOpenFileByMode( sfilename, &f, FS_READ );
 	if ( len <= 0 )
 	{//no file
 		return qfalse;
@@ -369,9 +369,9 @@ qboolean CG_ParseSurfsFile( const char *modelName, const char *skinName, char *s
 		return qfalse;
 	}
 
-	trap->FS_Read( text, len, f );
+	FS_Read( text, len, f );
 	text[len] = 0;
-	trap->FS_Close( f );
+	FS_FCloseFile( f );
 
 	// parse the text
 	text_p = text;
@@ -838,18 +838,18 @@ void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded)
 
 	if ( !ci->skinName[0] || !Q_stricmp( "default", ci->skinName ) )
 	{//try default sounds.cfg first
-		fLen = trap->FS_Open(va("models/players/%s/sounds.cfg", dir), &f, FS_READ);
+		fLen = FS_FOpenFileByMode(va("models/players/%s/sounds.cfg", dir), &f, FS_READ);
 		if ( !f )
 		{//no?  Look for _default sounds.cfg
-			fLen = trap->FS_Open(va("models/players/%s/sounds_default.cfg", dir), &f, FS_READ);
+			fLen = FS_FOpenFileByMode(va("models/players/%s/sounds_default.cfg", dir), &f, FS_READ);
 		}
 	}
 	else
 	{//use the .skin associated with this skin
-		fLen = trap->FS_Open(va("models/players/%s/sounds_%s.cfg", dir, ci->skinName), &f, FS_READ);
+		fLen = FS_FOpenFileByMode(va("models/players/%s/sounds_%s.cfg", dir, ci->skinName), &f, FS_READ);
 		if ( !f )
 		{//fall back to default sounds
-			fLen = trap->FS_Open(va("models/players/%s/sounds.cfg", dir), &f, FS_READ);
+			fLen = FS_FOpenFileByMode(va("models/players/%s/sounds.cfg", dir), &f, FS_READ);
 		}
 	}
 
@@ -857,7 +857,7 @@ void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded)
 
 	if (f)
 	{
-		trap->FS_Read(soundpath, fLen, f);
+		FS_Read(soundpath, fLen, f);
 		soundpath[fLen] = 0;
 
 		i = fLen;
@@ -877,7 +877,7 @@ void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded)
 		}
 		soundpath[i] = 0;
 
-		trap->FS_Close(f);
+		FS_FCloseFile(f);
 
 		if (isFemale)
 		{
@@ -1658,7 +1658,7 @@ void CG_NewClientInfo( int clientNum, qboolean entitiesInitialized ) {
 		char modelStr[MAX_QPATH];
 		char *skin;
 
-		trap->Cvar_VariableStringBuffer( "model", modelStr, sizeof( modelStr ) );
+		Cvar_VariableStringBuffer( "model", modelStr, sizeof( modelStr ) );
 		if ( ( skin = strchr( modelStr, '/' ) ) == NULL) {
 			skin = "default";
 		} else {
@@ -8788,7 +8788,7 @@ void CG_Player( centity_t *cent ) {
 					trap->FX_PlayEffectID(cgs.effects.mBobaJet, flamePos, flameDir, -1, -1, qfalse);
 
 					//Keep the jet fire sound looping
-					trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin,
+					S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin,
 						S_RegisterSound( "sound/effects/fire_lp" ) );
 				}
 				else
@@ -8801,7 +8801,7 @@ void CG_Player( centity_t *cent ) {
 				n++;
 			}
 
-			trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin,
+			S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin,
 				S_RegisterSound( "sound/boba/JETHOVER" ) );
 		}
 	}
@@ -9649,7 +9649,7 @@ void CG_Player( centity_t *cent ) {
 
 	if (cent->currentState.weapon == WP_STUN_BATON && cent->currentState.number == cg.snap->ps.clientNum)
 	{
-		trap->S_AddLoopingSound( cent->currentState.number, cg.refdef.vieworg, vec3_origin,
+		S_AddLoopingSound( cent->currentState.number, cg.refdef.vieworg, vec3_origin,
 			S_RegisterSound( "sound/weapons/baton/idle.wav" ) );
 	}
 
@@ -9965,13 +9965,13 @@ stillDoSaber:
 
 			if (cg.snap->ps.clientNum == cent->currentState.number)
 			{
-				//trap->S_AddLoopingSound( cent->currentState.number, cg.refdef.vieworg, vec3_origin,
+				//S_AddLoopingSound( cent->currentState.number, cg.refdef.vieworg, vec3_origin,
 				//	S_RegisterSound( "sound/weapons/saber/saberhum1.wav" ) );
 				VectorCopy(cg.refdef.vieworg, soundSpot);
 			}
 			else
 			{
-				//trap->S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin,
+				//S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin,
 				//	S_RegisterSound( "sound/weapons/saber/saberhum1.wav" ) );
 				VectorCopy(cent->lerpOrigin, soundSpot);
 			}
@@ -9995,7 +9995,7 @@ stillDoSaber:
 
 				if (hasLen)
 				{
-					trap->S_AddLoopingSound( cent->currentState.number, soundSpot, vec3_origin,
+					S_AddLoopingSound( cent->currentState.number, soundSpot, vec3_origin,
 						ci->saber[0].soundLoop );
 					didFirstSound = qtrue;
 				}
@@ -10019,7 +10019,7 @@ stillDoSaber:
 
 				if (hasLen)
 				{
-					trap->S_AddLoopingSound( cent->currentState.number, soundSpot, vec3_origin,
+					S_AddLoopingSound( cent->currentState.number, soundSpot, vec3_origin,
 						ci->saber[1].soundLoop );
 				}
 			}

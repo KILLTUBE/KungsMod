@@ -391,7 +391,7 @@ void SpewDebugStuffToFile(animation_t *anims)
 	fileHandle_t f;
 	int i = 0;
 
-	trap->FS_Open("file_of_debug_stuff_SP.txt", &f, FS_WRITE);
+	FS_FOpenFileByMode("file_of_debug_stuff_SP.txt", &f, FS_WRITE);
 
 	if (!f)
 	{
@@ -406,8 +406,8 @@ void SpewDebugStuffToFile(animation_t *anims)
 		i++;
 	}
 
-	trap->FS_Write(BGPAFtext, strlen(BGPAFtext), f);
-	trap->FS_Close(f);
+	FS_Write(BGPAFtext, strlen(BGPAFtext), f);
+	FS_FCloseFile(f);
 }
 #endif
 
