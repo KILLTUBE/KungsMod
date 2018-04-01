@@ -53,15 +53,6 @@ void CG_ROFF_NotetrackCallback( centity_t *cent, const char *notetrack);
 
 void UI_CleanupGhoul2(void);
 
-static int	C_PointContents(void);
-static void C_GetLerpOrigin(void);
-static void C_GetLerpData(void);
-static void C_Trace(void);
-static void C_G2Trace(void);
-static void C_G2Mark(void);
-static int	CG_RagCallback(int callType);
-static void C_ImpactMark(void);
-
 extern autoMapInput_t cg_autoMapInput; //cg_view.c
 extern int cg_autoMapInputTime;
 extern vec3_t cg_autoMapAngle;
@@ -150,7 +141,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker, vec3_
 EXTERNC cvar_t *bg_showevents;
 
 //do we have any force powers that we would normally need to cycle to?
-qboolean CG_NoUseableForce(void)
+CCALL qboolean CG_NoUseableForce(void)
 {
 	int i = FP_HEAL;
 	while (i < NUM_FORCE_POWERS)
@@ -172,18 +163,18 @@ qboolean CG_NoUseableForce(void)
 	return qtrue;
 }
 
-static int C_PointContents( void ) {
+CCALL int C_PointContents( void ) {
 	TCGPointContents *data = &cg.sharedBuffer.pointContents;
 	return CG_PointContents( data->mPoint, data->mPassEntityNum );
 }
 
-static void C_GetLerpOrigin( void ) {
+CCALL void C_GetLerpOrigin( void ) {
 	TCGVectorData *data = &cg.sharedBuffer.vectorData;
 	VectorCopy( cg_entities[data->mEntityNum].lerpOrigin, data->mPoint );
 }
 
 // only used by FX system to pass to getboltmat
-static void C_GetLerpData( void ) {
+CCALL void C_GetLerpData( void ) {
 	TCGGetBoltData *data = &cg.sharedBuffer.getBoltData;
 
 	VectorCopy( cg_entities[data->mEntityNum].lerpOrigin, data->mOrigin );
@@ -214,17 +205,17 @@ static void C_GetLerpData( void ) {
 	}
 }
 
-static void C_Trace( void ) {
+CCALL void C_Trace( void ) {
 	TCGTrace *td = &cg.sharedBuffer.trace;
 	CG_Trace( &td->mResult, td->mStart, td->mMins, td->mMaxs, td->mEnd, td->mSkipNumber, td->mMask );
 }
 
-static void C_G2Trace( void ) {
+CCALL void C_G2Trace( void ) {
 	TCGTrace *td = &cg.sharedBuffer.trace;
 	CG_G2Trace( &td->mResult, td->mStart, td->mMins, td->mMaxs, td->mEnd, td->mSkipNumber, td->mMask );
 }
 
-static void C_G2Mark( void ) {
+CCALL void C_G2Mark( void ) {
 	TCGG2Mark *td = &cg.sharedBuffer.g2Mark;
 	trace_t tr;
 	vec3_t end;
@@ -303,7 +294,7 @@ static void CG_DebugBoxLines( vec3_t mins, vec3_t maxs, int duration ) {
 }
 
 //handle ragdoll callbacks, for events and debugging -rww
-static int CG_RagCallback(int callType)
+CCALL int CG_RagCallback(int callType)
 {
 	switch(callType)
 	{
@@ -375,7 +366,7 @@ static void C_ImpactMark( void ) {
 		data->mAlphaStart, qtrue, data->mSizeStart, qfalse );
 }
 
-void CG_MiscEnt( void ) {
+CCALL void CG_MiscEnt( void ) {
 	int i, modelIndex;
 	TCGMiscEnt *data = &cg.sharedBuffer.miscEnt;
 	cg_staticmodel_t *staticmodel;
@@ -456,7 +447,7 @@ int					cg_numpermanents = 0;
 weaponInfo_t		cg_weapons[MAX_WEAPONS];
 itemInfo_t			cg_items[MAX_ITEMS];
 
-int CG_CrosshairPlayer( void ) {
+CCALL int CG_CrosshairPlayer( void ) {
 	if ( cg.time > (cg.crosshairClientTime + 1000) )
 		return -1;
 
@@ -466,7 +457,7 @@ int CG_CrosshairPlayer( void ) {
 	return cg.crosshairClientNum;
 }
 
-int CG_LastAttacker( void ) {
+CCALL int CG_LastAttacker( void ) {
 	if ( !cg.attackerTime )
 		return -1;
 
@@ -2476,7 +2467,7 @@ Called after every level change or subsystem restart
 Will perform callbacks to make the loading info screen update.
 =================
 */
-void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum )
+CCALL void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum )
 {
 	static gitem_t *item;
 	char buf[64];
@@ -2766,7 +2757,7 @@ CG_Shutdown
 Called before every level change or subsystem restart
 =================
 */
-void CG_Shutdown( void )
+CCALL void CG_Shutdown( void )
 {
 	BG_ClearAnimsets(); //free all dynamic allocations made through the engine
 
@@ -2940,13 +2931,13 @@ void CG_PrevInventory_f(void)
 	}
 }
 
-static void _CG_MouseEvent( int x, int y ) {
+CCALL void _CG_MouseEvent( int x, int y ) {
 	cgDC.cursorx = cgs.cursorX;
 	cgDC.cursory = cgs.cursorY;
 	CG_MouseEvent( x, y );
 }
 
-static qboolean CG_IncomingConsoleCommand( void ) {
+CCALL qboolean CG_IncomingConsoleCommand( void ) {
 	//rww - let mod authors filter client console messages so they can cut them off if they want.
 	//return qtrue if the command is ok. Otherwise, you can set char 0 on the command str to 0 and return
 	//qfalse to not execute anything, or you can fill conCommand in with something valid and return 0
@@ -2968,33 +2959,33 @@ static qboolean CG_IncomingConsoleCommand( void ) {
 	return qtrue;
 }
 
-static void CG_GetOrigin( int entID, vec3_t out ) {
+CCALL void CG_GetOrigin( int entID, vec3_t out ) {
 	VectorCopy( cg_entities[entID].currentState.pos.trBase, out );
 }
 
-static void CG_GetAngles( int entID, vec3_t out ) {
+CCALL void CG_GetAngles( int entID, vec3_t out ) {
 	VectorCopy( cg_entities[entID].currentState.apos.trBase, out );
 }
 
-static trajectory_t *CG_GetOriginTrajectory( int entID ) {
+CCALL trajectory_t *CG_GetOriginTrajectory( int entID ) {
 	return &cg_entities[entID].nextState.pos;
 }
 
-static trajectory_t *CG_GetAngleTrajectory( int entID ) {
+CCALL trajectory_t *CG_GetAngleTrajectory( int entID ) {
 	return &cg_entities[entID].nextState.apos;
 }
 
-static void _CG_ROFF_NotetrackCallback( int entID, const char *notetrack ) {
+CCALL void _CG_ROFF_NotetrackCallback( int entID, const char *notetrack ) {
 	CG_ROFF_NotetrackCallback( &cg_entities[entID], notetrack );
 }
 
-static void CG_MapChange( void ) {
+CCALL void CG_MapChange( void ) {
 	// this may be called more than once for a given map change, as the server is going to attempt to send out
 	// multiple broadcasts in hopes that the client will receive one of them
 	cg.mMapChange = qtrue;
 }
 
-static void CG_AutomapInput( void ) {
+CCALL void CG_AutomapInput( void ) {
 	autoMapInput_t *autoInput = &cg.sharedBuffer.autoMapInput;
 
 	memcpy( &cg_autoMapInput, autoInput, sizeof( autoMapInput_t ) );
@@ -3012,7 +3003,7 @@ static void CG_AutomapInput( void ) {
 	}
 }
 
-static void CG_FX_CameraShake( void ) {
+CCALL void CG_FX_CameraShake( void ) {
 	TCGCameraShake *data = &cg.sharedBuffer.cameraShake;
 	CG_DoCameraShake( data->mOrigin, data->mIntensity, data->mRadius, data->mTime );
 }
@@ -3025,51 +3016,14 @@ GetModuleAPI
 
 EXTERNC cgameImport_t *trap = NULL;
 
-Q_EXPORT cgameExport_t* QDECL GetModuleAPI( int apiVersion, cgameImport_t *import )
+Q_EXPORT void QDECL GetModuleAPI( int apiVersion, cgameImport_t *import )
 {
-	static cgameExport_t cge = {0};
-
 	assert( import );
 	trap = import;
-	//Com_Printf	= Com_Printf;
-	//Com_Error	= Com_Error;
-
-	memset( &cge, 0, sizeof( cge ) );
-
 	if ( apiVersion != CGAME_API_VERSION ) {
 		Com_Printf( "Mismatched CGAME_API_VERSION: expected %i, got %i\n", CGAME_API_VERSION, apiVersion );
 		return NULL;
 	}
-
-	cge.Init					= CG_Init;
-	cge.Shutdown				= CG_Shutdown;
-	cge.ConsoleCommand			= CG_ConsoleCommand;
-	cge.DrawActiveFrame			= CG_DrawActiveFrame;
-	cge.CrosshairPlayer			= CG_CrosshairPlayer;
-	cge.LastAttacker			= CG_LastAttacker;
-	cge.KeyEvent				= CG_KeyEvent;
-	cge.MouseEvent				= _CG_MouseEvent;
-	cge.EventHandling			= CG_EventHandling;
-	cge.PointContents			= C_PointContents;
-	cge.GetLerpOrigin			= C_GetLerpOrigin;
-	cge.GetLerpData				= C_GetLerpData;
-	cge.Trace					= C_Trace;
-	cge.G2Trace					= C_G2Trace;
-	cge.G2Mark					= C_G2Mark;
-	cge.RagCallback				= CG_RagCallback;
-	cge.IncomingConsoleCommand	= CG_IncomingConsoleCommand;
-	cge.NoUseableForce			= CG_NoUseableForce;
-	cge.GetOrigin				= CG_GetOrigin;
-	cge.GetAngles				= CG_GetAngles;
-	cge.GetOriginTrajectory		= CG_GetOriginTrajectory;
-	cge.GetAngleTrajectory		= CG_GetAngleTrajectory;
-	cge.ROFF_NotetrackCallback	= _CG_ROFF_NotetrackCallback;
-	cge.MapChange				= CG_MapChange;
-	cge.AutomapInput			= CG_AutomapInput;
-	cge.MiscEnt					= CG_MiscEnt;
-	cge.CameraShake				= CG_FX_CameraShake;
-
-	return &cge;
 }
 
 /*

@@ -29,147 +29,146 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "snd_ambient.h"
 #include "FXExport.h"
 #include "FxUtil.h"
+#include "../cgame/cg_tempwrappers.h"
 
 extern IHeapAllocator *G2VertSpaceClient;
 extern botlib_export_t *botlib_export;
 
-// cgame interface
-static cgameExport_t *cge; // cgame export table
 static vm_t *cgvm; // cgame vm, valid for legacy and new api
 
 void CGVM_Init( int serverMessageNum, int serverCommandSequence, int clientNum ) {
 	VMSwap v( cgvm );
-	cge->Init( serverMessageNum, serverCommandSequence, clientNum );
+	CG_Init( serverMessageNum, serverCommandSequence, clientNum );
 }
 
 void CGVM_Shutdown( void ) {
 	VMSwap v( cgvm );
-	cge->Shutdown();
+	CG_Shutdown();
 }
 
 qboolean CGVM_ConsoleCommand( void ) {
 	VMSwap v( cgvm );
-	return cge->ConsoleCommand();
+	return CG_ConsoleCommand();
 }
 
 void CGVM_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolean demoPlayback ) {
 	VMSwap v( cgvm );
-	cge->DrawActiveFrame( serverTime, stereoView, demoPlayback );
+	CG_DrawActiveFrame( serverTime, stereoView, demoPlayback );
 }
 
 int CGVM_CrosshairPlayer( void ) {
 	VMSwap v( cgvm );
-	return cge->CrosshairPlayer();
+	return CG_CrosshairPlayer();
 }
 
 int CGVM_LastAttacker( void ) {
 	VMSwap v( cgvm );
-	return cge->LastAttacker();
+	return CG_LastAttacker();
 }
 
 void CGVM_KeyEvent( int key, qboolean down ) {
 	VMSwap v( cgvm );
-	cge->KeyEvent( key, down );
+	CG_KeyEvent( key, down );
 }
 
 void CGVM_MouseEvent( int x, int y ) {
 	VMSwap v( cgvm );
-	cge->MouseEvent( x, y );
+	_CG_MouseEvent( x, y );
 }
 
 void CGVM_EventHandling( int type ) {
 	VMSwap v( cgvm );
-	cge->EventHandling( type );
+	CG_EventHandling( type );
 }
 
 int CGVM_PointContents( void ) {
 	VMSwap v( cgvm );
-	return cge->PointContents();
+	return C_PointContents();
 }
 
 void CGVM_GetLerpOrigin( void ) {
 	VMSwap v( cgvm );
-	cge->GetLerpOrigin();
+	C_GetLerpOrigin();
 }
 
 void CGVM_GetLerpData( void ) {
 	VMSwap v( cgvm );
-	cge->GetLerpData();
+	C_GetLerpData();
 }
 
 void CGVM_Trace( void ) {
 	VMSwap v( cgvm );
-	cge->Trace();
+	C_Trace();
 }
 
 void CGVM_G2Trace( void ) {
 	VMSwap v( cgvm );
-	cge->G2Trace();
+	C_G2Trace();
 }
 
 void CGVM_G2Mark( void ) {
 	VMSwap v( cgvm );
-	cge->G2Mark();
+	C_G2Mark();
 }
 
 int CGVM_RagCallback( int callType ) {
 	VMSwap v( cgvm );
-	return cge->RagCallback( callType );
+	return CG_RagCallback( callType );
 }
 
 qboolean CGVM_IncomingConsoleCommand( void ) {
 	VMSwap v( cgvm );
-	return cge->IncomingConsoleCommand();
+	return CG_IncomingConsoleCommand();
 }
 
 qboolean CGVM_NoUseableForce( void ) {
 	VMSwap v( cgvm );
-	return cge->NoUseableForce();
+	return CG_NoUseableForce();
 }
 
 void CGVM_GetOrigin( int entID, vec3_t out ) {
 	VMSwap v( cgvm );
-	cge->GetOrigin( entID, out );
+	CG_GetOrigin( entID, out );
 }
 
 void CGVM_GetAngles( int entID, vec3_t out ) {
 	VMSwap v( cgvm );
-	cge->GetAngles( entID, out );
+	CG_GetAngles( entID, out );
 }
 
 trajectory_t *CGVM_GetOriginTrajectory( int entID ) {
 	VMSwap v( cgvm );
-	return cge->GetOriginTrajectory( entID );
+	return CG_GetOriginTrajectory( entID );
 }
 
 trajectory_t *CGVM_GetAngleTrajectory( int entID ) {
 	VMSwap v( cgvm );
-	return cge->GetAngleTrajectory( entID );
+	return CG_GetAngleTrajectory( entID );
 }
 
 void CGVM_ROFF_NotetrackCallback( int entID, const char *notetrack ) {
 	VMSwap v( cgvm );
-	cge->ROFF_NotetrackCallback( entID, notetrack );
+	_CG_ROFF_NotetrackCallback( entID, notetrack );
 }
 
 void CGVM_MapChange( void ) {
 	VMSwap v( cgvm );
-	cge->MapChange();
+	CG_MapChange();
 }
 
 void CGVM_AutomapInput( void ) {
 	VMSwap v( cgvm );
-	cge->AutomapInput();
+	CG_AutomapInput();
 }
 
 void CGVM_MiscEnt( void ) {
 	VMSwap v( cgvm );
-	cge->MiscEnt();
+	CG_MiscEnt();
 }
 
 void CGVM_CameraShake( void ) {
 	VMSwap v( cgvm );
-	cge->CameraShake();
+	CG_FX_CameraShake();
 }
 
 
@@ -721,11 +720,10 @@ CCALL void		RE_SetColor		( const float *rgba ) {
 //typedef int cgameExport_t;
 //typedef int cgameImport_t;
 
-CCALL cgameExport_t* QDECL GetModuleAPI( int apiVersion, cgameImport_t *import );
+CCALL void QDECL GetModuleAPI( int apiVersion, cgameImport_t *import );
 
 void CL_BindCGame( void ) {
 	static cgameImport_t cgi;
-	cgameExport_t		*ret;
 	GetCGameAPI_t		GetCGameAPI;
 	char				dllName[MAX_OSPATH] = "cgame" ARCH_STRING DLL_EXT;
 
@@ -944,15 +942,9 @@ void CL_BindCGame( void ) {
 		#if 0
 			ret = GetModuleAPI( CGAME_API_VERSION, &cgi );
 		#else
-			ret = GetCGameAPI( CGAME_API_VERSION, &cgi );
+			GetCGameAPI( CGAME_API_VERSION, &cgi );
 		#endif
 
-		if ( !ret ) {
-			//free VM?
-			cls.cgameStarted = qfalse;
-			Com_Error( ERR_FATAL, "GetGameAPI failed on %s", dllName );
-		}
-		cge = ret;
 
 		return;
 	}

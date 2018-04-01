@@ -818,7 +818,7 @@ type 0 - no event handling
 2 - hud editor
 
 */
-void CG_EventHandling(int type) {
+CCALL void CG_EventHandling(int type) {
 	cgs.eventHandling = type;
 	if (type == CGAME_EVENT_NONE) {
 		CG_HideTeamMenu();
@@ -831,7 +831,7 @@ void CG_EventHandling(int type) {
 
 
 
-void CG_KeyEvent(int key, qboolean down) {
+CCALL void CG_KeyEvent(int key, qboolean down) {
 
 	if (!down) {
 		return;

@@ -54,69 +54,55 @@ typedef struct
 } pml_t;
 
 
-extern	pml_t		pml;
+EXTERNC	pml_t		pml;
 
 // movement parameters
-extern	float	pm_stopspeed;
-extern	float	pm_duckScale;
-extern	float	pm_swimScale;
-extern	float	pm_wadeScale;
-
-extern	float	pm_accelerate;
-extern	float	pm_airaccelerate;
-extern	float	pm_wateraccelerate;
-extern	float	pm_flyaccelerate;
-
-extern	float	pm_friction;
-extern	float	pm_waterfriction;
-extern	float	pm_flightfriction;
-
-extern	int		c_pmove;
-
-extern int forcePowerNeeded[NUM_FORCE_POWER_LEVELS][NUM_FORCE_POWERS];
+EXTERNC	float	pm_stopspeed;
+EXTERNC	float	pm_duckScale;
+EXTERNC	float	pm_swimScale;
+EXTERNC	float	pm_wadeScale;
+EXTERNC	float	pm_accelerate;
+EXTERNC	float	pm_airaccelerate;
+EXTERNC	float	pm_wateraccelerate;
+EXTERNC	float	pm_flyaccelerate;
+EXTERNC	float	pm_friction;
+EXTERNC	float	pm_waterfriction;
+EXTERNC	float	pm_flightfriction;
+EXTERNC	int		c_pmove;
+EXTERNC int forcePowerNeeded[NUM_FORCE_POWER_LEVELS][NUM_FORCE_POWERS];
 
 //PM anim utility functions:
-qboolean PM_SaberInParry( int move );
-qboolean PM_SaberInKnockaway( int move );
-qboolean PM_SaberInReflect( int move );
-qboolean PM_SaberInStart( int move );
-qboolean PM_InSaberAnim( int anim );
-qboolean PM_InKnockDown( playerState_t *ps );
-qboolean PM_PainAnim( int anim );
-qboolean PM_JumpingAnim( int anim );
-qboolean PM_LandingAnim( int anim );
-qboolean PM_SpinningAnim( int anim );
-qboolean PM_InOnGroundAnim ( int anim );
-qboolean PM_InRollComplete( playerState_t *ps, int anim );
-
-int PM_AnimLength( int index, animNumber_t anim );
-
-int PM_GetSaberStance(void);
-float PM_GroundDistance(void);
-qboolean PM_SomeoneInFront(trace_t *tr);
-saberMoveName_t PM_SaberFlipOverAttackMove(void);
-saberMoveName_t PM_SaberJumpAttackMove( void );
-
-void PM_ClipVelocity( vec3_t in, vec3_t normal, vec3_t out, float overbounce );
-void PM_AddTouchEnt( int entityNum );
-void PM_AddEvent( int newEvent );
-
-qboolean	PM_SlideMove( qboolean gravity );
-void		PM_StepSlideMove( qboolean gravity );
-
-void PM_StartTorsoAnim( int anim );
-void PM_ContinueLegsAnim( int anim );
-void PM_ForceLegsAnim( int anim );
-
-void PM_BeginWeaponChange( int weapon );
-void PM_FinishWeaponChange( void );
-
-void PM_SetAnim(int setAnimParts,int anim,int setAnimFlags);
-
-void PM_WeaponLightsaber(void);
-void PM_SetSaberMove(short newMove);
-
-void PM_SetForceJumpZStart(float value);
-
-void BG_CycleInven(playerState_t *ps, int direction);
+CCALL qboolean PM_SaberInParry( int move );
+CCALL qboolean PM_SaberInKnockaway( int move );
+CCALL qboolean PM_SaberInReflect( int move );
+CCALL qboolean PM_SaberInStart( int move );
+CCALL qboolean PM_InSaberAnim( int anim );
+CCALL qboolean PM_InKnockDown( playerState_t *ps );
+CCALL qboolean PM_PainAnim( int anim );
+CCALL qboolean PM_JumpingAnim( int anim );
+CCALL qboolean PM_LandingAnim( int anim );
+CCALL qboolean PM_SpinningAnim( int anim );
+CCALL qboolean PM_InOnGroundAnim ( int anim );
+CCALL qboolean PM_InRollComplete( playerState_t *ps, int anim );
+CCALL int PM_AnimLength( int index, animNumber_t anim );
+CCALL int PM_GetSaberStance(void);
+CCALL float PM_GroundDistance(void);
+CCALL qboolean PM_SomeoneInFront(trace_t *tr);
+CCALL saberMoveName_t PM_SaberFlipOverAttackMove(void);
+CCALL saberMoveName_t PM_SaberJumpAttackMove( void );
+CCALL void PM_ClipVelocity( vec3_t in, vec3_t normal, vec3_t out, float overbounce );
+CCALL void PM_AddTouchEnt( int entityNum );
+CCALL void PM_AddEvent( int newEvent );
+CCALL qboolean	PM_SlideMove( qboolean gravity );
+CCALL void		PM_StepSlideMove( qboolean gravity );
+CCALL void PM_StartTorsoAnim( int anim );
+CCALL void PM_ContinueLegsAnim( int anim );
+CCALL void PM_ForceLegsAnim( int anim );
+CCALL void PM_BeginWeaponChange( int weapon );
+CCALL void PM_FinishWeaponChange( void );
+CCALL void PM_SetAnim(int setAnimParts,int anim,int setAnimFlags);
+CCALL void PM_WeaponLightsaber(void);
+CCALL void PM_SetSaberMove(short newMove);
+CCALL void PM_SetForceJumpZStart(float value);
+CCALL void BG_CycleInven(playerState_t *ps, int direction);
 

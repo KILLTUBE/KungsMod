@@ -719,35 +719,5 @@ typedef struct cgameImport_s {
 	} ext;
 } cgameImport_t;
 
-typedef struct cgameExport_s {
-	void			(*Init)						( int serverMessageNum, int serverCommandSequence, int clientNum );
-	void			(*Shutdown)					( void );
-	qboolean		(*ConsoleCommand)			( void );
-	void			(*DrawActiveFrame)			( int serverTime, stereoFrame_t stereoView, qboolean demoPlayback );
-	int				(*CrosshairPlayer)			( void );
-	int				(*LastAttacker)				( void );
-	void			(*KeyEvent)					( int key, qboolean down );
-	void			(*MouseEvent)				( int x, int y );
-	void			(*EventHandling)			( int type );
-	int				(*PointContents)			( void );
-	void			(*GetLerpOrigin)			( void );
-	void			(*GetLerpData)				( void );
-	void			(*Trace)					( void );
-	void			(*G2Trace)					( void );
-	void			(*G2Mark)					( void );
-	int				(*RagCallback)				( int callType );
-	qboolean		(*IncomingConsoleCommand)	( void );
-	qboolean		(*NoUseableForce)			( void );
-	void			(*GetOrigin)				( int entID, vec3_t out );
-	void			(*GetAngles)				( int entID, vec3_t out );
-	trajectory_t *	(*GetOriginTrajectory)		( int entID );
-	trajectory_t *	(*GetAngleTrajectory)		( int entID );
-	void			(*ROFF_NotetrackCallback)	( int entID, const char *notetrack );
-	void			(*MapChange)				( void );
-	void			(*AutomapInput)				( void );
-	void			(*MiscEnt)					( void );
-	void			(*CameraShake)				( void );
-} cgameExport_t;
-
 //linking of cgame library
-typedef cgameExport_t* (QDECL *GetCGameAPI_t)( int apiVersion, cgameImport_t *import );
+typedef void (QDECL *GetCGameAPI_t)( int apiVersion, cgameImport_t *import );

@@ -176,7 +176,7 @@ static void CG_TellTarget_f( void ) {
 		return;
 	}
 
-	trap->Cmd_Args( message, sizeof(message) );
+	Cmd_ArgsBuffer( message, sizeof(message) );
 	Com_sprintf( command, sizeof(command), "tell %i %s", clientNum, message );
 	trap->SendClientCommand( command );
 }
@@ -191,7 +191,7 @@ static void CG_TellAttacker_f( void ) {
 		return;
 	}
 
-	trap->Cmd_Args( message, sizeof(message) );
+	Cmd_ArgsBuffer( message, sizeof(message) );
 	Com_sprintf( command, sizeof(command), "tell %i %s", clientNum, message );
 	trap->SendClientCommand( command );
 }
@@ -335,7 +335,7 @@ The string has been tokenized and can be retrieved with
 Cmd_Argc() / Cmd_Argv()
 =================
 */
-qboolean CG_ConsoleCommand( void ) {
+CCALL qboolean CG_ConsoleCommand( void ) {
 	consoleCommand_t	*command = NULL;
 
 	command = (consoleCommand_t *)Q_LinearSearch( CG_Argv( 0 ), commands, numCommands, sizeof( commands[0] ), cmdcmp_cg );

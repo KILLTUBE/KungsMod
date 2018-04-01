@@ -434,7 +434,7 @@ The interpreted versions use this because
 they can't have pointers returned to them
 ============
 */
-void	Cmd_ArgsBuffer( char *buffer, int bufferLength ) {
+CCALL void	Cmd_ArgsBuffer( char *buffer, int bufferLength ) {
 	Q_strncpyz( buffer, Cmd_ArgsFrom( 1 ), bufferLength );
 }
 

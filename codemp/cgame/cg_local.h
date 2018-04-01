@@ -28,7 +28,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "rd-common/tr_types.h"
 #include "game/bg_public.h"
 #include "cg_public.h"
-
+#include "cg_tempwrappers.h"
 
 // The entire cgame module is unloaded and reloaded on each level change,
 // so there is NO persistant data between levels on the client side.
@@ -1659,55 +1659,55 @@ EXTERNC	markPoly_t		cg_markPolys[MAX_MARK_POLYS];
 #define XCVAR_PROTO
 	#include "cg_xcvar.h"
 #undef XCVAR_PROTO
-EXTERNC void CG_RegisterCvars( void );
-EXTERNC void CG_UpdateCvars( void );
+CCALL void CG_RegisterCvars( void );
+CCALL void CG_UpdateCvars( void );
 
 //
 // cg_main.c
 //
-EXTERNC const char *CG_ConfigString( int index );
-EXTERNC const char *CG_Argv( int arg );
-EXTERNC void CG_StartMusic( qboolean bForceStart );
-EXTERNC void CG_UpdateCvars( void );
-EXTERNC int CG_CrosshairPlayer( void );
-EXTERNC int CG_LastAttacker( void );
-EXTERNC void CG_LoadMenus(const char *menuFile);
-EXTERNC void CG_KeyEvent(int key, qboolean down);
-EXTERNC void CG_MouseEvent(int x, int y);
-EXTERNC void CG_EventHandling(int type);
-EXTERNC void CG_RankRunFrame( void );
-EXTERNC void CG_SetScoreSelection(void *menu);
-EXTERNC void CG_BuildSpectatorString(void);
-EXTERNC void CG_NextInventory_f(void);
-EXTERNC void CG_PrevInventory_f(void);
-EXTERNC void CG_NextForcePower_f(void);
-EXTERNC void CG_PrevForcePower_f(void);
+CCALL const char *CG_ConfigString( int index );
+CCALL const char *CG_Argv( int arg );
+CCALL void CG_StartMusic( qboolean bForceStart );
+CCALL void CG_UpdateCvars( void );
+CCALL int CG_CrosshairPlayer( void );
+CCALL int CG_LastAttacker( void );
+CCALL void CG_LoadMenus(const char *menuFile);
+CCALL void CG_KeyEvent(int key, qboolean down);
+CCALL void CG_MouseEvent(int x, int y);
+CCALL void CG_EventHandling(int type);
+CCALL void CG_RankRunFrame( void );
+CCALL void CG_SetScoreSelection(void *menu);
+CCALL void CG_BuildSpectatorString(void);
+CCALL void CG_NextInventory_f(void);
+CCALL void CG_PrevInventory_f(void);
+CCALL void CG_NextForcePower_f(void);
+CCALL void CG_PrevForcePower_f(void);
 
 //
 // cg_view.c
 //
-EXTERNC void CG_TestModel_f (void);
-EXTERNC void CG_TestGun_f (void);
-EXTERNC void CG_TestModelNextFrame_f (void);
-EXTERNC void CG_TestModelPrevFrame_f (void);
-EXTERNC void CG_TestModelNextSkin_f (void);
-EXTERNC void CG_TestModelPrevSkin_f (void);
-EXTERNC void CG_ZoomDown_f( void );
-EXTERNC void CG_ZoomUp_f( void );
-EXTERNC void CG_AddBufferedSound( sfxHandle_t sfx);
+CCALL void CG_TestModel_f (void);
+CCALL void CG_TestGun_f (void);
+CCALL void CG_TestModelNextFrame_f (void);
+CCALL void CG_TestModelPrevFrame_f (void);
+CCALL void CG_TestModelNextSkin_f (void);
+CCALL void CG_TestModelPrevSkin_f (void);
+CCALL void CG_ZoomDown_f( void );
+CCALL void CG_ZoomUp_f( void );
+CCALL void CG_AddBufferedSound( sfxHandle_t sfx);
+CCALL void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolean demoPlayback );
 
-void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolean demoPlayback );
 /*
 Ghoul2 Insert Start
 */
 
-EXTERNC void CG_TestG2Model_f (void);
-EXTERNC void CG_TestModelSurfaceOnOff_f(void);
-EXTERNC void CG_ListModelSurfaces_f (void);
-EXTERNC void CG_ListModelBones_f (void);
-EXTERNC void CG_TestModelSetAnglespre_f(void);
-EXTERNC void CG_TestModelSetAnglespost_f(void);
-EXTERNC void CG_TestModelAnimate_f(void);
+CCALL void CG_TestG2Model_f (void);
+CCALL void CG_TestModelSurfaceOnOff_f(void);
+CCALL void CG_ListModelSurfaces_f (void);
+CCALL void CG_ListModelBones_f (void);
+CCALL void CG_TestModelSetAnglespre_f(void);
+CCALL void CG_TestModelSetAnglespost_f(void);
+CCALL void CG_TestModelAnimate_f(void);
 /*
 Ghoul2 Insert End
 */
@@ -1715,136 +1715,132 @@ Ghoul2 Insert End
 //
 // cg_drawtools.c
 //
-EXTERNC void CG_FillRect( float x, float y, float width, float height, const float *color );
-EXTERNC void CG_DrawPic( float x, float y, float width, float height, qhandle_t hShader );
-EXTERNC void CG_DrawRotatePic( float x, float y, float width, float height,float angle, qhandle_t hShader );
-EXTERNC void CG_DrawRotatePic2( float x, float y, float width, float height,float angle, qhandle_t hShader );
-EXTERNC void CG_DrawString( float x, float y, const char *string,
+CCALL void CG_FillRect( float x, float y, float width, float height, const float *color );
+CCALL void CG_DrawPic( float x, float y, float width, float height, qhandle_t hShader );
+CCALL void CG_DrawRotatePic( float x, float y, float width, float height,float angle, qhandle_t hShader );
+CCALL void CG_DrawRotatePic2( float x, float y, float width, float height,float angle, qhandle_t hShader );
+CCALL void CG_DrawString( float x, float y, const char *string,
 				   float charWidth, float charHeight, const float *modulate );
 
-EXTERNC void CG_DrawNumField (int x, int y, int width, int value,int charWidth,int charHeight,int style,qboolean zeroFill);
+CCALL void CG_DrawNumField (int x, int y, int width, int value,int charWidth,int charHeight,int style,qboolean zeroFill);
 
-EXTERNC void CG_DrawStringExt( int x, int y, const char *string, const float *setColor,
+CCALL void CG_DrawStringExt( int x, int y, const char *string, const float *setColor,
 		qboolean forceColor, qboolean shadow, int charWidth, int charHeight, int maxChars );
-EXTERNC void CG_DrawBigString( int x, int y, const char *s, float alpha );
-EXTERNC void CG_DrawBigStringColor( int x, int y, const char *s, vec4_t color );
-EXTERNC void CG_DrawSmallString( int x, int y, const char *s, float alpha );
-EXTERNC void CG_DrawSmallStringColor( int x, int y, const char *s, vec4_t color );
+CCALL void CG_DrawBigString( int x, int y, const char *s, float alpha );
+CCALL void CG_DrawBigStringColor( int x, int y, const char *s, vec4_t color );
+CCALL void CG_DrawSmallString( int x, int y, const char *s, float alpha );
+CCALL void CG_DrawSmallStringColor( int x, int y, const char *s, vec4_t color );
 
-EXTERNC int CG_DrawStrlen( const char *str );
+CCALL int CG_DrawStrlen( const char *str );
 
-EXTERNC float	*CG_FadeColor( int startMsec, int totalMsec );
-EXTERNC float *CG_TeamColor( int team );
-EXTERNC void CG_TileClear( void );
-EXTERNC void CG_ColorForHealth( vec4_t hcolor );
-EXTERNC void CG_GetColorForHealth( int health, int armor, vec4_t hcolor );
+CCALL float	*CG_FadeColor( int startMsec, int totalMsec );
+CCALL float *CG_TeamColor( int team );
+CCALL void CG_TileClear( void );
+CCALL void CG_ColorForHealth( vec4_t hcolor );
+CCALL void CG_GetColorForHealth( int health, int armor, vec4_t hcolor );
 
-EXTERNC void CG_DrawProportionalString( int x, int y, const char* str, int style, vec4_t color );
-EXTERNC void CG_DrawScaledProportionalString( int x, int y, const char* str, int style, vec4_t color, float scale);
-EXTERNC void CG_DrawRect( float x, float y, float width, float height, float size, const float *color );
-EXTERNC void CG_DrawSides(float x, float y, float w, float h, float size);
-EXTERNC void CG_DrawTopBottom(float x, float y, float w, float h, float size);
+CCALL void CG_DrawProportionalString( int x, int y, const char* str, int style, vec4_t color );
+CCALL void CG_DrawScaledProportionalString( int x, int y, const char* str, int style, vec4_t color, float scale);
+CCALL void CG_DrawRect( float x, float y, float width, float height, float size, const float *color );
+CCALL void CG_DrawSides(float x, float y, float w, float h, float size);
+CCALL void CG_DrawTopBottom(float x, float y, float w, float h, float size);
 
 //
 // cg_draw.c, cg_newDraw.c
 //
-EXTERNC int sortedTeamPlayers[TEAM_MAXOVERLAY];
-EXTERNC int	numSortedTeamPlayers;
-EXTERNC char systemChat[256];
+CCALL int sortedTeamPlayers[TEAM_MAXOVERLAY];
+CCALL int	numSortedTeamPlayers;
+CCALL char systemChat[256];
 
-EXTERNC void CG_AddLagometerFrameInfo( void );
-EXTERNC void CG_AddLagometerSnapshotInfo( snapshot_t *snap );
-EXTERNC void CG_CenterPrint( const char *str, int y, int charWidth );
-EXTERNC void CG_DrawHead( float x, float y, float w, float h, int clientNum, vec3_t headAngles );
-EXTERNC void CG_DrawActive( stereoFrame_t stereoView );
-EXTERNC void CG_DrawFlagModel( float x, float y, float w, float h, int team, qboolean force2D );
-EXTERNC void CG_DrawTeamBackground( int x, int y, int w, int h, float alpha, int team );
-EXTERNC void CG_OwnerDraw(float x, float y, float w, float h, float text_x, float text_y, int ownerDraw, int ownerDrawFlags, int align, float special, float scale, vec4_t color, qhandle_t shader, int textStyle,int font);
-EXTERNC void CG_Text_Paint(float x, float y, float scale, vec4_t color, const char *text, float adjust, int limit, int style, int iMenuFont);
-EXTERNC int CG_Text_Width(const char *text, float scale, int iMenuFont);
-EXTERNC int CG_Text_Height(const char *text, float scale, int iMenuFont);
-EXTERNC float CG_GetValue(int ownerDraw);
-EXTERNC qboolean CG_OwnerDrawVisible(int flags);
-EXTERNC void CG_RunMenuScript(char **args);
-EXTERNC qboolean CG_DeferMenuScript(char **args);
-EXTERNC void CG_ShowResponseHead(void);
-EXTERNC void CG_GetTeamColor(vec4_t *color);
-EXTERNC const char *CG_GetGameStatusText(void);
-EXTERNC const char *CG_GetKillerText(void);
-EXTERNC void CG_Draw3DModel( float x, float y, float w, float h, qhandle_t model, void *ghoul2, int g2radius, qhandle_t skin, vec3_t origin, vec3_t angles );
-EXTERNC void CG_Text_PaintChar(float x, float y, float width, float height, float scale, float s, float t, float s2, float t2, qhandle_t hShader);
-EXTERNC qboolean CG_YourTeamHasFlag(void);
-EXTERNC qboolean CG_OtherTeamHasFlag(void);
-EXTERNC qhandle_t CG_StatusHandle(int task);
+CCALL void CG_AddLagometerFrameInfo( void );
+CCALL void CG_AddLagometerSnapshotInfo( snapshot_t *snap );
+CCALL void CG_CenterPrint( const char *str, int y, int charWidth );
+CCALL void CG_DrawHead( float x, float y, float w, float h, int clientNum, vec3_t headAngles );
+CCALL void CG_DrawActive( stereoFrame_t stereoView );
+CCALL void CG_DrawFlagModel( float x, float y, float w, float h, int team, qboolean force2D );
+CCALL void CG_DrawTeamBackground( int x, int y, int w, int h, float alpha, int team );
+CCALL void CG_OwnerDraw(float x, float y, float w, float h, float text_x, float text_y, int ownerDraw, int ownerDrawFlags, int align, float special, float scale, vec4_t color, qhandle_t shader, int textStyle,int font);
+CCALL void CG_Text_Paint(float x, float y, float scale, vec4_t color, const char *text, float adjust, int limit, int style, int iMenuFont);
+CCALL int CG_Text_Width(const char *text, float scale, int iMenuFont);
+CCALL int CG_Text_Height(const char *text, float scale, int iMenuFont);
+CCALL float CG_GetValue(int ownerDraw);
+CCALL qboolean CG_OwnerDrawVisible(int flags);
+CCALL void CG_RunMenuScript(char **args);
+CCALL qboolean CG_DeferMenuScript(char **args);
+CCALL void CG_ShowResponseHead(void);
+CCALL void CG_GetTeamColor(vec4_t *color);
+CCALL const char *CG_GetGameStatusText(void);
+CCALL const char *CG_GetKillerText(void);
+CCALL void CG_Draw3DModel( float x, float y, float w, float h, qhandle_t model, void *ghoul2, int g2radius, qhandle_t skin, vec3_t origin, vec3_t angles );
+CCALL void CG_Text_PaintChar(float x, float y, float width, float height, float scale, float s, float t, float s2, float t2, qhandle_t hShader);
+CCALL qboolean CG_YourTeamHasFlag(void);
+CCALL qboolean CG_OtherTeamHasFlag(void);
+CCALL qhandle_t CG_StatusHandle(int task);
 
 
 
 //
 // cg_player.c
 //
-EXTERNC qboolean CG_RagDoll(centity_t *cent, vec3_t forcedAngles);
-EXTERNC qboolean CG_G2TraceCollide(trace_t *tr, const vec3_t mins, const vec3_t maxs, const vec3_t lastValidStart, const vec3_t lastValidEnd);
-EXTERNC void CG_AddGhoul2Mark(int shader, float size, vec3_t start, vec3_t end, int entnum,
+CCALL qboolean CG_RagDoll(centity_t *cent, vec3_t forcedAngles);
+CCALL qboolean CG_G2TraceCollide(trace_t *tr, const vec3_t mins, const vec3_t maxs, const vec3_t lastValidStart, const vec3_t lastValidEnd);
+CCALL void CG_AddGhoul2Mark(int shader, float size, vec3_t start, vec3_t end, int entnum,
 					  vec3_t entposition, float entangle, void *ghoul2, vec3_t scale, int lifeTime);
 
-EXTERNC void CG_CreateNPCClient(clientInfo_t **ci);
-EXTERNC void CG_DestroyNPCClient(clientInfo_t **ci);
+CCALL void CG_CreateNPCClient(clientInfo_t **ci);
+CCALL void CG_DestroyNPCClient(clientInfo_t **ci);
 
-EXTERNC void CG_Player( centity_t *cent );
-EXTERNC void CG_ResetPlayerEntity( centity_t *cent );
-EXTERNC void CG_AddRefEntityWithPowerups( refEntity_t *ent, entityState_t *state, int team );
-EXTERNC void CG_NewClientInfo( int clientNum, qboolean entitiesInitialized );
-EXTERNC sfxHandle_t	CG_CustomSound( int clientNum, const char *soundName );
-EXTERNC void CG_PlayerShieldHit(int entitynum, vec3_t angles, int amount);
+CCALL void CG_Player( centity_t *cent );
+CCALL void CG_ResetPlayerEntity( centity_t *cent );
+CCALL void CG_AddRefEntityWithPowerups( refEntity_t *ent, entityState_t *state, int team );
+CCALL void CG_NewClientInfo( int clientNum, qboolean entitiesInitialized );
+CCALL sfxHandle_t	CG_CustomSound( int clientNum, const char *soundName );
+CCALL void CG_PlayerShieldHit(int entitynum, vec3_t angles, int amount);
 
 
 //
 // cg_predict.c
 //
-void CG_BuildSolidList( void );
-int	CG_PointContents( const vec3_t point, int passEntityNum );
-void CG_Trace( trace_t *result, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end,
-					 int skipNumber, int mask );
-void CG_G2Trace( trace_t *result, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end,
-					 int skipNumber, int mask );
-void CG_PredictPlayerState( void );
-void CG_LoadDeferredPlayers( void );
+CCALL void CG_BuildSolidList( void );
+CCALL int	CG_PointContents( const vec3_t point, int passEntityNum );
+CCALL void CG_Trace( trace_t *result, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int skipNumber, int mask );
+CCALL void CG_G2Trace( trace_t *result, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int skipNumber, int mask );
+CCALL void CG_PredictPlayerState( void );
+CCALL void CG_LoadDeferredPlayers( void );
 
 
 //
 // cg_events.c
 //
-void CG_CheckEvents( centity_t *cent );
-const char	*CG_PlaceString( int rank );
-void CG_EntityEvent( centity_t *cent, vec3_t position );
-void CG_PainEvent( centity_t *cent, int health );
-void CG_ReattachLimb(centity_t *source);
+CCALL void CG_CheckEvents( centity_t *cent );
+CCALL const char	*CG_PlaceString( int rank );
+CCALL void CG_EntityEvent( centity_t *cent, vec3_t position );
+CCALL void CG_PainEvent( centity_t *cent, int health );
+CCALL void CG_ReattachLimb(centity_t *source);
 
 
 //
 // cg_ents.c
 //
 
-void CG_S_AddLoopingSound(int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfx);
-void CG_S_AddRealLoopingSound(int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfx);
-void CG_S_StopLoopingSound(int entityNum, sfxHandle_t sfx);
-void CG_S_UpdateLoopingSounds(int entityNum);
-
-void CG_SetEntitySoundPosition( centity_t *cent );
-void CG_AddPacketEntities( qboolean isPortal );
-void CG_ManualEntityRender(centity_t *cent);
-void CG_Beam( centity_t *cent );
-void CG_AdjustPositionForMover( const vec3_t in, int moverNum, int fromTime, int toTime, vec3_t out );
-
-void CG_PositionEntityOnTag( refEntity_t *entity, const refEntity_t *parent,
+CCALL void CG_S_AddLoopingSound(int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfx);
+CCALL void CG_S_AddRealLoopingSound(int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfx);
+CCALL void CG_S_StopLoopingSound(int entityNum, sfxHandle_t sfx);
+CCALL void CG_S_UpdateLoopingSounds(int entityNum);
+CCALL void CG_SetEntitySoundPosition( centity_t *cent );
+CCALL void CG_AddPacketEntities( qboolean isPortal );
+CCALL void CG_ManualEntityRender(centity_t *cent);
+CCALL void CG_Beam( centity_t *cent );
+CCALL void CG_AdjustPositionForMover( const vec3_t in, int moverNum, int fromTime, int toTime, vec3_t out );
+CCALL void CG_PositionEntityOnTag( refEntity_t *entity, const refEntity_t *parent,
 							qhandle_t parentModel, char *tagName );
-void CG_PositionRotatedEntityOnTag( refEntity_t *entity, const refEntity_t *parent,
+CCALL void CG_PositionRotatedEntityOnTag( refEntity_t *entity, const refEntity_t *parent,
 							qhandle_t parentModel, char *tagName );
 
 /*
 Ghoul2 Insert Start
 */
-void ScaleModelAxis(refEntity_t	*ent);
+CCALL void ScaleModelAxis(refEntity_t	*ent);
 /*
 Ghoul2 Insert End
 */
@@ -1852,38 +1848,33 @@ Ghoul2 Insert End
 //
 // cg_turret.c
 //
-void TurretClientRun(centity_t *ent);
+CCALL void TurretClientRun(centity_t *ent);
 
 //
 // cg_weapons.c
 //
-void CG_GetClientWeaponMuzzleBoltPoint(int clIndex, vec3_t to);
-
-void CG_NextWeapon_f( void );
-void CG_PrevWeapon_f( void );
-void CG_Weapon_f( void );
-void CG_WeaponClean_f( void );
-
-void CG_RegisterWeapon( int weaponNum);
-void CG_RegisterItemVisuals( int itemNum );
-
-void CG_FireWeapon( centity_t *cent, qboolean alt_fire );
-void CG_MissileHitWall(int weapon, int clientNum, vec3_t origin, vec3_t dir, impactSound_t soundType, qboolean alt_fire, int charge);
-void CG_MissileHitPlayer( int weapon, vec3_t origin, vec3_t dir, int entityNum, qboolean alt_fire);
-
-void CG_AddViewWeapon (playerState_t *ps);
-void CG_AddPlayerWeapon( refEntity_t *parent, playerState_t *ps, centity_t *cent, int team, vec3_t newAngles, qboolean thirdPerson );
-void CG_DrawWeaponSelect( void );
-void CG_DrawIconBackground(void);
-
-void CG_OutOfAmmoChange( int oldWeapon );	// should this be in pmove?
+CCALL void CG_GetClientWeaponMuzzleBoltPoint(int clIndex, vec3_t to);
+CCALL void CG_NextWeapon_f( void );
+CCALL void CG_PrevWeapon_f( void );
+CCALL void CG_Weapon_f( void );
+CCALL void CG_WeaponClean_f( void );
+CCALL void CG_RegisterWeapon( int weaponNum);
+CCALL void CG_RegisterItemVisuals( int itemNum );
+CCALL void CG_FireWeapon( centity_t *cent, qboolean alt_fire );
+CCALL void CG_MissileHitWall(int weapon, int clientNum, vec3_t origin, vec3_t dir, impactSound_t soundType, qboolean alt_fire, int charge);
+CCALL void CG_MissileHitPlayer( int weapon, vec3_t origin, vec3_t dir, int entityNum, qboolean alt_fire);
+CCALL void CG_AddViewWeapon (playerState_t *ps);
+CCALL void CG_AddPlayerWeapon( refEntity_t *parent, playerState_t *ps, centity_t *cent, int team, vec3_t newAngles, qboolean thirdPerson );
+CCALL void CG_DrawWeaponSelect( void );
+CCALL void CG_DrawIconBackground(void);
+CCALL void CG_OutOfAmmoChange( int oldWeapon );	// should this be in pmove?
 
 //
 // cg_marks.c
 //
-void	CG_InitMarkPolys( void );
-void	CG_AddMarks( void );
-void	CG_ImpactMark( qhandle_t markShader,
+CCALL void	CG_InitMarkPolys( void );
+CCALL void	CG_AddMarks( void );
+CCALL void	CG_ImpactMark( qhandle_t markShader,
 				    const vec3_t origin, const vec3_t dir,
 					float orientation,
 				    float r, float g, float b, float a,
@@ -1893,14 +1884,14 @@ void	CG_ImpactMark( qhandle_t markShader,
 //
 // cg_localents.c
 //
-void	CG_InitLocalEntities( void );
-localEntity_t	*CG_AllocLocalEntity( void );
-void	CG_AddLocalEntities( void );
+CCALL void	CG_InitLocalEntities( void );
+CCALL localEntity_t	*CG_AllocLocalEntity( void );
+CCALL void	CG_AddLocalEntities( void );
 
 //
 // cg_effects.c
 //
-localEntity_t *CG_SmokePuff( const vec3_t p,
+CCALL localEntity_t *CG_SmokePuff( const vec3_t p,
 				   const vec3_t vel,
 				   float radius,
 				   float r, float g, float b, float a,
@@ -1909,123 +1900,114 @@ localEntity_t *CG_SmokePuff( const vec3_t p,
 				   int fadeInTime,
 				   int leFlags,
 				   qhandle_t hShader );
-void CG_BubbleTrail( vec3_t start, vec3_t end, float spacing );
-void CG_GlassShatter(int entnum, vec3_t dmgPt, vec3_t dmgDir, float dmgRadius, int maxShards);
-void CG_ScorePlum( int client, vec3_t org, int score );
+CCALL void CG_BubbleTrail( vec3_t start, vec3_t end, float spacing );
+CCALL void CG_GlassShatter(int entnum, vec3_t dmgPt, vec3_t dmgDir, float dmgRadius, int maxShards);
+CCALL void CG_ScorePlum( int client, vec3_t org, int score );
 
-void CG_Chunks( int owner, vec3_t origin, const vec3_t normal, const vec3_t mins, const vec3_t maxs,
+CCALL void CG_Chunks( int owner, vec3_t origin, const vec3_t normal, const vec3_t mins, const vec3_t maxs,
 						float speed, int numChunks, material_t chunkType, int customChunk, float baseScale );
-void CG_MiscModelExplosion( vec3_t mins, vec3_t maxs, int size, material_t chunkType );
+CCALL void CG_MiscModelExplosion( vec3_t mins, vec3_t maxs, int size, material_t chunkType );
 
-localEntity_t *CG_MakeExplosion( vec3_t origin, vec3_t dir,
+CCALL localEntity_t *CG_MakeExplosion( vec3_t origin, vec3_t dir,
 								qhandle_t hModel, int numframes, qhandle_t shader, int msec,
 								qboolean isSprite, float scale, int flags );// Overloaded in single player
 
-void CG_SurfaceExplosion( vec3_t origin, vec3_t normal, float radius, float shake_speed, qboolean smoke );
-
-void CG_TestLine( vec3_t start, vec3_t end, int time, unsigned int color, int radius);
-
-void CG_InitGlass( void );
+CCALL void CG_SurfaceExplosion( vec3_t origin, vec3_t normal, float radius, float shake_speed, qboolean smoke );
+CCALL void CG_TestLine( vec3_t start, vec3_t end, int time, unsigned int color, int radius);
+CCALL void CG_InitGlass( void );
 
 //
 // cg_snapshot.c
 //
-void CG_ProcessSnapshots( void );
+CCALL void CG_ProcessSnapshots( void );
 
 //
 // cg_info.c
 //
-void CG_LoadingString( const char *s );
-void CG_LoadingItem( int itemNum );
-void CG_LoadingClient( int clientNum );
-void CG_DrawInformation( void );
+CCALL void CG_LoadingString( const char *s );
+CCALL void CG_LoadingItem( int itemNum );
+CCALL void CG_LoadingClient( int clientNum );
+CCALL void CG_DrawInformation( void );
 
 //
 // cg_spawn.c
 //
-qboolean	CG_SpawnString( const char *key, const char *defaultString, char **out );
+CCALL qboolean	CG_SpawnString( const char *key, const char *defaultString, char **out );
 // spawn string returns a temporary reference, you must CopyString() if you want to keep it
-qboolean	CG_SpawnFloat( const char *key, const char *defaultString, float *out );
-qboolean	CG_SpawnInt( const char *key, const char *defaultString, int *out );
-qboolean	CG_SpawnBoolean( const char *key, const char *defaultString, qboolean *out );
-qboolean	CG_SpawnVector( const char *key, const char *defaultString, float *out );
-void		CG_ParseEntitiesFromString( void );
+CCALL qboolean	CG_SpawnFloat( const char *key, const char *defaultString, float *out );
+CCALL qboolean	CG_SpawnInt( const char *key, const char *defaultString, int *out );
+CCALL qboolean	CG_SpawnBoolean( const char *key, const char *defaultString, qboolean *out );
+CCALL qboolean	CG_SpawnVector( const char *key, const char *defaultString, float *out );
+CCALL void		CG_ParseEntitiesFromString( void );
 
 //
 // cg_scoreboard.c
 //
-qboolean CG_DrawOldScoreboard( void );
-void CG_DrawOldTourneyScoreboard( void );
+CCALL qboolean CG_DrawOldScoreboard( void );
+CCALL void CG_DrawOldTourneyScoreboard( void );
 
 //
 // cg_consolecmds.c
 //
-qboolean CG_ConsoleCommand( void );
-void CG_InitConsoleCommands( void );
+CCALL qboolean CG_ConsoleCommand( void );
+CCALL void CG_InitConsoleCommands( void );
 
 //
 // cg_servercmds.c
 //
-void CG_ExecuteNewServerCommands( int latestSequence );
-void CG_ParseServerinfo( void );
-void CG_SetConfigValues( void );
-void CG_ShaderStateChanged(void);
+CCALL void CG_ExecuteNewServerCommands( int latestSequence );
+CCALL void CG_ParseServerinfo( void );
+CCALL void CG_SetConfigValues( void );
+CCALL void CG_ShaderStateChanged(void);
 
 //
 // cg_playerstate.c
 //
-int CG_IsMindTricked(int trickIndex1, int trickIndex2, int trickIndex3, int trickIndex4, int client);
-void CG_Respawn( void );
-void CG_TransitionPlayerState( playerState_t *ps, playerState_t *ops );
-void CG_CheckChangedPredictableEvents( playerState_t *ps );
+CCALL int CG_IsMindTricked(int trickIndex1, int trickIndex2, int trickIndex3, int trickIndex4, int client);
+CCALL void CG_Respawn( void );
+CCALL void CG_TransitionPlayerState( playerState_t *ps, playerState_t *ops );
+CCALL void CG_CheckChangedPredictableEvents( playerState_t *ps );
 
 
 //
 // cg_siege.c
 //
-void CG_InitSiegeMode(void);
-void CG_SiegeRoundOver(centity_t *ent, int won);
-void CG_SiegeObjectiveCompleted(centity_t *ent, int won, int objectivenum);
+CCALL void CG_InitSiegeMode(void);
+CCALL void CG_SiegeRoundOver(centity_t *ent, int won);
+CCALL void CG_SiegeObjectiveCompleted(centity_t *ent, int won, int objectivenum);
 
 
 
 //===============================================
 
-void		BG_CycleInven(playerState_t *ps, int direction);
-int			BG_ProperForceIndex(int power);
-void		BG_CycleForce(playerState_t *ps, int direction);
-
-const char *CG_GetStringEdString(char *refSection, char *refName);
-
-void FX_TurretProjectileThink(  centity_t *cent, const struct weaponInfo_s *weapon );
-void FX_TurretHitWall( vec3_t origin, vec3_t normal );
-void FX_TurretHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
-
-void FX_ConcussionHitWall( vec3_t origin, vec3_t normal );
-void FX_ConcussionHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
-void FX_ConcussionProjectileThink(  centity_t *cent, const struct weaponInfo_s *weapon );
-void FX_ConcAltShot( vec3_t start, vec3_t end );
+CCALL void		BG_CycleInven(playerState_t *ps, int direction);
+CCALL int			BG_ProperForceIndex(int power);
+CCALL void		BG_CycleForce(playerState_t *ps, int direction);
+CCALL const char *CG_GetStringEdString(char *refSection, char *refName);
+CCALL void FX_TurretProjectileThink(  centity_t *cent, const struct weaponInfo_s *weapon );
+CCALL void FX_TurretHitWall( vec3_t origin, vec3_t normal );
+CCALL void FX_TurretHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+CCALL void FX_ConcussionHitWall( vec3_t origin, vec3_t normal );
+CCALL void FX_ConcussionHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+CCALL void FX_ConcussionProjectileThink(  centity_t *cent, const struct weaponInfo_s *weapon );
+CCALL void FX_ConcAltShot( vec3_t start, vec3_t end );
 
 //-----------------------------
 // Effects related prototypes
 //-----------------------------
 
 // Environmental effects
-void CG_Spark( vec3_t origin, vec3_t dir );
-
+CCALL void CG_Spark( vec3_t origin, vec3_t dir );
 // Weapon prototypes
-void FX_BryarHitWall( vec3_t origin, vec3_t normal );
-void FX_BryarAltHitWall( vec3_t origin, vec3_t normal, int power );
-void FX_BryarHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
-void FX_BryarAltHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
-
-void FX_BlasterProjectileThink( centity_t *cent, const struct weaponInfo_s *weapon );
-void FX_BlasterAltFireThink( centity_t *cent, const struct weaponInfo_s *weapon );
-void FX_BlasterWeaponHitWall( vec3_t origin, vec3_t normal );
-void FX_BlasterWeaponHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
-
-
-void FX_ForceDrained(vec3_t origin, vec3_t dir);
+CCALL void FX_BryarHitWall( vec3_t origin, vec3_t normal );
+CCALL void FX_BryarAltHitWall( vec3_t origin, vec3_t normal, int power );
+CCALL void FX_BryarHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+CCALL void FX_BryarAltHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+CCALL void FX_BlasterProjectileThink( centity_t *cent, const struct weaponInfo_s *weapon );
+CCALL void FX_BlasterAltFireThink( centity_t *cent, const struct weaponInfo_s *weapon );
+CCALL void FX_BlasterWeaponHitWall( vec3_t origin, vec3_t normal );
+CCALL void FX_BlasterWeaponHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+CCALL void FX_ForceDrained(vec3_t origin, vec3_t dir);
 
 
 //-----------------------------
@@ -2033,37 +2015,30 @@ void FX_ForceDrained(vec3_t origin, vec3_t dir);
 //-----------------------------
 
 // Environmental effects
-void CG_Spark( vec3_t origin, vec3_t dir );
+CCALL void CG_Spark( vec3_t origin, vec3_t dir );
 
 // Weapon prototypes
-void FX_BryarHitWall( vec3_t origin, vec3_t normal );
-void FX_BryarAltHitWall( vec3_t origin, vec3_t normal, int power );
-void FX_BryarHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
-void FX_BryarAltHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
-
-void FX_BlasterProjectileThink( centity_t *cent, const struct weaponInfo_s *weapon );
-void FX_BlasterAltFireThink( centity_t *cent, const struct weaponInfo_s *weapon );
-void FX_BlasterWeaponHitWall( vec3_t origin, vec3_t normal );
-void FX_BlasterWeaponHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
-
-void		CG_Init_CG(void);
-void		CG_Init_CGents(void);
-
-
-void CG_SetGhoul2Info( refEntity_t *ent, centity_t *cent);
-void CG_CreateBBRefEnts(entityState_t *s1, vec3_t origin );
-
-void CG_InitG2Weapons(void);
-void CG_ShutDownG2Weapons(void);
-void CG_CopyG2WeaponInstance(centity_t *cent, int weaponNum, void *toGhoul2);
-void *CG_G2WeaponInstance(centity_t *cent, int weapon);
-void CG_CheckPlayerG2Weapons(playerState_t *ps, centity_t *cent);
-
-void CG_SetSiegeTimerCvar( int msec );
-
-void	CG_ClearLightStyles (void);
-void	CG_RunLightStyles (void);
-void	CG_SetLightstyle (int i);
+CCALL void FX_BryarHitWall( vec3_t origin, vec3_t normal );
+CCALL void FX_BryarAltHitWall( vec3_t origin, vec3_t normal, int power );
+CCALL void FX_BryarHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+CCALL void FX_BryarAltHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+CCALL void FX_BlasterProjectileThink( centity_t *cent, const struct weaponInfo_s *weapon );
+CCALL void FX_BlasterAltFireThink( centity_t *cent, const struct weaponInfo_s *weapon );
+CCALL void FX_BlasterWeaponHitWall( vec3_t origin, vec3_t normal );
+CCALL void FX_BlasterWeaponHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+CCALL void		CG_Init_CG(void);
+CCALL void		CG_Init_CGents(void);
+CCALL void CG_SetGhoul2Info( refEntity_t *ent, centity_t *cent);
+CCALL void CG_CreateBBRefEnts(entityState_t *s1, vec3_t origin );
+CCALL void CG_InitG2Weapons(void);
+CCALL void CG_ShutDownG2Weapons(void);
+CCALL void CG_CopyG2WeaponInstance(centity_t *cent, int weaponNum, void *toGhoul2);
+CCALL void *CG_G2WeaponInstance(centity_t *cent, int weapon);
+CCALL void CG_CheckPlayerG2Weapons(playerState_t *ps, centity_t *cent);
+CCALL void CG_SetSiegeTimerCvar( int msec );
+CCALL void	CG_ClearLightStyles (void);
+CCALL void	CG_RunLightStyles (void);
+CCALL void	CG_SetLightstyle (int i);
 
 /*
 Ghoul2 Insert End
