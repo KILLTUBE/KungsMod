@@ -726,7 +726,7 @@ void CG_ReattachLimb(centity_t *source)
 	{//re-apply the skin
 		if ( ci->torsoSkin > 0 )
 		{
-			trap->G2API_SetSkin(source->ghoul2,0,ci->torsoSkin,ci->torsoSkin);
+			CL_G2API_SetSkin(source->ghoul2,0,ci->torsoSkin,ci->torsoSkin);
 		}
 	}
 
@@ -776,8 +776,8 @@ void CG_ReattachLimb(centity_t *source)
 				return;
 			}
 
-			trap->G2API_SetSurfaceOnOff(source->ghoul2, limbName, 0);
-			trap->G2API_SetSurfaceOnOff(source->ghoul2, stubCapName, 0x00000100);
+			CL_G2API_SetSurfaceOnOff(source->ghoul2, limbName, 0);
+			CL_G2API_SetSurfaceOnOff(source->ghoul2, stubCapName, 0x00000100);
 		}
 		i++;
 	}
@@ -1181,7 +1181,7 @@ void CG_CalcVehMuzzle(Vehicle_t *pVeh, centity_t *ent, int muzzleNum)
 			vehAngles[PITCH] = 0.0f;
 		}
 	}
-	trap->G2API_GetBoltMatrix_NoRecNoRot(ent->ghoul2, 0, pVeh->m_iMuzzleTag[muzzleNum], &boltMatrix, vehAngles,
+	CL_G2API_GetBoltMatrix_NoRecNoRot(ent->ghoul2, 0, pVeh->m_iMuzzleTag[muzzleNum], &boltMatrix, vehAngles,
 		ent->lerpOrigin, cg.time, NULL, ent->modelScale);
 	BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, pVeh->m_vMuzzlePos[muzzleNum]);
 	BG_GiveMeVectorFromMatrix(&boltMatrix, NEGATIVE_Y, pVeh->m_vMuzzleDir[muzzleNum]);
@@ -2050,13 +2050,13 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			{
 				if (!cent->bolt1)
 				{
-					cent->bolt1 = trap->G2API_AddBolt(cent->ghoul2, 0, "*flash01");
+					cent->bolt1 = CL_G2API_AddBolt(cent->ghoul2, 0, "*flash01");
 				}
 				if (!cent->bolt2)
 				{
-					cent->bolt2 = trap->G2API_AddBolt(cent->ghoul2, 0, "*flash02");
+					cent->bolt2 = CL_G2API_AddBolt(cent->ghoul2, 0, "*flash02");
 				}
-				trap->G2API_SetBoneAnim(cent->ghoul2, 0, "Bone02", 1, 4, BONE_ANIM_OVERRIDE_FREEZE|BONE_ANIM_BLEND,
+				CL_G2API_SetBoneAnim(cent->ghoul2, 0, "Bone02", 1, 4, BONE_ANIM_OVERRIDE_FREEZE|BONE_ANIM_BLEND,
 					1.0f, cg.time, -1, 300);
 			}
 			else
@@ -2066,11 +2066,11 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 
 			if (cent->currentState.eventParm)
 			{
-				trap->G2API_GetBoltMatrix(cent->ghoul2, 0, cent->bolt2, &matrix, cent->currentState.angles, cent->currentState.origin, cg.time, cgs.gameModels, cent->modelScale);
+				CL_G2API_GetBoltMatrix(cent->ghoul2, 0, cent->bolt2, &matrix, cent->currentState.angles, cent->currentState.origin, cg.time, cgs.gameModels, cent->modelScale);
 			}
 			else
 			{
-				trap->G2API_GetBoltMatrix(cent->ghoul2, 0, cent->bolt1, &matrix, cent->currentState.angles, cent->currentState.origin, cg.time, cgs.gameModels, cent->modelScale);
+				CL_G2API_GetBoltMatrix(cent->ghoul2, 0, cent->bolt1, &matrix, cent->currentState.angles, cent->currentState.origin, cg.time, cgs.gameModels, cent->modelScale);
 			}
 
 			gunpoint[0] = matrix.matrix[0][3];
@@ -2786,7 +2786,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		if (cent->ghoul2 && trap->G2_HaveWeGhoul2Models(cent->ghoul2))
 		{
 			//turn the inside of the face off, to avoid showing the mouth when we start alpha fading the corpse
-			trap->G2API_SetSurfaceOnOff( cent->ghoul2, "head_eyes_mouth", 0x00000002/*G2SURFACEFLAG_OFF*/ );
+			CL_G2API_SetSurfaceOnOff( cent->ghoul2, "head_eyes_mouth", 0x00000002/*G2SURFACEFLAG_OFF*/ );
 		}
 
 		cent->bodyFadeTime = cg.time + 60000;
@@ -2815,16 +2815,16 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 #endif
 				break;
 			}
-			trap->G2API_CleanGhoul2Models(&(cg_entities[es->eventParm].ghoul2));
+			CL_G2API_CleanGhoul2Models(&(cg_entities[es->eventParm].ghoul2));
 		}
 		break;
 
 	case EV_DESTROY_WEAPON_MODEL:
 		DEBUGNAME("EV_DESTROY_WEAPON_MODEL");
 		if (cg_entities[es->eventParm].ghoul2 && trap->G2_HaveWeGhoul2Models(cg_entities[es->eventParm].ghoul2) &&
-			trap->G2API_HasGhoul2ModelOnIndex(&(cg_entities[es->eventParm].ghoul2), 1))
+			CL_G2API_HasGhoul2ModelOnIndex(&(cg_entities[es->eventParm].ghoul2), 1))
 		{
-			trap->G2API_RemoveGhoul2Model(&(cg_entities[es->eventParm].ghoul2), 1);
+			CL_G2API_RemoveGhoul2Model(&(cg_entities[es->eventParm].ghoul2), 1);
 		}
 		break;
 

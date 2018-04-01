@@ -5986,8 +5986,8 @@ qboolean CG_CalcVehicleMuzzlePoint( int entityNum, vec3_t start, vec3_t d_f, vec
 
 		VectorSet( yawOnlyAngles, 0, vehCent->lerpAngles[YAW], 0 );
 
-		bolt = trap->G2API_AddBolt( vehCent->ghoul2, 0, "*flash1");
-		trap->G2API_GetBoltMatrix( vehCent->ghoul2, 0, bolt, &boltMatrix,
+		bolt = CL_G2API_AddBolt( vehCent->ghoul2, 0, "*flash1");
+		CL_G2API_GetBoltMatrix( vehCent->ghoul2, 0, bolt, &boltMatrix,
 									yawOnlyAngles, vehCent->lerpOrigin, cg.time,
 									NULL, vehCent->modelScale );
 
@@ -6053,7 +6053,7 @@ qboolean CG_CalcVehicleMuzzlePoint( int entityNum, vec3_t start, vec3_t d_f, vec
 //calc the muzzle point from the e-web itself
 void CG_CalcEWebMuzzlePoint(centity_t *cent, vec3_t start, vec3_t d_f, vec3_t d_rt, vec3_t d_up)
 {
-	int bolt = trap->G2API_AddBolt(cent->ghoul2, 0, "*cannonflash");
+	int bolt = CL_G2API_AddBolt(cent->ghoul2, 0, "*cannonflash");
 
 	assert(bolt != -1);
 
@@ -6061,7 +6061,7 @@ void CG_CalcEWebMuzzlePoint(centity_t *cent, vec3_t start, vec3_t d_f, vec3_t d_
 	{
 		mdxaBone_t boltMatrix;
 
-		trap->G2API_GetBoltMatrix_NoRecNoRot(cent->ghoul2, 0, bolt, &boltMatrix, cent->lerpAngles, cent->lerpOrigin, cg.time, NULL, cent->modelScale);
+		CL_G2API_GetBoltMatrix_NoRecNoRot(cent->ghoul2, 0, bolt, &boltMatrix, cent->lerpAngles, cent->lerpOrigin, cg.time, NULL, cent->modelScale);
 		BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, start);
 		BG_GiveMeVectorFromMatrix(&boltMatrix, NEGATIVE_X, d_f);
 

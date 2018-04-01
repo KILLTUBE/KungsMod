@@ -195,6 +195,9 @@ static void CL_R_ShaderNameFromIndex( char *name, int index ) {
 		name[0] = '\0';
 }
 
+
+/*
+
 static void CL_G2API_ListModelSurfaces( void *ghlInfo ) {
 	if ( !ghlInfo ) {
 		return;
@@ -655,16 +658,7 @@ static void CL_G2API_GetSurfaceName( void *ghoul2, int surfNumber, int modelInde
 	strcpy( fillBuf, tmp );
 }
 
-CCALL qboolean CL_G2API_AttachG2Model( void *ghoul2From, int modelIndexFrom, void *ghoul2To, int toBoltIndex, int toModel ) {
-	if ( !ghoul2From || !ghoul2To ) {
-		return qfalse;
-	}
-
-	CGhoul2Info_v *g2From = ((CGhoul2Info_v *)ghoul2From);
-	CGhoul2Info_v *g2To = ((CGhoul2Info_v *)ghoul2To);
-
-	return re->G2API_AttachG2Model(*g2From, modelIndexFrom, *g2To, toBoltIndex, toModel);
-}
+*/
 
 static void CL_Key_SetCatcher( int catcher ) {
 	// Don't allow the ui module to close the console

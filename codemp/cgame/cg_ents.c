@@ -616,7 +616,7 @@ void G2_BoltToGhoul2Model(centity_t *cent, refEntity_t *ent)
 
 
  	// go away and get me the bolt position for this frame please
-	trap->G2API_GetBoltMatrix(cent->ghoul2, modelNum, boltNum, &boltMatrix, cg_entities[entNum].currentState.angles, cg_entities[entNum].currentState.origin, cg.time, cgs.gameModels, cent->modelScale);
+	CL_G2API_GetBoltMatrix(cent->ghoul2, modelNum, boltNum, &boltMatrix, cg_entities[entNum].currentState.angles, cg_entities[entNum].currentState.origin, cg.time, cgs.gameModels, cent->modelScale);
 
 	// set up the axis and origin we need for the actual effect spawning
  	ent->origin[0] = boltMatrix.matrix[0][3];
@@ -710,11 +710,11 @@ void CG_Disintegration(centity_t *cent, refEntity_t *ent)
 	{
 		vec3_t fxOrg, fxDir;
 		mdxaBone_t	boltMatrix;
-		int torsoBolt = trap->G2API_AddBolt(cent->ghoul2, 0, "lower_lumbar");
+		int torsoBolt = CL_G2API_AddBolt(cent->ghoul2, 0, "lower_lumbar");
 
 		VectorSet(fxDir, 0, 1, 0);
 
-		trap->G2API_GetBoltMatrix( cent->ghoul2, 0, torsoBolt, &boltMatrix, cent->lerpAngles, cent->lerpOrigin, cg.time,
+		CL_G2API_GetBoltMatrix( cent->ghoul2, 0, torsoBolt, &boltMatrix, cent->lerpAngles, cent->lerpOrigin, cg.time,
 				cgs.gameModels, cent->modelScale);
 				BG_GiveMeVectorFromMatrix( &boltMatrix, ORIGIN, fxOrg );
 
@@ -759,9 +759,9 @@ static qboolean CG_RenderTimeEntBolt(centity_t *cent)
 		return qfalse;
 	}
 
-	getBolt = trap->G2API_AddBolt(cl->ghoul2, 0, "lhand");
+	getBolt = CL_G2API_AddBolt(cl->ghoul2, 0, "lhand");
 
-	trap->G2API_GetBoltMatrix(cl->ghoul2, 0, getBolt, &matrix, cl->turAngles, cl->lerpOrigin, cg.time, cgs.gameModels, cl->modelScale);
+	CL_G2API_GetBoltMatrix(cl->ghoul2, 0, getBolt, &matrix, cl->turAngles, cl->lerpOrigin, cg.time, cgs.gameModels, cl->modelScale);
 
 	BG_GiveMeVectorFromMatrix(&matrix, ORIGIN, boltOrg);
 	BG_GiveMeVectorFromMatrix(&matrix, NEGATIVE_Y, boltAng);
@@ -879,7 +879,7 @@ static void CG_General( centity_t *cent ) {
 	{ //this is a bad thing
 		if (trap->G2_HaveWeGhoul2Models(cent->ghoul2))
 		{
-			trap->G2API_CleanGhoul2Models(&(cent->ghoul2));
+			CL_G2API_CleanGhoul2Models(&(cent->ghoul2));
 		}
 	}
 
@@ -983,7 +983,7 @@ static void CG_General( centity_t *cent ) {
 
 		if (cent->ghoul2 && trap->G2_HaveWeGhoul2Models(cent->ghoul2))
 		{ //May not be valid, in the case of a ragged entity being removed and a non-g2 ent filling its slot.
-			trap->G2API_SetRagDoll(cent->ghoul2, NULL); //calling with null parms resets to no ragdoll.
+			CL_G2API_SetRagDoll(cent->ghoul2, NULL); //calling with null parms resets to no ragdoll.
 		}
 	}
 
@@ -1001,7 +1001,7 @@ static void CG_General( centity_t *cent ) {
 			cent->currentState.legsAnim != cent->pe.legs.animationNumber ||
 			cent->currentState.torsoFlip != cent->pe.torso.lastFlip)
 		{
-			trap->G2API_SetBoneAnim(cent->ghoul2, 0, "model_root", cent->currentState.torsoAnim,
+			CL_G2API_SetBoneAnim(cent->ghoul2, 0, "model_root", cent->currentState.torsoAnim,
 				cent->currentState.legsAnim, (BONE_ANIM_OVERRIDE_FREEZE|BONE_ANIM_BLEND), 1.0f, cg.time, -1, 100);
 
 			cent->pe.torso.animationNumber = cent->currentState.torsoAnim;
@@ -1172,34 +1172,34 @@ static void CG_General( centity_t *cent ) {
 
 			if (clEnt && clEnt->ghoul2)
 			{
-				if (trap->G2API_HasGhoul2ModelOnIndex(&(clEnt->ghoul2), 2))
+				if (CL_G2API_HasGhoul2ModelOnIndex(&(clEnt->ghoul2), 2))
 				{ //don't want to bother dealing with a second saber on limbs and stuff, just remove the thing
-					trap->G2API_RemoveGhoul2Model(&(clEnt->ghoul2), 2);
+					CL_G2API_RemoveGhoul2Model(&(clEnt->ghoul2), 2);
 				}
 
-				if (trap->G2API_HasGhoul2ModelOnIndex(&(clEnt->ghoul2), 3))
+				if (CL_G2API_HasGhoul2ModelOnIndex(&(clEnt->ghoul2), 3))
 				{ //turn off jetpack also I suppose
-					trap->G2API_RemoveGhoul2Model(&(clEnt->ghoul2), 3);
+					CL_G2API_RemoveGhoul2Model(&(clEnt->ghoul2), 3);
 				}
 
 				if (clEnt->localAnimIndex <= 0)
 				{ //humanoid
-					trap->G2API_SetBoneAngles(clEnt->ghoul2, 0, "model_root", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
-					trap->G2API_SetBoneAngles(clEnt->ghoul2, 0, "pelvis", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 0, cg.time);
-					trap->G2API_SetBoneAngles(clEnt->ghoul2, 0, "thoracic", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 0, cg.time);
-					trap->G2API_SetBoneAngles(clEnt->ghoul2, 0, "upper_lumbar", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
-					trap->G2API_SetBoneAngles(clEnt->ghoul2, 0, "lower_lumbar", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
-					trap->G2API_SetBoneAngles(clEnt->ghoul2, 0, "cranium", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_Z, NEGATIVE_Y, POSITIVE_X, cgs.gameModels, 100, cg.time);
+					CL_G2API_SetBoneAngles(clEnt->ghoul2, 0, "model_root", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
+					CL_G2API_SetBoneAngles(clEnt->ghoul2, 0, "pelvis", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 0, cg.time);
+					CL_G2API_SetBoneAngles(clEnt->ghoul2, 0, "thoracic", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 0, cg.time);
+					CL_G2API_SetBoneAngles(clEnt->ghoul2, 0, "upper_lumbar", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
+					CL_G2API_SetBoneAngles(clEnt->ghoul2, 0, "lower_lumbar", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
+					CL_G2API_SetBoneAngles(clEnt->ghoul2, 0, "cranium", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_Z, NEGATIVE_Y, POSITIVE_X, cgs.gameModels, 100, cg.time);
 				}
 				else
 				{
-					trap->G2API_SetBoneAngles(clEnt->ghoul2, 0, "model_root", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
-					trap->G2API_SetBoneAngles(clEnt->ghoul2, 0, "pelvis", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 0, cg.time);
-					trap->G2API_SetBoneAngles(clEnt->ghoul2, 0, "upper_lumbar", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
-					trap->G2API_SetBoneAngles(clEnt->ghoul2, 0, "lower_lumbar", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
+					CL_G2API_SetBoneAngles(clEnt->ghoul2, 0, "model_root", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
+					CL_G2API_SetBoneAngles(clEnt->ghoul2, 0, "pelvis", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 0, cg.time);
+					CL_G2API_SetBoneAngles(clEnt->ghoul2, 0, "upper_lumbar", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
+					CL_G2API_SetBoneAngles(clEnt->ghoul2, 0, "lower_lumbar", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
 				}
 
-				trap->G2API_DuplicateGhoul2Instance(clEnt->ghoul2, &cent->ghoul2);
+				CL_G2API_DuplicateGhoul2Instance(clEnt->ghoul2, &cent->ghoul2);
 			}
 
 			if (!cent->ghoul2)
@@ -1207,12 +1207,12 @@ static void CG_General( centity_t *cent ) {
 				return;
 			}
 
-			newBolt = trap->G2API_AddBolt( cent->ghoul2, 0, limbTagName );
+			newBolt = CL_G2API_AddBolt( cent->ghoul2, 0, limbTagName );
 			if ( newBolt != -1 )
 			{
 				vec3_t boltOrg, boltAng;
 
-				trap->G2API_GetBoltMatrix(cent->ghoul2, 0, newBolt, &matrix, cent->lerpAngles, cent->lerpOrigin, cg.time, cgs.gameModels, cent->modelScale);
+				CL_G2API_GetBoltMatrix(cent->ghoul2, 0, newBolt, &matrix, cent->lerpAngles, cent->lerpOrigin, cg.time, cgs.gameModels, cent->modelScale);
 
 				BG_GiveMeVectorFromMatrix(&matrix, ORIGIN, boltOrg);
 				BG_GiveMeVectorFromMatrix(&matrix, NEGATIVE_Y, boltAng);
@@ -1222,21 +1222,21 @@ static void CG_General( centity_t *cent ) {
 
 			cent->bolt4 = newBolt;
 
-			trap->G2API_SetRootSurface(cent->ghoul2, 0, limbName);
+			CL_G2API_SetRootSurface(cent->ghoul2, 0, limbName);
 
-			trap->G2API_SetNewOrigin(cent->ghoul2, trap->G2API_AddBolt(cent->ghoul2, 0, rotateBone));
+			CL_G2API_SetNewOrigin(cent->ghoul2, CL_G2API_AddBolt(cent->ghoul2, 0, rotateBone));
 
-			trap->G2API_SetSurfaceOnOff(cent->ghoul2, limbCapName, 0);
+			CL_G2API_SetSurfaceOnOff(cent->ghoul2, limbCapName, 0);
 
-			trap->G2API_SetSurfaceOnOff(clEnt->ghoul2, limbName, 0x00000100);
-			trap->G2API_SetSurfaceOnOff(clEnt->ghoul2, stubCapName, 0);
+			CL_G2API_SetSurfaceOnOff(clEnt->ghoul2, limbName, 0x00000100);
+			CL_G2API_SetSurfaceOnOff(clEnt->ghoul2, stubCapName, 0);
 
-			newBolt = trap->G2API_AddBolt( clEnt->ghoul2, 0, stubTagName );
+			newBolt = CL_G2API_AddBolt( clEnt->ghoul2, 0, stubTagName );
 			if ( newBolt != -1 )
 			{
 				vec3_t boltOrg, boltAng;
 
-				trap->G2API_GetBoltMatrix(clEnt->ghoul2, 0, newBolt, &matrix, clEnt->lerpAngles, clEnt->lerpOrigin, cg.time, cgs.gameModels, clEnt->modelScale);
+				CL_G2API_GetBoltMatrix(clEnt->ghoul2, 0, newBolt, &matrix, clEnt->lerpAngles, clEnt->lerpOrigin, cg.time, cgs.gameModels, clEnt->modelScale);
 
 				BG_GiveMeVectorFromMatrix(&matrix, ORIGIN, boltOrg);
 				BG_GiveMeVectorFromMatrix(&matrix, NEGATIVE_Y, boltAng);
@@ -1246,9 +1246,9 @@ static void CG_General( centity_t *cent ) {
 
 			if (cent->currentState.modelGhoul2 == G2_MODELPART_RARM || cent->currentState.modelGhoul2 == G2_MODELPART_RHAND || cent->currentState.modelGhoul2 == G2_MODELPART_WAIST)
 			{ //Cut his weapon holding arm off, so remove the weapon
-				if (trap->G2API_HasGhoul2ModelOnIndex(&(clEnt->ghoul2), 1))
+				if (CL_G2API_HasGhoul2ModelOnIndex(&(clEnt->ghoul2), 1))
 				{
-					trap->G2API_RemoveGhoul2Model(&(clEnt->ghoul2), 1);
+					CL_G2API_RemoveGhoul2Model(&(clEnt->ghoul2), 1);
 				}
 			}
 
@@ -1293,7 +1293,7 @@ static void CG_General( centity_t *cent ) {
 			{
 				vec3_t boltOrg, boltAng;
 
-				trap->G2API_GetBoltMatrix(cent->ghoul2, 0, cent->bolt4, &matrix, cent->lerpAngles, cent->lerpOrigin, cg.time, cgs.gameModels, cent->modelScale);
+				CL_G2API_GetBoltMatrix(cent->ghoul2, 0, cent->bolt4, &matrix, cent->lerpAngles, cent->lerpOrigin, cg.time, cgs.gameModels, cent->modelScale);
 
 				BG_GiveMeVectorFromMatrix(&matrix, ORIGIN, boltOrg);
 				BG_GiveMeVectorFromMatrix(&matrix, NEGATIVE_Y, boltAng);
@@ -1337,7 +1337,7 @@ static void CG_General( centity_t *cent ) {
 		}
 		empAngles[YAW] -= cent->currentState.angles[YAW];
 
-		trap->G2API_SetBoneAngles( cent->ghoul2, 0, "Bone02", empAngles, BONE_ANGLES_REPLACE, NEGATIVE_Y, NEGATIVE_X, POSITIVE_Z, NULL, 0, cg.time);
+		CL_G2API_SetBoneAngles( cent->ghoul2, 0, "Bone02", empAngles, BONE_ANGLES_REPLACE, NEGATIVE_Y, NEGATIVE_X, POSITIVE_Z, NULL, 0, cg.time);
 	}
 
 	s1 = &cent->currentState;
@@ -1387,8 +1387,8 @@ Ghoul2 Insert End
 			int l;
 			int skin = 0;
 
-			trap->G2API_InitGhoul2Model(&cent->ghoul2, modelName, 0, 0, 0, 0, 0);
-			if (cent->ghoul2 && trap->G2API_SkinlessModel(cent->ghoul2, 0))
+			CL_G2API_InitGhoul2Model(&cent->ghoul2, modelName, 0, 0, 0, 0, 0);
+			if (cent->ghoul2 && CL_G2API_SkinlessModel(cent->ghoul2, 0))
 			{ //well, you'd never want a skinless model, so try to get his skin...
 				Q_strncpyz(skinName, modelName, MAX_QPATH);
 				l = strlen(skinName);
@@ -1404,7 +1404,7 @@ Ghoul2 Insert End
 
 					skin = R_RegisterSkin(skinName);
 				}
-				trap->G2API_SetSkin(cent->ghoul2, 0, skin, skin);
+				CL_G2API_SetSkin(cent->ghoul2, 0, skin, skin);
 			}
 		}
 		else if (cent->currentState.bolt1)
@@ -1426,11 +1426,11 @@ Ghoul2 Insert End
 		{ //all bodies should already have a ghoul2 instance. Use it to set the torso/head angles to 0.
 			cent->lerpAngles[PITCH] = 0;
 			cent->lerpAngles[ROLL] = 0;
-			trap->G2API_SetBoneAngles(cent->ghoul2, 0, "pelvis", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 0, cg.time);
-			trap->G2API_SetBoneAngles(cent->ghoul2, 0, "thoracic", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 0, cg.time);
-			trap->G2API_SetBoneAngles(cent->ghoul2, 0, "upper_lumbar", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
-			trap->G2API_SetBoneAngles(cent->ghoul2, 0, "lower_lumbar", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
-			trap->G2API_SetBoneAngles(cent->ghoul2, 0, "cranium", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_Z, NEGATIVE_Y, POSITIVE_X, cgs.gameModels, 100, cg.time);
+			CL_G2API_SetBoneAngles(cent->ghoul2, 0, "pelvis", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 0, cg.time);
+			CL_G2API_SetBoneAngles(cent->ghoul2, 0, "thoracic", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 0, cg.time);
+			CL_G2API_SetBoneAngles(cent->ghoul2, 0, "upper_lumbar", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
+			CL_G2API_SetBoneAngles(cent->ghoul2, 0, "lower_lumbar", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, cgs.gameModels, 100, cg.time);
+			CL_G2API_SetBoneAngles(cent->ghoul2, 0, "cranium", vec3_origin, BONE_ANGLES_POSTMULT, POSITIVE_Z, NEGATIVE_Y, POSITIVE_X, cgs.gameModels, 100, cg.time);
 		}
 	}
 
@@ -2463,17 +2463,17 @@ static void CG_Missile( centity_t *cent ) {
 
 			if (cent->ghoul2)
 			{ //clean if we already have one (because server changed model string index)
-				trap->G2API_CleanGhoul2Models(&(cent->ghoul2));
+				CL_G2API_CleanGhoul2Models(&(cent->ghoul2));
 				cent->ghoul2 = 0;
 			}
 
 			if (saberModel && saberModel[0])
 			{
-				trap->G2API_InitGhoul2Model(&cent->ghoul2, saberModel, 0, 0, 0, 0, 0);
+				CL_G2API_InitGhoul2Model(&cent->ghoul2, saberModel, 0, 0, 0, 0, 0);
 			}
 			else
 			{
-				trap->G2API_InitGhoul2Model(&cent->ghoul2, "models/weapons2/saber/saber_w.glm", 0, 0, 0, 0, 0);
+				CL_G2API_InitGhoul2Model(&cent->ghoul2, "models/weapons2/saber/saber_w.glm", 0, 0, 0, 0, 0);
 			}
 			return;
 		}

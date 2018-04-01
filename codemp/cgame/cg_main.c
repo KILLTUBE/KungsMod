@@ -2666,7 +2666,7 @@ void CG_DestroyAllGhoul2(void)
 		{
 			if (cg_items[i].g2Models[j] && trap->G2_HaveWeGhoul2Models(cg_items[i].g2Models[j]))
 			{
-				trap->G2API_CleanGhoul2Models(&cg_items[i].g2Models[j]);
+				CL_G2API_CleanGhoul2Models(&cg_items[i].g2Models[j]);
 				cg_items[i].g2Models[j] = NULL;
 			}
 			j++;
