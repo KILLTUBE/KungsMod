@@ -28,7 +28,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "cg_local.h"
-EXTERNC cgameImport_t *trap;
+
 
 /*
 =============
@@ -249,7 +249,7 @@ void SP_misc_weather_zone_cg( void ) {
 
 	R_ModelBounds( R_RegisterModel( model ), mins, maxs );
 
-	trap->WE_AddWeatherZone( mins, maxs );
+	//trap->WE_AddWeatherZone( mins, maxs );
 }
 typedef struct spawn_s {
 	const char	*name;

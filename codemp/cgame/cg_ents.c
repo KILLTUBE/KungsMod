@@ -33,7 +33,7 @@ Ghoul2 Insert Start
 /*
 Ghoul2 Insert end
 */
-EXTERNC cgameImport_t *trap;
+
 
 extern qboolean CG_InFighter( void );
 static void CG_Missile( centity_t *cent );
@@ -877,7 +877,7 @@ static void CG_General( centity_t *cent ) {
 	if (cent->ghoul2 && !cent->currentState.modelGhoul2 && cent->currentState.eType != ET_BODY &&
 		cent->currentState.number >= MAX_CLIENTS)
 	{ //this is a bad thing
-		if (trap->G2_HaveWeGhoul2Models(cent->ghoul2))
+		if (CL_G2API_HaveWeGhoul2Models(cent->ghoul2))
 		{
 			CL_G2API_CleanGhoul2Models(&(cent->ghoul2));
 		}
@@ -981,7 +981,7 @@ static void CG_General( centity_t *cent ) {
 	{
 		cent->isRagging = qfalse;
 
-		if (cent->ghoul2 && trap->G2_HaveWeGhoul2Models(cent->ghoul2))
+		if (cent->ghoul2 && CL_G2API_HaveWeGhoul2Models(cent->ghoul2))
 		{ //May not be valid, in the case of a ragged entity being removed and a non-g2 ent filling its slot.
 			CL_G2API_SetRagDoll(cent->ghoul2, NULL); //calling with null parms resets to no ragdoll.
 		}
@@ -1343,7 +1343,7 @@ static void CG_General( centity_t *cent ) {
 	s1 = &cent->currentState;
 
 	// if set to invisible, skip
-	if ((!s1->modelindex) && !(trap->G2_HaveWeGhoul2Models(cent->ghoul2)))
+	if ((!s1->modelindex) && !(CL_G2API_HaveWeGhoul2Models(cent->ghoul2)))
 	{
 		return;
 	}

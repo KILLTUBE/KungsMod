@@ -705,104 +705,35 @@ CCALL void CGVM_Cmd_RemoveCommand( const char *cmd_name ) {
 }
 
 
+CCALL int  BOTLIB_AddGlobalDefine(char *string) {
+	return botlib_export->PC_AddGlobalDefine(string);
+}
+CCALL int  BOTLIB_FreeSourceHandle(int handle) {
+	return botlib_export->PC_FreeSourceHandle(handle);
+}
+CCALL int  BOTLIB_LoadGlobalDefines(const char* filename ) {
+	return botlib_export->PC_LoadGlobalDefines(filename);
+}
+CCALL int  BOTLIB_LoadSourceHandle(const char *filename) {
+	return botlib_export->PC_LoadSourceHandle(filename);
+}
+CCALL int  BOTLIB_ReadTokenHandle(int handle, pc_token_t *pc_token) {
+	return botlib_export->PC_ReadTokenHandle(handle, pc_token);
+}
+CCALL void BOTLIB_RemoveAllGlobalDefines( void ) {
+	botlib_export->PC_RemoveAllGlobalDefines();
+}
+CCALL int  BOTLIB_SourceFileAndLine(int handle, char *filename, int *line) {
+	return botlib_export->PC_SourceFileAndLine(handle, filename, line);
+}
+
+
 // Stub function for old RMG system.
 static void R_InitRendererTerrain ( const char * /*info*/ ) {}
 
-//typedef int cgameExport_t;
-//typedef int cgameImport_t;
-
-CCALL void QDECL GetModuleAPI( int apiVersion, cgameImport_t *import );
 
 void CL_BindCGame( void ) {
-	static cgameImport_t cgi;
-	GetCGameAPI_t		GetCGameAPI;
-	char				dllName[MAX_OSPATH] = "cgame" ARCH_STRING DLL_EXT;
-
-	memset( &cgi, 0, sizeof( cgi ) );
-
 	cgvm = VM_Create( VM_CGAME );
-	if ( cgvm && !cgvm->isLegacy ) {
-
-
-		
-		cgi.PC_AddGlobalDefine					= botlib_export->PC_AddGlobalDefine;
-		cgi.PC_FreeSource						= botlib_export->PC_FreeSourceHandle;
-		cgi.PC_LoadGlobalDefines				= botlib_export->PC_LoadGlobalDefines;
-		cgi.PC_LoadSource						= botlib_export->PC_LoadSourceHandle;
-		cgi.PC_ReadToken						= botlib_export->PC_ReadTokenHandle;
-		cgi.PC_RemoveAllGlobalDefines			= botlib_export->PC_RemoveAllGlobalDefines;
-		cgi.PC_SourceFileAndLine				= botlib_export->PC_SourceFileAndLine;
-
-		cgi.G2_ListModelSurfaces				= CL_G2API_ListModelSurfaces;
-		cgi.G2_ListModelBones					= CL_G2API_ListModelBones;
-		cgi.G2_SetGhoul2ModelIndexes			= CL_G2API_SetGhoul2ModelIndexes;
-		cgi.G2_HaveWeGhoul2Models				= CL_G2API_HaveWeGhoul2Models;
-
-
-		//cgi.G2API_GetBoltMatrix					= CL_G2API_GetBoltMatrix;
-		//cgi.G2API_GetBoltMatrix_NoReconstruct	= CL_G2API_GetBoltMatrix_NoReconstruct;
-		//cgi.G2API_GetBoltMatrix_NoRecNoRot		= CL_G2API_GetBoltMatrix_NoRecNoRot;
-		//cgi.G2API_InitGhoul2Model				= CL_G2API_InitGhoul2Model;
-		//cgi.G2API_SetSkin						= CL_G2API_SetSkin;
-		//cgi.G2API_CollisionDetect				= CL_G2API_CollisionDetect;
-		//cgi.G2API_CollisionDetectCache			= CL_G2API_CollisionDetectCache;
-		//cgi.G2API_CleanGhoul2Models				= CL_G2API_CleanGhoul2Models;
-		//cgi.G2API_SetBoneAngles					= CL_G2API_SetBoneAngles;
-		//cgi.G2API_SetBoneAnim					= CL_G2API_SetBoneAnim;
-		//cgi.G2API_GetBoneAnim					= CL_G2API_GetBoneAnim;
-		//cgi.G2API_GetBoneFrame					= CL_G2API_GetBoneFrame;
-		//cgi.G2API_GetGLAName					= CL_G2API_GetGLAName;
-		//cgi.G2API_CopyGhoul2Instance			= CL_G2API_CopyGhoul2Instance;
-		//cgi.G2API_CopySpecificGhoul2Model		= CL_G2API_CopySpecificGhoul2Model;
-		//cgi.G2API_DuplicateGhoul2Instance		= CL_G2API_DuplicateGhoul2Instance;
-		//cgi.G2API_HasGhoul2ModelOnIndex			= CL_G2API_HasGhoul2ModelOnIndex;
-		//cgi.G2API_RemoveGhoul2Model				= CL_G2API_RemoveGhoul2Model;
-		//cgi.G2API_SkinlessModel					= CL_G2API_SkinlessModel;
-		//cgi.G2API_GetNumGoreMarks				= CL_G2API_GetNumGoreMarks;
-		//cgi.G2API_AddSkinGore					= CL_G2API_AddSkinGore;
-		//cgi.G2API_ClearSkinGore					= CL_G2API_ClearSkinGore;
-		//cgi.G2API_Ghoul2Size					= CL_G2API_Ghoul2Size;
-		//cgi.G2API_AddBolt						= CL_G2API_AddBolt;
-		//cgi.G2API_AttachEnt						= CL_G2API_AttachEnt;
-		//cgi.G2API_SetBoltInfo					= CL_G2API_SetBoltInfo;
-		//cgi.G2API_SetRootSurface				= CL_G2API_SetRootSurface;
-		//cgi.G2API_SetSurfaceOnOff				= CL_G2API_SetSurfaceOnOff;
-		//cgi.G2API_SetNewOrigin					= CL_G2API_SetNewOrigin;
-		//cgi.G2API_DoesBoneExist					= CL_G2API_DoesBoneExist;
-		//cgi.G2API_GetSurfaceRenderStatus		= CL_G2API_GetSurfaceRenderStatus;
-		//cgi.G2API_GetTime						= CL_G2API_GetTime;
-		//cgi.G2API_SetTime						= CL_G2API_SetTime;
-		//cgi.G2API_AbsurdSmoothing				= CL_G2API_AbsurdSmoothing;
-		//cgi.G2API_SetRagDoll					= CL_G2API_SetRagDoll;
-		//cgi.G2API_AnimateG2Models				= CL_G2API_AnimateG2Models;
-		//cgi.G2API_RagPCJConstraint				= CL_G2API_RagPCJConstraint;
-		//cgi.G2API_RagPCJGradientSpeed			= CL_G2API_RagPCJGradientSpeed;
-		//cgi.G2API_RagEffectorGoal				= CL_G2API_RagEffectorGoal;
-		//cgi.G2API_GetRagBonePos					= CL_G2API_GetRagBonePos;
-		//cgi.G2API_RagEffectorKick				= CL_G2API_RagEffectorKick;
-		//cgi.G2API_RagForceSolve					= CL_G2API_RagForceSolve;
-		//cgi.G2API_SetBoneIKState				= CL_G2API_SetBoneIKState;
-		//cgi.G2API_IKMove						= CL_G2API_IKMove;
-		//cgi.G2API_RemoveBone					= CL_G2API_RemoveBone;
-		//cgi.G2API_AttachInstanceToEntNum		= CL_G2API_AttachInstanceToEntNum;
-		//cgi.G2API_ClearAttachedInstance			= CL_G2API_ClearAttachedInstance;
-		//cgi.G2API_CleanEntAttachments			= CL_G2API_CleanEntAttachments;
-		//cgi.G2API_OverrideServer				= CL_G2API_OverrideServer;
-		//cgi.G2API_GetSurfaceName				= CL_G2API_GetSurfaceName;
-
-		cgi.ext.R_Font_StrLenPixels				= re->ext.Font_StrLenPixels;
-
-		GetCGameAPI = (GetCGameAPI_t)/*cgvm->*/GetModuleAPI;
-
-		#if 0
-			ret = GetModuleAPI( CGAME_API_VERSION, &cgi );
-		#else
-			GetCGameAPI( CGAME_API_VERSION, &cgi );
-		#endif
-
-
-		return;
-	}
 }
 
 void CL_UnbindCGame( void ) {

@@ -32,11 +32,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "cgame/cg_tempwrappers.h"
 #include "ui/ui_local.h"
 
-// we need something to fake-link to, even if it should never be called...
-#ifdef _GAME
-extern cgameImport_t *trap;
-#endif
-
 extern stringID_table_t animTable [MAX_ANIMATIONS+1];
 
 // These buffers are filled in with the same contents and then just read from in

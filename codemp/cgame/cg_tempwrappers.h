@@ -352,4 +352,14 @@ CCALL void CL_G2API_GetSurfaceName( void *ghoul2, int surfNumber, int modelIndex
 CCALL qboolean CL_G2API_AttachG2Model( void *ghoul2From, int modelIndexFrom, void *ghoul2To, int toBoltIndex, int toModel );
 
 
+CCALL int  BOTLIB_AddGlobalDefine(char *string);
+CCALL int  BOTLIB_FreeSourceHandle(int handle);
+CCALL int  BOTLIB_LoadGlobalDefines(const char* filename );
+CCALL int  BOTLIB_LoadSourceHandle(const char *filename);
+CCALL int  BOTLIB_ReadTokenHandle(int handle, pc_token_t *pc_token);
+CCALL void BOTLIB_RemoveAllGlobalDefines( void );
+CCALL int  BOTLIB_SourceFileAndLine(int handle, char *filename, int *line);
+
+
 #endif
+

@@ -35,12 +35,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 //	#include "ui/ui_local.h"
 //#endif
 
-
-// we need something to fake-link to, even if it should never be called...
-#ifdef _GAME
-extern cgameImport_t *trap;
-#endif
-
 extern saberInfo_t *BG_MySaber( int clientNum, int saberNum );
 /*
 ==============================================================================

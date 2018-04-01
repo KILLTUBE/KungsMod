@@ -27,7 +27,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // It also handles local physics interaction, like fragments bouncing off walls
 
 #include "cg_local.h"
-EXTERNC cgameImport_t *trap;
+
 
 static	pmove_t		cg_pmove;
 

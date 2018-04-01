@@ -25,7 +25,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "cg_local.h"
 #include "fx_local.h"
 
-EXTERNC cgameImport_t *trap;
+
 /*
 Ghoul2 Insert Start
 */
@@ -1812,7 +1812,7 @@ void CG_GetClientWeaponMuzzleBoltPoint(int clIndex, vec3_t to)
 
 	cent = &cg_entities[clIndex];
 
-	if (!cent || !cent->ghoul2 || !trap->G2_HaveWeGhoul2Models(cent->ghoul2) ||
+	if (!cent || !cent->ghoul2 || !CL_G2API_HaveWeGhoul2Models(cent->ghoul2) ||
 		!CL_G2API_HasGhoul2ModelOnIndex(&(cent->ghoul2), 1))
 	{
 		return;

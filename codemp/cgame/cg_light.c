@@ -22,7 +22,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "cg_local.h"
 
-EXTERNC cgameImport_t *trap;
+
 typedef struct clightstyle_s {
 	int				length;
 	color4ub_t		value;

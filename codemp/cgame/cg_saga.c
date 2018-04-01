@@ -31,7 +31,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
  *****************************************************************************/
 #include "cg_local.h"
 #include "game/bg_saga.h"
-EXTERNC cgameImport_t *trap;
+
 
 int cgSiegeRoundState = 0;
 int cgSiegeRoundTime = 0;

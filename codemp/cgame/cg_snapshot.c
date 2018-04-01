@@ -25,7 +25,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // not necessarily every single rendered frame
 
 #include "cg_local.h"
-EXTERNC cgameImport_t *trap;
+
 
 
 
@@ -106,7 +106,7 @@ void CG_SetInitialSnapshot( snapshot_t *snap ) {
 
 	cg.snap = snap;
 
-	if ((cg_entities[snap->ps.clientNum].ghoul2 == NULL) && trap->G2_HaveWeGhoul2Models(cgs.clientinfo[snap->ps.clientNum].ghoul2Model))
+	if ((cg_entities[snap->ps.clientNum].ghoul2 == NULL) && CL_G2API_HaveWeGhoul2Models(cgs.clientinfo[snap->ps.clientNum].ghoul2Model))
 	{
 		CL_G2API_DuplicateGhoul2Instance(cgs.clientinfo[snap->ps.clientNum].ghoul2Model, &cg_entities[snap->ps.clientNum].ghoul2);
 		CG_CopyG2WeaponInstance(&cg_entities[snap->ps.clientNum], FIRST_WEAPON, cg_entities[snap->ps.clientNum].ghoul2);

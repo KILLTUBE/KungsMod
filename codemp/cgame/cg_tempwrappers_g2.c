@@ -1,6 +1,6 @@
 
 #include <cgame/cg_local.h>
-EXTERNC cgameImport_t *trap;
+
 
 
 

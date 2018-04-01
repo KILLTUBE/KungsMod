@@ -25,7 +25,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "cg_local.h"
 #include "qcommon/q_shared.h"
 
-EXTERNC cgameImport_t *trap;
+
 
 /*
 ================

@@ -26,7 +26,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "cg_local.h"
 #include "ghoul2/G2.h"
 #include "game/bg_saga.h"
-EXTERNC cgameImport_t *trap;
+
 
 extern int			cgSiegeTeam1PlShader;
 extern int			cgSiegeTeam2PlShader;
@@ -466,7 +466,7 @@ retryModel:
 	}
 
 	// First things first.  If this is a ghoul2 model, then let's make sure we demolish this first.
-	if (ci->ghoul2Model && trap->G2_HaveWeGhoul2Models(ci->ghoul2Model))
+	if (ci->ghoul2Model && CL_G2API_HaveWeGhoul2Models(ci->ghoul2Model))
 	{
 		CL_G2API_CleanGhoul2Models(&(ci->ghoul2Model));
 	}
@@ -684,7 +684,7 @@ retryModel:
 	if (clientNum != -1)
 	{
 		/*
-		if (cg_entities[clientNum].ghoul2 && trap->G2_HaveWeGhoul2Models(cg_entities[clientNum].ghoul2))
+		if (cg_entities[clientNum].ghoul2 && CL_G2API_HaveWeGhoul2Models(cg_entities[clientNum].ghoul2))
 		{
 			CL_G2API_CleanGhoul2Models(&(cg_entities[clientNum].ghoul2));
 		}
@@ -1067,7 +1067,7 @@ void CG_LoadClientInfo( clientInfo_t *ci ) {
 			}
 		}
 
-		if (ci->ghoul2Model && trap->G2_HaveWeGhoul2Models(ci->ghoul2Model))
+		if (ci->ghoul2Model && CL_G2API_HaveWeGhoul2Models(ci->ghoul2Model))
 		{
 			CL_G2API_CleanGhoul2Models(&ci->ghoul2Model);
 		}
@@ -1128,9 +1128,9 @@ void CG_LoadClientInfo( clientInfo_t *ci ) {
 		CL_G2API_ClearAttachedInstance(clientNum);
 	}
 
-	if (clientNum != -1 && ci->ghoul2Model && trap->G2_HaveWeGhoul2Models(ci->ghoul2Model))
+	if (clientNum != -1 && ci->ghoul2Model && CL_G2API_HaveWeGhoul2Models(ci->ghoul2Model))
 	{
-		if (cg_entities[clientNum].ghoul2 && trap->G2_HaveWeGhoul2Models(cg_entities[clientNum].ghoul2))
+		if (cg_entities[clientNum].ghoul2 && CL_G2API_HaveWeGhoul2Models(cg_entities[clientNum].ghoul2))
 		{
 			CL_G2API_CleanGhoul2Models(&cg_entities[clientNum].ghoul2);
 		}
@@ -1264,11 +1264,11 @@ static void CG_CopyClientInfoModel( clientInfo_t *from, clientInfo_t *to )
 	//rww - Trying to use the same ghoul2 pointer for two seperate clients == DISASTER
 	assert(to->ghoul2Model != from->ghoul2Model);
 
-	if (to->ghoul2Model && trap->G2_HaveWeGhoul2Models(to->ghoul2Model))
+	if (to->ghoul2Model && CL_G2API_HaveWeGhoul2Models(to->ghoul2Model))
 	{
 		CL_G2API_CleanGhoul2Models(&to->ghoul2Model);
 	}
-	if (from->ghoul2Model && trap->G2_HaveWeGhoul2Models(from->ghoul2Model))
+	if (from->ghoul2Model && CL_G2API_HaveWeGhoul2Models(from->ghoul2Model))
 	{
 		CL_G2API_DuplicateGhoul2Instance(from->ghoul2Model, &to->ghoul2Model);
 	}
@@ -1281,7 +1281,7 @@ static void CG_CopyClientInfoModel( clientInfo_t *from, clientInfo_t *to )
 
 	while (i < MAX_SABERS)
 	{
-		if (to->ghoul2Weapons[i] && trap->G2_HaveWeGhoul2Models(to->ghoul2Weapons[i]))
+		if (to->ghoul2Weapons[i] && CL_G2API_HaveWeGhoul2Models(to->ghoul2Weapons[i]))
 		{
 			CL_G2API_CleanGhoul2Models(&to->ghoul2Weapons[i]);
 		}
@@ -1356,9 +1356,9 @@ static qboolean CG_ScanForExistingClientInfo( clientInfo_t *ci, int clientNum ) 
 			//this new clientinfo over it? Could be a nasty leak possibility. (though this should remedy it in theory)
 			if (clientNum == i)
 			{
-				if (match->ghoul2Model && trap->G2_HaveWeGhoul2Models(match->ghoul2Model))
+				if (match->ghoul2Model && CL_G2API_HaveWeGhoul2Models(match->ghoul2Model))
 				{ //The match has a valid instance (if it didn't, we'd probably already be fudged (^_^) at this state)
-					if (ci->ghoul2Model && trap->G2_HaveWeGhoul2Models(ci->ghoul2Model))
+					if (ci->ghoul2Model && CL_G2API_HaveWeGhoul2Models(ci->ghoul2Model))
 					{ //First kill the copy we have if we have one. (but it should be null)
 						CL_G2API_CleanGhoul2Models(&ci->ghoul2Model);
 					}
@@ -1558,14 +1558,14 @@ void CG_NewClientInfo( int clientNum, qboolean entitiesInitialized ) {
 
 	configstring = CG_ConfigString( clientNum + CS_PLAYERS );
 	if ( !configstring[0] ) {
-		if (ci->ghoul2Model && trap->G2_HaveWeGhoul2Models(ci->ghoul2Model))
+		if (ci->ghoul2Model && CL_G2API_HaveWeGhoul2Models(ci->ghoul2Model))
 		{ //clean this stuff up first
 			CL_G2API_CleanGhoul2Models(&ci->ghoul2Model);
 		}
 		k = 0;
 		while (k < MAX_SABERS)
 		{
-			if (ci->ghoul2Weapons[k] && trap->G2_HaveWeGhoul2Models(ci->ghoul2Weapons[k]))
+			if (ci->ghoul2Weapons[k] && CL_G2API_HaveWeGhoul2Models(ci->ghoul2Weapons[k]))
 			{
 				CL_G2API_CleanGhoul2Models(&ci->ghoul2Weapons[k]);
 			}
@@ -1863,7 +1863,7 @@ void CG_NewClientInfo( int clientNum, qboolean entitiesInitialized ) {
 	newInfo.infoValid = qtrue;
 	if (ci->ghoul2Model &&
 		ci->ghoul2Model != newInfo.ghoul2Model &&
-		trap->G2_HaveWeGhoul2Models(ci->ghoul2Model))
+		CL_G2API_HaveWeGhoul2Models(ci->ghoul2Model))
 	{ //We must kill this instance before we remove our only pointer to it from the cgame.
 	  //Otherwise we will end up with extra instances all over the place, I think.
 		CL_G2API_CleanGhoul2Models(&ci->ghoul2Model);
@@ -1938,7 +1938,7 @@ void CG_NewClientInfo( int clientNum, qboolean entitiesInitialized ) {
 			cg_entities[clientNum].currentState.torsoAnim = 0;
 		}
 
-		if (cg_entities[clientNum].ghoul2 && trap->G2_HaveWeGhoul2Models(cg_entities[clientNum].ghoul2))
+		if (cg_entities[clientNum].ghoul2 && CL_G2API_HaveWeGhoul2Models(cg_entities[clientNum].ghoul2))
 		{
 			CL_G2API_CleanGhoul2Models(&cg_entities[clientNum].ghoul2);
 		}
@@ -8695,7 +8695,7 @@ void CG_Player( centity_t *cent ) {
 		CL_G2API_ClearAttachedInstance(cent->currentState.number);
 
 		if (ci->ghoul2Model &&
-			trap->G2_HaveWeGhoul2Models(ci->ghoul2Model))
+			CL_G2API_HaveWeGhoul2Models(ci->ghoul2Model))
 		{
 #ifdef _DEBUG
 			Com_Printf("Clientinfo instance was valid, duplicating for cent\n");
@@ -9567,7 +9567,7 @@ void CG_Player( centity_t *cent ) {
 				limbName = "l_arm";
 				limbCapName = "l_arm_cap_torso";
 
-				if (cent->grip_arm && trap->G2_HaveWeGhoul2Models(cent->grip_arm))
+				if (cent->grip_arm && CL_G2API_HaveWeGhoul2Models(cent->grip_arm))
 				{
 					CL_G2API_CleanGhoul2Models(&(cent->grip_arm));
 				}
@@ -10805,7 +10805,7 @@ stillDoSaber:
 
 		if (!cent->frame_hold_refreshed)
 		{ //We're taking the ghoul2 instance from the original refent and duplicating it onto our refent alias so that we can then freeze the frame and fade it for the effect
-			if (cent->frame_hold && trap->G2_HaveWeGhoul2Models(cent->frame_hold) &&
+			if (cent->frame_hold && CL_G2API_HaveWeGhoul2Models(cent->frame_hold) &&
 				cent->frame_hold != cent->ghoul2)
 			{
 				CL_G2API_CleanGhoul2Models(&(cent->frame_hold));
@@ -11240,7 +11240,7 @@ void CG_ResetPlayerEntity( centity_t *cent )
 			cent->pe.torso.pitchAngle = 0;
 		}
 
-		if ((cent->ghoul2 == NULL) && ci->ghoul2Model && trap->G2_HaveWeGhoul2Models(ci->ghoul2Model))
+		if ((cent->ghoul2 == NULL) && ci->ghoul2Model && CL_G2API_HaveWeGhoul2Models(ci->ghoul2Model))
 		{
 			CL_G2API_DuplicateGhoul2Instance(ci->ghoul2Model, &cent->ghoul2);
 			cent->weapon = 0;

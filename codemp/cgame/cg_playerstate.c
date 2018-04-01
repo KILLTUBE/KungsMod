@@ -27,7 +27,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // when the snapshot transitions like all the other entities
 
 #include "cg_local.h"
-EXTERNC cgameImport_t *trap;
+
 
 /*
 ==============

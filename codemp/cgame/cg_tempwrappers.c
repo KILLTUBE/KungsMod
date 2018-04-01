@@ -1,7 +1,7 @@
 #include "cg_tempwrappers.h"
 
 
-EXTERNC cgameImport_t *trap;
+
 
 //CCALL cvar_t *Cvar_Get( const char *var_name, const char *var_value, uint32_t flags, const char *var_desc ) {
 //	return Cvar_Get(var_name, var_value, flags, var_desc);

@@ -30,7 +30,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "ui/menudef.h"
 #include "ghoul2/G2.h"
 #include "ui/ui_public.h"
-EXTERNC cgameImport_t *trap;
+
 
 /*
 =================
@@ -943,7 +943,7 @@ void CG_KillCEntityG2(int entNum)
 		{
 			ci->ghoul2Model = NULL;
 		}
-		else if (ci->ghoul2Model && trap->G2_HaveWeGhoul2Models(ci->ghoul2Model))
+		else if (ci->ghoul2Model && CL_G2API_HaveWeGhoul2Models(ci->ghoul2Model))
 		{
 			CL_G2API_CleanGhoul2Models(&ci->ghoul2Model);
 			ci->ghoul2Model = NULL;
@@ -953,7 +953,7 @@ void CG_KillCEntityG2(int entNum)
 		j = 0;
 		while (j < MAX_SABERS)
 		{
-			if (ci->ghoul2Weapons[j] && trap->G2_HaveWeGhoul2Models(ci->ghoul2Weapons[j]))
+			if (ci->ghoul2Weapons[j] && CL_G2API_HaveWeGhoul2Models(ci->ghoul2Weapons[j]))
 			{
 				CL_G2API_CleanGhoul2Models(&ci->ghoul2Weapons[j]);
 				ci->ghoul2Weapons[j] = NULL;
@@ -963,19 +963,19 @@ void CG_KillCEntityG2(int entNum)
 		}
 	}
 
-	if (cent->ghoul2 && trap->G2_HaveWeGhoul2Models(cent->ghoul2))
+	if (cent->ghoul2 && CL_G2API_HaveWeGhoul2Models(cent->ghoul2))
 	{
 		CL_G2API_CleanGhoul2Models(&cent->ghoul2);
 		cent->ghoul2 = NULL;
 	}
 
-	if (cent->grip_arm && trap->G2_HaveWeGhoul2Models(cent->grip_arm))
+	if (cent->grip_arm && CL_G2API_HaveWeGhoul2Models(cent->grip_arm))
 	{
 		CL_G2API_CleanGhoul2Models(&cent->grip_arm);
 		cent->grip_arm = NULL;
 	}
 
-	if (cent->frame_hold && trap->G2_HaveWeGhoul2Models(cent->frame_hold))
+	if (cent->frame_hold && CL_G2API_HaveWeGhoul2Models(cent->frame_hold))
 	{
 		CL_G2API_CleanGhoul2Models(&cent->frame_hold);
 		cent->frame_hold = NULL;
@@ -1356,7 +1356,7 @@ static void CG_KillGhoul2_f( void ) {
 	for ( i=1; i<argNum; i++ ) {
 		indexNum = atoi( CG_Argv( i ) );
 
-		if ( cg_entities[indexNum].ghoul2 && trap->G2_HaveWeGhoul2Models( cg_entities[indexNum].ghoul2 ) ) {
+		if ( cg_entities[indexNum].ghoul2 && CL_G2API_HaveWeGhoul2Models( cg_entities[indexNum].ghoul2 ) ) {
 			if ( indexNum < MAX_CLIENTS ) { //You try to do very bad thing!
 #ifdef _DEBUG
 				Com_Printf("WARNING: Tried to kill a client ghoul2 instance with a kg2 command!\n");
@@ -1428,7 +1428,7 @@ static void CG_RestoreClientGhoul_f( void ) {
 		return;
 
 #ifdef _DEBUG
-	if ( !trap->G2_HaveWeGhoul2Models( clent->ghoul2 ) )
+	if ( !CL_G2API_HaveWeGhoul2Models( clent->ghoul2 ) )
 		assert( !"Tried to reset state on a bad instance. Crash is inevitable." );
 #endif
 

@@ -3,25 +3,25 @@
 
 
 CCALL int				PC_AddGlobalDefine					( char *define ) {
-	return trap->PC_AddGlobalDefine(define);
+	return BOTLIB_AddGlobalDefine(define);
 }
 CCALL int				PC_FreeSource						( int handle ) {
-	return trap->PC_FreeSource(handle);
+	return BOTLIB_FreeSource(handle);
 }
 CCALL int				PC_LoadGlobalDefines					( const char* filename ) {
-	return trap->PC_LoadGlobalDefines(filename);
+	return BOTLIB_LoadGlobalDefines(filename);
 }
 CCALL int				PC_LoadSource						( const char *filename ) {
-	return trap->PC_LoadSource(filename);
+	return BOTLIB_LoadSource(filename);
 }
 CCALL int				PC_ReadToken							( int handle, pc_token_t *pc_token ) {
-	return trap->PC_ReadToken(handle, pc_token);
+	return BOTLIB_ReadToken(handle, pc_token);
 }
 CCALL void			PC_RemoveAllGlobalDefines			( void ) {
-	trap->PC_RemoveAllGlobalDefines();
+	BOTLIB_RemoveAllGlobalDefines();
 }
 CCALL int				PC_SourceFileAndLine					( int handle, char *filename, int *line ) {
-	return trap->PC_SourceFileAndLine(handle, filename, line);
+	return BOTLIB_SourceFileAndLine(handle, filename, line);
 }
 
 CCALL unsigned int R_AnyLanguage_ReadCharFromString( const char *psText, int *piAdvanceCount, qboolean *pbIsTrailingPunctuation ) {
@@ -94,16 +94,16 @@ CCALL void			R_SetColor				( const float *rgba ) {
 
 
 CCALL void		G2_ListModelSurfaces			( void *ghlInfo ) {
-	trap->G2_ListModelSurfaces(ghlInfo);
+	CL_G2API_ListModelSurfaces(ghlInfo);
 }
 CCALL void		G2_ListModelBones				( void *ghlInfo, int frame ) {
-	trap->G2_ListModelBones(ghlInfo, frame);
+	CL_G2API_ListModelBones(ghlInfo, frame);
 }
 CCALL void		G2_SetGhoul2ModelIndexes		( void *ghoul2, qhandle_t *modelList, qhandle_t *skinList ) {
-	trap->G2_SetGhoul2ModelIndexes(ghoul2, modelList, skinList);
+	CL_G2API_SetGhoul2ModelIndexes(ghoul2, modelList, skinList);
 }
 CCALL qboolean	G2_HaveWeGhoul2Models			( void *ghoul2 ) {
-	return trap->G2_HaveWeGhoul2Models(ghoul2);
+	return CL_G2API_HaveWeGhoul2Models(ghoul2);
 }
 
 

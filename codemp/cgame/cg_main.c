@@ -28,7 +28,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "cg_tempwrappers.h"
 
 #include "ui/ui_shared.h"
-EXTERNC cgameImport_t *trap;
+
 // display context for new ui stuff
 displayContextDef_t cgDC;
 
@@ -740,7 +740,7 @@ static void CG_RegisterSounds( void ) {
 	if ( cgs.gametype >= GT_TEAM || com_buildScript->integer ) {
 
 #ifdef JK2AWARDS
-		cgs.media.captureAwardSound = S_RegisterSound( "sound/teamplay/flagcapture_yourteam.wav" );
+		cgs.media.captureAwardSound = S_RegisterSound( "sound/teamplay/flagcaptuR_yourteam.wav" );
 #endif
 		cgs.media.redLeadsSound = S_RegisterSound( "sound/chars/protocol/misc/40MOM046");
 		cgs.media.blueLeadsSound = S_RegisterSound( "sound/chars/protocol/misc/40MOM045");
@@ -1679,14 +1679,14 @@ char *CG_GetMenuBuffer(const char *filename) {
 qboolean CG_Asset_Parse(int handle) {
 	pc_token_t token;
 
-	if (!trap->PC_ReadToken(handle, &token))
+	if (!BOTLIB_ReadTokenHandle(handle, &token))
 		return qfalse;
 	if (Q_stricmp(token.string, "{") != 0) {
 		return qfalse;
 	}
 
 	while ( 1 ) {
-		if (!trap->PC_ReadToken(handle, &token))
+		if (!BOTLIB_ReadTokenHandle(handle, &token))
 			return qfalse;
 
 		if (Q_stricmp(token.string, "}") == 0) {
@@ -1696,7 +1696,7 @@ qboolean CG_Asset_Parse(int handle) {
 		// font
 		if (Q_stricmp(token.string, "font") == 0) {
 			int pointSize;
-			if (!trap->PC_ReadToken(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
+			if (!BOTLIB_ReadTokenHandle(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
 				return qfalse;
 			}
 
@@ -1708,7 +1708,7 @@ qboolean CG_Asset_Parse(int handle) {
 		// smallFont
 		if (Q_stricmp(token.string, "smallFont") == 0) {
 			int pointSize;
-			if (!trap->PC_ReadToken(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
+			if (!BOTLIB_ReadTokenHandle(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
 				return qfalse;
 			}
 //			cgDC.registerFont(token.string, pointSize, &cgDC.Assets.smallFont);
@@ -1719,7 +1719,7 @@ qboolean CG_Asset_Parse(int handle) {
 		// smallFont
 		if (Q_stricmp(token.string, "small2Font") == 0) {
 			int pointSize;
-			if (!trap->PC_ReadToken(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
+			if (!BOTLIB_ReadTokenHandle(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
 				return qfalse;
 			}
 //			cgDC.registerFont(token.string, pointSize, &cgDC.Assets.smallFont);
@@ -1730,7 +1730,7 @@ qboolean CG_Asset_Parse(int handle) {
 		// font
 		if (Q_stricmp(token.string, "bigfont") == 0) {
 			int pointSize;
-			if (!trap->PC_ReadToken(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
+			if (!BOTLIB_ReadTokenHandle(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
 				return qfalse;
 			}
 //			cgDC.registerFont(token.string, pointSize, &cgDC.Assets.bigFont);
@@ -1740,7 +1740,7 @@ qboolean CG_Asset_Parse(int handle) {
 
 		// gradientbar
 		if (Q_stricmp(token.string, "gradientbar") == 0) {
-			if (!trap->PC_ReadToken(handle, &token)) {
+			if (!BOTLIB_ReadTokenHandle(handle, &token)) {
 				return qfalse;
 			}
 			cgDC.Assets.gradientBar = R_RegisterShaderNoMip(token.string);
@@ -1749,7 +1749,7 @@ qboolean CG_Asset_Parse(int handle) {
 
 		// enterMenuSound
 		if (Q_stricmp(token.string, "menuEnterSound") == 0) {
-			if (!trap->PC_ReadToken(handle, &token)) {
+			if (!BOTLIB_ReadTokenHandle(handle, &token)) {
 				return qfalse;
 			}
 			cgDC.Assets.menuEnterSound = S_RegisterSound( token.string );
@@ -1758,7 +1758,7 @@ qboolean CG_Asset_Parse(int handle) {
 
 		// exitMenuSound
 		if (Q_stricmp(token.string, "menuExitSound") == 0) {
-			if (!trap->PC_ReadToken(handle, &token)) {
+			if (!BOTLIB_ReadTokenHandle(handle, &token)) {
 				return qfalse;
 			}
 			cgDC.Assets.menuExitSound = S_RegisterSound( token.string );
@@ -1767,7 +1767,7 @@ qboolean CG_Asset_Parse(int handle) {
 
 		// itemFocusSound
 		if (Q_stricmp(token.string, "itemFocusSound") == 0) {
-			if (!trap->PC_ReadToken(handle, &token)) {
+			if (!BOTLIB_ReadTokenHandle(handle, &token)) {
 				return qfalse;
 			}
 			cgDC.Assets.itemFocusSound = S_RegisterSound( token.string );
@@ -1776,7 +1776,7 @@ qboolean CG_Asset_Parse(int handle) {
 
 		// menuBuzzSound
 		if (Q_stricmp(token.string, "menuBuzzSound") == 0) {
-			if (!trap->PC_ReadToken(handle, &token)) {
+			if (!BOTLIB_ReadTokenHandle(handle, &token)) {
 				return qfalse;
 			}
 			cgDC.Assets.menuBuzzSound = S_RegisterSound( token.string );
@@ -1841,14 +1841,14 @@ void CG_ParseMenu(const char *menuFile) {
 	pc_token_t token;
 	int handle;
 
-	handle = trap->PC_LoadSource(menuFile);
+	handle = BOTLIB_LoadSourceHandle(menuFile);
 	if (!handle)
-		handle = trap->PC_LoadSource("ui/testhud.menu");
+		handle = BOTLIB_LoadSourceHandle("ui/testhud.menu");
 	if (!handle)
 		return;
 
 	while ( 1 ) {
-		if (!trap->PC_ReadToken( handle, &token )) {
+		if (!BOTLIB_ReadTokenHandle( handle, &token )) {
 			break;
 		}
 
@@ -1880,7 +1880,7 @@ void CG_ParseMenu(const char *menuFile) {
 			Menu_New(handle);
 		}
 	}
-	trap->PC_FreeSource(handle);
+	BOTLIB_FreeSourceHandle(handle);
 }
 
 
@@ -2291,7 +2291,7 @@ void CG_LoadHudMenu()
 	cgDC.stopCinematic					= &CG_StopCinematic;
 	cgDC.drawCinematic					= &CG_DrawCinematic;
 	cgDC.runCinematicFrame				= &CG_RunCinematicFrame;
-	cgDC.ext.Font_StrLenPixels			= trap->ext.R_Font_StrLenPixels;
+	cgDC.ext.Font_StrLenPixels			= NULL;
 
 
 	Init_Display(&cgDC);
@@ -2664,7 +2664,7 @@ void CG_DestroyAllGhoul2(void)
 		j = 0;
 		while (j < MAX_ITEM_MODELS)
 		{
-			if (cg_items[i].g2Models[j] && trap->G2_HaveWeGhoul2Models(cg_items[i].g2Models[j]))
+			if (cg_items[i].g2Models[j] && CL_G2API_HaveWeGhoul2Models(cg_items[i].g2Models[j]))
 			{
 				CL_G2API_CleanGhoul2Models(&cg_items[i].g2Models[j]);
 				cg_items[i].g2Models[j] = NULL;
@@ -2934,22 +2934,4 @@ CCALL void CG_AutomapInput( void ) {
 CCALL void CG_FX_CameraShake( void ) {
 	TCGCameraShake *data = &cg.sharedBuffer.cameraShake;
 	CG_DoCameraShake( data->mOrigin, data->mIntensity, data->mRadius, data->mTime );
-}
-
-/*
-============
-GetModuleAPI
-============
-*/
-
-EXTERNC cgameImport_t *trap = NULL;
-
-Q_EXPORT void QDECL GetModuleAPI( int apiVersion, cgameImport_t *import )
-{
-	assert( import );
-	trap = import;
-	if ( apiVersion != CGAME_API_VERSION ) {
-		Com_Printf( "Mismatched CGAME_API_VERSION: expected %i, got %i\n", CGAME_API_VERSION, apiVersion );
-		return NULL;
-	}
 }

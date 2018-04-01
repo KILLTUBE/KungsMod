@@ -34,12 +34,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "../cgame/cg_tempwrappers.h"
 #include "ui/ui_local.h"
 
-
-// we need something to fake-link to, even if it should never be called...
-#ifdef _GAME
-extern cgameImport_t *trap;
-#endif
-
 const char *bgToggleableSurfaces[BG_NUM_TOGGLEABLE_SURFACES] =
 {
 	"l_arm_key",					//0

@@ -32,7 +32,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "ui/menudef.h"
 
 #include "ghoul2/G2.h"
-EXTERNC cgameImport_t *trap;
+
 //==========================================================================
 
 extern qboolean WP_SaberBladeUseSecondBladeStyle( saberInfo_t *saber, int bladeNum );
@@ -2783,7 +2783,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			break;
 		}
 
-		if (cent->ghoul2 && trap->G2_HaveWeGhoul2Models(cent->ghoul2))
+		if (cent->ghoul2 && CL_G2API_HaveWeGhoul2Models(cent->ghoul2))
 		{
 			//turn the inside of the face off, to avoid showing the mouth when we start alpha fading the corpse
 			CL_G2API_SetSurfaceOnOff( cent->ghoul2, "head_eyes_mouth", 0x00000002/*G2SURFACEFLAG_OFF*/ );
@@ -2806,7 +2806,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 
 	case EV_DESTROY_GHOUL2_INSTANCE:
 		DEBUGNAME("EV_DESTROY_GHOUL2_INSTANCE");
-		if (cg_entities[es->eventParm].ghoul2 && trap->G2_HaveWeGhoul2Models(cg_entities[es->eventParm].ghoul2))
+		if (cg_entities[es->eventParm].ghoul2 && CL_G2API_HaveWeGhoul2Models(cg_entities[es->eventParm].ghoul2))
 		{
 			if (es->eventParm < MAX_CLIENTS)
 			{ //You try to do very bad thing!
@@ -2821,7 +2821,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 
 	case EV_DESTROY_WEAPON_MODEL:
 		DEBUGNAME("EV_DESTROY_WEAPON_MODEL");
-		if (cg_entities[es->eventParm].ghoul2 && trap->G2_HaveWeGhoul2Models(cg_entities[es->eventParm].ghoul2) &&
+		if (cg_entities[es->eventParm].ghoul2 && CL_G2API_HaveWeGhoul2Models(cg_entities[es->eventParm].ghoul2) &&
 			CL_G2API_HasGhoul2ModelOnIndex(&(cg_entities[es->eventParm].ghoul2), 1))
 		{
 			CL_G2API_RemoveGhoul2Model(&(cg_entities[es->eventParm].ghoul2), 1);
