@@ -2646,7 +2646,7 @@ CCALL void	R_InitSkins( void );
 CCALL skin_t	*R_GetSkinByHandle( qhandle_t hSkin );
 CCALL int R_ComputeLOD( trRefEntity_t *ent );
 CCALL const void *RB_TakeVideoFrameCmd( const void *data );
-CCALL void RE_HunkClearCrap(void);
+CCALL void R_HunkClearCrap(void);
 
 //
 // tr_shader.c

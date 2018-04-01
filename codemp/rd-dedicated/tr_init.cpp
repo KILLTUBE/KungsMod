@@ -538,7 +538,7 @@ void RE_Shutdown( qboolean destroyWindow, qboolean restarting ) {
 static void G2API_BoltMatrixReconstruction( qboolean reconstruct ) { gG2_GBMNoReconstruct = (qboolean)!reconstruct; }
 static void G2API_BoltMatrixSPMethod( qboolean spMethod ) { gG2_GBMUseSPMethod = spMethod; }
 
-extern void R_SVModelInit( void ); //tr_model.cpp
+CCALL void R_SVModelInit( void ); //tr_model.cpp
 extern qboolean gG2_GBMNoReconstruct;
 extern qboolean gG2_GBMUseSPMethod;
 extern qhandle_t RE_RegisterServerSkin( const char *name );
@@ -577,7 +577,7 @@ refexport_t *GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 	re.InitSkins							= R_InitSkins;
 	re.InitShaders							= R_InitShaders;
 	re.SVModelInit							= R_SVModelInit;
-	re.HunkClearCrap						= RE_HunkClearCrap;
+	re.HunkClearCrap						= R_HunkClearCrap;
 
 	// G2API
 	re.G2API_AddBolt						= G2API_AddBolt;

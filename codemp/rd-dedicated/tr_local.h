@@ -1385,7 +1385,7 @@ CCALL float	R_SumOfUsedImages( qboolean bUseFormat );
 CCALL void	R_InitSkins( void );
 CCALL skin_t	*R_GetSkinByHandle( qhandle_t hSkin );
 CCALL const void *RB_TakeVideoFrameCmd( const void *data );
-CCALL void RE_HunkClearCrap(void);
+CCALL void R_HunkClearCrap(void);
 
 
 //

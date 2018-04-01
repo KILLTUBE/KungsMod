@@ -368,7 +368,7 @@ qhandle_t RE_RegisterServerSkin( const char *name ) {
 R_InitSkins
 ===============
 */
-void	R_InitSkins( void ) {
+CCALL void	R_InitSkins( void ) {
 	skin_t		*skin;
 
 	tr.numSkins = 1;

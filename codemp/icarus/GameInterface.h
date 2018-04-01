@@ -48,7 +48,7 @@ extern entlist_t		ICARUS_EntList;
 //	g_ICARUS.cpp
 //
 CCALL void ICARUS_Init( void );
-CCALL bool ICARUS_ValidEnt( sharedEntity_t *ent );
+CCALL qboolean ICARUS_ValidEnt( sharedEntity_t *ent );
 CCALL void ICARUS_InitEnt( sharedEntity_t *ent );
 CCALL void ICARUS_FreeEnt( sharedEntity_t *ent );
 CCALL void ICARUS_AssociateEnt( sharedEntity_t *ent );

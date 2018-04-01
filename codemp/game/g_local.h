@@ -1017,61 +1017,56 @@ typedef struct level_locals_s {
 //
 // g_spawn.c
 //
-qboolean	G_SpawnString( const char *key, const char *defaultString, char **out );
+CCALL qboolean	G_SpawnString( const char *key, const char *defaultString, char **out );
 // spawn string returns a temporary reference, you must CopyString() if you want to keep it
-qboolean	G_SpawnFloat( const char *key, const char *defaultString, float *out );
-qboolean	G_SpawnInt( const char *key, const char *defaultString, int *out );
-qboolean	G_SpawnVector( const char *key, const char *defaultString, float *out );
-qboolean	G_SpawnBoolean( const char *key, const char *defaultString, qboolean *out );
-void		G_SpawnEntitiesFromString( qboolean inSubBSP );
-char *G_NewString( const char *string );
+CCALL qboolean	G_SpawnFloat( const char *key, const char *defaultString, float *out );
+CCALL qboolean	G_SpawnInt( const char *key, const char *defaultString, int *out );
+CCALL qboolean	G_SpawnVector( const char *key, const char *defaultString, float *out );
+CCALL qboolean	G_SpawnBoolean( const char *key, const char *defaultString, qboolean *out );
+CCALL void		G_SpawnEntitiesFromString( qboolean inSubBSP );
+CCALL char *G_NewString( const char *string );
 
 //
 // g_cmds.c
 //
-void Cmd_Score_f (gentity_t *ent);
-void StopFollowing( gentity_t *ent );
-void BroadcastTeamChange( gclient_t *client, int oldTeam );
-void SetTeam( gentity_t *ent, char *s );
-void Cmd_FollowCycle_f( gentity_t *ent, int dir );
-void Cmd_SaberAttackCycle_f(gentity_t *ent);
-int G_ItemUsable(playerState_t *ps, int forcedUse);
-void Cmd_ToggleSaber_f(gentity_t *ent);
-void Cmd_EngageDuel_f(gentity_t *ent);
+CCALL void Cmd_Score_f (gentity_t *ent);
+CCALL void StopFollowing( gentity_t *ent );
+CCALL void BroadcastTeamChange( gclient_t *client, int oldTeam );
+CCALL void SetTeam( gentity_t *ent, char *s );
+CCALL void Cmd_FollowCycle_f( gentity_t *ent, int dir );
+CCALL void Cmd_SaberAttackCycle_f(gentity_t *ent);
+CCALL int G_ItemUsable(playerState_t *ps, int forcedUse);
+CCALL void Cmd_ToggleSaber_f(gentity_t *ent);
+CCALL void Cmd_EngageDuel_f(gentity_t *ent);
 
 //
 // g_items.c
 //
-void ItemUse_Binoculars(gentity_t *ent);
-void ItemUse_Shield(gentity_t *ent);
-void ItemUse_Sentry(gentity_t *ent);
-
-void Jetpack_Off(gentity_t *ent);
-void Jetpack_On(gentity_t *ent);
-void ItemUse_Jetpack(gentity_t *ent);
-void ItemUse_UseCloak( gentity_t *ent );
-void ItemUse_UseDisp(gentity_t *ent, int type);
-void ItemUse_UseEWeb(gentity_t *ent);
-void G_PrecacheDispensers(void);
-
-void ItemUse_Seeker(gentity_t *ent);
-void ItemUse_MedPack(gentity_t *ent);
-void ItemUse_MedPack_Big(gentity_t *ent);
-
-void G_CheckTeamItems( void );
-void G_RunItem( gentity_t *ent );
-void RespawnItem( gentity_t *ent );
-
-gentity_t *Drop_Item( gentity_t *ent, gitem_t *item, float angle );
-gentity_t *LaunchItem( gitem_t *item, vec3_t origin, vec3_t velocity );
-void G_SpawnItem (gentity_t *ent, gitem_t *item);
-void FinishSpawningItem( gentity_t *ent );
-void	Add_Ammo (gentity_t *ent, int weapon, int count);
-void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace);
-
-void ClearRegisteredItems( void );
-void RegisterItem( gitem_t *item );
-void SaveRegisteredItems( void );
+CCALL void ItemUse_Binoculars(gentity_t *ent);
+CCALL void ItemUse_Shield(gentity_t *ent);
+CCALL void ItemUse_Sentry(gentity_t *ent);
+CCALL void Jetpack_Off(gentity_t *ent);
+CCALL void Jetpack_On(gentity_t *ent);
+CCALL void ItemUse_Jetpack(gentity_t *ent);
+CCALL void ItemUse_UseCloak( gentity_t *ent );
+CCALL void ItemUse_UseDisp(gentity_t *ent, int type);
+CCALL void ItemUse_UseEWeb(gentity_t *ent);
+CCALL void G_PrecacheDispensers(void);
+CCALL void ItemUse_Seeker(gentity_t *ent);
+CCALL void ItemUse_MedPack(gentity_t *ent);
+CCALL void ItemUse_MedPack_Big(gentity_t *ent);
+CCALL void G_CheckTeamItems( void );
+CCALL void G_RunItem( gentity_t *ent );
+CCALL void RespawnItem( gentity_t *ent );
+CCALL gentity_t *Drop_Item( gentity_t *ent, gitem_t *item, float angle );
+CCALL gentity_t *LaunchItem( gitem_t *item, vec3_t origin, vec3_t velocity );
+CCALL void G_SpawnItem (gentity_t *ent, gitem_t *item);
+CCALL void FinishSpawningItem( gentity_t *ent );
+CCALL void	Add_Ammo (gentity_t *ent, int weapon, int count);
+CCALL void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace);
+CCALL void ClearRegisteredItems( void );
+CCALL void RegisterItem( gitem_t *item );
+CCALL void SaveRegisteredItems( void );
 
 //
 // g_utils.c
@@ -1182,21 +1177,17 @@ extern int gGAvoidDismember;
 //
 // g_exphysics.c
 //
-void G_RunExPhys(gentity_t *ent, float gravity, float mass, float bounce, qboolean autoKill, int *g2Bolts, int numG2Bolts);
+CCALL void G_RunExPhys(gentity_t *ent, float gravity, float mass, float bounce, qboolean autoKill, int *g2Bolts, int numG2Bolts);
 
 //
 // g_missile.c
 //
-void G_ReflectMissile( gentity_t *ent, gentity_t *missile, vec3_t forward );
-
-void G_RunMissile( gentity_t *ent );
-
-gentity_t *CreateMissile( vec3_t org, vec3_t dir, float vel, int life,
-							gentity_t *owner, qboolean altFire);
-void G_BounceProjectile( vec3_t start, vec3_t impact, vec3_t dir, vec3_t endout );
-void G_ExplodeMissile( gentity_t *ent );
-
-void WP_FireBlasterMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire );
+CCALL void G_ReflectMissile( gentity_t *ent, gentity_t *missile, vec3_t forward );
+CCALL void G_RunMissile( gentity_t *ent );
+CCALL gentity_t *CreateMissile( vec3_t org, vec3_t dir, float vel, int life, gentity_t *owner, qboolean altFire);
+CCALL void G_BounceProjectile( vec3_t start, vec3_t impact, vec3_t dir, vec3_t endout );
+CCALL void G_ExplodeMissile( gentity_t *ent );
+CCALL void WP_FireBlasterMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire );
 
 
 //
@@ -1208,15 +1199,15 @@ extern int	BMS_END;
 
 #define SPF_BUTTON_USABLE		1
 #define SPF_BUTTON_FPUSHABLE	2
-void G_PlayDoorLoopSound( gentity_t *ent );
-void G_PlayDoorSound( gentity_t *ent, int type );
-void G_RunMover( gentity_t *ent );
-void Touch_DoorTrigger( gentity_t *ent, gentity_t *other, trace_t *trace );
+CCALL void G_PlayDoorLoopSound( gentity_t *ent );
+CCALL void G_PlayDoorSound( gentity_t *ent, int type );
+CCALL void G_RunMover( gentity_t *ent );
+CCALL void Touch_DoorTrigger( gentity_t *ent, gentity_t *other, trace_t *trace );
 
 //
 // g_trigger.c
 //
-void trigger_teleporter_touch (gentity_t *self, gentity_t *other, trace_t *trace );
+CCALL void trigger_teleporter_touch (gentity_t *self, gentity_t *other, trace_t *trace );
 
 
 //
@@ -1238,68 +1229,67 @@ typedef struct reference_tag_s
 	qboolean	inuse;
 } reference_tag_t;
 
-void TAG_Init( void );
-reference_tag_t	*TAG_Find( const char *owner, const char *name );
-reference_tag_t	*TAG_Add( const char *name, const char *owner, vec3_t origin, vec3_t angles, int radius, int flags );
-int	TAG_GetOrigin( const char *owner, const char *name, vec3_t origin );
-int	TAG_GetOrigin2( const char *owner, const char *name, vec3_t origin );
-int	TAG_GetAngles( const char *owner, const char *name, vec3_t angles );
-int TAG_GetRadius( const char *owner, const char *name );
-int TAG_GetFlags( const char *owner, const char *name );
-
-void TeleportPlayer( gentity_t *player, vec3_t origin, vec3_t angles );
+CCALL void TAG_Init( void );
+CCALL reference_tag_t	*TAG_Find( const char *owner, const char *name );
+CCALL reference_tag_t	*TAG_Add( const char *name, const char *owner, vec3_t origin, vec3_t angles, int radius, int flags );
+CCALL int	TAG_GetOrigin( const char *owner, const char *name, vec3_t origin );
+CCALL int	TAG_GetOrigin2( const char *owner, const char *name, vec3_t origin );
+CCALL int	TAG_GetAngles( const char *owner, const char *name, vec3_t angles );
+CCALL int TAG_GetRadius( const char *owner, const char *name );
+CCALL int TAG_GetFlags( const char *owner, const char *name );
+CCALL void TeleportPlayer( gentity_t *player, vec3_t origin, vec3_t angles );
 
 //
 // g_weapon.c
 //
-void WP_FireTurretMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire, int damage, int velocity, int mod, gentity_t *ignore );
-void WP_FireGenericBlasterMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire, int damage, int velocity, int mod );
-qboolean LogAccuracyHit( gentity_t *target, gentity_t *attacker );
-void CalcMuzzlePoint ( gentity_t *ent, const vec3_t inForward, const vec3_t inRight, const vec3_t inUp, vec3_t muzzlePoint );
-void SnapVectorTowards( vec3_t v, vec3_t to );
-qboolean CheckGauntletAttack( gentity_t *ent );
+CCALL void WP_FireTurretMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire, int damage, int velocity, int mod, gentity_t *ignore );
+CCALL void WP_FireGenericBlasterMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire, int damage, int velocity, int mod );
+CCALL qboolean LogAccuracyHit( gentity_t *target, gentity_t *attacker );
+CCALL void CalcMuzzlePoint ( gentity_t *ent, const vec3_t inForward, const vec3_t inRight, const vec3_t inUp, vec3_t muzzlePoint );
+CCALL void SnapVectorTowards( vec3_t v, vec3_t to );
+CCALL qboolean CheckGauntletAttack( gentity_t *ent );
 
 
 //
 // g_client.c
 //
-int TeamCount( int ignoreClientNum, team_t team );
-int TeamLeader( int team );
-team_t PickTeam( int ignoreClientNum );
-void SetClientViewAngle( gentity_t *ent, vec3_t angle );
-gentity_t *SelectSpawnPoint ( vec3_t avoidPoint, vec3_t origin, vec3_t angles, team_t team, qboolean isbot );
-void MaintainBodyQueue(gentity_t *ent);
-void ClientRespawn (gentity_t *ent);
-void BeginIntermission (void);
-void InitBodyQue (void);
-void ClientSpawn( gentity_t *ent );
-void player_die (gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int mod);
-void AddScore( gentity_t *ent, vec3_t origin, int score );
-void CalculateRanks( void );
-qboolean SpotWouldTelefrag( gentity_t *spot );
+CCALL int TeamCount( int ignoreClientNum, team_t team );
+CCALL int TeamLeader( int team );
+CCALL team_t PickTeam( int ignoreClientNum );
+CCALL void SetClientViewAngle( gentity_t *ent, vec3_t angle );
+CCALL gentity_t *SelectSpawnPoint ( vec3_t avoidPoint, vec3_t origin, vec3_t angles, team_t team, qboolean isbot );
+CCALL void MaintainBodyQueue(gentity_t *ent);
+CCALL void ClientRespawn (gentity_t *ent);
+CCALL void BeginIntermission (void);
+CCALL void InitBodyQue (void);
+CCALL void ClientSpawn( gentity_t *ent );
+CCALL void player_die (gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int mod);
+CCALL void AddScore( gentity_t *ent, vec3_t origin, int score );
+CCALL void CalculateRanks( void );
+CCALL qboolean SpotWouldTelefrag( gentity_t *spot );
 
 extern gentity_t *gJMSaberEnt;
 
 //
 // g_svcmds.c
 //
-qboolean	ConsoleCommand( void );
-void G_ProcessIPBans(void);
-qboolean G_FilterPacket (char *from);
+CCALL qboolean	ConsoleCommand( void );
+CCALL void G_ProcessIPBans(void);
+CCALL qboolean G_FilterPacket (char *from);
 
 //
 // g_weapon.c
 //
-void FireWeapon( gentity_t *ent, qboolean altFire );
-void BlowDetpacks(gentity_t *ent);
-void RemoveDetpacks(gentity_t *ent);
+CCALL void FireWeapon( gentity_t *ent, qboolean altFire );
+CCALL void BlowDetpacks(gentity_t *ent);
+CCALL void RemoveDetpacks(gentity_t *ent);
 
 //
 // p_hud.c
 //
-void MoveClientToIntermission (gentity_t *client);
-void G_SetStats (gentity_t *ent);
-void DeathmatchScoreboardMessage (gentity_t *client);
+CCALL void MoveClientToIntermission (gentity_t *client);
+CCALL void G_SetStats (gentity_t *ent);
+CCALL void DeathmatchScoreboardMessage (gentity_t *client);
 
 //
 // g_cmds.c
@@ -1316,162 +1306,161 @@ void DeathmatchScoreboardMessage (gentity_t *client);
 extern qboolean gDoSlowMoDuel;
 extern int gSlowMoDuelTime;
 
-void G_PowerDuelCount(int *loners, int *doubles, qboolean countSpec);
+CCALL void G_PowerDuelCount(int *loners, int *doubles, qboolean countSpec);
 
-void FindIntermissionPoint( void );
-void SetLeader(int team, int client);
-void CheckTeamLeader( int team );
-void G_RunThink (gentity_t *ent);
-void AddTournamentQueue(gclient_t *client);
-void QDECL G_LogPrintf( const char *fmt, ... );
-void QDECL G_SecurityLogPrintf( const char *fmt, ... );
-void SendScoreboardMessageToAllClients( void );
+CCALL void FindIntermissionPoint( void );
+CCALL void SetLeader(int team, int client);
+CCALL void CheckTeamLeader( int team );
+CCALL void G_RunThink (gentity_t *ent);
+CCALL void AddTournamentQueue(gclient_t *client);
+CCALL void QDECL G_LogPrintf( const char *fmt, ... );
+CCALL void QDECL G_SecurityLogPrintf( const char *fmt, ... );
+CCALL void SendScoreboardMessageToAllClients( void );
 CCALL const char *G_GetStringEdString(char *refSection, char *refName);
 
 //
 // g_client.c
 //
-char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot );
-qboolean ClientUserinfoChanged( int clientNum );
-void ClientDisconnect( int clientNum );
-void ClientBegin( int clientNum, qboolean allowTeamReset );
-void G_BreakArm(gentity_t *ent, int arm);
-void G_UpdateClientAnims(gentity_t *self, float animSpeedScale);
-void ClientCommand( int clientNum );
-void G_ClearVote( gentity_t *ent );
-void G_ClearTeamVote( gentity_t *ent, int team );
+CCALL char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot );
+CCALL qboolean ClientUserinfoChanged( int clientNum );
+CCALL void ClientDisconnect( int clientNum );
+CCALL void ClientBegin( int clientNum, qboolean allowTeamReset );
+CCALL void G_BreakArm(gentity_t *ent, int arm);
+CCALL void G_UpdateClientAnims(gentity_t *self, float animSpeedScale);
+CCALL void ClientCommand( int clientNum );
+CCALL void G_ClearVote( gentity_t *ent );
+CCALL void G_ClearTeamVote( gentity_t *ent, int team );
 
 //
 // g_active.c
 //
-void G_CheckClientTimeouts	( gentity_t *ent );
-void ClientThink			( int clientNum, usercmd_t *ucmd );
-void ClientEndFrame			( gentity_t *ent );
-void G_RunClient			( gentity_t *ent );
+CCALL void G_CheckClientTimeouts	( gentity_t *ent );
+CCALL void ClientThink			( int clientNum, usercmd_t *ucmd );
+CCALL void ClientEndFrame			( gentity_t *ent );
+CCALL void G_RunClient			( gentity_t *ent );
 
 //
 // g_team.c
 //
-qboolean OnSameTeam( gentity_t *ent1, gentity_t *ent2 );
-void Team_CheckDroppedItem( gentity_t *dropped );
+CCALL qboolean OnSameTeam( gentity_t *ent1, gentity_t *ent2 );
+CCALL void Team_CheckDroppedItem( gentity_t *dropped );
 
 //
 // g_mem.c
 //
-void *G_Alloc( int size );
-void G_InitMemory( void );
-void Svcmd_GameMem_f( void );
+CCALL void *G_Alloc( int size );
+CCALL void G_InitMemory( void );
+CCALL void Svcmd_GameMem_f( void );
 
 //
 // g_session.c
 //
-void G_ReadSessionData( gclient_t *client );
-void G_InitSessionData( gclient_t *client, char *userinfo, qboolean isBot );
-
-void G_InitWorldSession( void );
-void G_WriteSessionData( void );
+CCALL void G_ReadSessionData( gclient_t *client );
+CCALL void G_InitSessionData( gclient_t *client, char *userinfo, qboolean isBot );
+CCALL void G_InitWorldSession( void );
+CCALL void G_WriteSessionData( void );
 
 //
 // NPC_senses.cpp
 //
-extern void AddSightEvent( gentity_t *owner, vec3_t position, float radius, alertEventLevel_e alertLevel, float addLight ); //addLight = 0.0f
-extern void AddSoundEvent( gentity_t *owner, vec3_t position, float radius, alertEventLevel_e alertLevel, qboolean needLOS ); //needLOS = qfalse
-extern qboolean G_CheckForDanger( gentity_t *self, int alertEvent );
-extern int G_CheckAlertEvents( gentity_t *self, qboolean checkSight, qboolean checkSound, float maxSeeDist, float maxHearDist, int ignoreAlert, qboolean mustHaveOwner, int minAlertLevel ); //ignoreAlert = -1, mustHaveOwner = qfalse, minAlertLevel = AEL_MINOR
-extern qboolean G_CheckForDanger( gentity_t *self, int alertEvent );
-extern qboolean G_ClearLOS( gentity_t *self, const vec3_t start, const vec3_t end );
-extern qboolean G_ClearLOS2( gentity_t *self, gentity_t *ent, const vec3_t end );
-extern qboolean G_ClearLOS3( gentity_t *self, const vec3_t start, gentity_t *ent );
-extern qboolean G_ClearLOS4( gentity_t *self, gentity_t *ent );
-extern qboolean G_ClearLOS5( gentity_t *self, const vec3_t end );
+CCALL void AddSightEvent( gentity_t *owner, vec3_t position, float radius, alertEventLevel_e alertLevel, float addLight ); //addLight = 0.0f
+CCALL void AddSoundEvent( gentity_t *owner, vec3_t position, float radius, alertEventLevel_e alertLevel, qboolean needLOS ); //needLOS = qfalse
+CCALL qboolean G_CheckForDanger( gentity_t *self, int alertEvent );
+CCALL int G_CheckAlertEvents( gentity_t *self, qboolean checkSight, qboolean checkSound, float maxSeeDist, float maxHearDist, int ignoreAlert, qboolean mustHaveOwner, int minAlertLevel ); //ignoreAlert = -1, mustHaveOwner = qfalse, minAlertLevel = AEL_MINOR
+CCALL qboolean G_CheckForDanger( gentity_t *self, int alertEvent );
+CCALL qboolean G_ClearLOS( gentity_t *self, const vec3_t start, const vec3_t end );
+CCALL qboolean G_ClearLOS2( gentity_t *self, gentity_t *ent, const vec3_t end );
+CCALL qboolean G_ClearLOS3( gentity_t *self, const vec3_t start, gentity_t *ent );
+CCALL qboolean G_ClearLOS4( gentity_t *self, gentity_t *ent );
+CCALL qboolean G_ClearLOS5( gentity_t *self, const vec3_t end );
 
 //
 // g_bot.c
 //
-void G_InitBots( void );
-char *G_GetBotInfoByNumber( int num );
-char *G_GetBotInfoByName( const char *name );
-void G_CheckBotSpawn( void );
-void G_RemoveQueuedBotBegin( int clientNum );
-qboolean G_BotConnect( int clientNum, qboolean restart );
-void Svcmd_AddBot_f( void );
-void Svcmd_BotList_f( void );
-void BotInterbreedEndMatch( void );
-qboolean G_DoesMapSupportGametype(const char *mapname, int gametype);
-const char *G_RefreshNextMap(int gametype, qboolean forced);
-void G_LoadArenas( void );
+CCALL void G_InitBots( void );
+CCALL char *G_GetBotInfoByNumber( int num );
+CCALL char *G_GetBotInfoByName( const char *name );
+CCALL void G_CheckBotSpawn( void );
+CCALL void G_RemoveQueuedBotBegin( int clientNum );
+CCALL qboolean G_BotConnect( int clientNum, qboolean restart );
+CCALL void Svcmd_AddBot_f( void );
+CCALL void Svcmd_BotList_f( void );
+CCALL void BotInterbreedEndMatch( void );
+CCALL qboolean G_DoesMapSupportGametype(const char *mapname, int gametype);
+CCALL const char *G_RefreshNextMap(int gametype, qboolean forced);
+CCALL void G_LoadArenas( void );
 
 // w_force.c / w_saber.c
-gentity_t *G_PreDefSound(vec3_t org, int pdSound);
-qboolean HasSetSaberOnly(void);
-void WP_ForcePowerStop( gentity_t *self, forcePowers_t forcePower );
-void WP_SaberPositionUpdate( gentity_t *self, usercmd_t *ucmd );
-int WP_SaberCanBlock(gentity_t *self, vec3_t point, int dflags, int mod, qboolean projectile, int attackStr);
-void WP_SaberInitBladeData( gentity_t *ent );
-void WP_InitForcePowers( gentity_t *ent );
-void WP_SpawnInitForcePowers( gentity_t *ent );
-void WP_ForcePowersUpdate( gentity_t *self, usercmd_t *ucmd );
-int ForcePowerUsableOn(gentity_t *attacker, gentity_t *other, forcePowers_t forcePower);
-void ForceHeal( gentity_t *self );
-void ForceSpeed( gentity_t *self, int forceDuration );
-void ForceRage( gentity_t *self );
-void ForceGrip( gentity_t *self );
-void ForceProtect( gentity_t *self );
-void ForceAbsorb( gentity_t *self );
-void ForceTeamHeal( gentity_t *self );
-void ForceTeamForceReplenish( gentity_t *self );
-void ForceSeeing( gentity_t *self );
-void ForceThrow( gentity_t *self, qboolean pull );
-void ForceTelepathy(gentity_t *self);
-qboolean Jedi_DodgeEvasion( gentity_t *self, gentity_t *shooter, trace_t *tr, int hitLoc );
+CCALL gentity_t *G_PreDefSound(vec3_t org, int pdSound);
+CCALL qboolean HasSetSaberOnly(void);
+CCALL void WP_ForcePowerStop( gentity_t *self, forcePowers_t forcePower );
+CCALL void WP_SaberPositionUpdate( gentity_t *self, usercmd_t *ucmd );
+CCALL int WP_SaberCanBlock(gentity_t *self, vec3_t point, int dflags, int mod, qboolean projectile, int attackStr);
+CCALL void WP_SaberInitBladeData( gentity_t *ent );
+CCALL void WP_InitForcePowers( gentity_t *ent );
+CCALL void WP_SpawnInitForcePowers( gentity_t *ent );
+CCALL void WP_ForcePowersUpdate( gentity_t *self, usercmd_t *ucmd );
+CCALL int ForcePowerUsableOn(gentity_t *attacker, gentity_t *other, forcePowers_t forcePower);
+CCALL void ForceHeal( gentity_t *self );
+CCALL void ForceSpeed( gentity_t *self, int forceDuration );
+CCALL void ForceRage( gentity_t *self );
+CCALL void ForceGrip( gentity_t *self );
+CCALL void ForceProtect( gentity_t *self );
+CCALL void ForceAbsorb( gentity_t *self );
+CCALL void ForceTeamHeal( gentity_t *self );
+CCALL void ForceTeamForceReplenish( gentity_t *self );
+CCALL void ForceSeeing( gentity_t *self );
+CCALL void ForceThrow( gentity_t *self, qboolean pull );
+CCALL void ForceTelepathy(gentity_t *self);
+CCALL qboolean Jedi_DodgeEvasion( gentity_t *self, gentity_t *shooter, trace_t *tr, int hitLoc );
 
 // g_log.c
-void QDECL G_LogWeaponPickup(int client, int weaponid);
-void QDECL G_LogWeaponFire(int client, int weaponid);
-void QDECL G_LogWeaponDamage(int client, int mod, int amount);
-void QDECL G_LogWeaponKill(int client, int mod);
-void QDECL G_LogWeaponDeath(int client, int weaponid);
-void QDECL G_LogWeaponFrag(int attacker, int deadguy);
-void QDECL G_LogWeaponPowerup(int client, int powerupid);
-void QDECL G_LogWeaponItem(int client, int itemid);
-void QDECL G_LogWeaponInit(void);
-void QDECL G_LogWeaponOutput(void);
-void QDECL G_LogExit( const char *string );
-void QDECL G_ClearClientLog(int client);
+CCALL void QDECL G_LogWeaponPickup(int client, int weaponid);
+CCALL void QDECL G_LogWeaponFire(int client, int weaponid);
+CCALL void QDECL G_LogWeaponDamage(int client, int mod, int amount);
+CCALL void QDECL G_LogWeaponKill(int client, int mod);
+CCALL void QDECL G_LogWeaponDeath(int client, int weaponid);
+CCALL void QDECL G_LogWeaponFrag(int attacker, int deadguy);
+CCALL void QDECL G_LogWeaponPowerup(int client, int powerupid);
+CCALL void QDECL G_LogWeaponItem(int client, int itemid);
+CCALL void QDECL G_LogWeaponInit(void);
+CCALL void QDECL G_LogWeaponOutput(void);
+CCALL void QDECL G_LogExit( const char *string );
+CCALL void QDECL G_ClearClientLog(int client);
 
 // g_siege.c
-void InitSiegeMode(void);
-void G_SiegeClientExData(gentity_t *msgTarg);
+CCALL void InitSiegeMode(void);
+CCALL void G_SiegeClientExData(gentity_t *msgTarg);
 
 // g_timer
 //Timing information
-void		TIMER_Clear( void );
-void		TIMER_Clear2( gentity_t *ent );
-void		TIMER_Set( gentity_t *ent, const char *identifier, int duration );
-int			TIMER_Get( gentity_t *ent, const char *identifier );
-qboolean	TIMER_Done( gentity_t *ent, const char *identifier );
-qboolean	TIMER_Start( gentity_t *self, const char *identifier, int duration );
-qboolean	TIMER_Done2( gentity_t *ent, const char *identifier, qboolean remove );
-qboolean	TIMER_Exists( gentity_t *ent, const char *identifier );
-void		TIMER_Remove( gentity_t *ent, const char *identifier );
+CCALL void		TIMER_Clear( void );
+CCALL void		TIMER_Clear2( gentity_t *ent );
+CCALL void		TIMER_Set( gentity_t *ent, const char *identifier, int duration );
+CCALL int			TIMER_Get( gentity_t *ent, const char *identifier );
+CCALL qboolean	TIMER_Done( gentity_t *ent, const char *identifier );
+CCALL qboolean	TIMER_Start( gentity_t *self, const char *identifier, int duration );
+CCALL qboolean	TIMER_Done2( gentity_t *ent, const char *identifier, qboolean remove );
+CCALL qboolean	TIMER_Exists( gentity_t *ent, const char *identifier );
+CCALL void		TIMER_Remove( gentity_t *ent, const char *identifier );
 
-float NPC_GetHFOVPercentage( vec3_t spot, vec3_t from, vec3_t facing, float hFOV );
-float NPC_GetVFOVPercentage( vec3_t spot, vec3_t from, vec3_t facing, float vFOV );
+CCALL float NPC_GetHFOVPercentage( vec3_t spot, vec3_t from, vec3_t facing, float hFOV );
+CCALL float NPC_GetVFOVPercentage( vec3_t spot, vec3_t from, vec3_t facing, float vFOV );
 
 
 extern void G_SetEnemy (gentity_t *self, gentity_t *enemy);
-qboolean InFront( vec3_t spot, vec3_t from, vec3_t fromAngles, float threshHold );
+CCALL qboolean InFront( vec3_t spot, vec3_t from, vec3_t fromAngles, float threshHold );
 
 // ai_main.c
 #define MAX_FILEPATH			144
 
-int		OrgVisible		( vec3_t org1, vec3_t org2, int ignore);
-void	BotOrder		( gentity_t *ent, int clientnum, int ordernum);
-int		InFieldOfVision	( vec3_t viewangles, float fov, vec3_t angles);
+CCALL int		OrgVisible		( vec3_t org1, vec3_t org2, int ignore);
+CCALL void	BotOrder		( gentity_t *ent, int clientnum, int ordernum);
+CCALL int		InFieldOfVision	( vec3_t viewangles, float fov, vec3_t angles);
 
 // ai_util.c
-void B_InitAlloc(void);
-void B_CleanupAlloc(void);
+CCALL void B_InitAlloc(void);
+CCALL void B_CleanupAlloc(void);
 
 //bot settings
 typedef struct bot_settings_s
@@ -1481,12 +1470,12 @@ typedef struct bot_settings_s
 	char team[MAX_FILEPATH];
 } bot_settings_t;
 
-int BotAISetup( int restart );
-int BotAIShutdown( int restart );
-int BotAILoadMap( int restart );
-int BotAISetupClient(int client, struct bot_settings_s *settings, qboolean restart);
-int BotAIShutdownClient( int client, qboolean restart );
-int BotAIStartFrame( int time );
+CCALL int BotAISetup( int restart );
+CCALL int BotAIShutdown( int restart );
+CCALL int BotAILoadMap( int restart );
+CCALL int BotAISetupClient(int client, struct bot_settings_s *settings, qboolean restart);
+CCALL int BotAIShutdownClient( int client, qboolean restart );
+CCALL int BotAIStartFrame( int time );
 
 #include "g_team.h" // teamplay specific stuff
 

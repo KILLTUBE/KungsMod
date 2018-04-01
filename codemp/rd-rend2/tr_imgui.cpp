@@ -3,13 +3,13 @@
 #include "imgui/include_imgui.h"
 #include "imgui_openjk/imgui_openjk_default_docks.h"
 
-void RE_KeyEvent(int key, int state) {
+CCALL void R_KeyEvent(int key, int state) {
 	ImGuiIO& io = ImGui::GetIO();
 	if (key >= 0 && key <= 256)
 		io.KeysDown[key] = state;
 }
 
-void RE_CharEvent(int key) {
+CCALL void R_CharEvent(int key) {
 	// basically just this: https://github.com/ocornut/imgui/blob/69e700f8694f89707b7aec91551f4a9546684040/examples/directx9_example/imgui_impl_dx9.cpp#L273
 	// with a round trip from client.exe to renderer.dll
 	// You can also use ToAscii()+GetKeyboardState() to retrieve characters.
@@ -19,11 +19,11 @@ void RE_CharEvent(int key) {
 	}
 }
 
-void RE_MouseWheelEvent(float dir) {
+CCALL void R_MouseWheelEvent(float dir) {
 	imgui_mouse_wheel(dir);
 }
 
-void RE_MouseClickEvent(int key, int state) {
+CCALL void R_MouseClickEvent(int key, int state) {
 	if (key >= 0 && key <= 4)
 		imgui_mouse_set_button(key, state);
 }

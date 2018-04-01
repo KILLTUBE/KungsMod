@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include "tr_allocator.h"
 #include "tr_weather.h"
 #include <algorithm>
+#include "../cgame/cg_tempwrappers.h"
 
 static size_t FRAME_UNIFORM_BUFFER_SIZE = 8*1024*1024;
 static size_t FRAME_VERTEX_BUFFER_SIZE = 12*1024*1024;
@@ -1907,11 +1908,11 @@ extern qboolean gG2_GBMUseSPMethod;
 static void G2API_BoltMatrixReconstruction( qboolean reconstruct ) { gG2_GBMNoReconstruct = (qboolean)!reconstruct; }
 static void G2API_BoltMatrixSPMethod( qboolean spMethod ) { gG2_GBMUseSPMethod = spMethod; }
 
-static float GetDistanceCull( void ) { return tr.distanceCull; }
+CCALL float GetDistanceCull( void ) { return tr.distanceCull; }
 
-extern void R_SVModelInit( void ); //tr_model.cpp
+CCALL void R_SVModelInit( void ); //tr_model.cpp
 
-static void GetRealRes( int *w, int *h ) {
+CCALL void GetRealRes( int *w, int *h ) {
 	*w = glConfig.vidWidth;
 	*h = glConfig.vidHeight;
 }
@@ -1970,7 +1971,7 @@ void C_LevelLoadBegin(const char *psMapName, ForceReload_e eForceReload)
 	}
 }
 
-int C_GetLevel( void )
+CCALL int C_GetLevel( void )
 {
 	return tr.currentLevel;
 }
@@ -1983,10 +1984,10 @@ void C_LevelLoadEnd( void )
 }
 
 
-void RE_KeyEvent(int key, int state);
-void RE_CharEvent(int key);
-void RE_MouseWheelEvent(float dir);
-void RE_MouseClickEvent(int key, int state);
+CCALL void R_KeyEvent(int key, int state);
+CCALL void R_CharEvent(int key);
+CCALL void R_MouseWheelEvent(float dir);
+CCALL void R_MouseClickEvent(int key, int state);
 
 /*
 @@@@@@@@@@@@@@@@@@@@@
@@ -2075,16 +2076,8 @@ Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 	re.WorldEffectCommand = stub_RE_WorldEffectCommand;
 	re.RegisterMedia_LevelLoadBegin = C_LevelLoadBegin;
 	re.RegisterMedia_LevelLoadEnd = C_LevelLoadEnd;
-	re.RegisterMedia_GetLevel = C_GetLevel;
-	re.RegisterImages_LevelLoadEnd = C_Images_LevelLoadEnd;
-	re.RegisterModels_LevelLoadEnd = C_Models_LevelLoadEnd;
 
-	re.TakeVideoFrame = RE_TakeVideoFrame;
 
-	re.InitSkins							= R_InitSkins;
-	re.InitShaders							= R_InitShaders;
-	re.SVModelInit							= R_SVModelInit;
-	re.HunkClearCrap						= RE_HunkClearCrap;
 
 	re.G2API_AddBolt						= G2API_AddBolt;
 	re.G2API_AddBoltSurfNum					= G2API_AddBoltSurfNum;
@@ -2179,15 +2172,6 @@ Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 	re.G2API_AddSkinGore					= G2API_AddSkinGore;
 	re.G2API_ClearSkinGore					= G2API_ClearSkinGore;
 	#endif // _SOF2
-
-	/*
-	Ghoul2 Insert End
-	*/
-
-	re.KeyEvent								= RE_KeyEvent;
-	re.CharEvent							= RE_CharEvent;
-	re.MouseWheelEvent						= RE_MouseWheelEvent;
-	re.MouseClickEvent						= RE_MouseClickEvent;
 
 	return &re;
 }

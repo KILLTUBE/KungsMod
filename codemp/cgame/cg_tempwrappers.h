@@ -200,9 +200,21 @@ CCALL void CM_TransformedBoxTrace( trace_t *trace, const vec3_t start, const vec
 CCALL void RE_BeginFrame( stereoFrame_t stereoFrame );
 CCALL void RE_EndFrame( int *frontEndMsec, int *backEndMsec );
 
+CCALL int C_GetLevel( void );
+CCALL qboolean C_Models_LevelLoadEnd( qboolean deleteUnusedByLevel );
+CCALL qboolean C_Images_LevelLoadEnd();
 
+CCALL void R_KeyEvent(int key, int state);
+CCALL void R_CharEvent(int key);
+CCALL void R_MouseWheelEvent(float dir);
+CCALL void R_MouseClickEvent(int key, int state);
 
+CCALL void R_HunkClearCrap(void);
+CCALL void R_InitShaders( qboolean server );
 
+CCALL void RE_TakeVideoFrame( int width, int height, byte *captureBuffer, byte *encodeBuffer, qboolean motionJpeg );
+CCALL void R_SVModelInit( void );
+CCALL void	R_InitSkins( void );
 
 
 #endif

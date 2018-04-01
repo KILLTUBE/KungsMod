@@ -1446,17 +1446,17 @@ void CL_KeyEvent (int key, qboolean down, unsigned time) {
 
 	if ( Key_GetCatcher() & KEYCATCH_IMGUI ) {
 		switch (key) {
-			case A_MOUSE1: re->MouseClickEvent(0, down); return;
-			case A_MOUSE2: re->MouseClickEvent(1, down); return;
-			case A_MOUSE3: re->MouseClickEvent(2, down); return;
-			case A_MOUSE4: re->MouseClickEvent(3, down); return;
-			case A_MOUSE5: re->MouseClickEvent(4, down); return;
+			case A_MOUSE1: R_MouseClickEvent(0, down); return;
+			case A_MOUSE2: R_MouseClickEvent(1, down); return;
+			case A_MOUSE3: R_MouseClickEvent(2, down); return;
+			case A_MOUSE4: R_MouseClickEvent(3, down); return;
+			case A_MOUSE5: R_MouseClickEvent(4, down); return;
 			default:
-				re->KeyEvent( key, down );
+				R_KeyEvent( key, down );
 		}
 		if (down) {
-			if (key == A_MWHEELUP  ) re->MouseWheelEvent( 1.0);
-			if (key == A_MWHEELDOWN) re->MouseWheelEvent(-1.0);
+			if (key == A_MWHEELUP  ) R_MouseWheelEvent( 1.0);
+			if (key == A_MWHEELDOWN) R_MouseWheelEvent(-1.0);
 		}
 		return;
 	}
@@ -1480,7 +1480,7 @@ void CL_CharEvent( int key ) {
 		return;
 
 	// distribute the key down event to the appropriate handler
-		 if ( Key_GetCatcher() & KEYCATCH_IMGUI )		re->CharEvent( key );
+		 if ( Key_GetCatcher() & KEYCATCH_IMGUI )		R_CharEvent( key );
 	else if ( Key_GetCatcher() & KEYCATCH_CONSOLE )		Field_CharEvent( &g_consoleField, key );
 	else if ( Key_GetCatcher() & KEYCATCH_UI )			UIVM_KeyEvent( key|K_CHAR_FLAG, qtrue );
 	else if ( Key_GetCatcher() & KEYCATCH_CGAME )		CGVM_KeyEvent( key|K_CHAR_FLAG, qtrue );

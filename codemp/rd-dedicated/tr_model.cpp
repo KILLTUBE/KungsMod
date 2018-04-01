@@ -1575,7 +1575,7 @@ void R_ModelInit( void )
 }
 
 extern void KillTheShaderHashTable(void);
-void RE_HunkClearCrap(void)
+void R_HunkClearCrap(void)
 { //get your dirty sticky assets off me, you damn dirty hunk!
 	KillTheShaderHashTable();
 	tr.numModels = 0;

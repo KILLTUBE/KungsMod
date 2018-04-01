@@ -29,6 +29,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "qcommon/stringed_ingame.h"
 #include "sv_gameapi.h"
 #include "botlib/botlib.h"
+#include "cgame/cg_tempwrappers.h"
+
 /*
 ===============
 SV_SendConfigstring
@@ -497,8 +499,8 @@ Ghoul2 Insert End
 	// clear the whole hunk because we're (re)loading the server
 	Hunk_Clear();
 
-	re->InitSkins();
-	re->InitShaders(qtrue);
+	R_InitSkins();
+	R_InitShaders(qtrue);
 
 	// init client structures and svs.numSnapshotEntities
 	if ( !Cvar_VariableValue("sv_running") ) {
@@ -532,7 +534,7 @@ Ghoul2 Insert Start
 	*/
 	if (com_dedicated->integer)
 	{
-		re->SVModelInit();
+		R_SVModelInit();
 	}
 
 	SV_SendMapChange();

@@ -227,7 +227,7 @@ void *Z_Malloc(int iSize, memtag_t eTag, qboolean bZeroit /* = qfalse */, int iU
 #ifndef DEDICATED
 			// ditch any image_t's (and associated GL memory) not used on this level...
 			//
-			if (re->RegisterImages_LevelLoadEnd())
+			if (C_Images_LevelLoadEnd())
 			{
 				gbMemFreeupOccured = qtrue;
 				continue;		// we've dropped at least one image, so try again with the malloc
@@ -236,7 +236,7 @@ void *Z_Malloc(int iSize, memtag_t eTag, qboolean bZeroit /* = qfalse */, int iU
 
 			// ditch the model-binaries cache...  (must be getting desperate here!)
 			//
-			if ( re->RegisterModels_LevelLoadEnd(qtrue) )
+			if ( C_Models_LevelLoadEnd(qtrue) )
 			{
 				gbMemFreeupOccured = qtrue;
 				continue;
@@ -774,7 +774,7 @@ Hunk_Clear
 The server calls this before shutting down or loading a new map
 =================
 */
-void R_HunkClearCrap(void);
+CCALL void R_HunkClearCrap(void);
 #ifdef _FULL_G2_LEAK_CHECKING
 void G2_DEBUG_ReportLeaks(void);
 #endif
@@ -795,8 +795,8 @@ void Hunk_Clear( void ) {
 	Z_TagFree(TAG_HUNK_MARK1);
 	Z_TagFree(TAG_HUNK_MARK2);
 
-	if ( re && re->HunkClearCrap ) {
-		re->HunkClearCrap();
+	if ( re && R_HunkClearCrap ) {
+		R_HunkClearCrap();
 	}
 
 //	Com_Printf( "Hunk_Clear: reset the hunk ok\n" );

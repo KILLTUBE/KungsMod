@@ -1919,7 +1919,7 @@ void RE_SetRangedFog( float dist )
 }
 
 //bool inServer = false;
-void RE_SVModelInit( void )
+CCALL void RE_SVModelInit( void )
 {
 	tr.numModels = 0;
 	tr.numShaders = 0;

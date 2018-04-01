@@ -283,13 +283,13 @@ Determines whether or not an entity needs ICARUS information
 ==============
 */
 
-CCALL bool ICARUS_ValidEnt( sharedEntity_t *ent )
+CCALL qboolean ICARUS_ValidEnt( sharedEntity_t *ent )
 {
 	int i;
 
 	//Targeted by a script
 	if VALIDSTRING( ent->script_targetname )
-		return true;
+		return qtrue;
 
 	//Potentially able to call a script
 	for ( i = 0; i < NUM_BSETS; i++ )
@@ -307,11 +307,11 @@ CCALL bool ICARUS_ValidEnt( sharedEntity_t *ent )
 			//This works because we're modifying the actual shared game vm data and turning one pointer into another.
 			//While these pointers both look like garbage to us in here, they are not.
 			trueEntity->script_targetname = trueEntity->targetname;
-			return true;
+			return qtrue;
 		}
 	}
 
-	return false;
+	return qfalse;
 }
 
 /*

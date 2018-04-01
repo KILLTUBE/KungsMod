@@ -88,7 +88,7 @@ private:
 	FileCache files;
 };
 
-qboolean C_Models_LevelLoadEnd( qboolean deleteUnusedByLevel );
-qboolean C_Images_LevelLoadEnd();
+CCALL qboolean C_Models_LevelLoadEnd( qboolean deleteUnusedByLevel );
+CCALL qboolean C_Images_LevelLoadEnd();
 
 extern CModelCacheManager *CModelCache;
