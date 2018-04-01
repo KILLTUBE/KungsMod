@@ -40,111 +40,6 @@
     <ClCompile Include="C:\XycaRend2\codemp\game\WalkerNPC.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_consolecmds.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_cvar.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_draw.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_drawtools.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_effects.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_ents.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_event.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_info.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_light.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_localents.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_main.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_marks.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_newDraw.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_players.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_playerstate.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_predict.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_saga.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_scoreboard.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_servercmds.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_snapshot.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_spawn.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_syscalls.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_turret.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_view.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_weaponinit.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\cg_weapons.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\fx_blaster.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\fx_bowcaster.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\fx_bryarpistol.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\fx_demp2.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\fx_disruptor.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\fx_flechette.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\fx_force.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\fx_heavyrepeater.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\cgame\fx_rocketlauncher.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\qcommon\q_shared.c">
       <Filter>common</Filter>
     </ClCompile>
@@ -165,15 +60,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\codemp\game\bg_panimate.c">
       <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\shared\sys\snapvector.cpp">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\codemp\cgame\cg_tempwrappers.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\codemp\cgame\cg_tempwrappers_g2.c">
-      <Filter>cgame</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\codemp\cgame\cg_notrap.c" />
   </ItemGroup>
@@ -203,12 +89,6 @@
       <Filter>cgame</Filter>
     </ClInclude>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
-      <Filter>cgame</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_xcvar.h">
-      <Filter>cgame</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\cgame\fx_local.h">
       <Filter>cgame</Filter>
     </ClInclude>
     <ClInclude Include="C:\XycaRend2\codemp\qcommon\disablewarnings.h">

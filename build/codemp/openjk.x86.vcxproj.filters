@@ -1117,6 +1117,117 @@
     <ClCompile Include="..\..\codemp\ui\ui_saber.c">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_weapons.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_weaponinit.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_view.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_consolecmds.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_cvar.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_draw.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_drawtools.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_effects.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_ents.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_event.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_info.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_light.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_localents.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_main.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_marks.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_newDraw.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_players.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_predict.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_playerstate.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_saga.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_scoreboard.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_servercmds.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_snapshot.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_spawn.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_syscalls.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_tempwrappers.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_tempwrappers_g2.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_turret.c">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_blaster.c">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_bowcaster.c">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_bryarpistol.c">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_demp2.c">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_disruptor.c">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_flechette.c">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_force.c">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_heavyrepeater.c">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_rocketlauncher.c">
+      <Filter>fx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
@@ -1878,6 +1989,18 @@
     <ClInclude Include="..\..\codemp\ui\ui_only_c_defines.h">
       <Filter>ui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_xcvar.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\animtable.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_tempwrappers.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\fx_local.h">
+      <Filter>fx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt" />
@@ -1976,6 +2099,9 @@
     </Filter>
     <Filter Include="gamecgamemix">
       <UniqueIdentifier>{e1b5a8d4-e227-4ada-8c6d-319094731b26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fx">
+      <UniqueIdentifier>{de4eb1aa-b49e-4b55-9623-4c79533d4daa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

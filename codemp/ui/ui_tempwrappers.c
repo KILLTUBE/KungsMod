@@ -97,7 +97,7 @@ CCALL int				FX_RegisterEffect					( const char *file ) {
 	__debugbreak();
 	return 0;
 }
-
+/*
 CCALL qboolean isGame() {
 	return (qboolean)(0);
 }
@@ -107,7 +107,7 @@ CCALL qboolean isCGame() {
 CCALL qboolean isUI() {
 	return (qboolean)(1);
 }
-
+*/
 CCALL int	FS_Read	( void *buffer, int len, fileHandle_t f ) {
 	return trap->FS_Read(buffer, len, f);
 	__debugbreak();

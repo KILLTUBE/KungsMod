@@ -1,6 +1,10 @@
 
 #include <cgame/cg_local.h>
+EXTERNC cgameImport_t *trap;
 
+
+
+#if 0
 
 CCALL void SV_G2API_ListModelSurfaces( void *ghlInfo ) {
 	//re->G2API_ListSurfaces( (CGhoul2Info *)ghlInfo );
@@ -327,3 +331,4 @@ CCALL void SV_G2API_GetSurfaceName( void *ghoul2, int surfNumber, int modelIndex
 	//strcpy( fillBuf, tmp );
 	assert(0);
 }
+#endif

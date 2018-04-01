@@ -29,6 +29,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "game/bg_public.h"
 #include "cg_public.h"
 
+
 // The entire cgame module is unloaded and reloaded on each level change,
 // so there is NO persistant data between levels on the client side.
 // If you absolutely need something stored, it can either be kept
@@ -2076,3 +2077,16 @@ EXTERNC		cvar_t	*com_buildScript;		// for building release pak files
 EXTERNC		cvar_t	*com_cameraMode;
 EXTERNC cvar_t	*g_gravity;
 
+CCALL int	FX_RegisterEffect(const char *file);
+CCALL void FX_PlayEffect( const char *file, vec3_t org, vec3_t fwd, int vol, int rad );		// builds arbitrary perp. right vector, does a cross product to define up
+CCALL void FX_PlayEffectID( int id, vec3_t org, vec3_t fwd, int vol, int rad, qboolean isPortal);		// builds arbitrary perp. right vector, does a cross product to define up
+CCALL void FX_PlayEntityEffectID( int id, vec3_t org, matrix3_t axis, const int boltInfo, const int entNum, int vol, int rad );
+//CCALL void FX_PlayBoltedEffectID( int id, vec3_t org, const int boltInfo, CGhoul2Info_v *ghoul2, int iLooptime, qboolean isRelative );
+CCALL void FX_AddScheduledEffects( qboolean portal );
+CCALL void		FX_Draw2DEffects ( float screenXScale, float screenYScale );
+CCALL int			FX_InitSystem( refdef_t* refdef );	// called in CG_Init to purge the fx system.
+CCALL void		FX_SetRefDefFromCGame( refdef_t* refdef );
+CCALL qboolean	FX_FreeSystem( void );	// ditches all active effects;
+CCALL void		FX_AdjustTime( int time );
+
+CCALL void CGFX_AddLine( vec3_t start, vec3_t end, float size1, float size2, float sizeParm, float alpha1, float alpha2, float alphaParm, vec3_t sRGB, vec3_t eRGB, float rgbParm, int killTime, qhandle_t shader, int flags );

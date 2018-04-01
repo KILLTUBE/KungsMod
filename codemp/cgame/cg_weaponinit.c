@@ -26,6 +26,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "fx_local.h"
 
 
+EXTERNC cgameImport_t *trap;
 /*
 =================
 CG_RegisterWeapon

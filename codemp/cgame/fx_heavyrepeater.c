@@ -39,7 +39,7 @@ void FX_RepeaterProjectileThink( centity_t *cent, const struct weaponInfo_s *wea
 		forward[2] = 1.0f;
 	}
 
-	trap->FX_PlayEffectID( cgs.effects.repeaterProjectileEffect, cent->lerpOrigin, forward, -1, -1, qfalse );
+	FX_PlayEffectID( cgs.effects.repeaterProjectileEffect, cent->lerpOrigin, forward, -1, -1, qfalse );
 }
 
 /*
@@ -50,7 +50,7 @@ FX_RepeaterHitWall
 
 void FX_RepeaterHitWall( vec3_t origin, vec3_t normal )
 {
-	trap->FX_PlayEffectID( cgs.effects.repeaterWallImpactEffect, origin, normal, -1, -1, qfalse );
+	FX_PlayEffectID( cgs.effects.repeaterWallImpactEffect, origin, normal, -1, -1, qfalse );
 }
 
 /*
@@ -61,7 +61,7 @@ FX_RepeaterHitPlayer
 
 void FX_RepeaterHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid )
 {
-	trap->FX_PlayEffectID( cgs.effects.repeaterFleshImpactEffect, origin, normal, -1, -1, qfalse );
+	FX_PlayEffectID( cgs.effects.repeaterFleshImpactEffect, origin, normal, -1, -1, qfalse );
 }
 
 static void CG_DistortionOrb( centity_t *cent )
@@ -129,7 +129,7 @@ static void CG_DistortionOrb( centity_t *cent )
 	ent.renderfx = RF_DISTORTION;
 #endif
 
-	trap->R_AddRefEntityToScene( &ent );
+	R_AddRefEntityToScene( &ent );
 }
 
 /*
@@ -151,7 +151,7 @@ void FX_RepeaterAltProjectileThink( centity_t *cent, const struct weaponInfo_s *
 	{
 		CG_DistortionOrb(cent);
 	}
-	trap->FX_PlayEffectID( cgs.effects.repeaterAltProjectileEffect, cent->lerpOrigin, forward, -1, -1, qfalse );
+	FX_PlayEffectID( cgs.effects.repeaterAltProjectileEffect, cent->lerpOrigin, forward, -1, -1, qfalse );
 }
 
 /*
@@ -162,7 +162,7 @@ FX_RepeaterAltHitWall
 
 void FX_RepeaterAltHitWall( vec3_t origin, vec3_t normal )
 {
-	trap->FX_PlayEffectID( cgs.effects.repeaterAltWallImpactEffect, origin, normal, -1, -1, qfalse );
+	FX_PlayEffectID( cgs.effects.repeaterAltWallImpactEffect, origin, normal, -1, -1, qfalse );
 }
 
 /*
@@ -173,5 +173,5 @@ FX_RepeaterAltHitPlayer
 
 void FX_RepeaterAltHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid )
 {
-	trap->FX_PlayEffectID( cgs.effects.repeaterAltWallImpactEffect, origin, normal, -1, -1, qfalse );
+	FX_PlayEffectID( cgs.effects.repeaterAltWallImpactEffect, origin, normal, -1, -1, qfalse );
 }

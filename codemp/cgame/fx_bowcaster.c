@@ -39,7 +39,7 @@ void FX_BowcasterProjectileThink( centity_t *cent, const struct weaponInfo_s *we
 		forward[2] = 1.0f;
 	}
 
-	trap->FX_PlayEffectID( cgs.effects.bowcasterShotEffect, cent->lerpOrigin, forward, -1, -1, qfalse );
+	FX_PlayEffectID( cgs.effects.bowcasterShotEffect, cent->lerpOrigin, forward, -1, -1, qfalse );
 }
 
 /*
@@ -50,7 +50,7 @@ FX_BowcasterHitWall
 
 void FX_BowcasterHitWall( vec3_t origin, vec3_t normal )
 {
-	trap->FX_PlayEffectID( cgs.effects.bowcasterImpactEffect, origin, normal, -1, -1, qfalse );
+	FX_PlayEffectID( cgs.effects.bowcasterImpactEffect, origin, normal, -1, -1, qfalse );
 }
 
 /*
@@ -61,7 +61,7 @@ FX_BowcasterHitPlayer
 
 void FX_BowcasterHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid )
 {
-	trap->FX_PlayEffectID( cgs.effects.bowcasterImpactEffect, origin, normal, -1, -1, qfalse );
+	FX_PlayEffectID( cgs.effects.bowcasterImpactEffect, origin, normal, -1, -1, qfalse );
 }
 
 /*
@@ -79,6 +79,6 @@ void FX_BowcasterAltProjectileThink( centity_t *cent, const struct weaponInfo_s 
 		forward[2] = 1.0f;
 	}
 
-	trap->FX_PlayEffectID( cgs.effects.bowcasterShotEffect, cent->lerpOrigin, forward, -1, -1, qfalse );
+	FX_PlayEffectID( cgs.effects.bowcasterShotEffect, cent->lerpOrigin, forward, -1, -1, qfalse );
 }
 

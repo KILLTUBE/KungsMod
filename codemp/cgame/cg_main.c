@@ -28,6 +28,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "cg_tempwrappers.h"
 
 #include "ui/ui_shared.h"
+EXTERNC cgameImport_t *trap;
 // display context for new ui stuff
 displayContextDef_t cgDC;
 

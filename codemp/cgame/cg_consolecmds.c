@@ -29,6 +29,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "game/bg_saga.h"
 #include "ui/ui_shared.h"
 
+EXTERNC cgameImport_t *trap;
 /*
 =================
 CG_TargetCommand_f

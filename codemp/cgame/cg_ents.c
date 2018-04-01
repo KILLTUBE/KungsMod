@@ -33,6 +33,7 @@ Ghoul2 Insert Start
 /*
 Ghoul2 Insert end
 */
+EXTERNC cgameImport_t *trap;
 
 extern qboolean CG_InFighter( void );
 static void CG_Missile( centity_t *cent );

@@ -39,7 +39,7 @@ void FX_DEMP2_ProjectileThink( centity_t *cent, const struct weaponInfo_s *weapo
 		forward[2] = 1.0f;
 	}
 
-	trap->FX_PlayEffectID( cgs.effects.demp2ProjectileEffect, cent->lerpOrigin, forward, -1, -1, qfalse );
+	FX_PlayEffectID( cgs.effects.demp2ProjectileEffect, cent->lerpOrigin, forward, -1, -1, qfalse );
 }
 
 /*
@@ -50,7 +50,7 @@ FX_DEMP2_HitWall
 
 void FX_DEMP2_HitWall( vec3_t origin, vec3_t normal )
 {
-	trap->FX_PlayEffectID( cgs.effects.demp2WallImpactEffect, origin, normal, -1, -1, qfalse );
+	FX_PlayEffectID( cgs.effects.demp2WallImpactEffect, origin, normal, -1, -1, qfalse );
 }
 
 /*
@@ -61,7 +61,7 @@ FX_DEMP2_HitPlayer
 
 void FX_DEMP2_HitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid )
 {
-	trap->FX_PlayEffectID( cgs.effects.demp2FleshImpactEffect, origin, normal, -1, -1, qfalse );
+	FX_PlayEffectID( cgs.effects.demp2FleshImpactEffect, origin, normal, -1, -1, qfalse );
 }
 
 /*
