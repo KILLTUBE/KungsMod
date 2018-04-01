@@ -2448,7 +2448,7 @@ gentity_t *GetNearestBadThing(bot_state_t *bs)
 				if (ent->s.weapon && glen <= 256 && bs->settings.skill > 2)
 				{ //it's a projectile so push it away
 					bs->doForcePush = level.time + 700;
-					//trap->Print("PUSH PROJECTILE\n");
+					//Com_Printf("PUSH PROJECTILE\n");
 				}
 			}
 			else
@@ -2857,7 +2857,7 @@ int CTFTakesPriority(bot_state_t *bs)
 #ifdef BOT_CTF_DEBUG
 	vec3_t t;
 
-	trap->Print("CTFSTATE: %s\n", ctfStateNames[bs->ctfState]);
+	Com_Printf("CTFSTATE: %s\n", ctfStateNames[bs->ctfState]);
 #endif
 
 	if (level.gametype != GT_CTF && level.gametype != GT_CTY)
@@ -3182,7 +3182,7 @@ hasPoint:
 
 	if (bs->touchGoal)
 	{
-		//trap->Print("Please, master, let me touch it!\n");
+		//Com_Printf("Please, master, let me touch it!\n");
 		VectorCopy(dif, bs->goalPosition);
 	}
 
@@ -3793,10 +3793,10 @@ void GetIdealDestination(bot_state_t *bs)
 
 				bs->escapeDirTime = level.time + Q_irand(500, 1000);//Q_irand(1000, 1400);
 
-				//trap->Print("Escaping from scary bad thing [%s]\n", badthing->classname);
+				//Com_Printf("Escaping from scary bad thing [%s]\n", badthing->classname);
 			}
 		}
-		//trap->Print("Run away run away run away!\n");
+		//Com_Printf("Run away run away run away!\n");
 		return;
 	}
 
@@ -3934,7 +3934,7 @@ void GetIdealDestination(bot_state_t *bs)
 
 	if (!bs->wpDestination && bs->wpDestSwitchTime < level.time)
 	{
-		//trap->Print("I need something to do\n");
+		//Com_Printf("I need something to do\n");
 		idleWP = GetBestIdleGoal(bs);
 
 		if (idleWP != -1 && gWPArray[idleWP] && gWPArray[idleWP]->inuse)
@@ -4677,7 +4677,7 @@ void BotAimLeading(bot_state_t *bs, vec3_t headlevel, float leadAmount)
 		vtotal += bs->currentEnemy->client->ps.velocity[2];
 	}
 
-	//trap->Print("Leadin target with a velocity total of %f\n", vtotal);
+	//Com_Printf("Leadin target with a velocity total of %f\n", vtotal);
 
 	VectorCopy(bs->currentEnemy->client->ps.velocity, movementVector);
 

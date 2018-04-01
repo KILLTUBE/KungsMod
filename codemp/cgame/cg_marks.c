@@ -68,7 +68,7 @@ CG_FreeMarkPoly
 */
 void CG_FreeMarkPoly( markPoly_t *le ) {
 	if ( !le->prevMark ) {
-		trap->Error( ERR_DROP, "CG_FreeLocalEntity: not active" );
+		Com_Error( ERR_DROP, "CG_FreeLocalEntity: not active" );
 	}
 
 	// remove from the doubly linked active list
@@ -155,7 +155,7 @@ void CG_ImpactMark( qhandle_t markShader, const vec3_t origin, const vec3_t dir,
 	}
 
 	if ( radius <= 0 ) {
-		trap->Error( ERR_DROP, "CG_ImpactMark called with <= 0 radius" );
+		Com_Error( ERR_DROP, "CG_ImpactMark called with <= 0 radius" );
 	}
 
 	//if ( markTotal >= MAX_MARK_POLYS ) {

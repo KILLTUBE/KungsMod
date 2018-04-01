@@ -64,7 +64,7 @@ void CG_RegisterWeapon( int weaponNum) {
 		}
 	}
 	if ( !item->classname ) {
-		trap->Error( ERR_DROP, "Couldn't find weapon %i", weaponNum );
+		Com_Error( ERR_DROP, "Couldn't find weapon %i", weaponNum );
 	}
 	CG_RegisterItemVisuals( item - bg_itemlist );
 

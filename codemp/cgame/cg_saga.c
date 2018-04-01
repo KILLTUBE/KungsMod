@@ -61,7 +61,7 @@ void CG_PrecacheSiegeObjectiveAssetsForTeam(int myTeam)
 
 	if (!siege_valid)
 	{
-		trap->Error( ERR_DROP, "Siege data does not exist on client!\n");
+		Com_Error( ERR_DROP, "Siege data does not exist on client!\n");
 		return;
 	}
 
@@ -248,7 +248,7 @@ void CG_InitSiegeMode(void)
 	}
 	else
 	{
-		trap->Error( ERR_DROP, "Siege teams not defined");
+		Com_Error( ERR_DROP, "Siege teams not defined");
 	}
 
 	if (BG_SiegeGetValueGroup(siege_info, team1, teamInfo))
@@ -270,7 +270,7 @@ void CG_InitSiegeMode(void)
 	}
 	else
 	{
-		trap->Error( ERR_DROP, "No team entry for '%s'\n", team1);
+		Com_Error( ERR_DROP, "No team entry for '%s'\n", team1);
 	}
 
 	if (BG_SiegeGetPairedValue(siege_info, "mapgraphic", teamInfo))
@@ -310,7 +310,7 @@ void CG_InitSiegeMode(void)
 	}
 	else
 	{
-		trap->Error( ERR_DROP, "No team entry for '%s'\n", team2);
+		Com_Error( ERR_DROP, "No team entry for '%s'\n", team2);
 	}
 
 	//Load the player class types
@@ -318,7 +318,7 @@ void CG_InitSiegeMode(void)
 
 	if (!bgNumSiegeClasses)
 	{ //We didn't find any?!
-		trap->Error( ERR_DROP, "Couldn't find any player classes for Siege");
+		Com_Error( ERR_DROP, "Couldn't find any player classes for Siege");
 	}
 
 	//Now load the teams since we have class data.
@@ -326,7 +326,7 @@ void CG_InitSiegeMode(void)
 
 	if (!bgNumSiegeTeams)
 	{ //React same as with classes.
-		trap->Error( ERR_DROP, "Couldn't find any player teams for Siege");
+		Com_Error( ERR_DROP, "Couldn't find any player teams for Siege");
 	}
 
 	//Get and set the team themes for each team. This will control which classes can be
@@ -581,7 +581,7 @@ void CG_SiegeRoundOver(centity_t *ent, int won)
 
 	if (!siege_valid)
 	{
-		trap->Error( ERR_DROP, "ERROR: Siege data does not exist on client!\n");
+		Com_Error( ERR_DROP, "ERROR: Siege data does not exist on client!\n");
 		return;
 	}
 
@@ -893,7 +893,7 @@ void CG_SiegeObjectiveCompleted(centity_t *ent, int won, int objectivenum)
 
 	if (!siege_valid)
 	{
-		trap->Error( ERR_DROP, "Siege data does not exist on client!\n");
+		Com_Error( ERR_DROP, "Siege data does not exist on client!\n");
 		return;
 	}
 

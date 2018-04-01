@@ -139,7 +139,7 @@ static void CG_Obituary( entityState_t *ent ) {
 	mod = ent->eventParm;
 
 	if ( target < 0 || target >= MAX_CLIENTS ) {
-		trap->Error( ERR_DROP, "CG_Obituary: target out of range" );
+		Com_Error( ERR_DROP, "CG_Obituary: target out of range" );
 	}
 	ci = &cgs.clientinfo[target];
 
@@ -266,7 +266,7 @@ static void CG_Obituary( entityState_t *ent ) {
 		}
 		message = (char *)CG_GetStringEdString("MP_INGAME", message);
 
-		trap->Print( "%s %s\n", targetName, message);
+		Com_Printf( "%s %s\n", targetName, message);
 		return;
 	}
 
@@ -444,14 +444,14 @@ clientkilled:
 		if (message) {
 			message = (char *)CG_GetStringEdString("MP_INGAME", message);
 
-			trap->Print( "%s %s %s\n",
+			Com_Printf( "%s %s %s\n",
 				targetName, message, attackerName);
 			return;
 		}
 	}
 
 	// we don't know what it was
-	trap->Print( "%s %s\n", targetName, (char *)CG_GetStringEdString("MP_INGAME", "DIED_GENERIC") );
+	Com_Printf( "%s %s\n", targetName, (char *)CG_GetStringEdString("MP_INGAME", "DIED_GENERIC") );
 }
 
 //==========================================================================
@@ -1293,7 +1293,7 @@ An entity has an event value
 also called by CG_CheckPlayerstateEvents
 ==============
 */
-#define	DEBUGNAME(x) if(cg_debugEvents->integer){trap->Print(x"\n");}
+#define	DEBUGNAME(x) if(cg_debugEvents->integer){Com_Printf(x"\n");}
 extern void CG_ChatBox_AddString(char *chatStr); //cg_draw.c
 void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 	entityState_t	*es;
@@ -1309,7 +1309,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 	event = es->event & ~EV_EVENT_BITS;
 
 	if ( cg_debugEvents->integer ) {
-		trap->Print( "ent:%3i  event:%3i ", es->number, event );
+		Com_Printf( "ent:%3i  event:%3i ", es->number, event );
 	}
 
 	if ( !event ) {
@@ -3162,7 +3162,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 					char vchatstr[1024] = {0};
 					Q_strncpyz(vchatstr, va("<%s^7: %s>\n", ci->name, descr), sizeof( vchatstr ) );
 					CG_ChatBox_AddString(vchatstr);
-					trap->Print("*%s", vchatstr);
+					Com_Printf("*%s", vchatstr);
 				}
 
 				//and play in world for everyone
@@ -3438,7 +3438,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 
 	default:
 		DEBUGNAME("UNKNOWN");
-		trap->Error( ERR_DROP, "Unknown event: %i", event );
+		Com_Error( ERR_DROP, "Unknown event: %i", event );
 		break;
 	}
 

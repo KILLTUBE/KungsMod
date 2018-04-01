@@ -89,7 +89,7 @@ qboolean CG_SpawnString( const char *key, const char *defaultString, char **out 
 
 	if( !cg.spawning ) {
 		*out = (char*)defaultString;
-		// trap->Error( ERR_DROP, "CG_SpawnString() called while not spawning" );
+		// Com_Error( ERR_DROP, "CG_SpawnString() called while not spawning" );
 	}
 
 	for( i = 0; i < cg.numSpawnVars; i++ ) {
@@ -141,7 +141,7 @@ qboolean CG_SpawnVector( const char *key, const char *defaultString, float *out 
 
 	present = CG_SpawnString( key, defaultString, &s );
 	if ( sscanf( s, "%f %f %f", &out[0], &out[1], &out[2] ) != 3 ) {
-		trap->Print( "CG_SpawnVector: Failed sscanf on %s (default: %s)\n", key, defaultString );
+		Com_Printf( "CG_SpawnVector: Failed sscanf on %s (default: %s)\n", key, defaultString );
 		VectorClear( out );
 		return qfalse;
 	}
@@ -162,13 +162,13 @@ void SP_misc_model_static_cg( void ) {
 	cg_staticmodel_t *staticmodel;
 
 	if( cgs.numMiscStaticModels >= MAX_STATIC_MODELS ) {
-		trap->Error( ERR_DROP, "MAX_STATIC_MODELS(%i) hit", MAX_STATIC_MODELS );
+		Com_Error( ERR_DROP, "MAX_STATIC_MODELS(%i) hit", MAX_STATIC_MODELS );
 	}
 
 	CG_SpawnString( "model", "", &model );
 
 	if( !model || !model[0] ) {
-		trap->Error( ERR_DROP, "misc_model_static with no model." );
+		Com_Error( ERR_DROP, "misc_model_static with no model." );
 	}
 
 	CG_SpawnVector( "origin", "0 0 0", org );
@@ -188,7 +188,7 @@ void SP_misc_model_static_cg( void ) {
 
 	modelIndex = R_RegisterModel( model );
 	if( modelIndex == 0 ) {
-		trap->Error( ERR_DROP, "misc_model_static failed to load model '%s'", model );
+		Com_Error( ERR_DROP, "misc_model_static failed to load model '%s'", model );
 		return;
 	}
 
@@ -230,7 +230,7 @@ vec3_t cg_skyOriPos;
 float cg_skyOriScale = 0.0f;
 void SP_misc_skyportal_orient_cg( void ) {
 	if( cg_skyOri )
-		trap->Print( S_COLOR_YELLOW "WARNING: multiple misc_skyportal_orients found.\n" );
+		Com_Printf( S_COLOR_YELLOW "WARNING: multiple misc_skyportal_orients found.\n" );
 
 	cg_skyOri = qtrue;
 	CG_SpawnVector( "origin", "0 0 0", cg_skyOriPos );
@@ -243,7 +243,7 @@ void SP_misc_weather_zone_cg( void ) {
 	CG_SpawnString( "model", "", &model );
 
 	if( !model || !model[0] ) {
-		trap->Error( ERR_DROP, "misc_weather_zone with invalid brush model data." );
+		Com_Error( ERR_DROP, "misc_weather_zone with invalid brush model data." );
 		return;
 	}
 
@@ -332,7 +332,7 @@ char *CG_AddSpawnVarToken( const char *string ) {
 
 	l = strlen( string );
 	if( cg.numSpawnVarChars + l + 1 > MAX_SPAWN_VARS_CHARS ) {
-		trap->Error( ERR_DROP, "CG_AddSpawnVarToken: MAX_SPAWN_VARS_CHARS" );
+		Com_Error( ERR_DROP, "CG_AddSpawnVarToken: MAX_SPAWN_VARS_CHARS" );
 	}
 
 	dest = cg.spawnVarChars + cg.numSpawnVarChars;
@@ -366,14 +366,14 @@ qboolean CG_ParseSpawnVars( void ) {
 	}
 
 	if( com_token[0] != '{' ) {
-		trap->Error( ERR_DROP, "CG_ParseSpawnVars: found %s when expecting {", com_token );
+		Com_Error( ERR_DROP, "CG_ParseSpawnVars: found %s when expecting {", com_token );
 	}
 
 	// go through all the key / value pairs
 	while( 1 ) {
 		// parse key
 		if( !trap->R_GetEntityToken( keyname, sizeof( keyname ) ) ) {
-			trap->Error( ERR_DROP, "CG_ParseSpawnVars: EOF without closing brace" );
+			Com_Error( ERR_DROP, "CG_ParseSpawnVars: EOF without closing brace" );
 		}
 
 		if( keyname[0] == '}' ) {
@@ -382,15 +382,15 @@ qboolean CG_ParseSpawnVars( void ) {
 
 		// parse value
 		if( !trap->R_GetEntityToken( com_token, sizeof( com_token ) ) ) {
-			trap->Error( ERR_DROP, "CG_ParseSpawnVars: EOF without closing brace" );
+			Com_Error( ERR_DROP, "CG_ParseSpawnVars: EOF without closing brace" );
 		}
 
 		if( com_token[0] == '}' ) {
-			trap->Error( ERR_DROP, "CG_ParseSpawnVars: closing brace without data" );
+			Com_Error( ERR_DROP, "CG_ParseSpawnVars: closing brace without data" );
 		}
 
 		if( cg.numSpawnVars == MAX_SPAWN_VARS ) {
-			trap->Error( ERR_DROP, "CG_ParseSpawnVars: MAX_SPAWN_VARS" );
+			Com_Error( ERR_DROP, "CG_ParseSpawnVars: MAX_SPAWN_VARS" );
 		}
 
 		cg.spawnVars[cg.numSpawnVars][0]	= CG_AddSpawnVarToken( keyname );
@@ -407,7 +407,7 @@ void SP_worldspawn_cg( void ) {
 
 	CG_SpawnString( "classname", "", &s );
 	if( Q_stricmp( s, "worldspawn" ) ) {
-		trap->Error( ERR_DROP, "SP_worldspawn_cg: The first entity isn't 'worldspawn'" );
+		Com_Error( ERR_DROP, "SP_worldspawn_cg: The first entity isn't 'worldspawn'" );
 	}
 
 	CG_SpawnFloat( "fogstart", "0", &cg_linearFogOverride );
@@ -432,7 +432,7 @@ void CG_ParseEntitiesFromString( void ) {
 	// has a "spawn" function to perform any global setup
 	// needed by a level (setting configstrings or cvars, etc)
 	if( !CG_ParseSpawnVars() ) {
-		trap->Error( ERR_DROP, "ParseEntities: no entities" );
+		Com_Error( ERR_DROP, "ParseEntities: no entities" );
 	}
 
 	SP_worldspawn_cg();

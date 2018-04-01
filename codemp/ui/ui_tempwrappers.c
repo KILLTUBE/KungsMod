@@ -12,7 +12,7 @@ cg_t			cg;
 
 CCALL void Com_Printf( const char *fmt, ... ) {
 	// todo
-	//trap->Print
+	//Com_Printf
 	//__debugbreak();
 }
 

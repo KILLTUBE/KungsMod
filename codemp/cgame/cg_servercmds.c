@@ -97,14 +97,14 @@ static void CG_ParseTeamInfo( void ) {
 
 	numSortedTeamPlayers = atoi( CG_Argv( 1 ) );
 	if ( numSortedTeamPlayers < 0 || numSortedTeamPlayers > TEAM_MAXOVERLAY ) {
-		trap->Error( ERR_DROP, "CG_ParseTeamInfo: numSortedTeamPlayers out of range (%d)", numSortedTeamPlayers );
+		Com_Error( ERR_DROP, "CG_ParseTeamInfo: numSortedTeamPlayers out of range (%d)", numSortedTeamPlayers );
 		return;
 	}
 
 	for ( i=0; i<numSortedTeamPlayers; i++ ) {
 		client = atoi( CG_Argv( i*TEAMINFO_OFFSET + 2 ) );
 		if ( client < 0 || client >= MAX_CLIENTS ) {
-			trap->Error( ERR_DROP, "CG_ParseTeamInfo: bad client number: %d", client );
+			Com_Error( ERR_DROP, "CG_ParseTeamInfo: bad client number: %d", client );
 			return;
 		}
 
@@ -1051,7 +1051,7 @@ require a reload of all the media
 */
 static void CG_MapRestart( void ) {
 	if ( cg_showMiss->integer ) {
-		trap->Print( "CG_MapRestart\n" );
+		Com_Printf( "CG_MapRestart\n" );
 	}
 
 	trap->R_ClearDecals ( );
@@ -1325,7 +1325,7 @@ static void CG_NewForceRank_f( void ) {
 
 	if ( trap->Cmd_Argc() < 3 ) {
 #ifdef _DEBUG
-		trap->Print("WARNING: Invalid newForceRank string\n");
+		Com_Printf("WARNING: Invalid newForceRank string\n");
 #endif
 		return;
 	}
@@ -1492,7 +1492,7 @@ static void CG_Print_f( void ) {
 	char strEd[MAX_STRINGED_SV_STRING] = {0};
 
 	CG_CheckSVStringEdRef( strEd, CG_Argv( 1 ) );
-	trap->Print( "%s", strEd );
+	Com_Printf( "%s", strEd );
 }
 
 void CG_ChatBox_AddString(char *chatStr);
@@ -1508,7 +1508,7 @@ static void CG_Chat_f( void ) {
 			trap->Cmd_Argv( 1, text, sizeof( text ) );
 			CG_RemoveChatEscapeChar( text );
 			CG_ChatBox_AddString( text );
-			trap->Print( "*%s\n", text );
+			Com_Printf( "*%s\n", text );
 		}
 	}
 	else if ( !strcmp( cmd, "lchat" ) ) {
@@ -1533,7 +1533,7 @@ static void CG_Chat_f( void ) {
 			Com_sprintf( text, sizeof( text ), "%s^7<%s> ^%s%s", name, loc, color, message );
 			CG_RemoveChatEscapeChar( text );
 			CG_ChatBox_AddString( text );
-			trap->Print( "*%s\n", text );
+			Com_Printf( "*%s\n", text );
 		}
 	}
 	else if ( !strcmp( cmd, "tchat" ) ) {
@@ -1542,7 +1542,7 @@ static void CG_Chat_f( void ) {
 		trap->Cmd_Argv( 1, text, sizeof( text ) );
 		CG_RemoveChatEscapeChar( text );
 		CG_ChatBox_AddString( text );
-		trap->Print( "*%s\n", text );
+		Com_Printf( "*%s\n", text );
 	}
 	else if ( !strcmp( cmd, "ltchat" ) ) {
 		char	name[MAX_NETNAME]={0},	loc[MAX_STRING_CHARS]={0},
@@ -1565,7 +1565,7 @@ static void CG_Chat_f( void ) {
 		Com_sprintf( text, sizeof( text ), "%s^7<%s> ^%s%s", name, loc, color, message );
 		CG_RemoveChatEscapeChar( text );
 		CG_ChatBox_AddString( text );
-		trap->Print( "*%s\n", text );
+		Com_Printf( "*%s\n", text );
 	}
 }
 
@@ -1647,7 +1647,7 @@ static void CG_ServerCommand( void ) {
 		return;
 	}
 
-	trap->Print( "Unknown client game command: %s\n", cmd );
+	Com_Printf( "Unknown client game command: %s\n", cmd );
 }
 
 /*

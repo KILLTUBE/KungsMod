@@ -196,24 +196,6 @@
     <ClCompile Include="C:\XycaRend2\codemp\client\cl_uiapi.cpp">
       <Filter>client</Filter>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\FXExport.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\FxPrimitives.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\FxScheduler.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\FxSystem.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\FxTemplate.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\FxUtil.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\client\snd_ambient.cpp">
       <Filter>client</Filter>
     </ClCompile>
@@ -1228,6 +1210,24 @@
     <ClCompile Include="..\..\codemp\cgame\fx_rocketlauncher.c">
       <Filter>fx</Filter>
     </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\FXExport.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxPrimitives.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxScheduler.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxSystem.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxTemplate.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\XycaRend2\codemp\client\FxUtil.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
@@ -1411,21 +1411,6 @@
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\XycaRend2\codemp\client\cl_uiapi.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\FXExport.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\FxPrimitives.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\FxScheduler.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\FxSystem.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\FxUtil.h">
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\XycaRend2\codemp\client\snd_ambient.h">
@@ -1999,6 +1984,21 @@
       <Filter>cgame</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\cgame\fx_local.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\FxUtil.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\FXExport.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\FxPrimitives.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\FxScheduler.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\client\FxSystem.h">
       <Filter>fx</Filter>
     </ClInclude>
   </ItemGroup>

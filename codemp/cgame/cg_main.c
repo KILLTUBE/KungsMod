@@ -381,12 +381,12 @@ void CG_MiscEnt( void ) {
 	cg_staticmodel_t *staticmodel;
 
 	if( cgs.numMiscStaticModels >= MAX_STATIC_MODELS ) {
-		trap->Error( ERR_DROP, "^1MAX_STATIC_MODELS(%i) hit", MAX_STATIC_MODELS );
+		Com_Error( ERR_DROP, "^1MAX_STATIC_MODELS(%i) hit", MAX_STATIC_MODELS );
 	}
 
 	modelIndex = R_RegisterModel(data->mModel);
 	if (modelIndex == 0) {
-		trap->Error( ERR_DROP, "client_model failed to load model '%s'", data->mModel );
+		Com_Error( ERR_DROP, "client_model failed to load model '%s'", data->mModel );
 		return;
 	}
 
@@ -521,7 +521,7 @@ static void CG_RegisterItemSounds( int itemNum ) {
 
 		len = s-start;
 		if (len >= MAX_QPATH || len < 5) {
-			trap->Error( ERR_DROP, "PrecacheItem: %s has bad precache string",
+			Com_Error( ERR_DROP, "PrecacheItem: %s has bad precache string",
 				item->classname);
 			return;
 		}
@@ -547,7 +547,7 @@ static void CG_RegisterItemSounds( int itemNum ) {
 
 		len = s-start;
 		if (len >= MAX_QPATH || len < 5) {
-			trap->Error( ERR_DROP, "PrecacheItem: %s has bad precache string",
+			Com_Error( ERR_DROP, "PrecacheItem: %s has bad precache string",
 				item->classname);
 			return;
 		}
@@ -1704,7 +1704,7 @@ CG_ConfigString
 */
 const char *CG_ConfigString( int index ) {
 	if ( index < 0 || index >= MAX_CONFIGSTRINGS ) {
-		trap->Error( ERR_DROP, "CG_ConfigString: bad index: %i", index );
+		Com_Error( ERR_DROP, "CG_ConfigString: bad index: %i", index );
 	}
 	return cgs.gameState.stringData + cgs.gameState.stringOffsets[ index ];
 }
@@ -1736,11 +1736,11 @@ char *CG_GetMenuBuffer(const char *filename) {
 
 	len = trap->FS_Open( filename, &f, FS_READ );
 	if ( !f ) {
-		trap->Print( S_COLOR_RED "menu file not found: %s, using default\n", filename );
+		Com_Printf( S_COLOR_RED "menu file not found: %s, using default\n", filename );
 		return NULL;
 	}
 	if ( len >= MAX_MENUFILE ) {
-		trap->Print( S_COLOR_RED "menu file too large: %s is %i, max allowed is %i\n", filename, len, MAX_MENUFILE );
+		Com_Printf( S_COLOR_RED "menu file too large: %s is %i, max allowed is %i\n", filename, len, MAX_MENUFILE );
 		trap->FS_Close( f );
 		return NULL;
 	}
@@ -2252,21 +2252,21 @@ void CG_LoadMenus(const char *menuFile)
 	if ( !f )
 	{
 		if( Q_isanumber( menuFile ) ) // cg_hudFiles 1
-			trap->Print( S_COLOR_GREEN "hud menu file skipped, using default\n" );
+			Com_Printf( S_COLOR_GREEN "hud menu file skipped, using default\n" );
 		else
-			trap->Print( S_COLOR_YELLOW "hud menu file not found: %s, using default\n", menuFile );
+			Com_Printf( S_COLOR_YELLOW "hud menu file not found: %s, using default\n", menuFile );
 
 		len = trap->FS_Open( "ui/jahud.txt", &f, FS_READ );
 		if (!f)
 		{
-			trap->Error( ERR_DROP, S_COLOR_RED "default hud menu file not found: ui/jahud.txt, unable to continue!" );
+			Com_Error( ERR_DROP, S_COLOR_RED "default hud menu file not found: ui/jahud.txt, unable to continue!" );
 		}
 	}
 
 	if ( len >= MAX_MENUDEFFILE )
 	{
 		trap->FS_Close( f );
-		trap->Error( ERR_DROP, S_COLOR_RED "menu file too large: %s is %i, max allowed is %i", menuFile, len, MAX_MENUDEFFILE );
+		Com_Error( ERR_DROP, S_COLOR_RED "menu file too large: %s is %i, max allowed is %i", menuFile, len, MAX_MENUDEFFILE );
 	}
 
 	trap->FS_Read( buf, len, f );
@@ -2643,7 +2643,7 @@ Ghoul2 Insert End
 	// check version
 	s = CG_ConfigString( CS_GAME_VERSION );
 	if ( strcmp( s, GAME_VERSION ) ) {
-		trap->Error( ERR_DROP, "Client/Server game mismatch: %s/%s", GAME_VERSION, s );
+		Com_Error( ERR_DROP, "Client/Server game mismatch: %s/%s", GAME_VERSION, s );
 	}
 
 	s = CG_ConfigString( CS_LEVEL_START_TIME );
@@ -3031,13 +3031,13 @@ Q_EXPORT cgameExport_t* QDECL GetModuleAPI( int apiVersion, cgameImport_t *impor
 
 	assert( import );
 	trap = import;
-	//Com_Printf	= trap->Print;
-	//Com_Error	= trap->Error;
+	//Com_Printf	= Com_Printf;
+	//Com_Error	= Com_Error;
 
 	memset( &cge, 0, sizeof( cge ) );
 
 	if ( apiVersion != CGAME_API_VERSION ) {
-		trap->Print( "Mismatched CGAME_API_VERSION: expected %i, got %i\n", CGAME_API_VERSION, apiVersion );
+		Com_Printf( "Mismatched CGAME_API_VERSION: expected %i, got %i\n", CGAME_API_VERSION, apiVersion );
 		return NULL;
 	}
 
@@ -3203,7 +3203,7 @@ Q_EXPORT intptr_t vmMain( int command, intptr_t arg0, intptr_t arg1, intptr_t ar
 		return 0;
 
 	default:
-		trap->Error( ERR_DROP, "vmMain: unknown command %i", command );
+		Com_Error( ERR_DROP, "vmMain: unknown command %i", command );
 		break;
 	}
 	return -1;

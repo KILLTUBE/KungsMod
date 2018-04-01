@@ -1897,7 +1897,7 @@ static void CG_Item( centity_t *cent ) {
 
 	es = &cent->currentState;
 	if ( es->modelindex >= bg_numItems ) {
-		trap->Error( ERR_DROP, "Bad item index %i on entity", es->modelindex );
+		Com_Error( ERR_DROP, "Bad item index %i on entity", es->modelindex );
 	}
 
 /*
@@ -3051,7 +3051,7 @@ static void CG_InterpolateEntityPosition( centity_t *cent ) {
 	// it would be an internal error to find an entity that interpolates without
 	// a snapshot ahead of the current one
 	if ( cg.nextSnap == NULL ) {
-		trap->Error( ERR_DROP, "CG_InterpoateEntityPosition: cg.nextSnap == NULL" );
+		Com_Error( ERR_DROP, "CG_InterpoateEntityPosition: cg.nextSnap == NULL" );
 		return;
 	}
 
@@ -3337,7 +3337,7 @@ Ghoul2 Insert End
 */
 	switch ( cent->currentState.eType ) {
 	default:
-		trap->Error( ERR_DROP, "Bad entity type: %i\n", cent->currentState.eType );
+		Com_Error( ERR_DROP, "Bad entity type: %i\n", cent->currentState.eType );
 		break;
 
 	case ET_FX:

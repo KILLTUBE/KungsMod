@@ -1027,7 +1027,7 @@ void CG_PredictPlayerState( void ) {
 	if ( oldestCmd.serverTime > cg.snap->ps.commandTime
 		&& oldestCmd.serverTime < cg.time ) {	// special check for map_restart
 		if ( cg_showMiss->integer ) {
-			trap->Print ("exceeded PACKET_BACKUP on commands\n");
+			Com_Printf ("exceeded PACKET_BACKUP on commands\n");
 		}
 		return;
 	}
@@ -1137,7 +1137,7 @@ void CG_PredictPlayerState( void ) {
 				// a teleport will not cause an error decay
 				VectorClear( cg.predictedError );
 				if ( cg_showVehMiss->integer ) {
-					trap->Print( "VEH PredictionTeleport\n" );
+					Com_Printf( "VEH PredictionTeleport\n" );
 				}
 				cg.thisFrameTeleport = qfalse;
 			} else {
@@ -1147,14 +1147,14 @@ void CG_PredictPlayerState( void ) {
 
 				if ( cg_showVehMiss->integer ) {
 					if (!VectorCompare( oldVehicleState.origin, adjusted )) {
-						trap->Print("VEH prediction error\n");
+						Com_Printf("VEH prediction error\n");
 					}
 				}
 				VectorSubtract( oldVehicleState.origin, adjusted, delta );
 				len = VectorLength( delta );
 				if ( len > 0.1 ) {
 					if ( cg_showVehMiss->integer ) {
-						trap->Print("VEH Prediction miss: %f\n", len);
+						Com_Printf("VEH Prediction miss: %f\n", len);
 					}
 					if ( cg_errorDecay->integer ) {
 						int		t;
@@ -1166,7 +1166,7 @@ void CG_PredictPlayerState( void ) {
 							f = 0;
 						}
 						if ( f > 0 && cg_showVehMiss->integer ) {
-							trap->Print("VEH Double prediction decay: %f\n", f);
+							Com_Printf("VEH Double prediction decay: %f\n", f);
 						}
 						VectorScale( cg.predictedError, f, cg.predictedError );
 					} else {
@@ -1178,10 +1178,10 @@ void CG_PredictPlayerState( void ) {
 				//
 				if ( cg_showVehMiss->integer ) {
 					if (!VectorCompare( oldVehicleState.vehOrientation, cg.predictedVehicleState.vehOrientation )) {
-						trap->Print("VEH orient prediction error\n");
-						trap->Print("VEH pitch prediction miss: %f\n", AngleSubtract( oldVehicleState.vehOrientation[0], cg.predictedVehicleState.vehOrientation[0] ) );
-						trap->Print("VEH yaw prediction miss: %f\n", AngleSubtract( oldVehicleState.vehOrientation[1], cg.predictedVehicleState.vehOrientation[1] ) );
-						trap->Print("VEH roll prediction miss: %f\n", AngleSubtract( oldVehicleState.vehOrientation[2], cg.predictedVehicleState.vehOrientation[2] ) );
+						Com_Printf("VEH orient prediction error\n");
+						Com_Printf("VEH pitch prediction miss: %f\n", AngleSubtract( oldVehicleState.vehOrientation[0], cg.predictedVehicleState.vehOrientation[0] ) );
+						Com_Printf("VEH yaw prediction miss: %f\n", AngleSubtract( oldVehicleState.vehOrientation[1], cg.predictedVehicleState.vehOrientation[1] ) );
+						Com_Printf("VEH roll prediction miss: %f\n", AngleSubtract( oldVehicleState.vehOrientation[2], cg.predictedVehicleState.vehOrientation[2] ) );
 					}
 				}
 			}
@@ -1196,7 +1196,7 @@ void CG_PredictPlayerState( void ) {
 				// a teleport will not cause an error decay
 				VectorClear( cg.predictedError );
 				if ( cg_showMiss->integer ) {
-					trap->Print( "PredictionTeleport\n" );
+					Com_Printf( "PredictionTeleport\n" );
 				}
 				cg.thisFrameTeleport = qfalse;
 			} else {
@@ -1206,14 +1206,14 @@ void CG_PredictPlayerState( void ) {
 
 				if ( cg_showMiss->integer ) {
 					if (!VectorCompare( oldPlayerState.origin, adjusted )) {
-						trap->Print("prediction error\n");
+						Com_Printf("prediction error\n");
 					}
 				}
 				VectorSubtract( oldPlayerState.origin, adjusted, delta );
 				len = VectorLength( delta );
 				if ( len > 0.1 ) {
 					if ( cg_showMiss->integer ) {
-						trap->Print("Prediction miss: %f\n", len);
+						Com_Printf("Prediction miss: %f\n", len);
 					}
 					if ( cg_errorDecay->integer ) {
 						int		t;
@@ -1225,7 +1225,7 @@ void CG_PredictPlayerState( void ) {
 							f = 0;
 						}
 						if ( f > 0 && cg_showMiss->integer ) {
-							trap->Print("Double prediction decay: %f\n", f);
+							Com_Printf("Double prediction decay: %f\n", f);
 						}
 						VectorScale( cg.predictedError, f, cg.predictedError );
 					} else {
@@ -1396,12 +1396,12 @@ void CG_PredictPlayerState( void ) {
 	}
 
 	if ( cg_showMiss->integer > 1 ) {
-		trap->Print( "[%i : %i] ", cg_pmove.cmd.serverTime, cg.time );
+		Com_Printf( "[%i : %i] ", cg_pmove.cmd.serverTime, cg.time );
 	}
 
 	if ( !moved ) {
 		if ( cg_showMiss->integer ) {
-			trap->Print( "not moved\n" );
+			Com_Printf( "not moved\n" );
 		}
 		goto revertES;
 	}
@@ -1422,7 +1422,7 @@ void CG_PredictPlayerState( void ) {
 
 	if ( cg_showMiss->integer ) {
 		if (cg.predictedPlayerState.eventSequence > oldPlayerState.eventSequence + MAX_PS_EVENTS) {
-			trap->Print("WARNING: dropped event\n");
+			Com_Printf("WARNING: dropped event\n");
 		}
 	}
 
@@ -1431,7 +1431,7 @@ void CG_PredictPlayerState( void ) {
 
 	if ( cg_showMiss->integer ) {
 		if (cg.eventSequence > cg.predictedPlayerState.eventSequence) {
-			trap->Print("WARNING: double event\n");
+			Com_Printf("WARNING: double event\n");
 			cg.eventSequence = cg.predictedPlayerState.eventSequence;
 		}
 	}

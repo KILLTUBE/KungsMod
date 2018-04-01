@@ -2921,7 +2921,7 @@ static void PM_FlyVehicleMove( void )
 		//--------------------------------------------------------------------------------------------
 		if ((fmove!=0.0f || smove!=0.0f) &&	VectorCompare(pm->ps->moveDir, vec3_origin))
 		{
-			//trap->Printf("Generating MoveDir\n");
+			//Com_Printff("Generating MoveDir\n");
 			for ( i = 0 ; i < 3 ; i++ )
 			{
 				wishvel[i] = pml.forward[i]*fmove + pml.right[i]*smove;
@@ -3326,7 +3326,7 @@ static void PM_WalkMove( void ) {
 			//--------------------------------------------------------------------------------------------
 			if ((fmove!=0.0f || smove!=0.0f) &&	VectorCompare(pm->ps->moveDir, vec3_origin))
 			{
-				//trap->Printf("Generating MoveDir\n");
+				//Com_Printff("Generating MoveDir\n");
 				for ( i = 0 ; i < 3 ; i++ )
 				{
 					wishvel[i] = pml.forward[i]*fmove + pml.right[i]*smove;

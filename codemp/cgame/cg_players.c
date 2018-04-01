@@ -317,7 +317,7 @@ sfxHandle_t	CG_CustomSound( int clientNum, const char *soundName ) {
 		}
 	}
 
-	//trap->Error( ERR_DROP, "Unknown custom sound: %s", lSoundName );
+	//Com_Error( ERR_DROP, "Unknown custom sound: %s", lSoundName );
 #ifndef FINAL_BUILD
 	Com_Printf( "Unknown custom sound: %s\n", lSoundName );
 #endif
@@ -1093,13 +1093,13 @@ void CG_LoadClientInfo( clientInfo_t *ci ) {
 	{ //yeah.. kind of a hack I guess. Don't care until they are actually ingame with a valid class.
 		if ( !CG_RegisterClientModelname( ci, fallbackModel, "default", teamname, -1 ) )
 		{
-			trap->Error( ERR_DROP, "DEFAULT_MODEL (%s) failed to register", fallbackModel );
+			Com_Error( ERR_DROP, "DEFAULT_MODEL (%s) failed to register", fallbackModel );
 		}
 	}
 	else
 	{
 		if ( !CG_RegisterClientModelname( ci, ci->modelName, ci->skinName, teamname, clientNum ) ) {
-			//trap->Error( ERR_DROP, "CG_RegisterClientModelname( %s, %s, %s, %s %s ) failed", ci->modelName, ci->skinName, ci->headModelName, ci->headSkinName, teamname );
+			//Com_Error( ERR_DROP, "CG_RegisterClientModelname( %s, %s, %s, %s %s ) failed", ci->modelName, ci->skinName, ci->headModelName, ci->headSkinName, teamname );
 			//rww - DO NOT error out here! Someone could just type in a nonsense model name and crash everyone's client.
 			//Give it a chance to load default model for this client instead.
 
@@ -1112,11 +1112,11 @@ void CG_LoadClientInfo( clientInfo_t *ci ) {
 					Q_strncpyz(teamname, DEFAULT_REDTEAM_NAME, sizeof(teamname) );
 				}
 				if ( !CG_RegisterClientModelname( ci, fallbackModel, ci->skinName, teamname, -1 ) ) {
-					trap->Error( ERR_DROP, "DEFAULT_MODEL / skin (%s/%s) failed to register", fallbackModel, ci->skinName );
+					Com_Error( ERR_DROP, "DEFAULT_MODEL / skin (%s/%s) failed to register", fallbackModel, ci->skinName );
 				}
 			} else {
 				if ( !CG_RegisterClientModelname( ci, fallbackModel, "default", teamname, -1 ) ) {
-					trap->Error( ERR_DROP, "DEFAULT_MODEL (%s) failed to register", fallbackModel );
+					Com_Error( ERR_DROP, "DEFAULT_MODEL (%s) failed to register", fallbackModel );
 				}
 			}
 			modelloaded = qfalse;
@@ -1521,7 +1521,7 @@ static void CG_SetDeferredClientInfo( clientInfo_t *ci ) {
 	}
 
 	// we should never get here...
-	//trap->Print( "CG_SetDeferredClientInfo: no valid clients!\n" );
+	//Com_Printf( "CG_SetDeferredClientInfo: no valid clients!\n" );
 	//Actually it is possible now because of the unique sabers.
 
 	CG_LoadClientInfo( ci );
@@ -2830,7 +2830,7 @@ static void CG_SetLerpFrameAnimation( centity_t *cent, clientInfo_t *ci, lerpFra
 	lf->animationNumber = newAnimation;
 
 	if ( newAnimation < 0 || newAnimation >= MAX_TOTALANIMATIONS ) {
-		trap->Error( ERR_DROP, "Bad animation number: %i", newAnimation );
+		Com_Error( ERR_DROP, "Bad animation number: %i", newAnimation );
 	}
 
 	anim = &bgAllAnims[cent->localAnimIndex].anims[ newAnimation ];
@@ -2848,11 +2848,11 @@ static void CG_SetLerpFrameAnimation( centity_t *cent, clientInfo_t *ci, lerpFra
 	if ( cg_debugAnim->integer && (cg_debugAnim->integer < 0 || cg_debugAnim->integer == cent->currentState.clientNum) ) {
 		if (lf == &cent->pe.legs)
 		{
-			trap->Print( "%d: %d TORSO Anim: %i, '%s'\n", cg.time, cent->currentState.clientNum, newAnimation, GetStringForID(animTable, newAnimation));
+			Com_Printf( "%d: %d TORSO Anim: %i, '%s'\n", cg.time, cent->currentState.clientNum, newAnimation, GetStringForID(animTable, newAnimation));
 		}
 		else
 		{
-			trap->Print( "%d: %d LEGS Anim: %i, '%s'\n", cg.time, cent->currentState.clientNum, newAnimation, GetStringForID(animTable, newAnimation));
+			Com_Printf( "%d: %d LEGS Anim: %i, '%s'\n", cg.time, cent->currentState.clientNum, newAnimation, GetStringForID(animTable, newAnimation));
 		}
 	}
 
@@ -8596,7 +8596,7 @@ void CG_Player( centity_t *cent ) {
 	{
 		clientNum = cent->currentState.clientNum;
 		if ( clientNum < 0 || clientNum >= MAX_CLIENTS ) {
-			trap->Error( ERR_DROP, "Bad clientNum on player entity");
+			Com_Error( ERR_DROP, "Bad clientNum on player entity");
 		}
 		ci = &cgs.clientinfo[ clientNum ];
 	}
@@ -11295,7 +11295,7 @@ void CG_ResetPlayerEntity( centity_t *cent )
 
 
 	if ( cg_debugPosition->integer ) {
-		trap->Print("%i ResetPlayerEntity yaw=%i\n", cent->currentState.number, cent->pe.torso.yawAngle );
+		Com_Printf("%i ResetPlayerEntity yaw=%i\n", cent->currentState.number, cent->pe.torso.yawAngle );
 	}
 }
 

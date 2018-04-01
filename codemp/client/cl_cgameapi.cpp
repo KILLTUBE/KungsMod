@@ -37,267 +37,138 @@ extern botlib_export_t *botlib_export;
 static cgameExport_t *cge; // cgame export table
 static vm_t *cgvm; // cgame vm, valid for legacy and new api
 
-//
-// cgame vmMain calls
-//
 void CGVM_Init( int serverMessageNum, int serverCommandSequence, int clientNum ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_INIT, serverMessageNum, serverCommandSequence, clientNum );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->Init( serverMessageNum, serverCommandSequence, clientNum );
 }
 
 void CGVM_Shutdown( void ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_SHUTDOWN );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->Shutdown();
 }
 
 qboolean CGVM_ConsoleCommand( void ) {
-	if ( cgvm->isLegacy ) {
-		return (qboolean)VM_Call( cgvm, CG_CONSOLE_COMMAND );
-	}
 	VMSwap v( cgvm );
-
 	return cge->ConsoleCommand();
 }
 
 void CGVM_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolean demoPlayback ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_DRAW_ACTIVE_FRAME, serverTime, stereoView, demoPlayback );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->DrawActiveFrame( serverTime, stereoView, demoPlayback );
 }
 
 int CGVM_CrosshairPlayer( void ) {
-	if ( cgvm->isLegacy ) {
-		return VM_Call( cgvm, CG_CROSSHAIR_PLAYER );
-	}
 	VMSwap v( cgvm );
-
 	return cge->CrosshairPlayer();
 }
 
 int CGVM_LastAttacker( void ) {
-	if ( cgvm->isLegacy ) {
-		return VM_Call( cgvm, CG_LAST_ATTACKER );
-	}
 	VMSwap v( cgvm );
-
 	return cge->LastAttacker();
 }
 
 void CGVM_KeyEvent( int key, qboolean down ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_KEY_EVENT, key, down );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->KeyEvent( key, down );
 }
 
 void CGVM_MouseEvent( int x, int y ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_MOUSE_EVENT, x, y );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->MouseEvent( x, y );
 }
 
 void CGVM_EventHandling( int type ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_EVENT_HANDLING, type );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->EventHandling( type );
 }
 
 int CGVM_PointContents( void ) {
-	if ( cgvm->isLegacy ) {
-		return VM_Call( cgvm, CG_POINT_CONTENTS );
-	}
 	VMSwap v( cgvm );
-
 	return cge->PointContents();
 }
 
 void CGVM_GetLerpOrigin( void ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_GET_LERP_ORIGIN );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->GetLerpOrigin();
 }
 
 void CGVM_GetLerpData( void ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_GET_LERP_DATA );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->GetLerpData();
 }
 
 void CGVM_Trace( void ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_TRACE );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->Trace();
 }
 
 void CGVM_G2Trace( void ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_G2TRACE );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->G2Trace();
 }
 
 void CGVM_G2Mark( void ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_G2MARK );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->G2Mark();
 }
 
 int CGVM_RagCallback( int callType ) {
-	if ( cgvm->isLegacy ) {
-		return VM_Call( cgvm, CG_RAG_CALLBACK, callType );
-	}
 	VMSwap v( cgvm );
-
 	return cge->RagCallback( callType );
 }
 
 qboolean CGVM_IncomingConsoleCommand( void ) {
-	if ( cgvm->isLegacy ) {
-		return (qboolean)VM_Call( cgvm, CG_INCOMING_CONSOLE_COMMAND );
-	}
 	VMSwap v( cgvm );
-
 	return cge->IncomingConsoleCommand();
 }
 
 qboolean CGVM_NoUseableForce( void ) {
-	if ( cgvm->isLegacy ) {
-		return (qboolean)VM_Call( cgvm, CG_GET_USEABLE_FORCE );
-	}
 	VMSwap v( cgvm );
-
 	return cge->NoUseableForce();
 }
 
 void CGVM_GetOrigin( int entID, vec3_t out ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_GET_ORIGIN, entID, reinterpret_cast< intptr_t >( out ) );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->GetOrigin( entID, out );
 }
 
 void CGVM_GetAngles( int entID, vec3_t out ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_GET_ANGLES, entID, reinterpret_cast< intptr_t >( out ) );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->GetAngles( entID, out );
 }
 
 trajectory_t *CGVM_GetOriginTrajectory( int entID ) {
-	if ( cgvm->isLegacy ) {
-		return (trajectory_t *)VM_Call( cgvm, CG_GET_ORIGIN_TRAJECTORY, entID );
-	}
 	VMSwap v( cgvm );
-
 	return cge->GetOriginTrajectory( entID );
 }
 
 trajectory_t *CGVM_GetAngleTrajectory( int entID ) {
-	if ( cgvm->isLegacy ) {
-		return (trajectory_t *)VM_Call( cgvm, CG_GET_ANGLE_TRAJECTORY, entID );
-	}
 	VMSwap v( cgvm );
-
 	return cge->GetAngleTrajectory( entID );
 }
 
 void CGVM_ROFF_NotetrackCallback( int entID, const char *notetrack ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_ROFF_NOTETRACK_CALLBACK, entID, reinterpret_cast< intptr_t >( notetrack ) );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->ROFF_NotetrackCallback( entID, notetrack );
 }
 
 void CGVM_MapChange( void ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_MAP_CHANGE );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->MapChange();
 }
 
 void CGVM_AutomapInput( void ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_AUTOMAP_INPUT );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->AutomapInput();
 }
 
 void CGVM_MiscEnt( void ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_MISC_ENT );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->MiscEnt();
 }
 
 void CGVM_CameraShake( void ) {
-	if ( cgvm->isLegacy ) {
-		VM_Call( cgvm, CG_FX_CAMERASHAKE );
-		return;
-	}
 	VMSwap v( cgvm );
-
 	cge->CameraShake();
 }
 
@@ -862,9 +733,7 @@ void CL_BindCGame( void ) {
 
 	cgvm = VM_Create( VM_CGAME );
 	if ( cgvm && !cgvm->isLegacy ) {
-		cgi.Print								= Com_Printf;
-		cgi.Error								= Com_Error;
-		cgi.SnapVector							= Sys_SnapVector;
+
 		cgi.MemoryRemaining						= Hunk_MemoryRemaining;
 		cgi.RegisterSharedMemory				= RegisterSharedMemory;
 		cgi.TrueMalloc							= VM_Shifted_Alloc;
