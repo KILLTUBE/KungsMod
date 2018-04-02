@@ -4205,7 +4205,12 @@ void Menus_HandleOOBClick(menuDef_t *menu, int key, qboolean down) {
 	}
 }
 
-
+// from tr_local.h
+typedef enum {
+	SSF_JPEG,
+	SSF_TGA,
+	SSF_PNG
+} screenshotFormat_t;
 void Menu_HandleKey(menuDef_t *menu, int key, qboolean down) {
 	int i;
 	itemDef_t *item = NULL;

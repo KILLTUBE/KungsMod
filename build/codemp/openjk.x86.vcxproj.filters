@@ -1228,6 +1228,9 @@
     <ClCompile Include="C:\XycaRend2\codemp\client\FxUtil.cpp">
       <Filter>fx</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_menus.cpp">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
@@ -2000,6 +2003,9 @@
     </ClInclude>
     <ClInclude Include="C:\XycaRend2\codemp\client\FxSystem.h">
       <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_menus.h">
+      <Filter>rend2\imgui_docks_openjk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

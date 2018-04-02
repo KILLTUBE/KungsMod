@@ -28,6 +28,13 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // Cvar callbacks
 //
 
+// from tr_local.h
+typedef enum {
+	SSF_JPEG,
+	SSF_TGA,
+	SSF_PNG
+} screenshotFormat_t;
+
 static int UI_GetScreenshotFormatForString( const char *str ) {
 	if ( !Q_stricmp(str, "jpg") || !Q_stricmp(str, "jpeg") )
 		return SSF_JPEG;
