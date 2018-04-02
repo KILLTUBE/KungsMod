@@ -2007,6 +2007,18 @@
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_menus.h">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\codemp\ui\menudef.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ui\ui_force.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ui\ui_local.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ui\ui_xcvar.h">
+      <Filter>ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt" />

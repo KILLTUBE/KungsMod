@@ -741,8 +741,7 @@ char *Sys_StripAppBundle( char *dir )
 #	endif
 #endif
 
-int main ( int argc, char* argv[] )
-{
+CCALL int kungsmod_main ( int argc, char* argv[] ) {
 	int		i;
 	char	commandLine[ MAX_STRING_CHARS ] = { 0 };
 

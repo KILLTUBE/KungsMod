@@ -28,7 +28,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
@@ -58,8 +58,8 @@
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">openjk.x86.dir\Debug\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">openjk.x86</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">kungsmod</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\Release\</OutDir>
@@ -121,7 +121,7 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/XycaRend2/build/codemp/Debug/openjk.x86.lib</ImportLibrary>
+      <ImportLibrary>C:/XycaRend2/build/codemp/Debug/kungsmod.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/XycaRend2/build/Debug/openjk.x86.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
       <Version>
@@ -495,8 +495,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\codemp\server\sv_bot.h" />
     <ClInclude Include="..\..\codemp\server\sv_g2api.h" />
     <ClInclude Include="..\..\codemp\server\sv_icarus.h" />
+    <ClInclude Include="..\..\codemp\ui\menudef.h" />
+    <ClInclude Include="..\..\codemp\ui\ui_force.h" />
+    <ClInclude Include="..\..\codemp\ui\ui_local.h" />
     <ClInclude Include="..\..\codemp\ui\ui_only_c_defines.h" />
     <ClInclude Include="..\..\codemp\ui\ui_shared.h" />
+    <ClInclude Include="..\..\codemp\ui\ui_xcvar.h" />
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h" />
     <ClInclude Include="C:\XycaRend2\codemp\client\client.h" />
     <ClInclude Include="C:\XycaRend2\codemp\client\keys.h" />
