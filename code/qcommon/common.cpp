@@ -1509,8 +1509,6 @@ void Com_Frame( void ) {
 		// trace optimization tracking
 		//
 		if ( com_showtrace->integer ) {
-			extern	int c_traces, c_brush_traces, c_patch_traces;
-			extern	int	c_pointcontents;
 
 			/*
 			Com_Printf( "%4i non-sv_traces, %4i sv_traces, %4i ms, ave %4.2f ms\n", c_traces - numTraces, numTraces, timeInTrace, (float)timeInTrace/(float)numTraces );

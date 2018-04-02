@@ -85,9 +85,8 @@ extern cvar_t *com_maxfps;
 extern cvar_t *com_maxfpsMinimized;
 extern cvar_t *com_maxfpsUnfocused;
 
-sysEvent_t	Sys_GetEvent( void );
-
-void	Sys_Init (void);
+CCALL sysEvent_t	Sys_GetEvent( void );
+CCALL void	Sys_Init (void);
 
 // general development dll loading for virtual machine testing
 typedef void *GetGameAPIProc( void  *);
@@ -95,64 +94,42 @@ typedef intptr_t QDECL VMMainProc( int, intptr_t, intptr_t, intptr_t, intptr_t, 
 typedef intptr_t QDECL SystemCallProc( intptr_t, ... );
 typedef void * QDECL GetModuleAPIProc( int, ... );
 
-void	*Sys_LoadSPGameDll( const char *name, GetGameAPIProc **GetGameAPI );
-void	* QDECL Sys_LoadDll(const char *name, qboolean useSystemLib);
-void	* QDECL Sys_LoadLegacyGameDll( const char *name, VMMainProc **vmMain, SystemCallProc *systemcalls );
-void	* QDECL Sys_LoadGameDll( const char *name, GetModuleAPIProc **moduleAPI );
-void	Sys_UnloadDll( void *dllHandle );
-
-char	*Sys_GetCurrentUser( void );
-
-void	NORETURN QDECL Sys_Error( const char *error, ... );
-void	NORETURN Sys_Quit (void);
-char	*Sys_GetClipboardData( void );	// note that this isn't journaled...
-
-void	Sys_Print( const char *msg );
+CCALL void	*Sys_LoadSPGameDll( const char *name, GetGameAPIProc **GetGameAPI );
+CCALL void	*Sys_LoadDll(const char *name, qboolean useSystemLib);
+CCALL void	*Sys_LoadLegacyGameDll( const char *name, VMMainProc **vmMain, SystemCallProc *systemcalls );
+CCALL void	*Sys_LoadGameDll( const char *name, GetModuleAPIProc **moduleAPI );
+CCALL void	Sys_UnloadDll( void *dllHandle );
+CCALL char	*Sys_GetCurrentUser( void );
+CCALL void	Sys_Error( const char *error, ... );
+CCALL void	Sys_Quit (void);
+CCALL char	*Sys_GetClipboardData( void );	// note that this isn't journaled...
+CCALL void	Sys_Print( const char *msg );
 
 // Sys_Milliseconds should only be used for profiling purposes,
 // any game related timing information should come from event timestamps
-int		Sys_Milliseconds (bool baseTime = false);
-int		Sys_Milliseconds2(void);
-void	Sys_Sleep( int msec );
-
+CCALL int		Sys_Milliseconds (bool baseTime = false);
+CCALL int		Sys_Milliseconds2(void);
+CCALL void	Sys_Sleep( int msec );
 CCALL void	Sys_SnapVector( float *v );
-
-bool Sys_RandomBytes( byte *string, int len );
-
-void	Sys_SetErrorText( const char *text );
-
-void	Sys_SendPacket( int length, const void *data, netadr_t to );
-
-qboolean	Sys_StringToAdr( const char *s, netadr_t *a );
-//Does NOT parse port numbers, only base addresses.
-
-qboolean	Sys_IsLANAddress (netadr_t adr);
-void		Sys_ShowIP(void);
-
-qboolean	Sys_Mkdir( const char *path );
-char	*Sys_Cwd( void );
-void	Sys_SetDefaultInstallPath(const char *path);
-char	*Sys_DefaultInstallPath(void);
-
-#ifdef MACOS_X
-char    *Sys_DefaultAppPath(void);
-#endif
-
-char	*Sys_DefaultHomePath(void);
-const char *Sys_Dirname( char *path );
-const char *Sys_Basename( char *path );
-
-bool Sys_PathCmp( const char *path1, const char *path2 );
-
-char **Sys_ListFiles( const char *directory, const char *extension, char *filter, int *numfiles, qboolean wantsubs );
-void	Sys_FreeFileList( char **fileList );
-//rwwRMG - changed to fileList to not conflict with list type
-
-time_t Sys_FileTime( const char *path );
-
-qboolean Sys_LowPhysicalMemory();
-
-void Sys_SetProcessorAffinity( void );
+CCALL bool Sys_RandomBytes( byte *string, int len );
+CCALL void	Sys_SetErrorText( const char *text );
+CCALL void	Sys_SendPacket( int length, const void *data, netadr_t to );
+CCALL qboolean	Sys_StringToAdr( const char *s, netadr_t *a ); //Does NOT parse port numbers, only base addresses.
+CCALL qboolean	Sys_IsLANAddress (netadr_t adr);
+CCALL void		Sys_ShowIP(void);
+CCALL qboolean	Sys_Mkdir( const char *path );
+CCALL char	*Sys_Cwd( void );
+CCALL void	Sys_SetDefaultInstallPath(const char *path);
+CCALL char	*Sys_DefaultInstallPath(void);
+CCALL char	*Sys_DefaultHomePath(void);
+CCALL const char *Sys_Dirname( char *path );
+CCALL const char *Sys_Basename( char *path );
+CCALL bool Sys_PathCmp( const char *path1, const char *path2 );
+CCALL char **Sys_ListFiles( const char *directory, const char *extension, char *filter, int *numfiles, qboolean wantsubs );
+CCALL void	Sys_FreeFileList( char **fileList ); //rwwRMG - changed to fileList to not conflict with list type
+CCALL time_t Sys_FileTime( const char *path );
+CCALL qboolean Sys_LowPhysicalMemory();
+CCALL void Sys_SetProcessorAffinity( void );
 
 typedef enum graphicsApi_e
 {
@@ -196,11 +173,11 @@ typedef struct windowDesc_s
 } windowDesc_t;
 
 typedef struct glconfig_s glconfig_t;
-window_t	WIN_Init( const windowDesc_t *desc, glconfig_t *glConfig );
-void		WIN_Present( window_t *window );
-void		WIN_SetGamma( glconfig_t *glConfig, byte red[256], byte green[256], byte blue[256] );
-void		WIN_Shutdown( void );
-void *		WIN_GL_GetProcAddress( const char *proc );
-qboolean	WIN_GL_ExtensionSupported( const char *extension );
+CCALL window_t	WIN_Init( const windowDesc_t *desc, glconfig_t *glConfig );
+CCALL void		WIN_Present( window_t *window );
+CCALL void		WIN_SetGamma( glconfig_t *glConfig, byte red[256], byte green[256], byte blue[256] );
+CCALL void		WIN_Shutdown( void );
+CCALL void *		WIN_GL_GetProcAddress( const char *proc );
+CCALL qboolean	WIN_GL_ExtensionSupported( const char *extension );
 
 uint8_t ConvertUTF32ToExpectedCharset( uint32_t utf32 );

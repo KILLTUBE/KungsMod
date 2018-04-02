@@ -541,7 +541,7 @@ Sys_PlatformInit
 Platform-specific initialization
 ================
 */
-void Sys_PlatformInit( void ) {
+CCALL void Sys_PlatformInit( void ) {
 	TIMECAPS ptc;
 	if ( timeGetDevCaps( &ptc, sizeof( ptc ) ) == MMSYSERR_NOERROR )
 	{

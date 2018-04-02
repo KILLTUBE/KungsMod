@@ -33,6 +33,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #endif
+#include "cm_local.h"
 
 FILE *debuglogfile;
 fileHandle_t logfile;
@@ -1124,7 +1125,7 @@ static void Com_CatchError ( int code )
 Com_Init
 =================
 */
-void Com_Init( char *commandLine ) {
+CCALL void Com_Init( char *commandLine ) {
 	char	*s;
 	int		qport;
 
@@ -1459,12 +1460,13 @@ int Com_TimeVal(int minMsec)
 	return timeVal;
 }
 
+
 /*
 =================
 Com_Frame
 =================
 */
-void Com_Frame( void ) {
+CCALL void Com_Frame( void ) {
 
 	try
 	{
@@ -1623,10 +1625,6 @@ void Com_Frame( void ) {
 		// trace optimization tracking
 		//
 		if ( com_showtrace->integer ) {
-
-			extern	int c_traces, c_brush_traces, c_patch_traces;
-			extern	int	c_pointcontents;
-
 			Com_Printf ("%4i traces  (%ib %ip) %4i points\n", c_traces,
 				c_brush_traces, c_patch_traces, c_pointcontents);
 			c_traces = 0;

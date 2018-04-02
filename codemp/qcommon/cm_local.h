@@ -153,13 +153,13 @@ typedef struct clipMap_s {
 // and to avoid various numeric issues
 #define	SURFACE_CLIP_EPSILON	(0.125)
 
-extern	clipMap_t	cmg; //rwwRMG - changed from cm
-extern	int			c_pointcontents;
-extern	int			c_traces, c_brush_traces, c_patch_traces;
-extern	cvar_t		*cm_noAreas;
-extern	cvar_t		*cm_noCurves;
-extern	cvar_t		*cm_playerCurveClip;
-extern	cvar_t		*cm_extraVerbose;
+EXTERNC	clipMap_t	cmg; //rwwRMG - changed from cm
+EXTERNC	int			c_pointcontents;
+EXTERNC	int			c_traces, c_brush_traces, c_patch_traces;
+EXTERNC	cvar_t		*cm_noAreas;
+EXTERNC	cvar_t		*cm_noCurves;
+EXTERNC	cvar_t		*cm_playerCurveClip;
+EXTERNC	cvar_t		*cm_extraVerbose;
 
 // cm_test.c
 

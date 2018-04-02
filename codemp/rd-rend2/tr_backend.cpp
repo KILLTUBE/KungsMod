@@ -2430,12 +2430,16 @@ static const void	*RB_SwapBuffers( const void *data ) {
 
 	GLimp_LogComment( "***************** RB_SwapBuffers *****************\n\n\n" );
 
-	ri.WIN_Present( &window );
-
+	//ri.WIN_Present( &window );
 	backEnd.framePostProcessed = qfalse;
 	backEnd.projection2D = qfalse;
 
 	return (const void *)(cmd + 1);
+}
+
+// temp func so i can swapbuffer() in .exe (this is .dll now)
+CCALL void win_present() {
+	ri.WIN_Present( &window );
 }
 
 /*

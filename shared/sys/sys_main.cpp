@@ -46,7 +46,7 @@ cvar_t *com_maxfpsUnfocused;
 Sys_SetBinaryPath
 =================
 */
-void Sys_SetBinaryPath(const char *path)
+CCALL void Sys_SetBinaryPath(const char *path)
 {
 	Q_strncpyz(binaryPath, path, sizeof(binaryPath));
 }
@@ -56,7 +56,7 @@ void Sys_SetBinaryPath(const char *path)
 Sys_BinaryPath
 =================
 */
-char *Sys_BinaryPath(void)
+CCALL char *Sys_BinaryPath(void)
 {
 	return binaryPath;
 }
@@ -66,7 +66,7 @@ char *Sys_BinaryPath(void)
 Sys_SetDefaultInstallPath
 =================
 */
-void Sys_SetDefaultInstallPath(const char *path)
+CCALL void Sys_SetDefaultInstallPath(const char *path)
 {
 	Q_strncpyz(installPath, path, sizeof(installPath));
 }
@@ -76,7 +76,7 @@ void Sys_SetDefaultInstallPath(const char *path)
 Sys_DefaultInstallPath
 =================
 */
-char *Sys_DefaultInstallPath(void)
+CCALL char *Sys_DefaultInstallPath(void)
 {
 	if (*installPath)
 		return installPath;
@@ -89,7 +89,7 @@ char *Sys_DefaultInstallPath(void)
 Sys_DefaultAppPath
 =================
 */
-char *Sys_DefaultAppPath(void)
+CCALL char *Sys_DefaultAppPath(void)
 {
 	return Sys_BinaryPath();
 }
@@ -228,7 +228,7 @@ static void Sys_ErrorDialog( const char *error )
 }
 #endif
 
-void NORETURN QDECL Sys_Error( const char *error, ... )
+void Sys_Error( const char *error, ... )
 {
 	va_list argptr;
 	char    string[1024];
@@ -249,7 +249,7 @@ void NORETURN QDECL Sys_Error( const char *error, ... )
 	Sys_Exit( 3 );
 }
 
-void NORETURN Sys_Quit (void) {
+void Sys_Quit (void) {
     Sys_Exit(0);
 }
 
@@ -733,81 +733,27 @@ char *Sys_StripAppBundle( char *dir )
 }
 #endif
 
-#ifndef DEFAULT_BASEDIR
-#	ifdef MACOS_X
-#		define DEFAULT_BASEDIR Sys_StripAppBundle(Sys_BinaryPath())
-#	else
-#		define DEFAULT_BASEDIR Sys_BinaryPath()
-#	endif
-#endif
 
-CCALL int kungsmod_main ( int argc, char* argv[] ) {
-	int		i;
-	char	commandLine[ MAX_STRING_CHARS ] = { 0 };
-
-	Sys_PlatformInit();
-	CON_Init();
-
-	// get the initial time base
-	Sys_Milliseconds();
-
-#ifdef MACOS_X
-	// This is passed if we are launched by double-clicking
-	if ( argc >= 2 && Q_strncmp ( argv[1], "-psn", 4 ) == 0 )
-		argc = 1;
-#endif
-
-	Sys_SetBinaryPath( Sys_Dirname( argv[ 0 ] ) );
-	Sys_SetDefaultInstallPath( DEFAULT_BASEDIR );
-
-	// Concatenate the command line for passing to Com_Init
-	for( i = 1; i < argc; i++ )
+CCALL void Com_BusyWait() {
+	if ( com_busyWait->integer )
 	{
-		const bool containsSpaces = (strchr(argv[i], ' ') != NULL);
-		if (containsSpaces)
-			Q_strcat( commandLine, sizeof( commandLine ), "\"" );
-
-		Q_strcat( commandLine, sizeof( commandLine ), argv[ i ] );
-
-		if (containsSpaces)
-			Q_strcat( commandLine, sizeof( commandLine ), "\"" );
-
-		Q_strcat( commandLine, sizeof( commandLine ), " " );
-	}
-
-	Com_Init (commandLine);
-
-	NET_Init();
-
-	// main game loop
-	while (1)
-	{
-		if ( com_busyWait->integer )
-		{
-			bool shouldSleep = false;
+		bool shouldSleep = false;
 
 #if !defined(_JK2EXE)
-			if ( com_dedicated->integer )
-			{
-				shouldSleep = true;
-			}
+		if ( com_dedicated->integer )
+		{
+			shouldSleep = true;
+		}
 #endif
 
-			if ( com_minimized->integer )
-			{
-				shouldSleep = true;
-			}
-
-			if ( shouldSleep )
-			{
-				Sys_Sleep( 5 );
-			}
+		if ( com_minimized->integer )
+		{
+			shouldSleep = true;
 		}
 
-		// run the game
-		Com_Frame();
+		if ( shouldSleep )
+		{
+			Sys_Sleep( 5 );
+		}
 	}
-
-	// never gets here
-	return 0;
 }

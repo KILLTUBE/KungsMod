@@ -961,7 +961,7 @@ void NET_Config( qboolean enableNetworking ) {
 NET_Init
 ====================
 */
-void NET_Init( void ) {
+CCALL void NET_Init( void ) {
 #ifdef _WIN32
 	int r = WSAStartup( MAKEWORD( 1, 1 ), &winsockdata );
 	if( r ) {
