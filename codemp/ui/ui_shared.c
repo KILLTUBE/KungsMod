@@ -25,11 +25,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 //
 // string allocation/managment
 
-#ifdef _CGAME
-	#include "cgame/cg_local.h"
-#elif UI_BUILD
-	#include "ui/ui_local.h"
-#endif
+#include "cgame/cg_local.h"
+#include "ui/ui_local.h"
 
 #include "ui_shared.h"
 #include "game/bg_public.h"
@@ -79,7 +76,7 @@ typedef struct scrollInfo_s {
 	qboolean scrollDir;
 } scrollInfo_t;
 
-#ifdef UI_BUILD // Defined in ui_main.c, not in the namespace
+
 	// Some extern functions hoisted from the middle of this file to get all the non-cgame,
 	// non-namespace stuff together
 	extern void UI_SaberDrawBlades( itemDef_t *item, vec3_t origin, vec3_t angles );
@@ -87,7 +84,7 @@ typedef struct scrollInfo_s {
 	extern void UI_SaberLoadParms( void );
 	extern qboolean ui_saber_parms_parsed;
 	extern void UI_CacheSaberGlowGraphics( void );
-#endif //
+
 
 qboolean Item_SetFocus(itemDef_t *item, float x, float y);
 
@@ -724,7 +721,7 @@ void Window_Paint(windowDef_t *w, float fadeAmount, float fadeClamp, float fadeC
 		GradientBar_Paint(&fillRect, w->backColor);
 	}
 	else if ( w->style == WINDOW_STYLE_SHADER ) {
-#ifndef _CGAME
+if (!isCGame()) {
 		if ( w->flags & WINDOW_PLAYERCOLOR ) {
 			vec4_t	color;
 			color[0] = ui_char_color_red->integer/255.0f;
@@ -733,7 +730,7 @@ void Window_Paint(windowDef_t *w, float fadeAmount, float fadeClamp, float fadeC
 			color[3] = 1;
 			DC->setColor( color );
 		}
-#endif //
+}
 
 		if ( w->flags & WINDOW_FORECOLORSET )
 			DC->setColor(w->foreColor);
@@ -3455,7 +3452,8 @@ void Leaving_EditField(itemDef_t *item)
 	}
 }
 
-#ifdef UI_BUILD
+CCALL void GetClipboardData( char *buf, int buflen );
+
 qboolean Item_TextField_HandleKey( itemDef_t *item, int key );
 void Item_TextField_Paste( itemDef_t *item ) {
 	int		pasteLen, i;
@@ -3473,7 +3471,7 @@ void Item_TextField_Paste( itemDef_t *item ) {
 		Item_TextField_HandleKey( item, buff[i]|K_CHAR_FLAG );
 	}
 }
-#endif
+
 
 qboolean Item_TextField_HandleKey(itemDef_t *item, int key) {
 	char buff[2048];
@@ -3492,12 +3490,12 @@ qboolean Item_TextField_HandleKey(itemDef_t *item, int key) {
 		if ( key & K_CHAR_FLAG ) {
 			key &= ~K_CHAR_FLAG;
 
-#ifdef UI_BUILD
+if (isUI()) {
 			if ( key == 'v' - 'a' + 1 ) {	// ctrl-v is paste
 				Item_TextField_Paste( item );
 				return qtrue;
 			}
-#endif
+}
 
 			if (key == 'h' - 'a' + 1 )	{	// ctrl-h is backspace
 				if ( item->cursorPos > 0 ) {
@@ -4481,12 +4479,12 @@ void Item_SetTextExtents(itemDef_t *item, int *width, int *height, const char *t
 		}
 
 		ToWindowCoords(&item->textRect.x, &item->textRect.y, &item->window);
-#ifndef _CGAME
+if (!isCGame()) {
 		if (item->text && item->text[0]=='@' )//string package
 		{//mark language
 			item->asset = se_language->modificationCount;
 		}
-#endif
+}
 	}
 }
 
@@ -5245,9 +5243,7 @@ void UI_ScaleModelAxis( refEntity_t *ent )
 	}
 }
 
-#ifndef _CGAME
 extern void UI_SaberAttachToChar( itemDef_t *item );
-#endif
 
 void Item_Model_Paint(itemDef_t *item)
 {
@@ -5264,7 +5260,7 @@ void Item_Model_Paint(itemDef_t *item)
 	}
 
 	// a moves datapad anim is playing
-#ifdef UI_BUILD
+if (isUI()) {
 	if (uiInfo.moveAnimTime && (uiInfo.moveAnimTime < uiInfo.uiDC.realTime))
 	{
 		if (modelPtr)
@@ -5331,7 +5327,7 @@ void Item_Model_Paint(itemDef_t *item)
 			UI_SaberAttachToChar( item );
 		}
 	}
-#endif
+}
 
 	// setup the refdef
 	memset( &refdef, 0, sizeof( refdef ) );
@@ -5424,7 +5420,7 @@ void Item_Model_Paint(itemDef_t *item)
 
 		VectorCopy(modelPtr->g2scale, ent.modelScale);
 		UI_ScaleModelAxis(&ent);
-#ifndef _CGAME
+if (!isCGame()) {
 		if ( (item->flags&ITF_ISCHARACTER) )
 		{
 			ent.shaderRGBA[0] = ui_char_color_red->integer;
@@ -5437,7 +5433,7 @@ void Item_Model_Paint(itemDef_t *item)
 		{//UGH, draw the saber blade!
 			UI_SaberDrawBlades( item, origin, angles );
 		}
-#endif
+}
 	}
 	else
 	{
@@ -5612,7 +5608,7 @@ void Item_ListBox_Paint(itemDef_t *item) {
 				image = DC->feederItemImage(item->special, i);
 				if (image)
 				{
-#ifndef _CGAME
+if (!isCGame()) {
 					if (item->window.flags & WINDOW_PLAYERCOLOR)
 					{
 						vec4_t	color;
@@ -5623,7 +5619,7 @@ void Item_ListBox_Paint(itemDef_t *item) {
 						color[3] = 1.0f;
 						DC->setColor(color);
 					}
-#endif
+}
 					DC->drawHandlePic(x+1, y+1, listPtr->elementWidth - 2, listPtr->elementHeight - 2, image);
 				}
 
@@ -5714,7 +5710,7 @@ void Item_ListBox_Paint(itemDef_t *item) {
 						image = DC->feederItemImage(item->special, i);
 						if (image)
 						{
-		#ifndef _CGAME
+		if (!isCGame()) {
 							if (item->window.flags & WINDOW_PLAYERCOLOR)
 							{
 								vec4_t	color;
@@ -5725,7 +5721,7 @@ void Item_ListBox_Paint(itemDef_t *item) {
 								color[3] = 1.0f;
 								DC->setColor(color);
 							}
-		#endif
+		}
 							DC->drawHandlePic(x+1, y+1, listPtr->elementWidth - 2, listPtr->elementHeight - 2, image);
 						}
 
@@ -7072,7 +7068,7 @@ void UI_CleanupGhoul2(void)
 	while (next)
 	{
 		if (next->ghoul2 && G2_HaveWeGhoul2Models(next->ghoul2)) //found a g2 instance, clean it.
-			G2API_CleanGhoul2Models(&next->ghoul2);
+			CL_G2API_CleanGhoul2Models(&next->ghoul2);
 
 		next = next->next;
 	}
@@ -7089,7 +7085,7 @@ ItemParse_asset_model
 */
 qboolean ItemParse_asset_model_go( itemDef_t *item, const char *name,int *runTimeLength )
 {
-#ifdef UI_BUILD
+if (isUI()) {
 	int g2Model;
 	modelDef_t *modelPtr;
 	Item_ValidateTypeData(item);
@@ -7101,11 +7097,11 @@ qboolean ItemParse_asset_model_go( itemDef_t *item, const char *name,int *runTim
 		if ( item->ghoul2 )
 		{
 			UI_ClearG2Pointer(item->ghoul2);	//remove from tracking list
-			G2API_CleanGhoul2Models(&item->ghoul2);	//remove ghoul info
+			CL_G2API_CleanGhoul2Models(&item->ghoul2);	//remove ghoul info
 			item->flags &= ~ITF_G2VALID;
 		}
 
-		g2Model = G2API_InitGhoul2Model(&item->ghoul2, name, 0, modelPtr->g2skin, 0, 0, 0);
+		g2Model = CL_G2API_InitGhoul2Model(&item->ghoul2, name, 0, modelPtr->g2skin, 0, 0, 0);
 		if (g2Model >= 0)
 		{
 			UI_InsertG2Pointer(item->ghoul2); //remember it so we can free it when the ui shuts down.
@@ -7118,7 +7114,7 @@ qboolean ItemParse_asset_model_go( itemDef_t *item, const char *name,int *runTim
 				char GLAName[MAX_QPATH];
 
 				GLAName[0] = 0;
-				G2API_GetGLAName(item->ghoul2, 0, GLAName);
+				CL_G2API_GetGLAName(item->ghoul2, 0, GLAName);
 
 				if (GLAName[0])
 				{
@@ -7148,7 +7144,7 @@ qboolean ItemParse_asset_model_go( itemDef_t *item, const char *name,int *runTim
 								flags |= BONE_ANIM_OVERRIDE_LOOP;
 							}
 
-							G2API_SetBoneAnim(item->ghoul2, 0, "model_root", sFrame, eFrame, flags, animSpeed, time, -1, blendTime);
+							CL_G2API_SetBoneAnim(item->ghoul2, 0, "model_root", sFrame, eFrame, flags, animSpeed, time, -1, blendTime);
 							*runTimeLength =((anim->frameLerp * (anim->numFrames-2)));
 						}
 					}
@@ -7158,9 +7154,9 @@ qboolean ItemParse_asset_model_go( itemDef_t *item, const char *name,int *runTim
 			if ( modelPtr->g2skin )
 			{
 //					DC->g2_SetSkin( &item->ghoul2[0], 0, modelPtr->g2skin );//this is going to set the surfs on/off matching the skin file
-				//G2API_InitGhoul2Model(&item->ghoul2, name, 0, modelPtr->g2skin, 0, 0, 0);
+				//CL_G2API_InitGhoul2Model(&item->ghoul2, name, 0, modelPtr->g2skin, 0, 0, 0);
 				//ahh, what are you doing?!
-				G2API_SetSkin(item->ghoul2, 0, modelPtr->g2skin, modelPtr->g2skin);
+				CL_G2API_SetSkin(item->ghoul2, 0, modelPtr->g2skin, modelPtr->g2skin);
 			}
 		}
 		/*
@@ -7175,7 +7171,7 @@ qboolean ItemParse_asset_model_go( itemDef_t *item, const char *name,int *runTim
 		item->asset = DC->registerModel(name);
 		item->flags &= ~ITF_G2VALID;
 	}
-#endif
+}
 	return qtrue;
 }
 
@@ -7189,7 +7185,7 @@ qboolean ItemParse_asset_model( itemDef_t *item, int handle ) {
 		return qfalse;
 	}
 
-#ifdef UI_BUILD
+if (isUI()) {
 	if (!Q_stricmp(token.string,"ui_char_model") )
 	{
 		char modelPath[MAX_QPATH] = {0};
@@ -7198,7 +7194,7 @@ qboolean ItemParse_asset_model( itemDef_t *item, int handle ) {
 		Com_sprintf( modelPath, sizeof( modelPath ), "models/players/%s/model.glm", ui_char_model );
 		return (ItemParse_asset_model_go( item, modelPath, &animRunLength ));
 	}
-#endif
+}
 	return (ItemParse_asset_model_go( item, token.string, &animRunLength ));
 }
 
@@ -7389,7 +7385,7 @@ qboolean ItemParse_model_g2skin_go( itemDef_t *item, const char *skinName )
 	if (!skinName || !skinName[0])
 	{ //it was parsed correctly so still return true.
 		modelPtr->g2skin = 0;
-		G2API_SetSkin(item->ghoul2, 0, 0, 0);
+		CL_G2API_SetSkin(item->ghoul2, 0, 0, 0);
 
 		return qtrue;
 	}
@@ -7398,7 +7394,7 @@ qboolean ItemParse_model_g2skin_go( itemDef_t *item, const char *skinName )
 	if ( item->ghoul2 )
 	{
 		defSkin = R_RegisterSkin(skinName);
-		G2API_SetSkin(item->ghoul2, 0, defSkin, defSkin);
+		CL_G2API_SetSkin(item->ghoul2, 0, defSkin, defSkin);
 	}
 
 	return qtrue;
@@ -8071,10 +8067,12 @@ qboolean ItemParse_cvarFloat( itemDef_t *item, int handle ) {
 	return qfalse;
 }
 
-#ifdef UI_BUILD
+
 char currLanguage[32][128];
 static const char languageString[32] = "@MENUS_MYLANGUAGE";
-#endif
+
+
+CCALL void CL_SE_GetLanguageName( const int languageIndex, char *buffer );
 
 qboolean ItemParse_cvarStrList( itemDef_t *item, int handle ) {
 	pc_token_t token;
@@ -8097,29 +8095,29 @@ qboolean ItemParse_cvarStrList( itemDef_t *item, int handle ) {
 
 	if (!Q_stricmp(token.string,"feeder") && item->special == FEEDER_PLAYER_SPECIES)
 	{
-#ifndef _CGAME
+if (!isCGame()) {
 		for (; multiPtr->count < uiInfo.playerSpeciesCount; multiPtr->count++)
 		{
 			multiPtr->cvarList[multiPtr->count] = String_Alloc(Q_strupr(va("@MENUS_%s",uiInfo.playerSpecies[multiPtr->count].Name )));	//look up translation
 			multiPtr->cvarStr[multiPtr->count] = uiInfo.playerSpecies[multiPtr->count].Name;	//value
 		}
-#endif
+}
 		return qtrue;
 	}
 	// languages
 	if (!Q_stricmp(token.string,"feeder") && item->special == FEEDER_LANGUAGES)
 	{
-#ifdef UI_BUILD
+if (isUI()) {
 		for (; multiPtr->count < uiInfo.languageCount; multiPtr->count++)
 		{
 			// The displayed text
-			SE_GetLanguageName( (const int) multiPtr->count,(char *) currLanguage[multiPtr->count]  );	// eg "English"
+			CL_SE_GetLanguageName( (const int) multiPtr->count,(char *) currLanguage[multiPtr->count]  );	// eg "English"
 			multiPtr->cvarList[multiPtr->count] = languageString;
 			// The cvar value that goes into se_language
-			SE_GetLanguageName( (const int) multiPtr->count,(char *) currLanguage[multiPtr->count] );
+			CL_SE_GetLanguageName( (const int) multiPtr->count,(char *) currLanguage[multiPtr->count] );
 			multiPtr->cvarStr[multiPtr->count] = currLanguage[multiPtr->count];
 		}
-#endif
+}
 		return qtrue;
 	}
 
@@ -8301,7 +8299,7 @@ qboolean ItemParse_Appearance_slot( itemDef_t *item, int handle )
 
 qboolean ItemParse_isSaber( itemDef_t *item, int handle  )
 {
-#ifndef _CGAME
+if (!isCGame()) {
 
 	int	i;
 
@@ -8323,13 +8321,13 @@ qboolean ItemParse_isSaber( itemDef_t *item, int handle  )
 
 		return qtrue;
 	}
-#endif
+}
 	return qfalse;
 }
 
 qboolean ItemParse_isSaber2( itemDef_t *item, int handle  )
 {
-#ifndef _CGAME
+if (!isCGame()) {
 	int	i;
 	if (PC_Int_Parse(handle, &i))
 	{
@@ -8349,7 +8347,7 @@ qboolean ItemParse_isSaber2( itemDef_t *item, int handle  )
 
 		return qtrue;
 	}
-#endif
+}
 
 	return qfalse;
 }

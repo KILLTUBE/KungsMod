@@ -1561,7 +1561,7 @@ CCALL void SV_GetUserinfo( int index, char *buffer, int bufferSize );
 CCALL void SV_ChangeMaxClients( void );
 CCALL void SV_SpawnServer( char *server, qboolean killBots, ForceReload_e eForceReload );
 
-void Cbuf_ExecuteText( int exec_when, const char *text );
+CCALL void Cbuf_ExecuteText( int exec_when, const char *text );
 
 CCALL void ICARUS_TaskIDSet( sharedEntity_t *ent, int taskType, int taskID );
 CCALL void Q3_TaskIDSet( sharedEntity_t *ent, taskID_t taskType, int taskID );

@@ -37,9 +37,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "g_local.h"
 #include "cgame/cg_local.h"
-//#elif UI_BUILD
-//	#include "ui/ui_local.h"
-//#endif
+#include "ui/ui_local.h"
 
 #define SIEGECHAR_TAB 9 //perhaps a bit hacky, but I don't think there's any define existing for "tab"
 

@@ -20,20 +20,16 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#ifdef _GAME //including game headers on cgame is FORBIDDEN ^_^
-	#include "g_local.h"
-#endif
 
+#include "g_local.h"
 #include "bg_public.h"
 #include "bg_vehicles.h"
 
 extern float DotToSpot( vec3_t spot, vec3_t from, vec3_t fromAngles );
-#ifdef _GAME //SP or gameside MP
-	extern vec3_t playerMins;
-	extern vec3_t playerMaxs;
-	extern void ChangeWeapon( gentity_t *ent, int newWeapon );
-	extern int PM_AnimLength( int index, animNumber_t anim );
-#endif
+extern vec3_t playerMins;
+extern vec3_t playerMaxs;
+extern void ChangeWeapon( gentity_t *ent, int newWeapon );
+extern int PM_AnimLength( int index, animNumber_t anim );
 
 extern void BG_SetAnim(playerState_t *ps, animation_t *animations, int setAnimParts,int anim,int setAnimFlags);
 extern int BG_GetTime(void);
@@ -51,7 +47,7 @@ qboolean VEH_StartStrafeRam(Vehicle_t *pVeh, qboolean Right, int Duration)
 	return qfalse;
 }
 
-#ifdef _GAME //game-only.. for now
+
 // Like a think or move command, this updates various vehicle properties.
 qboolean Update( Vehicle_t *pVeh, const usercmd_t *pUcmd )
 {
@@ -70,7 +66,6 @@ qboolean Update( Vehicle_t *pVeh, const usercmd_t *pUcmd )
 
 	return qtrue;
 }
-#endif //_GAME
 
 //MP RULE - ALL PROCESSMOVECOMMANDS FUNCTIONS MUST BE BG-COMPATIBLE!!!
 //If you really need to violate this rule for SP, then use ifdefs.
@@ -113,12 +108,12 @@ static void ProcessMoveCommands( Vehicle_t *pVeh )
 	}
 	speedIdleDec = pVeh->m_pVehicleInfo->decelIdle * pVeh->m_fTimeModifier;
 
-#ifdef _GAME
+if (isGame()) {
 	curTime = level.time;
-#elif _CGAME
+} else if (isCGame()) {
 	//FIXME: pass in ucmd?  Not sure if this is reliable...
 	curTime = pm->cmd.serverTime;
-#endif
+}
 
 
 
@@ -141,7 +136,7 @@ static void ProcessMoveCommands( Vehicle_t *pVeh )
 					int i;
 					for (i=0; (i<MAX_VEHICLE_EXHAUSTS && pVeh->m_iExhaustTag[i]!=-1); i++)
 					{
-#ifdef _GAME
+if (isGame()) {
 						if (pVeh->m_pParentEntity &&
 							pVeh->m_pParentEntity->ghoul2 &&
 							pVeh->m_pParentEntity->playerState)
@@ -156,7 +151,7 @@ static void ProcessMoveCommands( Vehicle_t *pVeh )
 							BG_GiveMeVectorFromMatrix(&boltMatrix, ORIGIN, boltDir);
 							G_PlayEffectID(pVeh->m_pVehicleInfo->iTurboStartFX, boltOrg, boltDir);
 						}
-#endif
+}
 					}
 				}
 				parentPS->speed = pVeh->m_pVehicleInfo->turboSpeed;	// Instantly Jump To Turbo Speed
@@ -615,13 +610,11 @@ void AnimateRiders( Vehicle_t *pVeh )
 		SETANIM_BOTH, Anim, iFlags|SETANIM_FLAG_HOLD);
 }
 
-#ifndef _GAME
 void AttachRidersGeneric( Vehicle_t *pVeh );
-#endif
 
 void G_SetSpeederVehicleFunctions( vehicleInfo_t *pVehInfo )
 {
-#ifdef _GAME
+if (isGame()) {
 	pVehInfo->AnimateVehicle			=		AnimateVehicle;
 	pVehInfo->AnimateRiders				=		AnimateRiders;
 //	pVehInfo->ValidateBoard				=		ValidateBoard;
@@ -638,15 +631,15 @@ void G_SetSpeederVehicleFunctions( vehicleInfo_t *pVehInfo )
 //	pVehInfo->Initialize				=		Initialize;
 	pVehInfo->Update					=		Update;
 //	pVehInfo->UpdateRider				=		UpdateRider;
-#endif
+}
 
 	//shared
 	pVehInfo->ProcessMoveCommands		=		ProcessMoveCommands;
 	pVehInfo->ProcessOrientCommands		=		ProcessOrientCommands;
 
-#ifndef _GAME //cgame prediction attachment func
+if ( ! isGame()) { //cgame prediction attachment func
 	pVehInfo->AttachRiders				=		AttachRidersGeneric;
-#endif
+}
 //	pVehInfo->AttachRiders				=		AttachRiders;
 //	pVehInfo->Ghost						=		Ghost;
 //	pVehInfo->UnGhost					=		UnGhost;
@@ -655,25 +648,22 @@ void G_SetSpeederVehicleFunctions( vehicleInfo_t *pVehInfo )
 
 // Following is only in game, not in namespace
 
-#ifdef _GAME
 extern void G_AllocateVehicleObject(Vehicle_t **pVeh);
-#endif
-
 
 // Create/Allocate a new Animal Vehicle (initializing it as well).
 void G_CreateSpeederNPC( Vehicle_t **pVeh, const char *strType )
 {
-#ifdef _GAME
+if (isGame()) {
 	//these will remain on entities on the client once allocated because the pointer is
 	//never stomped. on the server, however, when an ent is freed, the entity struct is
 	//memset to 0, so this memory would be lost..
     G_AllocateVehicleObject(pVeh);
-#else
+} else {
 	if (!*pVeh)
 	{ //only allocate a new one if we really have to
 		(*pVeh) = (Vehicle_t *) BG_Alloc( sizeof(Vehicle_t) );
 	}
-#endif
+}
 	memset(*pVeh, 0, sizeof(Vehicle_t));
 	(*pVeh)->m_pVehicleInfo = &g_vehicleInfo[BG_VehicleGetIndex( strType )];
 }

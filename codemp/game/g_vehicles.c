@@ -1192,12 +1192,12 @@ static qboolean Update( Vehicle_t *pVeh, const usercmd_t *pUmcd )
 
 	parentPS =  pVeh->m_pParentEntity->playerState;
 
-#ifdef _GAME
+if (isGame()) {
 	curTime = level.time;
-#elif _CGAME
+} else if (isCGame()) {
 	//FIXME: pass in ucmd?  Not sure if this is reliable...
 	curTime = pm->cmd.serverTime;
-#endif
+}
 
 	//increment the ammo for all rechargeable weapons
 	for ( i = 0; i < MAX_VEHICLE_WEAPONS; i++ )
@@ -1321,7 +1321,7 @@ static qboolean Update( Vehicle_t *pVeh, const usercmd_t *pUmcd )
 		return qfalse;
 	}
 
-#ifdef _GAME
+if (isGame()) {
 	if (parent->spawnflags & 1)
 	{
 		if (pVeh->m_pPilot || !pVeh->m_bHasHadPilot)
@@ -1358,7 +1358,7 @@ static qboolean Update( Vehicle_t *pVeh, const usercmd_t *pUmcd )
 			}
 		}
 	}
-#endif
+}
 
 	if (pVeh->m_iBoarding != 0)
 	{
@@ -1494,12 +1494,12 @@ static qboolean Update( Vehicle_t *pVeh, const usercmd_t *pUmcd )
 		}
 	}
 
-#ifdef _GAME
+if (isGame()) {
 	for ( i = 0; i < MAX_VEHICLE_TURRETS; i++ )
 	{//HMM... can't get a seperate command for each weapon, so do them all...?
 		VEH_TurretThink( pVeh, parent, i );
 	}
-#endif
+}
 
 maintainSelfDuringBoarding:
 

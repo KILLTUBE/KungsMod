@@ -3903,6 +3903,12 @@ int		FS_FOpenFileByMode( const char *qpath, fileHandle_t *f, fsMode_t mode ) {
 
 	sync = qfalse;
 
+
+	//if (strstr(qpath, "ingame.menu") != 0) {
+	//	__debugbreak();
+	//	Com_Printf("asd\n");
+	//}
+
 	switch( mode ) {
 	case FS_READ:
 		r = FS_FOpenFileRead( qpath, f, qtrue );

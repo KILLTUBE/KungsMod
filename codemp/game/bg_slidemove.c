@@ -28,13 +28,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "bg_public.h"
 #include "bg_local.h"
 
-#ifdef _GAME
-	#include "g_local.h"
-#elif _CGAME
-	#include "cgame/cg_local.h"
-#elif UI_BUILD
-	#include "ui/ui_local.h"
-#endif
+#include "g_local.h"
+#include "cgame/cg_local.h"
+#include "ui/ui_local.h"
 
 /*
 
@@ -47,21 +43,15 @@ output: origin, velocity, impacts, stairup boolean
 
 //do vehicle impact stuff
 // slight rearrangement by BTO (VV) so that we only have one namespace include
-#ifdef _GAME
-	extern void G_FlyVehicleSurfaceDestruction(gentity_t *veh, trace_t *trace, int magnitude, qboolean force ); //g_vehicle.c
-	extern qboolean G_CanBeEnemy(gentity_t *self, gentity_t *enemy); //w_saber.c
-#endif
-
+extern void G_FlyVehicleSurfaceDestruction(gentity_t *veh, trace_t *trace, int magnitude, qboolean force ); //g_vehicle.c
+extern qboolean G_CanBeEnemy(gentity_t *self, gentity_t *enemy); //w_saber.c
 extern qboolean BG_UnrestrainedPitchRoll( playerState_t *ps, Vehicle_t *pVeh );
-
 
 extern bgEntity_t *pm_entSelf;
 extern bgEntity_t *pm_entVeh;
 
 //vehicle impact stuff continued...
-#ifdef _GAME
-	extern qboolean FighterIsLanded( Vehicle_t *pVeh, playerState_t *parentPS );
-#endif
+extern qboolean FighterIsLanded( Vehicle_t *pVeh, playerState_t *parentPS );
 
 extern void PM_SetPMViewAngle(playerState_t *ps, vec3_t angle, usercmd_t *ucmd);
 

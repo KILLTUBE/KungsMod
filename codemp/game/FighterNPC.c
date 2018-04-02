@@ -1765,9 +1765,8 @@ static void AnimateRiders( Vehicle_t *pVeh )
 
 //#endif //game-only
 
-//#ifdef _CGAME
 void AttachRidersGeneric( Vehicle_t *pVeh );
-//#endif
+
 
 void G_SetFighterVehicleFunctions( vehicleInfo_t *pVehInfo )
 {

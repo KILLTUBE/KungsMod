@@ -116,7 +116,7 @@ CCALL void CL_GetClientState( uiClientState_t *state ) {
 	state->clientNum = cl.snap.ps.clientNum;
 }
 
-static void GetClipboardData( char *buf, int buflen ) {
+CCALL void GetClipboardData( char *buf, int buflen ) {
 	char	*cbd, *c;
 
 	c = cbd = Sys_GetClipboardData();
@@ -177,7 +177,7 @@ CCALL void Key_KeynumToStringBuf( int keynum, char *buf, int buflen )
 	Q_strncpyz( buf, (psKeyNameFriendly && psKeyNameFriendly[0]) ? psKeyNameFriendly : psKeyName, buflen );
 }
 
-static void CL_SE_GetLanguageName( const int languageIndex, char *buffer ) {
+CCALL void CL_SE_GetLanguageName( const int languageIndex, char *buffer ) {
 	Q_strncpyz( buffer, SE_GetLanguageName( languageIndex ), 128 );
 }
 

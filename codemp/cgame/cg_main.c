@@ -61,8 +61,6 @@ void CG_MiscEnt(void);
 void CG_DoCameraShake( vec3_t origin, float intensity, int radius, int time );
 
 
-//#ifdef _CGAME
-
 
 #include "game/g_local.h"
 
