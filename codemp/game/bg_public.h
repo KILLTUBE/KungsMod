@@ -396,11 +396,8 @@ extern bgLoadedAnim_t bgAllAnims[MAX_ANIM_FILES];
 //cut memory cost.
 //On the bright side this also means we're cutting a rather large size out of
 //required game-side memory.
-//#ifndef _GAME
 extern bgLoadedEvents_t bgAllEvents[MAX_ANIM_FILES];
 extern int bgNumAnimEvents;
-//#endif
-
 
 typedef enum {
 	PM_NORMAL,		// can accelerate and turn
@@ -1734,9 +1731,7 @@ qboolean	BG_PlayerTouchesItem( playerState_t *ps, entityState_t *item, int atTim
 void	BG_InitAnimsets(void);
 void	BG_ClearAnimsets(void);
 int		BG_ParseAnimationFile(const char *filename, animation_t *animSet, qboolean isHumanoid);
-//#ifndef _GAME
 int		BG_ParseAnimationEvtFile( const char *as_filename, int animFileIndex, int eventFileIndex );
-//#endif
 
 qboolean BG_HasAnimation(int animIndex, int animation);
 int		BG_PickAnim( int animIndex, int minAnim, int maxAnim );

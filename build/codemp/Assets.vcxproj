@@ -268,16 +268,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <None Include="C:\XycaRend2\build\codemp\CMakeFiles\Assets" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="C:\XycaRend2\build\codemp\cgame\cgamex86.vcxproj">
-      <Project>{831BFE06-F11A-339A-ACF2-9CAA017FAEF2}</Project>
-      <Name>cgamex86</Name>
-    </ProjectReference>
-    <ProjectReference Include="C:\XycaRend2\build\codemp\ui\uix86.vcxproj">
-      <Project>{D8D25B1F-B92D-3C03-BEAD-4F974EC7CBFB}</Project>
-      <Name>uix86</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -37,9 +37,6 @@
     <ClCompile Include="C:\XycaRend2\codemp\game\SpeederNPC.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\game\WalkerNPC.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\qcommon\q_shared.c">
       <Filter>common</Filter>
     </ClCompile>

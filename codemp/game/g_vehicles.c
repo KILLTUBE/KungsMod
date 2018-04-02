@@ -32,9 +32,7 @@ extern void BG_SetAnim(playerState_t *ps, animation_t *animations, int setAnimPa
 extern void BG_SetLegsAnimTimer(playerState_t *ps, int time );
 extern void BG_SetTorsoAnimTimer(playerState_t *ps, int time );
 void G_VehUpdateShields( gentity_t *targ );
-#ifdef _GAME
-	extern void VEH_TurretThink( Vehicle_t *pVeh, gentity_t *parent, int turretNum );
-#endif
+extern void VEH_TurretThink( Vehicle_t *pVeh, gentity_t *parent, int turretNum );
 
 extern qboolean BG_UnrestrainedPitchRoll( playerState_t *ps, Vehicle_t *pVeh );
 
@@ -326,13 +324,13 @@ qboolean Board( Vehicle_t *pVeh, bgEntity_t *pEnt )
 				if ( pVeh->m_ppPassengers[i] == NULL )
 				{
 					pVeh->m_ppPassengers[i] = (bgEntity_t *)ent;
-#ifdef _GAME
-					//Server just needs to tell client which passengernum he is
-					if ( ent->client )
-					{
-						ent->client->ps.generic1 = i+1;
+					if (isGame()) {
+						//Server just needs to tell client which passengernum he is
+						if ( ent->client )
+						{
+							ent->client->ps.generic1 = i+1;
+						}
 					}
-#endif
 					break;
 				}
 			}
@@ -354,8 +352,7 @@ qboolean Board( Vehicle_t *pVeh, bgEntity_t *pEnt )
 			parent->s.owner = parent->r.ownerNum; //for prediction
 		}
 
-#ifdef _GAME
-		{
+		if (isGame()) {
 			gentity_t *gParent = (gentity_t *)parent;
 			if ( (gParent->spawnflags&2) )
 			{//was being suspended
@@ -368,7 +365,6 @@ qboolean Board( Vehicle_t *pVeh, bgEntity_t *pEnt )
 				}
 			}
 		}
-#endif
 
 		//FIXME: rider needs to look in vehicle's direction when he gets in
 		// Clear these since they're used to turn the vehicle now.
@@ -412,13 +408,13 @@ qboolean Board( Vehicle_t *pVeh, bgEntity_t *pEnt )
 				if ( pVeh->m_ppPassengers[i] == NULL )
 				{
 					pVeh->m_ppPassengers[i] = (bgEntity_t *)ent;
-#ifdef _GAME
+if (isGame()) {
 					//Server just needs to tell client which passengernum he is
 					if ( ent->client )
 					{
 						ent->client->ps.generic1 = i+1;
 					}
-#endif
+}
 					break;
 				}
 			}
@@ -581,7 +577,7 @@ void G_EjectDroidUnit( Vehicle_t *pVeh, qboolean kill )
 	pVeh->m_pDroidUnit->s.m_iVehicleNum = ENTITYNUM_NONE;
 	pVeh->m_pDroidUnit->s.owner = ENTITYNUM_NONE;
 //	pVeh->m_pDroidUnit->s.otherEntityNum2 = ENTITYNUM_NONE;
-#ifdef _GAME
+if (isGame())
 	{
 		gentity_t *droidEnt = (gentity_t *)pVeh->m_pDroidUnit;
 		droidEnt->flags &= ~FL_UNDYING;
@@ -597,7 +593,6 @@ void G_EjectDroidUnit( Vehicle_t *pVeh, qboolean kill )
 			G_Damage( droidEnt, NULL, NULL, NULL, droidEnt->s.origin, 10000, 0, MOD_SUICIDE );//FIXME: proper MOD?  Get from vehicle?
 		}
 	}
-#endif
 	pVeh->m_pDroidUnit = NULL;
 }
 
@@ -721,13 +716,13 @@ getItOutOfMe:
 				parent->client->ps.m_iVehicleNum = pVeh->m_ppPassengers[j]->s.number+1;
 
 				//rearrange the passenger slots now..
-#ifdef _GAME
+if (isGame()) {
 				//Server just needs to tell client he's not a passenger anymore
 				if ( ((gentity_t *)pVeh->m_ppPassengers[j])->client )
 				{
 					((gentity_t *)pVeh->m_ppPassengers[j])->client->ps.generic1 = 0;
 				}
-#endif
+}
 				pVeh->m_ppPassengers[j] = NULL;
 				while (k < pVeh->m_iNumPassengers)
 				{
@@ -735,13 +730,13 @@ getItOutOfMe:
 					{ //move down
 						pVeh->m_ppPassengers[k-1] = pVeh->m_ppPassengers[k];
 						pVeh->m_ppPassengers[k] = NULL;
-#ifdef _GAME
+if (isGame()) {
 						//Server just needs to tell client which passenger he is
 						if ( pVeh->m_ppPassengers[k-1] && ((gentity_t *)pVeh->m_ppPassengers[k-1])->client )
 						{
 							((gentity_t *)pVeh->m_ppPassengers[k-1])->client->ps.generic1 = k;
 						}
-#endif
+}
 					}
 					k++;
 				}
@@ -765,13 +760,13 @@ getItOutOfMe:
 			// If we found him...
 			if ( (gentity_t *)pVeh->m_ppPassengers[i] == ent )
 			{
-#ifdef _GAME
+if (isGame()) {
 				//Server just needs to tell client he's not a passenger anymore
 				if ( ((gentity_t *)pVeh->m_ppPassengers[i])->client )
 				{
 					((gentity_t *)pVeh->m_ppPassengers[i])->client->ps.generic1 = 0;
 				}
-#endif
+}
 				pVeh->m_ppPassengers[i] = NULL;
 				pVeh->m_iNumPassengers--;
 				break;
