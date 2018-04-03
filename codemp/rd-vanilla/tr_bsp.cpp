@@ -23,6 +23,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 // tr_map.c
 #include "../rd-rend2/tr_local.h"
+#include "../qcommon/cm_local.h"
 
 /*
 
@@ -2036,9 +2037,9 @@ void RE_LoadWorldMap_Actual( const char *name, world_t &worldData, int index )
 
 	// check for cached disk file from the server first...
 	//
-	if (ri.CM_GetCachedMapDiskImage())
+	if (gpvCachedMapDiskImage)
 	{
-		buffer = (byte *)ri.CM_GetCachedMapDiskImage();
+		buffer = (byte *)gpvCachedMapDiskImage;
 	}
 	else
 	{
@@ -2098,13 +2099,10 @@ void RE_LoadWorldMap_Actual( const char *name, world_t &worldData, int index )
 		tr.world = &worldData;
 	}
 
-	if (ri.CM_GetCachedMapDiskImage())
-	{
-		Z_Free( ri.CM_GetCachedMapDiskImage() );
-		ri.CM_SetCachedMapDiskImage( NULL );
-	}
-	else
-	{
+	if (gpvCachedMapDiskImage) {
+		Z_Free( gpvCachedMapDiskImage );
+		gpvCachedMapDiskImage = NULL;
+	} else {
 		ri.FS_FreeFile( buffer );
 	}
 }

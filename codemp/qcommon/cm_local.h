@@ -232,3 +232,5 @@ void		CM_GetModelFormalName ( const char* model, const char* skin, char* name, i
 
 // cm_load.cpp
 void CM_GetWorldBounds ( vec3_t mins, vec3_t maxs );
+
+EXTERNC void *gpvCachedMapDiskImage;

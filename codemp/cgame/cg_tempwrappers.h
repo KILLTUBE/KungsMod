@@ -237,6 +237,8 @@ CCALL void R_ClearScene( void );
 CCALL void R_ClearDecals( void );
 CCALL void R_InitDecals( void );
 CCALL void R_FreeDecal( int type, int index );
+
+#define DECAL_POLY
 typedef struct decalPoly_s 
 {
 	int					time;
@@ -248,6 +250,8 @@ typedef struct decalPoly_s
 #define	MAX_VERTS_ON_DECAL_POLY	10
 	polyVert_t			verts[MAX_VERTS_ON_DECAL_POLY];
 } decalPoly_t;
+
+
 CCALL decalPoly_t* R_AllocDecal( int type );
 
 CCALL void R_AddRefEntityToScene( const refEntity_t *ent );

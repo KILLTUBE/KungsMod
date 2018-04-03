@@ -769,10 +769,7 @@ void G2API_CleanGhoul2Models(CGhoul2Info_v **ghoul2Ptr)
 	}
 }
 
-qboolean G2_ShouldRegisterServer(void)
-{
-	vm_t *currentVM = ri.GetCurrentVM();
-
+qboolean G2_ShouldRegisterServer(void) {
 	if ( currentVM && currentVM->slot == VM_GAME )
 	{
 		if ( ri.Cvar_VariableIntegerValue( "cl_running" ) &&

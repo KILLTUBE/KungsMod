@@ -3529,4 +3529,14 @@ uint32_t RB_CreateSortKey( const DrawItem& item, int stage, int layer );
 void RB_AddDrawItem( Pass *pass, uint32_t sortKey, const DrawItem& drawItem );
 DepthRange RB_GetDepthRange( const trRefEntity_t *re, const shader_t *shader );
 
+
+
+
+
+#include "client/client.h"
+#include "client/cl_cgameapi.h"
+
+
+
+
 #endif //TR_LOCAL_H

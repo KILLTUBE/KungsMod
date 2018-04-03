@@ -83,61 +83,61 @@ void				FS_WriteFile					( const char *qpath, const void *buffer, int size ) {
 //}
 
 //qboolean	SND_RegisterAudio_LevelLoadEnd	( qboolean bDeleteEverythingNotUsedThisLevel ) {
-//	return ri.SND_RegisterAudio_LevelLoadEnd(bDeleteEverythingNotUsedThisLevel);
+//	return SND_RegisterAudio_LevelLoadEnd(bDeleteEverythingNotUsedThisLevel);
 //}
 
 //e_status	CIN_RunCinematic					( int handle ) {
-//	return ri.CIN_RunCinematic(handle);
+//	return CIN_RunCinematic(handle);
 //}
 //
 //int			CIN_PlayCinematic				( const char *arg0, int xpos, int ypos, int width, int height, int bits, const char *psAudioFile /* = NULL */ ) {
-//	return ri.CIN_PlayCinematic(arg0, xpos, ypos, width, height, bits, psAudioFile);
+//	return CIN_PlayCinematic(arg0, xpos, ypos, width, height, bits, psAudioFile);
 //}
 //
 //void		CIN_UploadCinematic				( int handle ) {
-//	return ri.CIN_UploadCinematic(handle);
+//	return CIN_UploadCinematic(handle);
 //}
 
 
 // window handling
 //window_t		WIN_Init                        ( const windowDesc_t *desc, glconfig_t *glConfig ) {
-//	return ri.WIN_Init(desc, glConfig);
+//	return WIN_Init(desc, glConfig);
 //}
 //
 //void			WIN_SetGamma					( glconfig_t *glConfig, byte red[256], byte green[256], byte blue[256] ) {
-//	ri.WIN_SetGamma(glConfig, red, green, blue);
+//	WIN_SetGamma(glConfig, red, green, blue);
 //}
 //
 //void			WIN_Present						( window_t *window ) {
-//	ri.WIN_Present(window);
+//	WIN_Present(window);
 //}
 //
 //void            WIN_Shutdown                    ( void ) {
-//	ri.WIN_Shutdown();
+//	WIN_Shutdown();
 //}
 
 
 // OpenGL-specific
 void *			GL_GetProcAddress				( const char *name ) {
-	return ri.GL_GetProcAddress(name);
+	return WIN_GL_GetProcAddress(name);
 }
 
 qboolean		GL_ExtensionSupported			( const char *extension ) {
-	return ri.GL_ExtensionSupported(extension);
+	return WIN_GL_ExtensionSupported(extension);
 }
 
 CMiniHeap *		GetG2VertSpaceServer			( void ) {
-	return ri.GetG2VertSpaceServer();
+	return GetG2VertSpaceServer();
 }
 
 
 // Persistent data store
 //bool			PD_Store							( const char *name, const void *data, size_t size ) {
-//	return ri.PD_Store(name, data, size);
+//	return PD_Store(name, data, size);
 //}
 //
 //const void *	PD_Load							( const char *name, size_t *size ) {
-//	return ri.PD_Load(name, size);
+//	return PD_Load(name, size);
 //}
 
 
@@ -182,15 +182,15 @@ int					func_com_frameTime					( void ) {
 }
 
 //int					Key_GetCatcher					() {
-//	return ri.Key_GetCatcher();
+//	return Key_GetCatcher();
 //}
 //
 //const char			*Clipboard_Get					() {
-//	return ri.Clipboard_Get();
+//	return Clipboard_Get();
 //}
 //
 //void				Clipboard_Set					(const char *text) {
-//	return ri.Clipboard_Set(text);
+//	return Clipboard_Set(text);
 //}
 
 #endif

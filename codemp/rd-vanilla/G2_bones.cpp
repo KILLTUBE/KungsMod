@@ -2695,7 +2695,7 @@ void Rag_Trace( trace_t *results, const vec3_t start, const vec3_t mins, const v
 #ifdef _DEBUG
 	int ragPreTrace = ri.Milliseconds();
 #endif
-	if ( ri.CGVMLoaded() )
+	if ( cls.cgameStarted )
 	{
 		ragCallbackTraceLine_t *callData = (ragCallbackTraceLine_t *)ri.GetSharedMemory();
 
@@ -2890,7 +2890,7 @@ static inline bool G2_ApplyRealBonePhysics(boneInfo_t &bone, SRagEffector &e, CR
 #ifdef _DEBUG_BONE_NAMES
 static inline void G2_RagDebugBox(vec3_t mins, vec3_t maxs, int duration)
 {
-	if ( !ri.CGVMLoaded() )
+	if ( !cls.cgameStarted )
 		return;
 
 	ragCallbackDebugBox_t *callData = (ragCallbackDebugBox_t *)ri.GetSharedMemory();
@@ -2904,7 +2904,7 @@ static inline void G2_RagDebugBox(vec3_t mins, vec3_t maxs, int duration)
 
 static inline void G2_RagDebugLine(vec3_t start, vec3_t end, int time, int color, int radius)
 {
-	if ( !ri.CGVMLoaded() )
+	if ( !cls.cgameStarted )
 		return;
 
 	ragCallbackDebugLine_t *callData = (ragCallbackDebugLine_t *)ri.GetSharedMemory();
@@ -3048,7 +3048,7 @@ static bool G2_RagDollSettlePositionNumeroTrois(CGhoul2Info_v &ghoul2V, const ve
 					{
 						//SRagDollEffectorCollision args(e.currentOrigin,tr);
 						//params->EffectorCollision(args);
-						if ( ri.CGVMLoaded() )
+						if ( cls.cgameStarted )
 						{ //make a callback and see if the cgame wants to help us out
 							ragCallbackBoneInSolid_t *callData = (ragCallbackBoneInSolid_t *)ri.GetSharedMemory();
 
@@ -3075,7 +3075,7 @@ static bool G2_RagDollSettlePositionNumeroTrois(CGhoul2Info_v &ghoul2V, const ve
 					//SRagDollEffectorCollision args(e.currentOrigin,tr);
 					//args.useTracePlane=true;
 					//params->EffectorCollision(args);
-					if ( ri.CGVMLoaded() )
+					if ( cls.cgameStarted )
 					{ //make a callback and see if the cgame wants to help us out
 						ragCallbackBoneInSolid_t *callData = (ragCallbackBoneInSolid_t *)ri.GetSharedMemory();
 
@@ -3168,7 +3168,7 @@ static bool G2_RagDollSettlePositionNumeroTrois(CGhoul2Info_v &ghoul2V, const ve
 						//SRagDollEffectorCollision args(e.currentOrigin,tr);
 						//args.useTracePlane=true;
 						//params->EffectorCollision(args);
-						if ( ri.CGVMLoaded() )
+						if ( cls.cgameStarted )
 						{ //make a callback and see if the cgame wants to help us out
 							ragCallbackBoneInSolid_t *callData = (ragCallbackBoneInSolid_t *)ri.GetSharedMemory();
 
@@ -3203,7 +3203,7 @@ static bool G2_RagDollSettlePositionNumeroTrois(CGhoul2Info_v &ghoul2V, const ve
 							//SRagDollEffectorCollision args(e.currentOrigin,tr);
 							//args.useTracePlane=true;
 							//params->EffectorCollision(args);
-							if ( ri.CGVMLoaded() )
+							if ( cls.cgameStarted )
 							{ //make a callback and see if the cgame wants to help us out
 								ragCallbackBoneInSolid_t *callData = (ragCallbackBoneInSolid_t *)ri.GetSharedMemory();
 
@@ -3810,7 +3810,7 @@ static bool G2_RagDollSettlePositionNumeroTrois(CGhoul2Info_v &ghoul2V, const ve
 		{
 			bone.solidCount++;
 #if 0
-			if ( ri.CGVMLoaded() && bone.solidCount > 8 )
+			if ( cls.cgameStarted && bone.solidCount > 8 )
 			{ //make a callback and see if the cgame wants to help us out
 				Rag_Trace(&solidTr, params->position, testMins, testMaxs, e.currentOrigin, ignoreNum, RAG_MASK, G2_NOCOLLIDE, 0);
 
@@ -3935,7 +3935,7 @@ static float AngleNormZero(float theta)
 
 static inline void G2_BoneSnap(CGhoul2Info_v &ghoul2V, boneInfo_t &bone, CRagDollUpdateParams *params)
 {
-	if ( !ri.CGVMLoaded() || !params )
+	if ( !cls.cgameStarted || !params )
 	{
 		return;
 	}

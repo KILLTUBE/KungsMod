@@ -4,6 +4,8 @@
 #define	MAX_VERTS_ON_DECAL_POLY	10
 #define	MAX_DECAL_POLYS			500
 
+// filthy hack until i cleaned up the headers...
+#ifndef DECAL_POLY
 typedef struct decalPoly_s 
 {
 	int					time;
@@ -13,6 +15,7 @@ typedef struct decalPoly_s
 	poly_t				poly;
 	polyVert_t			verts[MAX_VERTS_ON_DECAL_POLY];
 } decalPoly_t;
+#endif
 
 enum
 {

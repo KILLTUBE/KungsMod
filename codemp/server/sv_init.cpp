@@ -888,27 +888,27 @@ static void SV_InitRef( void ) {
 	ri.CM_PointContents = CM_PointContents;
 	ri.Com_TheHunkMarkHasBeenMade = Com_TheHunkMarkHasBeenMade;
 //	ri.S_RestartMusic = S_RestartMusic;
-//	ri.SND_RegisterAudio_LevelLoadEnd = SND_RegisterAudio_LevelLoadEnd;
-//	ri.CIN_RunCinematic = CIN_RunCinematic;
-//	ri.CIN_PlayCinematic = CIN_PlayCinematic;
-//	ri.CIN_UploadCinematic = CIN_UploadCinematic;
-//	ri.CL_WriteAVIVideoFrame = CL_WriteAVIVideoFrame;
+//	SND_RegisterAudio_LevelLoadEnd = SND_RegisterAudio_LevelLoadEnd;
+//	CIN_RunCinematic = CIN_RunCinematic;
+//	CIN_PlayCinematic = CIN_PlayCinematic;
+//	CIN_UploadCinematic = CIN_UploadCinematic;
+//	CL_WriteAVIVideoFrame = CL_WriteAVIVideoFrame;
 
 	// g2 data access
 	ri.GetSharedMemory = GetSharedMemory;
 
 	// (c)g vm callbacks
 	ri.GetCurrentVM = GetCurrentVM;
-//	ri.CGVMLoaded = CGVMLoaded;
-//	ri.CGVM_RagCallback = CGVM_RagCallback;
+//	CGVMLoaded = CGVMLoaded;
+//	CGVM_RagCallback = CGVM_RagCallback;
 
 	// ugly win32 backend
-	ri.CM_GetCachedMapDiskImage = CM_GetCachedMapDiskImage;
-	ri.CM_SetCachedMapDiskImage = CM_SetCachedMapDiskImage;
-	ri.CM_SetUsingCache = CM_SetUsingCache;
+	CM_GetCachedMapDiskImage = CM_GetCachedMapDiskImage;
+	CM_SetCachedMapDiskImage = CM_SetCachedMapDiskImage;
+	CM_SetUsingCache = CM_SetUsingCache;
 
 	//FIXME: Might have to do something about this...
-	ri.GetG2VertSpaceServer = GetG2VertSpaceServer;
+	GetG2VertSpaceServer = GetG2VertSpaceServer;
 	G2VertSpaceServer = &IHeapAllocator_singleton;
 
 	ret = GetRefAPI( REF_API_VERSION, &ri );

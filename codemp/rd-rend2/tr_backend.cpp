@@ -916,8 +916,8 @@ static void RB_BindTextures( size_t numBindings, const SamplerBinding *bindings 
 		{
 			int oldtmu = glState.currenttmu;
 			GL_SelectTexture(binding.slot);
-			ri.CIN_RunCinematic(binding.videoMapHandle - 1);
-			ri.CIN_UploadCinematic(binding.videoMapHandle - 1);
+			CIN_RunCinematic(binding.videoMapHandle - 1);
+			CIN_UploadCinematic(binding.videoMapHandle - 1);
 			GL_SelectTexture(oldtmu);
 		}
 		else
@@ -2430,7 +2430,7 @@ static const void	*RB_SwapBuffers( const void *data ) {
 
 	GLimp_LogComment( "***************** RB_SwapBuffers *****************\n\n\n" );
 
-	//ri.WIN_Present( &window );
+	//WIN_Present( &window );
 	backEnd.framePostProcessed = qfalse;
 	backEnd.projection2D = qfalse;
 
@@ -2439,7 +2439,7 @@ static const void	*RB_SwapBuffers( const void *data ) {
 
 // temp func so i can swapbuffer() in .exe (this is .dll now)
 CCALL void win_present() {
-	ri.WIN_Present( &window );
+	WIN_Present( &window );
 }
 
 /*

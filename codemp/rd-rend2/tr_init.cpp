@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include "tr_weather.h"
 #include <algorithm>
 #include "../cgame/cg_tempwrappers.h"
+#include "client/snd_local.h"
 
 static size_t FRAME_UNIFORM_BUFFER_SIZE = 8*1024*1024;
 static size_t FRAME_VERTEX_BUFFER_SIZE = 12*1024*1024;
@@ -286,7 +287,7 @@ static void R_Splash()
 	GLSL_BindProgram(&tr.splashScreenShader);
 	qglDrawArrays(GL_TRIANGLES, 0, 3);
 
-	ri.WIN_Present(&window);
+	WIN_Present(&window);
 }
 
 /*
@@ -501,7 +502,7 @@ static void InitOpenGL( void )
 		if ( r_debugContext->integer )
 			windowDesc.gl.contextFlags = GLCONTEXT_DEBUG;
 
-		window = ri.WIN_Init(&windowDesc, &glConfig);
+		window = WIN_Init(&windowDesc, &glConfig);
 
 		GLimp_InitCoreFunctions();
 
@@ -1116,7 +1117,7 @@ const void *RB_TakeVideoFrameCmd( const void *data )
 		memcount = R_SaveJPGToBuffer(cmd->encodeBuffer, linelen * cmd->height,
 			r_aviMotionJpegQuality->integer,
 			cmd->width, cmd->height, cBuf, padlen);
-		ri.CL_WriteAVIVideoFrame(cmd->encodeBuffer, memcount);
+		CL_WriteAVIVideoFrame(cmd->encodeBuffer, memcount);
 	}
 	else
 	{
@@ -1145,7 +1146,7 @@ const void *RB_TakeVideoFrameCmd( const void *data )
 			srcptr += padlen;
 		}
 		
-		ri.CL_WriteAVIVideoFrame(cmd->encodeBuffer, avipadwidth * cmd->height);
+		CL_WriteAVIVideoFrame(cmd->encodeBuffer, avipadwidth * cmd->height);
 	}
 
 	return (const void *)(cmd + 1);	
@@ -1881,7 +1882,7 @@ CCALL void R_Shutdown( qboolean destroyWindow, qboolean restarting ) {
 
 	// shut down platform specific OpenGL stuff
 	if ( destroyWindow ) {
-		ri.WIN_Shutdown();
+		WIN_Shutdown();
 	}
 
 	tr.registered = qfalse;
@@ -1981,10 +1982,12 @@ CCALL int C_GetLevel( void )
 	return tr.currentLevel;
 }
 
+
+
 CCALL void C_LevelLoadEnd( void )
 {
 	CModelCache->LevelLoadEnd( qfalse );
-	ri.SND_RegisterAudio_LevelLoadEnd( qfalse );
+	SND_RegisterAudio_LevelLoadEnd( qfalse );
 	ri.S_RestartMusic();
 }
 

@@ -27,12 +27,13 @@ CCALL void R_MouseClickEvent(int key, int state) {
 	if (key >= 0 && key <= 4)
 		imgui_mouse_set_button(key, state);
 }
+EXTERNC int Key_GetCatcher( void );
 
 void R_RenderImGui() {
 	float width = glConfig.vidWidth;
 	float height = glConfig.vidHeight;
 		
-	if ( ! (ri.Key_GetCatcher() & KEYCATCH_IMGUI))
+	if ( ! (Key_GetCatcher() & KEYCATCH_IMGUI))
 		return;
 
 	// copy over all keys to imgui

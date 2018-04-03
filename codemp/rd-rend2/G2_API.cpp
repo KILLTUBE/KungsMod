@@ -644,7 +644,7 @@ void RestoreGhoul2InfoArray()
 		TheGhoul2InfoArray();
 
 		size_t size;
-		const void *data = ri.PD_Load (PERSISTENT_G2DATA, &size);
+		const void *data = PD_Load (PERSISTENT_G2DATA, &size);
 		if ( data == NULL )
 		{
 			return;
@@ -665,7 +665,7 @@ void SaveGhoul2InfoArray()
 
 	assert (written == size);
 
-	if ( !ri.PD_Store (PERSISTENT_G2DATA, data, size) )
+	if ( !PD_Store (PERSISTENT_G2DATA, data, size) )
 	{
 		Com_Printf (S_COLOR_RED "ERROR: Failed to store persistent renderer data.\n");
 	}
@@ -750,10 +750,7 @@ void G2API_CleanGhoul2Models(CGhoul2Info_v **ghoul2Ptr)
 	}	
 }
 
-qboolean G2_ShouldRegisterServer(void)
-{
-	vm_t *currentVM = ri.GetCurrentVM();
-
+qboolean G2_ShouldRegisterServer(void) {
 	if ( currentVM && currentVM->slot == VM_GAME )
 	{
 		if ( ri.Cvar_VariableIntegerValue( "cl_running" ) &&
@@ -2932,6 +2929,8 @@ int G2API_Ghoul2Size ( CGhoul2Info_v &ghoul2 )
 }
 
 extern int		G2_DecideTraceLod(CGhoul2Info &ghoul2, int useLod);
+extern IHeapAllocator *G2VertSpaceServer;
+
 void G2API_AddSkinGore(CGhoul2Info_v &ghoul2,SSkinGoreData &gore)
 {
 	if (VectorLength(gore.rayDirection)<.1f)
@@ -2958,9 +2957,9 @@ void G2API_AddSkinGore(CGhoul2Info_v &ghoul2,SSkinGoreData &gore)
 	for(lod=lodbias;lod<maxLod;lod++)
 	{
 		// now having done that, time to build the model
-		ri.GetG2VertSpaceServer()->ResetHeap();
+		G2VertSpaceServer->ResetHeap();
 
-		G2_TransformModel(ghoul2, gore.currentTime, gore.scale,ri.GetG2VertSpaceServer(),lod,true);
+		G2_TransformModel(ghoul2, gore.currentTime, gore.scale,G2VertSpaceServer,lod,true);
 
 		// now walk each model and compute new texture coordinates
 		G2_TraceModels(ghoul2, transHitLocation, transRayDirection, 0, gore.entNum, 0,lod,0.0f,gore.SSize,gore.TSize,gore.theta,gore.shader,&gore,qtrue);

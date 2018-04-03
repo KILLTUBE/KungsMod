@@ -24,6 +24,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "cg_local.h"
 #include "ui/ui_shared.h"
 
+#include "../client/keycodes.h"
 
 extern displayContextDef_t cgDC;
 

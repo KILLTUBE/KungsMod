@@ -2358,10 +2358,6 @@ static void CM_SetUsingCache( qboolean usingCache ) { gbUsingCachedMapDataRightN
 IHeapAllocator *G2VertSpaceServer = NULL;
 CMiniHeap IHeapAllocator_singleton(G2_VERT_SPACE_SERVER_SIZE * 1024);
 
-static IHeapAllocator *GetG2VertSpaceServer( void ) {
-	return G2VertSpaceServer;
-}
-
 #define DEFAULT_RENDER_LIBRARY "rd-vanilla"
 
 const char *Clipboard_Get() {
@@ -2458,41 +2454,10 @@ void CL_InitRef( void ) {
 	ri.CM_PointContents = CM_PointContents;
 	ri.Com_TheHunkMarkHasBeenMade = Com_TheHunkMarkHasBeenMade;
 	ri.S_RestartMusic = S_RestartMusic;
-	ri.SND_RegisterAudio_LevelLoadEnd = SND_RegisterAudio_LevelLoadEnd;
-	ri.CIN_RunCinematic = CIN_RunCinematic;
-	ri.CIN_PlayCinematic = CIN_PlayCinematic;
-	ri.CIN_UploadCinematic = CIN_UploadCinematic;
-	ri.CL_WriteAVIVideoFrame = CL_WriteAVIVideoFrame;
 
-	// g2 data access
-	ri.GetSharedMemory = GetSharedMemory;
-
-	// (c)g vm callbacks
-	ri.GetCurrentVM = GetCurrentVM;
-	ri.CGVMLoaded = CGVMLoaded;
-	ri.CGVM_RagCallback = CGVM_RagCallback;
-
-    ri.WIN_Init = WIN_Init;
-	ri.WIN_SetGamma = WIN_SetGamma;
-    ri.WIN_Shutdown = WIN_Shutdown;
-    ri.WIN_Present = WIN_Present;
-	ri.GL_GetProcAddress = WIN_GL_GetProcAddress;
-	ri.GL_ExtensionSupported = WIN_GL_ExtensionSupported;
-
-	ri.CM_GetCachedMapDiskImage = CM_GetCachedMapDiskImage;
-	ri.CM_SetCachedMapDiskImage = CM_SetCachedMapDiskImage;
-	ri.CM_SetUsingCache = CM_SetUsingCache;
 
 	//FIXME: Might have to do something about this...
-	ri.GetG2VertSpaceServer = GetG2VertSpaceServer;
 	G2VertSpaceServer = &IHeapAllocator_singleton;
-
-	ri.PD_Store = PD_Store;
-	ri.PD_Load = PD_Load;
-
-	ri.Key_GetCatcher = Key_GetCatcher;
-	ri.Clipboard_Get = Clipboard_Get;
-	ri.Clipboard_Set = Clipboard_Set;
 
 	ret = GetRefAPI( REF_API_VERSION, &ri );
 

@@ -552,11 +552,9 @@ void G2API_CleanGhoul2Models(CGhoul2Info_v **ghoul2Ptr)
 
 qboolean G2_ShouldRegisterServer(void)
 {
-	if ( !ri.GetCurrentVM )
-		return qfalse;
-
-	vm_t *currentVM = ri.GetCurrentVM();
-
+	//if ( !ri.GetCurrentVM )
+	//	return qfalse;
+	
 	if ( currentVM && currentVM->slot == VM_GAME )
 	{
 		if ( ri.Cvar_VariableIntegerValue( "cl_running" ) &&
@@ -2560,9 +2558,9 @@ void G2API_AddSkinGore(CGhoul2Info_v &ghoul2,SSkinGoreData &gore)
 	for(lod=lodbias;lod<maxLod;lod++)
 	{
 		// now having done that, time to build the model
-		ri.GetG2VertSpaceServer()->ResetHeap();
+		GetG2VertSpaceServer()->ResetHeap();
 
-		G2_TransformModel(ghoul2, gore.currentTime, gore.scale,ri.GetG2VertSpaceServer(),lod,true);
+		G2_TransformModel(ghoul2, gore.currentTime, gore.scale,GetG2VertSpaceServer(),lod,true);
 
 		// now walk each model and compute new texture coordinates
 		G2_TraceModels(ghoul2, transHitLocation, transRayDirection, 0, gore.entNum, 0,lod,0.0f,gore.SSize,gore.TSize,gore.theta,gore.shader,&gore,qtrue);
