@@ -24,6 +24,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "cl_cgameapi.h"
 #include "FxScheduler.h"
 #include "ghoul2/G2.h"
+#include "../rd-rend2/G2_API.h"
 
 cvar_t	*fx_debug;
 #ifdef _DEBUG
@@ -122,7 +123,7 @@ qboolean SFxHelper::GetOriginAxisFromBolt(CGhoul2Info_v *pGhoul2, int mEntNum, i
 	//Fixme: optimize these VM calls away by storing
 
 	// go away and get me the bolt position for this frame please
-	doesBoltExist = re->G2API_GetBoltMatrix(*pGhoul2, modelNum, boltNum,
+	doesBoltExist = G2API_GetBoltMatrix(*pGhoul2, modelNum, boltNum,
 		&boltMatrix, data->mAngles, data->mOrigin, theFxHelper.mOldTime, 0, data->mScale);
 
 	if (doesBoltExist)

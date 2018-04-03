@@ -27,6 +27,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "ghoul2/ghoul2_shared.h"
 #include "sv_gameapi.h"
 #include "botlib/botlib.h"
+#include "../rd-rend2/G2_API.h"
 
 serverStatic_t	svs;				// persistant server info
 server_t		sv;					// local server
@@ -1234,7 +1235,7 @@ void SV_Frame( int msec ) {
 	}
 
 	//rww - RAGDOLL_BEGIN
-	re->G2API_SetTime(sv.time,0);
+	G2API_SetTime(sv.time,0);
 	//rww - RAGDOLL_END
 
 	if ( com_speeds->integer ) {

@@ -30,6 +30,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "sv_gameapi.h"
 #include "botlib/botlib.h"
 #include "cgame/cg_tempwrappers.h"
+#include "../rd-rend2/G2_API.h"
 
 /*
 ===============
@@ -581,7 +582,7 @@ Ghoul2 Insert End
 	}
 
 	//rww - RAGDOLL_BEGIN
-	re->G2API_SetTime(sv.time,0);
+	G2API_SetTime(sv.time,0);
 	//rww - RAGDOLL_END
 
 	// make sure we are not paused
@@ -626,7 +627,7 @@ Ghoul2 Insert End
 	// run a few frames to allow everything to settle
 	for ( i = 0 ;i < 3 ; i++ ) {
 		//rww - RAGDOLL_BEGIN
-		re->G2API_SetTime(sv.time,0);
+		G2API_SetTime(sv.time,0);
 		//rww - RAGDOLL_END
 		GVM_RunFrame( sv.time );
 		SV_BotFrame( sv.time );
@@ -634,7 +635,7 @@ Ghoul2 Insert End
 		svs.time += 100;
 	}
 	//rww - RAGDOLL_BEGIN
-	re->G2API_SetTime(sv.time,0);
+	G2API_SetTime(sv.time,0);
 	//rww - RAGDOLL_END
 
 	// create a baseline for more efficient communications
@@ -693,7 +694,7 @@ Ghoul2 Insert End
 	sv.time += 100;
 	svs.time += 100;
 	//rww - RAGDOLL_BEGIN
-	re->G2API_SetTime(sv.time,0);
+	G2API_SetTime(sv.time,0);
 	//rww - RAGDOLL_END
 
 	if ( sv_pure->integer ) {

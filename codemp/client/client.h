@@ -359,8 +359,6 @@ typedef struct console_s {
 
 extern	clientStatic_t		cls;
 
-extern	refexport_t		*re;		// interface to refresh .dll
-
 //
 // cvars
 //

@@ -729,9 +729,7 @@ void Hunk_Clear( void ) {
 	Z_TagFree(TAG_HUNK_MARK1);
 	Z_TagFree(TAG_HUNK_MARK2);
 
-	if ( re && R_HunkClearCrap ) {
-		R_HunkClearCrap();
-	}
+	R_HunkClearCrap();
 
 //	Com_Printf( "Hunk_Clear: reset the hunk ok\n" );
 	VM_Clear();

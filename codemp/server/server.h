@@ -231,9 +231,6 @@ typedef struct serverBan_s {
 extern	serverStatic_t	svs;				// persistant server info across maps
 extern	server_t		sv;					// cleared each map
 
-//FIXME: dedi server probably can't have this..
-extern	refexport_t		*re;					// interface to refresh .dll
-
 EXTERNC	cvar_t	*sv_snapsMin;
 EXTERNC	cvar_t	*sv_snapsMax;
 EXTERNC	cvar_t	*sv_snapsPolicy;

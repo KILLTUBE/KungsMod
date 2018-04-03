@@ -117,10 +117,6 @@ netadr_t rcon_address;
 
 char cl_reconnectArgs[MAX_OSPATH] = {0};
 
-// Structure containing functions exported from refresh DLL
-refexport_t	*re = NULL;
-static void	*rendererLib = NULL;
-
 ping_t	cl_pinglist[MAX_PINGREQUESTS];
 
 typedef struct serverStatus_s
@@ -626,10 +622,9 @@ void CL_ShutdownAll( qboolean shutdownRef ) {
 	// shutdown the renderer
 	if(shutdownRef)
 		CL_ShutdownRef( qfalse );
-	if ( re && R_Shutdown ) {
-		R_Shutdown( qfalse, qfalse );		// don't destroy window or context
-	}
-
+	
+	R_Shutdown( qfalse, qfalse );		// don't destroy window or context
+	
 	cls.uiStarted = qfalse;
 	cls.cgameStarted = qfalse;
 	cls.rendererStarted = qfalse;
@@ -2264,20 +2259,7 @@ CL_ShutdownRef
 ============
 */
 static void CL_ShutdownRef( qboolean restarting ) {
-	if ( re )
-	{
-		if ( R_Shutdown )
-		{
-			R_Shutdown( qtrue, restarting );
-		}
-	}
-
-	re = NULL;
-
-	if ( rendererLib != NULL ) {
-		Sys_UnloadDll (rendererLib);
-		rendererLib = NULL;
-	}
+	R_Shutdown( qtrue, restarting );
 }
 
 /*
@@ -2368,52 +2350,11 @@ void Clipboard_Set(const char *text) {
 	SDL_SetClipboardText(text);
 }
 
-extern "C" Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp );
-
 void CL_InitRef( void ) {
-	static refimport_t ri;
-	refexport_t	*ret;
-	//GetRefAPI_t	GetRefAPI;
-	char		dllName[MAX_OSPATH];
-
 	Com_Printf( "----- Initializing Renderer ----\n" );
-
-	//cl_renderer = Cvar_Get( "cl_renderer", DEFAULT_RENDER_LIBRARY, CVAR_ARCHIVE|CVAR_LATCH|CVAR_PROTECTED, "Which renderer library to use" );
-
-	//Com_sprintf( dllName, sizeof( dllName ), "%s_" ARCH_STRING DLL_EXT, cl_renderer->string );
-
-	//if( !(rendererLib = Sys_LoadDll( dllName, qfalse )) && strcmp( cl_renderer->string, cl_renderer->resetString ) )
-	//{
-	//	Com_Printf( "failed: trying to load fallback renderer\n" );
-		Cvar_ForceReset( "cl_renderer" );
-
-	//	Com_sprintf( dllName, sizeof( dllName ), DEFAULT_RENDER_LIBRARY "_" ARCH_STRING DLL_EXT );
-	//	rendererLib = Sys_LoadDll( dllName, qfalse );
-	//}
-
-	//if ( !rendererLib ) {
-	//	Com_Error( ERR_FATAL, "Failed to load renderer\n" );
-	//}
-
-	memset( &ri, 0, sizeof( ri ) );
-
-	//GetRefAPI = (GetRefAPI_t)Sys_LoadFunction( rendererLib, "GetRefAPI" );
-	//if ( !GetRefAPI )
-	//	Com_Error( ERR_FATAL, "Can't load symbol GetRefAPI: '%s'", Sys_LibraryError() );
-
+	Cvar_ForceReset( "cl_renderer" );
 	//FIXME: Might have to do something about this...
 	G2VertSpaceServer = &IHeapAllocator_singleton;
-
-	ret = GetRefAPI( REF_API_VERSION, &ri );
-
-//	Com_Printf( "-------------------------------\n");
-
-	if ( !ret ) {
-		Com_Error (ERR_FATAL, "Couldn't initialize refresh" );
-	}
-
-	re = ret;
-
 	// unpause so the cgame definately gets a snapshot and renders a frame
 	Cvar_Set( "cl_paused", "0" );
 }
