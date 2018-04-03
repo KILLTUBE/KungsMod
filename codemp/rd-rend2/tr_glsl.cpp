@@ -509,7 +509,7 @@ static size_t GLSL_LoadGPUShaderSource(
 
 	if ( buffer )
 	{
-		ri.FS_FreeFile(buffer);
+		FS_FreeFile(buffer);
 	}
 	
 	return result;
@@ -1285,7 +1285,7 @@ static const GPUProgramDesc *LoadProgramSource(
 			GPUProgramDesc *externalProgramDesc = ojkAlloc<GPUProgramDesc>(allocator);
 			*externalProgramDesc = ParseProgramSource(allocator, buffer);
 			result = externalProgramDesc;
-			ri.FS_FreeFile(buffer);
+			FS_FreeFile(buffer);
 		}
 	}
 

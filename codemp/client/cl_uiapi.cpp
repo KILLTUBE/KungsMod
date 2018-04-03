@@ -243,7 +243,7 @@ static qboolean CL_G2API_GetBoltMatrix_NoReconstruct( void *ghoul2, const int mo
 		return qfalse;
 	}
 
-	re->G2API_BoltMatrixReconstruction( qfalse );
+	G2API_BoltMatrixReconstruction( qfalse );
 	return re->G2API_GetBoltMatrix( *((CGhoul2Info_v *)ghoul2), modelIndex, boltIndex, matrix, angles, position, frameNum, modelList, scale );
 }
 
@@ -252,7 +252,7 @@ static qboolean CL_G2API_GetBoltMatrix_NoRecNoRot( void *ghoul2, const int model
 		return qfalse;
 	}
 
-	re->G2API_BoltMatrixSPMethod( qtrue );
+	G2API_BoltMatrixSPMethod( qtrue );
 	return re->G2API_GetBoltMatrix( *((CGhoul2Info_v *)ghoul2), modelIndex, boltIndex, matrix, angles, position, frameNum, modelList, scale );
 }
 
@@ -534,7 +534,7 @@ CCALL int CL_G2API_AddBolt( void *ghoul2, int modelIndex, const char *boneName )
 		return -1;
 	}
 
-	return re->G2API_AddBolt( *((CGhoul2Info_v *)ghoul2), modelIndex, boneName );
+	return G2API_AddBolt( *((CGhoul2Info_v *)ghoul2), modelIndex, boneName );
 }
 
 static void CL_G2API_SetBoltInfo( void *ghoul2, int modelIndex, int boltInfo ) {
@@ -629,7 +629,7 @@ static void CL_G2API_AnimateG2Models( void *ghoul2, int time, sharedRagDollUpdat
 	rduParams.me = params->me;
 	rduParams.settleFrame = params->settleFrame;
 
-	re->G2API_AnimateG2ModelsRag( *((CGhoul2Info_v *)ghoul2), time, &rduParams );
+	G2API_AnimateG2ModelsRag( *((CGhoul2Info_v *)ghoul2), time, &rduParams );
 }
 
 static qboolean CL_G2API_SetBoneIKState( void *ghoul2, int time, const char *boneName, int ikState, sharedSetBoneIKStateParams_t *params ) {

@@ -31,6 +31,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "FxUtil.h"
 #include "../cgame/cg_tempwrappers.h"
 
+#include "../rd-rend2/G2_API.h"
+
 extern IHeapAllocator *G2VertSpaceClient;
 extern botlib_export_t *botlib_export;
 
@@ -315,7 +317,7 @@ CCALL qboolean CGFX_PlayBoltedEffectID( int id, vec3_t org, void *ghoul2, const 
 
 	CGhoul2Info_v &g2 = *((CGhoul2Info_v *)ghoul2);
 	int boltInfo=0;
-	if ( re->G2API_AttachEnt( &boltInfo, g2, modelNum, boltNum, entNum, modelNum ) )
+	if ( G2API_AttachEnt( &boltInfo, g2, modelNum, boltNum, entNum, modelNum ) )
 	{
 		FX_PlayBoltedEffectID(id, org, boltInfo, &g2, iLooptime, isRelative );
 		return qtrue;
@@ -364,13 +366,13 @@ CCALL qboolean CL_G2API_GetBoltMatrix( void *ghoul2, const int modelIndex, const
 
 CCALL qboolean CL_G2API_GetBoltMatrix_NoReconstruct( void *ghoul2, const int modelIndex, const int boltIndex, mdxaBone_t *matrix, const vec3_t angles, const vec3_t position, const int frameNum, qhandle_t *modelList, vec3_t scale ) {
 	if ( !ghoul2 ) return qfalse;
-	re->G2API_BoltMatrixReconstruction( qfalse );
+	G2API_BoltMatrixReconstruction( qfalse );
 	return re->G2API_GetBoltMatrix( *((CGhoul2Info_v *)ghoul2), modelIndex, boltIndex, matrix, angles, position, frameNum, modelList, scale );
 }
 
 CCALL qboolean CL_G2API_GetBoltMatrix_NoRecNoRot( void *ghoul2, const int modelIndex, const int boltIndex, mdxaBone_t *matrix, const vec3_t angles, const vec3_t position, const int frameNum, qhandle_t *modelList, vec3_t scale ) {
 	if ( !ghoul2 ) return qfalse;
-	re->G2API_BoltMatrixSPMethod( qtrue );
+	G2API_BoltMatrixSPMethod( qtrue );
 	return re->G2API_GetBoltMatrix( *((CGhoul2Info_v *)ghoul2), modelIndex, boltIndex, matrix, angles, position, frameNum, modelList, scale );
 }
 
@@ -511,13 +513,13 @@ CCALL int CL_G2API_Ghoul2Size( void *ghlInfo ) {
 
 CCALL int CL_G2API_AddBolt( void *ghoul2, int modelIndex, const char *boneName ) {
 	if ( !ghoul2 ) return 0;
-	return re->G2API_AddBolt( *((CGhoul2Info_v *)ghoul2), modelIndex, boneName );
+	return G2API_AddBolt( *((CGhoul2Info_v *)ghoul2), modelIndex, boneName );
 }
 
 CCALL qboolean CL_G2API_AttachEnt( int *boltInfo, void *ghlInfoTo, int toBoltIndex, int entNum, int toModelNum ) {
 	if ( !ghlInfoTo ) return qfalse;
 	CGhoul2Info_v &g2 = *((CGhoul2Info_v *)ghlInfoTo);
-	return re->G2API_AttachEnt( boltInfo, g2, 0, toBoltIndex, entNum, toModelNum );
+	return G2API_AttachEnt( boltInfo, g2, 0, toBoltIndex, entNum, toModelNum );
 }
 
 CCALL void CL_G2API_SetBoltInfo( void *ghoul2, int modelIndex, int boltInfo ) {
@@ -563,7 +565,7 @@ CCALL void CL_G2API_SetTime( int time, int clock ) {
 CCALL void CL_G2API_AbsurdSmoothing( void *ghoul2, qboolean status ) {
 	if ( !ghoul2 ) return;
 	CGhoul2Info_v &g2 = *((CGhoul2Info_v *)ghoul2);
-	re->G2API_AbsurdSmoothing( g2, status );
+	G2API_AbsurdSmoothing( g2, status );
 }
 
 CCALL void CL_G2API_SetRagDoll( void *ghoul2, sharedRagDollParams_t *params ) {
@@ -610,7 +612,7 @@ CCALL void CL_G2API_AnimateG2Models( void *ghoul2, int time, sharedRagDollUpdate
 	rduParams.me = params->me;
 	rduParams.settleFrame = params->settleFrame;
 
-	re->G2API_AnimateG2ModelsRag( *((CGhoul2Info_v *)ghoul2), time, &rduParams );
+	G2API_AnimateG2ModelsRag( *((CGhoul2Info_v *)ghoul2), time, &rduParams );
 }
 
 CCALL qboolean CL_G2API_RagPCJConstraint( void *ghoul2, const char *boneName, vec3_t min, vec3_t max ) {
@@ -661,7 +663,7 @@ CCALL qboolean CL_G2API_RemoveBone( void *ghoul2, const char *boneName, int mode
 
 CCALL void CL_G2API_AttachInstanceToEntNum( void *ghoul2, int entityNum, qboolean server ) {
 	if ( !ghoul2 ) return;
-	re->G2API_AttachInstanceToEntNum( *((CGhoul2Info_v *)ghoul2), entityNum, server );
+	G2API_AttachInstanceToEntNum( *((CGhoul2Info_v *)ghoul2), entityNum, server );
 }
 
 CCALL void CL_G2API_ClearAttachedInstance( int entityNum ) {
@@ -693,7 +695,7 @@ CCALL qboolean CL_G2API_AttachG2Model( void *ghoul2From, int modelIndexFrom, voi
 	CGhoul2Info_v *g2From = ((CGhoul2Info_v *)ghoul2From);
 	CGhoul2Info_v *g2To = ((CGhoul2Info_v *)ghoul2To);
 
-	return re->G2API_AttachG2Model(*g2From, modelIndexFrom, *g2To, toBoltIndex, toModel);
+	return G2API_AttachG2Model(*g2From, modelIndexFrom, *g2To, toBoltIndex, toModel);
 }
 
 CCALL void CGVM_Cvar_Set( const char *var_name, const char *value ) {

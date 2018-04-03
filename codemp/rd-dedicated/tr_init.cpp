@@ -580,9 +580,9 @@ refexport_t *GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 	re.HunkClearCrap						= R_HunkClearCrap;
 
 	// G2API
-	re.G2API_AddBolt						= G2API_AddBolt;
-	re.G2API_AddBoltSurfNum					= G2API_AddBoltSurfNum;
-	re.G2API_AddSurface						= G2API_AddSurface;
+	G2API_AddBolt						= G2API_AddBolt;
+	G2API_AddBoltSurfNum					= G2API_AddBoltSurfNum;
+	G2API_AddSurface						= G2API_AddSurface;
 	re.G2API_AnimateG2ModelsRag				= G2API_AnimateG2ModelsRag;
 	re.G2API_AttachEnt						= G2API_AttachEnt;
 	re.G2API_AttachG2Model					= G2API_AttachG2Model;

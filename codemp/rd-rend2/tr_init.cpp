@@ -1908,12 +1908,6 @@ CCALL void R_AutomapElevationAdjustment(float newHeight)
 	// todo i guess
 }
 
-// HACK
-extern qboolean gG2_GBMNoReconstruct;
-extern qboolean gG2_GBMUseSPMethod;
-static void G2API_BoltMatrixReconstruction( qboolean reconstruct ) { gG2_GBMNoReconstruct = (qboolean)!reconstruct; }
-static void G2API_BoltMatrixSPMethod( qboolean spMethod ) { gG2_GBMUseSPMethod = spMethod; }
-
 CCALL float R_GetDistanceCull( void ) { return tr.distanceCull; }
 
 CCALL void R_SVModelInit( void ); //tr_model.cpp
@@ -2018,16 +2012,8 @@ Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 		return NULL;
 	}
 
-	re.G2API_AddBolt						= G2API_AddBolt;
-	re.G2API_AddBoltSurfNum					= G2API_AddBoltSurfNum;
-	re.G2API_AddSurface						= G2API_AddSurface;
-	re.G2API_AnimateG2ModelsRag				= G2API_AnimateG2ModelsRag;
-	re.G2API_AttachEnt						= G2API_AttachEnt;
-	re.G2API_AttachG2Model					= G2API_AttachG2Model;
-	re.G2API_AttachInstanceToEntNum			= G2API_AttachInstanceToEntNum;
-	re.G2API_AbsurdSmoothing				= G2API_AbsurdSmoothing;
-	re.G2API_BoltMatrixReconstruction		= G2API_BoltMatrixReconstruction;
-	re.G2API_BoltMatrixSPMethod				= G2API_BoltMatrixSPMethod;
+
+
 	re.G2API_CleanEntAttachments			= G2API_CleanEntAttachments;
 	re.G2API_CleanGhoul2Models				= G2API_CleanGhoul2Models;
 	re.G2API_ClearAttachedInstance			= G2API_ClearAttachedInstance;
@@ -2039,6 +2025,7 @@ Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 	re.G2API_DoesBoneExist					= G2API_DoesBoneExist;
 	re.G2API_DuplicateGhoul2Instance		= G2API_DuplicateGhoul2Instance;
 	re.G2API_FreeSaveBuffer					= G2API_FreeSaveBuffer;
+
 	re.G2API_GetAnimFileName				= G2API_GetAnimFileName;
 	re.G2API_GetAnimFileNameIndex			= G2API_GetAnimFileNameIndex;
 	re.G2API_GetAnimRange					= G2API_GetAnimRange;
@@ -2055,6 +2042,7 @@ Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 	re.G2API_GetSurfaceOnOff				= G2API_GetSurfaceOnOff;
 	re.G2API_GetSurfaceRenderStatus			= G2API_GetSurfaceRenderStatus;
 	re.G2API_GetTime						= G2API_GetTime;
+
 	re.G2API_Ghoul2Size						= G2API_Ghoul2Size;
 	re.G2API_GiveMeVectorFromMatrix			= G2API_GiveMeVectorFromMatrix;
 	re.G2API_HasGhoul2ModelOnIndex			= G2API_HasGhoul2ModelOnIndex;
@@ -2070,18 +2058,22 @@ Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 	re.G2API_OverrideServerWithClientData	= G2API_OverrideServerWithClientData;
 	re.G2API_PauseBoneAnim					= G2API_PauseBoneAnim;
 	re.G2API_PrecacheGhoul2Model			= G2API_PrecacheGhoul2Model;
+
 	re.G2API_RagEffectorGoal				= G2API_RagEffectorGoal;
 	re.G2API_RagEffectorKick				= G2API_RagEffectorKick;
 	re.G2API_RagForceSolve					= G2API_RagForceSolve;
 	re.G2API_RagPCJConstraint				= G2API_RagPCJConstraint;
 	re.G2API_RagPCJGradientSpeed			= G2API_RagPCJGradientSpeed;
+
 	re.G2API_RemoveBolt						= G2API_RemoveBolt;
 	re.G2API_RemoveBone						= G2API_RemoveBone;
 	re.G2API_RemoveGhoul2Model				= G2API_RemoveGhoul2Model;
 	re.G2API_RemoveGhoul2Models				= G2API_RemoveGhoul2Models;
 	re.G2API_RemoveSurface					= G2API_RemoveSurface;
 	re.G2API_ResetRagDoll					= G2API_ResetRagDoll;
+
 	re.G2API_SaveGhoul2Models				= G2API_SaveGhoul2Models;
+
 	re.G2API_SetBoltInfo					= G2API_SetBoltInfo;
 	re.G2API_SetBoneAngles					= G2API_SetBoneAngles;
 	re.G2API_SetBoneAnglesIndex				= G2API_SetBoneAnglesIndex;
@@ -2101,6 +2093,7 @@ Q_EXPORT refexport_t* QDECL GetRefAPI ( int apiVersion, refimport_t *rimp ) {
 	re.G2API_SetSurfaceOnOff				= G2API_SetSurfaceOnOff;
 	re.G2API_SetTime						= G2API_SetTime;
 	re.G2API_SkinlessModel					= G2API_SkinlessModel;
+
 	re.G2API_StopBoneAngles					= G2API_StopBoneAngles;
 	re.G2API_StopBoneAnglesIndex			= G2API_StopBoneAnglesIndex;
 	re.G2API_StopBoneAnim					= G2API_StopBoneAnim;

@@ -350,6 +350,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\codemp\rd-rend2\compose_images.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\compose_lib.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\compose_models.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\G2_API.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\glext.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\imgui\imconfig.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui.h" />

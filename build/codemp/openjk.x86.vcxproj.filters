@@ -2028,6 +2028,9 @@
     <ClInclude Include="..\..\codemp\qcommon\z_memman_pc.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\G2_API.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt" />

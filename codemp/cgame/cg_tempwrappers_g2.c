@@ -31,7 +31,7 @@ CCALL qboolean SV_G2API_GetBoltMatrix( void *ghoul2, const int modelIndex, const
 }
 
 CCALL qboolean SV_G2API_GetBoltMatrix_NoReconstruct( void *ghoul2, const int modelIndex, const int boltIndex, mdxaBone_t *matrix, const vec3_t angles, const vec3_t position, const int frameNum, qhandle_t *modelList, vec3_t scale ) {
-	//re->G2API_BoltMatrixReconstruction( qfalse );
+	//G2API_BoltMatrixReconstruction( qfalse );
 	//return re->G2API_GetBoltMatrix( *((CGhoul2Info_v *)ghoul2), modelIndex, boltIndex, matrix, angles, position, frameNum, modelList, scale );
 		assert(0);
 	return qfalse;
@@ -160,7 +160,7 @@ CCALL int SV_G2API_Ghoul2Size( void *ghlInfo ) {
 }
 
 CCALL int SV_G2API_AddBolt( void *ghoul2, int modelIndex, const char *boneName ) {
-	//return re->G2API_AddBolt( *((CGhoul2Info_v *)ghoul2), modelIndex, boneName );
+	//return G2API_AddBolt( *((CGhoul2Info_v *)ghoul2), modelIndex, boneName );
 		assert(0);
 	return 0;
 }
@@ -203,7 +203,7 @@ CCALL int SV_G2API_GetSurfaceRenderStatus( void *ghoul2, const int modelIndex, c
 
 CCALL void SV_G2API_AbsurdSmoothing( void *ghoul2, qboolean status ) {
 	//CGhoul2Info_v &g2 = *((CGhoul2Info_v *)ghoul2);
-	//re->G2API_AbsurdSmoothing( g2, status );
+	//G2API_AbsurdSmoothing( g2, status );
 }
 
 CCALL void SV_G2API_SetRagDoll( void *ghoul2, sharedRagDollParams_t *params ) {
@@ -250,7 +250,7 @@ CCALL void SV_G2API_AnimateG2Models( void *ghoul2, int time, sharedRagDollUpdate
 	//rduParams.me = params->me;
 	//rduParams.settleFrame = params->settleFrame;
 	//
-	//re->G2API_AnimateG2ModelsRag( *((CGhoul2Info_v *)ghoul2), time, &rduParams );
+	//G2API_AnimateG2ModelsRag( *((CGhoul2Info_v *)ghoul2), time, &rduParams );
 }
 
 CCALL qboolean SV_G2API_RagPCJConstraint( void *ghoul2, const char *boneName, vec3_t min, vec3_t max ) {
@@ -308,7 +308,7 @@ CCALL qboolean SV_G2API_RemoveBone( void *ghoul2, const char *boneName, int mode
 }
 
 CCALL void SV_G2API_AttachInstanceToEntNum( void *ghoul2, int entityNum, qboolean server ) {
-	//re->G2API_AttachInstanceToEntNum( *((CGhoul2Info_v *)ghoul2), entityNum, server );
+	//G2API_AttachInstanceToEntNum( *((CGhoul2Info_v *)ghoul2), entityNum, server );
 }
 
 CCALL void SV_G2API_ClearAttachedInstance( int entityNum ) {

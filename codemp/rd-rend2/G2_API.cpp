@@ -18,6 +18,9 @@
 #pragma warning (pop)
 #endif
 
+extern qboolean gG2_GBMNoReconstruct;
+extern qboolean gG2_GBMUseSPMethod;
+
 #ifdef _FULL_G2_LEAK_CHECKING
 int g_Ghoul2Allocations = 0;
 int g_G2ServerAlloc = 0;
@@ -3159,4 +3162,12 @@ qboolean G2API_IsGhoul2InfovValid (CGhoul2Info_v& ghoul2)
 const char *G2API_GetModelName ( CGhoul2Info_v& ghoul2, int modelIndex )
 {
 	return ghoul2[modelIndex].mFileName;
+}
+
+void G2API_BoltMatrixReconstruction( qboolean reconstruct ) {
+	gG2_GBMNoReconstruct = (qboolean)!reconstruct;
+}
+
+void G2API_BoltMatrixSPMethod( qboolean spMethod ) {
+	gG2_GBMUseSPMethod = spMethod;
 }
