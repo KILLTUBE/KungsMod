@@ -16,6 +16,7 @@
 #include "../imgui_docks_openjk/dock_images.h"
 #include "../imgui_docks_openjk/dock_menus.h"
 #include "../imgui_docks_openjk/dock_fbos.h"
+#include "../imgui_docks_openjk/dock_ghoul2.h"
 #include "../imgui/imgui_api.h"
 
 #include <list>
@@ -44,6 +45,7 @@ CCALL int imgui_openjk_default_docks() {
 		imgui_quake_docks.push_back(new DockOpsys("opsystems/matmulpoint.opsys"));
 		imgui_quake_docks.push_back(new DockMenus());
 		imgui_quake_docks.push_back(new DockFBOs());
+		imgui_quake_docks.push_back(new DockGhoul2());
 		//imgui_quake_docks.push_back(new DockExplorer());
 		//imgui_quake_docks.push_back(new DockAnims());
 		//imgui_quake_docks.push_back(new DockSound());

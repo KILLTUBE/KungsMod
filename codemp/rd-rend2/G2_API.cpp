@@ -384,6 +384,7 @@ static size_t DeserializeGhoul2Info ( const char *buffer, CGhoul2Info& g2Info )
 
 class Ghoul2InfoArray : public IGhoul2InfoArray
 {
+public:
 	std::vector<CGhoul2Info>	mInfos[MAX_G2_MODELS];
 	int					mIds[MAX_G2_MODELS];
 	std::list<int>			mFreeIndecies;
@@ -411,7 +412,6 @@ class Ghoul2InfoArray : public IGhoul2InfoArray
 			mFreeIndecies.push_front(idx);
 		}
 	}
-public:
 	Ghoul2InfoArray()
 	{
 		int i;
@@ -629,7 +629,7 @@ public:
 #endif
 };
 
-static Ghoul2InfoArray *singleton = NULL;
+Ghoul2InfoArray *singleton = NULL;
 IGhoul2InfoArray &TheGhoul2InfoArray()
 {
 	if(!singleton) {
