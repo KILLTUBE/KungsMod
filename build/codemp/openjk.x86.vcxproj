@@ -374,7 +374,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_node.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_repl.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_skeleton.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\anims_to_string.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_all.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_anims.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_controlflow.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_fbos.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_ghoul2.h" />
@@ -1281,6 +1283,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_repl.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_skeleton.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_all.cpp" />
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_anims.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_controlflow.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_fbos.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_ghoul2.cpp" />

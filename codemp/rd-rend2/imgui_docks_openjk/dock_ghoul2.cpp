@@ -84,7 +84,9 @@ void DockGhoul2::imgui() {
 			int info_id = 0;
 			for (auto &info : infovector) {
 				ImGui::PushID(info_id);
-				ImGui::Text("aHeader->name=%s animModel=%p currentAnimModelSize=%d", info.aHeader ? info.aHeader->name : "aHeader==NULL", info.animModel, info.currentAnimModelSize);
+				
+				// todo info.aHeader crashes too often, its either NULL or garbage it seems..
+				//ImGui::Text("aHeader->name=%s animModel=%p currentAnimModelSize=%d", info.aHeader ? info.aHeader->name : "aHeader==NULL", info.animModel, info.currentAnimModelSize);
 				
 				ImGui::Text("currentModel=%p currentModelSize=%d", info.currentModel, info.currentModelSize);
 				

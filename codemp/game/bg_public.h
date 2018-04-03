@@ -298,8 +298,8 @@ typedef struct animation_s {
 } animation_t;
 #pragma pack(pop)
 
-extern qboolean			BGPAFtextLoaded;
-extern animation_t		bgHumanoidAnimations[MAX_TOTALANIMATIONS];
+EXTERNC qboolean			BGPAFtextLoaded;
+EXTERNC animation_t		bgHumanoidAnimations[MAX_TOTALANIMATIONS];
 
 #define MAX_ANIM_FILES	16
 #define MAX_ANIM_EVENTS 300
