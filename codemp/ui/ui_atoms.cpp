@@ -29,7 +29,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "ui_local.h"
 #include "ui_only_c_defines.h"
-
+#include "../ui/ui_atoms.h"
 
 #define NUM_UI_ARGSTRS (4)
 #define UI_ARGSTR_MASK (NUM_UI_ARGSTRS-1)

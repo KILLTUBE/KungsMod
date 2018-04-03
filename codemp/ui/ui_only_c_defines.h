@@ -47,13 +47,13 @@ CCALL void	Cmd_ArgsBuffer( char *buffer, int bufferLength );
 CCALL void	Cmd_ArgsFromBuffer( int arg, char *buffer, int bufferLength );
 CCALL char	*Cmd_Cmd (void);
 
-float Cvar_VariableValue( const char *var_name );
-int Cvar_VariableIntegerValue( const char *var_name );
-char *Cvar_VariableString( const char *var_name );
-void Cvar_VariableStringBuffer( const char *var_name, char *buffer, int bufsize );
+CCALL float Cvar_VariableValue( const char *var_name );
+CCALL int Cvar_VariableIntegerValue( const char *var_name );
+CCALL char *Cvar_VariableString( const char *var_name );
+CCALL void Cvar_VariableStringBuffer( const char *var_name, char *buffer, int bufsize );
 
 
-CCALL void Cvar_SetValue( const char *var_name, float value);
+CCALL cvar_t *Cvar_SetValue( const char *var_name, float value);
 
 CCALL int				PC_AddGlobalDefine					( char *define );
 CCALL int				PC_FreeSource						( int handle );

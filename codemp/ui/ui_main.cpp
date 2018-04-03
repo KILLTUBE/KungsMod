@@ -45,8 +45,10 @@ EXTERNC stringID_table_t animTable [MAX_ANIMATIONS+1];
 #include "game/bg_saga.h"
 #include "ui_shared.h"
 #include "ui_only_c_defines.h"
+#include "../ui/ui_main.h"
+//#include "../rd-rend2/tr_local.h"
 
-extern void UI_SaberAttachToChar( itemDef_t *item );
+CCALL void UI_SaberAttachToChar( itemDef_t *item );
 
 const char *forcepowerDesc[NUM_FORCE_POWERS] =
 {
@@ -70,26 +72,6 @@ const char *forcepowerDesc[NUM_FORCE_POWERS] =
 	"@SP_INGAME_FORCE_SABER_THROW_DESC"
 };
 
-// Movedata Sounds
-enum
-{
-	MDS_NONE = 0,
-	MDS_FORCE_JUMP,
-	MDS_ROLL,
-	MDS_SABER,
-	MDS_MOVE_SOUNDS_MAX
-};
-
-enum
-{
-	MD_ACROBATICS = 0,
-	MD_SINGLE_FAST,
-	MD_SINGLE_MEDIUM,
-	MD_SINGLE_STRONG,
-	MD_DUAL_SABERS,
-	MD_SABER_STAFF,
-	MD_MOVE_TITLE_MAX
-};
 
 // Some hard coded badness
 // At some point maybe this should be externalized to a .dat file
@@ -114,14 +96,6 @@ const char *datapadMoveTitleBaseAnims[MD_MOVE_TITLE_MAX] =
 };
 
 #define MAX_MOVES 16
-
-typedef struct datpadmovedata_s
-{
-	const char	*title;
-	const char	*desc;
-	const char	*anim;
-	short	sound;
-} datpadmovedata_t;
 
 static datpadmovedata_t datapadMoveData[MD_MOVE_TITLE_MAX][MAX_MOVES] = {
 	{// Acrobatics
@@ -875,7 +849,7 @@ static void UI_BuildPlayerList() {
 		Cvar_Set("cg_selectedPlayer", va("%d", playerTeamNumber));
 	}
 
-	n = Cvar_VariableValue("cg_selectedPlayer");
+	n = Cvar_VariableIntegerValue("cg_selectedPlayer");
 	if (n < 0 || n > uiInfo.myTeamCount) {
 		n = 0;
 	}
@@ -991,7 +965,7 @@ void UI_SetActiveMenu( uiMenuCommand_t menu ) {
 			// Cvar_Set( "cl_paused", "1" );
 			// No chatin non-siege games.
 
-			if (Cvar_VariableValue( "g_gametype" ) < GT_TEAM)
+			if ((int)Cvar_VariableIntegerValue( "g_gametype" ) < (int)(GT_TEAM))
 			{
 				return;
 			}
@@ -3261,17 +3235,17 @@ static qboolean UI_OwnerDrawVisible(int flags) {
 
 	while (flags) {
 		if (flags & UI_SHOW_FFA) {
-			if (Cvar_VariableValue("g_gametype") != GT_FFA &&
-				Cvar_VariableValue("g_gametype") != GT_HOLOCRON &&
-				Cvar_VariableValue("g_gametype") != GT_JEDIMASTER) {
+			if ((gametype_t)Cvar_VariableIntegerValue("g_gametype") != GT_FFA &&
+				(gametype_t)Cvar_VariableIntegerValue("g_gametype") != GT_HOLOCRON &&
+				(gametype_t)Cvar_VariableIntegerValue("g_gametype") != GT_JEDIMASTER) {
 				vis = qfalse;
 			}
 			flags &= ~UI_SHOW_FFA;
 		}
 		if (flags & UI_SHOW_NOTFFA) {
-			if (Cvar_VariableValue("g_gametype") == GT_FFA ||
-				Cvar_VariableValue("g_gametype") == GT_HOLOCRON ||
-				Cvar_VariableValue("g_gametype") != GT_JEDIMASTER) {
+			if ((gametype_t)Cvar_VariableIntegerValue("g_gametype") == GT_FFA ||
+				(gametype_t)Cvar_VariableIntegerValue("g_gametype") == GT_HOLOCRON ||
+				(gametype_t)Cvar_VariableIntegerValue("g_gametype") != GT_JEDIMASTER) {
 				vis = qfalse;
 			}
 			flags &= ~UI_SHOW_NOTFFA;
@@ -5671,6 +5645,15 @@ int UI_SiegeClassNum( siegeClass_t *scl ) {
 	return 0;
 }
 
+CCALL const char *R_ShaderNameFromIndex(int index);
+void CL_R_ShaderNameFromIndex( char *name, int index ) {
+	const char *retMem = R_ShaderNameFromIndex( index );
+	if ( retMem )
+		strcpy( name, retMem );
+	else
+		name[0] = '\0';
+}
+
 //called every time a class is selected from a feeder, sets info for shaders to be displayed in the menu about the class -rww
 void UI_SiegeSetCvarsForClass( siegeClass_t *scl ) {
 	int i = 0;
@@ -5814,7 +5797,7 @@ void UI_SiegeSetCvarsForClass( siegeClass_t *scl ) {
 	//now get the icon path based on the shader index
 	if (scl->classShader)
 	{
-		R_ShaderNameFromIndex(shader, scl->classShader);
+		CL_R_ShaderNameFromIndex(shader, scl->classShader);
 	}
 	else
 	{ //no shader
@@ -7546,9 +7529,7 @@ static void UI_BuildServerDisplayList(int force) {
 //	}
 }
 
-typedef struct serverStatusCvar_s {
-	char *name, *altName;
-} serverStatusCvar_t;
+
 
 serverStatusCvar_t serverStatusCvars[] = {
 	{"sv_hostname", "Name"},

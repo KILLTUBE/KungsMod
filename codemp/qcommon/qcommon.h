@@ -491,7 +491,7 @@ CCALL void	Cvar_Server_Set( const char *var_name, const char *value );
 CCALL void	Cvar_VM_Set( const char *var_name, const char *value, vmSlots_t vmslot );
 // sometimes we set variables from an untrusted source: fail if flags & CVAR_PROTECTED
 
-CCALL cvar_t	*Cvar_SetValue( const char *var_name, float value );
+CCALL cvar_t *Cvar_SetValue( const char *var_name, float value );
 CCALL void	Cvar_User_SetValue( const char *var_name, float value );
 CCALL void	Cvar_VM_SetValue( const char *var_name, float value, vmSlots_t vmslot );
 // expands value to a string and calls Cvar_Set/Cvar_User_Set/Cvar_VM_Set

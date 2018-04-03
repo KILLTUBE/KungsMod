@@ -28,29 +28,29 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #define FORCE_NONJEDI	0
 #define FORCE_JEDI		1
 
-extern int uiForceSide;
-extern int uiJediNonJedi;
-extern int uiForceRank;
-extern int uiMaxRank;
-extern int uiForceUsed;
-extern int uiForceAvailable;
-extern qboolean gTouchedForce;
-extern qboolean uiForcePowersDisabled[NUM_FORCE_POWERS];
-extern int uiForcePowersRank[NUM_FORCE_POWERS];
-extern int uiForcePowerDarkLight[NUM_FORCE_POWERS];
-extern int uiSaberColorShaders[NUM_SABER_COLORS];
+EXTERNC int uiForceSide;
+EXTERNC int uiJediNonJedi;
+EXTERNC int uiForceRank;
+EXTERNC int uiMaxRank;
+EXTERNC int uiForceUsed;
+EXTERNC int uiForceAvailable;
+EXTERNC qboolean gTouchedForce;
+EXTERNC qboolean uiForcePowersDisabled[NUM_FORCE_POWERS];
+EXTERNC int uiForcePowersRank[NUM_FORCE_POWERS];
+EXTERNC int uiForcePowerDarkLight[NUM_FORCE_POWERS];
+EXTERNC int uiSaberColorShaders[NUM_SABER_COLORS];
 // Dots above or equal to a given rank carry a certain color.
 
-void UI_InitForceShaders(void);
-void UI_ReadLegalForce(void);
-void UI_DrawTotalForceStars(rectDef_t *rect, float scale, vec4_t color, int textStyle);
-void UI_DrawForceStars(rectDef_t *rect, float scale, vec4_t color, int textStyle, int findex, int val, int min, int max) ;
-void UI_UpdateClientForcePowers(const char *teamArg);
-void UI_SaveForceTemplate();
-void UI_UpdateForcePowers();
-qboolean UI_SkinColor_HandleKey(int flags, float *special, int key, int num, int min, int max, int type);
-qboolean UI_ForceSide_HandleKey(int flags, float *special, int key, int num, int min, int max, int type);
-qboolean UI_JediNonJedi_HandleKey(int flags, float *special, int key, int num, int min, int max, int type);
-qboolean UI_ForceMaxRank_HandleKey(int flags, float *special, int key, int num, int min, int max, int type);
-qboolean UI_ForcePowerRank_HandleKey(int flags, float *special, int key, int num, int min, int max, int type);
-extern void UI_ForceConfigHandle( int oldindex, int newindex );
+CCALL void UI_InitForceShaders(void);
+CCALL void UI_ReadLegalForce(void);
+CCALL void UI_DrawTotalForceStars(rectDef_t *rect, float scale, vec4_t color, int textStyle);
+CCALL void UI_DrawForceStars(rectDef_t *rect, float scale, vec4_t color, int textStyle, int findex, int val, int min, int max) ;
+CCALL void UI_UpdateClientForcePowers(const char *teamArg);
+CCALL void UI_SaveForceTemplate();
+CCALL void UI_UpdateForcePowers();
+CCALL qboolean UI_SkinColor_HandleKey(int flags, float *special, int key, int num, int min, int max, int type);
+CCALL qboolean UI_ForceSide_HandleKey(int flags, float *special, int key, int num, int min, int max, int type);
+CCALL qboolean UI_JediNonJedi_HandleKey(int flags, float *special, int key, int num, int min, int max, int type);
+CCALL qboolean UI_ForceMaxRank_HandleKey(int flags, float *special, int key, int num, int min, int max, int type);
+CCALL qboolean UI_ForcePowerRank_HandleKey(int flags, float *special, int key, int num, int min, int max, int type);
+CCALL void UI_ForceConfigHandle( int oldindex, int newindex );

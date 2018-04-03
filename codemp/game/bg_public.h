@@ -388,7 +388,7 @@ typedef struct bgLoadedEvents_s {
 } bgLoadedEvents_t;
 
 
-extern bgLoadedAnim_t bgAllAnims[MAX_ANIM_FILES];
+EXTERNC bgLoadedAnim_t bgAllAnims[MAX_ANIM_FILES];
 
 //In SP this is shared in with the anim stuff, and humanoid anim sets can be loaded
 //multiple times just for the sake of sounds being different. We probably wouldn't
@@ -396,8 +396,8 @@ extern bgLoadedAnim_t bgAllAnims[MAX_ANIM_FILES];
 //cut memory cost.
 //On the bright side this also means we're cutting a rather large size out of
 //required game-side memory.
-extern bgLoadedEvents_t bgAllEvents[MAX_ANIM_FILES];
-extern int bgNumAnimEvents;
+EXTERNC bgLoadedEvents_t bgAllEvents[MAX_ANIM_FILES];
+EXTERNC int bgNumAnimEvents;
 
 typedef enum {
 	PM_NORMAL,		// can accelerate and turn
@@ -434,10 +434,9 @@ typedef enum forceMasteries_e {
 	NUM_FORCE_MASTERY_LEVELS
 } forceMasteries_t;
 
-extern char *forceMasteryLevels[NUM_FORCE_MASTERY_LEVELS];
-extern int forceMasteryPoints[NUM_FORCE_MASTERY_LEVELS];
-
-extern int bgForcePowerCost[NUM_FORCE_POWERS][NUM_FORCE_POWER_LEVELS];
+EXTERNC char *forceMasteryLevels[NUM_FORCE_MASTERY_LEVELS];
+EXTERNC int forceMasteryPoints[NUM_FORCE_MASTERY_LEVELS];
+EXTERNC int bgForcePowerCost[NUM_FORCE_POWERS][NUM_FORCE_POWER_LEVELS];
 
 // pmove->pm_flags
 #define	PMF_DUCKED			1
@@ -536,7 +535,7 @@ typedef struct pmove_s {
 } pmove_t;
 
 
-extern	pmove_t		*pm;
+EXTERNC	pmove_t		*pm;
 
 #define SETANIM_TORSO 1
 #define SETANIM_LEGS  2
@@ -550,8 +549,8 @@ extern	pmove_t		*pm;
 
 
 // if a full pmove isn't done on the client, you can just update the angles
-void PM_UpdateViewAngles( playerState_t *ps, const usercmd_t *cmd );
-void Pmove (pmove_t *pmove);
+CCALL void PM_UpdateViewAngles( playerState_t *ps, const usercmd_t *cmd );
+CCALL void Pmove (pmove_t *pmove);
 
 
 //===================================================================================
@@ -1174,18 +1173,18 @@ typedef struct gitem_s {
 
 // included in both the game dll and the client
 
-extern	gitem_t	bg_itemlist[];
-extern	int		bg_numItems;
+EXTERNC	gitem_t	bg_itemlist[];
+EXTERNC	int		bg_numItems;
 
-float vectoyaw( const vec3_t vec );
+CCALL float vectoyaw( const vec3_t vec );
 
-gitem_t	*BG_FindItem( const char *classname );
-gitem_t	*BG_FindItemForWeapon( weapon_t weapon );
-gitem_t	*BG_FindItemForPowerup( powerup_t pw );
-gitem_t	*BG_FindItemForHoldable( holdable_t pw );
+CCALL gitem_t	*BG_FindItem( const char *classname );
+CCALL gitem_t	*BG_FindItemForWeapon( weapon_t weapon );
+CCALL gitem_t	*BG_FindItemForPowerup( powerup_t pw );
+CCALL gitem_t	*BG_FindItemForHoldable( holdable_t pw );
 #define	ITEM_INDEX(x) ((x)-bg_itemlist)
 
-qboolean	BG_CanItemBeGrabbed( int gametype, const entityState_t *ent, const playerState_t *ps );
+CCALL qboolean	BG_CanItemBeGrabbed( int gametype, const entityState_t *ent, const playerState_t *ps );
 
 
 
@@ -1474,7 +1473,7 @@ typedef struct saberMoveData_s {
 	saberMoveName_t chain_attack;		// What move to call if the attack button (and nothing else) is pressed
 	qboolean trailLength;
 } saberMoveData_t;
-extern saberMoveData_t	saberMoveData[LS_MOVE_MAX];
+EXTERNC saberMoveData_t	saberMoveData[LS_MOVE_MAX];
 
 
 typedef enum saberType_e {
@@ -1663,113 +1662,97 @@ typedef struct saberInfo_s {
 #define MAX_SABERS 2
 
 
-bgEntity_t *PM_BGEntForNum( int num );
-qboolean BG_KnockDownable(playerState_t *ps);
-qboolean BG_LegalizedForcePowers(char *powerOut, size_t powerOutSize, int maxRank, qboolean freeSaber, int teamForce, int gametype, int fpDisabled);
+CCALL bgEntity_t *PM_BGEntForNum( int num );
+CCALL qboolean BG_KnockDownable(playerState_t *ps);
+CCALL qboolean BG_LegalizedForcePowers(char *powerOut, size_t powerOutSize, int maxRank, qboolean freeSaber, int teamForce, int gametype, int fpDisabled);
 
 
 // given a boltmatrix, return in vec a normalised vector for the axis requested in flags
-void BG_GiveMeVectorFromMatrix(mdxaBone_t *boltMatrix, int flags, vec3_t vec);
+CCALL void BG_GiveMeVectorFromMatrix(mdxaBone_t *boltMatrix, int flags, vec3_t vec);
 
-void BG_IK_MoveArm(void *ghoul2, int lHandBolt, int time, entityState_t *ent, int basePose, vec3_t desiredPos, qboolean *ikInProgress,
+CCALL void BG_IK_MoveArm(void *ghoul2, int lHandBolt, int time, entityState_t *ent, int basePose, vec3_t desiredPos, qboolean *ikInProgress,
 					 vec3_t origin, vec3_t angles, vec3_t scale, int blendTime, qboolean forceHalt);
 
-void BG_G2PlayerAngles(void *ghoul2, int motionBolt, entityState_t *cent, int time, vec3_t cent_lerpOrigin,
+CCALL void BG_G2PlayerAngles(void *ghoul2, int motionBolt, entityState_t *cent, int time, vec3_t cent_lerpOrigin,
 					   vec3_t cent_lerpAngles, matrix3_t legs, vec3_t legsAngles, qboolean *tYawing,
 					   qboolean *tPitching, qboolean *lYawing, float *tYawAngle, float *tPitchAngle,
 					   float *lYawAngle, int frametime, vec3_t turAngles, vec3_t modelScale, int ciLegs,
 					   int ciTorso, int *corrTime, vec3_t lookAngles, vec3_t lastHeadAngles, int lookTime,
 					   entityState_t *emplaced, int *crazySmoothFactor);
-void BG_G2ATSTAngles(void *ghoul2, int time, vec3_t cent_lerpAngles );
+CCALL void BG_G2ATSTAngles(void *ghoul2, int time, vec3_t cent_lerpAngles );
 
 //BG anim utility functions:
 
-int BG_AnimLength( int index, animNumber_t anim );
-
-qboolean BG_InSpecialJump( int anim );
-qboolean BG_InSaberStandAnim( int anim );
-qboolean BG_InReboundJump( int anim );
-qboolean BG_InReboundHold( int anim );
-qboolean BG_InReboundRelease( int anim );
-qboolean BG_InBackFlip( int anim );
-qboolean BG_DirectFlippingAnim( int anim );
-qboolean BG_SaberInAttack( int move );
-qboolean BG_SaberInSpecial( int move );
-qboolean BG_KickMove( int move );
-qboolean BG_SaberInIdle( int move );
-qboolean BG_FlippingAnim( int anim );
-qboolean BG_SpinningSaberAnim( int anim );
-qboolean BG_SaberInSpecialAttack( int anim );
-qboolean BG_SaberInKata( int saberMove );
-qboolean BG_InKataAnim(int anim);
-qboolean BG_KickingAnim( int anim );
-int BG_InGrappleMove(int anim);
-int BG_BrokenParryForAttack( int move );
-int BG_BrokenParryForParry( int move );
-int BG_KnockawayForParry( int move );
-qboolean BG_InRoll( playerState_t *ps, int anim );
-qboolean BG_InDeathAnim( int anim );
-qboolean BG_InSaberLockOld( int anim );
-qboolean BG_InSaberLock( int anim );
-
-void BG_SaberStartTransAnim( int clientNum, int saberAnimLevel, int weapon, int anim, float *animSpeed, int broken );
-
-void BG_ForcePowerDrain( playerState_t *ps, forcePowers_t forcePower, int overrideAmt );
-
-void	BG_EvaluateTrajectory( const trajectory_t *tr, int atTime, vec3_t result );
-void	BG_EvaluateTrajectoryDelta( const trajectory_t *tr, int atTime, vec3_t result );
-
-void	BG_AddPredictableEventToPlayerstate( int newEvent, int eventParm, playerState_t *ps );
-
-void	BG_TouchJumpPad( playerState_t *ps, entityState_t *jumppad );
-
-void	BG_PlayerStateToEntityState( playerState_t *ps, entityState_t *s, qboolean snap );
-void	BG_PlayerStateToEntityStateExtraPolate( playerState_t *ps, entityState_t *s, int time, qboolean snap );
-
-qboolean	BG_PlayerTouchesItem( playerState_t *ps, entityState_t *item, int atTime );
-
-void	BG_InitAnimsets(void);
-void	BG_ClearAnimsets(void);
-int		BG_ParseAnimationFile(const char *filename, animation_t *animSet, qboolean isHumanoid);
-int		BG_ParseAnimationEvtFile( const char *as_filename, int animFileIndex, int eventFileIndex );
-
-qboolean BG_HasAnimation(int animIndex, int animation);
-int		BG_PickAnim( int animIndex, int minAnim, int maxAnim );
-
+CCALL int BG_AnimLength( int index, animNumber_t anim );
+CCALL qboolean BG_InSpecialJump( int anim );
+CCALL qboolean BG_InSaberStandAnim( int anim );
+CCALL qboolean BG_InReboundJump( int anim );
+CCALL qboolean BG_InReboundHold( int anim );
+CCALL qboolean BG_InReboundRelease( int anim );
+CCALL qboolean BG_InBackFlip( int anim );
+CCALL qboolean BG_DirectFlippingAnim( int anim );
+CCALL qboolean BG_SaberInAttack( int move );
+CCALL qboolean BG_SaberInSpecial( int move );
+CCALL qboolean BG_KickMove( int move );
+CCALL qboolean BG_SaberInIdle( int move );
+CCALL qboolean BG_FlippingAnim( int anim );
+CCALL qboolean BG_SpinningSaberAnim( int anim );
+CCALL qboolean BG_SaberInSpecialAttack( int anim );
+CCALL qboolean BG_SaberInKata( int saberMove );
+CCALL qboolean BG_InKataAnim(int anim);
+CCALL qboolean BG_KickingAnim( int anim );
+CCALL int BG_InGrappleMove(int anim);
+CCALL int BG_BrokenParryForAttack( int move );
+CCALL int BG_BrokenParryForParry( int move );
+CCALL int BG_KnockawayForParry( int move );
+CCALL qboolean BG_InRoll( playerState_t *ps, int anim );
+CCALL qboolean BG_InDeathAnim( int anim );
+CCALL qboolean BG_InSaberLockOld( int anim );
+CCALL qboolean BG_InSaberLock( int anim );
+CCALL void BG_SaberStartTransAnim( int clientNum, int saberAnimLevel, int weapon, int anim, float *animSpeed, int broken );
+CCALL void BG_ForcePowerDrain( playerState_t *ps, forcePowers_t forcePower, int overrideAmt );
+CCALL void	BG_EvaluateTrajectory( const trajectory_t *tr, int atTime, vec3_t result );
+CCALL void	BG_EvaluateTrajectoryDelta( const trajectory_t *tr, int atTime, vec3_t result );
+CCALL void	BG_AddPredictableEventToPlayerstate( int newEvent, int eventParm, playerState_t *ps );
+CCALL void	BG_TouchJumpPad( playerState_t *ps, entityState_t *jumppad );
+CCALL void	BG_PlayerStateToEntityState( playerState_t *ps, entityState_t *s, qboolean snap );
+CCALL void	BG_PlayerStateToEntityStateExtraPolate( playerState_t *ps, entityState_t *s, int time, qboolean snap );
+CCALL qboolean	BG_PlayerTouchesItem( playerState_t *ps, entityState_t *item, int atTime );
+CCALL void	BG_InitAnimsets(void);
+CCALL void	BG_ClearAnimsets(void);
+CCALL int		BG_ParseAnimationFile(const char *filename, animation_t *animSet, qboolean isHumanoid);
+CCALL int		BG_ParseAnimationEvtFile( const char *as_filename, int animFileIndex, int eventFileIndex );
+CCALL qboolean BG_HasAnimation(int animIndex, int animation);
+CCALL int		BG_PickAnim( int animIndex, int minAnim, int maxAnim );
 CCALL int BG_GetItemIndexByTag(int tag, int type);
+CCALL qboolean BG_IsItemSelectable(playerState_t *ps, int item);
+CCALL qboolean BG_HasYsalamiri(int gametype, playerState_t *ps);
+CCALL qboolean BG_CanUseFPNow(int gametype, playerState_t *ps, int time, forcePowers_t power);
+CCALL void *BG_Alloc ( int size );
+CCALL void *BG_AllocUnaligned ( int size );
+CCALL void *BG_TempAlloc( int size );
+CCALL void BG_TempFree( int size );
+CCALL char *BG_StringAlloc ( const char *source );
+CCALL qboolean BG_OutOfMemory ( void );
+CCALL void BG_BLADE_ActivateTrail ( bladeInfo_t *blade, float duration );
+CCALL void BG_BLADE_DeactivateTrail ( bladeInfo_t *blade, float duration );
+CCALL void BG_SI_Activate( saberInfo_t *saber );
+CCALL void BG_SI_Deactivate( saberInfo_t *saber );
+CCALL void BG_SI_BladeActivate( saberInfo_t *saber, int iBlade, qboolean bActive );
+CCALL qboolean BG_SI_Active(saberInfo_t *saber);
+CCALL void BG_SI_SetLength( saberInfo_t *saber, float length );
+CCALL void BG_SI_SetDesiredLength(saberInfo_t *saber, float len, int bladeNum);
+CCALL void BG_SI_SetLengthGradual( saberInfo_t *saber, int time );
+CCALL float BG_SI_Length(saberInfo_t *saber);
+CCALL float BG_SI_LengthMax(saberInfo_t *saber);
+CCALL void BG_SI_ActivateTrail ( saberInfo_t *saber, float duration );
+CCALL void BG_SI_DeactivateTrail ( saberInfo_t *saber, float duration );
+CCALL void BG_AttachToRancor( void *ghoul2,float rancYaw,vec3_t rancOrigin,int time,qhandle_t *modelList,vec3_t modelScale,qboolean inMouth,vec3_t out_origin,vec3_t out_angles,matrix3_t out_axis );
+CCALL void BG_ClearRocketLock( playerState_t *ps );
 
-qboolean BG_IsItemSelectable(playerState_t *ps, int item);
-
-qboolean BG_HasYsalamiri(int gametype, playerState_t *ps);
-qboolean BG_CanUseFPNow(int gametype, playerState_t *ps, int time, forcePowers_t power);
-
-void *BG_Alloc ( int size );
-void *BG_AllocUnaligned ( int size );
-void *BG_TempAlloc( int size );
-void BG_TempFree( int size );
-char *BG_StringAlloc ( const char *source );
-qboolean BG_OutOfMemory ( void );
-
-void BG_BLADE_ActivateTrail ( bladeInfo_t *blade, float duration );
-void BG_BLADE_DeactivateTrail ( bladeInfo_t *blade, float duration );
-void BG_SI_Activate( saberInfo_t *saber );
-void BG_SI_Deactivate( saberInfo_t *saber );
-void BG_SI_BladeActivate( saberInfo_t *saber, int iBlade, qboolean bActive );
-qboolean BG_SI_Active(saberInfo_t *saber);
-void BG_SI_SetLength( saberInfo_t *saber, float length );
-void BG_SI_SetDesiredLength(saberInfo_t *saber, float len, int bladeNum);
-void BG_SI_SetLengthGradual( saberInfo_t *saber, int time );
-float BG_SI_Length(saberInfo_t *saber);
-float BG_SI_LengthMax(saberInfo_t *saber);
-void BG_SI_ActivateTrail ( saberInfo_t *saber, float duration );
-void BG_SI_DeactivateTrail ( saberInfo_t *saber, float duration );
-extern void BG_AttachToRancor( void *ghoul2,float rancYaw,vec3_t rancOrigin,int time,qhandle_t *modelList,vec3_t modelScale,qboolean inMouth,vec3_t out_origin,vec3_t out_angles,matrix3_t out_axis );
-void BG_ClearRocketLock( playerState_t *ps );
-
-extern int WeaponReadyAnim[WP_NUM_WEAPONS];
-extern int WeaponAttackAnim[WP_NUM_WEAPONS];
-
-extern int forcePowerDarkLight[NUM_FORCE_POWERS];
+EXTERNC int WeaponReadyAnim[WP_NUM_WEAPONS];
+EXTERNC int WeaponAttackAnim[WP_NUM_WEAPONS];
+EXTERNC int forcePowerDarkLight[NUM_FORCE_POWERS];
 
 
 #define ARENAS_PER_TIER		4
@@ -1784,6 +1767,6 @@ extern int forcePowerDarkLight[NUM_FORCE_POWERS];
 #define	HYPERSPACE_SPEED			10000.0f//was 30000
 #define	HYPERSPACE_TURN_RATE		45.0f
 
-extern const char *gametypeStringShort[GT_MAX_GAME_TYPE];
-const char *BG_GetGametypeString( int gametype );
-int BG_GetGametypeForString( const char *gametype );
+EXTERNC const char *gametypeStringShort[GT_MAX_GAME_TYPE];
+CCALL const char *BG_GetGametypeString( int gametype );
+CCALL int BG_GetGametypeForString( const char *gametype );

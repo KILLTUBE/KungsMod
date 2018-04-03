@@ -492,6 +492,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\codemp\rd-rend2\tr_fbo.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\tr_local.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\tr_postprocess.h" />
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_types.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\tr_weather.h" />
     <ClInclude Include="..\..\codemp\rd-rend2\utils_opengl\debuglines.h" />
     <ClInclude Include="..\..\codemp\server\sv_aas.h" />
@@ -499,8 +500,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\codemp\server\sv_g2api.h" />
     <ClInclude Include="..\..\codemp\server\sv_icarus.h" />
     <ClInclude Include="..\..\codemp\ui\menudef.h" />
+    <ClInclude Include="..\..\codemp\ui\ui_atoms.h" />
+    <ClInclude Include="..\..\codemp\ui\ui_cvar.h" />
     <ClInclude Include="..\..\codemp\ui\ui_force.h" />
+    <ClInclude Include="..\..\codemp\ui\ui_gameinfo.h" />
     <ClInclude Include="..\..\codemp\ui\ui_local.h" />
+    <ClInclude Include="..\..\codemp\ui\ui_main.h" />
     <ClInclude Include="..\..\codemp\ui\ui_only_c_defines.h" />
     <ClInclude Include="..\..\codemp\ui\ui_shared.h" />
     <ClInclude Include="..\..\codemp\ui\ui_xcvar.h" />
@@ -1416,20 +1421,20 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\..\codemp\rd-rend2\tr_weather.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\tr_world.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\utils_opengl\debuglines.cpp" />
-    <ClCompile Include="..\..\codemp\ui\ui_atoms.c">
+    <ClCompile Include="..\..\codemp\ui\ui_atoms.cpp">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\ui\ui_cvar.c">
+    <ClCompile Include="..\..\codemp\ui\ui_cvar.cpp">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\ui\ui_force.c">
+    <ClCompile Include="..\..\codemp\ui\ui_force.cpp">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\ui\ui_gameinfo.c">
+    <ClCompile Include="..\..\codemp\ui\ui_gameinfo.cpp">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\ui\ui_main.c">
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    <ClCompile Include="..\..\codemp\ui\ui_main.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
     </ClCompile>
     <ClCompile Include="..\..\codemp\ui\ui_saber.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>

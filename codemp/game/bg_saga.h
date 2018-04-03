@@ -104,31 +104,28 @@ typedef struct siegeTeam_s {
 } siegeTeam_t;
 
 
-extern siegeClass_t bgSiegeClasses[MAX_SIEGE_CLASSES];
-extern int bgNumSiegeClasses;
+EXTERNC siegeClass_t bgSiegeClasses[MAX_SIEGE_CLASSES];
+EXTERNC int bgNumSiegeClasses;
+EXTERNC siegeTeam_t bgSiegeTeams[MAX_SIEGE_TEAMS];
+EXTERNC int bgNumSiegeTeams;
 
-extern siegeTeam_t bgSiegeTeams[MAX_SIEGE_TEAMS];
-extern int bgNumSiegeTeams;
-
-int BG_SiegeGetValueGroup(char *buf, char *group, char *outbuf);
-int BG_SiegeGetPairedValue(char *buf, char *key, char *outbuf);
-void BG_SiegeStripTabs(char *buf);
-
-void BG_SiegeLoadClasses(siegeClassDesc_t *descBuffer);
-void BG_SiegeLoadTeams(void);
-
-siegeTeam_t *BG_SiegeFindThemeForTeam(int team);
-void BG_PrecacheSabersForSiegeTeam(int team);
-siegeClass_t *BG_SiegeFindClassByName(const char *classname);
-qboolean BG_SiegeCheckClassLegality(int team, char *classname);
-void BG_SiegeSetTeamTheme(int team, char *themeName);
-int BG_SiegeFindClassIndexByName(const char *classname);
+CCALL int BG_SiegeGetValueGroup(char *buf, char *group, char *outbuf);
+CCALL int BG_SiegeGetPairedValue(char *buf, char *key, char *outbuf);
+CCALL void BG_SiegeStripTabs(char *buf);
+CCALL void BG_SiegeLoadClasses(siegeClassDesc_t *descBuffer);
+CCALL void BG_SiegeLoadTeams(void);
+CCALL siegeTeam_t *BG_SiegeFindThemeForTeam(int team);
+CCALL void BG_PrecacheSabersForSiegeTeam(int team);
+CCALL siegeClass_t *BG_SiegeFindClassByName(const char *classname);
+CCALL qboolean BG_SiegeCheckClassLegality(int team, char *classname);
+CCALL void BG_SiegeSetTeamTheme(int team, char *themeName);
+CCALL int BG_SiegeFindClassIndexByName(const char *classname);
 
 // for ui
-int BG_GetUIPortrait( const int team, const short classIndex, const short cntIndex );
-char *BG_GetUIPortraitFile( const int team, const short classIndex, const short cntIndex );
-siegeClass_t *BG_GetClassOnBaseClass( const int team, const short classIndex, const short cntIndex );
-int BG_SiegeCountBaseClass( const int team, const short classIndex );
+CCALL int BG_GetUIPortrait( const int team, const short classIndex, const short cntIndex );
+CCALL char *BG_GetUIPortraitFile( const int team, const short classIndex, const short cntIndex );
+CCALL siegeClass_t *BG_GetClassOnBaseClass( const int team, const short classIndex, const short cntIndex );
+CCALL int BG_SiegeCountBaseClass( const int team, const short classIndex );
 
-extern char	siege_info[MAX_SIEGE_INFO_SIZE];
-extern int	siege_valid;
+EXTERNC char	siege_info[MAX_SIEGE_INFO_SIZE];
+EXTERNC int	siege_valid;

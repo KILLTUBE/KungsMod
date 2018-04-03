@@ -554,4 +554,4 @@ CCALL void Controls_SetDefaults( void );
 Ghoul2 Insert End
 */
 
-extern const char *HolocronIcons[NUM_FORCE_POWERS];
+EXTERNC const char *HolocronIcons[NUM_FORCE_POWERS];

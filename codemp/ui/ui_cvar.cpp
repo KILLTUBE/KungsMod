@@ -23,17 +23,11 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "ui_local.h"
 #include "ui_only_c_defines.h"
-
+#include "../rd-rend2/tr_types.h"
+#include "../ui/ui_cvar.h"
 //
 // Cvar callbacks
 //
-
-// from tr_local.h
-typedef enum {
-	SSF_JPEG,
-	SSF_TGA,
-	SSF_PNG
-} screenshotFormat_t;
 
 static int UI_GetScreenshotFormatForString( const char *str ) {
 	if ( !Q_stricmp(str, "jpg") || !Q_stricmp(str, "jpeg") )
@@ -46,17 +40,12 @@ static int UI_GetScreenshotFormatForString( const char *str ) {
 		return -1;
 }
 
-static const char *UI_GetScreenshotFormatString( int format )
-{
-	switch ( format )
-	{
-	default:
-	case SSF_JPEG:
-		return "jpg";
-	case SSF_TGA:
-		return "tga";
-	case SSF_PNG:
-		return "png";
+static const char *UI_GetScreenshotFormatString( int format ) {
+	switch ( format ) {
+		default:
+		case SSF_JPEG: return "jpg";
+		case SSF_TGA: return "tga";
+		case SSF_PNG: return "png";
 	}
 }
 

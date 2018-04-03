@@ -1078,22 +1078,7 @@
     <ClCompile Include="..\..\codemp\game\g_tempwrappers.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\ui\ui_atoms.c">
-      <Filter>ui</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\ui\ui_shared.c">
-      <Filter>ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\ui\ui_cvar.c">
-      <Filter>ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\ui\ui_force.c">
-      <Filter>ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\ui\ui_gameinfo.c">
-      <Filter>ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\ui\ui_main.c">
       <Filter>ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\ui\ui_saber.c">
@@ -1233,6 +1218,21 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_fbos.cpp">
       <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_atoms.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_cvar.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_force.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_gameinfo.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_main.cpp">
+      <Filter>ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2030,6 +2030,21 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\rd-rend2\G2_API.h">
       <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ui\ui_atoms.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\tr_types.h">
+      <Filter>rend2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ui\ui_cvar.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ui\ui_gameinfo.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ui\ui_main.h">
+      <Filter>ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
