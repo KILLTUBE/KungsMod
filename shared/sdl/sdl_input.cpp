@@ -789,6 +789,8 @@ IN_ProcessEvents
 ===============
 */
 void SNDDMA_Activate( qboolean activate );
+CCALL void R_ResizeWindow(int width, int height);
+
 static void IN_ProcessEvents( void )
 {
 	SDL_Event e;
@@ -910,6 +912,15 @@ static void IN_ProcessEvents( void )
 					{
 						Cvar_SetValue( "com_unfocused", 0 );
 						SNDDMA_Activate( qtrue );
+						break;
+					}
+					// there is also SDL_WINDOWEVENT_SIZE_CHANGED, but seems doing the same..
+					case SDL_WINDOWEVENT_RESIZED: {
+				
+						int width, height;
+						SDL_GetWindowSize(SDL_window, &width, &height);
+						R_ResizeWindow(width, height);
+						Com_Printf("SDL_WINDOWEVENT_RESIZED> Resized window to %d x %d\n", width, height);
 						break;
 					}
 				}

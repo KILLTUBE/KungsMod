@@ -134,7 +134,7 @@ FBO_t          *FBO_Create(const char *name, int width, int height)
 	return fbo;
 }
 
-void FBO_CreateBuffer(FBO_t *fbo, int format, int index, int multisample)
+CCALL void FBO_CreateBuffer(FBO_t *fbo, int format, int index, int multisample)
 {
 	uint32_t *pRenderBuffer;
 	GLenum attachment;
@@ -189,7 +189,11 @@ void FBO_CreateBuffer(FBO_t *fbo, int format, int index, int multisample)
 	absent = (qboolean)(*pRenderBuffer == 0);
 	if (absent)
 		qglGenRenderbuffers(1, pRenderBuffer);
-
+	//else {
+	//	// clean old 
+	//	qglDeleteRenderbuffers(1, pRenderBuffer);
+	//	qglGenRenderbuffers(1, pRenderBuffer);
+	//}
 	qglBindRenderbuffer(GL_RENDERBUFFER, *pRenderBuffer);
 	if (multisample)
 	{
@@ -301,7 +305,7 @@ void FBO_AttachTextureImage(image_t *img, int index)
 	glState.currentFBO->colorBuffers[index] = img->texnum;
 }
 
-static void FBO_SetupDrawBuffers()
+CCALL void FBO_SetupDrawBuffers()
 {
 	if (!glState.currentFBO)
 	{
@@ -932,4 +936,41 @@ void FBO_FastBlitIndexed(FBO_t *src, FBO_t *dst, int srcReadBuffer, int dstDrawB
 
 	qglBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glState.currentFBO = NULL;
+}
+
+
+#include "client/client.h"
+
+extern glconfig_t glConfig;
+extern cgs_t cgs;
+extern clientStatic_t cls;
+extern cg_t cg;
+
+CCALL void ui_rescale();
+
+void R_CreateBuiltinImages( void );
+void FBO_Init();
+
+// todo: delete old fbos and textures or simply regenerate them, as far its possible
+CCALL void R_ResizeWindow(int width, int height) {
+	glConfig.vidWidth = width;
+	glConfig.vidHeight = height;
+	
+	cgs.glconfig.vidWidth = width;
+	cgs.glconfig.vidHeight = height;
+	cgs.screenXScale = cgs.glconfig.vidWidth / 640.0;
+	cgs.screenYScale = cgs.glconfig.vidHeight / 480.0;
+
+	cls.glconfig.vidWidth = width;
+	cls.glconfig.vidHeight = height;
+	
+
+	cg.refdef.width = width;
+	cg.refdef.height = height;
+
+	ui_rescale();
+
+	
+	R_CreateBuiltinImages();
+	FBO_Init();
 }

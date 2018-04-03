@@ -1231,6 +1231,9 @@
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_menus.cpp">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_fbos.cpp">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
@@ -2018,6 +2021,9 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\ui\ui_xcvar.h">
       <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_fbos.h">
+      <Filter>rend2\imgui_docks_openjk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

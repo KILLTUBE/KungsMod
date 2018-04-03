@@ -9833,6 +9833,24 @@ CCALL qboolean Language_UsesSpaces(void);
 UI_Init
 =================
 */
+
+CCALL void ui_rescale() {
+	// cache redundant calulations
+	CL_GetGlconfig( &uiInfo.uiDC.glconfig );
+
+	// for 640x480 virtualized screen
+	uiInfo.uiDC.yscale = uiInfo.uiDC.glconfig.vidHeight * (1.0/480.0);
+	uiInfo.uiDC.xscale = uiInfo.uiDC.glconfig.vidWidth * (1.0/640.0);
+	if ( uiInfo.uiDC.glconfig.vidWidth * 480 > uiInfo.uiDC.glconfig.vidHeight * 640 ) {
+		// wide screen
+		uiInfo.uiDC.bias = 0.5 * ( uiInfo.uiDC.glconfig.vidWidth - ( uiInfo.uiDC.glconfig.vidHeight * (640.0/480.0) ) );
+	}
+	else {
+		// no wide screen
+		uiInfo.uiDC.bias = 0;
+	}
+}
+
 void UI_Init( qboolean inGameLoad ) {
 	const char *menuSet;
 
@@ -9852,20 +9870,9 @@ void UI_Init( qboolean inGameLoad ) {
 
 	UI_InitMemory();
 
-	// cache redundant calulations
-	CL_GetGlconfig( &uiInfo.uiDC.glconfig );
+	ui_rescale();
 
-	// for 640x480 virtualized screen
-	uiInfo.uiDC.yscale = uiInfo.uiDC.glconfig.vidHeight * (1.0/480.0);
-	uiInfo.uiDC.xscale = uiInfo.uiDC.glconfig.vidWidth * (1.0/640.0);
-	if ( uiInfo.uiDC.glconfig.vidWidth * 480 > uiInfo.uiDC.glconfig.vidHeight * 640 ) {
-		// wide screen
-		uiInfo.uiDC.bias = 0.5 * ( uiInfo.uiDC.glconfig.vidWidth - ( uiInfo.uiDC.glconfig.vidHeight * (640.0/480.0) ) );
-	}
-	else {
-		// no wide screen
-		uiInfo.uiDC.bias = 0;
-	}
+
 
 	//UI_Load();
 	uiInfo.uiDC.registerShaderNoMip				= UI_RegisterShaderNoMip;

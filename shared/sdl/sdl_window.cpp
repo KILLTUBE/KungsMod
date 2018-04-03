@@ -142,6 +142,8 @@ void GLimp_Minimize(void)
 	SDL_MinimizeWindow( screen );
 }
 
+
+
 void WIN_Present( window_t *window )
 {
 	if ( window->api == GRAPHICS_API_OPENGL )
@@ -568,11 +570,12 @@ static rserr_t GLimp_SetMode(glconfig_t *glConfig, const windowDesc_t *windowDes
 			SDL_GL_SetAttribute( SDL_GL_ACCELERATED_VISUAL, !r_allowSoftwareGL->integer );
 
 			if( ( screen = SDL_CreateWindow( windowTitle, x, y,
-					glConfig->vidWidth, glConfig->vidHeight, flags ) ) == NULL )
+					glConfig->vidWidth, glConfig->vidHeight, flags | SDL_WINDOW_RESIZABLE ) ) == NULL )
 			{
 				Com_DPrintf( "SDL_CreateWindow failed: %s\n", SDL_GetError( ) );
 				continue;
 			}
+			SDL_MaximizeWindow(screen);
 
 #ifndef MACOS_X
 			SDL_SetWindowIcon( screen, icon );
