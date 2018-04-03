@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include <string.h> // memcpy
 
 #include "ghoul2/g2_local.h"
+#include "../qcommon/cm_local.h"
 
 trGlobals_t		tr;
 
@@ -2083,7 +2084,7 @@ void R_DebugGraphics( void ) {
 
 	GL_Bind( tr.whiteImage);
 	GL_Cull( CT_FRONT_SIDED );
-	ri.CM_DrawDebugSurface( R_DebugPolygon );
+	CM_DrawDebugSurface( R_DebugPolygon );
 }
 
 

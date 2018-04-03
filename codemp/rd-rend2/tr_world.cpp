@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
 #include "../rd-rend2/tr_local.h"
+#include "../qcommon/cm_local.h"
 
 
 static world_t *R_GetWorld(int worldIndex)
@@ -666,6 +667,7 @@ static const byte *R_ClusterPVS (int cluster) {
 	return tr.world->vis + cluster * tr.world->clusterBytes;
 }
 
+
 /*
 =================
 R_inPVS
@@ -675,14 +677,14 @@ CCALL qboolean R_inPVS( const vec3_t p1, const vec3_t p2, byte *mask ) {
 	int		leafnum;
 	int		cluster;
 
-	leafnum = ri.CM_PointLeafnum (p1);
-	cluster = ri.CM_LeafCluster (leafnum);
+	leafnum = CM_PointLeafnum (p1);
+	cluster = CM_LeafCluster (leafnum);
 
 	//agh, the damn snapshot mask doesn't work for this
-	mask = (byte *) ri.CM_ClusterPVS (cluster);
+	mask = (byte *) CM_ClusterPVS (cluster);
 
-	leafnum = ri.CM_PointLeafnum (p2);
-	cluster = ri.CM_LeafCluster (leafnum);
+	leafnum = CM_PointLeafnum (p2);
+	cluster = CM_LeafCluster (leafnum);
 	if ( mask && (!(mask[cluster>>3] & (1<<(cluster&7)) ) ) )
 		return qfalse;
 

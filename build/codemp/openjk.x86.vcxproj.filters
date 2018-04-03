@@ -2025,6 +2025,9 @@
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_fbos.h">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\codemp\qcommon\z_memman_pc.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt" />

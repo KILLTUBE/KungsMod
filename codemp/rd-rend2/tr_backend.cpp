@@ -1420,7 +1420,7 @@ void	RB_SetGL2D (void) {
 	GL_Cull(CT_TWO_SIDED);
 
 	// set time for 2D shaders
-	backEnd.refdef.time = ri.Milliseconds();
+	backEnd.refdef.time = Sys_Milliseconds2();
 	backEnd.refdef.floatTime = backEnd.refdef.time * 0.001f;
 
 	// reset color scaling
@@ -1457,7 +1457,7 @@ CCALL void R_StretchRaw (int x, int y, int w, int h, int cols, int rows, const b
 
 	start = 0;
 	if ( r_speeds->integer ) {
-		start = ri.Milliseconds();
+		start = Sys_Milliseconds2();
 	}
 
 	// make sure rows and cols are powers of 2
@@ -1472,7 +1472,7 @@ CCALL void R_StretchRaw (int x, int y, int w, int h, int cols, int rows, const b
 	R_UploadCinematic (cols, rows, data, client, dirty);
 
 	if ( r_speeds->integer ) {
-		end = ri.Milliseconds();
+		end = Sys_Milliseconds2();
 		R_Printf( PRINT_ALL, "qglTexSubImage2D %i, %i: %i msec\n", cols, rows, end - start );
 	}
 
@@ -2250,7 +2250,7 @@ void RB_ShowImages( void ) {
 
 	qglFinish();
 
-	start = ri.Milliseconds();
+	start = Sys_Milliseconds2();
 
 	image = tr.images;
 	for ( i=0 ; i < tr.numImages; i++, image = image->poolNext ) {
@@ -2281,7 +2281,7 @@ void RB_ShowImages( void ) {
 
 	qglFinish();
 
-	end = ri.Milliseconds();
+	end = Sys_Milliseconds2();
 	R_Printf( PRINT_ALL, "%i msec to draw all images\n", end - start );
 
 }
@@ -2381,7 +2381,7 @@ static const void	*RB_SwapBuffers( const void *data ) {
 		long sum = 0;
 		unsigned char *stencilReadback;
 
-		stencilReadback = (unsigned char *)ri.Hunk_AllocateTempMemory( glConfig.vidWidth * glConfig.vidHeight );
+		stencilReadback = (unsigned char *)Hunk_AllocateTempMemory( glConfig.vidWidth * glConfig.vidHeight );
 		qglReadPixels( 0, 0, glConfig.vidWidth, glConfig.vidHeight, GL_STENCIL_INDEX, GL_UNSIGNED_BYTE, stencilReadback );
 
 		for ( i = 0; i < glConfig.vidWidth * glConfig.vidHeight; i++ ) {
@@ -2389,7 +2389,7 @@ static const void	*RB_SwapBuffers( const void *data ) {
 		}
 
 		backEnd.pc.c_overDraw += sum;
-		ri.Hunk_FreeTempMemory( stencilReadback );
+		Hunk_FreeTempMemory( stencilReadback );
 	}
 
 	if (!backEnd.framePostProcessed)
@@ -2412,7 +2412,7 @@ static const void	*RB_SwapBuffers( const void *data ) {
 		if ( !tr.numFramesToCapture )
 		{
 			R_Printf( PRINT_ALL, "Frames captured\n" );
-			ri.FS_FCloseFile(tr.debugFile);
+			FS_FCloseFile(tr.debugFile);
 			tr.debugFile = 0;
 		}
 	}
@@ -2712,7 +2712,7 @@ RB_ExecuteRenderCommands
 void RB_ExecuteRenderCommands( const void *data ) {
 	int		t1, t2;
 
-	t1 = ri.Milliseconds ();
+	t1 = Sys_Milliseconds2 ();
 
 	while ( 1 ) {
 		data = PADP(data, sizeof(void *));
@@ -2773,7 +2773,7 @@ void RB_ExecuteRenderCommands( const void *data ) {
 				RB_EndSurface();
 
 			// stop rendering
-			t2 = ri.Milliseconds ();
+			t2 = Sys_Milliseconds2 ();
 			backEnd.pc.msec = t2 - t1;
 			return;
 		}

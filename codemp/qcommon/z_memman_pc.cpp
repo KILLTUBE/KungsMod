@@ -22,7 +22,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 // Created 3/13/03 by Brian Osman (VV) - Split Zone/Hunk from common
 
-#include "client/client.h" // hi i'm bad
+#include "client/client.h"
+#include "../qcommon/z_memman_pc.h"
 
 ////////////////////////////////////////////////
 //
@@ -34,67 +35,16 @@ const static char *psTagStrings[TAG_COUNT+1]=	// +1 because TAG_COUNT will itsel
 {
 	#include "qcommon/tags.h"
 };
-//
-////////////////////////////////////////////////
-
-static void Z_Details_f(void);
-void CIN_CloseAllVideos();
 
 
-// This handles zone memory allocation.
-// It is a wrapper around malloc with a tag id and a magic number at the start
 
-#define ZONE_MAGIC			0x21436587
-
-typedef struct zoneHeader_s
-{
-		int					iMagic;
-		memtag_t			eTag;
-		int					iSize;
-struct	zoneHeader_s		*pNext;
-struct	zoneHeader_s		*pPrev;
-} zoneHeader_t;
-
-typedef struct
-{
-	int iMagic;
-
-} zoneTail_t;
-
-static inline zoneTail_t *ZoneTailFromHeader(zoneHeader_t *pHeader)
-{
-	return (zoneTail_t*) ( (char*)pHeader + sizeof(*pHeader) + pHeader->iSize );
-}
 
 #ifdef DETAILED_ZONE_DEBUG_CODE
 map <void*,int> mapAllocatedZones;
 #endif
 
-
-typedef struct zoneStats_s
-{
-	int		iCount;
-	int		iCurrent;
-	int		iPeak;
-
-	// I'm keeping these updated on the fly, since it's quicker for cache-pool
-	//	purposes rather than recalculating each time...
-	//
-	int		iSizesPerTag [TAG_COUNT];
-	int		iCountsPerTag[TAG_COUNT];
-
-} zoneStats_t;
-
-typedef struct zone_s
-{
-	zoneStats_t				Stats;
-	zoneHeader_t			Header;
-} zone_t;
-
 cvar_t	*com_validateZone;
-
 zone_t	TheZone = {};
-
 
 // Scans through the linked list of mallocs and makes sure no data has been overwritten
 
@@ -136,22 +86,6 @@ void Z_Validate(void)
 
 
 
-// static mem blocks to reduce a lot of small zone overhead
-//
-#pragma pack(push)
-#pragma pack(1)
-typedef struct StaticZeroMem_s {
-	zoneHeader_t	Header;
-//	byte mem[0];
-	zoneTail_t		Tail;
-} StaticZeroMem_t;
-
-typedef struct StaticMem_s {
-	zoneHeader_t	Header;
-	byte mem[2];
-	zoneTail_t		Tail;
-} StaticMem_t;
-#pragma pack(pop)
 
 StaticZeroMem_t gZeroMalloc  =
 	{ {ZONE_MAGIC, TAG_STATIC,0,NULL,NULL},{ZONE_MAGIC}};

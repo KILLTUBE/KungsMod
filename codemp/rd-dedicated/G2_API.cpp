@@ -242,7 +242,7 @@ qboolean G2API_OverrideServerWithClientData(CGhoul2Info_v& ghoul2, int modelInde
 	CGhoul2Info *serverInstance = &ghoul2[modelIndex];
 	CGhoul2Info *clientInstance;
 
-	if (ri.Cvar_VariableIntegerValue( "dedicated" ))
+	if (Cvar_VariableIntegerValue( "dedicated" ))
 	{ //No client to get from!
 		return qfalse;
 	}
@@ -557,8 +557,8 @@ qboolean G2_ShouldRegisterServer(void)
 	
 	if ( currentVM && currentVM->slot == VM_GAME )
 	{
-		if ( ri.Cvar_VariableIntegerValue( "cl_running" ) &&
-			ri.Com_TheHunkMarkHasBeenMade() && ShaderHashTableExists())
+		if ( Cvar_VariableIntegerValue( "cl_running" ) &&
+			Com_TheHunkMarkHasBeenMade() && ShaderHashTableExists())
 		{ //if the hunk has been marked then we are now loading client assets so don't load on server.
 			return qfalse;
 		}
@@ -2553,7 +2553,7 @@ void G2API_AddSkinGore(CGhoul2Info_v &ghoul2,SSkinGoreData &gore)
 
 	int lod;
 	ResetGoreTag();
-	const int lodbias=Com_Clamp ( 0, 2,G2_DecideTraceLod(ghoul2[0], ri.Cvar_VariableIntegerValue( "r_lodbias" )));
+	const int lodbias=Com_Clamp ( 0, 2,G2_DecideTraceLod(ghoul2[0], Cvar_VariableIntegerValue( "r_lodbias" )));
 	const int maxLod =Com_Clamp (0,ghoul2[0].currentModel->numLods,3);	//limit to the number of lods the main model has
 	for(lod=lodbias;lod<maxLod;lod++)
 	{
@@ -2578,7 +2578,7 @@ qboolean G2_TestModelPointers(CGhoul2Info *ghlInfo) // returns true if the model
 	ghlInfo->mValid=false;
 	if (ghlInfo->mModelindex != -1)
 	{
-		if (ri.Cvar_VariableIntegerValue( "dedicated" ) ||
+		if (Cvar_VariableIntegerValue( "dedicated" ) ||
 			(G2_ShouldRegisterServer())) //supreme hackery!
 		{
 			ghlInfo->mModel = R_RegisterServerModel(ghlInfo->mFileName);
@@ -2669,7 +2669,7 @@ qboolean G2_SetupModelPointers(CGhoul2Info *ghlInfo) // returns true if the mode
 		// RJ - experimental optimization!
 		if (!ghlInfo->mModel || 1)
 		{
-			if (ri.Cvar_VariableIntegerValue( "dedicated" ) ||
+			if (Cvar_VariableIntegerValue( "dedicated" ) ||
 				(G2_ShouldRegisterServer())) //supreme hackery!
 			{
 				ghlInfo->mModel = R_RegisterServerModel(ghlInfo->mFileName);

@@ -7,55 +7,55 @@
 #if 0
 
 void				FS_FreeFile						( void *buffer ) {
-	ri.FS_FreeFile(buffer);
+	FS_FreeFile(buffer);
 }
 
 void				FS_FreeFileList					( char **fileList ) {
-	ri.FS_FreeFileList(fileList);
+	FS_FreeFileList(fileList);
 }
 
 int					FS_Read							( void *buffer, int len, fileHandle_t f ) {
-	return ri.FS_Read(buffer, len, f);
+	return FS_Read(buffer, len, f);
 }
 
 long				FS_ReadFile						( const char *qpath, void **buffer ) {
-	return ri.FS_ReadFile(qpath, buffer);
+	return FS_ReadFile(qpath, buffer);
 }
 
 void				FS_FCloseFile					( fileHandle_t f ) {
-	ri.FS_FCloseFile(f);
+	FS_FCloseFile(f);
 }
 
 long				FS_FOpenFileRead				( const char *qpath, fileHandle_t *file, qboolean uniqueFILE ) {
-	return ri.FS_FOpenFileRead(qpath, file, uniqueFILE);
+	return FS_FOpenFileRead(qpath, file, uniqueFILE);
 }
 
 fileHandle_t		FS_FOpenFileWrite				( const char *qpath, qboolean safe ) {
-	return ri.FS_FOpenFileWrite(qpath, safe);
+	return FS_FOpenFileWrite(qpath, safe);
 }
 
 int					FS_FOpenFileByMode				( const char *qpath, fileHandle_t *f, fsMode_t mode ) {
-	return ri.FS_FOpenFileByMode(qpath, f, mode);
+	return FS_FOpenFileByMode(qpath, f, mode);
 }
 
 qboolean			FS_FileExists					( const char *file ) {
-	return ri.FS_FileExists(file);
+	return FS_FileExists(file);
 }
 
 int					FS_FileIsInPAK					( const char *filename ) {
-	return ri.FS_FileIsInPAK(filename);
+	return FS_FileIsInPAK(filename);
 }
 
 char **				FS_ListFiles					( const char *directory, const char *extension, int *numfiles ) {
-	return ri.FS_ListFiles(directory, extension, numfiles);
+	return FS_ListFiles(directory, extension, numfiles);
 }
 
 int					FS_Write						( const void *buffer, int len, fileHandle_t f ) {
-	return ri.FS_Write(buffer, len, f);
+	return FS_Write(buffer, len, f);
 }
 
 void				FS_WriteFile					( const char *qpath, const void *buffer, int size ) {
-	ri.FS_WriteFile(qpath, buffer, size);
+	FS_WriteFile(qpath, buffer, size);
 }
 #endif
 
@@ -63,23 +63,23 @@ void				FS_WriteFile					( const char *qpath, const void *buffer, int size ) {
 #if 1
 
 //void		CM_DrawDebugSurface				( void (*drawPoly)( int color, int numPoints, float *points ) ) {
-//	ri.CM_DrawDebugSurface(drawPoly);
+//	CM_DrawDebugSurface(drawPoly);
 //}
 //
 //bool		CM_CullWorldBox					( const cplane_t *frustrum, const vec3pair_t bounds ) {
-//	return ri.CM_CullWorldBox(frustrum, bounds);
+//	return CM_CullWorldBox(frustrum, bounds);
 //}
 //
 //byte*		CM_ClusterPVS					( int cluster ) {
-//	return ri.CM_ClusterPVS(cluster);
+//	return CM_ClusterPVS(cluster);
 //}
 //
 //int			CM_PointContents					( const vec3_t p, clipHandle_t model ) {
-//	return ri.CM_PointContents(p, model);
+//	return CM_PointContents(p, model);
 //}
 
 //void		S_RestartMusic					( void ) {
-//	ri.S_RestartMusic();
+//	S_RestartMusic();
 //}
 
 //qboolean	SND_RegisterAudio_LevelLoadEnd	( qboolean bDeleteEverythingNotUsedThisLevel ) {
@@ -200,7 +200,7 @@ int					func_com_frameTime					( void ) {
 
 
 int					Milliseconds					( void ) {
-	return ri.Milliseconds();
+	return Sys_Milliseconds2();
 }
 
 //void				Hunk_ClearToMark				( void ) {
@@ -217,71 +217,71 @@ void*				Malloc							( int iSize, memtag_t eTag, qboolean zeroIt, int iAlign ) 
 }
 
 //int					Z_Free							( void *memory ) {
-//	return ri.Z_Free(memory);
+//	return Z_Free(memory);
 //}
 
 //int					Z_MemSize						( memtag_t eTag ) {
-//	return ri.Z_MemSize(eTag);
+//	return Z_MemSize(eTag);
 //}
 
 //void				Z_MorphMallocTag				( void *pvBuffer, memtag_t eDesiredTag ) {
-//	ri.Z_MorphMallocTag(pvBuffer, eDesiredTag);
+//	Z_MorphMallocTag(pvBuffer, eDesiredTag);
 //}
 
 //void				Cmd_ExecuteString				( const char *text ) {
-//	ri.Cmd_ExecuteString(text);
+//	Cmd_ExecuteString(text);
 //}
 
 //int					Cmd_Argc						( void ) {
-//	return ri.Cmd_Argc();
+//	return Cmd_Argc();
 //}
 //
 //char *				Cmd_Argv						( int arg ) {
-//	return ri.Cmd_Argv(arg);
+//	return Cmd_Argv(arg);
 //}
 
 //void				Cmd_ArgsBuffer					( char *buffer, int bufferLength ) {
-//	ri.Cmd_ArgsBuffer(buffer, bufferLength);
+//	Cmd_ArgsBuffer(buffer, bufferLength);
 //}
 //
 //void				Cmd_AddCommand					( const char *cmd_name, xcommand_t function ) {
-//	ri.Cmd_AddCommand(cmd_name, function);
+//	Cmd_AddCommand(cmd_name, function);
 //}
 //
 //void				Cmd_RemoveCommand				( const char *cmd_name ) {
-//	ri.Cmd_RemoveCommand(cmd_name);
+//	Cmd_RemoveCommand(cmd_name);
 //}
 
 //void				Cvar_Set						( const char *var_name, const char *value ) {
-//	ri.Cvar_Set(var_name, value);
+//	Cvar_Set(var_name, value);
 //}
 //
 //cvar_t *			Cvar_Get						( const char *var_name, const char *value, int flags ) {
-//	return ri.Cvar_Get(var_name, value, flags);
+//	return Cvar_Get(var_name, value, flags);
 //}
 //
 //void				Cvar_SetValue					( const char *name, float value ) {
-//	ri.Cvar_SetValue(name, value);
+//	Cvar_SetValue(name, value);
 //}
 //
 //void				Cvar_CheckRange					( cvar_t *cv, float minVal, float maxVal, qboolean shouldBeIntegral ) {
-//	ri.Cvar_CheckRange(cv, minVal, maxVal, shouldBeIntegral);
+//	Cvar_CheckRange(cv, minVal, maxVal, shouldBeIntegral);
 //}
 //
 //void				Cvar_VariableStringBuffer		( const char *var_name, char *buffer, int bufsize ) {
-//	ri.Cvar_VariableStringBuffer(var_name, buffer, bufsize);
+//	Cvar_VariableStringBuffer(var_name, buffer, bufsize);
 //}
 //
 //char *				Cvar_VariableString				( const char *var_name ) {
-//	return ri.Cvar_VariableString(var_name);
+//	return Cvar_VariableString(var_name);
 //}
 //
 //float				Cvar_VariableValue				( const char *var_name ) {
-//	return ri.Cvar_VariableValue(var_name);
+//	return Cvar_VariableValue(var_name);
 //}
 //
 //int					Cvar_VariableIntegerValue		( const char *var_name ) {
-//	return ri.Cvar_VariableIntegerValue(var_name);
+//	return Cvar_VariableIntegerValue(var_name);
 //}
 //
 qboolean Sys_LowPhysicalMemory(void);
@@ -291,7 +291,7 @@ qboolean			LowPhysicalMemory				( void ) {
 }
 
 //const char*			SE_GetString					( const char *reference ) {
-//	return ri.SE_GetString(reference);
+//	return SE_GetString(reference);
 //}
 
 #endif
@@ -302,6 +302,7 @@ qboolean			LowPhysicalMemory				( void ) {
 
 #endif
 
+void QDECL CL_RefPrintf( int print_level, const char *fmt, ...);
 
 void R_Printf(int printLevel, const char *fmt, ...) {
 	char buf[4096];
@@ -309,7 +310,7 @@ void R_Printf(int printLevel, const char *fmt, ...) {
 	va_start (args, fmt);
 	vsnprintf(buf, sizeof(buf), fmt, args);
 	va_end(args);
-	ri.Printf(printLevel, buf);
+	CL_RefPrintf(printLevel, buf);
 }
 
 void R_Error(int errorLevel, const char *fmt, ...) {
@@ -318,5 +319,5 @@ void R_Error(int errorLevel, const char *fmt, ...) {
 	va_start (args, fmt);
 	vsnprintf(buf, sizeof(buf), fmt, args);
 	va_end(args);
-	ri.Error(errorLevel, buf);
+	Com_Error(errorLevel, buf);
 }

@@ -89,7 +89,7 @@ qboolean CModelCacheManager::LoadFile( const char *pFileName, void **ppFileBuffe
 		return qtrue;	
 	}
 
-	int len = ri.FS_ReadFile(path, ppFileBuffer);
+	int len = FS_ReadFile(path, ppFileBuffer);
 	if ( len == -1 || *ppFileBuffer == NULL )
 	{
 		return qfalse;
@@ -132,7 +132,7 @@ void* CModelCacheManager::Allocate( int iSize, void *pvDiskBuffer, const char *p
 		pFile->iAllocSize = iSize;
 		Q_strncpyz(pFile->path, sModelName, sizeof(pFile->path));
 
-		if( ri.FS_FileIsInPAK( sModelName, &iChecksum ) )
+		if( FS_FileIsInPAK( sModelName, &iChecksum ) )
 			pFile->iPAKChecksum = iChecksum;  /* Otherwise, it will be -1. */
 
 		*bAlreadyFound = qfalse;
@@ -177,7 +177,7 @@ void CModelCacheManager::DumpNonPure( void )
 	for ( auto it = files.begin(); it != files.end(); /* empty */ )
 	{
 		int iChecksum;
-		int iInPak = ri.FS_FileIsInPAK( it->path, &iChecksum );
+		int iInPak = FS_FileIsInPAK( it->path, &iChecksum );
 
 		if( iInPak == -1 || iChecksum != it->iPAKChecksum )
 		{

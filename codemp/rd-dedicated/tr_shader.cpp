@@ -2403,7 +2403,7 @@ static shader_t *GeneratePermanentShader( void ) {
 		return tr.defaultShader;
 	}
 
-	newShader = (struct shader_s *)ri.Hunk_Alloc( sizeof( shader_t ), h_low );
+	newShader = (struct shader_s *)Hunk_Alloc( sizeof( shader_t ), h_low );
 
 	*newShader = shader;
 

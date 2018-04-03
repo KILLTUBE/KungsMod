@@ -2401,61 +2401,6 @@ void CL_InitRef( void ) {
 	//if ( !GetRefAPI )
 	//	Com_Error( ERR_FATAL, "Can't load symbol GetRefAPI: '%s'", Sys_LibraryError() );
 
-	//set up the import table
-	ri.Printf = CL_RefPrintf;
-	ri.Error = Com_Error;
-	ri.OPrintf = Com_OPrintf;
-	ri.Milliseconds = Sys_Milliseconds2; //FIXME: unix+mac need this
-	ri.Hunk_AllocateTempMemory = Hunk_AllocateTempMemory;
-	ri.Hunk_FreeTempMemory = Hunk_FreeTempMemory;
-	ri.Hunk_Alloc = Hunk_Alloc;
-	ri.Hunk_MemoryRemaining = Hunk_MemoryRemaining;
-	ri.Z_Malloc = Z_Malloc;
-	ri.Z_Free = Z_Free;
-	ri.Z_MemSize = Z_MemSize;
-	ri.Z_MorphMallocTag = Z_MorphMallocTag;
-	ri.Cmd_ExecuteString = Cmd_ExecuteString;
-	ri.Cmd_Argc = Cmd_Argc;
-	ri.Cmd_Argv = Cmd_Argv;
-	ri.Cmd_ArgsBuffer = Cmd_ArgsBuffer;
-	ri.Cmd_AddCommand = Cmd_AddCommand;
-	ri.Cmd_RemoveCommand = Cmd_RemoveCommand;
-	ri.Cvar_Set = Cvar_Set;
-	ri.Cvar_Get = Cvar_Get;
-	ri.Cvar_SetValue = Cvar_SetValue;
-	ri.Cvar_CheckRange = Cvar_CheckRange;
-	ri.Cvar_VariableStringBuffer = Cvar_VariableStringBuffer;
-	ri.Cvar_VariableString = Cvar_VariableString;
-	ri.Cvar_VariableValue = Cvar_VariableValue;
-	ri.Cvar_VariableIntegerValue = Cvar_VariableIntegerValue;
-	ri.Sys_LowPhysicalMemory = Sys_LowPhysicalMemory;
-	ri.SE_GetString = SE_GetString;
-	ri.FS_FreeFile = FS_FreeFile;
-	ri.FS_FreeFileList = FS_FreeFileList;
-	ri.FS_Read = FS_Read;
-	ri.FS_ReadFile = FS_ReadFile;
-	ri.FS_FCloseFile = FS_FCloseFile;
-	ri.FS_FOpenFileRead = FS_FOpenFileRead;
-	fileHandle_t FS_FOpenFileWrite( const char *filename, qboolean safe );
-	ri.FS_FOpenFileWrite = FS_FOpenFileWrite;
-	ri.FS_FOpenFileByMode = FS_FOpenFileByMode;
-	ri.FS_FileExists = FS_FileExists;
-	ri.FS_FileIsInPAK = FS_FileIsInPAK;
-	ri.FS_ListFiles = FS_ListFiles;
-	ri.FS_Write = FS_Write;
-	ri.FS_WriteFile = FS_WriteFile;
-	ri.CM_BoxTrace = CM_BoxTrace;
-	ri.CM_DrawDebugSurface = CM_DrawDebugSurface;
-	ri.CM_CullWorldBox = CM_CullWorldBox;
-	ri.CM_ClusterPVS = CM_ClusterPVS;
-	ri.CM_LeafArea = CM_LeafArea;
-	ri.CM_LeafCluster = CM_LeafCluster;
-	ri.CM_PointLeafnum = CM_PointLeafnum;
-	ri.CM_PointContents = CM_PointContents;
-	ri.Com_TheHunkMarkHasBeenMade = Com_TheHunkMarkHasBeenMade;
-	ri.S_RestartMusic = S_RestartMusic;
-
-
 	//FIXME: Might have to do something about this...
 	G2VertSpaceServer = &IHeapAllocator_singleton;
 

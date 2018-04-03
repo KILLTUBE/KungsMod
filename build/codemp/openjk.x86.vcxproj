@@ -341,6 +341,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\codemp\game\g_team.h" />
     <ClInclude Include="..\..\codemp\game\g_xcvar.h" />
     <ClInclude Include="..\..\codemp\game\w_saber.h" />
+    <ClInclude Include="..\..\codemp\qcommon\z_memman_pc.h" />
     <ClInclude Include="..\..\codemp\rd-common\mdx_format.h" />
     <ClInclude Include="..\..\codemp\rd-common\tr_common.h" />
     <ClInclude Include="..\..\codemp\rd-common\tr_font.h" />

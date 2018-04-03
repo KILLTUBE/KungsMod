@@ -478,7 +478,7 @@ CCALL void R_RenderScene( const refdef_t *fd ) {
 		return;
 	}
 
-	startTime = ri.Milliseconds();
+	startTime = Sys_Milliseconds2();
 
 	if (!tr.world && !( fd->rdflags & RDF_NOWORLDMODEL ) ) {
 		R_Error (ERR_DROP, "R_RenderScene: NULL worldmodel");
@@ -570,5 +570,5 @@ CCALL void R_RenderScene( const refdef_t *fd ) {
 
 	R_EndScene();
 
-	tr.frontEndMsec += ri.Milliseconds() - startTime;
+	tr.frontEndMsec += Sys_Milliseconds2() - startTime;
 }

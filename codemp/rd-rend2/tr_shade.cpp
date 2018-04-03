@@ -720,7 +720,7 @@ static void CaptureDrawData(const shaderCommands_t *input, shaderStage_t *stage,
 				glState.currentVBO->vertexesVBO,
 				glState.currentIBO->indexesVBO,
 				numIndexes / 3);
-		ri.FS_Write(data, strlen(data), tr.debugFile);
+		FS_Write(data, strlen(data), tr.debugFile);
 	}
 	else
 	{
@@ -736,7 +736,7 @@ static void CaptureDrawData(const shaderCommands_t *input, shaderStage_t *stage,
 				glState.currentVBO->vertexesVBO,
 				glState.currentIBO->indexesVBO,
 				input->numIndexes / 3);
-		ri.FS_Write(data, strlen(data), tr.debugFile);
+		FS_Write(data, strlen(data), tr.debugFile);
 	}
 }
 

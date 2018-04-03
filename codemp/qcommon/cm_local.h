@@ -234,3 +234,5 @@ void		CM_GetModelFormalName ( const char* model, const char* skin, char* name, i
 void CM_GetWorldBounds ( vec3_t mins, vec3_t maxs );
 
 EXTERNC void *gpvCachedMapDiskImage;
+
+CCALL qboolean Com_TheHunkMarkHasBeenMade(void);

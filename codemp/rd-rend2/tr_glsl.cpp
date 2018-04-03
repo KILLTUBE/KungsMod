@@ -475,7 +475,7 @@ static size_t GLSL_LoadGPUShaderSource(
 	GLcharARB *buffer = nullptr;
 	if ( r_externalGLSL->integer )
 	{
-		shaderTextLen = ri.FS_ReadFile(filename, (void **)&buffer);
+		shaderTextLen = FS_ReadFile(filename, (void **)&buffer);
 	}
 
 	const char *shaderText = nullptr;
@@ -1279,7 +1279,7 @@ static const GPUProgramDesc *LoadProgramSource(
 		char programPath[MAX_QPATH];
 		Com_sprintf(programPath, sizeof(programPath), "glsl/%s.glsl", programName);
 
-		long size = ri.FS_ReadFile(programPath, (void **)&buffer);
+		long size = FS_ReadFile(programPath, (void **)&buffer);
 		if ( size )
 		{
 			GPUProgramDesc *externalProgramDesc = ojkAlloc<GPUProgramDesc>(allocator);
@@ -2139,7 +2139,7 @@ void GLSL_LoadGPUShaders()
 
 	R_IssuePendingRenderCommands();
 
-	int startTime = ri.Milliseconds();
+	int startTime = Sys_Milliseconds2();
 
 	Allocator allocator(512 * 1024);
 	ShaderProgramBuilder builder;
@@ -2170,7 +2170,7 @@ void GLSL_LoadGPUShaders()
 
 	R_Printf(PRINT_ALL, "loaded %i GLSL shaders (%i gen %i light %i etc) in %5.2f seconds\n", 
 		numGenShaders + numLightShaders + numEtcShaders, numGenShaders, numLightShaders, 
-		numEtcShaders, (ri.Milliseconds() - startTime) / 1000.0);
+		numEtcShaders, (Sys_Milliseconds2() - startTime) / 1000.0);
 }
 
 void GLSL_ShutdownGPUShaders(void)

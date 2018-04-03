@@ -164,7 +164,7 @@ qboolean R_RegisterModels_GetDiskFile( const char *psModelFileName, void **ppvBu
 				return qtrue;
 			}
 
-		ri.FS_ReadFile( sModelName, ppvBuffer );
+		FS_ReadFile( sModelName, ppvBuffer );
 		*pqbAlreadyCached = qfalse;
 		qboolean bSuccess = !!(*ppvBuffer)?qtrue:qfalse;
 
@@ -221,7 +221,7 @@ void *R_RegisterModels_Malloc(int iSize, void *pvDiskBufferIfJustLoaded, const c
 		ModelBin.iAllocSize			= iSize;
 
 		int iCheckSum;
-		if (ri.FS_FileIsInPAK(sModelName, &iCheckSum) == 1)
+		if (FS_FileIsInPAK(sModelName, &iCheckSum) == 1)
 		{
 			ModelBin.iPAKFileCheckSum = iCheckSum;	// else ModelBin's constructor will leave it as -1
 		}
@@ -271,7 +271,7 @@ void *R_RegisterServerModels_Malloc(int iSize, void *pvDiskBufferIfJustLoaded, c
 		ModelBin.iAllocSize			= iSize;
 
 		int iCheckSum;
-		if (ri.FS_FileIsInPAK(sModelName, &iCheckSum) == 1)
+		if (FS_FileIsInPAK(sModelName, &iCheckSum) == 1)
 		{
 			ModelBin.iPAKFileCheckSum = iCheckSum;	// else ModelBin's constructor will leave it as -1
 		}
@@ -411,7 +411,7 @@ static void R_RegisterModels_DumpNonPure(void)
 		CachedEndianedModelBinary_t &CachedModel = (*itModel).second;
 
 		int iCheckSum = -1;
-		int iInPak = ri.FS_FileIsInPAK(psModelName, &iCheckSum);
+		int iInPak = FS_FileIsInPAK(psModelName, &iCheckSum);
 
 		if (iInPak == -1 || iCheckSum != CachedModel.iPAKFileCheckSum)
 		{
@@ -504,7 +504,7 @@ void R_RegisterMedia_LevelLoadBegin(const char *psMapName, ForceReload_e eForceR
 	}
 	else
 	{
-		if ( ri.Cvar_VariableIntegerValue( "sv_pure" ) )
+		if ( Cvar_VariableIntegerValue( "sv_pure" ) )
 		{
 			R_RegisterModels_DumpNonPure();
 		}
@@ -973,7 +973,7 @@ Ghoul2 Insert End
 
 	if (!r_noServerGhoul2)
 	{ //keep it from choking when it gets to these checks in the g2 code. Registering all r_ cvars for the server would be a Bad Thing though.
-		r_noServerGhoul2 = ri.Cvar_Get( "r_noserverghoul2", "0", 0, "");
+		r_noServerGhoul2 = Cvar_Get( "r_noserverghoul2", "0", 0, "");
 	}
 
 	if ( !name || !name[0] ) {
@@ -1060,7 +1060,7 @@ Ghoul2 Insert End
 		}
 
 		if (!bAlreadyCached){	// important to check!!
-			ri.FS_FreeFile (buf);
+			FS_FreeFile (buf);
 		}
 
 		if ( !loaded ) {
@@ -1280,7 +1280,7 @@ Ghoul2 Insert End
 		}
 
 		if (!bAlreadyCached){	// important to check!!
-			ri.FS_FreeFile (buf);
+			FS_FreeFile (buf);
 		}
 
 		if ( !loaded ) {

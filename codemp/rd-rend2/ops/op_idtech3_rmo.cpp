@@ -25,7 +25,7 @@ byte *R_GetImageData(int id);
 
 void *R_Malloc( int iSize, memtag_t eTag, qboolean bZeroit );
 //void *R_Malloc( int iSize, memtag_t eTag, qboolean bZeroit ) {
-//	return ri.Z_Malloc( iSize, eTag, bZeroit, 4 );
+//	return Z_Malloc( iSize, eTag, bZeroit, 4 );
 //}
 qhandle_t R_CreateImageRGBA(char *name, int width, int height, byte r, byte g, byte b, byte a) {
 	

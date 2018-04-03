@@ -120,7 +120,7 @@ VBO_t *R_CreateVBO(byte * vertexes, int vertexesSize, vboUsage_t usage)
 
 	R_IssuePendingRenderCommands();
 
-	vbo = tr.vbos[tr.numVBOs] = (VBO_t *)ri.Hunk_Alloc(sizeof(*vbo), h_low);
+	vbo = tr.vbos[tr.numVBOs] = (VBO_t *)Hunk_Alloc(sizeof(*vbo), h_low);
 
 	memset(vbo, 0, sizeof(*vbo));
 
@@ -199,7 +199,7 @@ IBO_t *R_CreateIBO(byte * indexes, int indexesSize, vboUsage_t usage)
 
 	R_IssuePendingRenderCommands();
 
-	ibo = tr.ibos[tr.numIBOs] = (IBO_t *)ri.Hunk_Alloc(sizeof(*ibo), h_low);
+	ibo = tr.ibos[tr.numIBOs] = (IBO_t *)Hunk_Alloc(sizeof(*ibo), h_low);
 
 	ibo->indexesSize = indexesSize;
 	ibo->indexesVBO = tr.iboNames[tr.numIBOs];

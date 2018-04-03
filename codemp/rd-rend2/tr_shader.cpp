@@ -3537,7 +3537,7 @@ static shader_t *GeneratePermanentShader( void ) {
 		return tr.defaultShader;
 	}
 
-	newShader = (shader_t *)ri.Hunk_Alloc( sizeof( shader_t ), h_low );
+	newShader = (shader_t *)Hunk_Alloc( sizeof( shader_t ), h_low );
 
 	*newShader = shader;
 
@@ -3559,12 +3559,12 @@ static shader_t *GeneratePermanentShader( void ) {
 		if ( !stages[i].active ) {
 			break;
 		}
-		newShader->stages[i] = (shaderStage_t *)ri.Hunk_Alloc( sizeof( stages[i] ), h_low );
+		newShader->stages[i] = (shaderStage_t *)Hunk_Alloc( sizeof( stages[i] ), h_low );
 		*newShader->stages[i] = stages[i];
 
 		for ( b = 0 ; b < NUM_TEXTURE_BUNDLES ; b++ ) {
 			size = newShader->stages[i]->bundle[b].numTexMods * sizeof( texModInfo_t );
-			newShader->stages[i]->bundle[b].texMods = (texModInfo_t *)ri.Hunk_Alloc( size, h_low );
+			newShader->stages[i]->bundle[b].texMods = (texModInfo_t *)Hunk_Alloc( size, h_low );
 			Com_Memcpy( newShader->stages[i]->bundle[b].texMods, stages[i].bundle[b].texMods, size );
 		}
 	}
@@ -4526,7 +4526,7 @@ void	R_ShaderList_f (void) {
 
 	count = 0;
 	for ( i = 0 ; i < tr.numShaders ; i++ ) {
-		if ( ri.Cmd_Argc() > 1 ) {
+		if ( Cmd_Argc() > 1 ) {
 			shader = tr.sortedShaders[i];
 		} else {
 			shader = tr.shaders[i];
@@ -4588,7 +4588,7 @@ static void ScanAndLoadShaderFiles( void )
 
 	long sum = 0, summand;
 	// scan for shader files
-	shaderFiles = ri.FS_ListFiles( "shaders", ".shader", &numShaderFiles );
+	shaderFiles = FS_ListFiles( "shaders", ".shader", &numShaderFiles );
 
 	if ( !shaderFiles || !numShaderFiles )
 	{
@@ -4614,14 +4614,14 @@ static void ScanAndLoadShaderFiles( void )
 				strcpy(ext, ".mtr");
 			}
 
-			if ( ri.FS_ReadFile( filename, NULL ) <= 0 )
+			if ( FS_ReadFile( filename, NULL ) <= 0 )
 			{
 				Com_sprintf( filename, sizeof( filename ), "shaders/%s", shaderFiles[i] );
 			}
 		}
 		
 		R_Printf( PRINT_DEVELOPER, "...loading '%s'\n", filename );
-		summand = ri.FS_ReadFile( filename, (void **)&buffers[i] );
+		summand = FS_ReadFile( filename, (void **)&buffers[i] );
 		
 		if ( !buffers[i] )
 			R_Error( ERR_DROP, "Couldn't load %s", filename );
@@ -4649,7 +4649,7 @@ static void ScanAndLoadShaderFiles( void )
 					R_Printf(PRINT_WARNING, " (found \"%s\" on line %d)", token, COM_GetCurrentParseLine());
 				}
 				R_Printf(PRINT_WARNING, ".\n");
-				ri.FS_FreeFile(buffers[i]);
+				FS_FreeFile(buffers[i]);
 				buffers[i] = NULL;
 				break;
 			}
@@ -4658,7 +4658,7 @@ static void ScanAndLoadShaderFiles( void )
 			{
 				R_Printf(PRINT_WARNING, "WARNING: Ignoring shader file %s. Shader \"%s\" on line %d missing closing brace.\n",
 							filename, shaderName, shaderLine);
-				ri.FS_FreeFile(buffers[i]);
+				FS_FreeFile(buffers[i]);
 				buffers[i] = NULL;
 				break;
 			}
@@ -4670,7 +4670,7 @@ static void ScanAndLoadShaderFiles( void )
 	}
 
 	// build single large buffer
-	s_shaderText = (char *)ri.Hunk_Alloc( sum + numShaderFiles*2, h_low );
+	s_shaderText = (char *)Hunk_Alloc( sum + numShaderFiles*2, h_low );
 	s_shaderText[ 0 ] = '\0';
 	textEnd = s_shaderText;
  
@@ -4683,13 +4683,13 @@ static void ScanAndLoadShaderFiles( void )
 		strcat( textEnd, buffers[i] );
 		strcat( textEnd, "\n" );
 		textEnd += strlen( textEnd );
-		ri.FS_FreeFile( buffers[i] );
+		FS_FreeFile( buffers[i] );
 	}
 
 	COM_Compress( s_shaderText );
 
 	// free up memory
-	ri.FS_FreeFileList( shaderFiles );
+	FS_FreeFileList( shaderFiles );
 
 	Com_Memset(shaderTextHashTableSizes, 0, sizeof(shaderTextHashTableSizes));
 	size = 0;
@@ -4710,7 +4710,7 @@ static void ScanAndLoadShaderFiles( void )
 
 	size += MAX_SHADERTEXT_HASH;
 
-	hashMem = (char *)ri.Hunk_Alloc( size * sizeof(char *), h_low );
+	hashMem = (char *)Hunk_Alloc( size * sizeof(char *), h_low );
 
 	for (i = 0; i < MAX_SHADERTEXT_HASH; i++) {
 		shaderTextHashTable[i] = (char **) hashMem;

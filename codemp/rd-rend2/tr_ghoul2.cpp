@@ -1929,7 +1929,7 @@ static void G2_TransformGhoulBones(
 	ghoul2.mBoneCache->mUnsquash=false;
 
 	// master smoothing control
-	if (HackadelicOnClient && smooth && !ri.Cvar_VariableIntegerValue("dedicated"))
+	if (HackadelicOnClient && smooth && !Cvar_VariableIntegerValue("dedicated"))
 	{
 		ghoul2.mBoneCache->mLastTouch = ghoul2.mBoneCache->mLastLastTouch;
 
@@ -3872,7 +3872,7 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 	
 	qboolean bAlreadyFound = qfalse;
 	mdxm = (mdxmHeader_t*)CModelCache->Allocate(size, buffer, mod_name, &bAlreadyFound, TAG_MODEL_GLM);
-	mod->data.glm = (mdxmData_t *)ri.Hunk_Alloc (sizeof (mdxmData_t), h_low);
+	mod->data.glm = (mdxmData_t *)Hunk_Alloc (sizeof (mdxmData_t), h_low);
 	mod->data.glm->header = mdxm;
 
 	//R_RegisterModels_Malloc(size, buffer, mod_name, &bAlreadyFound, TAG_MODEL_GLM);
@@ -4038,7 +4038,7 @@ qboolean model_upload_mdxm_to_gpu(model_t *mod) {
 	// Make a copy on the GPU
 	mdxmLOD_t *lod = (mdxmLOD_t *)((byte *)mdxm + mdxm->ofsLODs);
 
-	mod->data.glm->vboModels = (mdxmVBOModel_t *)ri.Hunk_Alloc (sizeof (mdxmVBOModel_t) * mdxm->numLODs, h_low);
+	mod->data.glm->vboModels = (mdxmVBOModel_t *)Hunk_Alloc (sizeof (mdxmVBOModel_t) * mdxm->numLODs, h_low);
 	for (int l = 0; l < mdxm->numLODs; l++ )
 	{
 		mdxmVBOModel_t *vboModel = &mod->data.glm->vboModels[l];
@@ -4063,11 +4063,11 @@ qboolean model_upload_mdxm_to_gpu(model_t *mod) {
 		vec3_t *bitangentsf;
 
 		// +1 to add total vertex count
-		int *baseVertexes = (int *)ri.Hunk_AllocateTempMemory (sizeof (int) * (mdxm->numSurfaces + 1));
-		int *indexOffsets = (int *)ri.Hunk_AllocateTempMemory (sizeof (int) * mdxm->numSurfaces);
+		int *baseVertexes = (int *)Hunk_AllocateTempMemory (sizeof (int) * (mdxm->numSurfaces + 1));
+		int *indexOffsets = (int *)Hunk_AllocateTempMemory (sizeof (int) * mdxm->numSurfaces);
 
 		vboModel->numVBOMeshes = mdxm->numSurfaces;
-		vboModel->vboMeshes = (mdxmVBOMesh_t *)ri.Hunk_Alloc (sizeof (mdxmVBOMesh_t) * mdxm->numSurfaces, h_low);
+		vboModel->vboMeshes = (mdxmVBOMesh_t *)Hunk_Alloc (sizeof (mdxmVBOMesh_t) * mdxm->numSurfaces, h_low);
 		vboMeshes = vboModel->vboMeshes;
 
 		mdxmSurface_t *surf = (mdxmSurface_t *)((byte *)lod + sizeof (mdxmLOD_t) + (mdxm->numSurfaces * sizeof (mdxmLODSurfOffset_t)));
@@ -4086,8 +4086,8 @@ qboolean model_upload_mdxm_to_gpu(model_t *mod) {
 
 		baseVertexes[mdxm->numSurfaces] = numVerts;
 
-		tangentsf = (vec3_t *)ri.Hunk_AllocateTempMemory (sizeof (vec3_t) * numVerts);
-		bitangentsf = (vec3_t *)ri.Hunk_AllocateTempMemory (sizeof (vec3_t) * numVerts);;
+		tangentsf = (vec3_t *)Hunk_AllocateTempMemory (sizeof (vec3_t) * numVerts);
+		bitangentsf = (vec3_t *)Hunk_AllocateTempMemory (sizeof (vec3_t) * numVerts);;
 
 		dataSize += numVerts * sizeof (*verts);
 		dataSize += numVerts * sizeof (*normals);
@@ -4097,7 +4097,7 @@ qboolean model_upload_mdxm_to_gpu(model_t *mod) {
 		dataSize += numVerts * sizeof (*tangents);
 
 		// Allocate and write to memory
-		data = (byte *)ri.Hunk_AllocateTempMemory (dataSize);
+		data = (byte *)Hunk_AllocateTempMemory (dataSize);
 
 		verts = (vec3_t *)(data + stride);
 		ofsPosition = stride;
@@ -4260,9 +4260,9 @@ qboolean model_upload_mdxm_to_gpu(model_t *mod) {
 
 		VBO_t *vbo = R_CreateVBO (data, dataSize, VBO_USAGE_STATIC);
 
-		ri.Hunk_FreeTempMemory (data);
-		ri.Hunk_FreeTempMemory (tangentsf);
-		ri.Hunk_FreeTempMemory (bitangentsf);
+		Hunk_FreeTempMemory (data);
+		Hunk_FreeTempMemory (tangentsf);
+		Hunk_FreeTempMemory (bitangentsf);
 
 		vbo->offsets[ATTR_INDEX_POSITION] = ofsPosition;
 		vbo->offsets[ATTR_INDEX_NORMAL] = ofsNormals;
@@ -4286,7 +4286,7 @@ qboolean model_upload_mdxm_to_gpu(model_t *mod) {
 		vbo->sizes[ATTR_INDEX_TANGENT] = sizeof(*tangents);
 
 		// Fill in the index buffer
-		glIndex_t *indices = (glIndex_t *)ri.Hunk_AllocateTempMemory (sizeof (glIndex_t) * numTriangles * 3);
+		glIndex_t *indices = (glIndex_t *)Hunk_AllocateTempMemory (sizeof (glIndex_t) * numTriangles * 3);
 		glIndex_t *index = indices;
 
 		surf = (mdxmSurface_t *)((byte *)lod + sizeof (mdxmLOD_t) + (mdxm->numSurfaces * sizeof (mdxmLODSurfOffset_t)));
@@ -4314,7 +4314,7 @@ qboolean model_upload_mdxm_to_gpu(model_t *mod) {
 
 		IBO_t *ibo = R_CreateIBO ((byte *)indices, sizeof (glIndex_t) * numTriangles * 3, VBO_USAGE_STATIC);
 
-		ri.Hunk_FreeTempMemory (indices);
+		Hunk_FreeTempMemory (indices);
 
 		surf = (mdxmSurface_t *)((byte *)lod + sizeof (mdxmLOD_t) + (mdxm->numSurfaces * sizeof (mdxmLODSurfOffset_t)));
 
@@ -4335,8 +4335,8 @@ qboolean model_upload_mdxm_to_gpu(model_t *mod) {
 		vboModel->vbo = vbo;
 		vboModel->ibo = ibo;
 
-		ri.Hunk_FreeTempMemory (indexOffsets);
-		ri.Hunk_FreeTempMemory (baseVertexes);
+		Hunk_FreeTempMemory (indexOffsets);
+		Hunk_FreeTempMemory (baseVertexes);
 
 		lod = (mdxmLOD_t *)((byte *)lod + lod->ofsEnd);
 	}
