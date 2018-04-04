@@ -20,6 +20,16 @@
 
 #define	LL(x) x=LittleLong(x)
 
+
+void *R_Malloc(int iSize, memtag_t eTag, qboolean bZeroit);
+void R_Free(void *ptr);
+int R_MemSize(memtag_t eTag);
+void R_MorphMallocTag(void *pvBuffer, memtag_t eDesiredTag);
+void *R_Hunk_Alloc(int iSize, qboolean bZeroit);
+
+void R_UpdateIBO(IBO_t *ibo, byte * indexes, int indexesSize, vboUsage_t usage);
+void R_UpdateVBO(VBO_t *vbo, byte * vertexes, int vertexesSize, vboUsage_t usage);
+
 #ifdef G2_PERFORMANCE_ANALYSIS
 #include "qcommon/timing.h"
 
@@ -318,8 +328,49 @@ struct SBoneCalc
 class CBoneCache;
 static void G2_TransformBone( int index, CBoneCache &CB );
 
+void UnCompressBone(float mat[3][4], int iBoneIndex, const mdxaHeader_t *pMDXAHeader, int iFrame);
+
 class CBoneCache
 {
+public:
+
+	void AllocBoneCache() {
+		if (hasUncompressedBones == false) {
+
+			//int numFrames = 
+			//mdxaBone_t
+			
+			int numBones = header->numBones;
+			int numFrames = header->numFrames;
+			int bytes = numBones * numFrames * sizeof(mdxaBone_t);
+
+			char *vmstr = "GAME";
+			if (isCGame())
+				vmstr = "CGAME";
+			R_Printf(PRINT_ALL, "[%s] Allocating %d bytes (%.2f MB) for uncompressed bone lookup table for mdxa name=%s\n", vmstr, bytes, ((float)bytes)/1024/1024, header->name);
+
+			uncompressedBones = (mdxaBone_t *)R_Malloc(bytes, TAG_GHOUL2, qfalse);
+
+			for (int frame_id=0; frame_id<numFrames; frame_id++) {
+				for (int bone_id=0; bone_id<numBones; bone_id++) {
+					mdxaBone_t *thisbone = uncompressedBones + frame_id * numBones + bone_id;
+					UnCompressBone(thisbone->matrix, bone_id, header, frame_id);
+				}
+			}
+
+			//__debugbreak();
+
+			hasUncompressedBones = true;
+		}
+	}
+
+	void GetBoneMatrix(float matrix[3][4], int bone_id, int frame_id) {
+
+		mdxaBone_t *thisbone = uncompressedBones + frame_id * header->numBones + bone_id;
+		memcpy(matrix, thisbone, sizeof(mdxaBone_t)); // todo: test only returning a pointer and make sure that nobody would overwrite it, so memcpy can be prevented
+		//UnCompressBone(matrix, bone_id, header, frame_id);
+	}
+
 	void EvalLow( int index )
 	{
 		assert(index >= 0 && index < (int)mBones.size());
@@ -394,6 +445,9 @@ class CBoneCache
 	}
 
 public:
+	bool hasUncompressedBones = false;
+	mdxaBone_t *uncompressedBones = NULL; // malloc(numFrames * numBones)
+
 	int frameSize; 
 	const mdxaHeader_t *header; 
 	const model_t *mod; 
@@ -443,6 +497,9 @@ public:
 				(mdxaSkel_t *)((byte *)offsets + offsets->offsets[i]);
 			mFinalBones[i].parent = skel->parent;
 		}
+
+		// takes like 64MB for 20000 frames, so gotta get rid of lots of anims/frames...
+		AllocBoneCache();
 	}
 
 	SBoneCalc &Root()
@@ -1110,12 +1167,13 @@ static int G2_GetBonePoolIndex(	const mdxaHeader_t *pMDXAHeader, int iFrame, int
 	return pIndex->iIndex & 0x00FFFFFF;	
 }
 
-/*static inline*/ void UnCompressBone(
-	float mat[3][4],
-	int iBoneIndex,
-	const mdxaHeader_t *pMDXAHeader,
-	int iFrame)
-{
+/*static inline*/ void UnCompressBone(float mat[3][4], int iBoneIndex, const mdxaHeader_t *pMDXAHeader, int iFrame) {
+	//if (isCGame() /*&& g2_imgui->integer*/) {
+	//	ImGui::Begin("UnCompressBone CGAME");
+	//	ImGui::Text("iBoneIndex=%d iFrame=%d header=%p", iBoneIndex, iFrame, pMDXAHeader);
+	//	ImGui::End();
+	//}
+
 	mdxaCompQuatBone_t *pCompBonePool =
 		(mdxaCompQuatBone_t *)((byte *)pMDXAHeader + pMDXAHeader->ofsCompBonePool);
 	MC_UnCompressQuat(
@@ -1431,7 +1489,9 @@ void G2_RagGetAnimMatrix(
 	}
 
 	//get the base matrix for the specified frame
-	UnCompressBone(animMatrix.matrix, boneNum, ghoul2.mBoneCache->header, frame);
+	//UnCompressBone(animMatrix.matrix, boneNum, ghoul2.mBoneCache->header, frame);
+	ghoul2.mBoneCache->GetBoneMatrix(animMatrix.matrix, boneNum, frame);
+
 
 	parent = skel->parent;
 	if (boneNum > 0 && parent > -1)
@@ -1678,14 +1738,20 @@ static void G2_TransformBone( int child, CBoneCache& BC )
 	// transforms into
   	if ( !TB.backlerp )
   	{
-		UnCompressBone(currentBone.matrix, child, BC.header, TB.currentFrame);
+		//UnCompressBone(currentBone.matrix, child, BC.header, TB.currentFrame);
+		BC.GetBoneMatrix(currentBone.matrix, child, TB.currentFrame);
+
+		
   	}
 	else
   	{
 		mdxaBone_t newFrameBone;
 		mdxaBone_t currentFrameBone;
-		UnCompressBone(newFrameBone.matrix, child, BC.header, TB.newFrame);
-		UnCompressBone(currentFrameBone.matrix, child, BC.header, TB.currentFrame);		
+		//UnCompressBone(newFrameBone.matrix, child, BC.header, TB.newFrame);
+		//UnCompressBone(currentFrameBone.matrix, child, BC.header, TB.currentFrame);		
+		BC.GetBoneMatrix(    newFrameBone.matrix, child, TB.newFrame    );
+		BC.GetBoneMatrix(currentFrameBone.matrix, child, TB.currentFrame);		
+
 		Mat3x4_Lerp(&currentBone, &newFrameBone, &currentFrameBone, TB.backlerp);
 	}
 
@@ -1695,8 +1761,10 @@ static void G2_TransformBone( int child, CBoneCache& BC )
 	{
 		mdxaBone_t blendFrameBone;
 		mdxaBone_t blendOldFrameBone;
-		UnCompressBone(blendFrameBone.matrix, child, BC.header, TB.blendFrame);
-		UnCompressBone(blendOldFrameBone.matrix, child, BC.header, TB.blendOldFrame);
+		//UnCompressBone(blendFrameBone.matrix, child, BC.header, TB.blendFrame);
+		//UnCompressBone(blendOldFrameBone.matrix, child, BC.header, TB.blendOldFrame);
+		BC.GetBoneMatrix(   blendFrameBone.matrix, child, TB.blendFrame   );
+		BC.GetBoneMatrix(blendOldFrameBone.matrix, child, TB.blendOldFrame);
 
 		const float backlerp = TB.blendFrame - (int)TB.blendFrame;
 		mdxaBone_t lerpFrameBone;
@@ -1912,12 +1980,11 @@ static void G2_TransformGhoulBones(
 	model_t *currentModel = (model_t *)ghoul2.currentModel;
 	mdxaHeader_t *aHeader = (mdxaHeader_t *)ghoul2.aHeader;
 
-	if (isGame())
-		ImGui::Begin("G2_TransformGhoulBones GAME");
-	else
+	if (isCGame() /*&& g2_imgui->integer*/) {
 		ImGui::Begin("G2_TransformGhoulBones CGAME");
-	ImGui::Text("rootBoneList.size()=%d", rootBoneList.size());
-	ImGui::End();
+		ImGui::Text("rootBoneList.size()=%d", rootBoneList.size());
+		ImGui::End();
+	}
 
 	assert(ghoul2.aHeader);
 	assert(ghoul2.currentModel);
@@ -4358,14 +4425,7 @@ qboolean model_upload_mdxm_to_gpu(model_t *mod) {
 	return qtrue;
 }
 
-void *R_Malloc(int iSize, memtag_t eTag, qboolean bZeroit);
-void R_Free(void *ptr);
-int R_MemSize(memtag_t eTag);
-void R_MorphMallocTag(void *pvBuffer, memtag_t eDesiredTag);
-void *R_Hunk_Alloc(int iSize, qboolean bZeroit);
 
-void R_UpdateIBO(IBO_t *ibo, byte * indexes, int indexesSize, vboUsage_t usage);
-void R_UpdateVBO(VBO_t *vbo, byte * vertexes, int vertexesSize, vboUsage_t usage);
 #include "include_glm.h"
 
 qboolean model_upload_mdxm_to_gpu_special(model_t *mod, mdxmSurface_t *specialSurface, float matrix[16]) {
