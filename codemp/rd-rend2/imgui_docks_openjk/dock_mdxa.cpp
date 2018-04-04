@@ -174,6 +174,10 @@ void DockMDXA::imgui_skeleton() {
 
 
 
+void DockMDXA::imgui_frames() {
+	// meh no clue atm, seems the frames are ripped out, using bone cache now or something...
+	//header->ofsFrames
+}
 
 inline mdxaHeader_t *mdxaHeader(model_t *mod) {
 	return mod->data.gla;

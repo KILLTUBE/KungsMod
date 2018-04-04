@@ -15,6 +15,9 @@
 #include "tr_cache.h"
 #include "compose_models.h"
 
+
+#include "include_imgui.h"
+
 #define	LL(x) x=LittleLong(x)
 
 #ifdef G2_PERFORMANCE_ANALYSIS
@@ -1890,6 +1893,8 @@ void G2_SetUpBolts(
 #define		GHOUL2_RAG_STARTED						0x0010
 //rwwFIXMEFIXME: Move this into the stupid header or something.
 
+
+
 static void G2_TransformGhoulBones(
 	boneInfo_v &rootBoneList,
 	mdxaBone_t &rootMatrix,
@@ -1902,8 +1907,17 @@ static void G2_TransformGhoulBones(
 	G2PerformanceCounter_G2_TransformGhoulBones++;
 #endif
 
+
+
 	model_t *currentModel = (model_t *)ghoul2.currentModel;
 	mdxaHeader_t *aHeader = (mdxaHeader_t *)ghoul2.aHeader;
+
+	if (isGame())
+		ImGui::Begin("G2_TransformGhoulBones GAME");
+	else
+		ImGui::Begin("G2_TransformGhoulBones CGAME");
+	ImGui::Text("rootBoneList.size()=%d", rootBoneList.size());
+	ImGui::End();
 
 	assert(ghoul2.aHeader);
 	assert(ghoul2.currentModel);

@@ -29,6 +29,36 @@ CCALL void R_MouseClickEvent(int key, int state) {
 }
 EXTERNC int Key_GetCatcher( void );
 
+CCALL void imgui_openjk_start() {
+	//FBO_Bind(tr.renderGUIFbo);
+	FBO_Bind(NULL);
+	GL_SetDefaultState();
+	GL_State(GLS_DEPTHTEST_DISABLE | GLS_SRCBLEND_SRC_ALPHA | GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA);
+	GL_Cull(CT_TWO_SIDED);
+	qglColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	qglClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	//qglClear(GL_COLOR_BUFFER_BIT);
+}
+
+CCALL void imgui_openjk_end() {
+	/* default OpenGL state */
+	//qglUseProgram(0);
+	//qglBindBuffer(GL_ARRAY_BUFFER, 0);
+	//qglBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	//qglBindVertexArray(tr.globalVao);
+	tr.globalVao;
+	//FBO_Bind(glState.previousFBO);
+	// todo: make it a proper DSA function and save it in glState aswell
+	// for some reason a map loading is resetting tr.globalVao, so imgui only works in the start menu...
+	qglBindVertexArray(1);
+	//FBO_Bind(NULL);
+	R_BindNullVBO();
+	R_BindNullIBO();
+	//glState.current = -123;
+	GLSL_BindNullProgram();
+	GL_SetDefaultState();
+}
+
 void R_RenderImGui() {
 	float width = glConfig.vidWidth;
 	float height = glConfig.vidHeight;
@@ -106,41 +136,19 @@ void R_RenderImGui() {
 	}
 #endif
 
-	//FBO_Bind(tr.renderGUIFbo);
-	FBO_Bind(NULL);
-	GL_SetDefaultState();
-	GL_State(GLS_DEPTHTEST_DISABLE | GLS_SRCBLEND_SRC_ALPHA | GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA);
-	GL_Cull(CT_TWO_SIDED);
-	qglColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-	qglClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	//qglClear(GL_COLOR_BUFFER_BIT);
+	//imgui_openjk_start();
 
 	static int first = 1;
 	if (first) {
-		imgui_init();
+		//imgui_init();
 		first = 0;
 	}
 
-	imgui_new_frame();
+	//imgui_new_frame();
 	imgui_render();
 	imgui_openjk_default_docks();
-	imgui_end_frame();
-
-	/* default OpenGL state */
-	//qglUseProgram(0);
-	//qglBindBuffer(GL_ARRAY_BUFFER, 0);
-	//qglBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	//qglBindVertexArray(tr.globalVao);
-	tr.globalVao;
-	//FBO_Bind(glState.previousFBO);
-	// todo: make it a proper DSA function and save it in glState aswell
-	// for some reason a map loading is resetting tr.globalVao, so imgui only works in the start menu...
-	qglBindVertexArray(1);
-	//FBO_Bind(NULL);
-	R_BindNullVBO();
-	R_BindNullIBO();
-	//glState.current = -123;
-	GLSL_BindNullProgram();
-	GL_SetDefaultState();
+	//imgui_end_frame();
+	//imgui_openjk_end();
 }
+
 

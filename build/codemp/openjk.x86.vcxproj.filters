@@ -832,9 +832,6 @@
     <ClCompile Include="..\..\codemp\game\AnimalNPC.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_g2_utils.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\NPC_utils.c">
       <Filter>game</Filter>
     </ClCompile>
@@ -1039,33 +1036,6 @@
     <ClCompile Include="..\..\codemp\game\NPC_goal.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_weapons.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_misc.c">
-      <Filter>gamecgamemix</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_panimate.c">
-      <Filter>gamecgamemix</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_saga.c">
-      <Filter>gamecgamemix</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_saberLoad.c">
-      <Filter>gamecgamemix</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_pmove.c">
-      <Filter>gamecgamemix</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_vehicleLoad.c">
-      <Filter>gamecgamemix</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_slidemove.c">
-      <Filter>gamecgamemix</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_saber.c">
-      <Filter>gamecgamemix</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\FighterNPC.c">
       <Filter>gamecgamemix</Filter>
     </ClCompile>
@@ -1240,6 +1210,36 @@
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_anims.cpp">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_vehicleLoad.c">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_misc.c">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_panimate.c">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_pmove.c">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_saber.c">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_saberLoad.c">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_saga.c">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_slidemove.c">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_g2_utils.c">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_weapons.c">
+      <Filter>bg</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
@@ -1255,12 +1255,6 @@
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\XycaRend2\codemp\game\anims.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\bg_public.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\bg_weapons.h">
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="C:\XycaRend2\codemp\botlib\botlib.h">
@@ -1974,9 +1968,6 @@
     <ClInclude Include="..\..\codemp\game\w_saber.h">
       <Filter>game</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\codemp\game\bg_saga.h">
-      <Filter>gamecgamemix</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\codemp\game\g_xcvar.h">
       <Filter>game</Filter>
     </ClInclude>
@@ -2060,6 +2051,15 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\anims_to_string.h">
       <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\bg_saga.h">
+      <Filter>bg</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\bg_weapons.h">
+      <Filter>bg</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\XycaRend2\codemp\game\bg_public.h">
+      <Filter>bg</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2162,6 +2162,9 @@
     </Filter>
     <Filter Include="fx">
       <UniqueIdentifier>{de4eb1aa-b49e-4b55-9623-4c79533d4daa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bg">
+      <UniqueIdentifier>{8ebd60b2-4071-466d-982f-e5b62de79a2b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -46,6 +46,11 @@ CCALL void Com_BusyWait();
 CCALL char *Sys_BinaryPath(void);
 CCALL void Com_Frame( void );
 
+#include "../codemp/rd-rend2/imgui/imgui_api.h"
+
+CCALL void imgui_openjk_start();
+CCALL void imgui_openjk_end();
+
 int main(int argc, char *argv[]) {
 	printf("k\n");
 
@@ -58,9 +63,19 @@ int main(int argc, char *argv[]) {
 
 	NET_Init();
 
+	imgui_openjk_start();
+	imgui_init();
+	imgui_openjk_end();
+
 	while (1) {
 		Com_BusyWait();
+		imgui_new_frame();
 		Com_Frame();
+
+		imgui_openjk_start();
+		imgui_end_frame();
+		imgui_openjk_end();
+
 		win_present();
 	}
 

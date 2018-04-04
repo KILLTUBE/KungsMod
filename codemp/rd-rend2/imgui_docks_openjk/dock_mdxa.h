@@ -19,6 +19,7 @@ public:
 	//void imgui_list_lods();
 	//void imgui_list_surfhierarchy();
 	void imgui_skeleton();
+	void imgui_frames();
 };
 
 #endif
