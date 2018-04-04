@@ -33,9 +33,6 @@ namespace ImGui {
 	}
 }
 
-#include<Shlwapi.h>
-
-
 void DockAnims::imgui() {
 	animation_t *anims = bgHumanoidAnimations;
 

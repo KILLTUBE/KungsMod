@@ -3,62 +3,13 @@
 #include "../imgui_docks/dock_console.h"
 #include "../imgui_openjk/gluecode.h"
 
-
 #include "ghoul2/G2.h"
-#include "ghoul2/g2_local.h"
-
-IGhoul2InfoArray &TheGhoul2InfoArray();
-
-// todo should be in header
-// must be a power of two
-#define MAX_G2_MODELS (1024)
-#define G2_MODEL_BITS (10)
-#define G2_INDEX_MASK (MAX_G2_MODELS-1)
-
-class Ghoul2InfoArray : public IGhoul2InfoArray
-{
-public:
-	std::vector<CGhoul2Info>	mInfos[MAX_G2_MODELS];
-	int					mIds[MAX_G2_MODELS];
-	std::list<int>			mFreeIndecies;
-	void DeleteLow(int idx);
-	Ghoul2InfoArray();
-
-	size_t GetSerializedSize() const;
-
-	size_t Serialize ( char *buffer ) const;
-
-	size_t Deserialize ( const char *buffer, size_t size );
-
-#if G2API_DEBUG
-	~Ghoul2InfoArray();
-#endif
-	int New();
-	bool IsValid(int handle) const;
-	void Delete(int handle);
-	std::vector<CGhoul2Info> &Get(int handle);
-	const std::vector<CGhoul2Info> &Get(int handle) const;
-
-#if G2API_DEBUG
-	vector<CGhoul2Info> &GetDebug(int handle);
-	void TestAllAnims();
-
-#endif
-};
+#include "../../ghoul2/g2_local.h"
+#include "../../ghoul2/Ghoul2InfoArray.h"
+#include "../../ghoul2/CBoneCache.h"
 
 extern Ghoul2InfoArray *singleton;
-
-
-
-
-
-
-
-
-
-
-
-
+IGhoul2InfoArray &TheGhoul2InfoArray();
 
 DockGhoul2::DockGhoul2() {}
 
@@ -66,7 +17,6 @@ DockGhoul2::DockGhoul2() {}
 const char *DockGhoul2::label() {
 	return "Ghoul2";
 }
-
 
 void DockGhoul2::imgui() {
 	for (int i=0; i<1024; i++) {

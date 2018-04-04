@@ -1240,6 +1240,9 @@
     <ClCompile Include="..\..\codemp\game\bg_weapons.c">
       <Filter>bg</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_frames.cpp">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
@@ -2060,6 +2063,15 @@
     </ClInclude>
     <ClInclude Include="C:\XycaRend2\codemp\game\bg_public.h">
       <Filter>bg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_frames.h">
+      <Filter>rend2\imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ghoul2\CBoneCache.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ghoul2\Ghoul2InfoArray.h">
+      <Filter>ghoul2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
