@@ -116,9 +116,61 @@
 void Inverse_Matrix(mdxaBone_t *src, mdxaBone_t *dest);
 void Create_Matrix(const float *angle, mdxaBone_t *matrix);
 
+
+typedef struct ghoulbone_s {
+	char name[64];
+	unsigned int flags;
+	int parent;
+	float basePoseMat[3][4];
+	float basePoseMatInv[3][4];
+} ghoulbone_t;
+
+bool DockMDXA::exportBones() {
+	mdxaSkel_t *skel;
+	mdxaSkelOffsets_t *offsets = (mdxaSkelOffsets_t *)((byte *)header + sizeof(mdxaHeader_t));
+	if (header->numBones == 0) {
+		imgui_log("dont know how to export numBones==0\n");
+		return false;
+	}
+	int bytes = header->numBones * sizeof(ghoulbone_t);
+	ghoulbone_t *mem = (ghoulbone_t *) malloc(bytes);
+	ghoulbone_t *iterator = mem;
+	if (mem == NULL) {
+		imgui_log("mem == NULL, couldnt allocate %d bytes for %d bones\n", bytes, header->numBones);
+		return false;
+	}
+ 	for (int bone_id = 0; bone_id < header->numBones; bone_id++) {
+ 		skel = (mdxaSkel_t *)((byte *)header + sizeof(mdxaHeader_t) + offsets->offsets[bone_id]);
+		memcpy(iterator->name, skel->name, sizeof(iterator->name));
+		iterator->flags = skel->flags;
+		iterator->parent = skel->parent;
+		memcpy(iterator->basePoseMat, skel->BasePoseMat.matrix, 3 * 4 * sizeof(float));
+		memcpy(iterator->basePoseMatInv, skel->BasePoseMatInv.matrix, 3 * 4 * sizeof(float));
+		iterator++;
+	}
+	FILE *f = fopen("C:\\unity\\dump\\humanoid.ghoulbones", "wb");
+	if (f == NULL) {
+		imgui_log("couldnt open file dawg\n");
+		free(mem);
+		return false;	
+	}
+	fwrite(mem, 1, bytes, f);
+	fclose(f);
+	free(mem);
+	return true;
+}
+
 void DockMDXA::imgui_skeleton() {
 	mdxaSkel_t *skel;
 	mdxaSkelOffsets_t *offsets = (mdxaSkelOffsets_t *)((byte *)header + sizeof(mdxaHeader_t));
+
+	
+
+	if (ImGui::Button("Export Bones")) {
+		exportBones();
+
+
+	}
 
  	for (int bone_id = 0; bone_id < header->numBones; bone_id++) {
  		skel = (mdxaSkel_t *)((byte *)header + sizeof(mdxaHeader_t) + offsets->offsets[bone_id]);

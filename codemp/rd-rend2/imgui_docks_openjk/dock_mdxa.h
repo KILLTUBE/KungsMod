@@ -20,6 +20,7 @@ public:
 	//void imgui_list_surfhierarchy();
 	void imgui_skeleton();
 	void imgui_frames();
+	bool exportBones();
 };
 
 #endif
