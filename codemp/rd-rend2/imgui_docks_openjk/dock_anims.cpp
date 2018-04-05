@@ -33,12 +33,21 @@ namespace ImGui {
 	}
 }
 
+
+
 void DockAnims::imgui() {
 	animation_t *anims = bgHumanoidAnimations;
 
 
 	static char filter[256] = {""};
 	ImGui::InputText("filter", filter, sizeof(filter));
+
+	//if (ImGui::Button("Export all anims")) {
+	//	for (int anim_id = 0; anim_id < MAX_TOTALANIMATIONS; anim_id++) {
+	//
+	//		exportFramesForAnim(anim_id);
+	//	}
+	//}
 
 	for (int anim_id = 0; anim_id < MAX_TOTALANIMATIONS; anim_id++) {
 		animation_t *anim = anims + anim_id;

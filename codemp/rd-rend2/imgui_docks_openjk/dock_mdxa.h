@@ -21,6 +21,7 @@ public:
 	void imgui_skeleton();
 	void imgui_frames();
 	bool exportBones();
+	bool exportFrames();
 };
 
 #endif

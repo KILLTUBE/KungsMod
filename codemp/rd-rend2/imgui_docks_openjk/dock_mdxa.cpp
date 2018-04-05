@@ -160,11 +160,48 @@ bool DockMDXA::exportBones() {
 	return true;
 }
 
+
+void UnCompressBone(float mat[3][4], int iBoneIndex, const mdxaHeader_t *pMDXAHeader, int iFrame);
+
+bool DockMDXA::exportFrames() {
+	char filename[256];
+	int numBones = header->numBones;
+	int numFrames = header->numFrames;
+	int bytesPerFrame = numBones * sizeof(mdxaBone_t);
+	// each frame has numBones mdxaBones, so prepare some memory to dump them into
+	mdxaBone_t *oneFrame = (mdxaBone_t *) malloc(bytesPerFrame);
+		for (int frame_id=0; frame_id<numFrames; frame_id++) {
+		
+		for (int bone_id=0; bone_id<numBones; bone_id++) {
+			mdxaBone_t *thisBone = oneFrame + bone_id;
+			UnCompressBone(thisBone->matrix, bone_id, header, frame_id);
+		}
+
+
+		snprintf(filename, sizeof(filename), "C:\\unity\\dump\\frames\\frame_%d", frame_id);
+
+
+		FILE *f = fopen(filename, "wb");
+		if (f == NULL) {
+			imgui_log("couldnt open %s dawg\n", filename);
+			return false;
+		}
+		fwrite(oneFrame, 1, bytesPerFrame, f);
+		fclose(f);
+	}
+
+	free(oneFrame);
+
+	
+}
+
 void DockMDXA::imgui_skeleton() {
 	mdxaSkel_t *skel;
 	mdxaSkelOffsets_t *offsets = (mdxaSkelOffsets_t *)((byte *)header + sizeof(mdxaHeader_t));
 
-	
+	if (ImGui::Button("Export all frames")) {
+		exportFrames();
+	}
 
 	if (ImGui::Button("Export Bones")) {
 		exportBones();
