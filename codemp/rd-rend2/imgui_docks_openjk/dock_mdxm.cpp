@@ -141,9 +141,6 @@ void DockMDXM::imgui_mdxm_surface(mdxmSurface_t *surf, int surface_id) {
 }
 
 typedef struct ghoulvertex_s {
-	float x;
-	float y;
-	float z;
 	int boneindex_0;
 	int boneindex_1;
 	int boneindex_2;
@@ -152,11 +149,9 @@ typedef struct ghoulvertex_s {
 	float boneweight_1;
 	float boneweight_2;
 	float boneweight_3;
-	float u;
-	float v;
 } ghoulvertex_t;
 
-void exportSurface(mdxmSurface_t *surf, char *filename) {
+void exportBoneWeights(mdxmSurface_t *surf, char *filename) {
 	// the bone indicies are from 0-9 local to surface (couldnt find any higher)
 	// to get the real bone number, lookup the 0-9 in boneRef, like boneRef[3]==32
 	int *boneRef = (int *) ( (byte *)surf + surf->ofsBoneReferences);
@@ -173,9 +168,6 @@ void exportSurface(mdxmSurface_t *surf, char *filename) {
 		int index1 = G2_GetVertBoneIndex(vert, 1);
 		int index2 = G2_GetVertBoneIndex(vert, 2);
 		int index3 = G2_GetVertBoneIndex(vert, 3);
-		iterator->x = vert->vertCoords[0];
-		iterator->y = vert->vertCoords[1];
-		iterator->z = vert->vertCoords[2];
 		iterator->boneweight_0 = weight0;
 		iterator->boneweight_1 = weight1;
 		iterator->boneweight_2 = weight2;
@@ -184,9 +176,6 @@ void exportSurface(mdxmSurface_t *surf, char *filename) {
 		iterator->boneindex_1 = boneRef[index1];
 		iterator->boneindex_2 = boneRef[index2];
 		iterator->boneindex_3 = boneRef[index3];
-		mdxmVertexTexCoord_t *tc = (mdxmVertexTexCoord_t *)(firstVertex(surf) + surf->numVerts);
-		iterator->u = tc[vert_id].texCoords[0];
-		iterator->v = tc[vert_id].texCoords[1];
 		iterator++;
 		vert++;
 	}
@@ -198,6 +187,63 @@ void exportSurface(mdxmSurface_t *surf, char *filename) {
 	fwrite(ghoulvertices, 1, bytes, f);
 	fclose(f);
 	free(ghoulvertices);
+}
+
+
+typedef struct vek3_s {
+	float x;
+	float y;
+	float z;
+} vek3_t;
+
+void exportSurfacePositions(mdxmSurface_t *surf, char *filename) {
+	int bytes = surf->numVerts * sizeof(vek3_t);
+	vek3_t *positions = (vek3_t *) malloc(bytes);
+	vek3_t *iterator = positions;
+	mdxmVertex_t *vert = firstVertex(surf);
+	for (int vert_id=0; vert_id<surf->numVerts; vert_id++) {
+		iterator->x = vert->vertCoords[0];
+		iterator->y = vert->vertCoords[1];
+		iterator->z = vert->vertCoords[2];
+		iterator++;
+		vert++;
+	}
+	FILE *f = fopen(filename, "wb");
+	if (f == NULL) {
+		imgui_log("couldnt open %s\n", filename);
+		return;
+	}
+	fwrite(positions, 1, bytes, f);
+	fclose(f);
+	free(positions);
+}
+
+
+typedef struct vek2_s {
+	float x;
+	float y;
+} vek2_t;
+
+void exportSurfaceUVs(mdxmSurface_t *surf, char *filename) {
+	int bytes = surf->numVerts * sizeof(vek2_t);
+	vek2_t *uvs = (vek2_t *) malloc(bytes);
+	vek2_t *iterator = uvs;
+	mdxmVertex_t *vert = firstVertex(surf);
+	mdxmVertexTexCoord_t *tc = (mdxmVertexTexCoord_t *)(vert + surf->numVerts);
+	for (int vert_id=0; vert_id<surf->numVerts; vert_id++) {
+		iterator->x = tc[vert_id].texCoords[0];
+		iterator->y = tc[vert_id].texCoords[1];
+		iterator++;
+		vert++;
+	}
+	FILE *f = fopen(filename, "wb");
+	if (f == NULL) {
+		imgui_log("couldnt open %s\n", filename);
+		return;
+	}
+	fwrite(uvs, 1, bytes, f);
+	fclose(f);
+	free(uvs);
 }
 
 void exportSurfaceTriangles(mdxmSurface_t *surf, char *filename) {
@@ -220,25 +266,28 @@ void DockMDXM::imgui_mdxm_list_lods() {
 		snprintf(tmp, sizeof(tmp), "mdxmLOD_t[%d] ofsEnd=%d", lod_id, lod->ofsEnd );
 		
 
-		if (ImGui::Button("Export LOD surfaces")) {
+		if (ImGui::Button("Export LOD surfaces / tris / positions / uvs")) {
 			mdxmSurface_t *surf = firstSurface(header, lod);
 			for (int surface_id=0; surface_id<header->numSurfaces; surface_id++) {
 				char filename[256];
-				snprintf(filename, sizeof(filename), "c:/unity/dump/lod_%d/%d.ghoulvertex_t", lod_id, surface_id); // meh, no name, the '*' char isnt allowed, lookupSurfNames[surface_id]);
-				exportSurface(surf, filename);
+
+				snprintf(filename, sizeof(filename), "c:/unity/dump/lod_%d/boneweights_%d.BoneWeight[]", lod_id, surface_id);
+				exportBoneWeights(surf, filename);
+								
+				snprintf(filename, sizeof(filename), "c:/unity/dump/lod_%d/tris_%d.Int32[3][]", lod_id, surface_id);
+				exportSurfaceTriangles(surf, filename);
+				
+				snprintf(filename, sizeof(filename), "c:/unity/dump/lod_%d/positions_%d.Vector3[]", lod_id, surface_id);
+				exportSurfacePositions(surf, filename);
+
+				snprintf(filename, sizeof(filename), "c:/unity/dump/lod_%d/uvs_%d.Vector2[]", lod_id, surface_id);
+				exportSurfaceUVs(surf, filename);
+
 				surf = next(surf);
 			}
 		}
 
-		if (ImGui::Button("Export LOD triangles")) {
-			mdxmSurface_t *surf = firstSurface(header, lod);
-			for (int surface_id=0; surface_id<header->numSurfaces; surface_id++) {
-				char filename[256];
-				snprintf(filename, sizeof(filename), "c:/unity/dump/lod_%d/%d.tris", lod_id, surface_id);
-				exportSurfaceTriangles(surf, filename);
-				surf = next(surf);
-			}
-		}
+
 
 		if (ImGui::CollapsingHeader(tmp)) {
 			mdxmSurface_t *surf = firstSurface(header, lod);
