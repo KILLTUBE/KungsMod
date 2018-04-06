@@ -31,8 +31,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "g_local.h"
 #include "cgame/cg_local.h"
 #include "ui/ui_local.h"
-
-EXTERNC stringID_table_t animTable[MAX_ANIMATIONS+1];
+#include "bg_saberLoad.h"
 
 int BG_SoundIndex( const char *sound ) {
 	if (isGame())
@@ -40,8 +39,6 @@ int BG_SoundIndex( const char *sound ) {
 	else
 		return S_RegisterSound( sound );
 }
-
-EXTERNC stringID_table_t FPTable[];
 
 #define MAX_SABER_DATA_SIZE (1024*1024) // 1mb, was 512kb
 static char saberParms[MAX_SABER_DATA_SIZE];

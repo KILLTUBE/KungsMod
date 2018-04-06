@@ -26,14 +26,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "g_local.h"
 #include "bg_saga.h"
 #include "qcommon/q_shared.h"
-
-typedef struct shaderRemap_s {
-  char oldShader[MAX_QPATH];
-  char newShader[MAX_QPATH];
-  float timeOffset;
-} shaderRemap_t;
-
-#define MAX_SHADER_REMAPS 128
+#include "g_utils.h"
 
 int remapCount = 0;
 shaderRemap_t remappedShaders[MAX_SHADER_REMAPS];
@@ -879,7 +872,6 @@ qboolean G_EntitiesFree( void ) {
 	return qfalse;
 }
 
-#define MAX_G2_KILL_QUEUE 256
 
 int gG2KillIndex[MAX_G2_KILL_QUEUE];
 int gG2KillNum = 0;

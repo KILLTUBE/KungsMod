@@ -838,9 +838,6 @@
     <ClCompile Include="..\..\codemp\game\g_bot.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_client.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_cmds.c">
       <Filter>game</Filter>
     </ClCompile>
@@ -860,9 +857,6 @@
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_log.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_main.c">
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_mem.c">
@@ -896,9 +890,6 @@
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_svcmds.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_syscalls.c">
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_target.c">
@@ -1117,9 +1108,6 @@
     <ClCompile Include="..\..\codemp\game\bg_vehicleLoad.c">
       <Filter>bg</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_saberLoad.c">
-      <Filter>bg</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\bg_saga.c">
       <Filter>bg</Filter>
     </ClCompile>
@@ -1242,6 +1230,18 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\bg_saber.cpp">
       <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_saberLoad.cpp">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_syscalls.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_client.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_main.cpp">
+      <Filter>game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2090,6 +2090,27 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\game\NPC.h">
       <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\bg_saberLoad.h">
+      <Filter>bg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_client.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\bg_vehicleLoad.h">
+      <Filter>bg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_AI_Utils.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_mover.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_utils.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_main.h">
+      <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

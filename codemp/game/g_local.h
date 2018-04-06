@@ -1131,7 +1131,9 @@ CCALL const char *BuildShaderStateConfig(void);
 /*
 Ghoul2 Insert Start
 */
-int G_BoneIndex( const char *name );
+
+// g_utils.c
+CCALL int G_BoneIndex( const char *name );
 
 /*
 Ghoul2 Insert End

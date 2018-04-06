@@ -62,7 +62,7 @@ int OtherTeam(int team) {
 	return team;
 }
 
-const char *TeamName(int team)  {
+CCALL const char *TeamName(int team)  {
 	if (team==TEAM_RED)
 		return "RED";
 	else if (team==TEAM_BLUE)

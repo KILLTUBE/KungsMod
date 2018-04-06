@@ -918,7 +918,7 @@ void SiegeBeginRound(int entNum)
 	SV_SetConfigstring(CS_SIEGE_STATE, va("0|%i", level.time)); //we're ready to g0g0g0
 }
 
-void SiegeCheckTimers(void)
+CCALL void SiegeCheckTimers(void)
 {
 	int i=0;
 	gentity_t *ent;

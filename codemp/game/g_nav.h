@@ -67,30 +67,25 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 	#define	NODE_HEADER_ID	'NODE'
 
 	//this stuff is local and can be modified, don't even show it to the engine.
-	extern	qboolean navCalculatePaths;
+	EXTERNC	qboolean navCalculatePaths;
+	EXTERNC	qboolean NAVDEBUG_showNodes;
+	EXTERNC	qboolean NAVDEBUG_showRadius;
+	EXTERNC	qboolean NAVDEBUG_showEdges;
+	EXTERNC	qboolean NAVDEBUG_showTestPath;
+	EXTERNC	qboolean NAVDEBUG_showEnemyPath;
+	EXTERNC	qboolean NAVDEBUG_showCombatPoints;
+	EXTERNC	qboolean NAVDEBUG_showNavGoals;
+	EXTERNC	qboolean NAVDEBUG_showCollision;
+	EXTERNC	int	 NAVDEBUG_curGoal;
 
-	extern	qboolean NAVDEBUG_showNodes;
-	extern	qboolean NAVDEBUG_showRadius;
-	extern	qboolean NAVDEBUG_showEdges;
-	extern	qboolean NAVDEBUG_showTestPath;
-	extern	qboolean NAVDEBUG_showEnemyPath;
-	extern	qboolean NAVDEBUG_showCombatPoints;
-	extern	qboolean NAVDEBUG_showNavGoals;
-	extern	qboolean NAVDEBUG_showCollision;
-
-	extern	int	 NAVDEBUG_curGoal;
-
-	void NAV_Shutdown( void );
-	void NAV_CalculatePaths( const char *filename, int checksum );
-	void NAV_CalculateSquadPaths( const char *filename, int checksum );
-
-	void NAV_ShowDebugInfo( void );
-
-	int NAV_GetNearestNode( gentity_t *self, int lastNode );
-	extern int NAV_TestBestNode( gentity_t *self, int startID, int endID, qboolean failEdge );
-
-	qboolean NPC_GetMoveDirection( vec3_t out, float *distance );
-	void NPC_MoveToGoalExt( vec3_t point );
-	void NAV_FindPlayerWaypoint( int clNum );
-	qboolean NAV_CheckAhead( gentity_t *self, vec3_t end, trace_t *trace, int clipmask );
+	CCALL void NAV_Shutdown( void );
+	CCALL void NAV_CalculatePaths( const char *filename, int checksum );
+	CCALL void NAV_CalculateSquadPaths( const char *filename, int checksum );
+	CCALL void NAV_ShowDebugInfo( void );
+	CCALL int NAV_GetNearestNode( gentity_t *self, int lastNode );
+	CCALL int NAV_TestBestNode( gentity_t *self, int startID, int endID, qboolean failEdge );
+	CCALL qboolean NPC_GetMoveDirection( vec3_t out, float *distance );
+	CCALL void NPC_MoveToGoalExt( vec3_t point );
+	CCALL void NAV_FindPlayerWaypoint( int clNum );
+	CCALL qboolean NAV_CheckAhead( gentity_t *self, vec3_t end, trace_t *trace, int clipmask );
 #endif

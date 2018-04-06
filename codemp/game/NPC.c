@@ -583,7 +583,7 @@ void RestoreNPCGlobals(void)
 }
 
 //We MUST do this, other funcs were using NPC illegally when "self" wasn't the global NPC
-void ClearNPCGlobals( void )
+CCALL void ClearNPCGlobals( void )
 {
 	NPCS.NPC = NULL;
 	NPCS.NPCInfo = NULL;

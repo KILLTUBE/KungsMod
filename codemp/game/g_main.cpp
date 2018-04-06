@@ -30,6 +30,19 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "b_local.h"
 #include "server/sv_nav.h"
 #include "cgame/cg_local.h"
+#include "../game/bg_vehicleLoad.h"
+#include "../game/bg_saberLoad.h"
+#include "../game/g_client.h"
+#include "NPC_AI_Utils.h"
+#include "g_mover.h"
+#include "g_utils.h"
+#include "w_saber.h"
+#include "g_main.h"
+
+CCALL void Jedi_Decloak( gentity_t *self );
+CCALL void ClearNPCGlobals( void );
+CCALL void SiegeCheckTimers(void);
+CCALL void NPC_InitGame( void );
 
 cg_t cg;
 level_locals_t	level;
@@ -127,9 +140,6 @@ void G_FindTeams( void ) {
 
 sharedBuffer_t gSharedBuffer;
 
-void WP_SaberLoadParms( void );
-void BG_VehicleLoadParms( void );
-
 void G_CacheGametype( void )
 {
 	// check some things
@@ -142,7 +152,7 @@ void G_CacheGametype( void )
 			level.gametype = GT_FFA;
 		}
 		else
-			level.gametype = gt;
+			level.gametype = (gametype_t) gt;
 	}
 	else if ( g_gametype->integer < 0 || g_gametype->integer >= GT_MAX_GAME_TYPE )
 	{
@@ -150,10 +160,10 @@ void G_CacheGametype( void )
 		level.gametype = GT_FFA;
 	}
 	else
-		level.gametype = atoi( g_gametype->string );
+		level.gametype = (gametype_t) atoi( g_gametype->string );
 
 	Cvar_Set( "g_gametype", va( "%i", level.gametype ) );
-	Cvar_Update( &g_gametype );
+	Cvar_Update( g_gametype );
 }
 
 void G_CacheMapname( const cvar_t *mapname )
@@ -162,16 +172,6 @@ void G_CacheMapname( const cvar_t *mapname )
 	Com_sprintf( level.rawmapname, sizeof( level.rawmapname ), "maps/%s", mapname->string );
 }
 
-/*
-============
-G_InitGame
-
-============
-*/
-extern void RemoveAllWP(void);
-extern void BG_ClearVehicleParseParms(void);
-gentity_t *SelectRandomDeathmatchSpawnPoint( void );
-void SP_info_jedimaster_start( gentity_t *ent );
 void G_InitGame( int levelTime, int randomSeed, int restart ) {
 	int					i;
 
@@ -245,9 +245,9 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 			FS_FOpenFileByMode( SECURITY_LOG, &level.security.log, FS_APPEND_SYNC );
 
 		if ( level.security.log )
-			Com_Printf( "Logging to "SECURITY_LOG"\n" );
+			Com_Printf( "Logging to " SECURITY_LOG "\n" );
 		else
-			Com_Printf( "WARNING: Couldn't open logfile: "SECURITY_LOG"\n" );
+			Com_Printf( "WARNING: Couldn't open logfile: " SECURITY_LOG "\n" );
 	}
 	else
 		Com_Printf( "Not logging security events to disk.\n" );
@@ -316,7 +316,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 	G_CacheMapname( mapname );
 	
 
-	navCalculatePaths	= ( SV_Nav_Load( mapname->string, sv_mapChecksum->integer ) == qfalse );
+	navCalculatePaths	= (qboolean)( SV_Nav_Load( mapname->string, sv_mapChecksum->integer ) == qfalse );
 
 	// parse the key/value pairs and spawn gentities
 	G_SpawnEntitiesFromString(qfalse);
@@ -415,7 +415,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 
 		if ( i == level.num_entities ) {
 			// no JM saber found. drop one at one of the player spawnpoints
-			gentity_t *spawnpoint = SelectRandomDeathmatchSpawnPoint();
+			gentity_t *spawnpoint = SelectRandomDeathmatchSpawnPoint(qfalse);
 
 			if( !spawnpoint ) {
 				Com_Error( ERR_DROP, "Couldn't find an FFA spawnpoint to drop the jedimaster saber at!\n" );
@@ -429,13 +429,6 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 	}
 }
 
-
-
-/*
-=================
-G_ShutdownGame
-=================
-*/
 void G_ShutdownGame( int restart ) {
 	int i = 0;
 	gentity_t *ent;
@@ -822,11 +815,6 @@ void RemoveDuelDrawLoser(void)
 	}
 }
 
-/*
-=======================
-RemoveTournamentWinner
-=======================
-*/
 void RemoveTournamentWinner( void ) {
 	int			clientNum;
 
@@ -844,11 +832,6 @@ void RemoveTournamentWinner( void ) {
 	SetTeam( &g_entities[ clientNum ], "s" );
 }
 
-/*
-=======================
-AdjustTournamentScores
-=======================
-*/
 void AdjustTournamentScores( void ) {
 	int			clientNum;
 
@@ -926,12 +909,6 @@ void AdjustTournamentScores( void ) {
 	}
 }
 
-/*
-=============
-SortRanks
-
-=============
-*/
 int QDECL SortRanks( const void *a, const void *b ) {
 	gclient_t	*ca, *cb;
 
@@ -1887,13 +1864,13 @@ qboolean ScoreIsTied( void ) {
 	}
 
 	if ( level.gametype >= GT_TEAM ) {
-		return level.teamScores[TEAM_RED] == level.teamScores[TEAM_BLUE];
+		return (qboolean)(level.teamScores[TEAM_RED] == level.teamScores[TEAM_BLUE]);
 	}
 
 	a = level.clients[level.sortedClients[0]].ps.persistant[PERS_SCORE];
 	b = level.clients[level.sortedClients[1]].ps.persistant[PERS_SCORE];
 
-	return a == b;
+	return (qboolean)(a == b);
 }
 
 /*
@@ -2529,7 +2506,7 @@ void CheckTournament( void ) {
 		if ( level.time > level.warmupTime ) {
 			level.warmupTime += 10000;
 			Cvar_Set( "g_restarted", "1" );
-			Cvar_Update( &g_restarted );
+			Cvar_Update( g_restarted );
 			Cbuf_ExecuteText( EXEC_APPEND, "map_restart 0\n" );
 			level.restarted = qtrue;
 			return;
@@ -2884,25 +2861,9 @@ void NAV_CheckCalcPaths( void )
 
 //so shared code can get the local time depending on the side it's executed on
 
-
-/*
-================
-G_RunFrame
-
-Advances the non-player objects in the world
-================
-*/
-void ClearNPCGlobals( void );
-void AI_UpdateGroups( void );
-void ClearPlayerAlertEvents( void );
-void SiegeCheckTimers(void);
-void WP_SaberStartMissileBlockCheck( gentity_t *self, usercmd_t *ucmd );
-extern void Jedi_Decloak( gentity_t *self );
-qboolean G_PointInBounds( vec3_t point, vec3_t mins, vec3_t maxs );
-
 int g_siegeRespawnCheck = 0;
-void SetMoverState( gentity_t *ent, moverState_t moverState, int time );
 
+// Advances the non-player objects in the world
 void G_RunFrame( int levelTime ) {
 	int			i;
 	gentity_t	*ent;
@@ -3412,7 +3373,7 @@ void G_RunFrame( int levelTime ) {
 			SendScoreboardMessageToAllClients();
 
 			gQueueScoreMessageTime = 0;
-			gQueueScoreMessage = 0;
+			gQueueScoreMessage = qfalse;
 		}
 	}
 #ifdef _G_FRAME_PERFANAL

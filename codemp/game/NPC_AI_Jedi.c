@@ -820,7 +820,7 @@ void Jedi_Cloak( gentity_t *self )
 	}
 }
 
-void Jedi_Decloak( gentity_t *self )
+CCALL void Jedi_Decloak( gentity_t *self )
 {
 	if ( self )
 	{

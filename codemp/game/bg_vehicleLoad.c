@@ -31,13 +31,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "cgame/cg_local.h"
 #include "cgame/cg_tempwrappers.h"
 #include "ui/ui_local.h"
+#include "bg_vehicleLoad.h"
 
 extern stringID_table_t animTable [MAX_ANIMATIONS+1];
-
-// These buffers are filled in with the same contents and then just read from in
-// a few places. We only need one copy on Xbox.
-#define MAX_VEH_WEAPON_DATA_SIZE 0x40000 // 0x4000
-#define MAX_VEHICLE_DATA_SIZE 0x100000 // 0x10000
 
 char	VehWeaponParms[MAX_VEH_WEAPON_DATA_SIZE];
 char	VehicleParms[MAX_VEHICLE_DATA_SIZE];
@@ -49,46 +45,11 @@ void BG_ClearVehicleParseParms(void)
 	VehicleParms[0] = 0;
 }
 
-
-//These funcs are actually shared in both projects
-extern void G_SetAnimalVehicleFunctions( vehicleInfo_t *pVehInfo );
-extern void G_SetSpeederVehicleFunctions( vehicleInfo_t *pVehInfo );
-extern void G_SetWalkerVehicleFunctions( vehicleInfo_t *pVehInfo );
-extern void G_SetFighterVehicleFunctions( vehicleInfo_t *pVehInfo );
-
 vehWeaponInfo_t g_vehWeaponInfo[MAX_VEH_WEAPONS];
 int		numVehicleWeapons = 1;//first one is null/default
 
 vehicleInfo_t g_vehicleInfo[MAX_VEHICLES];
 int		numVehicles = 0;//first one is null/default
-
-void BG_VehicleLoadParms( void );
-
-typedef enum {
-	VF_IGNORE,
-	VF_INT,
-	VF_FLOAT,
-	VF_STRING,	// string on disk, pointer in memory
-	VF_VECTOR,
-	VF_BOOL,
-	VF_VEHTYPE,
-	VF_ANIM,
-	VF_WEAPON,	// take string, resolve into index into VehWeaponParms
-	VF_MODEL,	// take the string, get the G_ModelIndex
-	VF_MODEL_CLIENT,	// (cgame only) take the string, get the G_ModelIndex
-	VF_EFFECT,	// take the string, get the G_EffectIndex
-	VF_EFFECT_CLIENT,	// (cgame only) take the string, get the index
-	VF_SHADER,	// (cgame only) take the string, call R_RegisterShader
-	VF_SHADER_NOMIP,// (cgame only) take the string, call R_RegisterShaderNoMip
-	VF_SOUND,	// take the string, get the G_SoundIndex
-	VF_SOUND_CLIENT	// (cgame only) take the string, get the index
-} vehFieldType_t;
-
-typedef struct vehField_s {
-	const char	*name;
-	size_t		ofs;
-	vehFieldType_t	type;
-} vehField_t;
 
 vehField_t vehWeaponFields[] =
 {

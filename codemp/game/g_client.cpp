@@ -25,31 +25,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "g_local.h"
 #include "ghoul2/G2.h"
 #include "bg_saga.h"
+#include "../game/g_client.h"
+#include "bg_saberLoad.h"
 
-// kung foo man: i will clean up this header c/c++ fuckup later lol
-typedef enum vmSlots_e {
-	VM_GAME=0,
-	VM_CGAME,
-	VM_UI,
-	MAX_VM
-} vmSlots_t;
-typedef struct vm_s {
-	vmSlots_t	slot; // VM_GAME, VM_CGAME, VM_UI
-    char		name[MAX_QPATH];
-	void		*dllHandle;
-	qboolean	isLegacy; // uses the legacy syscall/vm_call api, is set by VM_CreateLegacy
-
-	// fill the import/export tables
-	void *		(*GetModuleAPI)( int apiVersion, ... );
-
-	// legacy stuff
-	struct {
-		void* main; // module vmMain
-		intptr_t	(QDECL *syscall)( intptr_t *parms );	// engine syscall handler
-	} legacy;
-} vm_t;
-
-extern vm_t *currentVM;
 CCALL qboolean isGame() {
 	return (qboolean)(currentVM->slot == VM_GAME);
 }
@@ -64,13 +42,6 @@ CCALL qboolean isUI() {
 
 static vec3_t	playerMins = {-15, -15, DEFAULT_MINS_2};
 static vec3_t	playerMaxs = {15, 15, DEFAULT_MAXS_2};
-
-extern int g_siegeRespawnCheck;
-
-void WP_SaberAddG2Model( gentity_t *saberent, const char *saberModel, qhandle_t saberSkin );
-void WP_SaberRemoveG2Model( gentity_t *saberent );
-extern qboolean WP_SaberStyleValidForSaber( saberInfo_t *saber1, saberInfo_t *saber2, int saberHolstered, int saberAnimLevel );
-extern qboolean WP_UseFirstValidSaberStyle( saberInfo_t *saber1, saberInfo_t *saber2, int saberHolstered, int *saberAnimLevel );
 
 forcedata_t Client_Force[MAX_CLIENTS];
 
@@ -2053,7 +2024,7 @@ void Svcmd_ToggleUserinfoValidation_f( void ) {
 		}
 
 		Cvar_Set( "g_userinfoValidate", va( "%i", (1 << index) ^ (g_userinfoValidate->integer & ((1 << (numUserinfoFields + USERINFO_VALIDATION_MAX)) - 1)) ) );
-		Cvar_Update( &g_userinfoValidate );
+		Cvar_Update( g_userinfoValidate );
 
 		if ( index < numUserinfoFields )	Com_Printf( "%s %s\n", userinfoFields[index].fieldClean,				((g_userinfoValidate->integer & (1<<index)) ? "Validated" : "Ignored") );
 		else								Com_Printf( "%s %s\n", userinfoValidateExtra[index-numUserinfoFields],	((g_userinfoValidate->integer & (1<<index)) ? "Validated" : "Ignored") );
@@ -2571,7 +2542,7 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 	if( isBot ) {
 		ent->r.svFlags |= SVF_BOT;
 		ent->inuse = qtrue;
-		if( !G_BotConnect( clientNum, !firstTime ) ) {
+		if( !G_BotConnect( clientNum, (qboolean)!(int)firstTime ) ) {
 			return "BotConnectfailed";
 		}
 	}
@@ -2679,7 +2650,7 @@ void ClientBegin( int clientNum, qboolean allowTeamReset ) {
 
 			preSess = ent->client->sess.sessionTeam;
 			G_ReadSessionData( ent->client );
-			ent->client->sess.sessionTeam = preSess;
+			ent->client->sess.sessionTeam = (team_t) preSess;
 			G_WriteClientSessionData(ent->client);
 			if ( !ClientUserinfoChanged( clientNum ) )
 				return;
@@ -2719,7 +2690,7 @@ void ClientBegin( int clientNum, qboolean allowTeamReset ) {
 	{
 		if (ent->client->ps.fd.forcePowersActive & (1 << i))
 		{
-			WP_ForcePowerStop(ent, i);
+			WP_ForcePowerStop(ent, (forcePowers_t) i);
 		}
 		i++;
 	}
@@ -3239,7 +3210,7 @@ void ClientSpawn(gentity_t *ent) {
 		spawnPoint = SelectCTFSpawnPoint (
 						client->sess.sessionTeam,
 						client->pers.teamState.state,
-						spawn_origin, spawn_angles, !!(ent->r.svFlags & SVF_BOT));
+						spawn_origin, spawn_angles, (qboolean)(ent->r.svFlags & SVF_BOT));
 	}
 	else if (level.gametype == GT_SIEGE)
 	{
@@ -3247,28 +3218,28 @@ void ClientSpawn(gentity_t *ent) {
 						client->siegeClass,
 						client->sess.sessionTeam,
 						client->pers.teamState.state,
-						spawn_origin, spawn_angles, !!(ent->r.svFlags & SVF_BOT));
+						spawn_origin, spawn_angles, (qboolean)(ent->r.svFlags & SVF_BOT));
 	}
 	else {
 		if (level.gametype == GT_POWERDUEL)
 		{
-			spawnPoint = SelectDuelSpawnPoint(client->sess.duelTeam, client->ps.origin, spawn_origin, spawn_angles, !!(ent->r.svFlags & SVF_BOT));
+			spawnPoint = SelectDuelSpawnPoint(client->sess.duelTeam, client->ps.origin, spawn_origin, spawn_angles, (qboolean)(ent->r.svFlags & SVF_BOT));
 		}
 		else if (level.gametype == GT_DUEL)
 		{	// duel
-			spawnPoint = SelectDuelSpawnPoint(DUELTEAM_SINGLE, client->ps.origin, spawn_origin, spawn_angles, !!(ent->r.svFlags & SVF_BOT));
+			spawnPoint = SelectDuelSpawnPoint(DUELTEAM_SINGLE, client->ps.origin, spawn_origin, spawn_angles, (qboolean)(ent->r.svFlags & SVF_BOT));
 		}
 		else
 		{
 			// the first spawn should be at a good looking spot
 			if ( !client->pers.initialSpawn && client->pers.localClient ) {
 				client->pers.initialSpawn = qtrue;
-				spawnPoint = SelectInitialSpawnPoint( spawn_origin, spawn_angles, client->sess.sessionTeam, !!(ent->r.svFlags & SVF_BOT) );
+				spawnPoint = SelectInitialSpawnPoint( spawn_origin, spawn_angles, client->sess.sessionTeam, (qboolean)(ent->r.svFlags & SVF_BOT) );
 			} else {
 				// don't spawn near existing origin if possible
 				spawnPoint = SelectSpawnPoint (
 					client->ps.origin,
-					spawn_origin, spawn_angles, client->sess.sessionTeam, !!(ent->r.svFlags & SVF_BOT) );
+					spawn_origin, spawn_angles, client->sess.sessionTeam, (qboolean)(ent->r.svFlags & SVF_BOT) );
 			}
 		}
 	}
@@ -3509,7 +3480,7 @@ void ClientSpawn(gentity_t *ent) {
 	else
 	{//jediVmerc is incompatible with this gametype, turn it off!
 		Cvar_Set( "g_jediVmerc", "0" );
-		Cvar_Update( &g_jediVmerc );
+		Cvar_Update( g_jediVmerc );
 		if (level.gametype == GT_HOLOCRON)
 		{
 			//always get free saber level 1 in holocron
@@ -3835,18 +3806,21 @@ void ClientSpawn(gentity_t *ent) {
 	{ //Imperial (team1) team is allied with "enemy" NPCs in this mode
 		if (client->sess.sessionTeam == SIEGETEAM_TEAM1)
 		{
-			client->playerTeam = ent->s.teamowner = NPCTEAM_ENEMY;
+			ent->s.teamowner = (npcteam_t) NPCTEAM_ENEMY;
+			client->playerTeam = NPCTEAM_ENEMY;
 			client->enemyTeam = NPCTEAM_PLAYER;
 		}
 		else
 		{
-			client->playerTeam = ent->s.teamowner = NPCTEAM_PLAYER;
+			client->playerTeam = NPCTEAM_PLAYER;
+			ent->s.teamowner = NPCTEAM_PLAYER;
 			client->enemyTeam = NPCTEAM_ENEMY;
 		}
 	}
 	else
 	{
-		client->playerTeam = ent->s.teamowner = NPCTEAM_PLAYER;
+		client->playerTeam = (npcteam_t) NPCTEAM_PLAYER;
+		ent->s.teamowner = NPCTEAM_PLAYER;
 		client->enemyTeam = NPCTEAM_ENEMY;
 	}
 
@@ -3954,7 +3928,7 @@ void ClientDisconnect( int clientNum ) {
 	{
 		if (ent->client->ps.fd.forcePowersActive & (1 << i))
 		{
-			WP_ForcePowerStop(ent, i);
+			WP_ForcePowerStop(ent, (forcePowers_t) i);
 		}
 		i++;
 	}
