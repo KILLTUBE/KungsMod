@@ -36,6 +36,20 @@ void DockMDXM::imgui_mdxm_list_surfhierarchy() {
 	}
 }
 
+
+static inline float G2_GetVertBoneWeightNotSlow( const mdxmVertex_t *pVert, const int iWeightNum)
+{
+	float fBoneWeight;
+
+	int iTemp = pVert->BoneWeightings[iWeightNum];
+
+	iTemp|= (pVert->uiNmWeightsAndBoneIndexes >> (iG2_BONEWEIGHT_TOPBITS_SHIFT+(iWeightNum*2)) ) & iG2_BONEWEIGHT_TOPBITS_AND;
+
+	fBoneWeight = fG2_BONEWEIGHT_RECIPROCAL_MULT * iTemp;
+
+	return fBoneWeight;
+}
+
 void DockMDXM::imgui_mdxm_surface_vertices(mdxmSurface_t *surf) {
 	mdxmVertex_t *vert = firstVertex(surf);
 
@@ -52,6 +66,32 @@ void DockMDXM::imgui_mdxm_surface_vertices(mdxmSurface_t *surf) {
 
 		snprintf(dragString, sizeof(dragString), "verts[%i]", vert_id);
 		ImGui::DragFloat3(dragString, vert->vertCoords);
+		ImGui::SameLine();
+		
+		float weight0 = G2_GetVertBoneWeightNotSlow(vert, 0);
+		float weight1 = G2_GetVertBoneWeightNotSlow(vert, 1);
+		float weight2 = G2_GetVertBoneWeightNotSlow(vert, 2);
+		float weight3 = G2_GetVertBoneWeightNotSlow(vert, 3);
+		int index0 = G2_GetVertBoneIndex(vert, 0);
+		int index1 = G2_GetVertBoneIndex(vert, 1);
+		int index2 = G2_GetVertBoneIndex(vert, 2);
+		int index3 = G2_GetVertBoneIndex(vert, 3);
+					//weights[w] = (byte)(weight * 255.0f);
+					//bonerefs[w] = G2_GetVertBoneIndex(&v[k], w);
+
+		ImGui::Text("bone %d=%.2f %d=%.2f %d=%.2f %d=%.2f",
+			index0,
+			weight0,
+			index1,
+			weight1,
+			index2,
+			weight2,
+			index3,
+			weight3
+		);
+
+
+
 		vert++;
 	}
 }
@@ -100,13 +140,112 @@ void DockMDXM::imgui_mdxm_surface(mdxmSurface_t *surf, int surface_id) {
 	ImGui::PopID();
 }
 
+typedef struct ghoulvertex_s {
+	float x;
+	float y;
+	float z;
+	int boneindex_0;
+	int boneindex_1;
+	int boneindex_2;
+	int boneindex_3;
+	float boneweight_0;
+	float boneweight_1;
+	float boneweight_2;
+	float boneweight_3;
+	float u;
+	float v;
+} ghoulvertex_t;
+
+void exportSurface(mdxmSurface_t *surf, char *filename) {
+	// the bone indicies are from 0-9 local to surface (couldnt find any higher)
+	// to get the real bone number, lookup the 0-9 in boneRef, like boneRef[3]==32
+	int *boneRef = (int *) ( (byte *)surf + surf->ofsBoneReferences);
+	int bytes = surf->numVerts * sizeof(ghoulvertex_t);
+	ghoulvertex_t *ghoulvertices = (ghoulvertex_t *) malloc(bytes);
+	ghoulvertex_t *iterator = ghoulvertices;
+	mdxmVertex_t *vert = firstVertex(surf);
+	for (int vert_id=0; vert_id<surf->numVerts; vert_id++) {
+		float weight0 = G2_GetVertBoneWeightNotSlow(vert, 0);
+		float weight1 = G2_GetVertBoneWeightNotSlow(vert, 1);
+		float weight2 = G2_GetVertBoneWeightNotSlow(vert, 2);
+		float weight3 = G2_GetVertBoneWeightNotSlow(vert, 3);
+		int index0 = G2_GetVertBoneIndex(vert, 0);
+		int index1 = G2_GetVertBoneIndex(vert, 1);
+		int index2 = G2_GetVertBoneIndex(vert, 2);
+		int index3 = G2_GetVertBoneIndex(vert, 3);
+		iterator->x = vert->vertCoords[0];
+		iterator->y = vert->vertCoords[1];
+		iterator->z = vert->vertCoords[2];
+		iterator->boneweight_0 = weight0;
+		iterator->boneweight_1 = weight1;
+		iterator->boneweight_2 = weight2;
+		iterator->boneweight_3 = weight3;
+		iterator->boneindex_0 = boneRef[index0];
+		iterator->boneindex_1 = boneRef[index1];
+		iterator->boneindex_2 = boneRef[index2];
+		iterator->boneindex_3 = boneRef[index3];
+		mdxmVertexTexCoord_t *tc = (mdxmVertexTexCoord_t *)(firstVertex(surf) + surf->numVerts);
+		iterator->u = tc[vert_id].texCoords[0];
+		iterator->v = tc[vert_id].texCoords[1];
+		iterator++;
+		vert++;
+	}
+	FILE *f = fopen(filename, "wb");
+	if (f == NULL) {
+		imgui_log("couldnt open %s\n", filename);
+		return;
+	}
+	fwrite(ghoulvertices, 1, bytes, f);
+	fclose(f);
+	free(ghoulvertices);
+}
+
+void exportSurfaceTriangles(mdxmSurface_t *surf, char *filename) {
+	mdxmTriangle_t *triangles = (mdxmTriangle_t *)((byte *)surf + surf->ofsTriangles);
+	int bytes = surf->numTriangles * sizeof(mdxmTriangle_t);
+	FILE *f = fopen(filename, "wb");
+	if (f == NULL) {
+		imgui_log("couldnt open %s\n", filename);
+		return;
+	}
+	fwrite(triangles, 1, bytes, f);
+	fclose(f);
+}
+
 void DockMDXM::imgui_mdxm_list_lods() {
 	mdxmLOD_t *lod = firstLod(header);
 	for (int lod_id=0; lod_id<header->numLODs; lod_id++) {
+		ImGui::PushID(lod_id);
 		char tmp[512];
 		snprintf(tmp, sizeof(tmp), "mdxmLOD_t[%d] ofsEnd=%d", lod_id, lod->ofsEnd );
+		
+
+		if (ImGui::Button("Export LOD surfaces")) {
+			mdxmSurface_t *surf = firstSurface(header, lod);
+			for (int surface_id=0; surface_id<header->numSurfaces; surface_id++) {
+				char filename[256];
+				snprintf(filename, sizeof(filename), "c:/unity/dump/lod_%d/%d.ghoulvertex_t", lod_id, surface_id); // meh, no name, the '*' char isnt allowed, lookupSurfNames[surface_id]);
+				exportSurface(surf, filename);
+				surf = next(surf);
+			}
+		}
+
+		if (ImGui::Button("Export LOD triangles")) {
+			mdxmSurface_t *surf = firstSurface(header, lod);
+			for (int surface_id=0; surface_id<header->numSurfaces; surface_id++) {
+				char filename[256];
+				snprintf(filename, sizeof(filename), "c:/unity/dump/lod_%d/%d.tris", lod_id, surface_id);
+				exportSurfaceTriangles(surf, filename);
+				surf = next(surf);
+			}
+		}
+
 		if (ImGui::CollapsingHeader(tmp)) {
 			mdxmSurface_t *surf = firstSurface(header, lod);
+
+
+
+
 			for (int i=0; i<header->numSurfaces; i++) {
 
 
@@ -118,6 +257,7 @@ void DockMDXM::imgui_mdxm_list_lods() {
 			}
 		}
 		lod = next(lod);
+		ImGui::PopID();
 	}
 }
 
