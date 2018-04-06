@@ -28,9 +28,12 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "w_saber.h"
 #include "cgame/cg_local.h"
 #include "../cgame/cg_tempwrappers.h"
+#include "../game/bg_saber.h"
 
-extern qboolean BG_SabersOff( playerState_t *ps );
-saberInfo_t *BG_MySaber( int clientNum, int saberNum );
+#include "NPC.h"
+
+CCALL qboolean BG_SabersOff( playerState_t *ps );
+CCALL saberInfo_t *BG_MySaber( int clientNum, int saberNum );
 
 int PM_irand_timesync(int val1, int val2)
 {
@@ -1140,7 +1143,7 @@ void PM_SaberLockBreak( playerState_t *genemy, qboolean victory, int strength )
 {
 	//qboolean punishLoser = qfalse;
 	qboolean noKnockdown = qfalse;
-	qboolean superBreak = (strength+pm->ps->saberLockHits > Q_irand(2,4));
+	qboolean superBreak = (qboolean)(strength+pm->ps->saberLockHits > Q_irand(2,4));
 
 	//a single vs. single break
 	if ( PM_SaberLockWinAnim( victory, superBreak ) != -1 )
@@ -1649,7 +1652,7 @@ saberMoveName_t PM_SaberFlipOverAttackMove(void)
 	}
 }
 
-int PM_SaberBackflipAttackMove( void )
+saberMoveName_t PM_SaberBackflipAttackMove( void )
 {
 	saberInfo_t *saber1 = BG_MySaber( pm->ps->clientNum, 0 );
 	saberInfo_t *saber2 = BG_MySaber( pm->ps->clientNum, 1 );
@@ -1687,7 +1690,7 @@ int PM_SaberBackflipAttackMove( void )
 	return LS_A_BACKFLIP_ATK;
 }
 
-int PM_SaberDualJumpAttackMove( void )
+saberMoveName_t PM_SaberDualJumpAttackMove( void )
 {
 	//FIXME: to make this move easier to execute, should be allowed to do it
 	//		after you've already started your jump... but jump is delayed in
@@ -3592,7 +3595,7 @@ weapChecks:
 						newmove = saberMoveData[curmove].chain_idle;
 					}
 					else */
-					newmove = PM_SaberAttackForMovement( curmove );
+					newmove = PM_SaberAttackForMovement( (saberMoveName_t) curmove );
 					if ( (PM_SaberInBounce( curmove )||PM_SaberInBrokenParry( curmove ))
 						&& saberMoveData[newmove].startQuad == saberMoveData[curmove].endQuad )
 					{//this attack would be a repeat of the last (which was blocked), so don't actually use it, use the default chain attack for this bounce

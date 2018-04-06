@@ -46,7 +46,7 @@ typedef enum
 	WPOSE_SABERRIGHT,
 } EWeaponPose;
 
-extern stringID_table_t VehicleTable[VH_NUM_VEHICLES+1];
+EXTERNC stringID_table_t VehicleTable[VH_NUM_VEHICLES+1];
 
 //===========================================================================================================
 //START VEHICLE WEAPONS
@@ -86,8 +86,8 @@ typedef struct vehWeaponInfo_s {
 #define VEH_WEAPON_BASE	0
 #define VEH_WEAPON_NONE	-1
 
-extern vehWeaponInfo_t g_vehWeaponInfo[MAX_VEH_WEAPONS];
-extern int	numVehicleWeapons;
+EXTERNC vehWeaponInfo_t g_vehWeaponInfo[MAX_VEH_WEAPONS];
+EXTERNC int	numVehicleWeapons;
 
 //===========================================================================================================
 //END VEHICLE WEAPONS
@@ -376,8 +376,8 @@ typedef struct vehicleInfo_s {
 #define VEHICLE_BASE	0
 #define VEHICLE_NONE	-1
 
-extern vehicleInfo_t g_vehicleInfo[MAX_VEHICLES];
-extern int	numVehicles;
+EXTERNC vehicleInfo_t g_vehicleInfo[MAX_VEHICLES];
+EXTERNC int	numVehicles;
 
 #define VEH_DEFAULT_SPEED_MAX		800.0f
 #define VEH_DEFAULT_ACCEL			10.0f
@@ -635,4 +635,4 @@ typedef struct Vehicle_s
 	} Vehicle_t;
 #endif
 
-extern int BG_VehicleGetIndex( const char *vehicleName );
+CCALL int BG_VehicleGetIndex( const char *vehicleName );

@@ -1469,7 +1469,7 @@ typedef struct saberMoveData_s {
 	int blocking;
 	saberMoveName_t chain_idle;			// What move to call if the attack button is not pressed at the end of this anim
 	saberMoveName_t chain_attack;		// What move to call if the attack button (and nothing else) is pressed
-	qboolean trailLength;
+	int trailLength;
 } saberMoveData_t;
 EXTERNC saberMoveData_t	saberMoveData[LS_MOVE_MAX];
 

@@ -20,21 +20,16 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-// BG_PAnimate.c
-// game and cgame, NOT ui
-
 #include "qcommon/q_shared.h"
 #include "bg_public.h"
 #include "bg_local.h"
 #include "anims.h"
 #include "cgame/animtable.h"
-
 #include "g_local.h"
 #include "cgame/cg_local.h"
 #include "ui/ui_local.h"
+#include "../game/bg_panimate.h"
 
-
-extern saberInfo_t *BG_MySaber( int clientNum, int saberNum );
 /*
 ==============================================================================
 BEGIN: Animation utility functions (sequence checking)

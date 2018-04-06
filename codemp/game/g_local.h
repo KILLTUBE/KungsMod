@@ -40,9 +40,9 @@ typedef struct gclient_s gclient_t;
 
 #include "server/sv_g2api.h"
 
-extern int gPainMOD;
-extern int gPainHitLoc;
-extern vec3_t gPainPoint;
+EXTERNC int gPainMOD;
+EXTERNC int gPainHitLoc;
+EXTERNC vec3_t gPainPoint;
 
 //==================================================================
 
@@ -130,7 +130,7 @@ typedef union sharedBuffer_u {
 	T_G_ICARUS_SOUNDINDEX			soundIndex;
 	T_G_ICARUS_GETSETIDFORSTRING	getSetIDForString;
 } sharedBuffer_t;
-extern sharedBuffer_t gSharedBuffer;
+EXTERNC sharedBuffer_t gSharedBuffer;
 
 // movers are things like doors, plats, buttons, etc
 typedef enum {
@@ -171,11 +171,11 @@ typedef enum
 } hitLocation_t;
 
 //============================================================================
-extern void *precachedKyle;
-extern void *g2SaberInstance;
+EXTERNC void *precachedKyle;
+EXTERNC void *g2SaberInstance;
 
-extern qboolean gEscaping;
-extern int gEscapeTime;
+EXTERNC qboolean gEscaping;
+EXTERNC int gEscapeTime;
 
 struct gentity_s {
 	//rww - entstate must be first, to correspond with the bg shared entity structure
@@ -1149,7 +1149,7 @@ CCALL void TossClientItems( gentity_t *self );
 CCALL void TossClientCubes( gentity_t *self );
 CCALL void ExplodeDeath( gentity_t *self );
 CCALL void G_CheckForDismemberment(gentity_t *ent, gentity_t *enemy, vec3_t point, int damage, int deathAnim, qboolean postDeath);
-extern int gGAvoidDismember;
+EXTERNC int gGAvoidDismember;
 
 
 // damage flags
@@ -1193,9 +1193,9 @@ CCALL void WP_FireBlasterMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboo
 //
 // g_mover.c
 //
-extern int	BMS_START;
-extern int	BMS_MID;
-extern int	BMS_END;
+EXTERNC int	BMS_START;
+EXTERNC int	BMS_MID;
+EXTERNC int	BMS_END;
 
 #define SPF_BUTTON_USABLE		1
 #define SPF_BUTTON_FPUSHABLE	2
@@ -1268,7 +1268,7 @@ CCALL void AddScore( gentity_t *ent, vec3_t origin, int score );
 CCALL void CalculateRanks( void );
 CCALL qboolean SpotWouldTelefrag( gentity_t *spot );
 
-extern gentity_t *gJMSaberEnt;
+EXTERNC gentity_t *gJMSaberEnt;
 
 //
 // g_svcmds.c
@@ -1303,8 +1303,8 @@ CCALL void DeathmatchScoreboardMessage (gentity_t *client);
 //
 // g_main.c
 //
-extern qboolean gDoSlowMoDuel;
-extern int gSlowMoDuelTime;
+EXTERNC qboolean gDoSlowMoDuel;
+EXTERNC int gSlowMoDuelTime;
 
 CCALL void G_PowerDuelCount(int *loners, int *doubles, qboolean countSpec);
 
@@ -1448,7 +1448,7 @@ CCALL float NPC_GetHFOVPercentage( vec3_t spot, vec3_t from, vec3_t facing, floa
 CCALL float NPC_GetVFOVPercentage( vec3_t spot, vec3_t from, vec3_t facing, float vFOV );
 
 
-extern void G_SetEnemy (gentity_t *self, gentity_t *enemy);
+CCALL void G_SetEnemy (gentity_t *self, gentity_t *enemy);
 CCALL qboolean InFront( vec3_t spot, vec3_t from, vec3_t fromAngles, float threshHold );
 
 // ai_main.c
@@ -1480,8 +1480,8 @@ CCALL int BotAIStartFrame( int time );
 #include "g_team.h" // teamplay specific stuff
 
 
-extern	level_locals_t	level;
-extern	gentity_t		g_entities[MAX_GENTITIES];
+EXTERNC level_locals_t	level;
+EXTERNC gentity_t		g_entities[MAX_GENTITIES];
 
 #define	FOFS(x) offsetof(gentity_t, x)
 
@@ -1497,15 +1497,15 @@ typedef enum userinfoValidationBits_e {
 	USERINFO_VALIDATION_MAX
 } userinfoValidationBits_t;
 
-void Svcmd_ToggleUserinfoValidation_f( void );
-void Svcmd_ToggleAllowVote_f( void );
+CCALL void Svcmd_ToggleUserinfoValidation_f( void );
+CCALL void Svcmd_ToggleAllowVote_f( void );
 
 // g_cvar.c
 #define XCVAR_PROTO
 	#include "g_xcvar.h"
 #undef XCVAR_PROTO
-void G_RegisterCvars( void );
-void G_UpdateCvars( void );
+CCALL void G_RegisterCvars( void );
+CCALL void G_UpdateCvars( void );
 
 #include "server/sv_icarus.h"
 

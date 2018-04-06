@@ -46,6 +46,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "g_vehicles.h"
 #include <float.h>
 
+/*
 extern qboolean G_DoDismemberment( gentity_t *self, vec3_t point, int mod, int damage, int hitLoc, qboolean force = qfalse );
 extern qboolean G_EntIsUnlockedDoor( int entityNum );
 extern qboolean G_EntIsDoor( int entityNum );
@@ -133,6 +134,7 @@ qboolean PM_SwimmingAnim( int anim );
 qboolean PM_InReboundJump( int anim );
 qboolean PM_ForceJumpingAnim( int anim );
 void PM_CmdForRoll( playerState_t *ps, usercmd_t *pCmd );
+*/
 
 extern int parryDebounce[];
 extern qboolean cg_usingInFrontOf;

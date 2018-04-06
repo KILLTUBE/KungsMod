@@ -34,18 +34,17 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "ui/ui_local.h"
 
 #include "../game/bg_misc.h"
+#include "../game/bg_pmove.h"
 
 #define MAX_WEAPON_CHARGE_TIME 5000
 
 // game only
-extern void G_CheapWeaponFire(int entNum, int ev);
-extern qboolean TryGrapple(gentity_t *ent); //g_cmds.c
-
-
-extern qboolean BG_FullBodyTauntAnim( int anim );
-extern float PM_WalkableGroundDistance(void);
-extern qboolean PM_GroundSlideOkay( float zNormal );
-extern saberInfo_t *BG_MySaber( int clientNum, int saberNum );
+CCALL void G_CheapWeaponFire(int entNum, int ev);
+CCALL qboolean TryGrapple(gentity_t *ent); //g_cmds.c
+CCALL qboolean BG_FullBodyTauntAnim( int anim );
+CCALL float PM_WalkableGroundDistance(void);
+CCALL qboolean PM_GroundSlideOkay( float zNormal );
+CCALL saberInfo_t *BG_MySaber( int clientNum, int saberNum );
 
 pmove_t		*pm;
 pml_t		pml;
@@ -2966,7 +2965,7 @@ static void PM_FlyVehicleMove( void )
 
 	PM_Accelerate( wishdir, wishspeed, 100 );
 
-	PM_StepSlideMove( 1 );
+	PM_StepSlideMove( qtrue );
 }
 
 /*

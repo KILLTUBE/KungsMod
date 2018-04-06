@@ -219,7 +219,7 @@ static int g_UIGloballySelectedSiegeClass = -1;
 qboolean	UIPAFtextLoaded = qfalse;
 animation_t	uiHumanoidAnimations[MAX_TOTALANIMATIONS]; //humanoid animations are the only ones that are statically allocated.
 
-bgLoadedAnim_t bgAllAnims[MAX_ANIM_FILES];
+//bgLoadedAnim_t bgAllAnims[MAX_ANIM_FILES];
 int uiNumAllAnims = 1; //start off at 0, because 0 will always be assigned to humanoid.
 
 animation_t *UI_AnimsetAlloc(void)

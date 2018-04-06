@@ -1117,15 +1117,6 @@
     <ClCompile Include="..\..\codemp\game\bg_vehicleLoad.c">
       <Filter>bg</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_panimate.c">
-      <Filter>bg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_pmove.c">
-      <Filter>bg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_saber.c">
-      <Filter>bg</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\bg_saberLoad.c">
       <Filter>bg</Filter>
     </ClCompile>
@@ -1241,6 +1232,15 @@
       <Filter>bg</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\bg_misc.cpp">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_panimate.cpp">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_pmove.cpp">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_saber.cpp">
       <Filter>bg</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2078,6 +2078,18 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\game\bg_misc.h">
       <Filter>bg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\bg_panimate.h">
+      <Filter>bg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\bg_pmove.h">
+      <Filter>bg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\bg_saber.h">
+      <Filter>bg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC.h">
+      <Filter>NPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
