@@ -7381,9 +7381,14 @@ void UpdateClientRenderinfo(gentity_t *self, vec3_t renderOrigin, vec3_t renderA
 
 		VectorCopy( self->client->ps.viewangles, self->client->renderInfo.eyeAngles );
 
+		animation_t *anims = bgAllAnims[self->localAnimIndex].anims;
+		if (anims == NULL) {
+			Com_Printf("bgAllAnims[self->localAnimIndex].anims == NULL");
+			return;
+		}
 		//we'll just say the legs/torso are whatever the first frame of our current anim is.
-		ri->torsoFrame = bgAllAnims[self->localAnimIndex].anims[self->client->ps.torsoAnim].firstFrame;
-		ri->legsFrame = bgAllAnims[self->localAnimIndex].anims[self->client->ps.legsAnim].firstFrame;
+		ri->torsoFrame = anims[self->client->ps.torsoAnim].firstFrame;
+		ri->legsFrame  = anims[self->client->ps.legsAnim].firstFrame;
 		if (g_debugServerSkel->integer)
 		{	//Alright, I was doing this, but it's just too slow to do every frame.
 			//From now on if we want this data to be valid we're going to have to make a verify call for it before

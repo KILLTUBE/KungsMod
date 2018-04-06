@@ -1519,6 +1519,12 @@ gentity_t *NPC_Spawn_Do( gentity_t *ent )
 				return NULL;
 		}
 
+
+		if (newent->m_pVehicle->m_pVehicleInfo->Initialize == NULL) {
+			Com_Printf("newent->m_pVehicle->m_pVehicleInfo->Initialize == NULL\n");
+			return;
+		}
+
 		assert(newent->m_pVehicle &&
 			newent->m_pVehicle->m_pVehicleInfo &&
 			newent->m_pVehicle->m_pVehicleInfo->Initialize);

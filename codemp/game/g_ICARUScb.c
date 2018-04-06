@@ -33,6 +33,20 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "icarus/Q3_Registers.h"
 #include "g_nav.h"
 
+// wrappers
+int ICARUS_VariableDeclared(const char *name) {
+	return Q3_VariableDeclared(name);
+}
+
+int ICARUS_GetFloatVariable( const char *name, float *value ) {
+	return Q3_GetFloatVariable(name, value);
+}
+
+void ICARUS_SetVar( int taskID, int entID, const char *type_name, const char *data ) {
+	Q3_SetVar(taskID, entID, type_name, data);
+}
+
+
 qboolean BG_SabersOff( playerState_t *ps );
 extern stringID_table_t WPTable[];
 extern stringID_table_t BSTable[];
@@ -285,10 +299,10 @@ stringID_table_t setTable[] =
 	{"",	SET_},
 };
 
-void ICARUS_TaskIDClear( int *taskID )
-{
-	*taskID = -1;
-}
+//void Q3_TaskIDClear( int *taskID )
+//{
+//	*taskID = -1;
+//}
 
 void G_DebugPrint( int printLevel, const char *format, ... )
 {
@@ -471,7 +485,7 @@ int Q3_PlaySound( int taskID, int entID, const char *name, const char *channel )
 		{
 			if ( in_camera)	// Cinematic
 			{
-				SV_GameSendServerCommand( -1, va("ct \"%s\" %i", finalName, soundHandle) );
+				SendServerCommand( -1, va("ct \"%s\" %i", finalName, soundHandle) );
 			}
 			else //if (precacheWav[i].speaker==SP_NONE)	//  lower screen text
 			{
@@ -480,7 +494,7 @@ int Q3_PlaySound( int taskID, int entID, const char *name, const char *channel )
 				//
 				if (bBroadcast || (DistanceSquared(ent->currentOrigin, ent2->currentOrigin) < ((voice_chan == CHAN_VOICE_ATTEN)?(350 * 350):(1200 * 1200)) ) )
 				{
-					SV_GameSendServerCommand( -1, va("ct \"%s\" %i", finalName, soundHandle) );
+					SendServerCommand( -1, va("ct \"%s\" %i", finalName, soundHandle) );
 				}
 			}
 		}
@@ -489,7 +503,7 @@ int Q3_PlaySound( int taskID, int entID, const char *name, const char *channel )
 		{
 			if ( in_camera)	// Cinematic text
 			{
-				SV_GameSendServerCommand( -1, va("ct \"%s\" %i", finalName, soundHandle));
+				SendServerCommand( -1, va("ct \"%s\" %i", finalName, soundHandle));
 			}
 		}
 
@@ -542,7 +556,7 @@ int Q3_PlaySound( int taskID, int entID, const char *name, const char *channel )
 Q3_Play
 -------------------------
 */
-void ICARUS_Play( int taskID, int entID, const char *type, const char *name )
+void Q3_Play( int taskID, int entID, const char *type, const char *name )
 {
 	gentity_t *ent = &g_entities[entID];
 
@@ -697,7 +711,7 @@ Q3_Lerp2Start
 Lerps the origin of an entity to its starting position
 =============
 */
-void ICARUS_Lerp2Start( int entID, int taskID, float duration )
+void Q3_Lerp2Start( int entID, int taskID, float duration )
 {
 	gentity_t	*ent = &g_entities[entID];
 
@@ -745,7 +759,7 @@ Q3_Lerp2End
 Lerps the origin of an entity to its ending position
 =============
 */
-void ICARUS_Lerp2End( int entID, int taskID, float duration )
+void Q3_Lerp2End( int entID, int taskID, float duration )
 {
 	gentity_t	*ent = &g_entities[entID];
 
@@ -796,7 +810,7 @@ Lerps the origin and angles of an entity to the destination values
 
 =============
 */
-void ICARUS_Lerp2Pos( int taskID, int entID, vec3_t origin, vec3_t angles, float duration )
+void Q3_Lerp2Pos( int taskID, int entID, vec3_t origin, vec3_t angles, float duration )
 {
 	gentity_t	*ent = &g_entities[entID];
 	vec3_t		ang;
@@ -907,7 +921,7 @@ Q3_LerpAngles
 Lerps the angles to the destination value
 =============
 */
-void ICARUS_Lerp2Angles( int taskID, int entID, vec3_t angles, float duration )
+void Q3_Lerp2Angles( int taskID, int entID, vec3_t angles, float duration )
 {
 	gentity_t	*ent = &g_entities[entID];
 	vec3_t		ang;
@@ -963,7 +977,7 @@ Q3_GetTag
 Gets the value of a tag by the give name
 =============
 */
-int	ICARUS_GetTag( int entID, const char *name, int lookup, vec3_t info )
+int	Q3_GetTag( int entID, const char *name, int lookup, vec3_t info )
 {
 	gentity_t	*ent = &g_entities[entID];
 
@@ -996,7 +1010,7 @@ Q3_Use
 Uses an entity
 ============
 */
-void ICARUS_Use( int entID, const char *target )
+void Q3_Use( int entID, const char *target )
 {
 	gentity_t	*ent  = &g_entities[entID];
 
@@ -1024,7 +1038,7 @@ Q3_Kill
   Argument		: const char *name
 ============
 */
-void ICARUS_Kill( int entID, const char *name )
+void Q3_Kill( int entID, const char *name )
 {
 	gentity_t	*ent = &g_entities[entID];
 	gentity_t	*victim = NULL;
@@ -1077,7 +1091,7 @@ Q3_RemoveEnt
   Argument		: sharedEntity_t *victim
 ============
 */
-void ICARUS_RemoveEnt( gentity_t *victim )
+void Q3_RemoveEnt( gentity_t *victim )
 {
 	if( victim->client )
 	{
@@ -1143,7 +1157,7 @@ Q3_Remove
   Argument		: const char *name
 ============
 */
-void ICARUS_Remove( int entID, const char *name )
+void Q3_Remove( int entID, const char *name )
 {
 	gentity_t *ent = &g_entities[entID];
 	gentity_t	*victim = NULL;
@@ -1156,7 +1170,7 @@ void ICARUS_Remove( int entID, const char *name )
 			G_DebugPrint( WL_WARNING, "Q3_Remove: can't find %s\n", name );
 			return;
 		}
-		ICARUS_RemoveEnt( victim );
+		Q3_RemoveEnt( victim );
 	}
 	else if( !Q_stricmp( "enemy", name ) )
 	{
@@ -1166,7 +1180,7 @@ void ICARUS_Remove( int entID, const char *name )
 			G_DebugPrint( WL_WARNING, "Q3_Remove: can't find %s\n", name );
 			return;
 		}
-		ICARUS_RemoveEnt( victim );
+		Q3_RemoveEnt( victim );
 	}
 	else
 	{
@@ -1179,7 +1193,7 @@ void ICARUS_Remove( int entID, const char *name )
 
 		while ( victim )
 		{
-			ICARUS_RemoveEnt( victim );
+			Q3_RemoveEnt( victim );
 			victim = G_Find( victim, FOFS(targetname), (char *) name );
 		}
 	}
@@ -1204,7 +1218,9 @@ Q3_GetFloat
   Argument		: float *value
 ============
 */
-int ICARUS_GetFloat( int entID, int type, const char *name, float *value )
+extern cvar_t *g_gravity;
+
+int Q3_GetFloat( int entID, int type, const char *name, float *value )
 {
 	gentity_t	*ent = &g_entities[entID];
 	int toGet = 0;
@@ -1567,10 +1583,10 @@ int ICARUS_GetFloat( int entID, int type, const char *name, float *value )
 		break;
 
 	default:
-		if ( Q3_VariableDeclared( name ) != VTYPE_FLOAT )
+		if ( ICARUS_VariableDeclared( name ) != VTYPE_FLOAT )
 			return 0;
 
-		return Q3_GetFloatVariable( name, value );
+		return ICARUS_GetFloatVariable( name, value );
 	}
 
 	return 1;
@@ -1588,7 +1604,7 @@ Q3_GetVector
   Argument		: vec3_t value
 ============
 */
-int ICARUS_GetVector( int entID, int type, const char *name, vec3_t value )
+int Q3_GetVector( int entID, int type, const char *name, vec3_t value )
 {
 	gentity_t	*ent = &g_entities[entID];
 	int toGet = 0;
@@ -1640,7 +1656,7 @@ int ICARUS_GetVector( int entID, int type, const char *name, vec3_t value )
 
 	default:
 
-		if ( Q3_VariableDeclared( name ) != VTYPE_VECTOR )
+		if ( ICARUS_VariableDeclared( name ) != VTYPE_VECTOR )
 			return 0;
 
 		return ICARUS_GetVectorVariable( name, value );
@@ -1660,7 +1676,7 @@ Q3_GetString
   Argument		: char **value
 ============
 */
-int ICARUS_GetString( int entID, int type, const char *name, char **value )
+int Q3_GetString( int entID, int type, const char *name, char **value )
 {
 	gentity_t	*ent = &g_entities[entID];
 	int toGet = 0;
@@ -1865,7 +1881,7 @@ int ICARUS_GetString( int entID, int type, const char *name, char **value )
 		break;
 	default:
 
-		if ( Q3_VariableDeclared( name ) != VTYPE_STRING )
+		if ( ICARUS_VariableDeclared( name ) != VTYPE_STRING )
 			return 0;
 
 		return ICARUS_GetStringVariable( name, (const char *) *value );
@@ -2069,7 +2085,7 @@ Q3_Lerp2Origin
 Lerps the origin to the destination value
 =============
 */
-void ICARUS_Lerp2Origin( int taskID, int entID, vec3_t origin, float duration )
+void Q3_Lerp2Origin( int taskID, int entID, vec3_t origin, float duration )
 {
 	gentity_t	*ent = &g_entities[entID];
 	moverState_t moverState;
@@ -2157,7 +2173,7 @@ static void Q3_SetOriginOffset( int entID, int axis, float offset )
 	{
 		duration = fabs(offset)/fabs(ent->speed)*1000.0f;
 	}
-	ICARUS_Lerp2Origin( -1, entID, origin, duration );
+	Q3_Lerp2Origin( -1, entID, origin, duration );
 }
 
 /*
@@ -5538,7 +5554,7 @@ static qboolean Q3_SetBehaviorSet( int entID, int toSet, const char *scriptname)
 	{
 		if ( ent->behaviorSet[bSet] != NULL )
 		{
-//			SV_TagFree( ent->behaviorSet[bSet] );
+//			TagFree( ent->behaviorSet[bSet] );
 		}
 
 		ent->behaviorSet[bSet] = NULL;
@@ -5550,7 +5566,7 @@ static qboolean Q3_SetBehaviorSet( int entID, int toSet, const char *scriptname)
 		{
 			if ( ent->behaviorSet[bSet] != NULL )
 			{
-//				SV_TagFree( ent->behaviorSet[bSet] );
+//				TagFree( ent->behaviorSet[bSet] );
 			}
 
 			ent->behaviorSet[bSet] = G_NewString( (char *) scriptname );	//FIXME: This really isn't good...
@@ -5846,7 +5862,7 @@ Prints a message in the center of the screen
 static void Q3_ScrollText ( const char *id)
 {
 	G_DebugPrint( WL_WARNING, "Q3_ScrollText: NOT SUPPORTED IN MP\n");
-	//SV_GameSendServerCommand( -1, va("st \"%s\"", id));
+	//SendServerCommand( -1, va("st \"%s\"", id));
 
 	return;
 }
@@ -5861,7 +5877,7 @@ Prints a message in the center of the screen giving it an LCARS frame around it
 static void Q3_LCARSText ( const char *id)
 {
 	G_DebugPrint( WL_WARNING, "Q3_ScrollText: NOT SUPPORTED IN MP\n");
-	//SV_GameSendServerCommand( -1, va("lt \"%s\"", id));
+	//SendServerCommand( -1, va("lt \"%s\"", id));
 
 	return;
 }
@@ -5961,7 +5977,7 @@ qboolean Q3_Set( int taskID, int entID, const char *type_name, const char *data 
 	case SET_ANIM_UPPER:
 		if ( Q3_SetAnimUpper( entID, (char *) data ) )
 		{
-			ICARUS_TaskIDClear( &ent->taskID[TID_ANIM_BOTH] );//We only want to wait for the top
+			Q3_TaskIDClear( &ent->taskID[TID_ANIM_BOTH] );//We only want to wait for the top
 			ICARUS_TaskIDSet( (sharedEntity_t *)ent, TID_ANIM_UPPER, taskID );
 			return qfalse;	//Don't call it back
 		}
@@ -5970,7 +5986,7 @@ qboolean Q3_Set( int taskID, int entID, const char *type_name, const char *data 
 	case SET_ANIM_LOWER:
 		if ( Q3_SetAnimLower( entID, (char *) data ) )
 		{
-			ICARUS_TaskIDClear( &ent->taskID[TID_ANIM_BOTH] );//We only want to wait for the bottom
+			Q3_TaskIDClear( &ent->taskID[TID_ANIM_BOTH] );//We only want to wait for the bottom
 			ICARUS_TaskIDSet( (sharedEntity_t *)ent, TID_ANIM_LOWER, taskID );
 			return qfalse;	//Don't call it back
 		}
@@ -6011,7 +6027,7 @@ qboolean Q3_Set( int taskID, int entID, const char *type_name, const char *data 
 	case SET_ANIM_HOLDTIME_LOWER:
 		int_data = atoi((char *) data);
 		Q3_SetAnimHoldTime( entID, int_data, qtrue );
-		ICARUS_TaskIDClear( &ent->taskID[TID_ANIM_BOTH] );//We only want to wait for the bottom
+		Q3_TaskIDClear( &ent->taskID[TID_ANIM_BOTH] );//We only want to wait for the bottom
 		ICARUS_TaskIDSet( (sharedEntity_t *)ent, TID_ANIM_LOWER, taskID );
 		return qfalse;	//Don't call it back
 		break;
@@ -6019,7 +6035,7 @@ qboolean Q3_Set( int taskID, int entID, const char *type_name, const char *data 
 	case SET_ANIM_HOLDTIME_UPPER:
 		int_data = atoi((char *) data);
 		Q3_SetAnimHoldTime( entID, int_data, qfalse );
-		ICARUS_TaskIDClear( &ent->taskID[TID_ANIM_BOTH] );//We only want to wait for the top
+		Q3_TaskIDClear( &ent->taskID[TID_ANIM_BOTH] );//We only want to wait for the top
 		ICARUS_TaskIDSet( (sharedEntity_t *)ent, TID_ANIM_UPPER, taskID );
 		return qfalse;	//Don't call it back
 		break;
@@ -6814,7 +6830,7 @@ qboolean Q3_Set( int taskID, int entID, const char *type_name, const char *data 
 //		if ( g_timescale->value <= 1.0f )
 		{
 			G_DebugPrint( WL_WARNING, "SET_VIDEO_PLAY: NOT SUPPORTED IN MP\n");
-			//Cbuf_ExecuteText( va("inGameCinematic %s\n", (char *)data) );
+			//SV_SendConsoleCommand( va("inGameCinematic %s\n", (char *)data) );
 		}
 		break;
 
@@ -6830,7 +6846,7 @@ qboolean Q3_Set( int taskID, int entID, const char *type_name, const char *data 
 		break;
 
 	case SET_LOADGAME:
-		//Cbuf_ExecuteText( va("load %s\n", (const char *) data ) );
+		//SendConsoleCommand( va("load %s\n", (const char *) data ) );
 		G_DebugPrint( WL_WARNING, "SET_LOADGAME: NOT SUPPORTED IN MP\n");
 		break;
 
@@ -6930,7 +6946,7 @@ qboolean Q3_Set( int taskID, int entID, const char *type_name, const char *data 
 
 	default:
 		//G_DebugPrint( WL_ERROR, "Q3_Set: '%s' is not a valid set field\n", type_name );
-		Q3_SetVar( taskID, entID, type_name, data );
+		ICARUS_SetVar( taskID, entID, type_name, data );
 		break;
 	}
 

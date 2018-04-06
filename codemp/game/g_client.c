@@ -2885,9 +2885,14 @@ void G_UpdateClientAnims(gentity_t *self, float animSpeedScale)
 		return;
 	}
 
+	animation_t *anims = bgAllAnims[self->localAnimIndex].anims;
+	if (anims == NULL) {
+		Com_Printf("bgAllAnims[self->localAnimIndex].anims == NULL\n");
+		return;
+	}
 	if (self->localAnimIndex > 1 &&
-		bgAllAnims[self->localAnimIndex].anims[legsAnim].firstFrame == 0 &&
-		bgAllAnims[self->localAnimIndex].anims[legsAnim].numFrames == 0)
+		anims[legsAnim].firstFrame == 0 &&
+		anims[legsAnim].numFrames == 0)
 	{ //We'll allow this for non-humanoids.
 		goto tryTorso;
 	}

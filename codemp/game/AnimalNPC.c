@@ -93,6 +93,10 @@ static void DeathUpdate( Vehicle_t *pVeh )
 // Like a think or move command, this updates various vehicle properties.
 static qboolean Update( Vehicle_t *pVeh, const usercmd_t *pUcmd )
 {
+	if (g_vehicleInfo[VEHICLE_BASE].Update == NULL) {
+		Com_Printf("g_vehicleInfo[VEHICLE_BASE].Update == NULL\n");
+		return qfalse;
+	}
 	return g_vehicleInfo[VEHICLE_BASE].Update( pVeh, pUcmd );
 }
 

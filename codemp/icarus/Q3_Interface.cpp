@@ -61,7 +61,7 @@ Q3_ReadScript
   Argument		: void **buf
 ============
 */
-CCALL int ICARUS_GetScript( const char *name, char **buf );	//g_icarus.cpp
+extern int ICARUS_GetScript( const char *name, char **buf );	//g_icarus.cpp
 static int Q3_ReadScript( const char *name, void **buf )
 {
 	return ICARUS_GetScript( va( "%s/%s", Q3_SCRIPT_DIR, name ), (char**)buf );	//get a (hopefully) cached file
@@ -182,7 +182,7 @@ void Q3_SetTaskID( sharedEntity_t *ent, taskID_t taskType, int taskID )
 -------------------------
 */
 
-CCALL void Q3_TaskIDSet( sharedEntity_t *ent, taskID_t taskType, int taskID )
+void Q3_TaskIDSet( sharedEntity_t *ent, taskID_t taskType, int taskID )
 {
 	if ( taskType < TID_CHAN_VOICE || taskType >= NUM_TIDS )
 	{
@@ -352,7 +352,7 @@ Q3_SetVar
   Argument		: const char *data
 ============
 */
-CCALL void Q3_SetVar( int taskID, int entID, const char *type_name, const char *data )
+void Q3_SetVar( int taskID, int entID, const char *type_name, const char *data )
 {
 	int	vret = Q3_VariableDeclared( type_name ) ;
 	float	float_data;
@@ -653,7 +653,7 @@ static void Q3_CameraPath( const char *name )
 Q3_DebugPrint
 -------------------------
 */
-CCALL void Q3_DebugPrint( int level, const char *format, ... )
+void Q3_DebugPrint( int level, const char *format, ... )
 {
 	//Don't print messages they don't want to see
 	//if ( g_ICARUSDebug->integer < level )
@@ -773,12 +773,12 @@ void CGCam_Roll( float	dest, float duration )
 
 CCALL int ICARUS_LinkEntity( int entID, CSequencer *sequencer, CTaskManager *taskManager );
 
-CCALL  unsigned int Q3_GetTimeScale( void )
+static unsigned int Q3_GetTimeScale( void )
 {
 	return com_timescale->value;
 }
 
-CCALL  void Q3_Lerp2Pos( int taskID, int entID, vec3_t origin, vec3_t angles, float duration )
+static void Q3_Lerp2Pos( int taskID, int entID, vec3_t origin, vec3_t angles, float duration )
 {
 	T_G_ICARUS_LERP2POS *sharedMem = (T_G_ICARUS_LERP2POS *)sv.mSharedMemory;
 
@@ -808,7 +808,7 @@ CCALL  void Q3_Lerp2Pos( int taskID, int entID, vec3_t origin, vec3_t angles, fl
 	}
 }
 
-CCALL  void Q3_Lerp2Origin( int taskID, int entID, vec3_t origin, float duration )
+static void Q3_Lerp2Origin( int taskID, int entID, vec3_t origin, float duration )
 {
 	T_G_ICARUS_LERP2ORIGIN *sharedMem = (T_G_ICARUS_LERP2ORIGIN *)sv.mSharedMemory;
 
@@ -821,7 +821,7 @@ CCALL  void Q3_Lerp2Origin( int taskID, int entID, vec3_t origin, float duration
 	VectorCopy(sharedMem->origin, origin);
 }
 
-CCALL  void Q3_Lerp2Angles( int taskID, int entID, vec3_t angles, float duration )
+static void Q3_Lerp2Angles( int taskID, int entID, vec3_t angles, float duration )
 {
 	T_G_ICARUS_LERP2ANGLES *sharedMem = (T_G_ICARUS_LERP2ANGLES *)sv.mSharedMemory;
 
@@ -834,7 +834,7 @@ CCALL  void Q3_Lerp2Angles( int taskID, int entID, vec3_t angles, float duration
 	VectorCopy(sharedMem->angles, angles);
 }
 
-CCALL  int	Q3_GetTag( int entID, const char *name, int lookup, vec3_t info )
+static int	Q3_GetTag( int entID, const char *name, int lookup, vec3_t info )
 {
 	int r;
 	T_G_ICARUS_GETTAG *sharedMem = (T_G_ICARUS_GETTAG *)sv.mSharedMemory;
@@ -849,7 +849,7 @@ CCALL  int	Q3_GetTag( int entID, const char *name, int lookup, vec3_t info )
 	return r;
 }
 
-CCALL  void Q3_Lerp2Start( int entID, int taskID, float duration )
+static void Q3_Lerp2Start( int entID, int taskID, float duration )
 {
 	T_G_ICARUS_LERP2START *sharedMem = (T_G_ICARUS_LERP2START *)sv.mSharedMemory;
 
@@ -860,7 +860,7 @@ CCALL  void Q3_Lerp2Start( int entID, int taskID, float duration )
 	GVM_ICARUS_Lerp2Start();
 }
 
-CCALL  void Q3_Lerp2End( int entID, int taskID, float duration )
+static void Q3_Lerp2End( int entID, int taskID, float duration )
 {
 	T_G_ICARUS_LERP2END *sharedMem = (T_G_ICARUS_LERP2END *)sv.mSharedMemory;
 
@@ -871,17 +871,17 @@ CCALL  void Q3_Lerp2End( int entID, int taskID, float duration )
 	GVM_ICARUS_Lerp2End();
 }
 
-CCALL  void Q3_Use( int entID, const char *target )
+static void Q3_Use( int entID, const char *target )
 {
 	T_G_ICARUS_USE *sharedMem = (T_G_ICARUS_USE *)sv.mSharedMemory;
 
 	sharedMem->entID = entID;
 	strcpy(sharedMem->target, target);
 
-	//GVM_ICARUS_Use();
+	GVM_ICARUS_Use();
 }
 
-CCALL  void Q3_Kill( int entID, const char *name )
+static void Q3_Kill( int entID, const char *name )
 {
 	T_G_ICARUS_KILL *sharedMem = (T_G_ICARUS_KILL *)sv.mSharedMemory;
 
@@ -891,7 +891,7 @@ CCALL  void Q3_Kill( int entID, const char *name )
 	GVM_ICARUS_Kill();
 }
 
-CCALL  void Q3_Remove( int entID, const char *name )
+static void Q3_Remove( int entID, const char *name )
 {
 	T_G_ICARUS_REMOVE *sharedMem = (T_G_ICARUS_REMOVE *)sv.mSharedMemory;
 
@@ -901,7 +901,7 @@ CCALL  void Q3_Remove( int entID, const char *name )
 	GVM_ICARUS_Remove();
 }
 
-CCALL  void Q3_Play( int taskID, int entID, const char *type, const char *name )
+static void Q3_Play( int taskID, int entID, const char *type, const char *name )
 {
 	T_G_ICARUS_PLAY *sharedMem = (T_G_ICARUS_PLAY *)sv.mSharedMemory;
 
@@ -913,7 +913,7 @@ CCALL  void Q3_Play( int taskID, int entID, const char *type, const char *name )
 	GVM_ICARUS_Play();
 }
 
-CCALL  int Q3_GetFloat( int entID, int type, const char *name, float *value )
+static int Q3_GetFloat( int entID, int type, const char *name, float *value )
 {
 	int r;
 	T_G_ICARUS_GETFLOAT *sharedMem = (T_G_ICARUS_GETFLOAT *)sv.mSharedMemory;
@@ -928,7 +928,7 @@ CCALL  int Q3_GetFloat( int entID, int type, const char *name, float *value )
 	return r;
 }
 
-CCALL  int Q3_GetVector( int entID, int type, const char *name, vec3_t value )
+static int Q3_GetVector( int entID, int type, const char *name, vec3_t value )
 {
 	int r;
 	T_G_ICARUS_GETVECTOR *sharedMem = (T_G_ICARUS_GETVECTOR *)sv.mSharedMemory;
@@ -943,7 +943,7 @@ CCALL  int Q3_GetVector( int entID, int type, const char *name, vec3_t value )
 	return r;
 }
 
-CCALL int Q3_GetString( int entID, int type, const char *name, char **value )
+static int Q3_GetString( int entID, int type, const char *name, char **value )
 {
 	int r;
 	T_G_ICARUS_GETSTRING *sharedMem = (T_G_ICARUS_GETSTRING *)sv.mSharedMemory;
@@ -967,7 +967,7 @@ Interface_Init
   Argument		: interface_export_t *pe
 ============
 */
-CCALL void Interface_Init( interface_export_t *pe )
+void Interface_Init( interface_export_t *pe )
 {
 	//TODO: This is where you link up all your functions to the engine
 
