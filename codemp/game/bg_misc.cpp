@@ -34,6 +34,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "../cgame/cg_tempwrappers.h"
 #include "ui/ui_local.h"
 
+#include "../game/bg_misc.h"
+
 const char *bgToggleableSurfaces[BG_NUM_TOGGLEABLE_SURFACES] =
 {
 	"l_arm_key",					//0
@@ -3152,7 +3154,7 @@ char *BG_StringAlloc ( const char *source )
 
 qboolean BG_OutOfMemory ( void )
 {
-	return bg_poolSize >= MAX_POOL_SIZE;
+	return (qboolean)(bg_poolSize >= MAX_POOL_SIZE);
 }
 
 const char *gametypeStringShort[GT_MAX_GAME_TYPE] = {

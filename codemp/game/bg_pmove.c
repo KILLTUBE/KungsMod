@@ -33,6 +33,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "cgame/cg_local.h"
 #include "ui/ui_local.h"
 
+#include "../game/bg_misc.h"
+
 #define MAX_WEAPON_CHARGE_TIME 5000
 
 // game only
@@ -10061,7 +10063,7 @@ PmoveSingle
 
 ================
 */
-extern int BG_EmplacedView(vec3_t baseAngles, vec3_t angles, float *newYaw, float constraint);
+
 extern qboolean BG_FighterUpdate(Vehicle_t *pVeh, const usercmd_t *pUcmd, vec3_t trMins, vec3_t trMaxs, float gravity,
 					  void (*traceFunc)( trace_t *results, const vec3_t start, const vec3_t lmins, const vec3_t lmaxs, const vec3_t end, int passEntityNum, int contentMask )); //FighterNPC.c
 

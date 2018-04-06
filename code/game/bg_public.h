@@ -43,11 +43,11 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #define	ITEM_RADIUS			15		// item sizes are needed for client side pickup detection
 
 //Player sizes
-extern float DEFAULT_MINS_0;
-extern float DEFAULT_MINS_1;
-extern float DEFAULT_MAXS_0;
-extern float DEFAULT_MAXS_1;
-extern float DEFAULT_PLAYER_RADIUS;
+EXTERNC float DEFAULT_MINS_0;
+EXTERNC float DEFAULT_MINS_1;
+EXTERNC float DEFAULT_MAXS_0;
+EXTERNC float DEFAULT_MAXS_1;
+EXTERNC float DEFAULT_PLAYER_RADIUS;
 #define DEFAULT_MINS_2		-24
 #define DEFAULT_MAXS_2		40// was 32, but too short for player
 #define CROUCH_MAXS_2		16
@@ -159,8 +159,8 @@ typedef struct {
 } pmove_t;
 
 // if a full pmove isn't done on the client, you can just update the angles
-void PM_UpdateViewAngles( playerState_t *ps, usercmd_t *cmd, gentity_t *gent );
-void Pmove( pmove_t *pmove );
+CCALL void PM_UpdateViewAngles( playerState_t *ps, usercmd_t *cmd, gentity_t *gent );
+CCALL void Pmove( pmove_t *pmove );
 
 
 #define SETANIM_TORSO 1
@@ -175,8 +175,8 @@ void Pmove( pmove_t *pmove );
 
 #define SETANIM_BLEND_DEFAULT	100
 
-void PM_SetAnim(pmove_t	*pm,int setAnimParts,int anim,int setAnimFlags, int blendTime=SETANIM_BLEND_DEFAULT);
-void PM_SetAnimFinal(int *torsoAnim,int *legsAnim,int type,int anim,int priority,int *torsoAnimTimer,int *legsAnimTimer,gentity_t *gent,int blendTime=SETANIM_BLEND_DEFAULT);
+CCALL void PM_SetAnim(pmove_t	*pm,int setAnimParts,int anim,int setAnimFlags, int blendTime=SETANIM_BLEND_DEFAULT);
+CCALL void PM_SetAnimFinal(int *torsoAnim,int *legsAnim,int type,int anim,int priority,int *torsoAnimTimer,int *legsAnimTimer,gentity_t *gent,int blendTime=SETANIM_BLEND_DEFAULT);
 
 //===================================================================================
 
@@ -677,8 +677,8 @@ typedef struct gitem_s {
 } gitem_t;
 
 // included in both the game dll and the client
-extern	gitem_t	bg_itemlist[];
-extern	const int		bg_numItems;
+EXTERNC	gitem_t	bg_itemlist[];
+EXTERNC	const int		bg_numItems;
 
 
 //==============================================================================
@@ -694,20 +694,20 @@ typedef struct ginfoitem_s
 
 //==============================================================================
 
-extern weaponData_t weaponData[WP_NUM_WEAPONS];
+EXTERNC weaponData_t weaponData[WP_NUM_WEAPONS];
 
 //==============================================================================
-extern ammoData_t ammoData[AMMO_MAX];
+EXTERNC ammoData_t ammoData[AMMO_MAX];
 
 //==============================================================================
 
-gitem_t	*FindItem( const char *className );
-gitem_t	*FindItemForWeapon( weapon_t weapon );
-gitem_t	*FindItemForInventory( int inv );
+CCALL gitem_t	*FindItem( const char *className );
+CCALL gitem_t	*FindItemForWeapon( weapon_t weapon );
+CCALL gitem_t	*FindItemForInventory( int inv );
 
 #define	ITEM_INDEX(x) ((x)-bg_itemlist)
 
-qboolean	BG_CanItemBeGrabbed( const entityState_t *ent, const playerState_t *ps );
+CCALL qboolean	BG_CanItemBeGrabbed( const entityState_t *ent, const playerState_t *ps );
 
 
 // content masks
@@ -752,14 +752,11 @@ typedef enum {
 
 
 
-void	EvaluateTrajectory( const trajectory_t *tr, int atTime, vec3_t result );
-void	EvaluateTrajectoryDelta( const trajectory_t *tr, int atTime, vec3_t result );
-
-void AddEventToPlayerstate( int newEvent, int eventParm, playerState_t *ps );
-int	CurrentPlayerstateEvent( playerState_t *ps );
-
-void PlayerStateToEntityState( playerState_t *ps, entityState_t *s );
-
-qboolean	BG_PlayerTouchesItem( playerState_t *ps, entityState_t *item, int atTime );
+CCALL void	EvaluateTrajectory( const trajectory_t *tr, int atTime, vec3_t result );
+CCALL void	EvaluateTrajectoryDelta( const trajectory_t *tr, int atTime, vec3_t result );
+CCALL void AddEventToPlayerstate( int newEvent, int eventParm, playerState_t *ps );
+CCALL int	CurrentPlayerstateEvent( playerState_t *ps );
+CCALL void PlayerStateToEntityState( playerState_t *ps, entityState_t *s );
+CCALL qboolean	BG_PlayerTouchesItem( playerState_t *ps, entityState_t *item, int atTime );
 
 #endif//#ifndef __BG_PUBLIC_H__

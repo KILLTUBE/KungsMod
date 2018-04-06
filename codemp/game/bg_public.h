@@ -172,10 +172,9 @@ typedef enum {
 
 #define MAX_CUSTOM_SIEGE_SOUNDS 30
 
-extern const char *bg_customSiegeSoundNames[MAX_CUSTOM_SIEGE_SOUNDS];
-
-extern const char *bgToggleableSurfaces[BG_NUM_TOGGLEABLE_SURFACES];
-extern const int bgToggleableSurfaceDebris[BG_NUM_TOGGLEABLE_SURFACES];
+EXTERNC const char *bg_customSiegeSoundNames[MAX_CUSTOM_SIEGE_SOUNDS];
+EXTERNC const char *bgToggleableSurfaces[BG_NUM_TOGGLEABLE_SURFACES];
+EXTERNC const int bgToggleableSurfaceDebris[BG_NUM_TOGGLEABLE_SURFACES];
 
 typedef enum {
 	HANDEXTEND_NONE = 0,
@@ -253,9 +252,8 @@ typedef enum _flag_status {
 
 typedef enum { GENDER_MALE, GENDER_FEMALE, GENDER_NEUTER } gender_t;
 
-extern vec3_t WP_MuzzlePoint[WP_NUM_WEAPONS];
-
-extern int forcePowerSorted[NUM_FORCE_POWERS];
+EXTERNC vec3_t WP_MuzzlePoint[WP_NUM_WEAPONS];
+EXTERNC int forcePowerSorted[NUM_FORCE_POWERS];
 
 typedef enum saberLockType_e
 {
@@ -313,8 +311,8 @@ typedef enum
 	NUM_FOOTSTEP_TYPES
 } footstepType_t;
 
-extern stringID_table_t animEventTypeTable[MAX_ANIM_EVENTS+1];
-extern stringID_table_t footstepTypeTable[NUM_FOOTSTEP_TYPES+1];
+EXTERNC stringID_table_t animEventTypeTable[MAX_ANIM_EVENTS+1];
+EXTERNC stringID_table_t footstepTypeTable[NUM_FOOTSTEP_TYPES+1];
 
 //size of Anim eventData array...
 #define MAX_RANDOM_ANIM_SOUNDS		4

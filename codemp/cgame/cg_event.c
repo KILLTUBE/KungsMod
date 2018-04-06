@@ -32,6 +32,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "ui/menudef.h"
 
 #include "ghoul2/G2.h"
+#include "../game/bg_g2_utils.h"
 
 //==========================================================================
 
@@ -709,7 +710,6 @@ void CG_PainEvent( centity_t *cent, int health ) {
 	cent->pe.painDirection	^= 1;
 }
 
-extern qboolean BG_GetRootSurfNameWithVariant( void *ghoul2, const char *rootSurfName, char *returnSurfName, int returnSize );
 void CG_ReattachLimb(centity_t *source)
 {
 	clientInfo_t *ci = NULL;

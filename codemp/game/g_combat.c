@@ -25,6 +25,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "b_local.h"
 #include "bg_saga.h"
+#include "../game/bg_g2_utils.h"
 
 extern int G_ShipSurfaceForSurfName( const char *surfaceName );
 extern qboolean G_FlyVehicleDestroySurface( gentity_t *veh, int surface );
@@ -3347,8 +3348,6 @@ void LimbThink( gentity_t *ent )
 
 	ent->nextthink = level.time;
 }
-
-extern qboolean BG_GetRootSurfNameWithVariant( void *ghoul2, const char *rootSurfName, char *returnSurfName, int returnSize );
 
 void G_Dismember( gentity_t *ent, gentity_t *enemy, vec3_t point, int limbType, float limbRollBase, float limbPitchBase, int deathAnim, qboolean postDeath )
 {

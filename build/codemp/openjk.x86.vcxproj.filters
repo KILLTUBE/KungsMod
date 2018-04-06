@@ -1117,9 +1117,6 @@
     <ClCompile Include="..\..\codemp\game\bg_vehicleLoad.c">
       <Filter>bg</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_misc.c">
-      <Filter>bg</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\bg_panimate.c">
       <Filter>bg</Filter>
     </ClCompile>
@@ -1136,9 +1133,6 @@
       <Filter>bg</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\bg_slidemove.c">
-      <Filter>bg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_g2_utils.c">
       <Filter>bg</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\bg_weapons.c">
@@ -1242,6 +1236,12 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\NPC_stats.c">
       <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_g2_utils.cpp">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_misc.cpp">
+      <Filter>bg</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2072,6 +2072,12 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\ghoul2\Ghoul2InfoArray.h">
       <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\bg_g2_utils.h">
+      <Filter>bg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\bg_misc.h">
+      <Filter>bg</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

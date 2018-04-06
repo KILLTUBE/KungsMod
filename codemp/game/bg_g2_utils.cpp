@@ -26,12 +26,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "qcommon/q_shared.h"
 #include "bg_public.h"
-
-#if defined(_GAME)
-	#include "g_local.h"
-#elif defined(_CGAME)
-	#include "cgame/cg_local.h"
-#endif
+#include "g_local.h"
+#include "cgame/cg_local.h"
+#include "../game/bg_g2_utils.h"
 
 void BG_AttachToRancor( void *ghoul2, float rancYaw, vec3_t rancOrigin, int time, qhandle_t *modelList, vec3_t modelScale, qboolean inMouth, vec3_t out_origin, vec3_t out_angles, matrix3_t out_axis )
 {
@@ -40,28 +37,15 @@ void BG_AttachToRancor( void *ghoul2, float rancYaw, vec3_t rancOrigin, int time
 	vec3_t rancAngles;
 	vec3_t temp_angles;
 	// Getting the bolt here
-	if ( inMouth )
-	{//in mouth
-	#if defined(_GAME)
-		boltIndex = SV_G2API_AddBolt(ghoul2, 0, "jaw_bone");
-	#elif defined(_CGAME)
-		boltIndex = SV_G2API_AddBolt(ghoul2, 0, "jaw_bone");
-	#endif
-	}
-	else
-	{//in right hand
-	#if defined(_GAME)
-		boltIndex = SV_G2API_AddBolt(ghoul2, 0, "*r_hand");
-	#elif defined(_CGAME)
-		boltIndex = SV_G2API_AddBolt(ghoul2, 0, "*r_hand");
-	#endif
+	if ( inMouth ) {
+		boltIndex = SV_G2API_AddBolt(ghoul2, 0, "jaw_bone"); //in mouth
+	} else {
+		boltIndex = SV_G2API_AddBolt(ghoul2, 0, "*r_hand"); //in right hand
 	}
 	VectorSet( rancAngles, 0, rancYaw, 0 );
-#if defined(_GAME)
+
 	SV_G2API_GetBoltMatrix( ghoul2, 0, boltIndex, &boltMatrix, rancAngles, rancOrigin, time, modelList, modelScale );
-#elif defined(_CGAME)
-	SV_G2API_GetBoltMatrix( ghoul2, 0, boltIndex, &boltMatrix, rancAngles, rancOrigin, time, modelList, modelScale );
-#endif
+
 	// Storing ent position, bolt position, and bolt axis
 	if ( out_origin )
 	{
@@ -110,29 +94,16 @@ void BG_AttachToRancor( void *ghoul2, float rancYaw, vec3_t rancOrigin, int time
 }
 
 #define	MAX_VARIANTS 8
-qboolean BG_GetRootSurfNameWithVariant( void *ghoul2, const char *rootSurfName, char *returnSurfName, int returnSize )
-{
-#if defined(_GAME)
-	if ( !ghoul2 || !SV_G2API_GetSurfaceRenderStatus( ghoul2, 0, rootSurfName ) )
-#elif defined(_CGAME)
-	if ( !ghoul2 || !SV_G2API_GetSurfaceRenderStatus( ghoul2, 0, rootSurfName ) )
-#endif
-	{//see if the basic name without variants is on
+qboolean BG_GetRootSurfNameWithVariant( void *ghoul2, const char *rootSurfName, char *returnSurfName, int returnSize ) {
+	//see if the basic name without variants is on
+	if ( !ghoul2 || !SV_G2API_GetSurfaceRenderStatus( ghoul2, 0, rootSurfName ) ) {
 		Q_strncpyz( returnSurfName, rootSurfName, returnSize );
 		return qtrue;
-	}
-	else
-	{//check variants
+	} else {//check variants
 		int i;
-		for ( i = 0; i < MAX_VARIANTS; i++ )
-		{
+		for ( i = 0; i < MAX_VARIANTS; i++ ) {
 			Com_sprintf( returnSurfName, returnSize, "%s%c", rootSurfName, 'a'+i );
-		#if defined(_GAME)
-			if ( !SV_G2API_GetSurfaceRenderStatus( ghoul2, 0, returnSurfName ) )
-		#elif defined(_CGAME)
-			if ( !SV_G2API_GetSurfaceRenderStatus( ghoul2, 0, returnSurfName ) )
-		#endif
-			{
+			if ( !SV_G2API_GetSurfaceRenderStatus( ghoul2, 0, returnSurfName ) ) {
 				return qtrue;
 			}
 		}
