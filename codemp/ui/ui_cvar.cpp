@@ -25,6 +25,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "ui_only_c_defines.h"
 #include "../rd-rend2/tr_types.h"
 #include "../ui/ui_cvar.h"
+#include "../qcommon/cvar.h"
+
 //
 // Cvar callbacks
 //
