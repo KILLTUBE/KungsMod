@@ -46,6 +46,8 @@ EXTERNC stringID_table_t animTable [MAX_ANIMATIONS+1];
 #include "ui_shared.h"
 #include "ui_only_c_defines.h"
 #include "../ui/ui_main.h"
+#include "../qcommon/cvar.h"
+
 //#include "../rd-rend2/tr_local.h"
 
 CCALL void UI_SaberAttachToChar( itemDef_t *item );
@@ -6058,7 +6060,7 @@ static void UI_RunMenuScript(char **args)
 			uiInfo.nextServerStatusRefresh = 0;
 			uiInfo.nextFindPlayerRefresh = 0;
 		} else if (Q_stricmp(name, "UpdateFilter") == 0) {
-			//Cvar_Update( &ui_netSource );
+			Cvar_Update( ui_netSource );
 			if (ui_netSource->integer == UIAS_LOCAL || !uiInfo.serverStatus.numDisplayServers) {
 				UI_StartServerRefresh(qtrue);
 			}
@@ -7440,12 +7442,12 @@ static void UI_BuildServerDisplayList(int force) {
 		return;
 	}
 
-	//Cvar_Update( &ui_browserFilterInvalidInfo );
-	//Cvar_Update( &ui_browserShowEmpty );
-	//Cvar_Update( &ui_browserShowFull );
-	//Cvar_Update( &ui_browserShowPasswordProtected );
-	//Cvar_Update( &ui_serverFilterType );
-	//Cvar_Update( &ui_joinGametype );
+	Cvar_Update( ui_browserFilterInvalidInfo );
+	Cvar_Update( ui_browserShowEmpty );
+	Cvar_Update( ui_browserShowFull );
+	Cvar_Update( ui_browserShowPasswordProtected );
+	Cvar_Update( ui_serverFilterType );
+	Cvar_Update( ui_joinGametype );
 
 //	visible = qfalse;
 	for (i = 0; i < count; i++) {

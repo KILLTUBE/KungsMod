@@ -25,16 +25,15 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // cvar.c -- dynamic variable tracking
 
 #include "qcommon/qcommon.h"
+#include "cvar.h"
 
 cvar_t		*cvar_vars = NULL;
 cvar_t		*cvar_cheats;
 uint32_t	cvar_modifiedFlags;
 
-#define	MAX_CVARS	8192
 cvar_t		cvar_indexes[MAX_CVARS];
 int			cvar_numIndexes;
 
-#define FILE_HASH_SIZE		512
 static	cvar_t*		hashTable[FILE_HASH_SIZE];
 static	qboolean cvar_sort = qfalse;
 

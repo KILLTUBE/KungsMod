@@ -34,6 +34,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include <windows.h>
 #endif
 #include "cm_local.h"
+#include "../qcommon/cvar.h"
 
 FILE *debuglogfile;
 fileHandle_t logfile;
@@ -1805,13 +1806,6 @@ static void PrintFileMatches( const char *s ) {
 	}
 }
 
-/*
-===============
-PrintCvarMatches
-
-===============
-*/
-char *Cvar_DescriptionString( const char *var_name );
 static void PrintCvarMatches( const char *s ) {
 	if ( !Q_stricmpn( s, shortestMatch, (int)strlen( shortestMatch ) ) ) {
 		char value[TRUNCATE_LENGTH] = {0};
@@ -1866,11 +1860,6 @@ static qboolean Field_Complete( void ) {
 }
 
 #ifndef DEDICATED
-/*
-===============
-Field_CompleteKeyname
-===============
-*/
 void Field_CompleteKeyname( void )
 {
 	matchCount = 0;

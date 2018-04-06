@@ -200,11 +200,11 @@ static void CG_CalcVrect (void) {
 		// bound normal viewsize
 		if ( cg_viewsize->integer < 30 ) {
 			CGVM_Cvar_Set( "cg_viewsize", "30" );
-			Cvar_Update( &cg_viewsize );
+			Cvar_Update( cg_viewsize );
 			size = 30;
 		} else if ( cg_viewsize->integer > 100 ) {
 			CGVM_Cvar_Set( "cg_viewsize", "100" );
-			Cvar_Update( &cg_viewsize );
+			Cvar_Update( cg_viewsize );
 			size = 100;
 		} else {
 			size = cg_viewsize->integer;

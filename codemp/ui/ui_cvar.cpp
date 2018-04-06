@@ -78,7 +78,7 @@ static void UI_UpdateScreenshot( void )
 
 	if ( changed ) {
 		Cvar_Set( "ui_screenshotType", UI_GetScreenshotFormatString( uiInfo.uiDC.screenshotFormat ) );
-		//Cvar_Update( &ui_screenshotType );
+		Cvar_Update( ui_screenshotType );
 	}
 }
 

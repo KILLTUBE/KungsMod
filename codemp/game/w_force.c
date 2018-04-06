@@ -164,7 +164,7 @@ void WP_InitForcePowers( gentity_t *ent ) {
 	if ( g_maxForceRank->integer <= 0 || g_maxForceRank->integer >= NUM_FORCE_MASTERY_LEVELS ) {
 		// ack, prevent user from being dumb
 		Cvar_Set( "g_maxForceRank", va( "%i", FORCE_MASTERY_JEDI_MASTER ) );
-		Cvar_Update( &g_maxForceRank );
+		Cvar_Update( g_maxForceRank );
 	}
 
 	if ( !ent || !ent->client )

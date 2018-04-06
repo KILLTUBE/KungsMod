@@ -2112,6 +2112,12 @@
     <ClInclude Include="..\..\codemp\game\g_main.h">
       <Filter>game</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\codemp\game\ai_wpnav.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\qcommon\cvar.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt" />

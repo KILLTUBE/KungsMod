@@ -2128,7 +2128,7 @@ void Svcmd_ToggleAllowVote_f( void ) {
 		}
 
 		Cvar_Set( "g_allowVote", va( "%i", (1 << index) ^ (g_allowVote->integer & ((1 << validVoteStringsSize) - 1)) ) );
-		Cvar_Update( &g_allowVote );
+		Cvar_Update( g_allowVote );
 
 		Com_Printf( "%s %s^7\n", validVoteStrings[index].string, ((g_allowVote->integer & (1 << index)) ? "^2Enabled" : "^1Disabled") );
 	}

@@ -25,22 +25,17 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "qcommon/q_shared.h"
 #include "botlib/botlib.h"
 #include "ai_main.h"
-
-
+#include "ai_wpnav.h"
 
 float gWPRenderTime = 0;
 float gDeactivated = 0;
 float gBotEdit = 0;
 int gWPRenderedFrame = 0;
-
 wpobject_t *gWPArray[MAX_WPARRAY_SIZE];
 int gWPNum = 0;
-
 int gLastPrintedIndex = -1;
-
 nodeobject_t nodetable[MAX_NODETABLE_SIZE];
 int nodenum; //so we can connect broken trails
-
 int gLevelFlags = 0;
 
 char *GetFlagStr( int flags )
@@ -2511,7 +2506,6 @@ int SavePathData(const char *filename)
 	return 1;
 }
 
-#define MAX_SPAWNPOINT_ARRAY 64
 int gSpawnPointNum = 0;
 gentity_t *gSpawnPoints[MAX_SPAWNPOINT_ARRAY];
 
