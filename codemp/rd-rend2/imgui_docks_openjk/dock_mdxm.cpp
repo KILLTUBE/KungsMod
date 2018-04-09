@@ -246,6 +246,27 @@ void exportSurfaceUVs(mdxmSurface_t *surf, char *filename) {
 	free(uvs);
 }
 
+void exportNames(mdxmHeader_t *header, char *filename) {
+	int bytes = header->numSurfaces * sizeof(char) * 64;
+	char *names = (char *) malloc(bytes);
+	memset(names, 0, bytes);
+	char *iterator = names;
+	auto surfHierarchy = firstSurfHierarchy(header);
+	for (int i=0; i<header->numSurfaces; i++) {
+		strcpy(iterator, surfHierarchy->name);
+		iterator += 64;
+		surfHierarchy = next(surfHierarchy);
+	}
+	FILE *f = fopen(filename, "wb");
+	if (f == NULL) {
+		imgui_log("couldnt open %s\n", filename);
+		return;
+	}
+	fwrite(names, 1, bytes, f);
+	fclose(f);
+	free((void *)names);
+}
+
 void exportSurfaceTriangles(mdxmSurface_t *surf, char *filename) {
 	mdxmTriangle_t *triangles = (mdxmTriangle_t *)((byte *)surf + surf->ofsTriangles);
 	int bytes = surf->numTriangles * sizeof(mdxmTriangle_t);
@@ -260,6 +281,13 @@ void exportSurfaceTriangles(mdxmSurface_t *surf, char *filename) {
 
 void DockMDXM::imgui_mdxm_list_lods() {
 	mdxmLOD_t *lod = firstLod(header);
+	char filename[256];
+
+	if (ImGui::Button("Export names")) {
+		snprintf(filename, sizeof(filename), "c:/unity/dump/names.char[64][]");
+		exportNames(header, filename);
+	}
+
 	for (int lod_id=0; lod_id<header->numLODs; lod_id++) {
 		ImGui::PushID(lod_id);
 		char tmp[512];
@@ -269,7 +297,6 @@ void DockMDXM::imgui_mdxm_list_lods() {
 		if (ImGui::Button("Export LOD surfaces / tris / positions / uvs")) {
 			mdxmSurface_t *surf = firstSurface(header, lod);
 			for (int surface_id=0; surface_id<header->numSurfaces; surface_id++) {
-				char filename[256];
 
 				snprintf(filename, sizeof(filename), "c:/unity/dump/lod_%d/boneweights_%d.BoneWeight[]", lod_id, surface_id);
 				exportBoneWeights(surf, filename);
@@ -279,26 +306,33 @@ void DockMDXM::imgui_mdxm_list_lods() {
 				
 				snprintf(filename, sizeof(filename), "c:/unity/dump/lod_%d/positions_%d.Vector3[]", lod_id, surface_id);
 				exportSurfacePositions(surf, filename);
-
+				
 				snprintf(filename, sizeof(filename), "c:/unity/dump/lod_%d/uvs_%d.Vector2[]", lod_id, surface_id);
 				exportSurfaceUVs(surf, filename);
 
 				surf = next(surf);
 			}
 		}
-
+		
 
 
 		if (ImGui::CollapsingHeader(tmp)) {
 			mdxmSurface_t *surf = firstSurface(header, lod);
 
-
-
-
+			
 			for (int i=0; i<header->numSurfaces; i++) {
 
+				int *boneRef = (int *) ( (byte *)surf + surf->ofsBoneReferences);
+				ImGui::Text("surface_id=%d bonerefs:", i);
+				for (int j=0 ; j<surf->numBoneReferences; j++) {
+					ImGui::SameLine();
+					ImGui::Text("%d", boneRef[j]);
+				}
+				surf = next(surf);
+			}
 
-
+			surf = firstSurface(header, lod);
+			for (int i=0; i<header->numSurfaces; i++) {
 				if (ImGui::CollapsingHeader(toString(surf, lookupSurfNames[i]))) {
 					imgui_mdxm_surface(surf, i);
 				}
