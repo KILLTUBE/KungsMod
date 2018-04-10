@@ -961,12 +961,6 @@
     <ClCompile Include="..\..\codemp\cgame\cg_consolecmds.c">
       <Filter>cgame</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_cvar.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_draw.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_drawtools.c">
       <Filter>cgame</Filter>
     </ClCompile>
@@ -1239,6 +1233,12 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_main.cpp">
       <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_cvar.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_draw.cpp">
+      <Filter>cgame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

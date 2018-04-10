@@ -21,8 +21,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
+#include "cg_cvar.h"
 #include "cg_local.h"
-
 
 //
 // Cvar callbacks

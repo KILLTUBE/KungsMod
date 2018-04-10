@@ -354,7 +354,11 @@ typedef unsigned char byte;
 typedef unsigned short word;
 typedef unsigned long ulong;
 
-typedef enum { qfalse, qtrue } qboolean;
+// this is bullshit in C++, cant even bla=!bla, since C++ type system is too strict
+//typedef enum { qfalse, qtrue } qboolean;
+#define qboolean int
+#define qfalse 0
+#define qtrue 1
 
 // 32 bit field aliasing
 typedef union byteAlias_u {

@@ -1,3 +1,6 @@
-/* This file was automatically generated.  Do not edit! */
-void CG_UpdateCvars(void);
-void CG_RegisterCvars(void);
+#pragma once
+
+#include "../qcommon/q_shared.h"
+
+CCALL void CG_UpdateCvars(void);
+CCALL void CG_RegisterCvars(void);

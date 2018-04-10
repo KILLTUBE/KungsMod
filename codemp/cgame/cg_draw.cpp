@@ -31,6 +31,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "ui/ui_shared.h"
 #include "ui/ui_public.h"
 
+#include "cg_draw.h"
+
 extern float CG_RadiusForCent( centity_t *cent );
 qboolean CG_WorldCoordToScreenCoordFloat(vec3_t worldCoord, float *x, float *y);
 qboolean CG_CalcMuzzlePoint( int entityNum, vec3_t muzzle );
@@ -56,7 +58,6 @@ char teamChat2[256];
 // The time at which you died and the time it will take for you to rejoin game.
 int cg_siegeDeathTime = 0;
 
-#define MAX_HUD_TICS 4
 const char *armorTicName[MAX_HUD_TICS] =
 {
 "armor_tic1",
@@ -2490,20 +2491,6 @@ void CG_DrawVehicleArmor( const menuDef_t *menuHUD, const centity_t *veh )
 	}
 }
 
-typedef enum
-{
-	VEH_DAMAGE_FRONT=0,
-	VEH_DAMAGE_BACK,
-	VEH_DAMAGE_LEFT,
-	VEH_DAMAGE_RIGHT,
-} veh_damage_e;
-
-typedef struct
-{
-	const char	*itemName;
-	short	heavyDamage;
-	short	lightDamage;
-} veh_damage_t;
 
 veh_damage_t vehDamageData[4] =
 {
@@ -3982,7 +3969,7 @@ static float CG_DrawTeamOverlay( float y, qboolean right, qboolean upper ) {
 			for (j = 0; j <= PW_NUM_POWERUPS; j++) {
 				if (ci->powerups & (1 << j)) {
 
-					item = BG_FindItemForPowerup( j );
+					item = BG_FindItemForPowerup( (powerup_t) j );
 
 					if (item) {
 						CG_DrawPic( xx + xOffset, y, TINYCHAR_WIDTH, TINYCHAR_HEIGHT,
@@ -4028,7 +4015,7 @@ static void CG_DrawPowerupIcons(int y)
 		{
 			int secondsleft = (cg.snap->ps.powerups[j] - cg.time)/1000;
 
-			item = BG_FindItemForPowerup( j );
+			item = BG_FindItemForPowerup( (powerup_t) j );
 
 			if (item)
 			{
