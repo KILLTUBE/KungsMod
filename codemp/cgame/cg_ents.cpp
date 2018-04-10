@@ -24,16 +24,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 // cg_ents.c -- present snapshot entities, happens every single frame
 
-#include "cg_local.h"
-/*
-Ghoul2 Insert Start
-*/
-#include "qcommon/q_shared.h"
-#include "ghoul2/G2.h"
-#include "../game/bg_g2_utils.h"
-/*
-Ghoul2 Insert end
-*/
+#include "cg_ents.h"
 
 
 extern qboolean CG_InFighter( void );

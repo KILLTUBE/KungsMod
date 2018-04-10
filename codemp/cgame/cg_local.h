@@ -1061,12 +1061,12 @@ typedef struct cgscreffects_s
 	qboolean	music_volume_set;
 } cgscreffects_t;
 
-extern cgscreffects_t cgScreenEffects;
+EXTERNC cgscreffects_t cgScreenEffects;
 
-void CGCam_Shake( float intensity, int duration );
-void CGCam_SetMusicMult( float multiplier, int duration );
+CCALL void CGCam_Shake( float intensity, int duration );
+CCALL void CGCam_SetMusicMult( float multiplier, int duration );
 
-enum
+typedef enum
 {
 	CHUNK_METAL1 = 0,
 	CHUNK_METAL2,
@@ -1077,7 +1077,7 @@ enum
 	CHUNK_CRATE2,
 	CHUNK_WHITE_METAL,
 	NUM_CHUNK_TYPES
-};
+} ClientGameChunk;
 #define NUM_CHUNK_MODELS	4
 
 // all of the model, shader, and sound references that are

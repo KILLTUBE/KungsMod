@@ -22,34 +22,16 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 // cg_drawtools.c -- helper functions called by cg_draw, cg_scoreboard, cg_info, etc
-#include "cg_local.h"
-#include "qcommon/q_shared.h"
+#include "cg_drawtools.h"
 
-
-
-/*
-================
-CG_DrawRect
-
-Coordinates are 640*480 virtual values
-=================
-*/
+// Coordinates are 640*480 virtual values
 void CG_DrawRect( float x, float y, float width, float height, float size, const float *color ) {
 	R_SetColor( color );
-
 	CG_DrawTopBottom(x, y, width, height, size);
 	CG_DrawSides(x, y, width, height, size);
-
 	R_SetColor( NULL );
 }
 
-
-
-/*
-=================
-CG_GetColorForHealth
-=================
-*/
 void CG_GetColorForHealth( int health, int armor, vec4_t hcolor ) {
 	int		count;
 	int		max;

@@ -961,18 +961,6 @@
     <ClCompile Include="..\..\codemp\cgame\cg_consolecmds.c">
       <Filter>cgame</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_drawtools.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_effects.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_ents.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_event.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_info.c">
       <Filter>cgame</Filter>
     </ClCompile>
@@ -1238,6 +1226,18 @@
       <Filter>cgame</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_draw.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_drawtools.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_effects.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_ents.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_event.cpp">
       <Filter>cgame</Filter>
     </ClCompile>
   </ItemGroup>

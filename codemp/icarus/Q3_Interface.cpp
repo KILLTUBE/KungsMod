@@ -746,10 +746,10 @@ void CGCam_Move( vec3_t dest, float duration )
 	CGCam_Anything();
 }
 
-void CGCam_Shake( float intensity, int duration )
-{
-	CGCam_Anything();
-}
+//void CGCam_Shake( float intensity, int duration )
+//{
+//	CGCam_Anything();
+//}
 
 void CGCam_Follow( const char *cameraGroup, float speed, float initLerp )
 {

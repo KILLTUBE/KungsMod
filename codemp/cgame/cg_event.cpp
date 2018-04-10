@@ -23,18 +23,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 // cg_event.c -- handle entity events at snapshot or playerstate transitions
 
-#include "cg_local.h"
-#include "fx_local.h"
-#include "ui/ui_shared.h"
-#include "ui/ui_public.h"
-
-// for the voice chats
-#include "ui/menudef.h"
-
-#include "ghoul2/G2.h"
-#include "../game/bg_g2_utils.h"
-
-//==========================================================================
+#include "cg_event.h"
 
 extern qboolean WP_SaberBladeUseSecondBladeStyle( saberInfo_t *saber, int bladeNum );
 extern qboolean CG_VehicleWeaponImpact( centity_t *cent );
@@ -3301,12 +3290,12 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 	case EV_DEBRIS:
 		DEBUGNAME("EV_DEBRIS");
 		CG_Chunks(es->owner, es->origin, es->angles, es->origin2, es->angles2, es->speed,
-			es->eventParm, es->trickedentindex, es->modelindex, es->apos.trBase[0]);
+			es->eventParm, (material_t) es->trickedentindex, es->modelindex, es->apos.trBase[0]);
 		break;
 
 	case EV_MISC_MODEL_EXP:
 		DEBUGNAME("EV_MISC_MODEL_EXP");
-		CG_MiscModelExplosion(es->origin2, es->angles2, es->time, es->eventParm);
+		CG_MiscModelExplosion(es->origin2, es->angles2, es->time, (material_t) es->eventParm);
 		break;
 
 	case EV_PAIN:
