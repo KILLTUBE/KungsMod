@@ -1021,9 +1021,6 @@
     <ClCompile Include="..\..\codemp\cgame\cg_spawn.c">
       <Filter>cgame</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_syscalls.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_tempwrappers.c">
       <Filter>cgame</Filter>
     </ClCompile>
@@ -2117,6 +2114,87 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\qcommon\cvar.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_light.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_consolecmds.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_cvar.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_draw.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_drawtools.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_effects.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_ents.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_event.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_info.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_local.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_localents.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_main.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_marks.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_newDraw.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_players.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_playerstate.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_predict.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_saga.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_scoreboard.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_servercmds.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_snapshot.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_spawn.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_tempwrappers_g2.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_turret.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_view.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_weaponinit.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_weapons.h">
+      <Filter>cgame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

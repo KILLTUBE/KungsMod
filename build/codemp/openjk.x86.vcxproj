@@ -329,7 +329,34 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\codemp\cgame\animtable.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_consolecmds.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_cvar.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_draw.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_drawtools.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_effects.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_ents.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_event.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_info.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_light.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_local.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_localents.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_main.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_marks.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_newDraw.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_players.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_playerstate.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_predict.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_saga.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_scoreboard.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_servercmds.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_snapshot.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_spawn.h" />
     <ClInclude Include="..\..\codemp\cgame\cg_tempwrappers.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_tempwrappers_g2.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_turret.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_view.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_weaponinit.h" />
+    <ClInclude Include="..\..\codemp\cgame\cg_weapons.h" />
     <ClInclude Include="..\..\codemp\cgame\cg_xcvar.h" />
     <ClInclude Include="..\..\codemp\cgame\fx_local.h" />
     <ClInclude Include="..\..\codemp\game\ai.h" />
@@ -663,12 +690,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
     </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_spawn.c">
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_syscalls.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>

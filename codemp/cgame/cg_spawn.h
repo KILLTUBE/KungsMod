@@ -1,0 +1,22 @@
+/* This file was automatically generated.  Do not edit! */
+void CG_ParseEntitiesFromString(void);
+void SP_worldspawn_cg(void);
+extern float cg_radarRange;
+extern float cg_linearFogOverride;
+qboolean CG_ParseSpawnVars(void);
+char *CG_AddSpawnVarToken(const char *string);
+void CG_ParseEntityFromSpawnVars(void);
+extern spawn_t spawns_cg[];
+void SP_misc_weather_zone_cg(void);
+void SP_misc_skyportal_orient_cg(void);
+extern float cg_skyOriScale;
+extern vec3_t cg_skyOriPos;
+extern qboolean cg_skyOri;
+void SP_misc_skyportal_cg(void);
+extern qboolean cg_noFogOutsidePortal;
+void SP_misc_model_static_cg(void);
+qboolean CG_SpawnVector(const char *key,const char *defaultString,float *out);
+qboolean CG_SpawnBoolean(const char *key,const char *defaultString,qboolean *out);
+qboolean CG_SpawnInt(const char *key,const char *defaultString,int *out);
+qboolean CG_SpawnFloat(const char *key,const char *defaultString,float *out);
+qboolean CG_SpawnString(const char *key,const char *defaultString,char **out);

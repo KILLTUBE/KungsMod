@@ -1,0 +1,24 @@
+/* This file was automatically generated.  Do not edit! */
+void CG_ParseSiegeExtendedData(void);
+void CG_ParseSiegeExtendedDataEntry(const char *conStr);
+extern siegeExtended_t cg_siegeExtendedData[MAX_CLIENTS];
+void CG_SiegeObjectiveCompleted(centity_t *ent,int won,int objectivenum);
+int CG_SiegeGetObjectiveFinal(int team,int objective);
+void CG_SiegeGetObjectiveDescription(int team,int objective,char *buffer);
+void CG_SiegeRoundOver(centity_t *ent,int won);
+void CG_ParseSiegeObjectiveStatus(const char *str);
+void CG_SetSiegeTimerCvar(int msec);
+void CG_InitSiegeMode(void);
+void CG_PrecachePlayersForSiegeTeam(int team);
+void CG_PrecacheSiegeObjectiveAssetsForTeam(int myTeam);
+void CG_SiegeBriefingDisplay(int team,int dontshow);
+void CG_SiegeBriefingDisplay(int team,int dontshow);
+void CG_DrawSiegeMessageNonMenu(const char *str);
+void CG_DrawSiegeMessage(const char *str,int objectiveScreen);
+void CG_LoadCISounds(clientInfo_t *ci,qboolean modelloaded);
+extern int cgSiegeTeam2PlShader;
+extern int cgSiegeTeam1PlShader;
+extern int team2Timed;
+extern int team1Timed;
+extern int cgSiegeRoundTime;
+extern int cgSiegeRoundState;

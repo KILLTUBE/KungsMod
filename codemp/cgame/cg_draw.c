@@ -2490,13 +2490,13 @@ void CG_DrawVehicleArmor( const menuDef_t *menuHUD, const centity_t *veh )
 	}
 }
 
-enum
+typedef enum
 {
 	VEH_DAMAGE_FRONT=0,
 	VEH_DAMAGE_BACK,
 	VEH_DAMAGE_LEFT,
 	VEH_DAMAGE_RIGHT,
-};
+} veh_damage_e;
 
 typedef struct
 {

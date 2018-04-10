@@ -1,0 +1,24 @@
+/* This file was automatically generated.  Do not edit! */
+void CG_DrawScaledProportionalString(int x,int y,const char *str,int style,vec4_t color,float scale);
+void CG_DrawProportionalString(int x,int y,const char *str,int style,vec4_t color);
+void CG_DrawNumField(int x,int y,int width,int value,int charWidth,int charHeight,int style,qboolean zeroFill);
+void CG_ColorForHealth(vec4_t hcolor);
+void CG_ColorForGivenHealth(vec4_t hcolor,int health);
+float *CG_FadeColor(int startMsec,int totalMsec);
+void CG_TileClear(void);
+int CG_DrawStrlen(const char *str);
+void CG_DrawSmallStringColor(int x,int y,const char *s,vec4_t color);
+void CG_DrawSmallString(int x,int y,const char *s,float alpha);
+void CG_DrawBigStringColor(int x,int y,const char *s,vec4_t color);
+void CG_DrawBigString(int x,int y,const char *s,float alpha);
+void CG_DrawStringExt(int x,int y,const char *string,const float *setColor,qboolean forceColor,qboolean shadow,int charWidth,int charHeight,int maxChars);
+void CG_DrawChar(int x,int y,int width,int height,int ch);
+void CG_DrawRotatePic2(float x,float y,float width,float height,float angle,qhandle_t hShader);
+void CG_DrawRotatePic(float x,float y,float width,float height,float angle,qhandle_t hShader);
+void CG_DrawPic(float x,float y,float width,float height,qhandle_t hShader);
+void CG_FillRect(float x,float y,float width,float height,const float *color);
+void CG_FillRect2(float x,float y,float width,float height,const float *color);
+void CG_GetColorForHealth(int health,int armor,vec4_t hcolor);
+void CG_DrawSides(float x,float y,float w,float h,float size);
+void CG_DrawTopBottom(float x,float y,float w,float h,float size);
+void CG_DrawRect(float x,float y,float width,float height,float size,const float *color);
