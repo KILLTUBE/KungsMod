@@ -24,16 +24,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // cg_snapshot.c -- things that happen on snapshot transition,
 // not necessarily every single rendered frame
 
-#include "cg_local.h"
+#include "cg_snapshot.h"
 
-
-
-
-/*
-==================
-CG_ResetEntity
-==================
-*/
 static void CG_ResetEntity( centity_t *cent ) {
 	// if the previous snapshot this entity was updated in is at least
 	// an event window back in time then we can reset the previous event

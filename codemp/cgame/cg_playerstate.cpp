@@ -26,16 +26,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // following another player or playing back a demo, it will be checked
 // when the snapshot transitions like all the other entities
 
-#include "cg_local.h"
+#include "cg_playerstate.h"
 
-
-/*
-==============
-CG_CheckAmmo
-
-If the ammo has gone low enough to generate the warning, play a sound
-==============
-*/
+// If the ammo has gone low enough to generate the warning, play a sound
 void CG_CheckAmmo( void ) {
 #if 0
 	int		i;
@@ -99,11 +92,6 @@ void CG_CheckAmmo( void ) {
 	//disabled silly ammo warning stuff for now
 }
 
-/*
-==============
-CG_DamageFeedback
-==============
-*/
 void CG_DamageFeedback( int yawByte, int pitchByte, int damage ) {
 	float		left, front, up;
 	float		kick;
@@ -196,16 +184,7 @@ void CG_DamageFeedback( int yawByte, int pitchByte, int damage ) {
 	cg.damageTime = cg.snap->serverTime;
 }
 
-
-
-
-/*
-================
-CG_Respawn
-
-A respawn happened this snapshot
-================
-*/
+// A respawn happened this snapshot
 void CG_Respawn( void ) {
 	// no error decay on player movement
 	cg.thisFrameTeleport = qtrue;
@@ -217,11 +196,6 @@ void CG_Respawn( void ) {
 	cg.weaponSelect = cg.snap->ps.weapon;
 }
 
-/*
-==============
-CG_CheckPlayerstateEvents
-==============
-*/
 void CG_CheckPlayerstateEvents( playerState_t *ps, playerState_t *ops ) {
 	int			i;
 	int			event;
@@ -257,11 +231,6 @@ void CG_CheckPlayerstateEvents( playerState_t *ps, playerState_t *ops ) {
 	}
 }
 
-/*
-==================
-CG_CheckChangedPredictableEvents
-==================
-*/
 void CG_CheckChangedPredictableEvents( playerState_t *ps ) {
 	int i;
 	int event;
@@ -293,11 +262,6 @@ void CG_CheckChangedPredictableEvents( playerState_t *ps ) {
 	}
 }
 
-/*
-==================
-pushReward
-==================
-*/
 #ifdef JK2AWARDS
 static void pushReward(sfxHandle_t sfx, qhandle_t shader, int rewardCount) {
 	if (cg.rewardStack < (MAX_REWARDSTACK-1)) {
@@ -311,11 +275,6 @@ static void pushReward(sfxHandle_t sfx, qhandle_t shader, int rewardCount) {
 
 int cgAnnouncerTime = 0; //to prevent announce sounds from playing on top of each other
 
-/*
-==================
-CG_CheckLocalSounds
-==================
-*/
 void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops ) {
 	int			highScore, health, armor, reward;
 #ifdef JK2AWARDS
@@ -497,12 +456,6 @@ void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops ) {
 	}
 }
 
-/*
-===============
-CG_TransitionPlayerState
-
-===============
-*/
 void CG_TransitionPlayerState( playerState_t *ps, playerState_t *ops ) {
 	// check for changing follow mode
 	if ( ps->clientNum != ops->clientNum ) {

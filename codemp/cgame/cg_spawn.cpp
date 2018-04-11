@@ -21,14 +21,16 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-/*
-**	cg_spawn.c
-**
-**	Client-side functions for parsing entity data.
-*/
+// Client-side functions for parsing entity data.
 
-#include "cg_local.h"
+#include "cg_spawn.h"
 
+spawn_t spawns_cg [] = {
+	{ "misc_model_static",		SP_misc_model_static_cg		},
+	{ "misc_skyportal",			SP_misc_skyportal_cg			},
+	{ "misc_skyportal_orient",	SP_misc_skyportal_orient_cg	},
+	{ "misc_weather_zone",		SP_misc_weather_zone_cg		},
+};
 
 /*
 =============
@@ -251,17 +253,7 @@ void SP_misc_weather_zone_cg( void ) {
 
 	//trap->WE_AddWeatherZone( mins, maxs );
 }
-typedef struct spawn_s {
-	const char	*name;
-	void		(*spawn)( void );
-} spawn_t;
 
-spawn_t spawns_cg [] = {
-	{ "misc_model_static",		SP_misc_model_static_cg		},
-	{ "misc_skyportal",			SP_misc_skyportal_cg			},
-	{ "misc_skyportal_orient",	SP_misc_skyportal_orient_cg	},
-	{ "misc_weather_zone",		SP_misc_weather_zone_cg		},
-};
 
 /*
 ===================

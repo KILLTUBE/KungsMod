@@ -25,20 +25,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // cg_servercmds.c -- reliably sequenced text commands sent by the server
 // these are processed at snapshot transition time, so there will definately
 // be a valid snapshot this frame
+#include "cg_servercmds.h"
 
-#include "cg_local.h"
-#include "ui/menudef.h"
-#include "ghoul2/G2.h"
-#include "ui/ui_public.h"
-
-
-/*
-=================
-CG_ParseScores
-
-=================
-*/
-#define SCORE_OFFSET (14)
 static void CG_ParseScores( void ) {
 	int i, powerups, readScores;
 
@@ -85,13 +73,6 @@ static void CG_ParseScores( void ) {
 	CG_SetScoreSelection( NULL );
 }
 
-/*
-=================
-CG_ParseTeamInfo
-
-=================
-*/
-#define TEAMINFO_OFFSET (6)
 static void CG_ParseTeamInfo( void ) {
 	int i, client;
 
@@ -120,12 +101,8 @@ static void CG_ParseTeamInfo( void ) {
 
 
 /*
-================
-CG_ParseServerinfo
-
 This is called explicitly when the gamestate is first received,
 and whenever the server updates any serverinfo flagged cvars
-================
 */
 void CG_ParseServerinfo( void ) {
 	const char *info = NULL;
@@ -143,7 +120,7 @@ void CG_ParseServerinfo( void ) {
 
 	cgs.showDuelHealths = atoi( Info_ValueForKey( info, "g_showDuelHealths" ) );
 
-	cgs.gametype = atoi( Info_ValueForKey( info, "g_gametype" ) );
+	cgs.gametype = (gametype_t) atoi( Info_ValueForKey( info, "g_gametype" ) );
 	CGVM_Cvar_Set("g_gametype", va("%i", cgs.gametype));
 	cgs.needpass = atoi( Info_ValueForKey( info, "g_needpass" ) );
 	cgs.jediVmerc = atoi( Info_ValueForKey( info, "g_jediVmerc" ) );
@@ -218,11 +195,6 @@ void CG_ParseServerinfo( void ) {
 		CGVM_Cvar_Set( "snaps", va( "%i", i ) );
 }
 
-/*
-==================
-CG_ParseWarmup
-==================
-*/
 static void CG_ParseWarmup( void ) {
 	const char	*info;
 	int			warmup;
@@ -327,7 +299,7 @@ void CG_ShaderStateChanged(void) {
 
 	o = CG_ConfigString( CS_SHADERSTATE );
 	while (o && *o) {
-		n = strstr(o, "=");
+		n = (char *) strstr(o, "=");
 		if (n && *n) {
 			strncpy(originalShader, o, n-o);
 			originalShader[n-o] = 0;

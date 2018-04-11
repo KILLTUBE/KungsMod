@@ -29,9 +29,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
  * $Revision: 1.5 $
  *
  *****************************************************************************/
-#include "cg_local.h"
-#include "game/bg_saga.h"
 
+#include "cg_saga.h"
 
 int cgSiegeRoundState = 0;
 int cgSiegeRoundTime = 0;
@@ -47,7 +46,7 @@ int			cgSiegeTeam2PlShader = 0;
 
 static char cgParseObjectives[MAX_SIEGE_INFO_SIZE];
 
-extern void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded); //cg_players.c
+CCALL void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded); //cg_players.c
 
 void CG_DrawSiegeMessage( const char *str, int objectiveScreen );
 void CG_DrawSiegeMessageNonMenu( const char *str );

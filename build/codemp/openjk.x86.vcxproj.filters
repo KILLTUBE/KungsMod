@@ -964,34 +964,10 @@
     <ClCompile Include="..\..\codemp\cgame\cg_main.c">
       <Filter>cgame</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_predict.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_playerstate.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_saga.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_scoreboard.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_servercmds.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_snapshot.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_spawn.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_tempwrappers.c">
       <Filter>cgame</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_tempwrappers_g2.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_turret.c">
       <Filter>cgame</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\fx_blaster.c">
@@ -1238,6 +1214,30 @@
       <Filter>cgame</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_players.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_playerstate.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_predict.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_saga.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_scoreboard.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_servercmds.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_snapshot.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_spawn.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_turret.cpp">
       <Filter>cgame</Filter>
     </ClCompile>
   </ItemGroup>

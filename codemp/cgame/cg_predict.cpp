@@ -26,11 +26,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // ahead the client's movement.
 // It also handles local physics interaction, like fragments bouncing off walls
 
-#include "cg_local.h"
-
+#include "cg_predict.h"
 
 static	pmove_t		cg_pmove;
-
 static	int			cg_numSolidEntities;
 static	centity_t	*cg_solidEntities[MAX_ENTITIES_IN_SNAPSHOT];
 static	int			cg_numTriggerEntities;
