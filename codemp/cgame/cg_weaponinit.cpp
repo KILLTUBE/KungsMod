@@ -20,20 +20,11 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-//
-// cg_weaponinit.c -- events and effects dealing with weapons
-#include "cg_local.h"
-#include "fx_local.h"
+// events and effects dealing with weapons
 
+#include "cg_weaponinit.h"
 
-
-/*
-=================
-CG_RegisterWeapon
-
-The server says this item is used on this level
-=================
-*/
+// The server says this item is used on this level
 void CG_RegisterWeapon( int weaponNum) {
 	weaponInfo_t	*weaponInfo;
 	gitem_t			*item, *ammo;

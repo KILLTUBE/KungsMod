@@ -333,8 +333,7 @@ struct GenState {
 ** by this program.  By recognizing this line, the program can be sure
 ** never to read a file that it generated itself.
 */
-const char zTopLine[] = 
-  "/* \aThis file was automatically generated.  Do not edit! */\n";
+const char zTopLine[] = "/* (probably partly) generated with https://makeheaders.org, have fun coding :^) */\n";
 #define nTopLine (sizeof(zTopLine)-1)
 
 /*

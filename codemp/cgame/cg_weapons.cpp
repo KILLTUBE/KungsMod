@@ -22,9 +22,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 // cg_weapons.c -- events and effects dealing with weapons
-#include "cg_local.h"
-#include "fx_local.h"
 
+#include "cg_weapons.h"
 
 /*
 Ghoul2 Insert Start
@@ -427,7 +426,7 @@ void CG_AddPlayerWeapon( refEntity_t *parent, playerState_t *ps, centity_t *cent
 	centity_t	*nonPredictedCent;
 	refEntity_t	flash;
 
-	weaponNum = cent->currentState.weapon;
+	weaponNum = (weapon_t) cent->currentState.weapon;
 
 	if (cent->currentState.weapon == WP_EMPLACED_GUN)
 	{

@@ -8356,8 +8356,8 @@ float CG_RadiusForCent( centity_t *cent )
 }
 
 static float cg_vehThirdPersonAlpha = 1.0f;
-extern vec3_t	cg_crosshairPos;
-extern vec3_t	cameraCurLoc;
+EXTERNC vec3_t	cg_crosshairPos;
+EXTERNC vec3_t	cameraCurLoc;
 void CG_CheckThirdPersonAlpha( centity_t *cent, refEntity_t *legs )
 {
 	float alpha = 1.0f;

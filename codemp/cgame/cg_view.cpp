@@ -23,15 +23,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 // cg_view.c -- setup all the parameters (position, angle, etc)
 // for a 3D rendering
-#include "cg_local.h"
-#include "game/bg_saga.h"
 
-
-
-
-#define MASK_CAMERACLIP (MASK_SOLID|CONTENTS_PLAYERCLIP)
-#define CAMERA_SIZE	4
-
+#include "cg_view.h"
 
 /*
 =============================================================================
@@ -237,17 +230,19 @@ static void CG_StepOffset( void ) {
 	}
 }
 
-#define CAMERA_DAMP_INTERVAL	50
-
 static vec3_t	cameramins = { -CAMERA_SIZE, -CAMERA_SIZE, -CAMERA_SIZE };
 static vec3_t	cameramaxs = { CAMERA_SIZE, CAMERA_SIZE, CAMERA_SIZE };
-vec3_t	camerafwd, cameraup;
-
-vec3_t	cameraFocusAngles,			cameraFocusLoc;
-vec3_t	cameraIdealTarget,			cameraIdealLoc;
-vec3_t	cameraCurTarget={0,0,0},	cameraCurLoc={0,0,0};
-vec3_t	cameraOldLoc={0,0,0},		cameraNewLoc={0,0,0};
-int		cameraLastFrame=0;
+vec3_t camerafwd;
+vec3_t cameraup;
+vec3_t cameraFocusAngles;
+vec3_t cameraFocusLoc;
+vec3_t cameraIdealTarget;
+vec3_t cameraIdealLoc;
+vec3_t cameraCurTarget = {0,0,0};
+vec3_t cameraCurLoc = {0,0,0};
+vec3_t cameraOldLoc = {0,0,0};
+vec3_t cameraNewLoc = {0,0,0};
+int cameraLastFrame = 0;
 
 float	cameraLastYaw=0;
 float	cameraStiffFactor=0.0f;

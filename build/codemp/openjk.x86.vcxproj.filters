@@ -949,18 +949,6 @@
     <ClCompile Include="..\..\codemp\ui\ui_saber.c">
       <Filter>ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_weapons.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_weaponinit.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_view.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_consolecmds.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_main.c">
       <Filter>cgame</Filter>
     </ClCompile>
@@ -1238,6 +1226,18 @@
       <Filter>cgame</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_turret.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_view.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_weaponinit.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_weapons.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_consolecmds.cpp">
       <Filter>cgame</Filter>
     </ClCompile>
   </ItemGroup>

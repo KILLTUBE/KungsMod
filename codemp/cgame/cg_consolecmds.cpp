@@ -25,17 +25,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // cg_consolecmds.c -- text commands typed in at the local console, or
 // executed by a key binding
 
-#include "cg_local.h"
-#include "game/bg_saga.h"
-#include "ui/ui_shared.h"
+#include "cg_consolecmds.h"
 
-
-/*
-=================
-CG_TargetCommand_f
-
-=================
-*/
 void CG_TargetCommand_f( void ) {
 	int		targetNum;
 	char	test[4];
@@ -49,47 +40,23 @@ void CG_TargetCommand_f( void ) {
 	CL_AddReliableCommand2( va( "gc %i %i", targetNum, atoi( test ) ) );
 }
 
-/*
-=================
-CG_SizeUp_f
-
-Keybinding command
-=================
-*/
+// Keybinding command
 static void CG_SizeUp_f (void) {
 	CGVM_Cvar_Set( "cg_viewsize", va( "%i", Q_min( cg_viewsize->integer + 10, 100 ) ) );
 }
 
-/*
-=================
-CG_SizeDown_f
-
-Keybinding command
-=================
-*/
+// Keybinding command
 static void CG_SizeDown_f (void) {
 	CGVM_Cvar_Set( "cg_viewsize", va( "%i", Q_max( cg_viewsize->integer - 10, 30 ) ) );
 }
 
-/*
-=============
-CG_Viewpos_f
-
-Debugging command to print the current position
-=============
-*/
+// Debugging command to print the current position
 static void CG_Viewpos_f (void) {
 	Com_Printf ("%s (%i %i %i) : %i\n", cgs.mapname, (int)cg.refdef.vieworg[0],
 		(int)cg.refdef.vieworg[1], (int)cg.refdef.vieworg[2],
 		(int)cg.refdef.viewangles[YAW]);
 }
 
-/*
-=================
-CG_ScoresDown_f
-
-=================
-*/
 static void CG_ScoresDown_f( void ) {
 
 	CG_BuildSpectatorString();
@@ -112,12 +79,6 @@ static void CG_ScoresDown_f( void ) {
 	}
 }
 
-/*
-=================
-CG_ScoresUp_f
-
-=================
-*/
 static void CG_ScoresUp_f( void ) {
 	if ( cg.showScores ) {
 		cg.showScores = qfalse;
@@ -165,7 +126,6 @@ void CG_ClientList_f( void )
 	Com_Printf( "Listed %2d clients\n", count );
 }
 
-
 static void CG_TellTarget_f( void ) {
 	int		clientNum;
 	char	command[MAX_SAY_TEXT+10];
@@ -196,12 +156,6 @@ static void CG_TellAttacker_f( void ) {
 	CL_AddReliableCommand2( command );
 }
 
-/*
-==================
-CG_StartOrbit_f
-==================
-*/
-
 static void CG_StartOrbit_f( void ) {
 	char var[MAX_TOKEN_CHARS];
 
@@ -220,7 +174,6 @@ static void CG_StartOrbit_f( void ) {
 	}
 }
 
-void CG_SiegeBriefingDisplay(int team, int dontshow);
 static void CG_SiegeBriefing_f(void)
 {
 	int team;
@@ -284,11 +237,6 @@ static void CG_LoadHud_f( void ) {
 	CG_LoadMenus( hudSet );
 }
 
-typedef struct consoleCommand_s {
-	const char	*cmd;
-	void		(*func)(void);
-} consoleCommand_t;
-
 int cmdcmp_cg( const void *a, const void *b ) {
 	return Q_stricmp( (const char *)a, ((consoleCommand_t*)b)->cmd );
 }
@@ -327,15 +275,8 @@ static consoleCommand_t	commands[] = {
 
 static const size_t numCommands = ARRAY_LEN( commands );
 
-/*
-=================
-CG_ConsoleCommand
-
-The string has been tokenized and can be retrieved with
-Cmd_Argc() / Cmd_Argv()
-=================
-*/
-CCALL qboolean CG_ConsoleCommand( void ) {
+// The string has been tokenized and can be retrieved with Cmd_Argc() / Cmd_Argv()
+qboolean CG_ConsoleCommand( void ) {
 	consoleCommand_t	*command = NULL;
 
 	command = (consoleCommand_t *)Q_LinearSearch( CG_Argv( 0 ), commands, numCommands, sizeof( commands[0] ), cmdcmp_cg );
@@ -381,24 +322,13 @@ static const char *gcmds[] = {
 };
 static const size_t numgcmds = ARRAY_LEN( gcmds );
 
-/*
-=================
-CG_InitConsoleCommands
-
-Let the client system know about all of our commands
-so it can perform tab completion
-=================
-*/
+// Let the client system know about all of our commands so it can perform tab completion
 void CG_InitConsoleCommands( void ) {
 	size_t i;
-
 	for ( i = 0; i < numCommands; i++ )
 		CL_AddCgameCommand( commands[i].cmd );
-
-	//
 	// the game server will interpret these commands, which will be automatically
 	// forwarded to the server after they are not recognized locally
-	//
 	for( i = 0; i < numgcmds; i++ )
 		CL_AddCgameCommand( gcmds[i] );
 }
