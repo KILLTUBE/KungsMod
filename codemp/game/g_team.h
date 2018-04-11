@@ -23,6 +23,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include "g_local.h"
+#include "bg_saga.h"
+
 #define CTF_CAPTURE_BONUS		100		// what you get for capture
 #define CTF_TEAM_BONUS			25		// what your team gets for capture
 #define CTF_RECOVERY_BONUS		10		// what you get for recovery
@@ -47,6 +50,19 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #define CTF_GRAPPLE_PULL_SPEED				750	// speed player is pulled at
 
 #define OVERLOAD_ATTACK_BASE_SOUND_TIME		20000
+
+
+typedef struct teamgame_s {
+	float			last_flag_capture;
+	int				last_capture_team;
+	flagStatus_t	redStatus;	// CTF
+	flagStatus_t	blueStatus;	// CTF
+	flagStatus_t	flagStatus;	// One Flag CTF
+	int				redTakenTime;
+	int				blueTakenTime;
+} teamgame_t;
+
+EXTERNC teamgame_t teamgame;
 
 // Prototypes
 

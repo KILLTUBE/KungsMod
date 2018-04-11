@@ -20,27 +20,13 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "g_local.h"
-#include "ghoul2/G2.h"
-#include "qcommon/q_shared.h"
+#include "g_turret_G2.h"
 
-void G_SetEnemy( gentity_t *self, gentity_t *enemy );
-void finish_spawning_turretG2( gentity_t *base );
-void ObjectDie (gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int meansOfDeath );
-void turretG2_base_use( gentity_t *self, gentity_t *other, gentity_t *activator );
-
-
-#define SPF_TURRETG2_CANRESPAWN	4
-#define SPF_TURRETG2_TURBO		8
-#define SPF_TURRETG2_LEAD_ENEMY	16
-#define SPF_SHOWONRADAR			32
-
-#define	ARM_ANGLE_RANGE		60
-#define	HEAD_ANGLE_RANGE	90
-
-#define name "models/map_objects/imp_mine/turret_canon.glm"
-#define name2 "models/map_objects/imp_mine/turret_damage.md3"
-#define name3 "models/map_objects/wedge/laser_cannon_model.glm"
+CCALL void G_SetEnemy( gentity_t *self, gentity_t *enemy );
+CCALL void finish_spawning_turretG2( gentity_t *base );
+CCALL void ObjectDie (gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int meansOfDeath );
+CCALL void turretG2_base_use( gentity_t *self, gentity_t *other, gentity_t *activator );
+CCALL void WP_FireTurboLaserMissile( gentity_t *ent, vec3_t start, vec3_t dir );
 
 //special routine for tracking angles between client and server -rww
 void G2Tur_SetBoneAngles(gentity_t *ent, char *bone, vec3_t angles)
@@ -223,10 +209,7 @@ void turretG2_set_models( gentity_t *self, qboolean dying )
 	}
 }
 
-//------------------------------------------------------------------------------------------------------------
-void TurretG2Pain( gentity_t *self, gentity_t *attacker, int damage )
-//------------------------------------------------------------------------------------------------------------
-{
+void TurretG2Pain( gentity_t *self, gentity_t *attacker, int damage ) {
 	if (self->paintarget && self->paintarget[0])
 	{
 		if (self->genericValue8 < level.time)
@@ -249,10 +232,7 @@ void TurretG2Pain( gentity_t *self, gentity_t *attacker, int damage )
 	//mmm..yes..bad.
 }
 
-//------------------------------------------------------------------------------------------------------------
-void turretG2_die ( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int meansOfDeath )
-//------------------------------------------------------------------------------------------------------------
-{
+void turretG2_die ( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int meansOfDeath ) {
 	vec3_t	forward = { 0,0,-1 }, pos;
 
 	// Turn off the thinking of the base & use it's targets
@@ -324,8 +304,6 @@ void turretG2_die ( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, 
 	}
 }
 
-#define START_DIS 15
-
 //start an animation on model_root both server side and client side
 void TurboLaser_SetBoneAnim(gentity_t *eweb, int startFrame, int endFrame)
 {
@@ -348,11 +326,7 @@ void TurboLaser_SetBoneAnim(gentity_t *eweb, int startFrame, int endFrame)
 		(BONE_ANIM_OVERRIDE_FREEZE|BONE_ANIM_BLEND), 1.0f, level.time, -1, 100);
 }
 
-extern void WP_FireTurboLaserMissile( gentity_t *ent, vec3_t start, vec3_t dir );
-//----------------------------------------------------------------
-static void turretG2_fire ( gentity_t *ent, vec3_t start, vec3_t dir )
-//----------------------------------------------------------------
-{
+static void turretG2_fire ( gentity_t *ent, vec3_t start, vec3_t dir ) {
 	vec3_t		org, ang;
 	gentity_t	*bolt;
 
@@ -838,10 +812,7 @@ static qboolean turretG2_find_enemies( gentity_t *self )
 	return found;
 }
 
-//-----------------------------------------------------
-void turretG2_base_think( gentity_t *self )
-//-----------------------------------------------------
-{
+void turretG2_base_think( gentity_t *self ) {
 	qboolean	turnOff = qtrue;
 	float		enemyDist;
 	vec3_t		enemyDir, org, org2;
@@ -972,10 +943,7 @@ void turretG2_base_think( gentity_t *self )
 	}
 }
 
-//-----------------------------------------------------------------------------
-void turretG2_base_use( gentity_t *self, gentity_t *other, gentity_t *activator )
-//-----------------------------------------------------------------------------
-{
+void turretG2_base_use( gentity_t *self, gentity_t *other, gentity_t *activator ) {
 	// Toggle on and off
 	self->spawnflags = (self->spawnflags ^ 1);
 
@@ -1042,10 +1010,8 @@ Turret that hangs from the ceiling, will aim and shoot at enemies
 
 "icon" - icon that represents the objective on the radar
 */
-//-----------------------------------------------------
-void SP_misc_turretG2( gentity_t *base )
-//-----------------------------------------------------
-{
+
+void SP_misc_turretG2( gentity_t *base ) {
 	int customscaleVal;
 	char* s;
 
@@ -1092,14 +1058,9 @@ void SP_misc_turretG2( gentity_t *base )
 	{
 		base->s.eFlags |= EF_RADAROBJECT;
 	}
-#undef name
-#undef name2
-#undef name3
 }
 
-//-----------------------------------------------------
-void finish_spawning_turretG2( gentity_t *base )
-{
+void finish_spawning_turretG2( gentity_t *base ) {
 	vec3_t		fwd;
 	int			t;
 

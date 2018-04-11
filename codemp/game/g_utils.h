@@ -4,6 +4,7 @@
 
 #define MAX_SHADER_REMAPS 128
 #define MAX_G2_KILL_QUEUE 256
+#define USE_DISTANCE	64.0f
 
 typedef struct shaderRemap_s {
   char oldShader[MAX_QPATH];

@@ -862,34 +862,10 @@
     <ClCompile Include="..\..\codemp\game\g_svcmds.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_target.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_team.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_timer.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_trigger.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_turret.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_turret_G2.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_utils.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_vehicles.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_vehicleTurret.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_weapon.c">
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\tri_coll_test.c">
@@ -1238,6 +1214,30 @@
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_spawn.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_turret.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_vehicles.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_trigger.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_utils.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_weapon.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_turret_G2.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_target.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_team.cpp">
       <Filter>game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2218,6 +2218,24 @@
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\game\g_spawn.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_turret.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_vehicles.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_trigger.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_weapon.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_turret_G2.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_target.h">
       <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>

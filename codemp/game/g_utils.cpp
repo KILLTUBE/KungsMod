@@ -28,6 +28,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "qcommon/q_shared.h"
 #include "g_utils.h"
 
+CCALL void Touch_Button(gentity_t *ent, gentity_t *other, trace_t *trace );
+
 int remapCount = 0;
 shaderRemap_t remappedShaders[MAX_SHADER_REMAPS];
 
@@ -1580,9 +1582,6 @@ Try and use an entity in the world, directly ahead of us
 ==============
 */
 
-#define USE_DISTANCE	64.0f
-
-extern void Touch_Button(gentity_t *ent, gentity_t *other, trace_t *trace );
 extern qboolean gSiegeRoundBegun;
 static vec3_t	playerMins = {-15, -15, DEFAULT_MINS_2};
 static vec3_t	playerMaxs = {15, 15, DEFAULT_MAXS_2};

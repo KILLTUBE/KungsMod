@@ -21,22 +21,11 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "g_local.h"
-#include "bg_saga.h"
-
-typedef struct teamgame_s {
-	float			last_flag_capture;
-	int				last_capture_team;
-	flagStatus_t	redStatus;	// CTF
-	flagStatus_t	blueStatus;	// CTF
-	flagStatus_t	flagStatus;	// One Flag CTF
-	int				redTakenTime;
-	int				blueTakenTime;
-} teamgame_t;
+#include "g_team.h"
 
 teamgame_t teamgame;
 
-void Team_SetFlagStatus( int team, flagStatus_t status );
+CCALL void Team_SetFlagStatus( int team, flagStatus_t status );
 
 void Team_InitGame( void ) {
 	memset(&teamgame, 0, sizeof teamgame);
@@ -44,9 +33,9 @@ void Team_InitGame( void ) {
 	switch( level.gametype ) {
 	case GT_CTF:
 	case GT_CTY:
-		teamgame.redStatus = -1; // Invalid to force update
+		teamgame.redStatus = (flagStatus_t) -1; // Invalid to force update
 		Team_SetFlagStatus( TEAM_RED, FLAG_ATBASE );
-		teamgame.blueStatus = -1; // Invalid to force update
+		teamgame.blueStatus = (flagStatus_t) -1; // Invalid to force update
 		Team_SetFlagStatus( TEAM_BLUE, FLAG_ATBASE );
 		break;
 	default:
@@ -62,7 +51,7 @@ int OtherTeam(int team) {
 	return team;
 }
 
-CCALL const char *TeamName(int team)  {
+const char *TeamName(int team)  {
 	if (team==TEAM_RED)
 		return "RED";
 	else if (team==TEAM_BLUE)
@@ -1313,14 +1302,14 @@ void CheckTeamStatus(void) {
 /*QUAKED team_CTF_redplayer (1 0 0) (-16 -16 -16) (16 16 32)
 Only in CTF games.  Red players spawn here at game start.
 */
-void SP_team_CTF_redplayer( gentity_t *ent ) {
+CCALL void SP_team_CTF_redplayer( gentity_t *ent ) {
 }
 
 
 /*QUAKED team_CTF_blueplayer (0 0 1) (-16 -16 -16) (16 16 32)
 Only in CTF games.  Blue players spawn here at game start.
 */
-void SP_team_CTF_blueplayer( gentity_t *ent ) {
+CCALL void SP_team_CTF_blueplayer( gentity_t *ent ) {
 }
 
 
@@ -1328,14 +1317,14 @@ void SP_team_CTF_blueplayer( gentity_t *ent ) {
 potential spawning position for red team in CTF games.
 Targets will be fired when someone spawns in on them.
 */
-void SP_team_CTF_redspawn(gentity_t *ent) {
+CCALL void SP_team_CTF_redspawn(gentity_t *ent) {
 }
 
 /*QUAKED team_CTF_bluespawn (0 0 1) (-16 -16 -24) (16 16 32)
 potential spawning position for blue team in CTF games.
 Targets will be fired when someone spawns in on them.
 */
-void SP_team_CTF_bluespawn(gentity_t *ent) {
+CCALL void SP_team_CTF_bluespawn(gentity_t *ent) {
 }
 
 

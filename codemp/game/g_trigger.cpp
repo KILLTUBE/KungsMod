@@ -20,9 +20,11 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
+#include "g_trigger.h"
 
-#include "g_local.h"
-#include "bg_saga.h"
+CCALL void trigger_cleared_fire (gentity_t *self);
+CCALL void SP_func_rotating (gentity_t *ent);
+CCALL void Q3_Lerp2Origin( int taskID, int entID, vec3_t origin, float duration );
 
 int gTrigFallSound;
 
@@ -44,8 +46,6 @@ void InitTrigger( gentity_t *self ) {
 void multi_wait( gentity_t *ent ) {
 	ent->nextthink = 0;
 }
-
-void trigger_cleared_fire (gentity_t *self);
 
 // the trigger was just activated
 // ent->activator should be set to the activator so it can be held through a delay
@@ -1872,8 +1872,6 @@ int asteroid_count_num_asteroids( gentity_t *self )
 	return count;
 }
 
-extern void SP_func_rotating (gentity_t *ent);
-extern void Q3_Lerp2Origin( int taskID, int entID, vec3_t origin, float duration );
 void asteroid_field_think(gentity_t *self)
 {
 	int numAsteroids = asteroid_count_num_asteroids( self );

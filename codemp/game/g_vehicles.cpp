@@ -20,21 +20,19 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "qcommon/q_shared.h"
-#include "g_local.h"
+#include "g_vehicles.h"
 
-#include "bg_vehicles.h"
+CCALL gentity_t *NPC_Spawn_Do( gentity_t *ent );
+CCALL void NPC_SetAnim(gentity_t	*ent,int setAnimParts,int anim,int setAnimFlags);
+CCALL void BG_SetAnim(playerState_t *ps, animation_t *animations, int setAnimParts,int anim,int setAnimFlags, int blendTime);
+CCALL void BG_SetLegsAnimTimer(playerState_t *ps, int time );
+CCALL void BG_SetTorsoAnimTimer(playerState_t *ps, int time );
+CCALL void G_VehUpdateShields( gentity_t *targ );
+CCALL void VEH_TurretThink( Vehicle_t *pVeh, gentity_t *parent, int turretNum );
+CCALL qboolean BG_UnrestrainedPitchRoll( playerState_t *ps, Vehicle_t *pVeh );
+CCALL void AttachRidersGeneric( Vehicle_t *pVeh );
+CCALL void NPC_SetSurfaceOnOff(gentity_t *ent, const char *surfaceName, int surfaceFlags); //NPC_utils.c
 
-extern gentity_t *NPC_Spawn_Do( gentity_t *ent );
-extern void NPC_SetAnim(gentity_t	*ent,int setAnimParts,int anim,int setAnimFlags);
-
-extern void BG_SetAnim(playerState_t *ps, animation_t *animations, int setAnimParts,int anim,int setAnimFlags, int blendTime);
-extern void BG_SetLegsAnimTimer(playerState_t *ps, int time );
-extern void BG_SetTorsoAnimTimer(playerState_t *ps, int time );
-void G_VehUpdateShields( gentity_t *targ );
-extern void VEH_TurretThink( Vehicle_t *pVeh, gentity_t *parent, int turretNum );
-
-extern qboolean BG_UnrestrainedPitchRoll( playerState_t *ps, Vehicle_t *pVeh );
 
 void Vehicle_SetAnim(gentity_t *ent,int setAnimParts,int anim,int setAnimFlags, int iBlend)
 {
@@ -1806,8 +1804,6 @@ static qboolean UpdateRider( Vehicle_t *pVeh, bgEntity_t *pRider, usercmd_t *pUm
 	return qtrue;
 }
 
-//generic vehicle function we care about over there
-extern void AttachRidersGeneric( Vehicle_t *pVeh );
 
 // Attachs all the riders of this vehicle to their appropriate tag (*driver, *pass1, *pass2, whatever...).
 static void AttachRiders( Vehicle_t *pVeh )
@@ -2092,10 +2088,6 @@ int G_FlyVehicleImpactDir(gentity_t *veh, trace_t *trace)
 	return SHIPSURF_BACK;
 }
 
-//try to break surfaces off the ship on impact
-#define TURN_ON				0x00000000
-#define TURN_OFF			0x00000100
-extern void NPC_SetSurfaceOnOff(gentity_t *ent, const char *surfaceName, int surfaceFlags); //NPC_utils.c
 int G_ShipSurfaceForSurfName( const char *surfaceName )
 {
 	if ( !surfaceName )
