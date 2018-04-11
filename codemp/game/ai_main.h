@@ -1,403 +1,164 @@
-/*
-===========================================================================
-Copyright (C) 1999 - 2005, Id Software, Inc.
-Copyright (C) 2000 - 2013, Raven Software, Inc.
-Copyright (C) 2001 - 2013, Activision, Inc.
-Copyright (C) 2013 - 2015, OpenJK contributors
-
-This file is part of the OpenJK source code.
-
-OpenJK is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License version 2 as
-published by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, see <http://www.gnu.org/licenses/>.
-===========================================================================
-*/
-
 #pragma once
 
-#include "bg_saga.h"
-
-//#define FORCEJUMP_INSTANTMETHOD 1
-
-#define MAX_CHAT_BUFFER_SIZE 8192
-#define MAX_CHAT_LINE_SIZE 128
-
-#define TABLE_BRANCH_DISTANCE 32
-#define MAX_NODETABLE_SIZE 16384
-
-#define MAX_LOVED_ONES 4
-#define MAX_ATTACHMENT_NAME 64
-
-#define MAX_FORCE_INFO_SIZE 2048
-
-#define WPFLAG_JUMP				0x00000010 //jump when we hit this
-#define WPFLAG_DUCK				0x00000020 //duck while moving around here
-#define WPFLAG_NOVIS			0x00000400 //go here for a bit even with no visibility
-#define WPFLAG_SNIPEORCAMPSTAND	0x00000800 //a good position to snipe or camp - stand
-#define WPFLAG_WAITFORFUNC		0x00001000 //wait for a func brushent under this point before moving here
-#define WPFLAG_SNIPEORCAMP		0x00002000 //a good position to snipe or camp - crouch
-#define WPFLAG_ONEWAY_FWD		0x00004000 //can only go forward on the trial from here (e.g. went over a ledge)
-#define WPFLAG_ONEWAY_BACK		0x00008000 //can only go backward on the trail from here
-#define WPFLAG_GOALPOINT		0x00010000 //make it a goal to get here.. goal points will be decided by setting "weight" values
-#define WPFLAG_RED_FLAG			0x00020000 //red flag
-#define WPFLAG_BLUE_FLAG		0x00040000 //blue flag
-#define WPFLAG_SIEGE_REBELOBJ	0x00080000 //rebel siege objective
-#define WPFLAG_SIEGE_IMPERIALOBJ	0x00100000 //imperial siege objective
-#define WPFLAG_NOMOVEFUNC		0x00200000 //don't move over if a func is under
-
-#define WPFLAG_CALCULATED		0x00400000 //don't calculate it again
-#define WPFLAG_NEVERONEWAY		0x00800000 //never flag it as one-way
-
-#define LEVELFLAG_NOPOINTPREDICTION			1 //don't take waypoint beyond current into account when adjusting path view angles
-#define LEVELFLAG_IGNOREINFALLBACK			2 //ignore enemies when in a fallback navigation routine
-#define LEVELFLAG_IMUSTNTRUNAWAY			4 //don't be scared
-
-#define WP_KEEP_FLAG_DIST			128
-
-#define BWEAPONRANGE_MELEE			1
-#define BWEAPONRANGE_MID			2
-#define BWEAPONRANGE_LONG			3
-#define BWEAPONRANGE_SABER			4
-
-#define MELEE_ATTACK_RANGE			256
-#define SABER_ATTACK_RANGE			128
-#define MAX_CHICKENWUSS_TIME		10000 //wait 10 secs between checking which run-away path to take
-
-#define BOT_RUN_HEALTH				40
-#define BOT_WPTOUCH_DISTANCE		32
-#define ENEMY_FORGET_MS				10000
-//if our enemy isn't visible within 10000ms (aprx 10sec) then "forget" about him and treat him like every other threat, but still look for
-//more immediate threats while main enemy is not visible
-
-#define BOT_PLANT_DISTANCE			256 //plant if within this radius from the last spotted enemy position
-#define BOT_PLANT_INTERVAL			15000 //only plant once per 15 seconds at max
-#define BOT_PLANT_BLOW_DISTANCE		256 //blow det packs if enemy is within this radius and I am further away than the enemy
-
-#define BOT_MAX_WEAPON_GATHER_TIME	1000 //spend a max of 1 second after spawn issuing orders to gather weapons before attacking enemy base
-#define BOT_MAX_WEAPON_CHASE_TIME	15000 //time to spend gathering the weapon before persuing the enemy base (in case it takes longer than expected)
-
-#define BOT_MAX_WEAPON_CHASE_CTF	5000 //time to spend gathering the weapon before persuing the enemy base (in case it takes longer than expected) [ctf-only]
-
-#define BOT_MIN_SIEGE_GOAL_SHOOT		1024
-#define BOT_MIN_SIEGE_GOAL_TRAVEL	128
-
-#define BASE_GUARD_DISTANCE			256 //guarding the flag
-#define BASE_FLAGWAIT_DISTANCE		256 //has the enemy flag and is waiting in his own base for his flag to be returned
-#define BASE_GETENEMYFLAG_DISTANCE	256 //waiting around to get the enemy's flag
-
-#define BOT_FLAG_GET_DISTANCE		256
-
-#define BOT_SABER_THROW_RANGE		800
-
-typedef enum
-{
-	CTFSTATE_NONE,
-	CTFSTATE_ATTACKER,
-	CTFSTATE_DEFENDER,
-	CTFSTATE_RETRIEVAL,
-	CTFSTATE_GUARDCARRIER,
-	CTFSTATE_GETFLAGHOME,
-	CTFSTATE_MAXCTFSTATES
-} bot_ctf_state_t;
-
-typedef enum
-{
-	SIEGESTATE_NONE,
-	SIEGESTATE_ATTACKER,
-	SIEGESTATE_DEFENDER,
-	SIEGESTATE_MAXSIEGESTATES
-} bot_siege_state_t;
-
-typedef enum
-{
-	TEAMPLAYSTATE_NONE,
-	TEAMPLAYSTATE_FOLLOWING,
-	TEAMPLAYSTATE_ASSISTING,
-	TEAMPLAYSTATE_REGROUP,
-	TEAMPLAYSTATE_MAXTPSTATES
-} bot_teamplay_state_t;
-
-typedef struct botattachment_s
-{
-	int level;
-	char name[MAX_ATTACHMENT_NAME];
-} botattachment_t;
-
-typedef struct nodeobject_s
-{
-	vec3_t origin;
-//	int index;
-	float weight;
-	int flags;
-	int neighbornum;
-	int inuse;
-} nodeobject_t;
-
-typedef struct boteventtracker_s
-{
-	int			eventSequence;
-	int			events[MAX_PS_EVENTS];
-	float		eventTime;
-} boteventtracker_t;
-
-typedef struct botskills_s
-{
-	int					reflex;
-	float				accuracy;
-	float				turnspeed;
-	float				turnspeed_combat;
-	float				maxturn;
-	int					perfectaim;
-} botskills_t;
-
-//bot state
-typedef struct bot_state_s
-{
-	int inuse;										//true if this state is used by a bot client
-	int botthink_residual;							//residual for the bot thinks
-	int client;										//client number of the bot
-	int entitynum;									//entity number of the bot
-	playerState_t cur_ps;							//current player state
-	usercmd_t lastucmd;								//usercmd from last frame
-	bot_settings_t settings;						//several bot settings
-	float thinktime;								//time the bot thinks this frame
-	vec3_t origin;									//origin of the bot
-	vec3_t velocity;								//velocity of the bot
-	vec3_t eye;										//eye coordinates of the bot
-	int setupcount;									//true when the bot has just been setup
-	float ltime;									//local bot time
-	float entergame_time;							//time the bot entered the game
-	int ms;											//move state of the bot
-	int gs;											//goal state of the bot
-	int ws;											//weapon state of the bot
-	vec3_t viewangles;								//current view angles
-	vec3_t ideal_viewangles;						//ideal view angles
-	vec3_t viewanglespeed;
-
-	//rww - new AI values
-	gentity_t			*currentEnemy;
-	gentity_t			*revengeEnemy;
-
-	gentity_t			*squadLeader;
-
-	gentity_t			*lastHurt;
-	gentity_t			*lastAttacked;
-
-	gentity_t			*wantFlag;
-
-	gentity_t			*touchGoal;
-	gentity_t			*shootGoal;
-
-	gentity_t			*dangerousObject;
-
-	vec3_t				staticFlagSpot;
-
-	int					revengeHateLevel;
-	int					isSquadLeader;
-
-	int					squadRegroupInterval;
-	int					squadCannotLead;
-
-	int					lastDeadTime;
-
-	wpobject_t			*wpCurrent;
-	wpobject_t			*wpDestination;
-	wpobject_t			*wpStoreDest;
-	vec3_t				goalAngles;
-	vec3_t				goalMovedir;
-	vec3_t				goalPosition;
-
-	vec3_t				lastEnemySpotted;
-	vec3_t				hereWhenSpotted;
-	int					lastVisibleEnemyIndex;
-	int					hitSpotted;
-
-	int					wpDirection;
-
-	float				destinationGrabTime;
-	float				wpSeenTime;
-	float				wpTravelTime;
-	float				wpDestSwitchTime;
-	float				wpSwitchTime;
-	float				wpDestIgnoreTime;
-
-	float				timeToReact;
-
-	float				enemySeenTime;
-
-	float				chickenWussCalculationTime;
-
-	float				beStill;
-	float				duckTime;
-	float				jumpTime;
-	float				jumpHoldTime;
-	float				jumpPrep;
-	float				forceJumping;
-	float				jDelay;
-
-	float				aimOffsetTime;
-	float				aimOffsetAmtYaw;
-	float				aimOffsetAmtPitch;
-
-	float				frame_Waypoint_Len;
-	int					frame_Waypoint_Vis;
-	float				frame_Enemy_Len;
-	int					frame_Enemy_Vis;
-
-	int					isCamper;
-	float				isCamping;
-	wpobject_t			*wpCamping;
-	wpobject_t			*wpCampingTo;
-	qboolean			campStanding;
-
-	int					randomNavTime;
-	int					randomNav;
-
-	int					saberSpecialist;
-
-	int					canChat;
-	int					chatFrequency;
-	char				currentChat[MAX_CHAT_LINE_SIZE];
-	float				chatTime;
-	float				chatTime_stored;
-	int					doChat;
-	int					chatTeam;
-	gentity_t			*chatObject;
-	gentity_t			*chatAltObject;
-
-	float				meleeStrafeTime;
-	int					meleeStrafeDir;
-	float				meleeStrafeDisable;
-
-	int					altChargeTime;
-
-	float				escapeDirTime;
-
-	float				dontGoBack;
-
-	int					doAttack;
-	int					doAltAttack;
-
-	int					forceWeaponSelect;
-	int					virtualWeapon;
-
-	int					plantTime;
-	int					plantDecided;
-	int					plantContinue;
-	int					plantKillEmAll;
-
-	int					runningLikeASissy;
-	int					runningToEscapeThreat;
-
-	//char				chatBuffer[MAX_CHAT_BUFFER_SIZE];
-	//Since we're once again not allocating bot structs dynamically,
-	//shoving a 64k chat buffer into one is a bad thing.
-
-	botskills_t			skills;
-
-	botattachment_t		loved[MAX_LOVED_ONES];
-	int					lovednum;
-
-	int					loved_death_thresh;
-
-	int					deathActivitiesDone;
-
-	float				botWeaponWeights[WP_NUM_WEAPONS];
-
-	int					ctfState;
-
-	int					siegeState;
-
-	int					teamplayState;
-
-	int					jmState;
-
-	int					state_Forced; //set by player ordering menu
-
-	int					saberDefending;
-	int					saberDefendDecideTime;
-	int					saberBFTime;
-	int					saberBTime;
-	int					saberSTime;
-	int					saberThrowTime;
-
-	qboolean			saberPower;
-	int					saberPowerTime;
-
-	int					botChallengingTime;
-
-	char				forceinfo[MAX_FORCE_INFO_SIZE];
-
-#ifndef FORCEJUMP_INSTANTMETHOD
-	int					forceJumpChargeTime;
+#include "g_local.h"
+#include "qcommon/q_shared.h"
+#include "botlib/botlib.h"		//bot lib interface
+#include "botlib/be_aas.h"
+#include "botlib/be_ea.h"
+#include "botlib/be_ai_char.h"
+#include "botlib/be_ai_chat.h"
+#include "botlib/be_ai_gen.h"
+#include "botlib/be_ai_goal.h"
+#include "botlib/be_ai_move.h"
+#include "botlib/be_ai_weap.h"
+#include "ai_main_2.h"
+#include "w_saber.h"
+#include "chars.h"
+#include "inv.h"
+
+/*
+#define BOT_CTF_DEBUG	1
+*/
+
+#define BOT_THINK_TIME	0
+
+EXTERNC char *teamplayStateDescriptions[];
+EXTERNC char *siegeStateDescriptions[];
+EXTERNC char *ctfStateDescriptions[];
+EXTERNC char *ctfStateNames[];
+EXTERNC gentity_t *droppedBlueFlag;
+EXTERNC gentity_t *eFlagBlue;
+EXTERNC gentity_t *droppedRedFlag;
+EXTERNC gentity_t *eFlagRed;
+EXTERNC wpobject_t *oFlagBlue;
+EXTERNC wpobject_t *flagBlue;
+EXTERNC wpobject_t *oFlagRed;
+EXTERNC wpobject_t *flagRed;
+EXTERNC boteventtracker_t gBotEventTracker[MAX_CLIENTS];
+EXTERNC int imperial_attackers;
+EXTERNC int rebel_attackers;
+EXTERNC float regularupdate_time;
+EXTERNC float floattime;
+EXTERNC int numbots;
+EXTERNC bot_state_t *botstates[MAX_CLIENTS];
+EXTERNC int gUpdateVars;
+
+
+CCALL int BotAIShutdown(int restart);
+CCALL int BotAISetup(int restart);
+CCALL int BotAIStartFrame(int time);
+CCALL void Bot_SetForcedMovement(int bot,int forward,int right,int up);
+CCALL void Cmd_ToggleSaber_f(gentity_t *ent);
+CCALL void Cmd_EngageDuel_f(gentity_t *ent);
+CCALL int BotWeaponBlockable(int weapon);
+CCALL int BotSurfaceNear(bot_state_t *bs);
+CCALL int BotUseInventoryItem(bot_state_t *bs);
+CCALL void BotCheckDetPacks(bot_state_t *bs);
+CCALL void CTFFlagMovement(bot_state_t *bs);
+CCALL void BotReplyGreetings(bot_state_t *bs);
+CCALL void BotScanForLeader(bot_state_t *bs);
+CCALL gentity_t *CheckForFriendInLOF(bot_state_t *bs);
+CCALL int KeepAltFromFiring(bot_state_t *bs);
+CCALL int AltFiring(bot_state_t *bs);
+CCALL int KeepPrimFromFiring(bot_state_t *bs);
+CCALL int PrimFiring(bot_state_t *bs);
+CCALL void StrafeTracing(bot_state_t *bs);
+CCALL void BotDeathNotify(bot_state_t *bs);
+CCALL void BotLovedOneDied(bot_state_t *bs,bot_state_t *loved,int lovelevel);
+CCALL int GetLoveLevel(bot_state_t *bs,bot_state_t *love);
+CCALL int BotSelectMelee(bot_state_t *bs);
+CCALL int BotSelectChoiceWeapon(bot_state_t *bs,int weapon,int doselection);
+CCALL int BotSelectIdealWeapon(bot_state_t *bs);
+CCALL qboolean BotWeaponSelectable(bot_state_t *bs,int weapon);
+CCALL int BotTryAnotherWeapon(bot_state_t *bs);
+CCALL int BotFallbackNavigation(bot_state_t *bs);
+CCALL int CombatBotAI(bot_state_t *bs,float thinktime);
+CCALL int ShouldSecondaryFire(bot_state_t *bs);
+CCALL void BotAimOffsetGoalAngles(bot_state_t *bs);
+CCALL void BotAimLeading(bot_state_t *bs,vec3_t headlevel,float leadAmount);
+CCALL float BotWeaponCanLead(bot_state_t *bs);
+CCALL void SaberCombatHandling(bot_state_t *bs);
+CCALL void MeleeCombatHandling(bot_state_t *bs);
+CCALL void CommanderBotAI(bot_state_t *bs);
+CCALL void CommanderBotTeamplayAI(bot_state_t *bs);
+CCALL void BotDoTeamplayAI(bot_state_t *bs);
+CCALL void CommanderBotSiegeAI(bot_state_t *bs);
+CCALL void CommanderBotCTFAI(bot_state_t *bs);
+CCALL void GetIdealDestination(bot_state_t *bs);
+CCALL int BotHasAssociated(bot_state_t *bs,wpobject_t *wp);
+CCALL int JMTakesPriority(bot_state_t *bs);
+CCALL int SiegeTakesPriority(bot_state_t *bs);
+CCALL int Siege_CountTeammates(bot_state_t *bs);
+CCALL int Siege_CountDefenders(bot_state_t *bs);
+CCALL void Siege_DefendFromAttackers(bot_state_t *bs);
+CCALL int Siege_TargetClosestObjective(bot_state_t *bs,int flag);
+CCALL int EntityVisibleBox(vec3_t org1,vec3_t mins,vec3_t maxs,vec3_t org2,int ignore,int ignore2);
+CCALL int GetBestIdleGoal(bot_state_t *bs);
+CCALL int CTFTakesPriority(bot_state_t *bs);
+CCALL void GetNewFlagPoint(wpobject_t *wp,gentity_t *flagEnt,int team);
+CCALL int BotGetFlagHome(bot_state_t *bs);
+CCALL int BotGuardFlagCarrier(bot_state_t *bs);
+CCALL int BotGetFlagBack(bot_state_t *bs);
+CCALL int BotGetEnemyFlag(bot_state_t *bs);
+CCALL int BotDefendFlag(bot_state_t *bs);
+CCALL gentity_t *GetNearestBadThing(bot_state_t *bs);
+CCALL int WaitingForNow(bot_state_t *bs,vec3_t goalpos);
+CCALL int ScanForEnemies(bot_state_t *bs);
+CCALL qboolean G_ThereIsAMaster(void);
+CCALL int InFieldOfVision(vec3_t viewangles,float fov,vec3_t angles);
+CCALL void UpdateEventTracker(void);
+CCALL int BotCanHear(bot_state_t *bs,gentity_t *en,float endist);
+CCALL void BotDamageNotification(gclient_t *bot,gentity_t *attacker);
+CCALL int PassStandardEnemyChecks(bot_state_t *bs,gentity_t *en);
+CCALL int BotTrace_Duck(bot_state_t *bs,vec3_t traceto);
+CCALL int BotTrace_Jump(bot_state_t *bs,vec3_t traceto);
+#if defined(BOT_STRAFE_AVOIDANCE)
+CCALL int BotTrace_Strafe(bot_state_t *bs,vec3_t traceto);
 #endif
-
-	int					doForcePush;
-
-	int					noUseTime;
-	qboolean			doingFallback;
-
-	int					iHaveNoIdeaWhereIAmGoing;
-	vec3_t				lastSignificantAreaChange;
-	int					lastSignificantChangeTime;
-
-	int					forceMove_Forward;
-	int					forceMove_Right;
-	int					forceMove_Up;
-	//end rww
-} bot_state_t;
-
-void *B_TempAlloc(int size);
-void B_TempFree(int size);
-
-void *B_Alloc(int size);
-void B_Free(void *ptr);
-
-//resets the whole bot state
-void BotResetState(bot_state_t *bs);
-//returns the number of bots in the game
-int NumBots(void);
-
-void BotUtilizePersonality(bot_state_t *bs);
-int BotDoChat(bot_state_t *bs, char *section, int always);
-void StandardBotAI(bot_state_t *bs, float thinktime);
-int OrgVisibleBox(vec3_t org1, vec3_t mins, vec3_t maxs, vec3_t org2, int ignore);
-int BotIsAChickenWuss(bot_state_t *bs);
-int GetNearestVisibleWP(vec3_t org, int ignore);
-int GetBestIdleGoal(bot_state_t *bs);
-
-char *ConcatArgs( int start );
-
-extern wpobject_t *flagRed;
-extern wpobject_t *oFlagRed;
-extern wpobject_t *flagBlue;
-extern wpobject_t *oFlagBlue;
-
-extern gentity_t *eFlagRed;
-extern gentity_t *eFlagBlue;
-
-extern char gBotChatBuffer[MAX_CLIENTS][MAX_CHAT_BUFFER_SIZE];
-extern float gWPRenderTime;
-extern float gDeactivated;
-extern float gBotEdit;
-extern int gWPRenderedFrame;
-
-extern wpobject_t *gWPArray[MAX_WPARRAY_SIZE];
-extern int gWPNum;
-
-extern int gLastPrintedIndex;
-extern nodeobject_t nodetable[MAX_NODETABLE_SIZE];
-extern int nodenum;
-
-extern int gLevelFlags;
-
-extern float floattime;
-#define FloatTime() floattime
+CCALL void MoveTowardIdealAngles(bot_state_t *bs);
+CCALL int BotIsAChickenWuss(bot_state_t *bs);
+CCALL void WPTouchRoutine(bot_state_t *bs);
+CCALL qboolean BotCTFGuardDuty(bot_state_t *bs);
+CCALL void WPConstantRoutine(bot_state_t *bs);
+CCALL void CheckForShorterRoutes(bot_state_t *bs,int newwpindex);
+CCALL float TotalTrailDistance(int start,int end,bot_state_t *bs);
+CCALL int PassWayCheck(bot_state_t *bs,int windex);
+CCALL int GetNearestVisibleWP(vec3_t org,int ignore);
+CCALL qboolean BotPVSCheck(const vec3_t p1,const vec3_t p2);
+CCALL int CheckForFunc(vec3_t org,int ignore);
+CCALL int OrgVisibleBox(vec3_t org1,vec3_t mins,vec3_t maxs,vec3_t org2,int ignore);
+CCALL int WPOrgVisible(gentity_t *bot,vec3_t org1,vec3_t org2,int ignore);
+CCALL int OrgVisible(vec3_t org1,vec3_t org2,int ignore);
+CCALL int BotAILoadMap(int restart);
+CCALL void BotResetState(bot_state_t *bs);
+CCALL int BotAIShutdownClient(int client,qboolean restart);
+CCALL int BotAISetupClient(int client,struct bot_settings_s *settings,qboolean restart);
+CCALL int PlayersInGame(void);
+CCALL void BotScheduleBotThink(void);
+CCALL void StandardBotAI(bot_state_t *bs,float thinktime);
+CCALL int BotAI(int client,float thinktime);
+CCALL void RemoveColorEscapeSequences(char *text);
+CCALL void BotAIRegularUpdate(void);
+CCALL void BotUpdateInput(bot_state_t *bs,int time,int elapsed_time);
+CCALL void BotInputToUserCommand(bot_input_t *bi,usercmd_t *ucmd,int delta_angles[3],int time,int useTime);
+CCALL void BotChangeViewAngles(bot_state_t *bs,float thinktime);
+CCALL float BotChangeViewAngle(float angle,float ideal_angle,float speed);
+CCALL float AngleDifference(float ang1,float ang2);
+CCALL int NumBots(void);
+CCALL void BotEntityInfo(int entnum,aas_entityinfo_t *info);
+CCALL int BotAI_GetSnapshotEntity(int clientNum,int sequence,entityState_t *state);
+CCALL int BotAI_GetEntityState(int entityNum,entityState_t *state);
+CCALL int BotAI_GetClientState(int clientNum,playerState_t *state);
+CCALL int IsTeamplay(void);
+CCALL qboolean WP_ForcePowerUsable(gentity_t *self,forcePowers_t forcePower);
+CCALL void QDECL BotAI_Print(int type,char *fmt,...);
+CCALL void ExitLevel(void);
+CCALL int PassLovedOneCheck(bot_state_t *bs,gentity_t *ent);
+CCALL int PassLovedOneCheck(bot_state_t *bs,gentity_t *ent);
+CCALL int BotGetWeaponRange(bot_state_t *bs);
+CCALL int BotGetWeaponRange(bot_state_t *bs);
+CCALL int BotMindTricked(int botClient,int enemyClient);
+CCALL void BotOrder(gentity_t *ent,int clientnum,int ordernum);
+CCALL void BotReportStatus(bot_state_t *bs);
+CCALL void BotSelectWeapon(int client,int weapon);
+CCALL void BotStraightTPOrderCheck(gentity_t *ent,int ordernum,bot_state_t *bs);

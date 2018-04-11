@@ -23,18 +23,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 // g_bot.c
 
-#include "g_local.h"
+#include "g_bot.h"
 
-#define BOT_BEGIN_DELAY_BASE		2000
-#define BOT_BEGIN_DELAY_INCREMENT	1500
-
-#define BOT_SPAWN_QUEUE_DEPTH	16
-
-static struct botSpawnQueue_s {
-	int		clientNum;
-	int		spawnTime;
-} botSpawnQueue[BOT_SPAWN_QUEUE_DEPTH];
-
+CCALL void LoadPath_ThisLevel(void);
 
 float trap_Cvar_VariableValue( const char *var_name ) {
 	char buf[MAX_CVAR_VALUE_STRING];
@@ -43,11 +34,6 @@ float trap_Cvar_VariableValue( const char *var_name ) {
 	return atof(buf);
 }
 
-/*
-===============
-G_ParseInfos
-===============
-*/
 int G_ParseInfos( char *buf, int max, char *infos[] ) {
 	char	*token;
 	int		count;
@@ -287,15 +273,6 @@ const char *G_RefreshNextMap(int gametype, qboolean forced)
 	return Info_ValueForKey( level.arenas.infos[desiredMap], "map" );
 }
 
-/*
-===============
-G_LoadArenas
-===============
-*/
-
-#define MAX_MAPS 256
-#define MAPSBUFSIZE (MAX_MAPS * 64)
-
 void G_LoadArenas( void ) {
 #if 0
 	int			numdirs;
@@ -361,11 +338,6 @@ void G_LoadArenas( void ) {
 
 }
 
-/*
-===============
-G_GetArenaInfoByNumber
-===============
-*/
 const char *G_GetArenaInfoByMap( const char *map ) {
 	int			n;
 
@@ -405,11 +377,6 @@ static void PlayerIntroSound( const char *modelAndSkin ) {
 }
 #endif
 
-/*
-===============
-G_AddRandomBot
-===============
-*/
 void G_AddRandomBot( int team ) {
 	int		i, n, num;
 	float	skill;
@@ -492,11 +459,6 @@ void G_AddRandomBot( int team ) {
 	}
 }
 
-/*
-===============
-G_RemoveRandomBot
-===============
-*/
 int G_RemoveRandomBot( int team ) {
 	int i;
 	gclient_t	*cl;
@@ -523,11 +485,6 @@ int G_RemoveRandomBot( int team ) {
 	return qfalse;
 }
 
-/*
-===============
-G_CountHumanPlayers
-===============
-*/
 int G_CountHumanPlayers( int team ) {
 	int i, num;
 	gclient_t	*cl;
@@ -549,11 +506,6 @@ int G_CountHumanPlayers( int team ) {
 	return num;
 }
 
-/*
-===============
-G_CountBotPlayers
-===============
-*/
 int G_CountBotPlayers( int team ) {
 	int i, n, num;
 	gclient_t	*cl;
@@ -593,11 +545,6 @@ int G_CountBotPlayers( int team ) {
 	return num;
 }
 
-/*
-===============
-G_CheckMinimumPlayers
-===============
-*/
 void G_CheckMinimumPlayers( void ) {
 	int minplayers;
 	int humanplayers, botplayers;
@@ -614,7 +561,7 @@ void G_CheckMinimumPlayers( void ) {
 		return;
 	}
 	checkminimumplayers_time = level.time;
-	Cvar_Update(&bot_minplayers);
+	Cvar_Update(bot_minplayers);
 	minplayers = bot_minplayers->integer;
 	if (minplayers <= 0) return;
 
@@ -721,11 +668,6 @@ void G_CheckMinimumPlayers( void ) {
 	*/
 }
 
-/*
-===============
-G_CheckBotSpawn
-===============
-*/
 void G_CheckBotSpawn( void ) {
 	int		n;
 
@@ -750,11 +692,6 @@ void G_CheckBotSpawn( void ) {
 	}
 }
 
-/*
-===============
-AddBotToSpawnQueue
-===============
-*/
 static void AddBotToSpawnQueue( int clientNum, int delay ) {
 	int		n;
 
@@ -789,11 +726,6 @@ void G_RemoveQueuedBotBegin( int clientNum ) {
 	}
 }
 
-/*
-===============
-G_BotConnect
-===============
-*/
 qboolean G_BotConnect( int clientNum, qboolean restart ) {
 	bot_settings_t	settings;
 	char			userinfo[MAX_INFO_STRING];
@@ -812,11 +744,6 @@ qboolean G_BotConnect( int clientNum, qboolean restart ) {
 	return qtrue;
 }
 
-/*
-===============
-G_AddBot
-===============
-*/
 static void G_AddBot( const char *name, float skill, const char *team, int delay, char *altname) {
 	gentity_t		*bot = NULL;
 	int				clientNum, preTeam = TEAM_FREE;
@@ -974,7 +901,7 @@ static void G_AddBot( const char *name, float skill, const char *team, int delay
 		SV_GetUserinfo( clientNum, userinfo, sizeof( userinfo ) );
 
 		if ( bot->client->sess.sessionTeam == TEAM_SPECTATOR )
-			bot->client->sess.sessionTeam = preTeam;
+			bot->client->sess.sessionTeam = (team_t) preTeam;
 
 		if ( bot->client->sess.sessionTeam == TEAM_RED )
 			team = "Red";
@@ -1029,11 +956,6 @@ static void G_AddBot( const char *name, float skill, const char *team, int delay
 	}
 }
 
-/*
-===============
-Svcmd_AddBot_f
-===============
-*/
 void Svcmd_AddBot_f( void ) {
 	float			skill;
 	int				delay;
@@ -1088,11 +1010,6 @@ void Svcmd_AddBot_f( void ) {
 	}
 }
 
-/*
-===============
-Svcmd_BotList_f
-===============
-*/
 void Svcmd_BotList_f( void ) {
 	int i;
 	char name[MAX_NETNAME];
@@ -1177,11 +1094,6 @@ static void G_SpawnBots( char *botList, int baseDelay ) {
 }
 #endif
 
-/*
-===============
-G_LoadBotsFromFile
-===============
-*/
 static void G_LoadBotsFromFile( char *filename ) {
 	int				len;
 	fileHandle_t	f;
@@ -1205,11 +1117,6 @@ static void G_LoadBotsFromFile( char *filename ) {
 	level.bots.num += G_ParseInfos( buf, MAX_BOTS - level.bots.num, &level.bots.infos[level.bots.num] );
 }
 
-/*
-===============
-G_LoadBots
-===============
-*/
 static void G_LoadBots( void ) {
 	int			numdirs;
 	char		filename[128];
@@ -1244,11 +1151,6 @@ static void G_LoadBots( void ) {
 //	Com_Printf( "%i bots parsed\n", level.bots.num );
 }
 
-/*
-===============
-G_GetBotInfoByNumber
-===============
-*/
 char *G_GetBotInfoByNumber( int num ) {
 	if( num < 0 || num >= level.bots.num ) {
 		Com_Printf( S_COLOR_RED "Invalid bot number: %i\n", num );
@@ -1257,11 +1159,6 @@ char *G_GetBotInfoByNumber( int num ) {
 	return level.bots.infos[num];
 }
 
-/*
-===============
-G_GetBotInfoByName
-===============
-*/
 char *G_GetBotInfoByName( const char *name ) {
 	int		n;
 	char	*value;
@@ -1276,20 +1173,11 @@ char *G_GetBotInfoByName( const char *name ) {
 	return NULL;
 }
 
-//rww - pd
-void LoadPath_ThisLevel(void);
-//end rww
-
-/*
-===============
-G_InitBots
-===============
-*/
 void G_InitBots( void ) {
 	G_LoadBots();
 	G_LoadArenas();
 
-	Cvar_Register( &bot_minplayers, "bot_minplayers", "0", CVAR_SERVERINFO );
+	Cvar_Register( bot_minplayers, "bot_minplayers", "0", CVAR_SERVERINFO );
 
 	//rww - new bot route stuff
 	LoadPath_ThisLevel();

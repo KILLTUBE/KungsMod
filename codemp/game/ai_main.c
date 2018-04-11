@@ -34,24 +34,21 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
  *
  *****************************************************************************/
 
-
-#include "g_local.h"
-#include "qcommon/q_shared.h"
-#include "botlib/botlib.h"		//bot lib interface
-#include "botlib/be_aas.h"
-#include "botlib/be_ea.h"
-#include "botlib/be_ai_char.h"
-#include "botlib/be_ai_chat.h"
-#include "botlib/be_ai_gen.h"
-#include "botlib/be_ai_goal.h"
-#include "botlib/be_ai_move.h"
-#include "botlib/be_ai_weap.h"
-//
 #include "ai_main.h"
-#include "w_saber.h"
-//
-#include "chars.h"
-#include "inv.h"
+
+EXTERNC wpobject_t *gWPArray[MAX_WPARRAY_SIZE];
+EXTERNC int gWPNum;
+EXTERNC float gDeactivated;
+EXTERNC float gBotEdit;
+
+CCALL int BotDoChat(bot_state_t *bs, char *section, int always);
+CCALL int Com_Milliseconds (void);
+CCALL void *B_TempAlloc(int size);
+CCALL void B_TempFree(int size);
+CCALL void *B_Alloc(int size);
+CCALL void B_Free(void *ptr);
+CCALL void BotUtilizePersonality(bot_state_t *bs);
+CCALL void BotWaypointRender(void);
 
 //typedef enum 
 //{
@@ -68,11 +65,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // fucking C/C++ mix, cant include it
 //#include "server/server.h"
 
-/*
-#define BOT_CTF_DEBUG	1
-*/
 
-#define BOT_THINK_TIME	0
 
 //bot states
 bot_state_t	*botstates[MAX_CLIENTS];
@@ -85,8 +78,10 @@ float regularupdate_time;
 //
 
 //for siege:
-extern int rebel_attackers;
-extern int imperial_attackers;
+EXTERNC int rebel_attackers;
+EXTERNC int imperial_attackers;
+EXTERNC int gLevelFlags;
+
 
 boteventtracker_t gBotEventTracker[MAX_CLIENTS];
 
@@ -775,7 +770,7 @@ int BotAI(int client, float thinktime) {
 #ifdef _DEBUG
 	end = Com_Milliseconds();
 
-	Cvar_Update(&bot_debugmessages);
+	Cvar_Update(bot_debugmessages);
 
 	if (bot_debugmessages->integer)
 	{
@@ -3668,7 +3663,7 @@ void GetIdealDestination(bot_state_t *bs)
 	gentity_t *badthing;
 
 #ifdef _DEBUG
-	Cvar_Update(&bot_nogoals);
+	Cvar_Update(bot_nogoals);
 
 	if (bot_nogoals->integer)
 	{
@@ -6341,7 +6336,7 @@ void StandardBotAI(bot_state_t *bs, float thinktime)
 	if (useTheForce && forceHostile)
 	{
 		if (bs->currentEnemy && bs->currentEnemy->client &&
-			!ForcePowerUsableOn(&g_entities[bs->client], bs->currentEnemy, level.clients[bs->client].ps.fd.forcePowerSelected))
+			!ForcePowerUsableOn(&g_entities[bs->client], bs->currentEnemy, (forcePowers_t) level.clients[bs->client].ps.fd.forcePowerSelected))
 		{
 			useTheForce = 0;
 			forceHostile = 0;
@@ -7522,13 +7517,13 @@ int BotAIStartFrame(int time) {
 
 	if (gUpdateVars < level.time)
 	{
-		Cvar_Update(&bot_pvstype);
-		Cvar_Update(&bot_camp);
-		Cvar_Update(&bot_attachments);
-		Cvar_Update(&bot_forgimmick);
-		Cvar_Update(&bot_honorableduelacceptance);
+		Cvar_Update(bot_pvstype);
+		Cvar_Update(bot_camp);
+		Cvar_Update(bot_attachments);
+		Cvar_Update(bot_forgimmick);
+		Cvar_Update(bot_honorableduelacceptance);
 #ifndef FINAL_BUILD
-		Cvar_Update(&bot_getinthecarrr);
+		Cvar_Update(bot_getinthecarrr);
 #endif
 		gUpdateVars = level.time + 1000;
 	}
@@ -7538,7 +7533,7 @@ int BotAIStartFrame(int time) {
 	//rww - addl bot frame functions
 	if (gBotEdit)
 	{
-		Cvar_Update(&bot_wp_info);
+		Cvar_Update(bot_wp_info);
 		BotWaypointRender();
 	}
 
@@ -7599,7 +7594,7 @@ BotAISetup
 int BotAISetup( int restart ) {
 
 
-	Cvar_Update(&bot_forcepowers);
+	Cvar_Update(bot_forcepowers);
 	//end rww
 
 	//if the game is restarted for a tournament

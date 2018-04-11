@@ -829,12 +829,6 @@
     <ClCompile Include="..\..\codemp\game\ai_wpnav.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\AnimalNPC.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_bot.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_cvar.c">
       <Filter>game</Filter>
     </ClCompile>
@@ -852,9 +846,6 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\w_saber.c">
       <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\FighterNPC.c">
-      <Filter>gamecgamemix</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\SpeederNPC.c">
       <Filter>gamecgamemix</Filter>
@@ -953,9 +944,6 @@
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\bg_vehicleLoad.c">
-      <Filter>bg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_slidemove.c">
       <Filter>bg</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\bg_weapons.c">
@@ -1238,6 +1226,18 @@
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_active.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_bot.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\FighterNPC.cpp">
+      <Filter>gamecgamemix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_slidemove.cpp">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\AnimalNPC.cpp">
       <Filter>game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2257,6 +2257,21 @@
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\game\g_active.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_bot.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\FighterNPC.h">
+      <Filter>gamecgamemix</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\bg_slidemove.h">
+      <Filter>bg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\AnimalNPC.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\ai_main_2.h">
       <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>

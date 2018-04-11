@@ -34,6 +34,8 @@ void *BAllocList[MAX_BALLOC];
 
 char gBotChatBuffer[MAX_CLIENTS][MAX_CHAT_BUFFER_SIZE];
 
+EXTERNC wpobject_t *gWPArray[MAX_WPARRAY_SIZE];
+
 void *B_TempAlloc(int size)
 {
 	return BG_TempAlloc(size);

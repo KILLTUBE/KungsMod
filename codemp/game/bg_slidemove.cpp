@@ -24,13 +24,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // bg_slidemove.c -- part of bg_pmove functionality
 // game and cgame, NOT ui
 
-#include "qcommon/q_shared.h"
-#include "bg_public.h"
-#include "bg_local.h"
-
-#include "g_local.h"
-#include "cgame/cg_local.h"
-#include "ui/ui_local.h"
+#include "bg_slidemove.h"
 
 /*
 
@@ -40,20 +34,14 @@ output: origin, velocity, impacts, stairup boolean
 
 */
 
-
 //do vehicle impact stuff
 // slight rearrangement by BTO (VV) so that we only have one namespace include
-extern void G_FlyVehicleSurfaceDestruction(gentity_t *veh, trace_t *trace, int magnitude, qboolean force ); //g_vehicle.c
-extern qboolean G_CanBeEnemy(gentity_t *self, gentity_t *enemy); //w_saber.c
-extern qboolean BG_UnrestrainedPitchRoll( playerState_t *ps, Vehicle_t *pVeh );
-
-extern bgEntity_t *pm_entSelf;
-extern bgEntity_t *pm_entVeh;
-
-//vehicle impact stuff continued...
-extern qboolean FighterIsLanded( Vehicle_t *pVeh, playerState_t *parentPS );
-
-extern void PM_SetPMViewAngle(playerState_t *ps, vec3_t angle, usercmd_t *ucmd);
+CCALL void G_FlyVehicleSurfaceDestruction(gentity_t *veh, trace_t *trace, int magnitude, qboolean force ); //g_vehicle.c
+CCALL qboolean G_CanBeEnemy(gentity_t *self, gentity_t *enemy); //w_saber.c
+CCALL qboolean BG_UnrestrainedPitchRoll( playerState_t *ps, Vehicle_t *pVeh );
+CCALL qboolean FighterIsLanded( Vehicle_t *pVeh, playerState_t *parentPS ); //vehicle impact stuff continued...
+CCALL void PM_SetPMViewAngle(playerState_t *ps, vec3_t angle, usercmd_t *ucmd);
+CCALL void Client_CheckImpactBBrush( gentity_t *self, gentity_t *other );
 
 #define MAX_IMPACT_TURN_ANGLE 45.0f
 void PM_VehicleImpact(bgEntity_t *pEnt, trace_t *trace)
@@ -432,7 +420,8 @@ void PM_VehicleImpact(bgEntity_t *pEnt, trace_t *trace)
 				}
 			}
 
-#ifdef _GAME
+//#ifdef _GAME
+if (isGame()) {
 			if (!hitEnt)
 			{
 				return;
@@ -545,9 +534,10 @@ void PM_VehicleImpact(bgEntity_t *pEnt, trace_t *trace)
 				}
 				G_Damage( hitEnt, attackEnt, attackEnt, NULL, pm->ps->origin, finalD, 0, MOD_MELEE );//FIXME: MOD_IMPACT
 			}
-#else	//this is gonna result in "double effects" for the client doing the prediction.
+} else {
+//#else	//this is gonna result in "double effects" for the client doing the prediction.
 		//it doesn't look bad though. could just use predicted events, but I'm too lazy.
-			hitEnt = PM_BGEntForNum(trace->entityNum);
+			hitEnt = (gentity_t *) PM_BGEntForNum(trace->entityNum);
 
 			if (!hitEnt || hitEnt->s.owner != pEnt->s.number)
 			{ //don't hit your own missiles!
@@ -557,7 +547,7 @@ void PM_VehicleImpact(bgEntity_t *pEnt, trace_t *trace)
 
 				pSelfVeh->m_ulFlags |= VEH_CRASHING;
 			}
-#endif
+}
 		}
 	}
 }
@@ -591,8 +581,7 @@ qboolean PM_ClientImpact( trace_t *trace, qboolean damageSelf )
 
 ===============
 */
-#ifdef _GAME
-extern void Client_CheckImpactBBrush( gentity_t *self, gentity_t *other );
+
 qboolean PM_ClientImpact( trace_t *trace )
 {
 	//don't try to predict this
@@ -627,7 +616,6 @@ qboolean PM_ClientImpact( trace_t *trace )
 
 	return qfalse;
 }
-#endif
 
 /*
 ==================
@@ -636,7 +624,6 @@ PM_SlideMove
 Returns qtrue if the velocity was clipped in some way
 ==================
 */
-#define	MAX_CLIP_PLANES	5
 qboolean	PM_SlideMove( qboolean gravity ) {
 	int			bumpcount, numbumps;
 	vec3_t		dir;
@@ -858,12 +845,6 @@ qboolean	PM_SlideMove( qboolean gravity ) {
 	return ( bumpcount != 0 );
 }
 
-/*
-==================
-PM_StepSlideMove
-
-==================
-*/
 void PM_StepSlideMove( qboolean gravity ) {
 	vec3_t		start_o, start_v;
 	vec3_t		down_o, down_v;

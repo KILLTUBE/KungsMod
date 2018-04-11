@@ -20,29 +20,22 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "bg_public.h"
-#include "bg_vehicles.h"
+#include "FighterNPC.h"
 
-#include "g_local.h"
-#include "cgame/cg_local.h"
-
-// just needing it right now because the isCGame() clause could potentially use it... but cgame isnt merged atm, still a .dll
-//cgameImport_t *trap = NULL;
-
-extern float DotToSpot( vec3_t spot, vec3_t from, vec3_t fromAngles );
-
+CCALL float DotToSpot( vec3_t spot, vec3_t from, vec3_t fromAngles );
+CCALL void G_AllocateVehicleObject(Vehicle_t **pVeh);
+CCALL void AttachRidersGeneric( Vehicle_t *pVeh );
 
 // only used by GAME
-	extern vec3_t playerMins;
-	extern vec3_t playerMaxs;
-	extern void ChangeWeapon( gentity_t *ent, int newWeapon );
-	extern int PM_AnimLength( int index, animNumber_t anim );
-	extern void G_VehicleTrace( trace_t *results, const vec3_t start, const vec3_t tMins, const vec3_t tMaxs, const vec3_t end, int passEntityNum, int contentmask );
+EXTERNC vec3_t playerMins;
+EXTERNC vec3_t playerMaxs;
+EXTERNC void ChangeWeapon( gentity_t *ent, int newWeapon );
+EXTERNC int PM_AnimLength( int index, animNumber_t anim );
+EXTERNC void G_VehicleTrace( trace_t *results, const vec3_t start, const vec3_t tMins, const vec3_t tMaxs, const vec3_t end, int passEntityNum, int contentmask );
 
-
-extern qboolean BG_UnrestrainedPitchRoll( playerState_t *ps, Vehicle_t *pVeh );
-extern void BG_SetAnim(playerState_t *ps, animation_t *animations, int setAnimParts,int anim,int setAnimFlags);
-extern int BG_GetTime(void);
+EXTERNC qboolean BG_UnrestrainedPitchRoll( playerState_t *ps, Vehicle_t *pVeh );
+EXTERNC void BG_SetAnim(playerState_t *ps, animation_t *animations, int setAnimParts,int anim,int setAnimFlags);
+EXTERNC int BG_GetTime(void);
 
 //this stuff has got to be predicted, so..
 qboolean BG_FighterUpdate(Vehicle_t *pVeh, const usercmd_t *pUcmd, vec3_t trMins, vec3_t trMaxs, float gravity, void (*traceFunc)( trace_t *results, const vec3_t start, const vec3_t lmins, const vec3_t lmaxs, const vec3_t end, int passEntityNum, int contentMask ))
@@ -286,7 +279,6 @@ qboolean FighterSuspended( Vehicle_t *pVeh, playerState_t *parentPS )
 //as a gentity, but the MP-compatible access restrictions are based
 //on the bgEntity structure in the MP codebase) -rww
 // ProcessMoveCommands the Vehicle.
-#define FIGHTER_MIN_TAKEOFF_FRACTION 0.7f
 static void ProcessMoveCommands( Vehicle_t *pVeh )
 {
 	/************************************************************************************/
@@ -1765,9 +1757,6 @@ static void AnimateRiders( Vehicle_t *pVeh )
 
 //#endif //game-only
 
-void AttachRidersGeneric( Vehicle_t *pVeh );
-
-
 void G_SetFighterVehicleFunctions( vehicleInfo_t *pVehInfo )
 {
 	if (isGame()) { //ONLY in SP or on server, not cgame
@@ -1801,7 +1790,6 @@ void G_SetFighterVehicleFunctions( vehicleInfo_t *pVehInfo )
 }
 
 // Following is only in game, not in namespace
-extern void G_AllocateVehicleObject(Vehicle_t **pVeh);
 
 // Create/Allocate a new Animal Vehicle (initializing it as well).
 void G_CreateFighterNPC( Vehicle_t **pVeh, const char *strType )

@@ -20,20 +20,18 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
+#include "AnimalNPC.h"
 
-#include "g_local.h"
-#include "bg_public.h"
-#include "bg_vehicles.h"
-#include "../game/bg_misc.h"
-
-CCALL float DotToSpot( vec3_t spot, vec3_t from, vec3_t fromAngles );
 EXTERNC vec3_t playerMins;
 EXTERNC vec3_t playerMaxs;
 
+CCALL float DotToSpot( vec3_t spot, vec3_t from, vec3_t fromAngles );
 CCALL int PM_AnimLength( int index, animNumber_t anim );
 CCALL void Vehicle_SetAnim(gentity_t *ent,int setAnimParts,int anim,int setAnimFlags, int iBlend);
 CCALL void G_Knockdown( gentity_t *self, gentity_t *attacker, const vec3_t pushDir, float strength, qboolean breakSaberLock );
 CCALL void G_VehicleTrace( trace_t *results, const vec3_t start, const vec3_t tMins, const vec3_t tMaxs, const vec3_t end, int passEntityNum, int contentmask );
+CCALL void G_AllocateVehicleObject(Vehicle_t **pVeh);
+CCALL void AttachRidersGeneric( Vehicle_t *pVeh );
 
 // Update death sequence.
 static void DeathUpdate( Vehicle_t *pVeh )
@@ -650,8 +648,6 @@ static void AnimateRiders( Vehicle_t *pVeh )
 	Vehicle_SetAnim( pilot, SETANIM_BOTH, Anim, iFlags, iBlend );
 }
 
-void AttachRidersGeneric( Vehicle_t *pVeh );
-
 //on the client this function will only set up the process command funcs
 void G_SetAnimalVehicleFunctions( vehicleInfo_t *pVehInfo )
 {
@@ -684,10 +680,6 @@ void G_SetAnimalVehicleFunctions( vehicleInfo_t *pVehInfo )
 //	pVehInfo->UnGhost					=		UnGhost;
 //	pVehInfo->Inhabited					=		Inhabited;
 }
-
-
-extern void G_AllocateVehicleObject(Vehicle_t **pVeh);
-
 
 // Create/Allocate a new Animal Vehicle (initializing it as well).
 //this is a BG function too in MP so don't un-bg-compatibilify it -rww
