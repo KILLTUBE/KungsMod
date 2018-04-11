@@ -21,25 +21,18 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "g_local.h"
-#include "w_saber.h"
-#include "qcommon/q_shared.h"
 
-#define	MISSILE_PRESTEP_TIME	50
+#include "g_missile.h"
 
-extern void laserTrapStick( gentity_t *ent, vec3_t endpos, vec3_t normal );
-extern void Jedi_Decloak( gentity_t *self );
+CCALL void laserTrapStick( gentity_t *ent, vec3_t endpos, vec3_t normal );
+CCALL void Jedi_Decloak( gentity_t *self );
+CCALL qboolean FighterIsLanded( Vehicle_t *pVeh, playerState_t *parentPS );
+CCALL float RandFloat(float min, float max);
+CCALL void WP_SaberBlockNonRandom( gentity_t *self, vec3_t hitloc, qboolean missileBlock );
+CCALL void WP_flechette_alt_blow( gentity_t *ent );
 
-extern qboolean FighterIsLanded( Vehicle_t *pVeh, playerState_t *parentPS );
+// Reflect the missile roughly back at it's owner
 
-/*
-================
-G_ReflectMissile
-
-  Reflect the missile roughly back at it's owner
-================
-*/
-float RandFloat(float min, float max);
 void G_ReflectMissile( gentity_t *ent, gentity_t *missile, vec3_t forward )
 {
 	vec3_t	bounce_dir;
@@ -145,12 +138,6 @@ void G_DeflectMissile( gentity_t *ent, gentity_t *missile, vec3_t forward )
 	}
 }
 
-/*
-================
-G_BounceMissile
-
-================
-*/
 void G_BounceMissile( gentity_t *ent, trace_t *trace ) {
 	vec3_t	velocity;
 	float	dot;
@@ -275,11 +262,6 @@ void G_RunStuckMissile( gentity_t *ent )
 	G_RunThink( ent );
 }
 
-/*
-================
-G_BounceProjectile
-================
-*/
 void G_BounceProjectile( vec3_t start, vec3_t impact, vec3_t dir, vec3_t endout ) {
 	vec3_t v, newv;
 	float dot;
@@ -292,11 +274,7 @@ void G_BounceProjectile( vec3_t start, vec3_t impact, vec3_t dir, vec3_t endout 
 	VectorMA(impact, 8192, newv, endout);
 }
 
-
-//-----------------------------------------------------------------------------
-gentity_t *CreateMissile( vec3_t org, vec3_t dir, float vel, int life,
-							gentity_t *owner, qboolean altFire)
-//-----------------------------------------------------------------------------
+gentity_t *CreateMissile( vec3_t org, vec3_t dir, float vel, int life, gentity_t *owner, qboolean altFire)
 {
 	gentity_t	*missile;
 
@@ -352,13 +330,7 @@ void G_MissileBounceEffect( gentity_t *ent, vec3_t org, vec3_t dir )
 	}
 }
 
-/*
-================
-G_MissileImpact
-================
-*/
-void WP_SaberBlockNonRandom( gentity_t *self, vec3_t hitloc, qboolean missileBlock );
-void WP_flechette_alt_blow( gentity_t *ent );
+
 void G_MissileImpact( gentity_t *ent, trace_t *trace ) {
 	gentity_t		*other;
 	qboolean		hitClient = qfalse;
@@ -807,11 +779,6 @@ killProj:
 	SV_LinkEntity( (sharedEntity_t *)ent );
 }
 
-/*
-================
-G_RunMissile
-================
-*/
 void G_RunMissile( gentity_t *ent ) {
 	vec3_t		origin, groundSpot;
 	trace_t		tr;
@@ -1024,10 +991,3 @@ passthrough:
 	// check think function after bouncing
 	G_RunThink( ent );
 }
-
-
-//=============================================================================
-
-
-
-

@@ -859,21 +859,6 @@
     <ClCompile Include="..\..\codemp\game\g_log.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_mem.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_misc.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_missile.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_mover.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_nav.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_navnew.c">
       <Filter>game</Filter>
     </ClCompile>
@@ -1239,6 +1224,21 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_consolecmds.cpp">
       <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_mem.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_misc.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_missile.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_mover.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_nav.cpp">
+      <Filter>game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1959,9 +1959,6 @@
     <ClInclude Include="..\..\codemp\game\g_local.h">
       <Filter>game</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\codemp\game\g_nav.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\codemp\game\g_team.h">
       <Filter>game</Filter>
     </ClInclude>
@@ -2195,6 +2192,18 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\cgame\cg_wallmarks.h">
       <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_mem.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_misc.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_missile.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_nav.h">
+      <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

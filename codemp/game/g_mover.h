@@ -23,7 +23,8 @@ typedef struct pushed_s {
 	float	deltayaw;
 } pushed_t;
 
-EXTERNC pushed_t pushed[MAX_GENTITIES], *pushed_p;
+EXTERNC pushed_t pushed[MAX_GENTITIES];
+EXTERNC pushed_t *pushed_p;
 
 CCALL void SP_func_wall(gentity_t *ent);
 CCALL void use_wall(gentity_t *ent,gentity_t *other,gentity_t *activator);

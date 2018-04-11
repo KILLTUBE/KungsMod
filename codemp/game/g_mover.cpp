@@ -25,6 +25,10 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "g_local.h"
 #include "g_mover.h"
 
+CCALL void MatchTeam( gentity_t *teamLeader, int moverState, int time );
+CCALL void func_usable_use (gentity_t *self, gentity_t *other, gentity_t *activator);
+CCALL gentity_t *G_TestEntityPosition( gentity_t *ent );
+
 /*
 ===============================================================================
 
@@ -33,9 +37,9 @@ PUSHMOVE
 ===============================================================================
 */
 
-void MatchTeam( gentity_t *teamLeader, int moverState, int time );
 
-pushed_t	pushed[MAX_GENTITIES], *pushed_p;
+pushed_t pushed[MAX_GENTITIES];
+pushed_t *pushed_p;
 
 int	BMS_START = 0;
 int	BMS_MID = 1;
@@ -2994,9 +2998,6 @@ void SP_func_glass( gentity_t *ent ) {
 	ent->pain = GlassPain;
 }
 
-void func_usable_use (gentity_t *self, gentity_t *other, gentity_t *activator);
-
-extern gentity_t	*G_TestEntityPosition( gentity_t *ent );
 void func_wait_return_solid( gentity_t *self )
 {
 	//once a frame, see if it's clear.

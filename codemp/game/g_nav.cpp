@@ -20,15 +20,13 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
 #include "g_nav.h"
-#include "server/sv_nav.h"
 
-extern qboolean G_EntIsUnlockedDoor( int entityNum );
-extern qboolean G_EntIsDoor( int entityNum );
-extern qboolean G_EntIsBreakable( int entityNum );
-extern qboolean G_EntIsRemovableUsable( int entNum );
-extern qboolean G_FindClosestPointOnLineSegment( const vec3_t start, const vec3_t end, const vec3_t from, vec3_t result );
+CCALL qboolean G_EntIsUnlockedDoor( int entityNum );
+CCALL qboolean G_EntIsDoor( int entityNum );
+CCALL qboolean G_EntIsBreakable( int entityNum );
+CCALL qboolean G_EntIsRemovableUsable( int entNum );
+CCALL qboolean G_FindClosestPointOnLineSegment( const vec3_t start, const vec3_t end, const vec3_t from, vec3_t result );
 //For debug graphics
 //rwwFIXMEFIXME: Write these at some point for the sake of being able to debug visually
 void G_Line( vec3_t start, vec3_t end, vec3_t color, float alpha )

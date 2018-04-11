@@ -22,15 +22,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 // g_misc.c
-
-#include "g_local.h"
-#include "ghoul2/G2.h"
-
-#include "ai_main.h" //for the g2animents
-
-#define HOLOCRON_RESPAWN_TIME 30000
-#define MAX_AMMO_GIVE 2
-#define STATION_RECHARGE_TIME 100
+#include "g_misc.h"
 
 void HolocronThink(gentity_t *ent);
 
@@ -1200,7 +1192,7 @@ void InitShooter( gentity_t *ent, int weapon ) {
 	ent->use = Use_Shooter;
 	ent->s.weapon = weapon;
 
-	RegisterItem( BG_FindItemForWeapon( weapon ) );
+	RegisterItem( BG_FindItemForWeapon( (weapon_t) weapon ) );
 
 	G_SetMovedir( ent->s.angles, ent->movedir );
 
@@ -2305,8 +2297,7 @@ Runs the specified effect, can also be targeted at an info_notnull to orient the
 	"splashDamage" - only works when damage is checked ( default 5 )
 	"soundset"	- bmodel set to use, plays start sound when toggled on, loop sound while on ( doesn't play on a oneshot), and a stop sound when turned off
 */
-#define FX_RUNNER_RESERVED 0x800000
-#define FX_ENT_RADIUS 32
+
 extern int	BMS_START;
 extern int	BMS_MID;
 extern int	BMS_END;
@@ -3017,25 +3008,6 @@ void SP_misc_faller(gentity_t *ent)
 	}
 }
 
-//rww - ref tag stuff ported from SP (and C-ified)
-#define	TAG_GENERIC_NAME	"__WORLD__"	//If a designer chooses this name, cut a finger off as an example to the others
-
-//MAX_TAG_OWNERS is 16 for now in order to not use too much VM memory.
-//Each tag owner has preallocated space for tags up to MAX_TAGS.
-//As is this means 16*256 sizeof(reference_tag_t)'s in addition to name+inuse*16.
-#define MAX_TAGS 256
-#define MAX_TAG_OWNERS 16
-
-//Maybe I should use my SV_TrueMalloc/SV_TrueFree stuff with this.
-//But I am not yet confident that it can be used without exploding at some point.
-
-typedef struct tagOwner_s
-{
-	char			name[MAX_REFNAME];
-	reference_tag_t	tags[MAX_TAGS];
-	qboolean		inuse;
-} tagOwner_t;
-
 tagOwner_t refTagOwnerMap[MAX_TAG_OWNERS];
 
 tagOwner_t *FirstFreeTagOwner(void)
@@ -3462,43 +3434,7 @@ void SP_reference_tag ( gentity_t *ent )
 	}
 }
 
-/*QUAKED misc_weapon_shooter (1 0 0) (-8 -8 -8) (8 8 8) ALTFIRE TOGGLE
-ALTFIRE - fire the alt-fire of the chosen weapon
-TOGGLE - keep firing until used again (fires at intervals of "wait")
 
-"wait" - debounce time between refires (defaults to 500)
-
-"target" - what to aim at (will update aim every frame if it's a moving target)
-
-"weapon" - specify the weapon to use (default is WP_BLASTER)
-	WP_BRYAR_PISTOL
-	WP_BLASTER
-	WP_DISRUPTOR
-	WP_BOWCASTER
-	WP_REPEATER
-	WP_DEMP2
-	WP_FLECHETTE
-	WP_ROCKET_LAUNCHER
-	WP_THERMAL
-	WP_TRIP_MINE
-	WP_DET_PACK
-	WP_STUN_BATON
-	WP_EMPLACED_GUN
-	WP_BOT_LASER
-	WP_TURRET
-	WP_ATST_MAIN
-	WP_ATST_SIDE
-	WP_TIE_FIGHTER
-	WP_RAPID_FIRE_CONC
-	WP_BLASTER_PISTOL
-*/
-//kind of hacky, but we have to do this with no dynamic allocation
-#define MAX_SHOOTERS		16
-typedef struct shooterClient_s
-{
-	gclient_t		cl;
-	qboolean		inuse;
-} shooterClient_t;
 static shooterClient_t g_shooterClients[MAX_SHOOTERS];
 static qboolean g_shooterClientInit = qfalse;
 
@@ -3606,7 +3542,7 @@ void SP_misc_weapon_shooter( gentity_t *self )
 		self->s.weapon = self->client->ps.weapon = GetIDForString( WPTable, s );
 	}
 
-	RegisterItem(BG_FindItemForWeapon(self->s.weapon));
+	RegisterItem(BG_FindItemForWeapon((weapon_t) self->s.weapon));
 
 	//set where our muzzle is
 	VectorCopy( self->s.origin, self->client->renderInfo.muzzlePoint );

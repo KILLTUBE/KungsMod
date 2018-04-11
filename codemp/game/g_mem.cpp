@@ -21,11 +21,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-// g_mem.c
 // Simple linear memory allocator
-//
 
-#include "g_local.h"
+#include "g_mem.h"
 
 /*
   The purpose of G_Alloc is to efficiently allocate memory for objects
@@ -42,7 +40,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
   http://www.altdevblogaday.com/2011/02/12/alternatives-to-malloc-and-new/
 */
 
-#define POOLSIZE	(4 * 1024 * 1024) // (256*1024)
 
 static char		memoryPool[POOLSIZE];
 static int		allocPoint;
