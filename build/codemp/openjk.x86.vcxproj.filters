@@ -853,16 +853,10 @@
     <ClCompile Include="..\..\codemp\game\g_ICARUScb.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_items.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_log.c">
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_svcmds.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_timer.c">
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_vehicleTurret.c">
@@ -977,9 +971,6 @@
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\bg_vehicleLoad.c">
-      <Filter>bg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\bg_saga.c">
       <Filter>bg</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\bg_slidemove.c">
@@ -1238,6 +1229,15 @@
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_team.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\bg_saga.cpp">
+      <Filter>bg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_timer.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_items.cpp">
       <Filter>game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2236,6 +2236,12 @@
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\game\g_target.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_timer.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_items.h">
       <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>

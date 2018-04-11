@@ -22,6 +22,14 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include "qcommon/q_shared.h"
+#include "bg_public.h"
+#include "bg_saga.h"
+#include "bg_weapons.h"
+#include "g_local.h"
+#include "cgame/cg_local.h"
+#include "ui/ui_local.h"
+
 #define		MAX_SIEGE_INFO_SIZE					16384
 
 #define		SIEGETEAM_TEAM1						1 //e.g. TEAM_RED
@@ -39,6 +47,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #define		MAX_SIEGE_TEAMS						16 //up to 16 diffent teams
 
 #define		MAX_EXDATA_ENTS_TO_SEND				MAX_CLIENTS //max number of extended data for ents to send
+
+#define SIEGECHAR_TAB 9 //perhaps a bit hacky, but I don't think there's any define existing for "tab"
 
 // The basic siege player classes
 typedef enum
@@ -108,6 +118,8 @@ EXTERNC siegeClass_t bgSiegeClasses[MAX_SIEGE_CLASSES];
 EXTERNC int bgNumSiegeClasses;
 EXTERNC siegeTeam_t bgSiegeTeams[MAX_SIEGE_TEAMS];
 EXTERNC int bgNumSiegeTeams;
+EXTERNC char	siege_info[MAX_SIEGE_INFO_SIZE];
+EXTERNC int	siege_valid;
 
 CCALL int BG_SiegeGetValueGroup(char *buf, char *group, char *outbuf);
 CCALL int BG_SiegeGetPairedValue(char *buf, char *key, char *outbuf);
@@ -127,5 +139,4 @@ CCALL char *BG_GetUIPortraitFile( const int team, const short classIndex, const 
 CCALL siegeClass_t *BG_GetClassOnBaseClass( const int team, const short classIndex, const short cntIndex );
 CCALL int BG_SiegeCountBaseClass( const int team, const short classIndex );
 
-EXTERNC char	siege_info[MAX_SIEGE_INFO_SIZE];
-EXTERNC int	siege_valid;
+

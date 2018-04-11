@@ -21,48 +21,17 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "g_local.h"
-#include "ghoul2/G2.h"
-#include "qcommon/q_shared.h"
+#include "g_items.h"
 
-/*
+CCALL int BG_EmplacedView(vec3_t baseAngles, vec3_t angles, float *newYaw, float constraint); //bg_misc.c
+CCALL void BG_CycleInven(playerState_t *ps, int direction); //bg_misc.c
+CCALL void Jedi_Cloak( gentity_t *self );
+CCALL void Jedi_Decloak( gentity_t *self );
+CCALL void turret_die(gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int mod);
+CCALL gentity_t *NPC_SpawnType( gentity_t *ent, char *npc_type, char *targetname, qboolean isVehicle );
 
-  Items are any object that a player can touch to gain some effect.
-
-  Pickup will return the number of seconds until they should respawn.
-
-  all items should pop when dropped in lava or slime
-
-  Respawnable items don't actually go away when picked up, they are
-  just made invisible and untouchable.  This allows them to ride
-  movers and respawn appropriately.
-*/
-
-
-#define	RESPAWN_ARMOR		20
-#define	RESPAWN_TEAM_WEAPON	30
-#define	RESPAWN_HEALTH		30
-#define	RESPAWN_AMMO		40
-#define	RESPAWN_HOLDABLE	60
-#define	RESPAWN_MEGAHEALTH	120
-#define	RESPAWN_POWERUP		120
-
-// Item Spawn flags
-#define ITMSF_SUSPEND		1
-#define ITMSF_NOPLAYER		2
-#define ITMSF_ALLOWNPC		4
-#define ITMSF_NOTSOLID		8
-#define ITMSF_VERTICAL		16
-#define ITMSF_INVISIBLE		32
-
-extern gentity_t *droppedRedFlag;
-extern gentity_t *droppedBlueFlag;
-
-
-//======================================================================
-#define MAX_MEDPACK_HEAL_AMOUNT		25
-#define MAX_MEDPACK_BIG_HEAL_AMOUNT	50
-#define MAX_SENTRY_DISTANCE			256
+EXTERNC gentity_t *droppedRedFlag;
+EXTERNC gentity_t *droppedBlueFlag;
 
 // For more than four players, adjust the respawn times, up to 1/4.
 int adjustRespawnTime(float preRespawnTime, int itemType, int itemTag)
@@ -108,23 +77,11 @@ int adjustRespawnTime(float preRespawnTime, int itemType, int itemTag)
 	return ((int)respawnTime);
 }
 
-
-#define SHIELD_HEALTH				250
-#define SHIELD_HEALTH_DEC			10		// 25 seconds
-#define MAX_SHIELD_HEIGHT			254
-#define MAX_SHIELD_HALFWIDTH		255
-#define SHIELD_HALFTHICKNESS		4
-#define SHIELD_PLACEDIST			64
-
-#define SHIELD_SIEGE_HEALTH			2000
-#define SHIELD_SIEGE_HEALTH_DEC		(SHIELD_SIEGE_HEALTH/25)	// still 25 seconds.
-
 static qhandle_t	shieldLoopSound=0;
 static qhandle_t	shieldAttachSound=0;
 static qhandle_t	shieldActivateSound=0;
 static qhandle_t	shieldDeactivateSound=0;
 static qhandle_t	shieldDamageSound=0;
-
 
 void ShieldRemove(gentity_t *self)
 {
@@ -717,11 +674,6 @@ void pas_adjust_enemy( gentity_t *ent )
 	}
 }
 
-#define TURRET_DEATH_DELAY 2000
-#define TURRET_LIFETIME 60000
-
-void turret_die(gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int mod);
-
 void sentryExpire(gentity_t *self)
 {
 	turret_die(self, self, self, 1000, MOD_UNKNOWN);
@@ -1129,7 +1081,6 @@ void ItemUse_Sentry( gentity_t *ent )
 	SP_PAS( sentry );
 }
 
-extern gentity_t *NPC_SpawnType( gentity_t *ent, char *npc_type, char *targetname, qboolean isVehicle );
 void ItemUse_Seeker(gentity_t *ent)
 {
 	if ( level.gametype == GT_SIEGE && d_siegeSeekerNPC->integer )
@@ -1270,9 +1221,6 @@ void ItemUse_Jetpack( gentity_t *ent )
 	ent->client->jetPackToggleTime = level.time + JETPACK_TOGGLE_TIME;
 }
 
-#define CLOAK_TOGGLE_TIME			1000
-extern void Jedi_Cloak( gentity_t *self );
-extern void Jedi_Decloak( gentity_t *self );
 void ItemUse_UseCloak( gentity_t *ent )
 {
 	assert(ent && ent->client);
@@ -1307,9 +1255,6 @@ void ItemUse_UseCloak( gentity_t *ent )
 
 	ent->client->cloakToggleTime = level.time + CLOAK_TOGGLE_TIME;
 }
-
-#define TOSSED_ITEM_STAY_PERIOD			20000
-#define TOSSED_ITEM_OWNER_NOTOUCH_DUR	1000
 
 void SpecialItemThink(gentity_t *ent)
 {
@@ -1366,9 +1311,6 @@ void G_SpecialSpawnItem(gentity_t *ent, gitem_t *item)
 	//since it uses my server-only physics
 	ent->s.eFlags |= EF_CLIENTSMOOTH;
 }
-
-#define DISP_HEALTH_ITEM		"item_medpak_instant"
-#define DISP_AMMO_ITEM			"ammo_all"
 
 void G_PrecacheDispensers(void)
 {
@@ -1475,11 +1417,7 @@ void EWebPrecache(void)
 	G_EffectIndex("turret/muzzle_flash.efx");
 }
 
-//e-web death
-#define EWEB_DEATH_RADIUS		128
-#define EWEB_DEATH_DMG			90
 
-extern void BG_CycleInven(playerState_t *ps, int direction); //bg_misc.c
 
 void EWebDie(gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int mod)
 {
@@ -1649,8 +1587,6 @@ void EWeb_SetBoneAnim(gentity_t *eweb, int startFrame, int endFrame)
 		(BONE_ANIM_OVERRIDE_FREEZE|BONE_ANIM_BLEND), 1.0f, level.time, -1, 100);
 }
 
-//fire a shot off
-#define EWEB_MISSILE_DAMAGE			20
 void EWebFire(gentity_t *owner, gentity_t *eweb)
 {
 	mdxaBone_t boltMatrix;
@@ -1798,9 +1734,6 @@ void EWebUpdateBoneAngles(gentity_t *owner, gentity_t *eweb)
 	EWeb_SetBoneAngles(eweb, "cannon_Xrot", yAng);
 }
 
-//keep it updated
-extern int BG_EmplacedView(vec3_t baseAngles, vec3_t angles, float *newYaw, float constraint); //bg_misc.c
-
 void EWebThink(gentity_t *self)
 {
 	qboolean killMe = qfalse;
@@ -1881,7 +1814,6 @@ void EWebThink(gentity_t *self)
 	self->nextthink = level.time;
 }
 
-#define EWEB_HEALTH			200
 
 //spawn and set up an e-web ent
 gentity_t *EWeb_Create(gentity_t *spawner)

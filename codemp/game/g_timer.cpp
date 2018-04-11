@@ -23,18 +23,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 //rww - rewrite from C++ SP version.
 //This is here only to make porting from SP easier, it's really sort of nasty (being static
 //now). Basically it's slower and takes more memory.
+#include "g_timer.h"
 
-#include "g_local.h"
 //typedef map		< string, int >	timer_m;
-
-#define MAX_GTIMERS	16384
-
-typedef struct gtimer_s
-{
-	const char *name;
-	int time;
-	struct gtimer_s *next;	// In either free list or current list
-} gtimer_t;
 
 gtimer_t g_timerPool[ MAX_GTIMERS ];
 gtimer_t *g_timers[ MAX_GENTITIES ];

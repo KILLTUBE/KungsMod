@@ -119,7 +119,7 @@ char cl_reconnectArgs[MAX_OSPATH] = {0};
 
 ping_t	cl_pinglist[MAX_PINGREQUESTS];
 
-typedef struct serverStatus_s
+typedef struct clientServerStatus_s
 {
 	char string[BIG_INFO_STRING];
 	netadr_t address;
@@ -127,9 +127,9 @@ typedef struct serverStatus_s
 	qboolean pending;
 	qboolean print;
 	qboolean retrieved;
-} serverStatus_t;
+} clientServerStatus_t;
 
-serverStatus_t cl_serverStatusList[MAX_SERVERSTATUSREQUESTS];
+clientServerStatus_t cl_serverStatusList[MAX_SERVERSTATUSREQUESTS];
 int serverStatusCount;
 
 IHeapAllocator *G2VertSpaceClient = 0;
@@ -2933,7 +2933,7 @@ void CL_ServerInfoPacket( netadr_t from, msg_t *msg ) {
 CL_GetServerStatus
 ===================
 */
-serverStatus_t *CL_GetServerStatus( netadr_t from ) {
+clientServerStatus_t *CL_GetServerStatus( netadr_t from ) {
 	int i, oldest, oldestTime;
 
 	for (i = 0; i < MAX_SERVERSTATUSREQUESTS; i++) {
@@ -2969,7 +2969,7 @@ CL_ServerStatus
 int CL_ServerStatus( const char *serverAddress, char *serverStatusString, int maxLen ) {
 	int i;
 	netadr_t	to;
-	serverStatus_t *serverStatus;
+	clientServerStatus_t *serverStatus;
 
 	// if no server address then reset all server status requests
 	if ( !serverAddress ) {
@@ -3034,7 +3034,7 @@ void CL_ServerStatusResponse( netadr_t from, msg_t *msg ) {
 	char	info[MAX_INFO_STRING];
 	int		i, l, score, ping;
 	int		len;
-	serverStatus_t *serverStatus;
+	clientServerStatus_t *serverStatus;
 
 	serverStatus = NULL;
 	for (i = 0; i < MAX_SERVERSTATUSREQUESTS; i++) {
@@ -3546,7 +3546,7 @@ CL_ServerStatus_f
 void CL_ServerStatus_f(void) {
 	netadr_t	to, *toptr = NULL;
 	char		*server;
-	serverStatus_t *serverStatus;
+	clientServerStatus_t *serverStatus;
 
 	if ( Cmd_Argc() != 2 ) {
 		if ( cls.state != CA_ACTIVE || clc.demoplaying ) {

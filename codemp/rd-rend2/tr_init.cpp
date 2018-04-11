@@ -47,8 +47,6 @@ glRefConfig_t glRefConfig;
 glstate_t	glState;
 window_t	window;
 
-cvar_t	*se_language;
-
 cvar_t	*r_flareSize;
 cvar_t	*r_flareFade;
 cvar_t	*r_flareCoeff;
