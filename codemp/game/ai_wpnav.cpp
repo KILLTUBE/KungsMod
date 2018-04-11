@@ -26,6 +26,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "botlib/botlib.h"
 #include "ai_main.h"
 #include "ai_wpnav.h"
+#include "ai_util.h"
 
 float gWPRenderTime = 0;
 float gDeactivated = 0;
@@ -1495,8 +1496,8 @@ int RepairPaths(qboolean behindTheScenes)
 
 	i = 0;
 
-	Cvar_Update(&bot_wp_distconnect);
-	Cvar_Update(&bot_wp_visconnect);
+	Cvar_Update(bot_wp_distconnect);
+	Cvar_Update(bot_wp_visconnect);
 
 	while (i < gWPNum)
 	{
@@ -1871,7 +1872,7 @@ void CalculateWeightGoals(void)
 	gentity_t *ent;
 	float weight;
 
-	Cvar_Update(&bot_wp_clearweight);
+	Cvar_Update(bot_wp_clearweight);
 
 	if (bot_wp_clearweight->integer)
 	{ //if set then flush out all weight/goal values before calculating them again
@@ -3303,7 +3304,7 @@ void LoadPath_ThisLevel(void)
 		}
 	}
 
-	Cvar_Update(&bot_wp_edit);
+	Cvar_Update(bot_wp_edit);
 
 	if (bot_wp_edit->value)
 	{
@@ -3415,6 +3416,8 @@ gentity_t *GetNextSpawnInIndex(gentity_t *currentSpawn)
 
 	return nextSpawn;
 }
+
+CCALL char	*ConcatArgs( int start );
 
 int AcceptBotCommand(char *cmd, gentity_t *pl)
 {

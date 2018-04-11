@@ -20,20 +20,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-//bg_vehicleLoad.c
-
-#include "qcommon/q_shared.h"
-#include "bg_public.h"
-#include "bg_vehicles.h"
-#include "bg_weapons.h"
-
-#include "g_local.h"
-#include "cgame/cg_local.h"
-#include "cgame/cg_tempwrappers.h"
-#include "ui/ui_local.h"
 #include "bg_vehicleLoad.h"
 
-extern stringID_table_t animTable [MAX_ANIMATIONS+1];
+EXTERNC stringID_table_t animTable [MAX_ANIMATIONS+1];
 
 char	VehWeaponParms[MAX_VEH_WEAPON_DATA_SIZE];
 char	VehicleParms[MAX_VEHICLE_DATA_SIZE];
