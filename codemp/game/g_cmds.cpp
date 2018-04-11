@@ -22,19 +22,25 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "g_local.h"
-#include "bg_saga.h"
+#include "g_cmds.h"
 
-#include "ui/menudef.h"			// for the voice chats
+CCALL int AcceptBotCommand(char *cmd, gentity_t *pl);
+CCALL void WP_SetSaber( int entNum, saberInfo_t *sabers, int saberNum, const char *saberName );
+CCALL void Cmd_NPC_f( gentity_t *ent );
+CCALL void SetTeamQuick(gentity_t *ent, int team, qboolean doBegin);
+CCALL void DismembermentTest(gentity_t *self);
+CCALL void Bot_SetForcedMovement(int bot, int forward, int right, int up);
+CCALL qboolean WP_SaberCanTurnOffSomeBlades( saberInfo_t *saber );
+CCALL void saberKnockDown(gentity_t *saberent, gentity_t *saberOwner, gentity_t *other);
+CCALL const char *G_GetArenaInfoByMap( const char *map );
+CCALL void SiegeClearSwitchData(void); //g_saga.c
+CCALL void G_LeaveVehicle( gentity_t *ent, qboolean ConCheck );
 
-//rww - for getting bot commands...
-int AcceptBotCommand(char *cmd, gentity_t *pl);
-//end rww
+#ifndef FINAL_BUILD
+CCALL void DismembermentByNum(gentity_t *self, int num);
+CCALL void G_SetVehDamageFlags( gentity_t *veh, int shipSurf, int damageLevel );
+#endif
 
-void WP_SetSaber( int entNum, saberInfo_t *sabers, int saberNum, const char *saberName );
-
-void Cmd_NPC_f( gentity_t *ent );
-void SetTeamQuick(gentity_t *ent, int team, qboolean doBegin);
 
 /*
 ==================
@@ -929,7 +935,7 @@ If the client being followed leaves the game, or you just want to drop
 to free floating spectator mode
 =================
 */
-extern void G_LeaveVehicle( gentity_t *ent, qboolean ConCheck );
+
 void StopFollowing( gentity_t *ent ) {
 	int i=0;
 	ent->client->ps.persistant[ PERS_TEAM ] = TEAM_SPECTATOR;
@@ -964,11 +970,6 @@ void StopFollowing( gentity_t *ent ) {
 		ent->client->ps.powerups[i] = 0;
 }
 
-/*
-=================
-Cmd_Team_f
-=================
-*/
 void Cmd_Team_f( gentity_t *ent ) {
 	int			oldTeam;
 	char		s[MAX_TOKEN_CHARS];
@@ -1028,11 +1029,6 @@ void Cmd_Team_f( gentity_t *ent ) {
 		ent->client->switchTeamTime = level.time + 5000;
 }
 
-/*
-=================
-Cmd_DuelTeam_f
-=================
-*/
 void Cmd_DuelTeam_f(gentity_t *ent)
 {
 	int			oldTeam;
@@ -1161,11 +1157,6 @@ int G_TeamForSiegeClass(const char *clName)
 	return 0;
 }
 
-/*
-=================
-Cmd_SiegeClass_f
-=================
-*/
 void Cmd_SiegeClass_f( gentity_t *ent )
 {
 	char className[64];
@@ -1266,11 +1257,6 @@ void Cmd_SiegeClass_f( gentity_t *ent )
 	ent->client->switchClassTime = level.time + 5000;
 }
 
-/*
-=================
-Cmd_ForceChanged_f
-=================
-*/
 void Cmd_ForceChanged_f( gentity_t *ent )
 {
 	char fpChStr[1024];
@@ -1355,11 +1341,6 @@ qboolean G_SetSaber(gentity_t *ent, int saberNum, char *saberName, qboolean sieg
 	return qtrue;
 }
 
-/*
-=================
-Cmd_Follow_f
-=================
-*/
 void Cmd_Follow_f( gentity_t *ent ) {
 	int		i;
 	char	arg[MAX_TOKEN_CHARS];
@@ -1415,11 +1396,6 @@ void Cmd_Follow_f( gentity_t *ent ) {
 	ent->client->sess.spectatorClient = i;
 }
 
-/*
-=================
-Cmd_FollowCycle_f
-=================
-*/
 void Cmd_FollowCycle_f( gentity_t *ent, int dir ) {
 	int		clientnum;
 	int		original;
@@ -1590,20 +1566,20 @@ void G_Say( gentity_t *ent, gentity_t *target, int mode, const char *chatText ) 
 	default:
 	case SAY_ALL:
 		G_LogPrintf( "say: %s: %s\n", ent->client->pers.netname, text );
-		Com_sprintf (name, sizeof(name), "%s%c%c"EC": ", ent->client->pers.netname, Q_COLOR_ESCAPE, COLOR_WHITE );
+		Com_sprintf (name, sizeof(name), "%s%c%c" EC ": ", ent->client->pers.netname, Q_COLOR_ESCAPE, COLOR_WHITE );
 		color = COLOR_GREEN;
 		break;
 	case SAY_TEAM:
 		G_LogPrintf( "sayteam: %s: %s\n", ent->client->pers.netname, text );
 		if (Team_GetLocationMsg(ent, location, sizeof(location)))
 		{
-			Com_sprintf (name, sizeof(name), EC"(%s%c%c"EC")"EC": ",
+			Com_sprintf (name, sizeof(name), EC "(%s%c%c" EC ")" EC ": ",
 				ent->client->pers.netname, Q_COLOR_ESCAPE, COLOR_WHITE );
 			locMsg = location;
 		}
 		else
 		{
-			Com_sprintf (name, sizeof(name), EC"(%s%c%c"EC")"EC": ",
+			Com_sprintf (name, sizeof(name), EC "(%s%c%c" EC ")" EC ": ",
 				ent->client->pers.netname, Q_COLOR_ESCAPE, COLOR_WHITE );
 		}
 		color = COLOR_CYAN;
@@ -1613,12 +1589,12 @@ void G_Say( gentity_t *ent, gentity_t *target, int mode, const char *chatText ) 
 			target->client->sess.sessionTeam == ent->client->sess.sessionTeam &&
 			Team_GetLocationMsg(ent, location, sizeof(location)))
 		{
-			Com_sprintf (name, sizeof(name), EC"[%s%c%c"EC"]"EC": ", ent->client->pers.netname, Q_COLOR_ESCAPE, COLOR_WHITE );
+			Com_sprintf (name, sizeof(name), EC "[%s%c%c" EC "]" EC ": ", ent->client->pers.netname, Q_COLOR_ESCAPE, COLOR_WHITE );
 			locMsg = location;
 		}
 		else
 		{
-			Com_sprintf (name, sizeof(name), EC"[%s%c%c"EC"]"EC": ", ent->client->pers.netname, Q_COLOR_ESCAPE, COLOR_WHITE );
+			Com_sprintf (name, sizeof(name), EC "[%s%c%c" EC "]" EC ": ", ent->client->pers.netname, Q_COLOR_ESCAPE, COLOR_WHITE );
 		}
 		color = COLOR_MAGENTA;
 		break;
@@ -1866,13 +1842,6 @@ static const char *gameNames[] = {
 	"Capture the Ysalamiri"
 };
 
-/*
-==================
-Cmd_CallVote_f
-==================
-*/
-extern void SiegeClearSwitchData(void); //g_saga.c
-
 qboolean G_VoteCapturelimit( gentity_t *ent, int numArgs, const char *arg1, const char *arg2 ) {
 	int n = Com_Clampi( 0, 0x7FFFFFFF, atoi( arg2 ) );
 	Com_sprintf( level.voteString, sizeof( level.voteString ), "%s %i", arg1, n );
@@ -1957,8 +1926,6 @@ qboolean G_VoteKick( gentity_t *ent, int numArgs, const char *arg1, const char *
 	Q_strncpyz( level.voteStringClean, level.voteString, sizeof( level.voteStringClean ) );
 	return qtrue;
 }
-
-const char *G_GetArenaInfoByMap( const char *map );
 
 void Cmd_MapList_f( gentity_t *ent ) {
 	int i, toggle=0;
@@ -2664,8 +2631,6 @@ int G_ItemUsable(playerState_t *ps, int forcedUse)
 	}
 }
 
-void saberKnockDown(gentity_t *saberent, gentity_t *saberOwner, gentity_t *other);
-
 void Cmd_ToggleSaber_f(gentity_t *ent)
 {
 	if (ent->client->ps.fd.forceGripCripple)
@@ -2743,8 +2708,6 @@ void Cmd_ToggleSaber_f(gentity_t *ent)
 	}
 }
 
-
-extern qboolean WP_SaberCanTurnOffSomeBlades( saberInfo_t *saber );
 void Cmd_SaberAttackCycle_f(gentity_t *ent)
 {
 	int selectLevel = 0;
@@ -3209,15 +3172,6 @@ void StandardSetBodyAnim(gentity_t *self, int anim, int flags)
 	G_SetAnim(self, NULL, SETANIM_BOTH, anim, flags, 0);
 }
 
-void DismembermentTest(gentity_t *self);
-
-void Bot_SetForcedMovement(int bot, int forward, int right, int up);
-
-#ifndef FINAL_BUILD
-extern void DismembermentByNum(gentity_t *self, int num);
-extern void G_SetVehDamageFlags( gentity_t *veh, int shipSurf, int damageLevel );
-#endif
-
 qboolean TryGrapple(gentity_t *ent)
 {
 	if (ent->client->ps.weaponTime > 0)
@@ -3358,22 +3312,6 @@ void Cmd_AddBot_f( gentity_t *ent ) {
 	//because addbot isn't a recognized command unless you're the server, but it is in the menus regardless
 	SV_GameSendServerCommand( ent-g_entities, va( "print \"%s.\n\"", G_GetStringEdString( "MP_SVGAME", "ONLY_ADD_BOTS_AS_SERVER" ) ) );
 }
-
-/*
-=================
-ClientCommand
-=================
-*/
-
-#define CMD_NOINTERMISSION		(1<<0)
-#define CMD_CHEAT				(1<<1)
-#define CMD_ALIVE				(1<<2)
-
-typedef struct command_s {
-	const char	*name;
-	void		(*func)(gentity_t *ent);
-	int			flags;
-} command_t;
 
 int cmdcmp( const void *a, const void *b ) {
 	return Q_stricmp( (const char *)a, ((command_t*)b)->name );

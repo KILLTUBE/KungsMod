@@ -21,23 +21,16 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-// g_combat.c
+#include "g_combat.h"
 
-#include "b_local.h"
-#include "bg_saga.h"
-#include "../game/bg_g2_utils.h"
-
-extern int G_ShipSurfaceForSurfName( const char *surfaceName );
-extern qboolean G_FlyVehicleDestroySurface( gentity_t *veh, int surface );
-extern void G_VehicleSetDamageLocFlags( gentity_t *veh, int impactDir, int deathPoint );
-extern void G_VehUpdateShields( gentity_t *targ );
-extern void G_LetGoOfWall( gentity_t *ent );
-extern void BG_ClearRocketLock( playerState_t *ps );
-//rww - pd
-void BotDamageNotification(gclient_t *bot, gentity_t *attacker);
-//end rww
-
-void ThrowSaberToAttacker(gentity_t *self, gentity_t *attacker);
+CCALL int G_ShipSurfaceForSurfName( const char *surfaceName );
+CCALL qboolean G_FlyVehicleDestroySurface( gentity_t *veh, int surface );
+CCALL void G_VehicleSetDamageLocFlags( gentity_t *veh, int impactDir, int deathPoint );
+CCALL void G_VehUpdateShields( gentity_t *targ );
+CCALL void G_LetGoOfWall( gentity_t *ent );
+CCALL void BG_ClearRocketLock( playerState_t *ps );
+CCALL void BotDamageNotification(gclient_t *bot, gentity_t *attacker);
+CCALL void ThrowSaberToAttacker(gentity_t *self, gentity_t *attacker);
 
 void ObjectDie (gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int meansOfDeath )
 {
@@ -511,7 +504,7 @@ void TossClientWeapon(gentity_t *self, vec3_t direction, float speed)
 	}
 
 	// find the item type for this weapon
-	item = BG_FindItemForWeapon( weapon );
+	item = BG_FindItemForWeapon( (weapon_t) weapon );
 
 	ammoSub = (self->client->ps.ammo[weaponData[weapon].ammoIndex] - bg_itemlist[BG_GetItemIndexByTag(weapon, IT_WEAPON)].quantity);
 
@@ -622,7 +615,7 @@ void TossClientItems( gentity_t *self ) {
 		gentity_t *te;
 
 		// find the item type for this weapon
-		item = BG_FindItemForWeapon( weapon );
+		item = BG_FindItemForWeapon( (weapon_t) weapon );
 
 		// tell all clients to remove the weapon model on this guy until he respawns
 		te = G_TempEntity( vec3_origin, EV_DESTROY_WEAPON_MODEL );
@@ -638,7 +631,7 @@ void TossClientItems( gentity_t *self ) {
 		angle = 45;
 		for ( i = 1 ; i < PW_NUM_POWERUPS ; i++ ) {
 			if ( self->client->ps.powerups[ i ] > level.time ) {
-				item = BG_FindItemForPowerup( i );
+				item = BG_FindItemForPowerup( (powerup_t) i );
 				if ( !item ) {
 					continue;
 				}

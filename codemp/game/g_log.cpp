@@ -20,8 +20,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "g_local.h"
-
+#include "g_log.h"
 #define LOGGING_WEAPONS
 
 // Weapon statistic logging.
@@ -114,7 +113,7 @@ char *weaponNameFromIndex[WP_NUM_WEAPONS] =
 	"Turret"
 };
 
-extern char	*modNames[];
+EXTERNC char	*modNames[];
 
 #endif //LOGGING_WEAPONS
 
@@ -138,7 +137,7 @@ void G_LogWeaponInit(void) {
 #endif //LOGGING_WEAPONS
 }
 
-void QDECL G_LogWeaponPickup(int client, int weaponid)
+void G_LogWeaponPickup(int client, int weaponid)
 {
 #ifdef LOGGING_WEAPONS
 	if (client>=MAX_CLIENTS)
@@ -149,7 +148,7 @@ void QDECL G_LogWeaponPickup(int client, int weaponid)
 #endif //_LOGGING_WEAPONS
 }
 
-void QDECL G_LogWeaponFire(int client, int weaponid)
+void G_LogWeaponFire(int client, int weaponid)
 {
 #ifdef LOGGING_WEAPONS
 	int dur;
@@ -168,7 +167,7 @@ void QDECL G_LogWeaponFire(int client, int weaponid)
 #endif //_LOGGING_WEAPONS
 }
 
-void QDECL G_LogWeaponDamage(int client, int mod, int amount)
+void G_LogWeaponDamage(int client, int mod, int amount)
 {
 #ifdef LOGGING_WEAPONS
 	if (client>=MAX_CLIENTS)
@@ -178,7 +177,7 @@ void QDECL G_LogWeaponDamage(int client, int mod, int amount)
 #endif //_LOGGING_WEAPONS
 }
 
-void QDECL G_LogWeaponKill(int client, int mod)
+void G_LogWeaponKill(int client, int mod)
 {
 #ifdef LOGGING_WEAPONS
 	if (client>=MAX_CLIENTS)
@@ -188,7 +187,7 @@ void QDECL G_LogWeaponKill(int client, int mod)
 #endif //_LOGGING_WEAPONS
 }
 
-void QDECL G_LogWeaponFrag(int attacker, int deadguy)
+void G_LogWeaponFrag(int attacker, int deadguy)
 {
 #ifdef LOGGING_WEAPONS
 	if ( (attacker>=MAX_CLIENTS) || (deadguy>=MAX_CLIENTS) )
@@ -198,7 +197,7 @@ void QDECL G_LogWeaponFrag(int attacker, int deadguy)
 #endif //_LOGGING_WEAPONS
 }
 
-void QDECL G_LogWeaponDeath(int client, int weaponid)
+void G_LogWeaponDeath(int client, int weaponid)
 {
 #ifdef LOGGING_WEAPONS
 	if (client>=MAX_CLIENTS)
@@ -208,7 +207,7 @@ void QDECL G_LogWeaponDeath(int client, int weaponid)
 #endif //_LOGGING_WEAPONS
 }
 
-void QDECL G_LogWeaponPowerup(int client, int powerupid)
+void G_LogWeaponPowerup(int client, int powerupid)
 {
 #ifdef LOGGING_WEAPONS
 	if (client>=MAX_CLIENTS)
@@ -218,7 +217,7 @@ void QDECL G_LogWeaponPowerup(int client, int powerupid)
 #endif //_LOGGING_WEAPONS
 }
 
-void QDECL G_LogWeaponItem(int client, int itemid)
+void G_LogWeaponItem(int client, int itemid)
 {
 #ifdef LOGGING_WEAPONS
 	if (client>=MAX_CLIENTS)
@@ -1392,31 +1391,6 @@ qboolean CalculateTeamRedShirt(gentity_t *ent)
 	return qfalse;
 }
 
-typedef enum {
-	AWARD_EFFICIENCY,		// Accuracy
-	AWARD_SHARPSHOOTER,		// Most compression rifle frags
-	AWARD_UNTOUCHABLE,		// Perfect (no deaths)
-	AWARD_LOGISTICS,		// Most pickups
-	AWARD_TACTICIAN,		// Kills with all weapons
-	AWARD_DEMOLITIONIST,	// Most explosive damage kills
-	AWARD_STREAK,			// Ace/Expert/Master/Champion
-	AWARD_TEAM,				// MVP/Defender/Warrior/Carrier/Interceptor/Bravery
-	AWARD_SECTION31,		// All-around god
-	AWARD_MAX
-} awardType_t;
-
-typedef enum
-{
-	TEAM_NONE = 0,			// ha ha! you suck!
-	TEAM_MVP,				// most overall points
-	TEAM_DEFENDER,			// killed the most baddies near your flag
-	TEAM_WARRIOR,			// most frags
-	TEAM_CARRIER,			// infected the most people with plague
-	TEAM_INTERCEPTOR,		// returned your own flag the most
-	TEAM_BRAVERY,			// Red Shirt Award (tm). you died more than anybody.
-	TEAM_MAX
-} teamAward_e;
-
 int CalculateTeamAward(gentity_t *ent)
 {
 	int teamAwards = 0;
@@ -1674,7 +1648,7 @@ int GetFavoriteWeaponForClient(int nClient)
 #endif
 
 // kef -- if a client leaves the game, clear out all counters he may have set
-void QDECL G_ClearClientLog(int client)
+void G_ClearClientLog(int client)
 {
 	int i = 0;
 

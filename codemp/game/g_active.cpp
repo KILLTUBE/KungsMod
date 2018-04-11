@@ -22,17 +22,20 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "g_local.h"
-#include "bg_saga.h"
+#include "g_active.h"
 
-extern void Jedi_Cloak( gentity_t *self );
-extern void Jedi_Decloak( gentity_t *self );
-
-qboolean PM_SaberInTransition( int move );
-qboolean PM_SaberInStart( int move );
-qboolean PM_SaberInReturn( int move );
-qboolean WP_SaberStyleValidForSaber( saberInfo_t *saber1, saberInfo_t *saber2, int saberHolstered, int saberAnimLevel );
-qboolean saberCheckKnockdown_DuelLoss(gentity_t *saberent, gentity_t *saberOwner, gentity_t *other);
+CCALL void Jedi_Cloak( gentity_t *self );
+CCALL void Jedi_Decloak( gentity_t *self );
+CCALL qboolean PM_SaberInTransition( int move );
+CCALL qboolean PM_SaberInStart( int move );
+CCALL qboolean PM_SaberInReturn( int move );
+CCALL qboolean WP_SaberStyleValidForSaber( saberInfo_t *saber1, saberInfo_t *saber2, int saberHolstered, int saberAnimLevel );
+CCALL qboolean saberCheckKnockdown_DuelLoss(gentity_t *saberent, gentity_t *saberOwner, gentity_t *other);
+CCALL qboolean FlyingCreature( gentity_t *ent );
+CCALL qboolean BG_InKnockDownOnly( int anim );
+CCALL qboolean BG_SabersOff( playerState_t *ps );
+CCALL void NPC_SetAnim(gentity_t	*ent,int setAnimParts,int anim,int setAnimFlags);
+CCALL void G_ApplyKnockback( gentity_t *targ, vec3_t newDir, float knockback );
 
 void P_SetTwitchInfo(gclient_t	*client)
 {
@@ -224,12 +227,6 @@ void P_WorldEffects( gentity_t *ent ) {
 	}
 }
 
-
-
-
-
-//==============================================================
-extern void G_ApplyKnockback( gentity_t *targ, vec3_t newDir, float knockback );
 void DoImpact( gentity_t *self, gentity_t *other, qboolean damageSelf )
 {
 	float magnitude, my_mass;
@@ -455,12 +452,6 @@ void Client_CheckImpactBBrush( gentity_t *self, gentity_t *other )
 	}
 }
 
-
-/*
-===============
-G_SetClientSound
-===============
-*/
 void G_SetClientSound( gentity_t *ent ) {
 	if (ent->client && ent->client->isHacking)
 	{ //loop hacking sound
@@ -489,15 +480,6 @@ void G_SetClientSound( gentity_t *ent ) {
 	}
 }
 
-
-
-//==============================================================
-
-/*
-==============
-ClientImpacts
-==============
-*/
 void ClientImpacts( gentity_t *ent, pmove_t *pmove ) {
 	int		i, j;
 	trace_t	trace;
@@ -851,7 +833,6 @@ void ClientIntermissionThink( gclient_t *client ) {
 	}
 }
 
-extern void NPC_SetAnim(gentity_t	*ent,int setAnimParts,int anim,int setAnimFlags);
 void G_VehicleAttachDroidUnit( gentity_t *vehEnt )
 {
 	if ( vehEnt && vehEnt->m_pVehicle && vehEnt->m_pVehicle->m_pDroidUnit != NULL )
@@ -883,7 +864,6 @@ void G_VehicleAttachDroidUnit( gentity_t *vehEnt )
 }
 
 //called gameside only from pmove code (convenience)
-extern qboolean BG_SabersOff( playerState_t *ps );
 void G_CheapWeaponFire(int entNum, int ev)
 {
 	gentity_t *ent = &g_entities[entNum];
@@ -932,7 +912,6 @@ Events will be passed on to the clients for presentation,
 but any server game effects are handled here
 ================
 */
-qboolean BG_InKnockDownOnly( int anim );
 
 void ClientEvents( gentity_t *ent, int oldEventSequence ) {
 	int		i;//, j;
@@ -1515,7 +1494,6 @@ static int NPC_GetRunSpeed( gentity_t *ent )
 }
 
 //Seems like a slightly less than ideal method for this, could it be done on the client?
-extern qboolean FlyingCreature( gentity_t *ent );
 void G_CheckMovingLoopingSounds( gentity_t *ent, usercmd_t *ucmd )
 {
 	if ( ent->client )
@@ -1593,15 +1571,6 @@ void G_HeldByMonster( gentity_t *ent, usercmd_t *ucmd )
 	ucmd->rightmove = 0;
 	ucmd->upmove = 0;
 }
-
-typedef enum tauntTypes_e
-{
-	TAUNT_TAUNT = 0,
-	TAUNT_BOW,
-	TAUNT_MEDITATE,
-	TAUNT_FLOURISH,
-	TAUNT_GLOAT
-} tauntTypes_t;
 
 void G_SetTauntAnim( gentity_t *ent, int taunt )
 {
