@@ -22,11 +22,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 // cg_players.c -- handle the media and animation for player entities
-#include "game/g_local.h"
-#include "cg_local.h"
-#include "ghoul2/G2.h"
-#include "game/bg_saga.h"
 
+#include "cg_players.h"
 
 extern int			cgSiegeTeam1PlShader;
 extern int			cgSiegeTeam2PlShader;
@@ -1619,7 +1616,7 @@ void CG_NewClientInfo( int clientNum, qboolean entitiesInitialized ) {
 
 	// team
 	v = Info_ValueForKey( configstring, "t" );
-	newInfo.team = atoi( v );
+	newInfo.team = (team_t) atoi( v );
 
 //copy team info out to menu
 	if ( clientNum == cg.clientNum)	//this is me
@@ -1669,7 +1666,7 @@ void CG_NewClientInfo( int clientNum, qboolean entitiesInitialized ) {
 
 		if ( cgs.gametype >= GT_TEAM ) {
 			// keep skin name
-			slash = strchr( v, '/' );
+			slash = (char *) strchr( v, '/' );
 			if ( slash ) {
 				Q_strncpyz( newInfo.skinName, slash + 1, sizeof( newInfo.skinName ) );
 			}
@@ -6529,7 +6526,7 @@ JustDoIt:
 	//CG_DoSaber( org_, axis_[0], saberLen, client->saber[saberNum].blade[bladeNum].lengthMax, client->saber[saberNum].blade[bladeNum].radius,
 	//	scolor, renderfx, (qboolean)(saberNum==0&&bladeNum==0) );
 	CG_DoSaber( org_, axis_[0], saberLen, client->saber[saberNum].blade[bladeNum].lengthMax, client->saber[saberNum].blade[bladeNum].radius,
-		scolor, renderfx, (qboolean)(client->saber[saberNum].numBlades < 3 && !(client->saber[saberNum].saberFlags2&SFL2_NO_DLIGHT)) );
+		(saber_colors_t) scolor, renderfx, (qboolean)(client->saber[saberNum].numBlades < 3 && !(client->saber[saberNum].saberFlags2&SFL2_NO_DLIGHT)) );
 }
 
 int CG_IsMindTricked(int trickIndex1, int trickIndex2, int trickIndex3, int trickIndex4, int client)

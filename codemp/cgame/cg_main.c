@@ -23,11 +23,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 // cg_main.c -- initialization and primary entry point for cgame
-#include "cg_local.h"
-
-#include "cg_tempwrappers.h"
-
-#include "ui/ui_shared.h"
+#include "cg_main.h"
 
 // display context for new ui stuff
 displayContextDef_t cgDC;
@@ -67,7 +63,7 @@ void CG_DoCameraShake( vec3_t origin, float intensity, int radius, int time );
 EXTERNC cvar_t *bg_showevents;
 
 //do we have any force powers that we would normally need to cycle to?
-CCALL qboolean CG_NoUseableForce(void)
+qboolean CG_NoUseableForce(void)
 {
 	int i = FP_HEAL;
 	while (i < NUM_FORCE_POWERS)
@@ -89,18 +85,18 @@ CCALL qboolean CG_NoUseableForce(void)
 	return qtrue;
 }
 
-CCALL int C_PointContents( void ) {
+int C_PointContents( void ) {
 	TCGPointContents *data = &cg.sharedBuffer.pointContents;
 	return CG_PointContents( data->mPoint, data->mPassEntityNum );
 }
 
-CCALL void C_GetLerpOrigin( void ) {
+void C_GetLerpOrigin( void ) {
 	TCGVectorData *data = &cg.sharedBuffer.vectorData;
 	VectorCopy( cg_entities[data->mEntityNum].lerpOrigin, data->mPoint );
 }
 
 // only used by FX system to pass to getboltmat
-CCALL void C_GetLerpData( void ) {
+void C_GetLerpData( void ) {
 	TCGGetBoltData *data = &cg.sharedBuffer.getBoltData;
 
 	VectorCopy( cg_entities[data->mEntityNum].lerpOrigin, data->mOrigin );
@@ -131,17 +127,17 @@ CCALL void C_GetLerpData( void ) {
 	}
 }
 
-CCALL void C_Trace( void ) {
+void C_Trace( void ) {
 	TCGTrace *td = &cg.sharedBuffer.trace;
 	CG_Trace( &td->mResult, td->mStart, td->mMins, td->mMaxs, td->mEnd, td->mSkipNumber, td->mMask );
 }
 
-CCALL void C_G2Trace( void ) {
+void C_G2Trace( void ) {
 	TCGTrace *td = &cg.sharedBuffer.trace;
 	CG_G2Trace( &td->mResult, td->mStart, td->mMins, td->mMaxs, td->mEnd, td->mSkipNumber, td->mMask );
 }
 
-CCALL void C_G2Mark( void ) {
+void C_G2Mark( void ) {
 	TCGG2Mark *td = &cg.sharedBuffer.g2Mark;
 	trace_t tr;
 	vec3_t end;
@@ -220,7 +216,7 @@ static void CG_DebugBoxLines( vec3_t mins, vec3_t maxs, int duration ) {
 }
 
 //handle ragdoll callbacks, for events and debugging -rww
-CCALL int CG_RagCallback(int callType)
+int CG_RagCallback(int callType)
 {
 	switch(callType)
 	{
@@ -292,7 +288,7 @@ static void C_ImpactMark( void ) {
 		data->mAlphaStart, qtrue, data->mSizeStart, qfalse );
 }
 
-CCALL void CG_MiscEnt( void ) {
+void CG_MiscEnt( void ) {
 	int i, modelIndex;
 	TCGMiscEnt *data = &cg.sharedBuffer.miscEnt;
 	cg_staticmodel_t *staticmodel;
@@ -373,7 +369,7 @@ int					cg_numpermanents = 0;
 weaponInfo_t		cg_weapons[MAX_WEAPONS];
 itemInfo_t			cg_items[MAX_ITEMS];
 
-CCALL int CG_CrosshairPlayer( void ) {
+int CG_CrosshairPlayer( void ) {
 	if ( cg.time > (cg.crosshairClientTime + 1000) )
 		return -1;
 
@@ -383,7 +379,7 @@ CCALL int CG_CrosshairPlayer( void ) {
 	return cg.crosshairClientNum;
 }
 
-CCALL int CG_LastAttacker( void ) {
+int CG_LastAttacker( void ) {
 	if ( !cg.attackerTime )
 		return -1;
 
@@ -2393,7 +2389,7 @@ Called after every level change or subsystem restart
 Will perform callbacks to make the loading info screen update.
 =================
 */
-CCALL void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum )
+void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum )
 {
 	static gitem_t *item;
 	char buf[64];
@@ -2683,7 +2679,7 @@ CG_Shutdown
 Called before every level change or subsystem restart
 =================
 */
-CCALL void CG_Shutdown( void )
+void CG_Shutdown( void )
 {
 	BG_ClearAnimsets(); //free all dynamic allocations made through the engine
 
@@ -2857,13 +2853,13 @@ void CG_PrevInventory_f(void)
 	}
 }
 
-CCALL void _CG_MouseEvent( int x, int y ) {
+void _CG_MouseEvent( int x, int y ) {
 	cgDC.cursorx = cgs.cursorX;
 	cgDC.cursory = cgs.cursorY;
 	CG_MouseEvent( x, y );
 }
 
-CCALL qboolean CG_IncomingConsoleCommand( void ) {
+qboolean CG_IncomingConsoleCommand( void ) {
 	//rww - let mod authors filter client console messages so they can cut them off if they want.
 	//return qtrue if the command is ok. Otherwise, you can set char 0 on the command str to 0 and return
 	//qfalse to not execute anything, or you can fill conCommand in with something valid and return 0
@@ -2885,33 +2881,33 @@ CCALL qboolean CG_IncomingConsoleCommand( void ) {
 	return qtrue;
 }
 
-CCALL void CG_GetOrigin( int entID, vec3_t out ) {
+void CG_GetOrigin( int entID, vec3_t out ) {
 	VectorCopy( cg_entities[entID].currentState.pos.trBase, out );
 }
 
-CCALL void CG_GetAngles( int entID, vec3_t out ) {
+void CG_GetAngles( int entID, vec3_t out ) {
 	VectorCopy( cg_entities[entID].currentState.apos.trBase, out );
 }
 
-CCALL trajectory_t *CG_GetOriginTrajectory( int entID ) {
+trajectory_t *CG_GetOriginTrajectory( int entID ) {
 	return &cg_entities[entID].nextState.pos;
 }
 
-CCALL trajectory_t *CG_GetAngleTrajectory( int entID ) {
+trajectory_t *CG_GetAngleTrajectory( int entID ) {
 	return &cg_entities[entID].nextState.apos;
 }
 
-CCALL void _CG_ROFF_NotetrackCallback( int entID, const char *notetrack ) {
+void _CG_ROFF_NotetrackCallback( int entID, const char *notetrack ) {
 	CG_ROFF_NotetrackCallback( &cg_entities[entID], notetrack );
 }
 
-CCALL void CG_MapChange( void ) {
+void CG_MapChange( void ) {
 	// this may be called more than once for a given map change, as the server is going to attempt to send out
 	// multiple broadcasts in hopes that the client will receive one of them
 	cg.mMapChange = qtrue;
 }
 
-CCALL void CG_AutomapInput( void ) {
+void CG_AutomapInput( void ) {
 	autoMapInput_t *autoInput = &cg.sharedBuffer.autoMapInput;
 
 	memcpy( &cg_autoMapInput, autoInput, sizeof( autoMapInput_t ) );
@@ -2929,7 +2925,7 @@ CCALL void CG_AutomapInput( void ) {
 	}
 }
 
-CCALL void CG_FX_CameraShake( void ) {
+void CG_FX_CameraShake( void ) {
 	TCGCameraShake *data = &cg.sharedBuffer.cameraShake;
 	CG_DoCameraShake( data->mOrigin, data->mIntensity, data->mRadius, data->mTime );
 }

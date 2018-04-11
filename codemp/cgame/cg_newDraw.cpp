@@ -21,10 +21,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "cg_local.h"
-#include "ui/ui_shared.h"
-
-#include "../client/keycodes.h"
+#include "cg_newDraw.h"
 
 extern displayContextDef_t cgDC;
 
@@ -265,6 +262,7 @@ const char *CG_GetGameStatusText(void) {
 }
 
 CCALL int MenuFontToHandle_CG(int iMenuFont);
+CCALL unsigned int R_AnyLanguage_ReadCharFromString( const char *psText, int *piAdvanceCount, qboolean *pbIsTrailingPunctuation );
 
 // maxX param is initially an X limit, but is also used as feedback. 0 = text was clipped to fit within, else maxX = next pos
 //
@@ -372,7 +370,7 @@ void CG_DrawNewTeamInfo(rectDef_t *rect, float text_x, float text_y, float scale
 			for (j = 0; j <= PW_NUM_POWERUPS; j++) {
 				if (ci->powerups & (1 << j)) {
 
-					item = BG_FindItemForPowerup( j );
+					item = BG_FindItemForPowerup( (powerup_t) j );
 
 					if (item) {
 						CG_DrawPic( xx, y, PIC_WIDTH, PIC_WIDTH, R_RegisterShader( item->icon ) );
@@ -819,7 +817,7 @@ type 0 - no event handling
 2 - hud editor
 
 */
-CCALL void CG_EventHandling(int type) {
+void CG_EventHandling(int type) {
 	cgs.eventHandling = type;
 	if (type == CGAME_EVENT_NONE) {
 		CG_HideTeamMenu();
@@ -832,7 +830,7 @@ CCALL void CG_EventHandling(int type) {
 
 
 
-CCALL void CG_KeyEvent(int key, qboolean down) {
+void CG_KeyEvent(int key, qboolean down) {
 
 	if (!down) {
 		return;

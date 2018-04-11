@@ -961,25 +961,7 @@
     <ClCompile Include="..\..\codemp\cgame\cg_consolecmds.c">
       <Filter>cgame</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_info.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_light.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_localents.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_main.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_marks.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_newDraw.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_players.c">
       <Filter>cgame</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_predict.c">
@@ -1238,6 +1220,24 @@
       <Filter>cgame</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_event.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_info.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_light.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_localents.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_wallmarks.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_newDraw.cpp">
+      <Filter>cgame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_players.cpp">
       <Filter>cgame</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2151,9 +2151,6 @@
     <ClInclude Include="..\..\codemp\cgame\cg_main.h">
       <Filter>cgame</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\codemp\cgame\cg_marks.h">
-      <Filter>cgame</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\codemp\cgame\cg_newDraw.h">
       <Filter>cgame</Filter>
     </ClInclude>
@@ -2194,6 +2191,9 @@
       <Filter>cgame</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\cgame\cg_weapons.h">
+      <Filter>cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\cg_wallmarks.h">
       <Filter>cgame</Filter>
     </ClInclude>
   </ItemGroup>

@@ -23,11 +23,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 // cg_info.c -- display information while data is being loading
 
-#include "cg_local.h"
-
-
-#define MAX_LOADING_PLAYER_ICONS	16
-#define MAX_LOADING_ITEM_ICONS		26
+#include "cg_info.h"
 
 //static int			loadingPlayerIconCount;
 //static qhandle_t	loadingPlayerIcons[MAX_LOADING_PLAYER_ICONS];
@@ -128,7 +124,6 @@ Draw all the status / pacifier stuff during level loading
 ====================
 overlays UI_DrawConnectScreen
 */
-#define UI_INFOFONT (UI_BIGFONT)
 void CG_DrawInformation( void ) {
 	const char	*s;
 	const char	*info;
