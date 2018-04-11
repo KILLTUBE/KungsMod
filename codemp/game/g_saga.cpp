@@ -29,8 +29,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
  * $Revision: 1.6 $
  *
  *****************************************************************************/
-#include "g_local.h"
-#include "bg_saga.h"
+#include "g_saga.h"
 
 #define SIEGEITEM_STARTOFFRADAR 8
 
@@ -87,7 +86,7 @@ void G_SiegeRegisterWeaponsAndHoldables(int team)
 				{
 					if (scl->weapons & (1 << j))
 					{ //we use this weapon so register it.
-						RegisterItem(BG_FindItemForWeapon(j));
+						RegisterItem(BG_FindItemForWeapon( (weapon_t) j));
 					}
 					j++;
 				}
@@ -96,7 +95,7 @@ void G_SiegeRegisterWeaponsAndHoldables(int team)
 				{
 					if (scl->invenItems & (1 << j))
 					{ //we use this item so register it.
-						RegisterItem(BG_FindItemForHoldable(j));
+						RegisterItem(BG_FindItemForHoldable( (holdable_t) j));
 					}
 					j++;
 				}
@@ -815,7 +814,7 @@ void SetTeamQuick(gentity_t *ent, int team, qboolean doBegin)
 		G_ValidateSiegeClassForTeam(ent, team);
 	}
 
-	ent->client->sess.sessionTeam = team;
+	ent->client->sess.sessionTeam = (team_t) team;
 
 	if (team == TEAM_SPECTATOR)
 	{

@@ -22,8 +22,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "g_local.h"
-
+#include "g_session.h"
 /*
 =======================================================================
 
@@ -36,13 +35,7 @@ and tournament restarts.
 
 //TODO: Replace with reading/writing to file(s)
 
-/*
-================
-G_WriteClientSessionData
-
-Called on game shutdown
-================
-*/
+// Called on game shutdown
 void G_WriteClientSessionData( gclient_t *client )
 {
 	char		s[MAX_CVAR_VALUE_STRING] = {0},
@@ -87,13 +80,7 @@ void G_WriteClientSessionData( gclient_t *client )
 	Cvar_Set( var, s );
 }
 
-/*
-================
-G_ReadSessionData
-
-Called on a reconnect
-================
-*/
+// Called on a reconnect
 void G_ReadSessionData( gclient_t *client )
 {
 	char			s[MAX_CVAR_VALUE_STRING] = {0};
@@ -245,13 +232,6 @@ void G_InitSessionData( gclient_t *client, char *userinfo, qboolean isBot ) {
 	G_WriteClientSessionData( client );
 }
 
-
-/*
-==================
-G_InitWorldSession
-
-==================
-*/
 void G_InitWorldSession( void ) {
 	char	s[MAX_STRING_CHARS];
 	int			gt;
@@ -267,12 +247,6 @@ void G_InitWorldSession( void ) {
 	}
 }
 
-/*
-==================
-G_WriteSessionData
-
-==================
-*/
 void G_WriteSessionData( void ) {
 	int		i;
 

@@ -20,19 +20,15 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "g_local.h"
 
-extern void G_MoverTouchPushTriggers( gentity_t *ent, vec3_t oldOrg );
-void G_StopObjectMoving( gentity_t *object );
+#include "g_object.h"
 
-void pitch_roll_for_slope( gentity_t *forwhom, vec3_t pass_slope );
+CCALL void G_MoverTouchPushTriggers( gentity_t *ent, vec3_t oldOrg );
+CCALL void G_StopObjectMoving( gentity_t *object );
+CCALL void pitch_roll_for_slope( gentity_t *forwhom, vec3_t pass_slope );
+CCALL void DoImpact( gentity_t *self, gentity_t *other, qboolean damageSelf );
+CCALL void pitch_roll_for_slope( gentity_t *forwhom, vec3_t pass_slope );
 
-/*
-================
-G_BounceObject
-
-================
-*/
 void G_BounceObject( gentity_t *ent, trace_t *trace )
 {
 	vec3_t	velocity;
@@ -89,8 +85,6 @@ G_RunObject
   TODO:  When free-floating in air, apply some friction to your trDelta (based on mass?)
 ================
 */
-extern void DoImpact( gentity_t *self, gentity_t *other, qboolean damageSelf );
-extern void pitch_roll_for_slope( gentity_t *forwhom, vec3_t pass_slope );
 void G_RunObject( gentity_t *ent )
 {
 	vec3_t		origin, oldOrg;

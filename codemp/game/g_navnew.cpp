@@ -20,20 +20,17 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
-#include "g_nav.h"
-#include "server/sv_nav.h"
+#include "g_navnew.h"
 
-qboolean NAV_CheckAhead( gentity_t *self, vec3_t end, trace_t *trace, int clipmask );
-qboolean NAV_TestForBlocked( gentity_t *self, gentity_t *goal, gentity_t *blocker, float distance, int *flags );
-
-void G_Line( vec3_t start, vec3_t end, vec3_t color, float alpha );
-void G_Cube( vec3_t mins, vec3_t maxs, vec3_t color, float alpha );
-void G_CubeOutline( vec3_t mins, vec3_t maxs, int time, unsigned int color, float alpha );
-void G_DrawEdge( vec3_t start, vec3_t end, int type );
-void G_DrawNode( vec3_t origin, int type );
-void G_DrawCombatPoint( vec3_t origin, int type );
-void TAG_ShowTags( int flags );
+CCALL qboolean NAV_CheckAhead( gentity_t *self, vec3_t end, trace_t *trace, int clipmask );
+CCALL qboolean NAV_TestForBlocked( gentity_t *self, gentity_t *goal, gentity_t *blocker, float distance, int *flags );
+CCALL void G_Line( vec3_t start, vec3_t end, vec3_t color, float alpha );
+CCALL void G_Cube( vec3_t mins, vec3_t maxs, vec3_t color, float alpha );
+CCALL void G_CubeOutline( vec3_t mins, vec3_t maxs, int time, unsigned int color, float alpha );
+CCALL void G_DrawEdge( vec3_t start, vec3_t end, int type );
+CCALL void G_DrawNode( vec3_t origin, int type );
+CCALL void G_DrawCombatPoint( vec3_t origin, int type );
+CCALL void TAG_ShowTags( int flags );
 
 qboolean NAV_CheckNodeFailedForEnt( gentity_t *ent, int nodeNum )
 {

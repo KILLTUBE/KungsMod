@@ -859,21 +859,6 @@
     <ClCompile Include="..\..\codemp\game\g_log.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_navnew.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_object.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_saga.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_session.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_spawn.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_svcmds.c">
       <Filter>game</Filter>
     </ClCompile>
@@ -1238,6 +1223,21 @@
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_nav.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_navnew.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_object.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_saga.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_session.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_spawn.cpp">
       <Filter>game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2203,6 +2203,21 @@
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\game\g_nav.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_navnew.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_object.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_saga.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_session.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_spawn.h">
       <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
