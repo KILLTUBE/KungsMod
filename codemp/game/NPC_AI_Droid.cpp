@@ -20,29 +20,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
+#include "NPC_AI_Droid.h"
 
-//static void R5D2_LookAround( void );
-float NPC_GetPainChance( gentity_t *self, int damage );
-extern void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath );
-
-#define TURN_OFF   0x00000100
-
-//Local state enums
-enum
-{
-	LSTATE_NONE = 0,
-	LSTATE_BACKINGUP,
-	LSTATE_SPINNING,
-	LSTATE_PAIN,
-	LSTATE_DROP
-};
-
-/*
--------------------------
-R2D2_PartsMove
--------------------------
-*/
 void R2D2_PartsMove(void)
 {
 	// Front 'eye' lense
@@ -67,11 +46,6 @@ void R2D2_PartsMove(void)
 	}
 }
 
-/*
--------------------------
-NPC_BSDroid_Idle
--------------------------
-*/
 void Droid_Idle( void )
 {
 //	VectorCopy( NPCInfo->investigateGoal, lookPos );
@@ -79,11 +53,6 @@ void Droid_Idle( void )
 //	NPC_FacePosition( lookPos );
 }
 
-/*
--------------------------
-R2D2_TurnAnims
--------------------------
-*/
 void R2D2_TurnAnims ( void )
 {
 	float turndelta;
@@ -116,11 +85,6 @@ void R2D2_TurnAnims ( void )
 
 }
 
-/*
--------------------------
-Droid_Patrol
--------------------------
-*/
 void Droid_Patrol( void )
 {
 
@@ -189,11 +153,6 @@ void Droid_Patrol( void )
 
 }
 
-/*
--------------------------
-Droid_Run
--------------------------
-*/
 void Droid_Run( void )
 {
 	R2D2_PartsMove();
@@ -221,11 +180,6 @@ void Droid_Run( void )
 	NPC_UpdateAngles( qtrue, qtrue );
 }
 
-/*
--------------------------
-void Droid_Spin( void )
--------------------------
-*/
 void Droid_Spin( void )
 {
 	vec3_t dir = {0,0,1};
@@ -287,11 +241,6 @@ void Droid_Spin( void )
 	NPC_UpdateAngles( qtrue, qtrue );
 }
 
-/*
--------------------------
-NPC_BSDroid_Pain
--------------------------
-*/
 void NPC_Droid_Pain(gentity_t *self, gentity_t *attacker, int damage)
 {
 	gentity_t *other = attacker;
@@ -455,12 +404,6 @@ void NPC_Droid_Pain(gentity_t *self, gentity_t *attacker, int damage)
 	NPC_Pain( self, attacker, damage);
 }
 
-
-/*
--------------------------
-Droid_Pain
--------------------------
-*/
 void Droid_Pain(void)
 {
 	if (TIMER_Done(NPCS.NPC,"droidpain"))	//He's done jumping around
@@ -469,11 +412,6 @@ void Droid_Pain(void)
 	}
 }
 
-/*
--------------------------
-NPC_Mouse_Precache
--------------------------
-*/
 void NPC_Mouse_Precache( void )
 {
 	int	i;
@@ -488,11 +426,6 @@ void NPC_Mouse_Precache( void )
 	G_SoundIndex( "sound/chars/mouse/misc/mouse_lp" );
 }
 
-/*
--------------------------
-NPC_R5D2_Precache
--------------------------
-*/
 void NPC_R5D2_Precache(void)
 {
 	int i;
@@ -511,11 +444,6 @@ void NPC_R5D2_Precache(void)
 	G_EffectIndex( "chunks/r5d2head_veh");
 }
 
-/*
--------------------------
-NPC_R2D2_Precache
--------------------------
-*/
 void NPC_R2D2_Precache(void)
 {
 	int i;
@@ -534,11 +462,6 @@ void NPC_R2D2_Precache(void)
 	G_EffectIndex( "chunks/r2d2head_veh");
 }
 
-/*
--------------------------
-NPC_Gonk_Precache
--------------------------
-*/
 void NPC_Gonk_Precache( void )
 {
 	G_SoundIndex("sound/chars/gonk/misc/gonktalk1.wav");
@@ -551,11 +474,6 @@ void NPC_Gonk_Precache( void )
 	G_EffectIndex( "env/med_explode");
 }
 
-/*
--------------------------
-NPC_Protocol_Precache
--------------------------
-*/
 void NPC_Protocol_Precache( void )
 {
 	G_SoundIndex( "sound/chars/mark2/misc/mark2_explo" );
@@ -611,11 +529,6 @@ static void R5D2_LookAround( void )
 
 */
 
-/*
--------------------------
-NPC_BSDroid_Default
--------------------------
-*/
 void NPC_BSDroid_Default( void )
 {
 

@@ -20,11 +20,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
-#include "g_nav.h"
-#include "icarus/Q3_Interface.h"
-
-extern qboolean NPC_SomeoneLookingAtMe(gentity_t *ent);
+#include "NPC_AI_Default.h"
 
 /*
 void NPC_LostEnemyDecideChase(void)
@@ -50,11 +46,6 @@ void NPC_LostEnemyDecideChase(void)
 	}
 	G_ClearEnemy( NPCS.NPC );
 }
-/*
--------------------------
-NPC_StandIdle
--------------------------
-*/
 
 void NPC_StandIdle( void )
 {
@@ -714,8 +705,6 @@ void NPC_BSPatrol( void )
 void NPC_BSDefault(void)
 	uses various scriptflags to determine how an npc should behave
 */
-extern void NPC_CheckGetNewWeapon( void );
-extern void NPC_BSST_Attack( void );
 
 void NPC_BSDefault( void )
 {

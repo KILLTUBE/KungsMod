@@ -20,33 +20,10 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
-#include "g_nav.h"
-#include "anims.h"
-#include "w_saber.h"
-
-extern void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
-extern void NPC_AimAdjust( int change );
-extern qboolean WP_LobFire( gentity_t *self, vec3_t start, vec3_t target, vec3_t mins, vec3_t maxs, int clipmask,
-				vec3_t velocity, qboolean tracePath, int ignoreEntNum, int enemyNum,
-				float minSpeed, float maxSpeed, float idealSpeed, qboolean mustHit );
-extern void G_SoundOnEnt (gentity_t *ent, soundChannel_t channel, const char *soundPath);
-
-extern qboolean BG_CrouchAnim( int anim );
-
-#define MELEE_DIST_SQUARED 6400//80*80
-#define MIN_LOB_DIST_SQUARED 65536//256*256
-#define MAX_LOB_DIST_SQUARED 200704//448*448
-#define REPEATER_ALT_SIZE				3	// half of bbox size
-#define	GENERATOR_HEALTH	25
-#define TURN_ON				0x00000000
-#define TURN_OFF			0x00000100
-#define GALAK_SHIELD_HEALTH	500
+#include "NPC_AI_GalakMech.h"
 
 static vec3_t shieldMins = {-60, -60, -24 };
 static vec3_t shieldMaxs = {60, 60, 80};
-
-extern qboolean NPC_CheckPlayerTeamStealth( void );
 
 static qboolean enemyLOS4;
 static qboolean enemyCS4;
@@ -57,8 +34,7 @@ static qboolean shoot4;
 static float	enemyDist4;
 static vec3_t	impactPos4;
 
-void NPC_GalakMech_Precache( void )
-{
+void NPC_GalakMech_Precache( void ) {
 	G_SoundIndex( "sound/weapons/galak/skewerhit.wav" );
 	G_SoundIndex( "sound/weapons/galak/lasercharge.wav" );
 	G_SoundIndex( "sound/weapons/galak/lasercutting.wav" );
@@ -141,12 +117,6 @@ static void GM_CreateExplosion( gentity_t *self, const int boltID, qboolean doSm
 		}
 	}
 }
-
-/*
--------------------------
-GM_Dying
--------------------------
-*/
 
 void GM_Dying( gentity_t *self )
 {
@@ -246,13 +216,6 @@ void GM_Dying( gentity_t *self )
 	}
 }
 
-/*
--------------------------
-NPC_GM_Pain
--------------------------
-*/
-
-extern void NPC_SetPainEvent( gentity_t *self );
 void NPC_GM_Pain(gentity_t *self, gentity_t *attacker, int damage)
 {
 	vec3_t point;
@@ -373,12 +336,6 @@ void NPC_GM_Pain(gentity_t *self, gentity_t *attacker, int damage)
 	}
 }
 
-/*
--------------------------
-GM_HoldPosition
--------------------------
-*/
-
 static void GM_HoldPosition( void )
 {
 	NPC_FreeCombatPoint( NPCS.NPCInfo->combatPoint, qtrue );
@@ -388,11 +345,6 @@ static void GM_HoldPosition( void )
 	}
 }
 
-/*
--------------------------
-GM_Move
--------------------------
-*/
 static qboolean GM_Move( void )
 {
 	qboolean moved;
@@ -427,12 +379,6 @@ static qboolean GM_Move( void )
 	return moved;
 }
 
-/*
--------------------------
-NPC_BSGM_Patrol
--------------------------
-*/
-
 void NPC_BSGM_Patrol( void )
 {
 	if ( NPC_CheckPlayerTeamStealth() )
@@ -450,12 +396,6 @@ void NPC_BSGM_Patrol( void )
 
 	NPC_UpdateAngles( qtrue, qtrue );
 }
-
-/*
--------------------------
-GM_CheckMoveState
--------------------------
-*/
 
 static void GM_CheckMoveState( void )
 {
@@ -478,12 +418,6 @@ static void GM_CheckMoveState( void )
 		}
 	}
 }
-
-/*
--------------------------
-GM_CheckFireState
--------------------------
-*/
 
 static void GM_CheckFireState( void )
 {
@@ -605,11 +539,6 @@ void GM_StartGloat( void )
 	NPCS.NPC->client->ps.legsTimer += 500;
 	NPCS.NPC->client->ps.torsoTimer += 500;
 }
-/*
--------------------------
-NPC_BSGM_Attack
--------------------------
-*/
 
 void NPC_BSGM_Attack( void )
 {

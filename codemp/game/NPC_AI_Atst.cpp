@@ -20,25 +20,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
+#include "NPC_AI_Atst.h"
 
-#define	MIN_MELEE_RANGE		640
-#define	MIN_MELEE_RANGE_SQR	( MIN_MELEE_RANGE * MIN_MELEE_RANGE )
-
-#define MIN_DISTANCE		128
-#define MIN_DISTANCE_SQR	( MIN_DISTANCE * MIN_DISTANCE )
-
-#define TURN_OFF			0x00000100//G2SURFACEFLAG_NODESCENDANTS
-
-#define LEFT_ARM_HEALTH 40
-#define RIGHT_ARM_HEALTH 40
-
-extern void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath );
-/*
--------------------------
-NPC_ATST_Precache
--------------------------
-*/
 void NPC_ATST_Precache(void)
 {
 	G_SoundIndex( "sound/chars/atst/atst_damaged1" );
@@ -77,14 +60,7 @@ static void ATST_PlayEffect( gentity_t *self, const int boltID, const char *fx )
 }
 #endif
 
-/*
--------------------------
-G_ATSTCheckPain
-
-Called by NPC's and player in an ATST
--------------------------
-*/
-
+// Called by NPC's and player in an ATST
 void G_ATSTCheckPain( gentity_t *self, gentity_t *other, int damage )
 {
 	//int newBolt;
@@ -133,22 +109,13 @@ void G_ATSTCheckPain( gentity_t *self, gentity_t *other, int damage )
 	}
 	*/
 }
-/*
--------------------------
-NPC_ATST_Pain
--------------------------
-*/
+
 void NPC_ATST_Pain(gentity_t *self, gentity_t *attacker, int damage)
 {
 	G_ATSTCheckPain( self, attacker, damage );
 	NPC_Pain( self, attacker, damage );
 }
 
-/*
--------------------------
-ATST_Hunt
--------------------------`
-*/
 void ATST_Hunt( qboolean visible, qboolean advance )
 {
 
@@ -163,11 +130,6 @@ void ATST_Hunt( qboolean visible, qboolean advance )
 
 }
 
-/*
--------------------------
-ATST_Ranged
--------------------------
-*/
 void ATST_Ranged( qboolean visible, qboolean advance, qboolean altAttack )
 {
 
@@ -191,11 +153,6 @@ void ATST_Ranged( qboolean visible, qboolean advance, qboolean altAttack )
 	}
 }
 
-/*
--------------------------
-ATST_Attack
--------------------------
-*/
 void ATST_Attack( void )
 {
 	qboolean	altAttack=qfalse;
@@ -285,11 +242,6 @@ void ATST_Attack( void )
 	ATST_Ranged( visible, advance,altAttack );
 }
 
-/*
--------------------------
-ATST_Patrol
--------------------------
-*/
 void ATST_Patrol( void )
 {
 	if ( NPC_CheckPlayerTeamStealth() )
@@ -311,24 +263,11 @@ void ATST_Patrol( void )
 
 }
 
-/*
--------------------------
-ATST_Idle
--------------------------
-*/
-void ATST_Idle( void )
-{
-
+void ATST_Idle( void ) {
 	NPC_BSIdle();
-
 	NPC_SetAnim( NPCS.NPC, SETANIM_BOTH, BOTH_STAND1, SETANIM_FLAG_NORMAL );
 }
 
-/*
--------------------------
-NPC_BSDroid_Default
--------------------------
-*/
 void NPC_BSATST_Default( void )
 {
 	if ( NPCS.NPC->enemy )

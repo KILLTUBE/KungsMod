@@ -916,21 +916,6 @@
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_frames.cpp">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_AI_Atst.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_AI_Default.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_AI_Droid.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_AI_GalakMech.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_AI_Grenadier.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\NPC_AI_Howler.c">
       <Filter>NPC</Filter>
     </ClCompile>
@@ -1239,6 +1224,21 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\ui\ui_shared_2.cpp">
       <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_AI_Atst.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_AI_Default.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_AI_Droid.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_AI_GalakMech.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_AI_Grenadier.cpp">
+      <Filter>NPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2327,6 +2327,21 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\ui\ui_shared_2.h">
       <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_AI_Atst.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_AI_Default.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_AI_Droid.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_AI_GalakMech.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_AI_Grenadier.h">
+      <Filter>NPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

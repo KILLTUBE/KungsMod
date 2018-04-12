@@ -20,35 +20,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
-#include "g_nav.h"
-#include "anims.h"
 
-extern qboolean BG_SabersOff( playerState_t *ps );
-
-extern void CG_DrawAlert( vec3_t origin, float rating );
-extern void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
-extern void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath );
-extern void NPC_TempLookTarget( gentity_t *self, int lookEntNum, int minLookTime, int maxLookTime );
-extern qboolean G_ExpandPointToBBox( vec3_t point, const vec3_t mins, const vec3_t maxs, int ignore, int clipmask );
-extern void NPC_AimAdjust( int change );
-extern qboolean FlyingCreature( gentity_t *ent );
-
-#define	MAX_VIEW_DIST		1024
-#define MAX_VIEW_SPEED		250
-#define	MAX_LIGHT_INTENSITY 255
-#define	MIN_LIGHT_THRESHOLD	0.1
-
-#define	DISTANCE_SCALE		0.25f
-#define	DISTANCE_THRESHOLD	0.075f
-#define	SPEED_SCALE			0.25f
-#define	FOV_SCALE			0.5f
-#define	LIGHT_SCALE			0.25f
-
-#define	REALIZE_THRESHOLD	0.6f
-#define CAUTIOUS_THRESHOLD	( REALIZE_THRESHOLD * 0.75 )
-
-qboolean NPC_CheckPlayerTeamStealth( void );
+#include "NPC_AI_Grenadier.h"
 
 static qboolean enemyLOS3;
 static qboolean enemyCS3;
@@ -56,14 +29,6 @@ static qboolean faceEnemy3;
 static qboolean move3;
 static qboolean shoot3;
 static float	enemyDist3;
-
-//Local state enums
-enum
-{
-	LSTATE_NONE = 0,
-	LSTATE_UNDERFIRE,
-	LSTATE_INVESTIGATE,
-};
 
 void Grenadier_ClearTimers( gentity_t *ent )
 {
@@ -99,13 +64,6 @@ void NPC_Grenadier_PlayConfusionSound( gentity_t *self )
 	self->NPC->investigateCount = 0;
 }
 
-
-/*
--------------------------
-NPC_ST_Pain
--------------------------
-*/
-
 void NPC_Grenadier_Pain(gentity_t *self, gentity_t *attacker, int damage)
 {
 	self->NPC->localState = LSTATE_UNDERFIRE;
@@ -121,12 +79,6 @@ void NPC_Grenadier_Pain(gentity_t *self, gentity_t *attacker, int damage)
 	}
 }
 
-/*
--------------------------
-ST_HoldPosition
--------------------------
-*/
-
 static void Grenadier_HoldPosition( void )
 {
 	NPC_FreeCombatPoint( NPCS.NPCInfo->combatPoint, qtrue );
@@ -138,12 +90,6 @@ static void Grenadier_HoldPosition( void )
 	}
 	*/
 }
-
-/*
--------------------------
-ST_Move
--------------------------
-*/
 
 static qboolean Grenadier_Move( void )
 {
@@ -199,12 +145,6 @@ static qboolean Grenadier_Move( void )
 
 	return moved;
 }
-
-/*
--------------------------
-NPC_BSGrenadier_Patrol
--------------------------
-*/
 
 void NPC_BSGrenadier_Patrol( void )
 {//FIXME: pick up on bodies of dead buddies?
@@ -296,11 +236,6 @@ void NPC_BSGrenadier_Patrol( void )
 }
 
 /*
--------------------------
-NPC_BSGrenadier_Idle
--------------------------
-*/
-/*
 void NPC_BSGrenadier_Idle( void )
 {
 	//FIXME: check for other alert events?
@@ -316,11 +251,6 @@ void NPC_BSGrenadier_Idle( void )
 
 	NPC_UpdateAngles( qtrue, qtrue );
 }
-*/
-/*
--------------------------
-ST_CheckMoveState
--------------------------
 */
 
 static void Grenadier_CheckMoveState( void )
@@ -409,12 +339,6 @@ static void Grenadier_CheckMoveState( void )
 	}
 }
 
-/*
--------------------------
-ST_CheckFireState
--------------------------
-*/
-
 static void Grenadier_CheckFireState( void )
 {
 	if ( enemyCS3 )
@@ -470,12 +394,6 @@ qboolean Grenadier_EvaluateShot( int hit )
 	}
 	return qfalse;
 }
-
-/*
--------------------------
-NPC_BSGrenadier_Attack
--------------------------
-*/
 
 void NPC_BSGrenadier_Attack( void )
 {
