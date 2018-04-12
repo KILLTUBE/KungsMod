@@ -20,19 +20,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
-
-extern void G_GetBoltPosition( gentity_t *self, int boltIndex, vec3_t pos, int modelIndex );
-
-// These define the working combat range for these suckers
-#define MIN_DISTANCE		128
-#define MIN_DISTANCE_SQR	( MIN_DISTANCE * MIN_DISTANCE )
-
-#define MAX_DISTANCE		1024
-#define MAX_DISTANCE_SQR	( MAX_DISTANCE * MAX_DISTANCE )
-
-#define LSTATE_CLEAR		0
-#define LSTATE_WAITING		1
+#include "NPC_AI_Rancor.h"
 
 void Rancor_SetBolts( gentity_t *self )
 {
@@ -46,11 +34,6 @@ void Rancor_SetBolts( gentity_t *self )
 	}
 }
 
-/*
--------------------------
-NPC_Rancor_Precache
--------------------------
-*/
 void NPC_Rancor_Precache( void )
 {
 	int i;
@@ -62,12 +45,6 @@ void NPC_Rancor_Precache( void )
 	G_SoundIndex( "sound/chars/rancor/chomp.wav" );
 }
 
-
-/*
--------------------------
-Rancor_Idle
--------------------------
-*/
 void Rancor_Idle( void )
 {
 	NPCS.NPCInfo->localState = LSTATE_CLEAR;
@@ -79,7 +56,6 @@ void Rancor_Idle( void )
 		NPC_MoveToGoal( qtrue );
 	}
 }
-
 
 qboolean Rancor_CheckRoar( gentity_t *self )
 {
@@ -93,11 +69,7 @@ qboolean Rancor_CheckRoar( gentity_t *self )
 	}
 	return qfalse;
 }
-/*
--------------------------
-Rancor_Patrol
--------------------------
-*/
+
 void Rancor_Patrol( void )
 {
 	NPCS.NPCInfo->localState = LSTATE_CLEAR;
@@ -125,11 +97,6 @@ void Rancor_Patrol( void )
 	TIMER_Set( NPCS.NPC, "lookForNewEnemy", Q_irand( 5000, 15000 ) );
 }
 
-/*
--------------------------
-Rancor_Move
--------------------------
-*/
 void Rancor_Move( qboolean visible )
 {
 	if ( NPCS.NPCInfo->localState != LSTATE_WAITING )
@@ -146,12 +113,6 @@ void Rancor_Move( qboolean visible )
 		NPCS.NPCInfo->goalRadius = MAX_DISTANCE;	// just get us within combat range
 	}
 }
-
-//---------------------------------------------------------
-extern void G_Knockdown( gentity_t *victim );
-extern void G_Dismember( gentity_t *ent, gentity_t *enemy, vec3_t point, int limbType, float limbRollBase, float limbPitchBase, int deathAnim, qboolean postDeath );
-extern float NPC_EntRangeFromBolt( gentity_t *targEnt, int boltIndex );
-extern int NPC_GetEntsNearBolt( int *radiusEnts, float radius, int boltIndex, vec3_t boltOrg );
 
 void Rancor_DropVictim( gentity_t *self )
 {
@@ -442,8 +403,7 @@ void Rancor_Bite( void )
 		}
 	}
 }
-//------------------------------
-extern void TossClientItems( gentity_t *self );
+
 void Rancor_Attack( float distance, qboolean doCharge )
 {
 
@@ -630,7 +590,6 @@ void Rancor_Attack( float distance, qboolean doCharge )
 	TIMER_Done2( NPCS.NPC, "attacking", qtrue );
 }
 
-//----------------------------------
 void Rancor_Combat( void )
 {
 	if ( NPCS.NPC->count )
@@ -711,11 +670,6 @@ void Rancor_Combat( void )
 	}
 }
 
-/*
--------------------------
-NPC_Rancor_Pain
--------------------------
-*/
 void NPC_Rancor_Pain( gentity_t *self, gentity_t *attacker, int damage )
 {
 	qboolean hitByRancor = qfalse;
@@ -834,11 +788,6 @@ void Rancor_Crush(void)
 	}
 }
 
-/*
--------------------------
-NPC_BSRancor_Default
--------------------------
-*/
 void NPC_BSRancor_Default( void )
 {
 	AddSightEvent( NPCS.NPC, NPCS.NPC->r.currentOrigin, 1024, AEL_DANGER_GREAT, 50 );

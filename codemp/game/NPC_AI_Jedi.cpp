@@ -20,84 +20,13 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
-#include "g_nav.h"
-#include "anims.h"
-#include "w_saber.h"
-
-extern qboolean BG_SabersOff( playerState_t *ps );
-
-extern void CG_DrawAlert( vec3_t origin, float rating );
-extern void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
-extern void ForceJump( gentity_t *self, usercmd_t *ucmd );
-
-#define	MAX_VIEW_DIST		2048
-#define MAX_VIEW_SPEED		100
-#define	JEDI_MAX_LIGHT_INTENSITY 64
-#define	JEDI_MIN_LIGHT_THRESHOLD 10
-#define	JEDI_MAX_LIGHT_THRESHOLD 50
-
-#define	DISTANCE_SCALE		0.25f
-#define	SPEED_SCALE			0.25f
-#define	FOV_SCALE			0.5f
-#define	LIGHT_SCALE			0.25f
-
-#define	REALIZE_THRESHOLD	0.6f
-#define CAUTIOUS_THRESHOLD	( REALIZE_THRESHOLD * 0.3 )
-
-#define	MAX_CHECK_THRESHOLD	1
-
-CCALL void NPC_ClearLookTarget( gentity_t *self );
-CCALL void NPC_SetLookTarget( gentity_t *self, int entNum, int clearTime );
-CCALL void NPC_TempLookTarget( gentity_t *self, int lookEntNum, int minLookTime, int maxLookTime );
-CCALL qboolean G_ExpandPointToBBox( vec3_t point, const vec3_t mins, const vec3_t maxs, int ignore, int clipmask );
-CCALL qboolean NPC_CheckEnemyStealth( void );
-CCALL void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath );
-CCALL gitem_t	*BG_FindItemForAmmo( ammo_t ammo );
-CCALL void ForceThrow( gentity_t *self, qboolean pull );
-CCALL void ForceLightning( gentity_t *self );
-CCALL void ForceHeal( gentity_t *self );
-CCALL void ForceRage( gentity_t *self );
-CCALL void ForceProtect( gentity_t *self );
-CCALL void ForceAbsorb( gentity_t *self );
-CCALL int WP_MissileBlockForBlock( int saberBlock );
-CCALL qboolean G_GetHitLocFromSurfName( gentity_t *ent, const char *surfName, int *hitLoc, vec3_t point, vec3_t dir, vec3_t bladeDir, int mod );
-CCALL qboolean WP_ForcePowerUsable( gentity_t *self, forcePowers_t forcePower );
-CCALL qboolean WP_ForcePowerAvailable( gentity_t *self, forcePowers_t forcePower, int overrideAmt );
-CCALL void WP_ForcePowerStop( gentity_t *self, forcePowers_t forcePower );
-CCALL void WP_DeactivateSaber( gentity_t *self, qboolean clearLength ); //clearLength = qfalse
-CCALL void WP_ActivateSaber( gentity_t *self );
-CCALL qboolean PM_SaberInStart( int move );
-CCALL qboolean BG_SaberInSpecialAttack( int anim );
-CCALL qboolean BG_SaberInAttack( int move );
-CCALL qboolean PM_SaberInBounce( int move );
-CCALL qboolean PM_SaberInParry( int move );
-CCALL qboolean PM_SaberInKnockaway( int move );
-CCALL qboolean PM_SaberInBrokenParry( int move );
-CCALL qboolean PM_SaberInDeflect( int move );
-CCALL qboolean BG_SpinningSaberAnim( int anim );
-CCALL qboolean BG_FlippingAnim( int anim );
-CCALL qboolean PM_RollingAnim( int anim );
-CCALL qboolean PM_InKnockDown( playerState_t *ps );
-CCALL qboolean BG_InRoll( playerState_t *ps, int anim );
-CCALL qboolean BG_CrouchAnim( int anim );
-CCALL qboolean NPC_SomeoneLookingAtMe(gentity_t *ent);
-CCALL int WP_GetVelocityForForceJump( gentity_t *self, vec3_t jumpVel, usercmd_t *ucmd );
-CCALL void G_TestLine(vec3_t start, vec3_t end, int color, int time);
-CCALL qboolean Jedi_WaitingAmbush( gentity_t *self );
+#include "NPC_AI_Jedi.h"
 
 static void Jedi_Aggression( gentity_t *self, int change );
 
 extern int bg_parryDebounce[];
 
 static int	jediSpeechDebounceTime[TEAM_NUM_TEAMS];//used to stop several jedi from speaking all at once
-//Local state enums
-enum
-{
-	LSTATE_NONE = 0,
-	LSTATE_UNDERFIRE,
-	LSTATE_INVESTIGATE,
-};
 
 void NPC_ShadowTrooper_Precache( void )
 {
@@ -202,8 +131,6 @@ void Boba_Precache( void )
 	G_EffectIndex( "boba/fthrw" );
 }
 
-extern void G_CreateG2AttachedWeaponModel( gentity_t *ent, const char *weaponModel, int boltNum, int weaponNum );
-extern void ChangeWeapon( gentity_t *ent, int newWeapon );
 void Boba_ChangeWeapon( int wp )
 {
 	if ( NPCS.NPC->s.weapon == wp )
@@ -814,7 +741,7 @@ void Jedi_Cloak( gentity_t *self )
 	}
 }
 
-CCALL void Jedi_Decloak( gentity_t *self )
+void Jedi_Decloak( gentity_t *self )
 {
 	if ( self )
 	{
@@ -1408,7 +1335,6 @@ static void Jedi_CheckDecreaseSaberAnimLevel( void )
 	}
 }
 
-extern void ForceDrain( gentity_t *self );
 static void Jedi_CombatDistance( int enemy_dist )
 {//FIXME: for many of these checks, what we really want is horizontal distance to enemy
 	if ( NPCS.NPC->client->ps.fd.forcePowersActive&(1<<FP_GRIP) &&
@@ -2444,7 +2370,7 @@ NOTE: always blocking projectiles in this func!
 
 -------------------------
 */
-extern qboolean G_FindClosestPointOnLineSegment( const vec3_t start, const vec3_t end, const vec3_t from, vec3_t result );
+
 evasionType_t Jedi_SaberBlockGo( gentity_t *self, usercmd_t *cmd, vec3_t pHitloc, vec3_t phitDir, gentity_t *incoming, float dist ) //dist = 0.0f
 {
 	vec3_t hitloc, hitdir, diff, fwdangles={0,0,0}, right;
@@ -3077,8 +3003,6 @@ evasionType_t Jedi_SaberBlockGo( gentity_t *self, usercmd_t *cmd, vec3_t pHitloc
 	return evasionType;
 }
 
-extern float ShortestLineSegBewteen2LineSegs( vec3_t start1, vec3_t end1, vec3_t start2, vec3_t end2, vec3_t close_pnt1, vec3_t close_pnt2 );
-extern int WPDEBUG_SaberColor( saber_colors_t saberColor );
 static qboolean Jedi_SaberBlock( int saberNum, int bladeNum ) //saberNum = 0, bladeNum = 0
 {
 	vec3_t hitloc, saberTipOld, saberTip, top, bottom, axisPoint, saberPoint, dir;//saberBase,
@@ -3734,7 +3658,6 @@ static void Jedi_SetEnemyInfo( vec3_t enemy_dest, vec3_t enemy_dir, float *enemy
 	}
 }
 
-extern float WP_SpeedOfMissileForWeapon( int wp, qboolean alt_fire );
 static void Jedi_FaceEnemy( qboolean doPitch )
 {
 	vec3_t	enemy_eyes, eyes, angles;
@@ -4432,10 +4355,6 @@ static qboolean Jedi_AttackDecide( int enemy_dist )
 	return qfalse;
 }
 
-#define	APEX_HEIGHT		200.0f
-#define	PARA_WIDTH		(sqrt(APEX_HEIGHT)+sqrt(APEX_HEIGHT))
-#define	JUMP_SPEED		200.0f
-
 static qboolean Jedi_Jump( vec3_t dest, int goalEntNum )
 {//FIXME: if land on enemy, knock him down & jump off again
 	/*
@@ -4879,7 +4798,6 @@ static qboolean Jedi_Jumping( gentity_t *goal )
 	return qfalse;
 }
 
-extern void G_UcmdMoveForDir( gentity_t *self, usercmd_t *cmd, vec3_t dir );
 static void Jedi_CheckEnemyMovement( float enemy_dist )
 {
 	if ( !NPCS.NPC->enemy || !NPCS.NPC->enemy->client )
@@ -6130,7 +6048,6 @@ static void Jedi_Attack( void )
 	}
 }
 
-extern void WP_Explode( gentity_t *self );
 qboolean Jedi_InSpecialMove( void )
 {
 	if ( NPCS.NPC->client->ps.torsoAnim == BOTH_KYLE_PA_1
@@ -6256,8 +6173,6 @@ qboolean Jedi_InSpecialMove( void )
 	return qfalse;
 }
 
-extern void NPC_BSST_Patrol( void );
-extern void NPC_BSSniper_Default( void );
 void NPC_BSJedi_Default( void )
 {
 	if ( Jedi_InSpecialMove() )

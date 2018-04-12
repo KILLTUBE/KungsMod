@@ -20,53 +20,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
-#include "g_nav.h"
+#include "NPC_AI_Mark1.h"
 
-#define	MIN_MELEE_RANGE				320
-#define	MIN_MELEE_RANGE_SQR			( MIN_MELEE_RANGE * MIN_MELEE_RANGE )
-
-#define MIN_DISTANCE				128
-#define MIN_DISTANCE_SQR			( MIN_DISTANCE * MIN_DISTANCE )
-
-#define TURN_OFF					0x00000100
-
-#define LEFT_ARM_HEALTH				40
-#define RIGHT_ARM_HEALTH			40
-#define AMMO_POD_HEALTH				40
-
-#define	BOWCASTER_VELOCITY			1300
-#define	BOWCASTER_NPC_DAMAGE_EASY	12
-#define	BOWCASTER_NPC_DAMAGE_NORMAL	24
-#define	BOWCASTER_NPC_DAMAGE_HARD	36
-#define BOWCASTER_SIZE				2
-#define BOWCASTER_SPLASH_DAMAGE		0
-#define BOWCASTER_SPLASH_RADIUS		0
-
-//Local state enums
-enum
-{
-	LSTATE_NONE = 0,
-	LSTATE_ASLEEP,
-	LSTATE_WAKEUP,
-	LSTATE_FIRED0,
-	LSTATE_FIRED1,
-	LSTATE_FIRED2,
-	LSTATE_FIRED3,
-	LSTATE_FIRED4,
-};
-
-qboolean NPC_CheckPlayerTeamStealth( void );
-void Mark1_BlasterAttack(qboolean advance);
-void DeathFX( gentity_t *ent );
-
-extern gitem_t *BG_FindItemForAmmo( ammo_t ammo );
-
-/*
--------------------------
-NPC_Mark1_Precache
--------------------------
-*/
 void NPC_Mark1_Precache(void)
 {
 	G_SoundIndex( "sound/chars/mark1/misc/mark1_wakeup");
@@ -93,11 +48,6 @@ void NPC_Mark1_Precache(void)
 	RegisterItem( BG_FindItemForWeapon( WP_BRYAR_PISTOL ));
 }
 
-/*
--------------------------
-NPC_Mark1_Part_Explode
--------------------------
-*/
 void NPC_Mark1_Part_Explode( gentity_t *self, int bolt )
 {
 	if ( bolt >=0 )
@@ -121,11 +71,6 @@ void NPC_Mark1_Part_Explode( gentity_t *self, int bolt )
 	//G_PlayEffectID( G_EffectIndex("blaster/smoke_bolton"), self->playerModel, bolt, self->s.number );
 }
 
-/*
--------------------------
-Mark1_Idle
--------------------------
-*/
 void Mark1_Idle( void )
 {
 	NPC_BSIdle();
@@ -133,12 +78,7 @@ void Mark1_Idle( void )
 	NPC_SetAnim( NPCS.NPC, SETANIM_BOTH, BOTH_SLEEP1, SETANIM_FLAG_NORMAL );
 }
 
-/*
--------------------------
-Mark1Dead_FireRocket
-- Shoot the left weapon, the multi-blaster
--------------------------
-*/
+// Shoot the left weapon, the multi-blaster
 void Mark1Dead_FireRocket (void)
 {
 	mdxaBone_t	boltMatrix;
@@ -180,12 +120,7 @@ void Mark1Dead_FireRocket (void)
 
 }
 
-/*
--------------------------
-Mark1Dead_FireBlaster
-- Shoot the left weapon, the multi-blaster
--------------------------
-*/
+// Shoot the left weapon, the multi-blaster
 void Mark1Dead_FireBlaster (void)
 {
 	vec3_t	muzzle1,muzzle_dir;
@@ -219,11 +154,6 @@ void Mark1Dead_FireBlaster (void)
 
 }
 
-/*
--------------------------
-Mark1_die
--------------------------
-*/
 void Mark1_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int mod,int dFlags,int hitLoc )
 {
 	/*
@@ -260,11 +190,6 @@ void Mark1_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int 
 	}
 }
 
-/*
--------------------------
-Mark1_dying
--------------------------
-*/
 void Mark1_dying( gentity_t *self )
 {
 	int	num,newBolt;
@@ -329,12 +254,7 @@ void Mark1_dying( gentity_t *self )
 
 }
 
-/*
--------------------------
-NPC_Mark1_Pain
-- look at what was hit and see if it should be removed from the model.
--------------------------
-*/
+// look at what was hit and see if it should be removed from the model.
 void NPC_Mark1_Pain(gentity_t *self, gentity_t *attacker, int damage)
 {
 	int newBolt,i,chance;
@@ -413,12 +333,7 @@ void NPC_Mark1_Pain(gentity_t *self, gentity_t *attacker, int damage)
 	}
 }
 
-/*
--------------------------
-Mark1_Hunt
-- look for enemy.
--------------------------`
-*/
+// look for enemy
 void Mark1_Hunt(void)
 {
 
@@ -433,12 +348,7 @@ void Mark1_Hunt(void)
 	NPC_MoveToGoal( qtrue );
 }
 
-/*
--------------------------
-Mark1_FireBlaster
-- Shoot the left weapon, the multi-blaster
--------------------------
-*/
+// Shoot the left weapon, the multi-blaster
 void Mark1_FireBlaster(void)
 {
 	vec3_t	muzzle1,enemy_org1,delta1,angleToEnemy1;
@@ -505,11 +415,6 @@ void Mark1_FireBlaster(void)
 
 }
 
-/*
--------------------------
-Mark1_BlasterAttack
--------------------------
-*/
 void Mark1_BlasterAttack(qboolean advance )
 {
 	int chance;
@@ -565,11 +470,6 @@ void Mark1_BlasterAttack(qboolean advance )
 	}
 }
 
-/*
--------------------------
-Mark1_FireRocket
--------------------------
-*/
 void Mark1_FireRocket(void)
 {
 	mdxaBone_t	boltMatrix;
@@ -616,11 +516,6 @@ void Mark1_FireRocket(void)
 
 }
 
-/*
--------------------------
-Mark1_RocketAttack
--------------------------
-*/
 void Mark1_RocketAttack( qboolean advance )
 {
 	if ( TIMER_Done( NPCS.NPC, "attackDelay" ) )	// Attack?
@@ -635,11 +530,6 @@ void Mark1_RocketAttack( qboolean advance )
 	}
 }
 
-/*
--------------------------
-Mark1_AttackDecision
--------------------------
-*/
 void Mark1_AttackDecision( void )
 {
 	int blasterTest,rocketTest;
@@ -721,11 +611,6 @@ void Mark1_AttackDecision( void )
 	}
 }
 
-/*
--------------------------
-Mark1_Patrol
--------------------------
-*/
 void Mark1_Patrol( void )
 {
 	if ( NPC_CheckPlayerTeamStealth() )
@@ -756,12 +641,6 @@ void Mark1_Patrol( void )
 
 }
 
-
-/*
--------------------------
-NPC_BSMark1_Default
--------------------------
-*/
 void NPC_BSMark1_Default( void )
 {
 	//NPC->e_DieFunc = dieF_Mark1_die;

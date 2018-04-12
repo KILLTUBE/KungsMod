@@ -20,28 +20,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
-#include "g_nav.h"
-
-#define AMMO_POD_HEALTH				1
-#define TURN_OFF					0x00000100
-
-#define VELOCITY_DECAY		0.25
-#define MAX_DISTANCE		256
-#define MAX_DISTANCE_SQR	( MAX_DISTANCE * MAX_DISTANCE )
-#define MIN_DISTANCE		24
-#define MIN_DISTANCE_SQR	( MIN_DISTANCE * MIN_DISTANCE )
-
-extern gitem_t	*BG_FindItemForAmmo( ammo_t ammo );
-
-//Local state enums
-enum
-{
-	LSTATE_NONE = 0,
-	LSTATE_DROPPINGDOWN,
-	LSTATE_DOWN,
-	LSTATE_RISINGUP,
-};
+#include "NPC_AI_Mark2.h"
 
 void NPC_Mark2_Precache( void )
 {
@@ -61,11 +40,6 @@ void NPC_Mark2_Precache( void )
 	RegisterItem( BG_FindItemForAmmo( AMMO_BLASTER ));
 }
 
-/*
--------------------------
-NPC_Mark2_Part_Explode
--------------------------
-*/
 void NPC_Mark2_Part_Explode( gentity_t *self, int bolt )
 {
 	if ( bolt >=0 )
@@ -90,12 +64,7 @@ void NPC_Mark2_Part_Explode( gentity_t *self, int bolt )
 	self->count++;	// Count of pods blown off
 }
 
-/*
--------------------------
-NPC_Mark2_Pain
-- look at what was hit and see if it should be removed from the model.
--------------------------
-*/
+// look at what was hit and see if it should be removed from the model.
 void NPC_Mark2_Pain(gentity_t *self, gentity_t *attacker, int damage)
 {
 	int newBolt,i;
@@ -129,11 +98,6 @@ void NPC_Mark2_Pain(gentity_t *self, gentity_t *attacker, int damage)
 	}
 }
 
-/*
--------------------------
-Mark2_Hunt
--------------------------
-*/
 void Mark2_Hunt(void)
 {
 	if ( NPCS.NPCInfo->goalEntity == NULL )
@@ -148,11 +112,6 @@ void Mark2_Hunt(void)
 	NPC_MoveToGoal( qtrue );
 }
 
-/*
--------------------------
-Mark2_FireBlaster
--------------------------
-*/
 void Mark2_FireBlaster(qboolean advance)
 {
 	vec3_t	muzzle1,enemy_org1,delta1,angleToEnemy1;
@@ -197,11 +156,6 @@ void Mark2_FireBlaster(qboolean advance)
 
 }
 
-/*
--------------------------
-Mark2_BlasterAttack
--------------------------
-*/
 void Mark2_BlasterAttack(qboolean advance)
 {
 	if ( TIMER_Done( NPCS.NPC, "attackDelay" ) )	// Attack?
@@ -223,11 +177,6 @@ void Mark2_BlasterAttack(qboolean advance)
 	}
 }
 
-/*
--------------------------
-Mark2_AttackDecision
--------------------------
-*/
 void Mark2_AttackDecision( void )
 {
 	float		distance;
@@ -313,12 +262,6 @@ void Mark2_AttackDecision( void )
 	}
 }
 
-
-/*
--------------------------
-Mark2_Patrol
--------------------------
-*/
 void Mark2_Patrol( void )
 {
 	if ( NPC_CheckPlayerTeamStealth() )
@@ -348,21 +291,11 @@ void Mark2_Patrol( void )
 	}
 }
 
-/*
--------------------------
-Mark2_Idle
--------------------------
-*/
 void Mark2_Idle( void )
 {
 	NPC_BSIdle();
 }
 
-/*
--------------------------
-NPC_BSMark2_Default
--------------------------
-*/
 void NPC_BSMark2_Default( void )
 {
 	if ( NPCS.NPC->enemy )
