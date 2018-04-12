@@ -61,45 +61,44 @@ typedef enum //# rank_e
 	RANK_CAPTAIN
 } rank_t;
 
-qboolean NPC_CheckPlayerTeamStealth( void );
+CCALL qboolean NPC_CheckPlayerTeamStealth( void );
 
 //AI_GRENADIER
-void NPC_BSGrenadier_Default( void );
+CCALL void NPC_BSGrenadier_Default( void );
 
 //AI_SNIPER
-void NPC_BSSniper_Default( void );
+CCALL void NPC_BSSniper_Default( void );
 
 //AI_STORMTROOPER
-void NPC_BSST_Investigate( void );
-void NPC_BSST_Default( void );
-void NPC_BSST_Sleep( void );
+CCALL void NPC_BSST_Investigate( void );
+CCALL void NPC_BSST_Default( void );
+CCALL void NPC_BSST_Sleep( void );
 
 //AI_JEDI
-void NPC_BSJedi_Investigate( void );
-void NPC_BSJedi_Default( void );
-void NPC_BSJedi_FollowLeader( void );
+CCALL void NPC_BSJedi_Investigate( void );
+CCALL void NPC_BSJedi_Default( void );
+CCALL void NPC_BSJedi_FollowLeader( void );
 
 // AI_DROID
-void NPC_BSDroid_Default( void );
+CCALL void NPC_BSDroid_Default( void );
 
 // AI_ImperialProbe
-void NPC_BSImperialProbe_Default( void );
+CCALL void NPC_BSImperialProbe_Default( void );
 
 // AI_atst
-void NPC_BSATST_Default( void );
+CCALL void NPC_BSATST_Default( void );
 
-void NPC_BSInterrogator_Default( void );
+CCALL void NPC_BSInterrogator_Default( void );
 
 // AI Mark 1
-void NPC_BSMark1_Default( void );
+CCALL void NPC_BSMark1_Default( void );
 
 // AI Mark 2
-void NPC_BSMark2_Default( void );
+CCALL void NPC_BSMark2_Default( void );
 
-
-void NPC_BSMineMonster_Default( void );
-void NPC_BSHowler_Default( void );
-void NPC_BSRancor_Default( void );
+CCALL void NPC_BSMineMonster_Default( void );
+CCALL void NPC_BSHowler_Default( void );
+CCALL void NPC_BSRancor_Default( void );
 
 //Utilities
 //Group AI

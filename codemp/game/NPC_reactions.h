@@ -36,7 +36,7 @@ CCALL void Jedi_Ambush(gentity_t *self);
 CCALL qboolean Jedi_WaitingAmbush(gentity_t *self);
 CCALL void NPC_SetLookTarget(gentity_t *self,int entNum,int clearTime);
 CCALL qboolean NPC_CheckLookTarget(gentity_t *self);
-CCALL qboolean Q3_TaskIDPending(gentity_t *ent,taskID_t taskType);
+//CCALL qboolean Q3_TaskIDPending(gentity_t *ent,taskID_t taskType);
 CCALL void cgi_S_StartSound(vec3_t origin,int entityNum,int entchannel,sfxHandle_t sfx);
 CCALL void G_SoundOnEnt(gentity_t *ent,soundChannel_t channel,const char *soundPath);
 CCALL void G_AddVoiceEvent(gentity_t *self,int event,int speakDebounceTime);

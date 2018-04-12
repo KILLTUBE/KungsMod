@@ -31,6 +31,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "b_local.h"
 #include "g_nav.h"
 
+CCALL void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath );
+
 #define ACT_ACTIVE		qtrue
 #define ACT_INACTIVE	qfalse
 extern void NPC_UseResponse ( gentity_t *self, gentity_t *user, qboolean useWhenDone );

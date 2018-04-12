@@ -35,7 +35,7 @@ CCALL qboolean TryHeal(gentity_t *ent,gentity_t *target);
 CCALL int G_CanUseDispOn(gentity_t *ent,int dispType);
 CCALL void G_UseDispenserOn(gentity_t *ent,int dispType,gentity_t *target);
 CCALL qboolean ValidUseTarget(gentity_t *ent);
-CCALL void G_SoundOnEnt(gentity_t *ent,int channel,const char *soundPath);
+CCALL void G_SoundOnEnt(gentity_t *ent, soundChannel_t channel,const char *soundPath);
 CCALL void G_EntitySound(gentity_t *ent,int channel,int soundIndex);
 CCALL void G_SoundAtLoc(vec3_t loc,int channel,int soundIndex);
 CCALL void G_Sound(gentity_t *ent,int channel,int soundIndex);

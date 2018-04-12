@@ -585,8 +585,8 @@ CCALL void Svcmd_Form_f (void);
 // g_utils.cpp
 //
 CCALL void Svcmd_Use_f (void);
-CCALL extern void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath );
-CCALL extern void G_SoundIndexOnEnt( gentity_t *ent, soundChannel_t channel, int index );
+CCALL void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath );
+CCALL void G_SoundIndexOnEnt( gentity_t *ent, soundChannel_t channel, int index );
 
 //
 // g_weapons.cpp

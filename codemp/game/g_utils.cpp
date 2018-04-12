@@ -28,6 +28,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "qcommon/q_shared.h"
 #include "g_utils.h"
 
+CCALL void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath );
 CCALL void Touch_Button(gentity_t *ent, gentity_t *other, trace_t *trace );
 
 int remapCount = 0;
@@ -1375,24 +1376,13 @@ void G_Sound( gentity_t *ent, int channel, int soundIndex ) {
 	}
 }
 
-/*
-=============
-G_SoundAtLoc
-=============
-*/
 void G_SoundAtLoc( vec3_t loc, int channel, int soundIndex ) {
 	gentity_t	*te;
-
 	te = G_TempEntity( loc, EV_GENERAL_SOUND );
 	te->s.eventParm = soundIndex;
 	te->s.saberEntityNum = channel;
 }
 
-/*
-=============
-G_EntitySound
-=============
-*/
 void G_EntitySound( gentity_t *ent, int channel, int soundIndex ) {
 	gentity_t	*te;
 
@@ -1403,26 +1393,16 @@ void G_EntitySound( gentity_t *ent, int channel, int soundIndex ) {
 }
 
 //To make porting from SP easier.
-void G_SoundOnEnt( gentity_t *ent, int channel, const char *soundPath )
+void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath )
 {
 	gentity_t	*te;
-
 	te = G_TempEntity( ent->r.currentOrigin, EV_ENTITY_SOUND );
 	te->s.eventParm = G_SoundIndex((char *)soundPath);
 	te->s.clientNum = ent->s.number;
 	te->s.trickedentindex = channel;
-
 }
 
-//==============================================================================
-
-/*
-==============
-ValidUseTarget
-
-Returns whether or not the targeted entity is useable
-==============
-*/
+// Returns whether or not the targeted entity is useable
 qboolean ValidUseTarget( gentity_t *ent )
 {
 	if ( !ent->use )

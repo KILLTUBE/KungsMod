@@ -20,45 +20,48 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-//
-// NPC.cpp - generic functions
-//
-#include "b_local.h"
-#include "anims.h"
-#include "say.h"
-#include "icarus/Q3_Interface.h"
-
 #include "NPC.h"
 
-extern vec3_t playerMins;
-extern vec3_t playerMaxs;
-extern void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath );
-extern void PM_SetTorsoAnimTimer( gentity_t *ent, int *torsoAnimTimer, int time );
-extern void PM_SetLegsAnimTimer( gentity_t *ent, int *legsAnimTimer, int time );
-extern void NPC_BSNoClip ( void );
-extern void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
-extern void NPC_ApplyRoff (void);
-extern void NPC_TempLookTarget ( gentity_t *self, int lookEntNum, int minLookTime, int maxLookTime );
-extern void NPC_CheckPlayerAim ( void );
-extern void NPC_CheckAllClear ( void );
-extern void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
-extern qboolean NPC_CheckLookTarget( gentity_t *self );
-extern void NPC_SetLookTarget( gentity_t *self, int entNum, int clearTime );
-extern void Mark1_dying( gentity_t *self );
-extern void NPC_BSCinematic( void );
-extern int GetTime ( int lastTime );
-extern void NPC_BSGM_Default( void );
-extern void NPC_CheckCharmed( void );
-extern qboolean Boba_Flying( gentity_t *self );
+extern "C"
+{
+#include "game/ai.h"
+}
 
-//Local Variables
 npcStatic_t NPCS;
+vec3_t NPCDEBUG_RED = {1.0, 0.0, 0.0};
+vec3_t NPCDEBUG_GREEN = {0.0, 1.0, 0.0};
+vec3_t NPCDEBUG_BLUE = {0.0, 0.0, 1.0};
+vec3_t NPCDEBUG_LIGHT_BLUE = {0.3f, 0.7f, 1.0};
 
-void NPC_SetAnim(gentity_t	*ent,int type,int anim,int priority);
-void pitch_roll_for_slope( gentity_t *forwhom, vec3_t pass_slope );
-extern void GM_Dying( gentity_t *self );
-
-extern int eventClearTime;
+CCALL void NPC_BSNoClip ( void );
+CCALL void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
+CCALL void NPC_ApplyRoff (void);
+CCALL void NPC_TempLookTarget ( gentity_t *self, int lookEntNum, int minLookTime, int maxLookTime );
+CCALL void NPC_CheckPlayerAim ( void );
+CCALL void NPC_CheckAllClear ( void );
+CCALL void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
+CCALL qboolean NPC_CheckLookTarget( gentity_t *self );
+CCALL void NPC_SetLookTarget( gentity_t *self, int entNum, int clearTime );
+CCALL void Mark1_dying( gentity_t *self );
+CCALL void NPC_BSCinematic( void );
+CCALL int GetTime ( int lastTime );
+CCALL void NPC_BSGM_Default( void );
+CCALL void NPC_CheckCharmed( void );
+CCALL qboolean Boba_Flying( gentity_t *self );
+CCALL void NPC_BSEmplaced( void );
+CCALL qboolean NPC_CheckSurrender( void );
+CCALL void Boba_FlyStop( gentity_t *self );
+CCALL void NPC_BSWampa_Default( void );
+CCALL qboolean Jedi_CultistDestroyer( gentity_t *self );
+CCALL void NPC_BSRemote_Default( void );
+CCALL void NPC_BSSeeker_Default( void );
+CCALL void NPC_BSImperialProbe_Attack( void );
+CCALL void NPC_BSImperialProbe_Patrol( void );
+CCALL void NPC_BSImperialProbe_Wait(void);
+CCALL void NPC_BSSentry_Default( void );
+CCALL void NPC_SetAnim(gentity_t	*ent,int type,int anim,int priority);
+CCALL void pitch_roll_for_slope( gentity_t *forwhom, vec3_t pass_slope );
+CCALL void GM_Dying( gentity_t *self );
 
 void CorpsePhysics( gentity_t *self )
 {
@@ -126,8 +129,6 @@ NPC_RemoveBody
 Determines when it's ok to ditch the corpse
 ----------------------------------------
 */
-#define REMOVE_DISTANCE		128
-#define REMOVE_DISTANCE_SQR (REMOVE_DISTANCE * REMOVE_DISTANCE)
 
 void NPC_RemoveBody( gentity_t *self )
 {
@@ -417,12 +418,6 @@ void pitch_roll_for_slope( gentity_t *forwhom, vec3_t pass_slope )
 	}
 }
 
-
-/*
-----------------------------------------
-DeadThink
-----------------------------------------
-*/
 static void DeadThink ( void )
 {
 	trace_t	trace;
@@ -583,22 +578,12 @@ void RestoreNPCGlobals(void)
 }
 
 //We MUST do this, other funcs were using NPC illegally when "self" wasn't the global NPC
-CCALL void ClearNPCGlobals( void )
+void ClearNPCGlobals( void )
 {
 	NPCS.NPC = NULL;
 	NPCS.NPCInfo = NULL;
 	NPCS.client = NULL;
 }
-//===============
-
-extern	qboolean	showBBoxes;
-vec3_t NPCDEBUG_RED = {1.0, 0.0, 0.0};
-vec3_t NPCDEBUG_GREEN = {0.0, 1.0, 0.0};
-vec3_t NPCDEBUG_BLUE = {0.0, 0.0, 1.0};
-vec3_t NPCDEBUG_LIGHT_BLUE = {0.3f, 0.7f, 1.0};
-extern void G_Cube( vec3_t mins, vec3_t maxs, vec3_t color, float alpha );
-extern void G_Line( vec3_t start, vec3_t end, vec3_t color, float alpha );
-extern void G_Cylinder( vec3_t start, vec3_t end, float radius, vec3_t color );
 
 void NPC_ShowDebugInfo (void)
 {
@@ -786,7 +771,6 @@ void NPC_CheckAttackScript(void)
 	G_ActivateBehavior(NPCS.NPC, BSET_ATTACK);
 }
 
-float NPC_MaxDistSquaredForWeapon (void);
 void NPC_CheckAttackHold(void)
 {
 	vec3_t		vec;
@@ -972,15 +956,6 @@ void NPC_BehaviorSet_Interrogator( int bState )
 	}
 }
 
-void NPC_BSImperialProbe_Attack( void );
-void NPC_BSImperialProbe_Patrol( void );
-void NPC_BSImperialProbe_Wait(void);
-
-/*
--------------------------
-NPC_BehaviorSet_ImperialProbe
--------------------------
-*/
 void NPC_BehaviorSet_ImperialProbe( int bState )
 {
 	switch( bState )
@@ -998,14 +973,6 @@ void NPC_BehaviorSet_ImperialProbe( int bState )
 	}
 }
 
-
-void NPC_BSSeeker_Default( void );
-
-/*
--------------------------
-NPC_BehaviorSet_Seeker
--------------------------
-*/
 void NPC_BehaviorSet_Seeker( int bState )
 {
 	switch( bState )
@@ -1023,25 +990,11 @@ void NPC_BehaviorSet_Seeker( int bState )
 	}
 }
 
-void NPC_BSRemote_Default( void );
-
-/*
--------------------------
-NPC_BehaviorSet_Remote
--------------------------
-*/
 void NPC_BehaviorSet_Remote( int bState )
 {
 	NPC_BSRemote_Default();
 }
 
-void NPC_BSSentry_Default( void );
-
-/*
--------------------------
-NPC_BehaviorSet_Sentry
--------------------------
-*/
 void NPC_BehaviorSet_Sentry( int bState )
 {
 	switch( bState )
@@ -1059,11 +1012,6 @@ void NPC_BehaviorSet_Sentry( int bState )
 	}
 }
 
-/*
--------------------------
-NPC_BehaviorSet_Grenadier
--------------------------
-*/
 void NPC_BehaviorSet_Grenadier( int bState )
 {
 	switch( bState )
@@ -1081,11 +1029,7 @@ void NPC_BehaviorSet_Grenadier( int bState )
 		break;
 	}
 }
-/*
--------------------------
-NPC_BehaviorSet_Sniper
--------------------------
-*/
+
 void NPC_BehaviorSet_Sniper( int bState )
 {
 	switch( bState )
@@ -1103,11 +1047,6 @@ void NPC_BehaviorSet_Sniper( int bState )
 		break;
 	}
 }
-/*
--------------------------
-NPC_BehaviorSet_Stormtrooper
--------------------------
-*/
 
 void NPC_BehaviorSet_Stormtrooper( int bState )
 {
@@ -1135,12 +1074,6 @@ void NPC_BehaviorSet_Stormtrooper( int bState )
 	}
 }
 
-/*
--------------------------
-NPC_BehaviorSet_Jedi
--------------------------
-*/
-
 void NPC_BehaviorSet_Jedi( int bState )
 {
 	switch( bState )
@@ -1163,11 +1096,6 @@ void NPC_BehaviorSet_Jedi( int bState )
 	}
 }
 
-/*
--------------------------
-NPC_BehaviorSet_Droid
--------------------------
-*/
 void NPC_BehaviorSet_Droid( int bState )
 {
 	switch( bState )
@@ -1183,11 +1111,6 @@ void NPC_BehaviorSet_Droid( int bState )
 	}
 }
 
-/*
--------------------------
-NPC_BehaviorSet_Mark1
--------------------------
-*/
 void NPC_BehaviorSet_Mark1( int bState )
 {
 	switch( bState )
@@ -1203,11 +1126,6 @@ void NPC_BehaviorSet_Mark1( int bState )
 	}
 }
 
-/*
--------------------------
-NPC_BehaviorSet_Mark2
--------------------------
-*/
 void NPC_BehaviorSet_Mark2( int bState )
 {
 	switch( bState )
@@ -1224,11 +1142,6 @@ void NPC_BehaviorSet_Mark2( int bState )
 	}
 }
 
-/*
--------------------------
-NPC_BehaviorSet_ATST
--------------------------
-*/
 void NPC_BehaviorSet_ATST( int bState )
 {
 	switch( bState )
@@ -1245,11 +1158,6 @@ void NPC_BehaviorSet_ATST( int bState )
 	}
 }
 
-/*
--------------------------
-NPC_BehaviorSet_MineMonster
--------------------------
-*/
 void NPC_BehaviorSet_MineMonster( int bState )
 {
 	switch( bState )
@@ -1267,11 +1175,6 @@ void NPC_BehaviorSet_MineMonster( int bState )
 	}
 }
 
-/*
--------------------------
-NPC_BehaviorSet_Howler
--------------------------
-*/
 void NPC_BehaviorSet_Howler( int bState )
 {
 	switch( bState )
@@ -1289,11 +1192,6 @@ void NPC_BehaviorSet_Howler( int bState )
 	}
 }
 
-/*
--------------------------
-NPC_BehaviorSet_Rancor
--------------------------
-*/
 void NPC_BehaviorSet_Rancor( int bState )
 {
 	switch( bState )
@@ -1311,16 +1209,6 @@ void NPC_BehaviorSet_Rancor( int bState )
 	}
 }
 
-/*
--------------------------
-NPC_RunBehavior
--------------------------
-*/
-extern void NPC_BSEmplaced( void );
-extern qboolean NPC_CheckSurrender( void );
-extern void Boba_FlyStop( gentity_t *self );
-extern void NPC_BSWampa_Default( void );
-extern qboolean Jedi_CultistDestroyer( gentity_t *self );
 void NPC_RunBehavior( int team, int bState )
 {
 	if (NPCS.NPC->s.NPC_class == CLASS_VEHICLE &&
@@ -1762,9 +1650,7 @@ NPC_Think
 Main NPC AI - called once per frame
 ===============
 */
-#if	AI_TIMERS
-extern int AITime;
-#endif//	AI_TIMERS
+
 void NPC_Think ( gentity_t *self)//, int msec )
 {
 	vec3_t	oldMoveDir;

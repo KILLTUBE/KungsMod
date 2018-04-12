@@ -922,9 +922,6 @@
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_frames.cpp">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\NPC_AI_Atst.c">
       <Filter>NPC</Filter>
     </ClCompile>
@@ -1239,6 +1236,9 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\WalkerNPC.cpp">
       <Filter>gamecgamemix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC.cpp">
+      <Filter>NPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
