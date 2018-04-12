@@ -20,21 +20,20 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-//NPC_combat.cpp
-#include "b_local.h"
-#include "g_nav.h"
+#include "NPC_combat.h"
 
-extern void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
-extern void G_SetEnemy( gentity_t *self, gentity_t *enemy );
-extern qboolean NPC_CheckLookTarget( gentity_t *self );
-extern void NPC_ClearLookTarget( gentity_t *self );
-extern void NPC_Jedi_RateNewEnemy( gentity_t *self, gentity_t *enemy );
-extern int NAV_FindClosestWaypointForPoint2( vec3_t point );
-extern int NAV_GetNearestNode( gentity_t *self, int lastNode );
-extern void G_CreateG2AttachedWeaponModel( gentity_t *ent, const char *weaponModel, int boltNum, int weaponNum );
-extern qboolean PM_DroidMelee( int npc_class );
-
-void ChangeWeapon( gentity_t *ent, int newWeapon );
+CCALL void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
+CCALL void G_SetEnemy( gentity_t *self, gentity_t *enemy );
+CCALL qboolean NPC_CheckLookTarget( gentity_t *self );
+CCALL void NPC_ClearLookTarget( gentity_t *self );
+CCALL void NPC_Jedi_RateNewEnemy( gentity_t *self, gentity_t *enemy );
+CCALL int NAV_FindClosestWaypointForPoint2( vec3_t point );
+CCALL int NAV_GetNearestNode( gentity_t *self, int lastNode );
+CCALL void G_CreateG2AttachedWeaponModel( gentity_t *ent, const char *weaponModel, int boltNum, int weaponNum );
+CCALL qboolean PM_DroidMelee( int npc_class );
+CCALL void ChangeWeapon( gentity_t *ent, int newWeapon );
+CCALL qboolean CheckItemCanBePickedUpByNPC( gentity_t *item, gentity_t *pickerupper );
+CCALL void G_AimSet( gentity_t *self, int aim );
 
 void G_ClearEnemy (gentity_t *self)
 {
@@ -57,15 +56,6 @@ void G_ClearEnemy (gentity_t *self)
 	self->enemy = NULL;
 }
 
-/*
--------------------------
-NPC_AngerAlert
--------------------------
-*/
-
-#define	ANGER_ALERT_RADIUS			512
-#define	ANGER_ALERT_SOUND_RADIUS	256
-
 void G_AngerAlert( gentity_t *self )
 {
 	if ( self && self->NPC && (self->NPC->scriptFlags&SCF_NO_GROUPS) )
@@ -79,12 +69,6 @@ void G_AngerAlert( gentity_t *self )
 	//FIXME: hmm.... with all the other new alerts now, is this still neccesary or even a good idea...?
 	G_AlertTeam( self, self->enemy, ANGER_ALERT_RADIUS, ANGER_ALERT_SOUND_RADIUS );
 }
-
-/*
--------------------------
-G_TeamEnemy
--------------------------
-*/
 
 qboolean G_TeamEnemy( gentity_t *self )
 {//FIXME: Probably a better way to do this, is a linked list of your teammates already available?
@@ -363,13 +347,6 @@ void G_ForceSaberOn(gentity_t *ent)
 	}
 }
 
-
-/*
--------------------------
-G_SetEnemy
--------------------------
-*/
-void G_AimSet( gentity_t *self, int aim );
 void G_SetEnemy( gentity_t *self, gentity_t *enemy )
 {
 	int	event = 0;
@@ -1544,7 +1521,7 @@ gentity_t *NPC_PickEnemy( gentity_t *closestTo, int enemyTeam, qboolean checkVis
 											}
 											else
 											{
-												Debug_Printf(&d_npcai, DEBUG_LEVEL_INFO, "%s saw %s trying to hide - hiddenDir %s targetDir %s dot %f\n", NPCS.NPC->targetname, newenemy->targetname, vtos(newenemy->client->hiddenDir), vtos(diff), dot );
+												Debug_Printf(d_npcai, DEBUG_LEVEL_INFO, "%s saw %s trying to hide - hiddenDir %s targetDir %s dot %f\n", NPCS.NPC->targetname, newenemy->targetname, vtos(newenemy->client->hiddenDir), vtos(diff), dot );
 											}
 										}
 										else
@@ -1554,7 +1531,7 @@ gentity_t *NPC_PickEnemy( gentity_t *closestTo, int enemyTeam, qboolean checkVis
 									}
 									else
 									{
-										Debug_Printf(&d_npcai, DEBUG_LEVEL_INFO, "%s saw %s trying to hide - hiddenDist %f\n", NPCS.NPC->targetname, newenemy->targetname, newenemy->client->hiddenDist );
+										Debug_Printf(d_npcai, DEBUG_LEVEL_INFO, "%s saw %s trying to hide - hiddenDist %f\n", NPCS.NPC->targetname, newenemy->targetname, newenemy->client->hiddenDist );
 									}
 								}
 
@@ -1687,7 +1664,7 @@ gentity_t *NPC_PickEnemy( gentity_t *closestTo, int enemyTeam, qboolean checkVis
 									}
 									else
 									{
-										Debug_Printf(&d_npcai, DEBUG_LEVEL_INFO, "%s saw %s trying to hide - hiddenDir %s targetDir %s dot %f\n", NPCS.NPC->targetname, newenemy->targetname, vtos(newenemy->client->hiddenDir), vtos(diff), dot );
+										Debug_Printf(d_npcai, DEBUG_LEVEL_INFO, "%s saw %s trying to hide - hiddenDir %s targetDir %s dot %f\n", NPCS.NPC->targetname, newenemy->targetname, vtos(newenemy->client->hiddenDir), vtos(diff), dot );
 									}
 								}
 								else
@@ -1697,7 +1674,7 @@ gentity_t *NPC_PickEnemy( gentity_t *closestTo, int enemyTeam, qboolean checkVis
 							}
 							else
 							{
-								Debug_Printf(&d_npcai, DEBUG_LEVEL_INFO, "%s saw %s trying to hide - hiddenDist %f\n", NPCS.NPC->targetname, newenemy->targetname, newenemy->client->hiddenDist );
+								Debug_Printf(d_npcai, DEBUG_LEVEL_INFO, "%s saw %s trying to hide - hiddenDist %f\n", NPCS.NPC->targetname, newenemy->targetname, newenemy->client->hiddenDist );
 							}
 						}
 
@@ -2523,16 +2500,6 @@ void CP_FindCombatPointWaypoints( void )
 	}
 }
 
-
-/*
--------------------------
-NPC_CollectCombatPoints
--------------------------
-*/
-typedef struct combatPt_s {
-	float dist;
-	int index;
-} combatPt_t;
 static int NPC_CollectCombatPoints( const vec3_t origin, const float radius, combatPt_t *points, const int flags )
 {
 	float	radiusSqr = (radius*radius);
@@ -2601,17 +2568,6 @@ static int NPC_CollectCombatPoints( const vec3_t origin, const float radius, com
 
 	return numPoints;
 }
-
-/*
--------------------------
-NPC_FindCombatPoint
--------------------------
-*/
-
-#define	MIN_AVOID_DOT				0.75f
-#define MIN_AVOID_DISTANCE			128
-#define MIN_AVOID_DISTANCE_SQUARED	( MIN_AVOID_DISTANCE * MIN_AVOID_DISTANCE )
-#define	CP_COLLECT_RADIUS			512.0f
 
 int NPC_FindCombatPoint( const vec3_t position, const vec3_t avoidPosition, vec3_t enemyPosition, const int flags, const float avoidDist, const int ignorePoint )
 {
@@ -2832,12 +2788,6 @@ int NPC_FindCombatPoint( const vec3_t position, const vec3_t avoidPosition, vec3
 	return best;
 }
 
-/*
--------------------------
-NPC_FindSquadPoint
--------------------------
-*/
-
 int NPC_FindSquadPoint( vec3_t position )
 {
 	float	dist, nearestDist = (float)WORLD_SIZE*(float)WORLD_SIZE;
@@ -2873,12 +2823,6 @@ int NPC_FindSquadPoint( vec3_t position )
 	return nearestPoint;
 }
 
-/*
--------------------------
-NPC_ReserveCombatPoint
--------------------------
-*/
-
 qboolean NPC_ReserveCombatPoint( int combatPointID )
 {
 	//Make sure it's valid
@@ -2894,12 +2838,6 @@ qboolean NPC_ReserveCombatPoint( int combatPointID )
 
 	return qtrue;
 }
-
-/*
--------------------------
-NPC_FreeCombatPoint
--------------------------
-*/
 
 qboolean NPC_FreeCombatPoint( int combatPointID, qboolean failed )
 {
@@ -2921,12 +2859,6 @@ qboolean NPC_FreeCombatPoint( int combatPointID, qboolean failed )
 	return qtrue;
 }
 
-/*
--------------------------
-NPC_SetCombatPoint
--------------------------
-*/
-
 qboolean NPC_SetCombatPoint( int combatPointID )
 {
 	//Free a combat point if we already have one
@@ -2943,7 +2875,6 @@ qboolean NPC_SetCombatPoint( int combatPointID )
 	return qtrue;
 }
 
-extern qboolean CheckItemCanBePickedUpByNPC( gentity_t *item, gentity_t *pickerupper );
 gentity_t *NPC_SearchForWeapons( void )
 {
 	gentity_t *found = g_entities, *bestFound = NULL;

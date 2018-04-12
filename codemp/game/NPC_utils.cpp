@@ -20,18 +20,13 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-//NPC_utils.cpp
-
-#include "b_local.h"
-#include "icarus/Q3_Interface.h"
-#include "ghoul2/G2.h"
+#include "NPC_utils.h"
 
 int	teamNumbers[TEAM_NUM_TEAMS];
 int	teamStrength[TEAM_NUM_TEAMS];
 int	teamCounter[TEAM_NUM_TEAMS];
 
-#define	VALID_ATTACK_CONE	2.0f	//Degrees
-extern void G_DebugPrint( int level, const char *format, ... );
+CCALL void G_DebugPrint( int level, const char *format, ... );
 
 /*
 void CalcEntitySpot ( gentity_t *ent, spot_t spot, vec3_t point )
@@ -868,8 +863,6 @@ void SetTeamNumbers (void)
 	}
 }
 
-extern stringID_table_t BSTable[];
-extern stringID_table_t BSETTable[];
 qboolean G_ActivateBehavior (gentity_t *self, int bset )
 {
 	bState_t	bSID = (bState_t)-1;
@@ -1011,10 +1004,6 @@ void NPC_SetBoneAngles(gentity_t *ent, char *bone, vec3_t angles)
 	SV_G2API_SetBoneAngles(ent->ghoul2, 0, bone, angles, flags, up, right, forward, NULL, 100, level.time);
 }
 
-//rww - and another method of automatically managing surface status for the client and server at once
-#define TURN_ON				0x00000000
-#define TURN_OFF			0x00000100
-
 void NPC_SetSurfaceOnOff(gentity_t *ent, const char *surfaceName, int surfaceFlags)
 {
 	int i = 0;
@@ -1103,12 +1092,6 @@ qboolean NPC_ClearLOS2( gentity_t *ent, const vec3_t end )
 {
 	return G_ClearLOS2( NPCS.NPC, ent, end );
 }
-
-/*
--------------------------
-NPC_ValidEnemy
--------------------------
-*/
 
 qboolean NPC_ValidEnemy( gentity_t *ent )
 {
@@ -1208,12 +1191,6 @@ qboolean NPC_ValidEnemy( gentity_t *ent )
 	return qfalse;
 }
 
-/*
--------------------------
-NPC_TargetVisible
--------------------------
-*/
-
 qboolean NPC_TargetVisible( gentity_t *ent )
 {
 
@@ -1256,15 +1233,6 @@ static int NPC_GetCheckDelta( void )
 	return 0;
 }
 */
-
-/*
--------------------------
-NPC_FindNearestEnemy
--------------------------
-*/
-
-#define	MAX_RADIUS_ENTS			256	//NOTE: This can cause entities to be lost
-#define NEAR_DEFAULT_RADIUS		256
 
 int NPC_FindNearestEnemy( gentity_t *ent )
 {
@@ -1316,12 +1284,6 @@ int NPC_FindNearestEnemy( gentity_t *ent )
 	return nearestEntID;
 }
 
-/*
--------------------------
-NPC_PickEnemyExt
--------------------------
-*/
-
 gentity_t *NPC_PickEnemyExt( qboolean checkAlerts )
 {
 	//If we've asked for the closest enemy
@@ -1361,23 +1323,11 @@ gentity_t *NPC_PickEnemyExt( qboolean checkAlerts )
 	return NULL;
 }
 
-/*
--------------------------
-NPC_FindPlayer
--------------------------
-*/
-
 qboolean NPC_FindPlayer( void )
 {
 	//OJKFIXME: clientnum 0
 	return NPC_TargetVisible( &g_entities[0] );
 }
-
-/*
--------------------------
-NPC_CheckPlayerDistance
--------------------------
-*/
 
 static qboolean NPC_CheckPlayerDistance( void )
 {
@@ -1412,12 +1362,6 @@ static qboolean NPC_CheckPlayerDistance( void )
 	return qfalse;
 	*/
 }
-
-/*
--------------------------
-NPC_FindEnemy
--------------------------
-*/
 
 qboolean NPC_FindEnemy( qboolean checkAlerts )
 {
@@ -1475,12 +1419,6 @@ qboolean NPC_FindEnemy( qboolean checkAlerts )
 	return qfalse;
 }
 
-/*
--------------------------
-NPC_CheckEnemyExt
--------------------------
-*/
-
 qboolean NPC_CheckEnemyExt( qboolean checkAlerts )
 {
 	//Make sure we're ready to think again
@@ -1496,12 +1434,6 @@ qboolean NPC_CheckEnemyExt( qboolean checkAlerts )
 */
 	return NPC_FindEnemy( checkAlerts );
 }
-
-/*
--------------------------
-NPC_FacePosition
--------------------------
-*/
 
 qboolean NPC_FacePosition( vec3_t position, qboolean doPitch )
 {
@@ -1561,12 +1493,6 @@ qboolean NPC_FacePosition( vec3_t position, qboolean doPitch )
 	return facing;
 }
 
-/*
--------------------------
-NPC_FaceEntity
--------------------------
-*/
-
 qboolean NPC_FaceEntity( gentity_t *ent, qboolean doPitch )
 {
 	vec3_t		entPos;
@@ -1576,12 +1502,6 @@ qboolean NPC_FaceEntity( gentity_t *ent, qboolean doPitch )
 
 	return NPC_FacePosition( entPos, doPitch );
 }
-
-/*
--------------------------
-NPC_FaceEnemy
--------------------------
-*/
 
 qboolean NPC_FaceEnemy( qboolean doPitch )
 {
@@ -1593,12 +1513,6 @@ qboolean NPC_FaceEnemy( qboolean doPitch )
 
 	return NPC_FaceEntity( NPCS.NPC->enemy, doPitch );
 }
-
-/*
--------------------------
-NPC_CheckCanAttackExt
--------------------------
-*/
 
 qboolean NPC_CheckCanAttackExt( void )
 {
@@ -1617,12 +1531,6 @@ qboolean NPC_CheckCanAttackExt( void )
 	return qtrue;
 }
 
-/*
--------------------------
-NPC_ClearLookTarget
--------------------------
-*/
-
 void NPC_ClearLookTarget( gentity_t *self )
 {
 	if ( !self->client )
@@ -1639,11 +1547,6 @@ void NPC_ClearLookTarget( gentity_t *self )
 	self->client->renderInfo.lookTargetClearTime = 0;
 }
 
-/*
--------------------------
-NPC_SetLookTarget
--------------------------
-*/
 void NPC_SetLookTarget( gentity_t *self, int entNum, int clearTime )
 {
 	if ( !self->client )
@@ -1660,11 +1563,6 @@ void NPC_SetLookTarget( gentity_t *self, int entNum, int clearTime )
 	self->client->renderInfo.lookTargetClearTime = clearTime;
 }
 
-/*
--------------------------
-NPC_CheckLookTarget
--------------------------
-*/
 qboolean NPC_CheckLookTarget( gentity_t *self )
 {
 	if ( self->client )
@@ -1693,19 +1591,13 @@ qboolean NPC_CheckLookTarget( gentity_t *self )
 	return qfalse;
 }
 
-/*
--------------------------
-NPC_CheckCharmed
--------------------------
-*/
-extern void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
 void NPC_CheckCharmed( void )
 {
 
 	if ( NPCS.NPCInfo->charmedTime && NPCS.NPCInfo->charmedTime < level.time && NPCS.NPC->client )
 	{//we were charmed, set us back!
-		NPCS.NPC->client->playerTeam	= NPCS.NPC->genericValue1;
-		NPCS.NPC->client->enemyTeam		= NPCS.NPC->genericValue2;
+		NPCS.NPC->client->playerTeam	= (npcteam_t) NPCS.NPC->genericValue1;
+		NPCS.NPC->client->enemyTeam		= (npcteam_t) NPCS.NPC->genericValue2;
 		NPCS.NPC->s.teamowner			= NPCS.NPC->genericValue3;
 
 		NPCS.NPC->client->leader = NULL;

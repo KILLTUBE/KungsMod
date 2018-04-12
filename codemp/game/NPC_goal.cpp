@@ -20,14 +20,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-//b_goal.cpp
-#include "b_local.h"
-#include "icarus/Q3_Interface.h"
+#include "NPC_goal.h"
 
-extern qboolean FlyingCreature( gentity_t *ent );
-/*
-SetGoal
-*/
+CCALL qboolean FlyingCreature( gentity_t *ent );
 
 void SetGoal( gentity_t *goal, float rating )
 {
@@ -44,11 +39,6 @@ void SetGoal( gentity_t *goal, float rating )
 //		Debug_NPCPrintf( NPC, d_npcai, DEBUG_LEVEL_INFO, "NPC_SetGoal: NONE\n" );
 	}
 }
-
-
-/*
-NPC_SetGoal
-*/
 
 void NPC_SetGoal( gentity_t *goal, float rating )
 {
@@ -79,11 +69,6 @@ void NPC_SetGoal( gentity_t *goal, float rating )
 	SetGoal( goal, rating );
 }
 
-
-/*
-NPC_ClearGoal
-*/
-
 void NPC_ClearGoal( void )
 {
 	gentity_t	*goal;
@@ -106,12 +91,6 @@ void NPC_ClearGoal( void )
 
 	SetGoal( NULL, 0.0 );
 }
-
-/*
--------------------------
-G_BoundsOverlap
--------------------------
-*/
 
 qboolean G_BoundsOverlap(const vec3_t mins1, const vec3_t maxs1, const vec3_t mins2, const vec3_t maxs2)
 {//NOTE: flush up against counts as overlapping

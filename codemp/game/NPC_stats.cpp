@@ -21,15 +21,20 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 //NPC_stats.cpp
-#include "b_local.h"
-#include "b_public.h"
-#include "anims.h"
-#include "ghoul2/G2.h"
 
-extern qboolean NPCsPrecached;
+#include "NPC_stats.h"
 
-extern qboolean WP_SaberParseParms( const char *SaberName, saberInfo_t *saber );
-extern void WP_RemoveSaber( saberInfo_t *sabers, int saberNum );
+CCALL qboolean WP_SaberParseParms( const char *SaberName, saberInfo_t *saber );
+CCALL void WP_RemoveSaber( saberInfo_t *sabers, int saberNum );
+CCALL void SetupGameGhoul2Model(gentity_t *ent, char *modelname, char *skinName);
+CCALL int NPC_WeaponsForTeam( team_t team, int spawnflags, const char *NPC_type );
+CCALL saber_colors_t TranslateSaberColor( const char *name );
+CCALL qboolean BG_ParseLiteral( const char **data, const char *string );
+
+char	NPCParms[MAX_NPC_DATA_SIZE];
+
+EXTERNC stringID_table_t WPTable[];
+EXTERNC stringID_table_t FPTable[];
 
 stringID_table_t TeamTable[] =
 {
@@ -145,9 +150,6 @@ stringID_table_t BSETTable[] =
 	{"",				-1},
 };
 
-extern stringID_table_t WPTable[];
-extern stringID_table_t FPTable[];
-
 char	*TeamNames[TEAM_NUM_TEAMS] =
 {
 	"",
@@ -230,13 +232,9 @@ int NPC_ReactionTime ( void )
 // parse support routines
 //
 
-extern qboolean BG_ParseLiteral( const char **data, const char *string );
-
 //
 // NPC parameters file : scripts/NPCs.cfg
 //
-#define MAX_NPC_DATA_SIZE 0x40000
-char	NPCParms[MAX_NPC_DATA_SIZE];
 
 /*
 team_t TranslateTeamName( const char *name )
@@ -320,8 +318,6 @@ static rank_t TranslateRankName( const char *name )
 	return RANK_CIVILIAN;
 
 }
-
-extern saber_colors_t TranslateSaberColor( const char *name );
 
 /* static int MethodNameToNumber( const char *name ) {
 	if ( !Q_stricmp( name, "EXPONENTIAL" ) ) {
@@ -537,7 +533,6 @@ void NPC_PrecacheAnimationCFG( const char *NPC_type )
 #endif
 }
 
-extern int NPC_WeaponsForTeam( team_t team, int spawnflags, const char *NPC_type );
 void NPC_PrecacheWeapons( team_t playerTeam, int spawnflags, char *NPCtype )
 {
 	int weapons = NPC_WeaponsForTeam( playerTeam, spawnflags, NPCtype );
@@ -733,7 +728,7 @@ void NPC_Precache ( gentity_t *spawner )
 			}
 			//playerTeam = TranslateTeamName(value);
 			Com_sprintf(tk, sizeof(tk), "NPC%s", token);
-			playerTeam = GetIDForString( TeamTable, tk );
+			playerTeam = (npcteam_t) GetIDForString( TeamTable, tk );
 			continue;
 		}
 
@@ -962,7 +957,6 @@ void NPC_BuildRandom( gentity_t *NPC )
 }
 #endif
 
-extern void SetupGameGhoul2Model(gentity_t *ent, char *modelname, char *skinName);
 qboolean NPC_ParseParms( const char *NPCName, gentity_t *NPC )
 {
 	const char	*token;
@@ -2136,7 +2130,10 @@ qboolean NPC_ParseParms( const char *NPCName, gentity_t *NPC )
 					continue;
 				}
 				Com_sprintf(tk, sizeof(tk), "NPC%s", token);
-				NPC->client->playerTeam = NPC->s.teamowner = (team_t)GetIDForString( TeamTable, tk );//TranslateTeamName(value);
+				
+				NPC->s.teamowner = (team_t)GetIDForString( TeamTable, tk );//TranslateTeamName(value);
+				NPC->client->playerTeam = (npcteam_t) NPC->s.teamowner;
+
 				continue;
 			}
 
@@ -2150,7 +2147,7 @@ qboolean NPC_ParseParms( const char *NPCName, gentity_t *NPC )
 					continue;
 				}
 				Com_sprintf(tk, sizeof(tk), "NPC%s", token);
-				NPC->client->enemyTeam = GetIDForString( TeamTable, tk );//TranslateTeamName(value);
+				NPC->client->enemyTeam = (npcteam_t) GetIDForString( TeamTable, tk );//TranslateTeamName(value);
 				continue;
 			}
 

@@ -28,20 +28,22 @@ things in a snapshot or just go through the snapshot every frame and save the in
 we need it...
 */
 
-#include "b_local.h"
-#include "g_nav.h"
-#include "icarus/Q3_Interface.h"
-#include "server/sv_nav.h"
+#include "NPC_behavior.h"
 
-extern	qboolean	showBBoxes;
-extern vec3_t NPCDEBUG_BLUE;
-extern void G_Cube( vec3_t mins, vec3_t maxs, vec3_t color, float alpha );
-extern void NPC_CheckGetNewWeapon( void );
+EXTERNC	qboolean	showBBoxes;
+EXTERNC vec3_t NPCDEBUG_BLUE;
 
-extern qboolean PM_InKnockDown( playerState_t *ps );
+CCALL void G_Cube( vec3_t mins, vec3_t maxs, vec3_t color, float alpha );
+CCALL void NPC_CheckGetNewWeapon( void );
+CCALL qboolean PM_InKnockDown( playerState_t *ps );
+CCALL void NPC_AimAdjust( int change );
+CCALL qboolean NPC_SomeoneLookingAtMe(gentity_t *ent);
+CCALL void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
+CCALL void WP_DropWeapon( gentity_t *dropper, vec3_t velocity );
+CCALL void ChangeWeapon( gentity_t *ent, int newWeapon );
+CCALL qboolean NPC_MoveDirClear( int forwardmove, int rightmove, qboolean reset );
+CCALL void MakeOwnerInvis (gentity_t *self);
 
-extern void NPC_AimAdjust( int change );
-extern qboolean NPC_SomeoneLookingAtMe(gentity_t *ent);
 /*
  void NPC_BSAdvanceFight (void)
 
@@ -209,7 +211,6 @@ void Disappear(gentity_t *self)
 	self->nextthink = -1;
 }
 
-void MakeOwnerInvis (gentity_t *self);
 void BeamOut (gentity_t *self)
 {
 //	gentity_t *tent = G_Spawn();
@@ -225,7 +226,8 @@ void BeamOut (gentity_t *self)
 	self->nextthink = level.time + 1500;
 	self->think = Disappear;
 	self->client->squadname = NULL;
-	self->client->playerTeam = self->s.teamowner = TEAM_FREE;
+	self->client->playerTeam = (npcteam_t) TEAM_FREE;
+	self->s.teamowner = TEAM_FREE;
 	//self->r.svFlags |= SVF_BEAMING; //this appears unused in SP as well
 }
 
@@ -539,7 +541,6 @@ void NPC_BSSleep( void )
 	*/
 }
 
-extern qboolean NPC_MoveDirClear( int forwardmove, int rightmove, qboolean reset );
 void NPC_BSFollowLeader (void)
 {
 	vec3_t		vec;
@@ -744,9 +745,7 @@ void NPC_BSFollowLeader (void)
 		}
 	}
 }
-#define	APEX_HEIGHT		200.0f
-#define	PARA_WIDTH		(sqrt(APEX_HEIGHT)+sqrt(APEX_HEIGHT))
-#define	JUMP_SPEED		200.0f
+
 void NPC_BSJump (void)
 {
 	vec3_t		dir, angles, p1, p2, apex;
@@ -1145,12 +1144,6 @@ void NPC_BSSearch (void)
 	NPC_UpdateAngles( qtrue, qtrue );
 }
 
-/*
--------------------------
-NPC_BSSearchStart
--------------------------
-*/
-
 void NPC_BSSearchStart( int homeWp, bState_t bState )
 {
 	//FIXME: Reimplement
@@ -1329,14 +1322,7 @@ void NPC_BSFaceLeader (void)
 	NPC_UpdateAngles(qtrue, qtrue);
 }
 */
-/*
--------------------------
-NPC_BSFlee
--------------------------
-*/
-extern void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
-extern void WP_DropWeapon( gentity_t *dropper, vec3_t velocity );
-extern void ChangeWeapon( gentity_t *ent, int newWeapon );
+
 void NPC_Surrender( void )
 {//FIXME: say "don't shoot!" if we weren't already surrendering
 	if ( NPCS.NPC->client->ps.weaponTime || PM_InKnockDown( &NPCS.NPC->client->ps ) )

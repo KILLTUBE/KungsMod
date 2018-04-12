@@ -20,22 +20,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#ifdef _GAME //including game headers on cgame is FORBIDDEN ^_^
-#include "g_local.h"
-#endif
-
-#include "bg_public.h"
-#include "bg_vehicles.h"
-
-#ifdef _GAME //we only want a few of these functions for BG
-
-extern float DotToSpot( vec3_t spot, vec3_t from, vec3_t fromAngles );
-extern vec3_t playerMins;
-extern vec3_t playerMaxs;
-extern int PM_AnimLength( int index, animNumber_t anim );
-extern void Vehicle_SetAnim(gentity_t *ent,int setAnimParts,int anim,int setAnimFlags, int iBlend);
-extern void G_Knockdown( gentity_t *self, gentity_t *attacker, const vec3_t pushDir, float strength, qboolean breakSaberLock );
-extern void G_VehicleTrace( trace_t *results, const vec3_t start, const vec3_t tMins, const vec3_t tMaxs, const vec3_t end, int passEntityNum, int contentmask );
+#include "WalkerNPC.h"
 
 static void RegisterAssets( Vehicle_t *pVeh )
 {
@@ -65,7 +50,6 @@ static qboolean Board( Vehicle_t *pVeh, bgEntity_t *pEnt )
 
 	return qtrue;
 }
-#endif //_GAME
 
 
 //MP RULE - ALL PROCESSMOVECOMMANDS FUNCTIONS MUST BE BG-COMPATIBLE!!!
@@ -319,7 +303,6 @@ static void ProcessOrientCommands( Vehicle_t *pVeh )
 	/********************************************************************************/
 }
 
-#ifdef _GAME //back to our game-only functions
 // This function makes sure that the vehicle is properly animated.
 static void AnimateVehicle( Vehicle_t *pVeh )
 {
@@ -442,16 +425,12 @@ static void AnimateVehicle( Vehicle_t *pVeh )
 
 //rwwFIXMEFIXME: This is all going to have to be predicted I think, or it will feel awful
 //and lagged
-#endif //_GAME
 
-#ifndef _GAME
-void AttachRidersGeneric( Vehicle_t *pVeh );
-#endif
 
 //on the client this function will only set up the process command funcs
 void G_SetWalkerVehicleFunctions( vehicleInfo_t *pVehInfo )
 {
-#ifdef _GAME
+if (isGame()) {
 	pVehInfo->AnimateVehicle			=		AnimateVehicle;
 //	pVehInfo->AnimateRiders				=		AnimateRiders;
 //	pVehInfo->ValidateBoard				=		ValidateBoard;
@@ -468,13 +447,13 @@ void G_SetWalkerVehicleFunctions( vehicleInfo_t *pVehInfo )
 //	pVehInfo->Initialize				=		Initialize;
 //	pVehInfo->Update					=		Update;
 //	pVehInfo->UpdateRider				=		UpdateRider;
-#endif //_GAME
+}
 	pVehInfo->ProcessMoveCommands		=		ProcessMoveCommands;
 	pVehInfo->ProcessOrientCommands		=		ProcessOrientCommands;
 
-#ifndef _GAME //cgame prediction attachment func
+if (isCGame()) {
 	pVehInfo->AttachRiders				=		AttachRidersGeneric;
-#endif
+}
 //	pVehInfo->AttachRiders				=		AttachRiders;
 //	pVehInfo->Ghost						=		Ghost;
 //	pVehInfo->UnGhost					=		UnGhost;
@@ -483,27 +462,22 @@ void G_SetWalkerVehicleFunctions( vehicleInfo_t *pVehInfo )
 
 // Following is only in game, not in namespace
 
-#ifdef _GAME
-extern void G_AllocateVehicleObject(Vehicle_t **pVeh);
-#endif
-
-
 // Create/Allocate a new Animal Vehicle (initializing it as well).
 //this is a BG function too in MP so don't un-bg-compatibilify it -rww
 void G_CreateWalkerNPC( Vehicle_t **pVeh, const char *strAnimalType )
 {
 	// Allocate the Vehicle.
-#ifdef _GAME
-	//these will remain on entities on the client once allocated because the pointer is
-	//never stomped. on the server, however, when an ent is freed, the entity struct is
-	//memset to 0, so this memory would be lost..
-    G_AllocateVehicleObject(pVeh);
-#else
-	if (!*pVeh)
-	{ //only allocate a new one if we really have to
-		(*pVeh) = (Vehicle_t *) BG_Alloc( sizeof(Vehicle_t) );
+	if (isGame()) {
+		//these will remain on entities on the client once allocated because the pointer is
+		//never stomped. on the server, however, when an ent is freed, the entity struct is
+		//memset to 0, so this memory would be lost..
+		G_AllocateVehicleObject(pVeh);
+	} else {
+		if (!*pVeh)
+		{ //only allocate a new one if we really have to
+			(*pVeh) = (Vehicle_t *) BG_Alloc( sizeof(Vehicle_t) );
+		}
 	}
-#endif
 	memset(*pVeh, 0, sizeof(Vehicle_t));
 	(*pVeh)->m_pVehicleInfo = &g_vehicleInfo[BG_VehicleGetIndex( strAnimalType )];
 }

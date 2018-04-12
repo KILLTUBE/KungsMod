@@ -30,9 +30,7 @@
  *
  */
 
-#include <math.h>
-#include "qcommon/q_shared.h"
-#include "game/g_local.h"
+#include "tri_coll_test.h"
 
 /* if USE_EPSILON_TEST is true then we do a check:
          if |dv|<EPSILON then dv=0.0;

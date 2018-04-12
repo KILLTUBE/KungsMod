@@ -26,31 +26,28 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "ai_main.h"
 #include "ghoul2/G2.h"
 
-
-
-#define SABER_BOX_SIZE 16.0f
-extern bot_state_t *botstates[MAX_CLIENTS];
-extern qboolean InFront( vec3_t spot, vec3_t from, vec3_t fromAngles, float threshHold );
-extern void G_TestLine(vec3_t start, vec3_t end, int color, int time);
+EXTERNC bot_state_t *botstates[MAX_CLIENTS];
 
 int saberSpinSound = 0;
 
 //would be cleaner if these were renamed to BG_ and proto'd in a header.
-qboolean PM_SaberInTransition( int move );
-qboolean PM_SaberInDeflect( int move );
-qboolean PM_SaberInBrokenParry( int move );
-qboolean PM_SaberInBounce( int move );
-qboolean BG_SaberInReturn( int move );
-qboolean BG_InKnockDownOnGround( playerState_t *ps );
-qboolean BG_StabDownAnim( int anim );
-qboolean BG_SabersOff( playerState_t *ps );
-qboolean BG_SaberInTransitionAny( int move );
-qboolean BG_SaberInAttackPure( int move );
-qboolean WP_SaberBladeUseSecondBladeStyle( saberInfo_t *saber, int bladeNum );
-qboolean WP_SaberBladeDoTransitionDamage( saberInfo_t *saber, int bladeNum );
-
-void WP_SaberAddG2Model( gentity_t *saberent, const char *saberModel, qhandle_t saberSkin );
-void WP_SaberRemoveG2Model( gentity_t *saberent );
+CCALL qboolean PM_SaberInTransition( int move );
+CCALL qboolean PM_SaberInDeflect( int move );
+CCALL qboolean PM_SaberInBrokenParry( int move );
+CCALL qboolean PM_SaberInBounce( int move );
+CCALL qboolean BG_SaberInReturn( int move );
+CCALL qboolean BG_InKnockDownOnGround( playerState_t *ps );
+CCALL qboolean BG_StabDownAnim( int anim );
+CCALL qboolean BG_SabersOff( playerState_t *ps );
+CCALL qboolean BG_SaberInTransitionAny( int move );
+CCALL qboolean BG_SaberInAttackPure( int move );
+CCALL qboolean WP_SaberBladeUseSecondBladeStyle( saberInfo_t *saber, int bladeNum );
+CCALL qboolean WP_SaberBladeDoTransitionDamage( saberInfo_t *saber, int bladeNum );
+CCALL void WP_SaberAddG2Model( gentity_t *saberent, const char *saberModel, qhandle_t saberSkin );
+CCALL void WP_SaberRemoveG2Model( gentity_t *saberent );
+CCALL qboolean InFront( vec3_t spot, vec3_t from, vec3_t fromAngles, float threshHold );
+CCALL void G_TestLine(vec3_t start, vec3_t end, int color, int time);
+CCALL void saberFirstThrown(gentity_t *saberent);
 
 //	g_randFix 0 == Same as basejka. Broken on Linux, fine on Windows
 //	g_randFix 1 == Use proper behaviour of RAND_MAX. Fine on Linux, fine on Windows
@@ -7074,8 +7071,6 @@ void saberBackToOwner(gentity_t *saberent)
 
 	saberent->nextthink = level.time;
 }
-
-void saberFirstThrown(gentity_t *saberent);
 
 void thrownSaberTouch (gentity_t *saberent, gentity_t *other, trace_t *trace)
 {

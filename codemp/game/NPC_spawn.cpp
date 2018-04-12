@@ -20,98 +20,86 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-//b_spawn.cpp
-//added by MCG
-#include "b_local.h"
-#include "anims.h"
-#include "w_saber.h"
-#include "bg_saga.h"
-#include "bg_vehicles.h"
-#include "g_nav.h"
+#include "NPC_spawn.h"
 
-extern void G_DebugPrint( int level, const char *format, ... );
+EXTERNC stringID_table_t TeamTable[];
+EXTERNC char	*TeamNames[TEAM_NUM_TEAMS];
 
-extern qboolean G_CheckInSolid (gentity_t *self, qboolean fix);
-extern qboolean ClientUserinfoChanged( int clientNum );
-extern qboolean SpotWouldTelefrag2( gentity_t *mover, vec3_t dest );
-extern void Jedi_Cloak( gentity_t *self );
-
-extern void Q3_SetParm (int entID, int parmNum, const char *parmValue);
-extern team_t TranslateTeamName( const char *name );
-extern char	*TeamNames[TEAM_NUM_TEAMS];
-
-extern void PM_SetTorsoAnimTimer( gentity_t *ent, int *torsoAnimTimer, int time );
-extern void PM_SetLegsAnimTimer( gentity_t *ent, int *legsAnimTimer, int time );
-
-extern void ST_ClearTimers( gentity_t *ent );
-extern void Jedi_ClearTimers( gentity_t *ent );
-extern void NPC_ShadowTrooper_Precache( void );
-extern void NPC_Gonk_Precache( void );
-extern void NPC_Mouse_Precache( void );
-extern void NPC_Seeker_Precache( void );
-extern void NPC_Remote_Precache( void );
-extern void	NPC_R2D2_Precache(void);
-extern void	NPC_R5D2_Precache(void);
-extern void NPC_Probe_Precache(void);
-extern void NPC_Interrogator_Precache(gentity_t *self);
-extern void NPC_MineMonster_Precache( void );
-extern void NPC_Howler_Precache( void );
-extern void NPC_ATST_Precache(void);
-extern void NPC_Sentry_Precache(void);
-extern void NPC_Mark1_Precache(void);
-extern void NPC_Mark2_Precache(void);
-extern void NPC_GalakMech_Precache( void );
-extern void NPC_GalakMech_Init( gentity_t *ent );
-extern void NPC_Protocol_Precache( void );
-extern void Boba_Precache( void );
-extern void NPC_Wampa_Precache( void );
-gentity_t *NPC_SpawnType( gentity_t *ent, char *npc_type, char *targetname, qboolean isVehicle );
-
-extern void Rancor_SetBolts( gentity_t *self );
-extern void Wampa_SetBolts( gentity_t *self );
-
-#define	NSF_DROP_TO_FLOOR	16
+CCALL void G_DebugPrint( int level, const char *format, ... );
+CCALL qboolean G_CheckInSolid (gentity_t *self, qboolean fix);
+CCALL qboolean ClientUserinfoChanged( int clientNum );
+CCALL qboolean SpotWouldTelefrag2( gentity_t *mover, vec3_t dest );
+CCALL void Jedi_Cloak( gentity_t *self );
+CCALL void Q3_SetParm (int entID, int parmNum, const char *parmValue);
+CCALL team_t TranslateTeamName( const char *name );
+CCALL void PM_SetTorsoAnimTimer( gentity_t *ent, int *torsoAnimTimer, int time );
+CCALL void PM_SetLegsAnimTimer( gentity_t *ent, int *legsAnimTimer, int time );
+CCALL void ST_ClearTimers( gentity_t *ent );
+CCALL void Jedi_ClearTimers( gentity_t *ent );
+CCALL void NPC_ShadowTrooper_Precache( void );
+CCALL void NPC_Gonk_Precache( void );
+CCALL void NPC_Mouse_Precache( void );
+CCALL void NPC_Seeker_Precache( void );
+CCALL void NPC_Remote_Precache( void );
+CCALL void	NPC_R2D2_Precache(void);
+CCALL void	NPC_R5D2_Precache(void);
+CCALL void NPC_Probe_Precache(void);
+CCALL void NPC_Interrogator_Precache(gentity_t *self);
+CCALL void NPC_MineMonster_Precache( void );
+CCALL void NPC_Howler_Precache( void );
+CCALL void NPC_ATST_Precache(void);
+CCALL void NPC_Sentry_Precache(void);
+CCALL void NPC_Mark1_Precache(void);
+CCALL void NPC_Mark2_Precache(void);
+CCALL void NPC_GalakMech_Precache( void );
+CCALL void NPC_GalakMech_Init( gentity_t *ent );
+CCALL void NPC_Protocol_Precache( void );
+CCALL void Boba_Precache( void );
+CCALL void NPC_Wampa_Precache( void );
+CCALL gentity_t *NPC_SpawnType( gentity_t *ent, char *npc_type, char *targetname, qboolean isVehicle );
+CCALL void Rancor_SetBolts( gentity_t *self );
+CCALL void Wampa_SetBolts( gentity_t *self );
+CCALL void G_CreateAnimalNPC( Vehicle_t **pVeh, const char *strAnimalType );
+CCALL void G_CreateSpeederNPC( Vehicle_t **pVeh, const char *strType );
+CCALL void G_CreateWalkerNPC( Vehicle_t **pVeh, const char *strAnimalType );
+CCALL void G_CreateFighterNPC( Vehicle_t **pVeh, const char *strType );
+CCALL void G_CreateG2AttachedWeaponModel( gentity_t *ent, const char *weaponModel, int boltNum, int weaponNum );
 
 // PAIN functions...
 //
-extern void funcBBrushPain				(gentity_t *self, gentity_t *attacker, int damage);
-extern void misc_model_breakable_pain	(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_Pain					(gentity_t *self, gentity_t *attacker, int damage);
-extern void station_pain				(gentity_t *self, gentity_t *attacker, int damage);
-extern void func_usable_pain			(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_ATST_Pain				(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_ST_Pain					(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_Jedi_Pain				(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_Droid_Pain				(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_Probe_Pain				(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_MineMonster_Pain		(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_Howler_Pain				(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_Seeker_Pain				(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_Remote_Pain				(gentity_t *self, gentity_t *attacker, int damage);
-extern void emplaced_gun_pain			(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_Mark1_Pain				(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_GM_Pain				(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_Sentry_Pain				(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_Mark2_Pain				(gentity_t *self, gentity_t *attacker, int damage);
-extern void PlayerPain					(gentity_t *self, gentity_t *attacker, int damage);
-extern void GasBurst					(gentity_t *self, gentity_t *attacker, int damage);
-extern void CrystalCratePain			(gentity_t *self, gentity_t *attacker, int damage);
-extern void TurretPain					(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_Wampa_Pain				(gentity_t *self, gentity_t *attacker, int damage);
-extern void NPC_Rancor_Pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void funcBBrushPain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void misc_model_breakable_pain	(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_Pain					(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void station_pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void func_usable_pain			(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_ATST_Pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_ST_Pain					(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_Jedi_Pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_Droid_Pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_Probe_Pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_MineMonster_Pain		(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_Howler_Pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_Seeker_Pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_Remote_Pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void emplaced_gun_pain			(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_Mark1_Pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_GM_Pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_Sentry_Pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_Mark2_Pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void PlayerPain					(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void GasBurst					(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void CrystalCratePain			(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void TurretPain					(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_Wampa_Pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void NPC_Rancor_Pain				(gentity_t *self, gentity_t *attacker, int damage);
+CCALL void G_VehicleSpawn( gentity_t *self );
+
 
 int WP_SetSaberModel( gclient_t *client, class_t npcClass )
 {
 	//rwwFIXMEFIXME: Do something here, need to let the client know.
 	return 1;
 }
-
-/*
--------------------------
-NPC_PainFunc
--------------------------
-*/
-typedef void (PAIN_FUNC) (gentity_t *self, gentity_t *attacker, int damage);
 
 PAIN_FUNC *NPC_PainFunc( gentity_t *ent )
 {
@@ -201,14 +189,6 @@ PAIN_FUNC *NPC_PainFunc( gentity_t *ent )
 	return func;
 }
 
-
-/*
--------------------------
-NPC_TouchFunc
--------------------------
-*/
-typedef void (TOUCH_FUNC) (gentity_t *self, gentity_t *other, trace_t *trace);
-
 TOUCH_FUNC *NPC_TouchFunc( gentity_t *ent )
 {
 	void (*func)(gentity_t *self, gentity_t *other, trace_t *trace);
@@ -218,13 +198,6 @@ TOUCH_FUNC *NPC_TouchFunc( gentity_t *ent )
 	return func;
 }
 
-/*
--------------------------
-NPC_SetMiscDefaultData
--------------------------
-*/
-
-extern void G_CreateG2AttachedWeaponModel( gentity_t *ent, const char *weaponModel, int boltNum, int weaponNum );
 void NPC_SetMiscDefaultData( gentity_t *ent )
 {
 	if ( ent->spawnflags & SFB_CINEMATIC )
@@ -497,11 +470,11 @@ void NPC_SetMiscDefaultData( gentity_t *ent )
 		{
 			if (ent->client->enemyTeam == NPCTEAM_PLAYER)
 			{
-				ent->client->sess.sessionTeam = SIEGETEAM_TEAM1;
+				ent->client->sess.sessionTeam = (team_t) SIEGETEAM_TEAM1;
 			}
 			else if (ent->client->enemyTeam == NPCTEAM_ENEMY)
 			{
-				ent->client->sess.sessionTeam = SIEGETEAM_TEAM2;
+				ent->client->sess.sessionTeam = (team_t) SIEGETEAM_TEAM2;
 			}
 			else
 			{
@@ -1347,15 +1320,6 @@ void NPC_DefaultScriptFlags( gentity_t *ent )
 	//Set up default script flags
 	ent->NPC->scriptFlags = (SCF_CHASE_ENEMIES|SCF_LOOK_FOR_ENEMIES);
 }
-/*
--------------------------
-NPC_Spawn_Go
--------------------------
-*/
-extern void G_CreateAnimalNPC( Vehicle_t **pVeh, const char *strAnimalType );
-extern void G_CreateSpeederNPC( Vehicle_t **pVeh, const char *strType );
-extern void G_CreateWalkerNPC( Vehicle_t **pVeh, const char *strAnimalType );
-extern void G_CreateFighterNPC( Vehicle_t **pVeh, const char *strType );
 
 gentity_t *NPC_Spawn_Do( gentity_t *ent )
 {
@@ -1522,7 +1486,7 @@ gentity_t *NPC_Spawn_Do( gentity_t *ent )
 
 		if (newent->m_pVehicle->m_pVehicleInfo->Initialize == NULL) {
 			Com_Printf("newent->m_pVehicle->m_pVehicleInfo->Initialize == NULL\n");
-			return;
+			return NULL;
 		}
 
 		assert(newent->m_pVehicle &&
@@ -1603,7 +1567,8 @@ gentity_t *NPC_Spawn_Do( gentity_t *ent )
 				if ( g_entities[n].s.eType != ET_NPC && g_entities[n].client)
 				{
 					VectorCopy(g_entities[n].s.origin, newent->s.origin);
-					newent->client->playerTeam = newent->s.teamowner = g_entities[n].client->playerTeam;
+					newent->client->playerTeam = (npcteam_t) g_entities[n].client->playerTeam;
+					newent->s.teamowner = (npcteam_t) g_entities[n].client->playerTeam;
 					break;
 				}
 			}
@@ -1705,19 +1670,19 @@ gentity_t *NPC_Spawn_Do( gentity_t *ent )
 	newent->teamnodmg = ent->teamnodmg;
 	if ( ent->team && ent->team[0] )
 	{//specified team directly?
-		newent->client->sess.sessionTeam = atoi(ent->team);
+		newent->client->sess.sessionTeam = (team_t) atoi(ent->team);
 	}
 	else if ( newent->s.teamowner != TEAM_FREE )
 	{
-		newent->client->sess.sessionTeam = newent->s.teamowner;
+		newent->client->sess.sessionTeam = (team_t) newent->s.teamowner;
 	}
 	else if ( newent->alliedTeam != TEAM_FREE )
 	{
-		newent->client->sess.sessionTeam = newent->alliedTeam;
+		newent->client->sess.sessionTeam = (team_t) newent->alliedTeam;
 	}
 	else if ( newent->teamnodmg != TEAM_FREE )
 	{
-		newent->client->sess.sessionTeam = newent->teamnodmg;
+		newent->client->sess.sessionTeam = (team_t) newent->teamnodmg;
 	}
 	else
 	{
@@ -1790,15 +1755,6 @@ void NPC_StasisSpawnEffect( gentity_t *ent )
 //	CG_ShimmeryThing_Spawner( start, end, 32, qtrue, 1000 );
 }
 */
-/*
--------------------------
-NPC_ShySpawn
--------------------------
-*/
-
-#define SHY_THINK_TIME			1000
-#define SHY_SPAWN_DISTANCE		128
-#define SHY_SPAWN_DISTANCE_SQR	( SHY_SPAWN_DISTANCE * SHY_SPAWN_DISTANCE )
 
 void NPC_ShySpawn( gentity_t *ent )
 {
@@ -1818,12 +1774,6 @@ void NPC_ShySpawn( gentity_t *ent )
 
 	NPC_Spawn_Go( ent );
 }
-
-/*
--------------------------
-NPC_Spawn
--------------------------
-*/
 
 void NPC_Spawn ( gentity_t *ent, gentity_t *other, gentity_t *activator )
 {
@@ -2055,7 +2005,7 @@ void SP_NPC_spawner( gentity_t *self)
 	//Or just don't include NPC_spawners in cameraGroupings
 }
 
-extern void G_VehicleSpawn( gentity_t *self );
+
 /*QUAKED NPC_Vehicle (1 0 0) (-16 -16 -24) (16 16 32) NO_PILOT_DIE SUSPENDED x x DROPTOFLOOR CINEMATIC NOTSOLID STARTINSOLID SHY
 NO_PILOT_DIE - die after certain amount of time of not having a pilot
 SUSPENDED - Fighters: Don't drop until someone gets in it (this only works as long as no-nw has *ever* ridden the vehicle, to simulate ships that are suspended-docked) - note: ships inside trigger_spaces do not drop when unoccupied
@@ -3978,7 +3928,7 @@ gentity_t *NPC_SpawnType( gentity_t *ent, char *npc_type, char *targetname, qboo
 
 	if (!npc_type[0])
 	{
-		Com_Printf( S_COLOR_RED"Error, expected one of:\n"S_COLOR_WHITE" NPC spawn [NPC type (from ext_data/NPCs)]\n NPC spawn vehicle [VEH type (from ext_data/vehicles)]\n" );
+		Com_Printf( S_COLOR_RED "Error, expected one of:\n" S_COLOR_WHITE " NPC spawn [NPC type (from ext_data/NPCs)]\n NPC spawn vehicle [VEH type (from ext_data/vehicles)]\n" );
 		return NULL;
 	}
 
@@ -4125,10 +4075,6 @@ void NPC_Spawn_f( gentity_t *ent )
 	NPC_SpawnType( ent, npc_type, targetname, isVehicle );
 }
 
-/*
-NPC_Kill_f
-*/
-extern stringID_table_t TeamTable[];
 void NPC_Kill_f( void )
 {
 	int			n;
@@ -4172,7 +4118,7 @@ void NPC_Kill_f( void )
 		}
 		else
 		{
-			killTeam = GetIDForString( TeamTable, name );
+			killTeam = (npcteam_t) GetIDForString( TeamTable, name );
 
 			if ( killTeam == NPCTEAM_FREE )
 			{

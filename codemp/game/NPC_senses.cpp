@@ -20,11 +20,10 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-//NPC_senses.cpp
+#include "NPC_senses.h"
 
-#include "b_local.h"
+CCALL qboolean RemoveOldestAlert( void );
 
-extern int eventClearTime;
 /*
 qboolean G_ClearLineOfSight(const vec3_t point1, const vec3_t point2, int ignore, int clipmask)
 
@@ -271,10 +270,6 @@ qboolean InVisrange ( gentity_t *ent )
 	return qtrue;
 }
 
-/*
-NPC_CheckVisibility
-*/
-
 visibility_t NPC_CheckVisibility ( gentity_t *ent, int flags )
 {
 	// flags should never be 0
@@ -345,11 +340,6 @@ visibility_t NPC_CheckVisibility ( gentity_t *ent, int flags )
 	return VIS_SHOOT;
 }
 
-/*
--------------------------
-NPC_CheckSoundEvents
--------------------------
-*/
 static int G_CheckSoundEvents( gentity_t *self, float maxHearDist, int ignoreAlert, qboolean mustHaveOwner, int minAlertLevel )
 {
 	int	bestEvent = -1;
@@ -421,11 +411,7 @@ float G_GetLightLevel( vec3_t pos, vec3_t fromDir )
 
 	return lightLevel;
 }
-/*
--------------------------
-NPC_CheckSightEvents
--------------------------
-*/
+
 static int G_CheckSightEvents( gentity_t *self, int hFOV, int vFOV, float maxSeeDist, int ignoreAlert, qboolean mustHaveOwner, int minAlertLevel )
 {
 	int	bestEvent = -1;
@@ -488,14 +474,7 @@ static int G_CheckSightEvents( gentity_t *self, int hFOV, int vFOV, float maxSee
 	return bestEvent;
 }
 
-/*
--------------------------
-NPC_CheckAlertEvents
-
-    NOTE: Should all NPCs create alertEvents too so they can detect each other?
--------------------------
-*/
-
+// NOTE: Should all NPCs create alertEvents too so they can detect each other?
 int G_CheckAlertEvents( gentity_t *self, qboolean checkSight, qboolean checkSound, float maxSeeDist, float maxHearDist, int ignoreAlert, qboolean mustHaveOwner, int minAlertLevel )
 {
 	int bestSoundEvent = -1;
@@ -592,12 +571,6 @@ qboolean NPC_CheckForDanger( int alertEvent )
 	return G_CheckForDanger( NPCS.NPC, alertEvent );
 }
 
-/*
--------------------------
-AddSoundEvent
--------------------------
-*/
-qboolean RemoveOldestAlert( void );
 void AddSoundEvent( gentity_t *owner, vec3_t position, float radius, alertEventLevel_e alertLevel, qboolean needLOS )
 {
 	//FIXME: Handle this in another manner?
@@ -636,12 +609,6 @@ void AddSoundEvent( gentity_t *owner, vec3_t position, float radius, alertEventL
 	level.numAlertEvents++;
 }
 
-/*
--------------------------
-AddSightEvent
--------------------------
-*/
-
 void AddSightEvent( gentity_t *owner, vec3_t position, float radius, alertEventLevel_e alertLevel, float addLight )
 {
 	//FIXME: Handle this in another manner?
@@ -672,12 +639,6 @@ void AddSightEvent( gentity_t *owner, vec3_t position, float radius, alertEventL
 
 	level.numAlertEvents++;
 }
-
-/*
--------------------------
-ClearPlayerAlertEvents
--------------------------
-*/
 
 void ClearPlayerAlertEvents( void )
 {
@@ -750,12 +711,6 @@ qboolean RemoveOldestAlert( void )
 	//return true is have room for one now
 	return (level.numAlertEvents<MAX_ALERT_EVENTS);
 }
-
-/*
--------------------------
-G_ClearLOS
--------------------------
-*/
 
 // Position to position
 qboolean G_ClearLOS( gentity_t *self, const vec3_t start, const vec3_t end )

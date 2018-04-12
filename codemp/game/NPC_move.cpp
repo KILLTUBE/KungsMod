@@ -20,29 +20,17 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-//
-// NPC_move.cpp
-//
-#include "b_local.h"
-#include "g_nav.h"
-#include "anims.h"
-
-void G_Cylinder( vec3_t start, vec3_t end, float radius, vec3_t color );
-
-qboolean G_BoundsOverlap(const vec3_t mins1, const vec3_t maxs1, const vec3_t mins2, const vec3_t maxs2);
-int NAV_Steer( gentity_t *self, vec3_t dir, float distance );
-extern int GetTime ( int lastTime );
+#include "NPC_move.h"
 
 navInfo_t	frameNavInfo;
-extern qboolean FlyingCreature( gentity_t *ent );
 
-extern qboolean PM_InKnockDown( playerState_t *ps );
-
-/*
--------------------------
-NPC_ClearPathToGoal
--------------------------
-*/
+CCALL qboolean G_BoundsOverlap(const vec3_t mins1, const vec3_t maxs1, const vec3_t mins2, const vec3_t maxs2);
+CCALL int NAV_Steer( gentity_t *self, vec3_t dir, float distance );
+CCALL int GetTime ( int lastTime );
+CCALL qboolean FlyingCreature( gentity_t *ent );
+CCALL qboolean PM_InKnockDown( playerState_t *ps );
+CCALL int NAVNEW_MoveToGoal( gentity_t *self, navInfo_t *info );
+CCALL qboolean NAVNEW_AvoidCollision( gentity_t *self, gentity_t *goal, navInfo_t *info, qboolean setBlockedInfo, int blockedMovesLimit );
 
 qboolean NPC_ClearPathToGoal( vec3_t dir, gentity_t *goal )
 {
@@ -89,12 +77,6 @@ qboolean NPC_ClearPathToGoal( vec3_t dir, gentity_t *goal )
 	return qfalse;
 }
 
-/*
--------------------------
-NPC_CheckCombatMove
--------------------------
-*/
-
 static QINLINE qboolean NPC_CheckCombatMove( void )
 {
 	//return NPCInfo->combatMove;
@@ -114,12 +96,6 @@ static QINLINE qboolean NPC_CheckCombatMove( void )
 	return qfalse;
 }
 
-/*
--------------------------
-NPC_LadderMove
--------------------------
-*/
-
 static void NPC_LadderMove( vec3_t dir )
 {
 	//FIXME: this doesn't guarantee we're facing ladder
@@ -137,11 +113,6 @@ static void NPC_LadderMove( vec3_t dir )
 	}
 }
 
-/*
--------------------------
-NPC_GetMoveInformation
--------------------------
-*/
 static QINLINE qboolean NPC_GetMoveInformation( vec3_t dir, float *distance )
 {
 	//NOTENOTE: Use path stacks!
@@ -159,22 +130,10 @@ static QINLINE qboolean NPC_GetMoveInformation( vec3_t dir, float *distance )
 	return qtrue;
 }
 
-/*
--------------------------
-NAV_GetLastMove
--------------------------
-*/
-
 void NAV_GetLastMove( navInfo_t *info )
 {
 	*info = frameNavInfo;
 }
-
-/*
--------------------------
-NPC_GetMoveDirection
--------------------------
-*/
 
 qboolean NPC_GetMoveDirection( vec3_t out, float *distance )
 {
@@ -248,13 +207,6 @@ qboolean NPC_GetMoveDirection( vec3_t out, float *distance )
 	return qtrue;
 }
 
-/*
--------------------------
-NPC_GetMoveDirectionAltRoute
--------------------------
-*/
-extern int	NAVNEW_MoveToGoal( gentity_t *self, navInfo_t *info );
-extern qboolean NAVNEW_AvoidCollision( gentity_t *self, gentity_t *goal, navInfo_t *info, qboolean setBlockedInfo, int blockedMovesLimit );
 qboolean NPC_GetMoveDirectionAltRoute( vec3_t out, float *distance, qboolean tryStraight )
 {
 	vec3_t		angles;
@@ -389,15 +341,9 @@ void G_UcmdMoveForDir( gentity_t *self, usercmd_t *cmd, vec3_t dir )
 }
 
 /*
--------------------------
-NPC_MoveToGoal
-
-  Now assumes goal is goalEntity, was no reason for it to be otherwise
--------------------------
+// Now assumes goal is goalEntity, was no reason for it to be otherwise
 */
-#if	AI_TIMERS
-extern int navTime;
-#endif//	AI_TIMERS
+
 qboolean NPC_MoveToGoal( qboolean tryStraight )
 {
 	float	distance;
@@ -505,13 +451,6 @@ qboolean NPC_SlideMoveToGoal( void )
 
 	return ret;
 }
-
-
-/*
--------------------------
-NPC_ApplyRoff
--------------------------
-*/
 
 void NPC_ApplyRoff(void)
 {

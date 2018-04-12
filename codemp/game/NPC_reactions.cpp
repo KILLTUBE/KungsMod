@@ -20,33 +20,32 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-//NPC_reactions.cpp
-#include "b_local.h"
-#include "anims.h"
-#include "w_saber.h"
+#include "NPC_reactions.h"
 
-extern qboolean G_CheckForStrongAttackMomentum( gentity_t *self );
-extern void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
-extern void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath );
-extern void cgi_S_StartSound( vec3_t origin, int entityNum, int entchannel, sfxHandle_t sfx );
-extern qboolean Q3_TaskIDPending( gentity_t *ent, taskID_t taskType );
-extern qboolean NPC_CheckLookTarget( gentity_t *self );
-extern void NPC_SetLookTarget( gentity_t *self, int entNum, int clearTime );
-extern qboolean Jedi_WaitingAmbush( gentity_t *self );
-extern void Jedi_Ambush( gentity_t *self );
-extern qboolean NPC_SomeoneLookingAtMe(gentity_t *ent);
+CCALL qboolean G_CheckForStrongAttackMomentum( gentity_t *self );
+CCALL void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
+CCALL void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath );
+CCALL void cgi_S_StartSound( vec3_t origin, int entityNum, int entchannel, sfxHandle_t sfx );
+CCALL qboolean Q3_TaskIDPending( gentity_t *ent, taskID_t taskType );
+CCALL qboolean NPC_CheckLookTarget( gentity_t *self );
+CCALL void NPC_SetLookTarget( gentity_t *self, int entNum, int clearTime );
+CCALL qboolean Jedi_WaitingAmbush( gentity_t *self );
+CCALL void Jedi_Ambush( gentity_t *self );
+CCALL qboolean NPC_SomeoneLookingAtMe(gentity_t *ent);
+CCALL qboolean BG_SaberInSpecialAttack( int anim );
+CCALL qboolean PM_SpinningSaberAnim( int anim );
+CCALL qboolean PM_SpinningAnim( int anim );
+CCALL qboolean PM_InKnockDown( playerState_t *ps );
+CCALL qboolean BG_FlippingAnim( int anim );
+CCALL qboolean PM_RollingAnim( int anim );
+CCALL qboolean PM_InCartwheel( int anim );
+CCALL qboolean BG_CrouchAnim( int anim );
+CCALL int G_PickPainAnim( gentity_t *self, vec3_t point, int damage, int hitLoc );
+CCALL qboolean INV_SecurityKeyGive( gentity_t *target, const char *keyname );
+CCALL void Add_Batteries( gentity_t *ent, int *count );
 
-extern qboolean BG_SaberInSpecialAttack( int anim );
-extern qboolean PM_SpinningSaberAnim( int anim );
-extern qboolean PM_SpinningAnim( int anim );
-extern qboolean PM_InKnockDown( playerState_t *ps );
-extern qboolean BG_FlippingAnim( int anim );
-extern qboolean PM_RollingAnim( int anim );
-extern qboolean PM_InCartwheel( int anim );
-extern qboolean BG_CrouchAnim( int anim );
-
-extern int	teamLastEnemyTime[];
-extern int killPlayerTimer;
+EXTERNC int	teamLastEnemyTime[];
+EXTERNC int killPlayerTimer;
 
 //float g_crosshairEntDist = Q3_INFINITE;
 //int g_crosshairSameEntTime = 0;
@@ -162,12 +161,6 @@ void NPC_SetPainEvent( gentity_t *self )
 	}
 }
 
-/*
--------------------------
-NPC_GetPainChance
--------------------------
-*/
-
 float NPC_GetPainChance( gentity_t *self, int damage )
 {
 	float pain_chance;
@@ -209,15 +202,6 @@ float NPC_GetPainChance( gentity_t *self, int damage )
 	return pain_chance;
 }
 
-/*
--------------------------
-NPC_ChoosePainAnimation
--------------------------
-*/
-
-#define	MIN_PAIN_TIME	200
-
-extern int G_PickPainAnim( gentity_t *self, vec3_t point, int damage, int hitLoc );
 void NPC_ChoosePainAnimation( gentity_t *self, gentity_t *other, vec3_t point, int damage, int mod, int hitLoc, int voiceEvent )
 {
 	int		pain_anim = -1;
@@ -370,11 +354,6 @@ void NPC_ChoosePainAnimation( gentity_t *self, gentity_t *other, vec3_t point, i
 	}
 }
 
-/*
-===============
-NPC_Pain
-===============
-*/
 void NPC_Pain(gentity_t *self, gentity_t *attacker, int damage)
 {
 	npcteam_t otherTeam = NPCTEAM_FREE;
@@ -543,12 +522,6 @@ void NPC_Pain(gentity_t *self, gentity_t *attacker, int damage)
 	RestoreNPCGlobals();
 }
 
-/*
--------------------------
-NPC_Touch
--------------------------
-*/
-extern qboolean INV_SecurityKeyGive( gentity_t *target, const char *keyname );
 void NPC_Touch(gentity_t *self, gentity_t *other, trace_t *trace)
 {
 
@@ -667,12 +640,6 @@ void NPC_Touch(gentity_t *self, gentity_t *other, trace_t *trace)
 
 	RestoreNPCGlobals();
 }
-
-/*
--------------------------
-NPC_TempLookTarget
--------------------------
-*/
 
 void NPC_TempLookTarget( gentity_t *self, int lookEntNum, int minLookTime, int maxLookTime )
 {
@@ -959,12 +926,6 @@ void NPC_Respond( gentity_t *self, int userNum )
 	}
 }
 
-/*
--------------------------
-NPC_UseResponse
--------------------------
-*/
-
 void NPC_UseResponse( gentity_t *self, gentity_t *user, qboolean useWhenDone )
 {
 	if ( !self->NPC || !self->client )
@@ -1015,13 +976,6 @@ void NPC_UseResponse( gentity_t *self, gentity_t *user, qboolean useWhenDone )
 		NPC_Respond( self, user->s.number );
 	}
 }
-
-/*
--------------------------
-NPC_Use
--------------------------
-*/
-extern void Add_Batteries( gentity_t *ent, int *count );
 
 void NPC_Use( gentity_t *self, gentity_t *other, gentity_t *activator )
 {

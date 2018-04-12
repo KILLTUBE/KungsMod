@@ -57,6 +57,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #define GRIP_DRAIN_AMOUNT 30
 #define FORCE_LIGHTNING_RADIUS 300
 #define MAX_DRAIN_DISTANCE 512
+#define SABER_BOX_SIZE 16.0f
 
 typedef enum forceJump_e
 {

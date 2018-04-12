@@ -829,18 +829,6 @@
     <ClCompile Include="..\..\codemp\game\g_vehicleTurret.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\tri_coll_test.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\w_saber.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\SpeederNPC.c">
-      <Filter>gamecgamemix</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\WalkerNPC.c">
-      <Filter>gamecgamemix</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_tempwrappers.c">
       <Filter>game</Filter>
     </ClCompile>
@@ -934,9 +922,6 @@
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_frames.cpp">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_utils.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\NPC.c">
       <Filter>NPC</Filter>
     </ClCompile>
@@ -998,36 +983,6 @@
       <Filter>NPC</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\NPC_AI_Wampa.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_behavior.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_combat.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_goal.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_misc.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_move.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_reactions.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_senses.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_sounds.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_spawn.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_stats.c">
       <Filter>NPC</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\bg_g2_utils.cpp">
@@ -1239,6 +1194,51 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\w_force.cpp">
       <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\w_saber.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_spawn.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_behavior.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_combat.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_goal.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_move.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_misc.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_reactions.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_senses.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_sounds.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_stats.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_utils.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\SpeederNPC.cpp">
+      <Filter>gamecgamemix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\tri_coll_test.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\WalkerNPC.cpp">
+      <Filter>gamecgamemix</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2279,6 +2279,48 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\game\w_force.h">
       <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_spawn.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_behavior.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_combat.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_goal.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_misc.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_move.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_reactions.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_senses.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_sounds.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_stats.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_utils.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\SpeederNPC.h">
+      <Filter>gamecgamemix</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\tri_coll_test.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\WalkerNPC.h">
+      <Filter>gamecgamemix</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

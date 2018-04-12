@@ -20,33 +20,16 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-
-#include "g_local.h"
-#include "bg_public.h"
-#include "bg_vehicles.h"
-
-extern float DotToSpot( vec3_t spot, vec3_t from, vec3_t fromAngles );
-extern vec3_t playerMins;
-extern vec3_t playerMaxs;
-extern void ChangeWeapon( gentity_t *ent, int newWeapon );
-extern int PM_AnimLength( int index, animNumber_t anim );
-
-extern void BG_SetAnim(playerState_t *ps, animation_t *animations, int setAnimParts,int anim,int setAnimFlags);
-extern int BG_GetTime(void);
-extern qboolean BG_SabersOff( playerState_t *ps );
+#include "SpeederNPC.h"
 
 //Alright, actually, most of this file is shared between game and cgame for MP.
 //I would like to keep it this way, so when modifying for SP please keep in
 //mind the bgEntity restrictions imposed. -rww
 
-#define	STRAFERAM_DURATION	8
-#define	STRAFERAM_ANGLE		8
-
 qboolean VEH_StartStrafeRam(Vehicle_t *pVeh, qboolean Right, int Duration)
 {
 	return qfalse;
 }
-
 
 // Like a think or move command, this updates various vehicle properties.
 qboolean Update( Vehicle_t *pVeh, const usercmd_t *pUcmd )
@@ -273,7 +256,6 @@ if (isGame()) {
 //"!s.number", this is a universal check that will work for both SP
 //and MP. -rww
 // ProcessOrientCommands the Vehicle.
-extern void AnimalProcessOri(Vehicle_t *pVeh);
 void ProcessOrientCommands( Vehicle_t *pVeh )
 {
 	/********************************************************************************/
@@ -326,16 +308,10 @@ void ProcessOrientCommands( Vehicle_t *pVeh )
 	/********************************************************************************/
 }
 
-#ifdef _GAME
-
-extern int PM_AnimLength( int index, animNumber_t anim );
-
 // This function makes sure that the vehicle is properly animated.
 void AnimateVehicle( Vehicle_t *pVeh )
 {
 }
-
-#endif //_GAME
 
 //rest of file is shared
 
@@ -401,12 +377,11 @@ void AnimateRiders( Vehicle_t *pVeh )
 
 	pilotPS = pVeh->m_pPilot->playerState;
 
-#ifdef _GAME
-	curTime = level.time;
-#elif _CGAME
-	//FIXME: pass in ucmd?  Not sure if this is reliable...
-	curTime = pm->cmd.serverTime;
-#endif
+	if (isGame())
+		curTime = level.time;
+	else
+		//FIXME: pass in ucmd?  Not sure if this is reliable...
+		curTime = pm->cmd.serverTime;
 
 	// Going in reverse...
 	if ( pVeh->m_ucmd.forwardmove < 0 && !(pVeh->m_ulFlags & VEH_SLIDEBREAKING))
@@ -610,8 +585,6 @@ void AnimateRiders( Vehicle_t *pVeh )
 		SETANIM_BOTH, Anim, iFlags|SETANIM_FLAG_HOLD);
 }
 
-void AttachRidersGeneric( Vehicle_t *pVeh );
-
 void G_SetSpeederVehicleFunctions( vehicleInfo_t *pVehInfo )
 {
 if (isGame()) {
@@ -647,8 +620,6 @@ if ( ! isGame()) { //cgame prediction attachment func
 }
 
 // Following is only in game, not in namespace
-
-extern void G_AllocateVehicleObject(Vehicle_t **pVeh);
 
 // Create/Allocate a new Animal Vehicle (initializing it as well).
 void G_CreateSpeederNPC( Vehicle_t **pVeh, const char *strType )

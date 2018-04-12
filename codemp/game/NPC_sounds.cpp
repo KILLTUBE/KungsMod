@@ -20,9 +20,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-//NPC_sounds.cpp
-#include "b_local.h"
-#include "icarus/Q3_Interface.h"
+#include "NPC_sounds.h"
 
 /*
 void NPC_AngerSound (void)
@@ -41,7 +39,6 @@ void NPC_AngerSound (void)
 }
 */
 
-extern void G_SpeechEvent( gentity_t *self, int event );
 void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime )
 {
 	if ( !self->NPC )

@@ -20,15 +20,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-//
-// NPC_misc.cpp
-//
-#include "b_local.h"
-#include "qcommon/q_shared.h"
+#include "NPC_misc.h"
 
-/*
-Debug_Printf
-*/
 void Debug_Printf (cvar_t *cv, int debugLevel, char *fmt, ...)
 {
 	char		*color;
@@ -54,10 +47,6 @@ void Debug_Printf (cvar_t *cv, int debugLevel, char *fmt, ...)
 	Com_Printf("%s%5i:%s", color, level.time, msg);
 }
 
-
-/*
-Debug_NPCPrintf
-*/
 void Debug_NPCPrintf (gentity_t *printNPC, cvar_t *cv, int debugLevel, char *fmt, ...)
 {
 	int			color;
