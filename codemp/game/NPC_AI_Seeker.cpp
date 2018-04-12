@@ -20,41 +20,15 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
-#include "g_nav.h"
+#include "NPC_AI_Seeker.h"
 
-extern void Boba_FireDecide( void );
-
-void Seeker_Strafe( void );
-
-#define VELOCITY_DECAY		0.7f
-
-#define	MIN_MELEE_RANGE		320
-#define	MIN_MELEE_RANGE_SQR	( MIN_MELEE_RANGE * MIN_MELEE_RANGE )
-
-#define MIN_DISTANCE		80
-#define MIN_DISTANCE_SQR	( MIN_DISTANCE * MIN_DISTANCE )
-
-#define SEEKER_STRAFE_VEL	100
-#define SEEKER_STRAFE_DIS	200
-#define SEEKER_UPWARD_PUSH	32
-
-#define SEEKER_FORWARD_BASE_SPEED	10
-#define SEEKER_FORWARD_MULTIPLIER	2
-
-#define SEEKER_SEEK_RADIUS			1024
-
-//------------------------------------
-void NPC_Seeker_Precache(void)
-{
+void NPC_Seeker_Precache(void) {
 	G_SoundIndex("sound/chars/seeker/misc/fire.wav");
 	G_SoundIndex( "sound/chars/seeker/misc/hiss.wav");
 	G_EffectIndex( "env/small_explode");
 }
 
-//------------------------------------
-void NPC_Seeker_Pain(gentity_t *self, gentity_t *attacker, int damage)
-{
+void NPC_Seeker_Pain(gentity_t *self, gentity_t *attacker, int damage) {
 	if ( !(self->NPC->aiFlags&NPCAI_CUSTOM_GRAVITY ))
 	{
 		G_Damage( self, NULL, NULL, (float*)vec3_origin, (float*)vec3_origin, 999, 0, MOD_FALLING );
@@ -67,7 +41,6 @@ void NPC_Seeker_Pain(gentity_t *self, gentity_t *attacker, int damage)
 	NPC_Pain( self, attacker, damage );
 }
 
-//------------------------------------
 void Seeker_MaintainHeight( void )
 {
 	float	dif;
@@ -169,7 +142,6 @@ void Seeker_MaintainHeight( void )
 	}
 }
 
-//------------------------------------
 void Seeker_Strafe( void )
 {
 	int		side;
@@ -260,7 +232,6 @@ void Seeker_Strafe( void )
 	}
 }
 
-//------------------------------------
 void Seeker_Hunt( qboolean visible, qboolean advance )
 {
 	float	distance, speed;
@@ -308,7 +279,6 @@ void Seeker_Hunt( qboolean visible, qboolean advance )
 	VectorMA( NPCS.NPC->client->ps.velocity, speed, forward, NPCS.NPC->client->ps.velocity );
 }
 
-//------------------------------------
 void Seeker_Fire( void )
 {
 	vec3_t		dir, enemy_org, muzzle;
@@ -338,7 +308,6 @@ void Seeker_Fire( void )
 	}
 }
 
-//------------------------------------
 void Seeker_Ranged( qboolean visible, qboolean advance )
 {
 	if ( NPCS.NPC->client->NPC_class != CLASS_BOBAFETT )
@@ -368,7 +337,6 @@ void Seeker_Ranged( qboolean visible, qboolean advance )
 	}
 }
 
-//------------------------------------
 void Seeker_Attack( void )
 {
 	float		distance;
@@ -400,7 +368,6 @@ void Seeker_Attack( void )
 	Seeker_Ranged( visible, advance );
 }
 
-//------------------------------------
 void Seeker_FindEnemy( void )
 {
 	int			numFound;
@@ -456,7 +423,6 @@ void Seeker_FindEnemy( void )
 	}
 }
 
-//------------------------------------
 void Seeker_FollowOwner( void )
 {
 	float	dis, minDistSqr;
@@ -540,7 +506,6 @@ void Seeker_FollowOwner( void )
 	NPC_UpdateAngles( qtrue, qtrue );
 }
 
-//------------------------------------
 void NPC_BSSeeker_Default( void )
 {
 	/*

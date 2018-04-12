@@ -20,34 +20,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
-#include "g_nav.h"
-#include "anims.h"
-
-CCALL void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath );
-CCALL void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
-CCALL void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath );
-CCALL void NPC_TempLookTarget( gentity_t *self, int lookEntNum, int minLookTime, int maxLookTime );
-CCALL qboolean G_ExpandPointToBBox( vec3_t point, const vec3_t mins, const vec3_t maxs, int ignore, int clipmask );
-CCALL qboolean FlyingCreature( gentity_t *ent );
-
-#define	SPF_NO_HIDE			2
-
-#define	MAX_VIEW_DIST		1024
-#define MAX_VIEW_SPEED		250
-#define	MAX_LIGHT_INTENSITY 255
-#define	MIN_LIGHT_THRESHOLD	0.1
-
-#define	DISTANCE_SCALE		0.25f
-#define	DISTANCE_THRESHOLD	0.075f
-#define	SPEED_SCALE			0.25f
-#define	FOV_SCALE			0.5f
-#define	LIGHT_SCALE			0.25f
-
-#define	REALIZE_THRESHOLD	0.6f
-#define CAUTIOUS_THRESHOLD	( REALIZE_THRESHOLD * 0.75 )
-
-qboolean NPC_CheckPlayerTeamStealth( void );
+#include "NPC_AI_Sniper.h"
 
 static qboolean enemyLOS2;
 static qboolean enemyCS2;
@@ -56,16 +29,7 @@ static qboolean move2;
 static qboolean shoot2;
 static float	enemyDist2;
 
-//Local state enums
-enum
-{
-	LSTATE_NONE = 0,
-	LSTATE_UNDERFIRE,
-	LSTATE_INVESTIGATE,
-};
-
-void Sniper_ClearTimers( gentity_t *ent )
-{
+void Sniper_ClearTimers( gentity_t *ent ) {
 	TIMER_Set( ent, "chatter", 0 );
 	TIMER_Set( ent, "duck", 0 );
 	TIMER_Set( ent, "stand", 0 );
@@ -98,15 +62,7 @@ void NPC_Sniper_PlayConfusionSound( gentity_t *self )
 	self->NPC->investigateCount = 0;
 }
 
-
-/*
--------------------------
-NPC_ST_Pain
--------------------------
-*/
-
-void NPC_Sniper_Pain(gentity_t *self, gentity_t *attacker, int damage)
-{
+void NPC_Sniper_Pain(gentity_t *self, gentity_t *attacker, int damage) {
 	self->NPC->localState = LSTATE_UNDERFIRE;
 
 	TIMER_Set( self, "duck", -1 );
@@ -120,14 +76,7 @@ void NPC_Sniper_Pain(gentity_t *self, gentity_t *attacker, int damage)
 	}
 }
 
-/*
--------------------------
-ST_HoldPosition
--------------------------
-*/
-
-static void Sniper_HoldPosition( void )
-{
+static void Sniper_HoldPosition( void ) {
 	NPC_FreeCombatPoint( NPCS.NPCInfo->combatPoint, qtrue );
 	NPCS.NPCInfo->goalEntity = NULL;
 
@@ -138,14 +87,7 @@ static void Sniper_HoldPosition( void )
 	*/
 }
 
-/*
--------------------------
-ST_Move
--------------------------
-*/
-
-static qboolean Sniper_Move( void )
-{
+static qboolean Sniper_Move( void ) {
 	qboolean	moved;
 	navInfo_t	info;
 
@@ -199,14 +141,7 @@ static qboolean Sniper_Move( void )
 	return moved;
 }
 
-/*
--------------------------
-NPC_BSSniper_Patrol
--------------------------
-*/
-
-void NPC_BSSniper_Patrol( void )
-{//FIXME: pick up on bodies of dead buddies?
+void NPC_BSSniper_Patrol( void ) {//FIXME: pick up on bodies of dead buddies?
 	NPCS.NPC->count = 0;
 
 	if ( NPCS.NPCInfo->confusionTime < level.time )
@@ -298,11 +233,6 @@ void NPC_BSSniper_Patrol( void )
 }
 
 /*
--------------------------
-NPC_BSSniper_Idle
--------------------------
-*/
-/*
 void NPC_BSSniper_Idle( void )
 {
 	//reset our shotcount
@@ -321,11 +251,6 @@ void NPC_BSSniper_Idle( void )
 
 	NPC_UpdateAngles( qtrue, qtrue );
 }
-*/
-/*
--------------------------
-ST_CheckMoveState
--------------------------
 */
 
 static void Sniper_CheckMoveState( void )
@@ -456,12 +381,6 @@ static void Sniper_ResolveBlockedShot( void )
 	TIMER_Set( NPC, "attackDelay", Q_irand( 1000, 3000 ) );
 	*/
 }
-
-/*
--------------------------
-ST_CheckFireState
--------------------------
-*/
 
 static void Sniper_CheckFireState( void )
 {
@@ -645,12 +564,6 @@ void Sniper_UpdateEnemyPos( void )
 		}
 	}
 }
-
-/*
--------------------------
-NPC_BSSniper_Attack
--------------------------
-*/
 
 void Sniper_StartHide( void )
 {

@@ -1,7 +1,12 @@
 #pragma once
 
-#include "../qcommon/q_shared.h"
-#include "../game/g_local.h"
+#include "b_local.h"
+#include "g_nav.h"
+#include "NPC_AI_Utils.h"
+
+#define	MAX_RADIUS_ENTS		128
+#define	DEFAULT_RADIUS		45
+#define	MAX_RADIUS_ENTS		128
 
 CCALL gentity_t *AI_DistributeAttack(gentity_t *attacker,gentity_t *enemy,team_t team,int threshold);
 CCALL qboolean AI_CheckEnemyCollision(gentity_t *ent,qboolean takeEnemy);
@@ -29,5 +34,4 @@ CCALL void AI_SetClosestBuddy(AIGroupInfo_t *group);
 CCALL int AI_GetGroupSize2(gentity_t *ent,int radius);
 CCALL int AI_GetGroupSize(vec3_t origin,int radius,team_t playerTeam,gentity_t *avoid);
 CCALL void G_TestLine(vec3_t start,vec3_t end,int color,int time);
-CCALL qboolean AI_ValidateGroupMember(AIGroupInfo_t *group,gentity_t *member);
 CCALL qboolean AI_ValidateGroupMember(AIGroupInfo_t *group,gentity_t *member);

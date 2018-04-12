@@ -916,24 +916,6 @@
     <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_frames.cpp">
       <Filter>rend2\imgui_docks_openjk</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_AI_Seeker.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_AI_Sentry.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_AI_Sniper.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_AI_Stormtrooper.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_AI_Utils.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\NPC_AI_Wampa.c">
-      <Filter>NPC</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\bg_g2_utils.cpp">
       <Filter>bg</Filter>
     </ClCompile>
@@ -1238,6 +1220,24 @@
       <Filter>NPC</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\NPC_AI_Remote.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_AI_Seeker.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_AI_Sentry.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_AI_Sniper.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_AI_Stormtrooper.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_AI_Utils.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\NPC_AI_Wampa.cpp">
       <Filter>NPC</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2368,6 +2368,21 @@
       <Filter>NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\game\NPC_AI_Remote.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_AI_Seeker.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_AI_Sentry.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_AI_Sniper.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_AI_Stormtrooper.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\NPC_AI_Wampa.h">
       <Filter>NPC</Filter>
     </ClInclude>
   </ItemGroup>

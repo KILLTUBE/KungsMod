@@ -25,25 +25,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // for use with NPCs who's logic has been overriden from the original
 // AI code, and who's code resides in files with the AI_ prefix.
 
-#include "b_local.h"
-#include "g_nav.h"
 #include "NPC_AI_Utils.h"
 
-#define	MAX_RADIUS_ENTS		128
-#define	DEFAULT_RADIUS		45
-
-qboolean AI_ValidateGroupMember( AIGroupInfo_t *group, gentity_t *member );
-
-extern void G_TestLine(vec3_t start, vec3_t end, int color, int time);
-
-/*
--------------------------
-AI_GetGroupSize
--------------------------
-*/
-
-int	AI_GetGroupSize( vec3_t origin, int radius, team_t playerTeam, gentity_t *avoid )
-{
+int	AI_GetGroupSize( vec3_t origin, int radius, team_t playerTeam, gentity_t *avoid ) {
 	int			radiusEnts[ MAX_RADIUS_ENTS ];
 	gentity_t	*check;
 	vec3_t		mins, maxs;
@@ -423,11 +407,6 @@ qboolean AI_ValidateGroupMember( AIGroupInfo_t *group, gentity_t *member )
 	return qtrue;
 }
 
-/*
--------------------------
-AI_GetGroup
--------------------------
-*/
 void AI_GetGroup( gentity_t *self )
 {
 	int	i;
@@ -602,9 +581,6 @@ void AI_DeleteSelfFromGroup( gentity_t *self )
 	}
 }
 
-extern void ST_AggressionAdjust( gentity_t *self, int change );
-extern void ST_MarkToCover( gentity_t *self );
-extern void ST_StartFlee( gentity_t *self, gentity_t *enemy, vec3_t dangerPoint, int dangerLevel, int minTime, int maxTime );
 void AI_GroupMemberKilled( gentity_t *self )
 {
 	AIGroupInfo_t *group = self->NPC->group;
@@ -1009,11 +985,6 @@ void AI_GetGroup( AIGroupInfo_t &group, gentity_t *ent, int radius )
 	AI_GetGroup( group, ent->r.currentOrigin, ent->currentAngles, DEFAULT_RADIUS, radius, ent->client->playerTeam, ent, ent->enemy );
 }
 */
-/*
--------------------------
-AI_CheckEnemyCollision
--------------------------
-*/
 
 qboolean AI_CheckEnemyCollision( gentity_t *ent, qboolean takeEnemy )
 {
@@ -1041,14 +1012,6 @@ qboolean AI_CheckEnemyCollision( gentity_t *ent, qboolean takeEnemy )
 
 	return qfalse;
 }
-
-/*
--------------------------
-AI_DistributeAttack
--------------------------
-*/
-
-#define	MAX_RADIUS_ENTS		128
 
 gentity_t *AI_DistributeAttack( gentity_t *attacker, gentity_t *enemy, team_t team, int threshold )
 {

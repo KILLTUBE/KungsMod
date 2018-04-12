@@ -20,84 +20,33 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
-#include "g_nav.h"
+#include "NPC_AI_Sentry.h"
 
-extern gitem_t	*BG_FindItemForAmmo( ammo_t ammo );
-extern void G_SoundOnEnt( gentity_t *ent, soundChannel_t channel, const char *soundPath );
-
-#define MIN_DISTANCE		256
-#define MIN_DISTANCE_SQR	( MIN_DISTANCE * MIN_DISTANCE )
-
-#define SENTRY_FORWARD_BASE_SPEED	10
-#define SENTRY_FORWARD_MULTIPLIER	5
-
-#define SENTRY_VELOCITY_DECAY	0.85f
-#define SENTRY_STRAFE_VEL		256
-#define SENTRY_STRAFE_DIS		200
-#define SENTRY_UPWARD_PUSH		32
-#define SENTRY_HOVER_HEIGHT		24
-
-//Local state enums
-enum
-{
-	LSTATE_NONE = 0,
-	LSTATE_ASLEEP,
-	LSTATE_WAKEUP,
-	LSTATE_ACTIVE,
-	LSTATE_POWERING_UP,
-	LSTATE_ATTACKING,
-};
-
-/*
--------------------------
-NPC_Sentry_Precache
--------------------------
-*/
-void NPC_Sentry_Precache(void)
-{
+void NPC_Sentry_Precache(void) {
 	int i;
-
 	G_SoundIndex( "sound/chars/sentry/misc/sentry_explo" );
 	G_SoundIndex( "sound/chars/sentry/misc/sentry_pain" );
 	G_SoundIndex( "sound/chars/sentry/misc/sentry_shield_open" );
 	G_SoundIndex( "sound/chars/sentry/misc/sentry_shield_close" );
 	G_SoundIndex( "sound/chars/sentry/misc/sentry_hover_1_lp" );
 	G_SoundIndex( "sound/chars/sentry/misc/sentry_hover_2_lp" );
-
-	for ( i = 1; i < 4; i++)
-	{
+	for ( i = 1; i < 4; i++) {
 		G_SoundIndex( va( "sound/chars/sentry/misc/talk%d", i ) );
 	}
-
 	G_EffectIndex( "bryar/muzzle_flash");
 	G_EffectIndex( "env/med_explode");
-
 	RegisterItem( BG_FindItemForAmmo( AMMO_BLASTER ));
 }
 
-/*
-================
-sentry_use
-================
-*/
-void sentry_use( gentity_t *self, gentity_t *other, gentity_t *activator)
-{
+void sentry_use( gentity_t *self, gentity_t *other, gentity_t *activator) {
 	G_ActivateBehavior(self,BSET_USE);
-
 	self->flags &= ~FL_SHIELDED;
 	NPC_SetAnim( self, SETANIM_BOTH, BOTH_POWERUP1, SETANIM_FLAG_OVERRIDE|SETANIM_FLAG_HOLD );
 //	self->NPC->localState = LSTATE_WAKEUP;
 	self->NPC->localState = LSTATE_ACTIVE;
 }
 
-/*
--------------------------
-NPC_Sentry_Pain
--------------------------
-*/
-void NPC_Sentry_Pain(gentity_t *self, gentity_t *attacker, int damage)
-{
+void NPC_Sentry_Pain(gentity_t *self, gentity_t *attacker, int damage) {
 	int mod = gPainMOD;
 
 	NPC_Pain( self, attacker, damage );
@@ -124,13 +73,7 @@ void NPC_Sentry_Pain(gentity_t *self, gentity_t *attacker, int damage)
 //	}
 }
 
-/*
--------------------------
-Sentry_Fire
--------------------------
-*/
-void Sentry_Fire (void)
-{
+void Sentry_Fire (void) {
 	vec3_t	muzzle;
 	static	vec3_t	forward, vright, up;
 	gentity_t	*missile;
@@ -221,13 +164,7 @@ void Sentry_Fire (void)
 	}
 }
 
-/*
--------------------------
-Sentry_MaintainHeight
--------------------------
-*/
-void Sentry_MaintainHeight( void )
-{
+void Sentry_MaintainHeight( void ) {
 	float	dif;
 
 	NPCS.NPC->s.loopSound = G_SoundIndex( "sound/chars/sentry/misc/sentry_hover_1_lp" );
@@ -322,13 +259,7 @@ void Sentry_MaintainHeight( void )
 	NPC_FaceEnemy( qtrue );
 }
 
-/*
--------------------------
-Sentry_Idle
--------------------------
-*/
-void Sentry_Idle( void )
-{
+void Sentry_Idle( void ) {
 	Sentry_MaintainHeight();
 
 	// Is he waking up?
@@ -349,13 +280,7 @@ void Sentry_Idle( void )
 	}
 }
 
-/*
--------------------------
-Sentry_Strafe
--------------------------
-*/
-void Sentry_Strafe( void )
-{
+void Sentry_Strafe( void ) {
 	int		dir;
 	vec3_t	end, right;
 	trace_t	tr;
@@ -383,13 +308,7 @@ void Sentry_Strafe( void )
 	}
 }
 
-/*
--------------------------
-Sentry_Hunt
--------------------------
-*/
-void Sentry_Hunt( qboolean visible, qboolean advance )
-{
+void Sentry_Hunt( qboolean visible, qboolean advance ) {
 	float	distance, speed;
 	vec3_t	forward;
 
@@ -429,13 +348,7 @@ void Sentry_Hunt( qboolean visible, qboolean advance )
 	VectorMA( NPCS.NPC->client->ps.velocity, speed, forward, NPCS.NPC->client->ps.velocity );
 }
 
-/*
--------------------------
-Sentry_RangedAttack
--------------------------
-*/
-void Sentry_RangedAttack( qboolean visible, qboolean advance )
-{
+void Sentry_RangedAttack( qboolean visible, qboolean advance ) {
 	if ( TIMER_Done( NPCS.NPC, "attackDelay" ) && NPCS.NPC->attackDebounceTime < level.time && visible )	// Attack?
 	{
 		if ( NPCS.NPCInfo->burstCount > 6 )
@@ -466,13 +379,7 @@ void Sentry_RangedAttack( qboolean visible, qboolean advance )
 	}
 }
 
-/*
--------------------------
-Sentry_AttackDecision
--------------------------
-*/
-void Sentry_AttackDecision( void )
-{
+void Sentry_AttackDecision( void ) {
 	float		distance;
 	qboolean	visible, advance;
 
@@ -527,15 +434,7 @@ void Sentry_AttackDecision( void )
 	Sentry_RangedAttack( visible, advance );
 }
 
-qboolean NPC_CheckPlayerTeamStealth( void );
-
-/*
--------------------------
-NPC_Sentry_Patrol
--------------------------
-*/
-void NPC_Sentry_Patrol( void )
-{
+void NPC_Sentry_Patrol( void ) {
 	Sentry_MaintainHeight();
 
 	//If we have somewhere to go, then do that
@@ -567,13 +466,7 @@ void NPC_Sentry_Patrol( void )
 	NPC_UpdateAngles( qtrue, qtrue );
 }
 
-/*
--------------------------
-NPC_BSSentry_Default
--------------------------
-*/
-void NPC_BSSentry_Default( void )
-{
+void NPC_BSSentry_Default( void ) {
 	if ( NPCS.NPC->targetname )
 	{
 		NPCS.NPC->use = sentry_use;

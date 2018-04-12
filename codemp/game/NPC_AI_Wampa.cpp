@@ -20,18 +20,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
-#include "g_nav.h"
-
-// These define the working combat range for these suckers
-#define MIN_DISTANCE		48
-#define MIN_DISTANCE_SQR	( MIN_DISTANCE * MIN_DISTANCE )
-
-#define MAX_DISTANCE		1024
-#define MAX_DISTANCE_SQR	( MAX_DISTANCE * MAX_DISTANCE )
-
-#define LSTATE_CLEAR		0
-#define LSTATE_WAITING		1
+#include "NPC_AI_Wampa.h"
 
 float enemyDist = 0;
 
@@ -57,11 +46,6 @@ void Wampa_SetBolts( gentity_t *self )
 	}
 }
 
-/*
--------------------------
-NPC_Wampa_Precache
--------------------------
-*/
 void NPC_Wampa_Precache( void )
 {
 	/*
@@ -79,12 +63,6 @@ void NPC_Wampa_Precache( void )
 	//G_SoundIndex( "sound/chars/wampa/chomp.wav" );
 }
 
-
-/*
--------------------------
-Wampa_Idle
--------------------------
-*/
 void Wampa_Idle( void )
 {
 	NPCS.NPCInfo->localState = LSTATE_CLEAR;
@@ -108,11 +86,7 @@ qboolean Wampa_CheckRoar( gentity_t *self )
 	}
 	return qfalse;
 }
-/*
--------------------------
-Wampa_Patrol
--------------------------
-*/
+
 void Wampa_Patrol( void )
 {
 	NPCS.NPCInfo->localState = LSTATE_CLEAR;
@@ -140,11 +114,6 @@ void Wampa_Patrol( void )
 	TIMER_Set( NPCS.NPC, "lookForNewEnemy", Q_irand( 5000, 15000 ) );
 }
 
-/*
--------------------------
-Wampa_Move
--------------------------
-*/
 void Wampa_Move( qboolean visible )
 {
 	if ( NPCS.NPCInfo->localState != LSTATE_WAITING )
@@ -189,11 +158,6 @@ void Wampa_Move( qboolean visible )
 		NPCS.NPCInfo->goalRadius = MAX_DISTANCE;	// just get us within combat range
 	}
 }
-
-//---------------------------------------------------------
-extern void G_Knockdown( gentity_t *victim );
-extern void G_Dismember( gentity_t *ent, gentity_t *enemy, vec3_t point, int limbType, float limbRollBase, float limbPitchBase, int deathAnim, qboolean postDeath );
-extern int NPC_GetEntsNearBolt( int *radiusEnts, float radius, int boltIndex, vec3_t boltOrg );
 
 void Wampa_Slash( int boltIndex, qboolean backhand )
 {
@@ -284,7 +248,6 @@ void Wampa_Slash( int boltIndex, qboolean backhand )
 	}
 }
 
-//------------------------------
 void Wampa_Attack( float distance, qboolean doCharge )
 {
 	if ( !TIMER_Exists( NPCS.NPC, "attacking" ) )
@@ -361,7 +324,6 @@ void Wampa_Attack( float distance, qboolean doCharge )
 	}
 }
 
-//----------------------------------
 void Wampa_Combat( void )
 {
 	// If we cannot see our target or we have somewhere to go, then do that
@@ -445,11 +407,6 @@ void Wampa_Combat( void )
 	}
 }
 
-/*
--------------------------
-NPC_Wampa_Pain
--------------------------
-*/
 void NPC_Wampa_Pain( gentity_t *self, gentity_t *attacker, int damage )
 {
 	qboolean hitByWampa = qfalse;
@@ -518,11 +475,6 @@ void NPC_Wampa_Pain( gentity_t *self, gentity_t *attacker, int damage )
 	}
 }
 
-/*
--------------------------
-NPC_BSWampa_Default
--------------------------
-*/
 void NPC_BSWampa_Default( void )
 {
 

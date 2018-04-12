@@ -20,42 +20,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "b_local.h"
-#include "g_nav.h"
-#include "anims.h"
-
-CCALL void G_AddVoiceEvent( gentity_t *self, int event, int speakDebounceTime );
-CCALL void AI_GroupUpdateSquadstates( AIGroupInfo_t *group, gentity_t *member, int newSquadState );
-CCALL qboolean AI_GroupContainsEntNum( AIGroupInfo_t *group, int entNum );
-CCALL void AI_GroupUpdateEnemyLastSeen( AIGroupInfo_t *group, vec3_t spot );
-CCALL void AI_GroupUpdateClearShotTime( AIGroupInfo_t *group );
-CCALL void NPC_TempLookTarget( gentity_t *self, int lookEntNum, int minLookTime, int maxLookTime );
-CCALL qboolean G_ExpandPointToBBox( vec3_t point, const vec3_t mins, const vec3_t maxs, int ignore, int clipmask );
-CCALL void ChangeWeapon( gentity_t *ent, int newWeapon );
-CCALL void NPC_CheckGetNewWeapon( void );
-CCALL int GetTime ( int lastTime );
-CCALL void NPC_AimAdjust( int change );
-CCALL qboolean FlyingCreature( gentity_t *ent );
-
-#define	MAX_VIEW_DIST		1024
-#define MAX_VIEW_SPEED		250
-#define	MAX_LIGHT_INTENSITY 255
-#define	MIN_LIGHT_THRESHOLD	0.1
-#define	ST_MIN_LIGHT_THRESHOLD 30
-#define	ST_MAX_LIGHT_THRESHOLD 180
-#define	DISTANCE_THRESHOLD	0.075f
-
-#define	DISTANCE_SCALE		0.35f	//These first three get your base detection rating, ideally add up to 1
-#define	FOV_SCALE			0.40f	//
-#define	LIGHT_SCALE			0.25f	//
-
-#define	SPEED_SCALE			0.25f	//These next two are bonuses
-#define	TURNING_SCALE		0.25f	//
-
-#define	REALIZE_THRESHOLD	0.6f
-#define CAUTIOUS_THRESHOLD	( REALIZE_THRESHOLD * 0.75 )
-
-qboolean NPC_CheckPlayerTeamStealth( void );
+#include "NPC_AI_Stormtrooper.h"
 
 static qboolean enemyLOS;
 static qboolean enemyCS;
@@ -68,14 +33,6 @@ static float	enemyDist;
 static vec3_t	impactPos;
 
 int groupSpeechDebounceTime[TEAM_NUM_TEAMS];//used to stop several group AI from speaking all at once
-
-//Local state enums
-enum
-{
-	LSTATE_NONE = 0,
-	LSTATE_UNDERFIRE,
-	LSTATE_INVESTIGATE,
-};
 
 void ST_AggressionAdjust( gentity_t *self, int change )
 {
@@ -123,23 +80,6 @@ void ST_ClearTimers( gentity_t *ent )
 	TIMER_Set( ent, "verifyCP", 0 );
 }
 
-enum
-{
-	SPEECH_CHASE,
-	SPEECH_CONFUSED,
-	SPEECH_COVER,
-	SPEECH_DETECTED,
-	SPEECH_GIVEUP,
-	SPEECH_LOOK,
-	SPEECH_LOST,
-	SPEECH_OUTFLANK,
-	SPEECH_ESCAPING,
-	SPEECH_SIGHT,
-	SPEECH_SOUND,
-	SPEECH_SUSPICIOUS,
-	SPEECH_YELL,
-	SPEECH_PUSHED
-};
 
 static void ST_Speech( gentity_t *self, int speechType, float failChance )
 {
@@ -271,11 +211,6 @@ void ST_StartFlee( gentity_t *self, gentity_t *enemy, vec3_t dangerPoint, int da
 		ST_Speech( self, SPEECH_COVER, 0 );//FIXME: flee sound?
 	}
 }
-/*
--------------------------
-NPC_ST_Pain
--------------------------
-*/
 
 void NPC_ST_Pain(gentity_t *self, gentity_t *attacker, int damage)
 {
@@ -292,12 +227,6 @@ void NPC_ST_Pain(gentity_t *self, gentity_t *attacker, int damage)
 		G_AddVoiceEvent( self, Q_irand(EV_PUSHED1, EV_PUSHED3), 2000 );
 	}
 }
-
-/*
--------------------------
-ST_HoldPosition
--------------------------
-*/
 
 static void ST_HoldPosition( void )
 {
@@ -351,12 +280,7 @@ void NPC_ST_StoreMovementSpeech( int speech, float chance )
 	NPCS.NPCInfo->movementSpeech = speech;
 	NPCS.NPCInfo->movementSpeechChance = chance;
 }
-/*
--------------------------
-ST_Move
--------------------------
-*/
-void ST_TransferMoveGoal( gentity_t *self, gentity_t *other );
+
 static qboolean ST_Move( void )
 {
 	qboolean	moved;
@@ -411,13 +335,6 @@ static qboolean ST_Move( void )
 	return moved;
 }
 
-
-/*
--------------------------
-NPC_ST_SleepShuffle
--------------------------
-*/
-
 static void NPC_ST_SleepShuffle( void )
 {
 	//Play an awake script if we have one
@@ -460,12 +377,6 @@ static void NPC_ST_SleepShuffle( void )
 	}
 }
 
-/*
--------------------------
-NPC_ST_Sleep
--------------------------
-*/
-
 void NPC_BSST_Sleep( void )
 {
 	int alertEvent = NPC_CheckAlertEvents( qfalse, qtrue, -1, qfalse, AEL_MINOR );//only check sounds since we're alseep!
@@ -507,12 +418,6 @@ void NPC_BSST_Sleep( void )
 		return;
 	}
 }
-
-/*
--------------------------
-NPC_CheckEnemyStealth
--------------------------
-*/
 
 qboolean NPC_CheckEnemyStealth( gentity_t *target )
 {
@@ -789,13 +694,6 @@ qboolean NPC_CheckPlayerTeamStealth( void )
 	}
 	return qfalse;
 }
-/*
--------------------------
-NPC_ST_InvestigateEvent
--------------------------
-*/
-
-#define	MAX_CHECK_THRESHOLD	1
 
 static qboolean NPC_ST_InvestigateEvent( int eventID, qboolean extraSuspicious )
 {
@@ -952,12 +850,6 @@ static qboolean NPC_ST_InvestigateEvent( int eventID, qboolean extraSuspicious )
 	return qtrue;
 }
 
-/*
--------------------------
-ST_OffsetLook
--------------------------
-*/
-
 static void ST_OffsetLook( float offset, vec3_t out )
 {
 	vec3_t	angles, forward, temp;
@@ -970,12 +862,6 @@ static void ST_OffsetLook( float offset, vec3_t out )
 	CalcEntitySpot( NPCS.NPC, SPOT_HEAD, temp );
 	out[2] = temp[2];
 }
-
-/*
--------------------------
-ST_LookAround
--------------------------
-*/
 
 static void ST_LookAround( void )
 {
@@ -1002,12 +888,6 @@ static void ST_LookAround( void )
 
 	NPC_FacePosition( lookPos, qtrue );
 }
-
-/*
--------------------------
-NPC_BSST_Investigate
--------------------------
-*/
 
 void NPC_BSST_Investigate( void )
 {
@@ -1101,12 +981,6 @@ void NPC_BSST_Investigate( void )
 	//Look around
 	ST_LookAround();
 }
-
-/*
--------------------------
-NPC_BSST_Patrol
--------------------------
-*/
 
 void NPC_BSST_Patrol( void )
 {//FIXME: pick up on bodies of dead buddies?
@@ -1215,11 +1089,6 @@ void NPC_BSST_Patrol( void )
 }
 
 /*
--------------------------
-NPC_BSST_Idle
--------------------------
-*/
-/*
 void NPC_BSST_Idle( void )
 {
 	int alertEvent = NPC_CheckAlertEvents( qtrue, qtrue );
@@ -1236,11 +1105,6 @@ void NPC_BSST_Idle( void )
 
 	NPC_UpdateAngles( qtrue, qtrue );
 }
-*/
-/*
--------------------------
-ST_CheckMoveState
--------------------------
 */
 
 static void ST_CheckMoveState( void )
@@ -1437,12 +1301,6 @@ void ST_ResolveBlockedShot( int hit )
 	TIMER_Set( NPCS.NPC, "duck", -1 );
 	TIMER_Set( NPCS.NPC, "attakDelay", Q_irand( 1000, 3000 ) );
 }
-
-/*
--------------------------
-ST_CheckFireState
--------------------------
-*/
 
 static void ST_CheckFireState( void )
 {
@@ -2435,12 +2293,6 @@ void ST_Commander( void )
 	RestoreNPCGlobals();
 	return;
 }
-
-/*
--------------------------
-NPC_BSST_Attack
--------------------------
-*/
 
 void NPC_BSST_Attack( void )
 {
