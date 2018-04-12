@@ -51,6 +51,8 @@ EXTERNC stringID_table_t animTable [MAX_ANIMATIONS+1];
 //#include "../rd-rend2/tr_local.h"
 
 CCALL void UI_SaberAttachToChar( itemDef_t *item );
+CCALL void Menu_ShowItemByName(menuDef_t *menu, const char *p, qboolean bShow);
+CCALL void UpdateForceUsed();
 
 const char *forcepowerDesc[NUM_FORCE_POWERS] =
 {
@@ -444,10 +446,6 @@ int UI_ParseAnimationFile(const char *filename, animation_t *animset, qboolean i
 }
 
 //menuDef_t *Menus_FindByName(const char *p);
-void Menu_ShowItemByName(menuDef_t *menu, const char *p, qboolean bShow);
-
-
-void UpdateForceUsed();
 
 char holdSPString[MAX_STRING_CHARS]={0};
 

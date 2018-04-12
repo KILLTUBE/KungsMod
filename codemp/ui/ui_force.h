@@ -54,3 +54,4 @@ CCALL qboolean UI_JediNonJedi_HandleKey(int flags, float *special, int key, int 
 CCALL qboolean UI_ForceMaxRank_HandleKey(int flags, float *special, int key, int num, int min, int max, int type);
 CCALL qboolean UI_ForcePowerRank_HandleKey(int flags, float *special, int key, int num, int min, int max, int type);
 CCALL void UI_ForceConfigHandle( int oldindex, int newindex );
+CCALL void UpdateForceUsed();

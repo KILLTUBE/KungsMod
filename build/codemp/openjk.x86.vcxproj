@@ -597,7 +597,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\codemp\ui\ui_local.h" />
     <ClInclude Include="..\..\codemp\ui\ui_main.h" />
     <ClInclude Include="..\..\codemp\ui\ui_only_c_defines.h" />
+    <ClInclude Include="..\..\codemp\ui\ui_saber.h" />
     <ClInclude Include="..\..\codemp\ui\ui_shared.h" />
+    <ClInclude Include="..\..\codemp\ui\ui_shared_2.h" />
     <ClInclude Include="..\..\codemp\ui\ui_xcvar.h" />
     <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h" />
     <ClInclude Include="C:\XycaRend2\codemp\client\client.h" />
@@ -1509,25 +1511,25 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\..\codemp\rd-rend2\tr_world.cpp" />
     <ClCompile Include="..\..\codemp\rd-rend2\utils_opengl\debuglines.cpp" />
     <ClCompile Include="..\..\codemp\ui\ui_atoms.cpp">
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
     </ClCompile>
     <ClCompile Include="..\..\codemp\ui\ui_cvar.cpp">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
     </ClCompile>
     <ClCompile Include="..\..\codemp\ui\ui_force.cpp">
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
     </ClCompile>
     <ClCompile Include="..\..\codemp\ui\ui_gameinfo.cpp">
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
     </ClCompile>
     <ClCompile Include="..\..\codemp\ui\ui_main.cpp">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\ui\ui_saber.c">
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    <ClCompile Include="..\..\codemp\ui\ui_saber.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\ui\ui_shared.c">
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    <ClCompile Include="..\..\codemp\ui\ui_shared_2.cpp">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
     </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_load.cpp" />
     <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_local.h" />

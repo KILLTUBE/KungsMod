@@ -33,6 +33,7 @@ FORCE INTERFACE
 #include "qcommon/qfiles.h"
 #include "ui_force.h"
 #include "ui_only_c_defines.h"
+#include "ui_force.h"
 
 int uiForceSide = FORCE_LIGHTSIDE;
 int uiJediNonJedi = -1;
@@ -42,11 +43,15 @@ int uiMaxPoints = 20;
 int	uiForceUsed = 0;
 int uiForceAvailable=0;
 
-extern const char *UI_TeamName(int team);
+CCALL const char *UI_TeamName(int team);
 
 qboolean gTouchedForce = qfalse;
 
-void Menu_ShowItemByName(menuDef_t *menu, const char *p, qboolean bShow);
+CCALL void Menu_ShowItemByName(menuDef_t *menu, const char *p, qboolean bShow);
+CCALL qboolean UI_TrueJediEnabled( void );
+
+EXTERNC int	uiSkinColor;
+EXTERNC int	uiHoldSkinColor;
 
 qboolean uiForcePowersDisabled[NUM_FORCE_POWERS] = {
 	qfalse,//FP_HEAL,//instant
@@ -303,9 +308,6 @@ void UI_SaveForceTemplate()
 	}
 }
 
-
-//
-extern qboolean UI_TrueJediEnabled( void );
 void UpdateForceUsed()
 {
 	int curpower, currank;
@@ -775,8 +777,6 @@ validitycheck:
 
 	UpdateForceUsed();
 }
-extern int	uiSkinColor;
-extern int	uiHoldSkinColor;
 
 qboolean UI_SkinColor_HandleKey(int flags, float *special, int key, int num, int min, int max, int type)
 {
@@ -1121,11 +1121,6 @@ int gCustPowersRank[NUM_FORCE_POWERS] = {
 	0//FP_SABERTHROW,
 };
 
-/*
-=================
-UI_ForceConfigHandle
-=================
-*/
 void UI_ForceConfigHandle( int oldindex, int newindex )
 {
 	fileHandle_t f;

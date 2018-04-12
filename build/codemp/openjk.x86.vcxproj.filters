@@ -832,12 +832,6 @@
     <ClCompile Include="..\..\codemp\game\g_tempwrappers.c">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\ui\ui_shared.c">
-      <Filter>ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\ui\ui_saber.c">
-      <Filter>ui</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_main.c">
       <Filter>cgame</Filter>
     </ClCompile>
@@ -1239,6 +1233,12 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\NPC.cpp">
       <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_saber.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ui\ui_shared_2.cpp">
+      <Filter>ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2321,6 +2321,12 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\game\WalkerNPC.h">
       <Filter>gamecgamemix</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ui\ui_saber.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ui\ui_shared_2.h">
+      <Filter>ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
