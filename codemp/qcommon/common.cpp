@@ -53,8 +53,6 @@ cvar_t	*com_cl_running;
 cvar_t	*com_logfile;		// 1 = buffer log, 2 = flush after each print
 cvar_t	*com_showtrace;
 
-cvar_t	*com_optvehtrace;
-
 #ifdef G2_PERFORMANCE_ANALYSIS
 cvar_t	*com_G2Report;
 #endif
@@ -1126,6 +1124,8 @@ static void Com_CatchError ( int code )
 Com_Init
 =================
 */
+CCALL void G_RegisterCvars( void );
+
 CCALL void Com_Init( char *commandLine ) {
 	char	*s;
 	int		qport;
@@ -1299,6 +1299,8 @@ CCALL void Com_Init( char *commandLine ) {
 
 		com_fullyInitialized = qtrue;
 		Com_Printf ("--- Common Initialization Complete ---\n");
+
+		G_RegisterCvars();
 	}
 	catch ( int code )
 	{

@@ -380,6 +380,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\codemp\game\g_client.h" />
     <ClInclude Include="..\..\codemp\game\g_cmds.h" />
     <ClInclude Include="..\..\codemp\game\g_combat.h" />
+    <ClInclude Include="..\..\codemp\game\g_cvar.h" />
     <ClInclude Include="..\..\codemp\game\g_exphysics.h" />
     <ClInclude Include="..\..\codemp\game\g_ICARUScb.h" />
     <ClInclude Include="..\..\codemp\game\g_items.h" />
@@ -958,9 +959,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_cvar.c">
+    <ClCompile Include="..\..\codemp\game\g_cvar.cpp">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
     </ClCompile>

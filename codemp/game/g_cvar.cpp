@@ -21,22 +21,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "g_local.h"
-
-//
-// Cvar callbacks
-//
-
-/*
-static void CVU_Derpity( void ) {
-	// ...
-}
-*/
-
-
-//
-// Cvar table
-//
+#include "g_cvar.h"
 
 //typedef struct cvarTable_s {
 //	cvar_t	*vmCvar;
@@ -51,15 +36,24 @@ static void CVU_Derpity( void ) {
 	#include "g_xcvar.h"
 #undef XCVAR_DECL
 
-//#include "client/client.h"
-cvar_t *Cvar_Get( const char *var_name, const char *var_value, uint32_t flags, const char *var_desc );
+CCALL cvar_t *Cvar_FindVar( const char *var_name );
+
+cvar_t	*sv_master[MAX_MASTER_SERVERS];
 
 void G_RegisterCvars( void ) {
 
 	#define XCVAR_LIST
 		#include "g_xcvar.h"
 	#undef XCVAR_LIST
-	//g_gravity = Cvar_Get("g_gravity", "800", 0, "desc");
+	
+	sv_master[0] = Cvar_FindVar("sv_master1");
+	sv_master[1] = Cvar_FindVar("sv_master2");
+	sv_master[2] = Cvar_FindVar("sv_master3");
+	sv_master[3] = Cvar_FindVar("sv_master4");
+	sv_master[4] = Cvar_FindVar("sv_master5");
+	Cvar_CheckRange( sv_privateClients, 0, MAX_CLIENTS, qtrue );
+	Cvar_CheckRange(sv_ratePolicy, 1, 2, qtrue);
+	Cvar_CheckRange(sv_snapsPolicy, 0, 2, qtrue);
 
 	//for ( i=0, cv=gameCvarTable; i<gameCvarTableSize; i++, cv++ ) {
 	//	Cvar_Register( cv->vmCvar, cv->cvarName, cv->defaultString, cv->cvarFlags );

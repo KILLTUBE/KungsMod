@@ -820,9 +820,6 @@
     <ClCompile Include="..\..\codemp\rd-rend2\tr_animation.cpp">
       <Filter>rend2</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_cvar.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_svcmds.c">
       <Filter>game</Filter>
     </ClCompile>
@@ -1239,6 +1236,9 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\NPC_AI_Wampa.cpp">
       <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_cvar.cpp">
+      <Filter>game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2384,6 +2384,9 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\game\NPC_AI_Wampa.h">
       <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_cvar.h">
+      <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -177,8 +177,8 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 
 	char serverinfo[MAX_INFO_STRING] = {0};
 
-	
-	G_RegisterCvars();
+	// all cvars are initialized at end of Com_Init() atm
+	//G_RegisterCvars();
 
 	//Init RMG to 0, it will be autoset to 1 if there is terrain on the level.
 	//Cvar_Set("RMG", "0");

@@ -228,48 +228,9 @@ typedef struct serverBan_s {
 
 //=============================================================================
 
-extern	serverStatic_t	svs;				// persistant server info across maps
-extern	server_t		sv;					// cleared each map
-
-EXTERNC	cvar_t	*sv_snapsMin;
-EXTERNC	cvar_t	*sv_snapsMax;
-EXTERNC	cvar_t	*sv_snapsPolicy;
-EXTERNC	cvar_t	*sv_fps;
-EXTERNC	cvar_t	*sv_timeout;
-EXTERNC	cvar_t	*sv_zombietime;
-EXTERNC	cvar_t	*sv_rconPassword;
-EXTERNC	cvar_t	*sv_privatePassword;
-EXTERNC	cvar_t	*sv_allowDownload;
-EXTERNC	cvar_t	*sv_maxclients;
-EXTERNC	cvar_t	*sv_privateClients;
-EXTERNC	cvar_t	*sv_hostname;
+EXTERNC serverStatic_t	svs;				// persistant server info across maps
+EXTERNC server_t		sv;					// cleared each map
 EXTERNC	cvar_t	*sv_master[MAX_MASTER_SERVERS];
-EXTERNC	cvar_t	*sv_reconnectlimit;
-EXTERNC	cvar_t	*sv_showghoultraces;
-EXTERNC	cvar_t	*sv_showloss;
-EXTERNC	cvar_t	*sv_padPackets;
-EXTERNC	cvar_t	*sv_killserver;
-EXTERNC	cvar_t	*sv_mapname;
-EXTERNC	cvar_t	*sv_mapChecksum;
-EXTERNC	cvar_t	*sv_serverid;
-EXTERNC	cvar_t	*sv_ratePolicy;
-EXTERNC	cvar_t	*sv_clientRate;
-EXTERNC	cvar_t	*sv_minRate;
-EXTERNC	cvar_t	*sv_maxRate;
-EXTERNC	cvar_t	*sv_minPing;
-EXTERNC	cvar_t	*sv_maxPing;
-EXTERNC	cvar_t	*sv_gametype;
-EXTERNC	cvar_t	*sv_pure;
-EXTERNC	cvar_t	*sv_floodProtect;
-EXTERNC	cvar_t	*sv_lanForceRate;
-EXTERNC	cvar_t	*sv_needpass;
-EXTERNC	cvar_t	*sv_filterCommands;
-EXTERNC	cvar_t	*sv_autoDemo;
-EXTERNC	cvar_t	*sv_autoDemoBots;
-EXTERNC	cvar_t	*sv_autoDemoMaxMaps;
-EXTERNC	cvar_t	*sv_legacyFixes;
-EXTERNC	cvar_t	*sv_banFile;
-
 EXTERNC	serverBan_t serverBans[SERVER_MAXBANS];
 EXTERNC	int serverBansCount;
 
@@ -294,7 +255,7 @@ struct leakyBucket_s {
 	leakyBucket_t *prev, *next;
 };
 
-extern leakyBucket_t outboundLeakyBucket;
+EXTERNC leakyBucket_t outboundLeakyBucket;
 
 CCALL qboolean SVC_RateLimit( leakyBucket_t *bucket, int burst, int period );
 CCALL qboolean SVC_RateLimitAddress( netadr_t from, int burst, int period );

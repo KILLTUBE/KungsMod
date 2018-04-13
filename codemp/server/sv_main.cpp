@@ -23,7 +23,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "server.h"
-
 #include "ghoul2/ghoul2_shared.h"
 #include "sv_gameapi.h"
 #include "botlib/botlib.h"
@@ -31,46 +30,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 serverStatic_t	svs;				// persistant server info
 server_t		sv;					// local server
-
-cvar_t	*sv_snapsMin;			// minimum snapshots/sec a client can request, also limited by sv_snapsMax
-cvar_t	*sv_snapsMax;			// maximum snapshots/sec a client can request, also limited by sv_fps
-cvar_t	*sv_snapsPolicy;		// 0-2
-cvar_t	*sv_fps = NULL;				// time rate for running non-clients
-cvar_t	*sv_timeout;			// seconds without any message
-cvar_t	*sv_zombietime;			// seconds to sink messages after disconnect
-cvar_t	*sv_rconPassword;		// password for remote server commands
-cvar_t	*sv_privatePassword;	// password for the privateClient slots
-cvar_t	*sv_maxclients;
-cvar_t	*sv_privateClients;		// number of clients reserved for password
-cvar_t	*sv_hostname;
-cvar_t	*sv_allowDownload;
-cvar_t	*sv_master[MAX_MASTER_SERVERS];		// master server ip address
-cvar_t	*sv_reconnectlimit;		// minimum seconds between connect messages
-cvar_t	*sv_showghoultraces;	// report ghoul2 traces
-cvar_t	*sv_showloss;			// report when usercmds are lost
-cvar_t	*sv_padPackets;			// add nop bytes to messages
-cvar_t	*sv_killserver;			// menu system can set to 1 to shut server down
-cvar_t	*sv_mapname;
-cvar_t	*sv_mapChecksum;
-cvar_t	*sv_serverid;
-cvar_t	*sv_ratePolicy;		// 1-2
-cvar_t	*sv_clientRate;
-cvar_t	*sv_minRate;
-cvar_t	*sv_maxRate;
-cvar_t	*sv_minPing;
-cvar_t	*sv_maxPing;
-cvar_t	*sv_gametype;
-cvar_t	*sv_pure;
-cvar_t	*sv_floodProtect;
-cvar_t	*sv_lanForceRate; // dedicated 1 (LAN) server forces local client rates to 99999 (bug #491)
-cvar_t	*sv_needpass;
-cvar_t	*sv_filterCommands; // strict filtering on commands (1: strip ['\r', '\n'], 2: also strip ';')
-cvar_t	*sv_autoDemo;
-cvar_t	*sv_autoDemoBots;
-cvar_t	*sv_autoDemoMaxMaps;
-cvar_t	*sv_legacyFixes;
-cvar_t	*sv_banFile;
-
 serverBan_t serverBans[SERVER_MAXBANS];
 int serverBansCount = 0;
 
@@ -604,15 +563,15 @@ void SVC_Info( netadr_t from ) {
 
 	Info_SetValueForKey( infostring, "protocol", va("%i", PROTOCOL_VERSION) );
 	Info_SetValueForKey( infostring, "hostname", sv_hostname->string );
-	Info_SetValueForKey( infostring, "mapname", sv_mapname->string );
+	Info_SetValueForKey( infostring, "mapname", mapname->string );
 	Info_SetValueForKey( infostring, "clients", va("%i", count) );
 	Info_SetValueForKey( infostring, "g_humanplayers", va("%i", humans) );
 	Info_SetValueForKey( infostring, "sv_maxclients",
 		va("%i", sv_maxclients->integer - sv_privateClients->integer ) );
-	Info_SetValueForKey( infostring, "gametype", va("%i", sv_gametype->integer ) );
-	Info_SetValueForKey( infostring, "needpass", va("%i", sv_needpass->integer ) );
+	Info_SetValueForKey( infostring, "gametype", va("%i", g_gametype->integer ) );
+	Info_SetValueForKey( infostring, "needpass", va("%i", g_needpass->integer ) );
 	Info_SetValueForKey( infostring, "truejedi", va("%i", Cvar_VariableIntegerValue( "g_jediVmerc" ) ) );
-	if ( sv_gametype->integer == GT_DUEL || sv_gametype->integer == GT_POWERDUEL )
+	if ( g_gametype->integer == GT_DUEL || g_gametype->integer == GT_POWERDUEL )
 	{
 		wDisable = Cvar_VariableIntegerValue( "g_duelWeaponDisable" );
 	}
@@ -676,8 +635,8 @@ void SVC_RemoteCommand( netadr_t from, msg_t *msg ) {
 		return;
 	}
 
-	if ( !strlen( sv_rconPassword->string ) ||
-		strcmp (Cmd_Argv(1), sv_rconPassword->string) ) {
+	if ( !strlen( rconPassword->string ) ||
+		strcmp (Cmd_Argv(1), rconPassword->string) ) {
 		static leakyBucket_t bucket;
 
 		// Make DoS via rcon impractical
@@ -697,7 +656,7 @@ void SVC_RemoteCommand( netadr_t from, msg_t *msg ) {
 	svs.redirectAddress = from;
 	Com_BeginRedirect (sv_outputbuf, SV_OUTPUTBUF_LENGTH, SV_FlushRedirect);
 
-	if ( !strlen( sv_rconPassword->string ) ) {
+	if ( !strlen( rconPassword->string ) ) {
 		Com_Printf ("No rconpassword set.\n");
 	} else if ( !valid ) {
 		Com_Printf ("Bad rconpassword.\n");

@@ -34,15 +34,11 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 	#define XCVAR_DEF( name, defVal, update, flags ) name  = Cvar_Get( #name , defVal , flags , "" );
 #endif
 
-XCVAR_DEF( capturelimit,					"0",					NULL,				CVAR_ARCHIVE|CVAR_NORESTART|CVAR_SERVERINFO ) // fixme init'd to 8 in game module
 XCVAR_DEF( cg_drawCrosshair,				"1",					NULL,				CVAR_ARCHIVE )
 XCVAR_DEF( cg_drawCrosshairNames,			"1",					NULL,				CVAR_ARCHIVE )
 XCVAR_DEF( cg_marks,						"1",					NULL,				CVAR_ARCHIVE )
 XCVAR_DEF( cg_selectedPlayer,				"0",					NULL,				CVAR_ARCHIVE|CVAR_INTERNAL )
 XCVAR_DEF( cg_selectedPlayerName,			"",						NULL,				CVAR_ARCHIVE|CVAR_INTERNAL )
-XCVAR_DEF( g_botsFile,						"",						NULL,				CVAR_INIT|CVAR_ROM )
-XCVAR_DEF( g_spSkill,						"2",					NULL,				CVAR_ARCHIVE|CVAR_INTERNAL )
-XCVAR_DEF( g_warmup,						"20",					NULL,				CVAR_ARCHIVE )
 XCVAR_DEF( se_language,						"english",				NULL,				CVAR_ARCHIVE|CVAR_NORESTART )
 XCVAR_DEF( ui_PrecacheModels,				"0",					NULL,				CVAR_ARCHIVE )
 XCVAR_DEF( ui_actualNetGametype,			"3",					NULL,				CVAR_ARCHIVE|CVAR_INTERNAL )

@@ -729,7 +729,7 @@ static void CG_RegisterSounds( void ) {
 	com_cameraMode = Cvar_Get("com_cameraMode", "0", CVAR_CHEAT, 0);
 
 	bg_showevents = Cvar_Get( "bg_showevents", "0", 0, 0 );
-	com_optvehtrace = Cvar_Get( "com_optvehtrace", "0", 0, 0 );
+
 
 	if ( cgs.gametype >= GT_TEAM || com_buildScript->integer ) {
 

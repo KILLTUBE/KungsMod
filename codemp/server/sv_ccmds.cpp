@@ -274,7 +274,7 @@ static void SV_MapRestart_f( void ) {
 
 	// check for changes in variables that can't just be restarted
 	// check for maxclients change
-	if ( sv_maxclients->modified || sv_gametype->modified ) {
+	if ( sv_maxclients->modified || g_gametype->modified ) {
 		char	mapname[MAX_QPATH];
 
 		Com_Printf( "variable change -- restarting.\n" );
@@ -1174,7 +1174,7 @@ static void SV_Status_f( void )
 	Com_Printf( "version : %s %i\n", VERSION_STRING_DOTTED, PROTOCOL_VERSION );
 	Com_Printf( "game    : %s\n", FS_GetCurrentGameDir(qfalse) );
 	Com_Printf( "udp/ip  : %s:%i os(%s) type(%s)\n", Cvar_VariableString( "net_ip" ), Cvar_VariableIntegerValue( "net_port" ), STATUS_OS, ded_table[com_dedicated->integer] );
-	Com_Printf( "map     : %s gametype(%i)\n", sv_mapname->string, sv_gametype->integer );
+	Com_Printf( "map     : %s gametype(%i)\n", mapname->string, g_gametype->integer );
 	Com_Printf( "players : %i humans, %i bots (%i max)\n", humans, bots, sv_maxclients->integer - sv_privateClients->integer );
 	Com_Printf( "uptime  : %s\n", SV_CalcUptime() );
 
@@ -1388,7 +1388,7 @@ static void SV_WeaponToggle_f( void ) {
 	char *s;
 	const char *cvarStr = NULL;
 
-	if ( sv_gametype->integer == GT_DUEL || sv_gametype->integer == GT_POWERDUEL ) {
+	if ( g_gametype->integer == GT_DUEL || g_gametype->integer == GT_POWERDUEL ) {
 		cvarStr = "g_duelWeaponDisable";
 		bits = Cvar_VariableIntegerValue( "g_duelWeaponDisable" );
 	}

@@ -39,13 +39,11 @@ CNavigator		navigator;
 //this was in the game before. But now it's all handled in the engine, and we make navigator. calls
 //via traps.
 
-cvar_t		*d_altRoutes;
-cvar_t		*d_patched;
+
 
 void NAV_CvarInit()
 {
-	d_altRoutes = Cvar_Get("d_altRoutes", "0", CVAR_CHEAT);
-	d_patched = Cvar_Get("d_patched", "0", CVAR_CHEAT);
+
 }
 
 void NAV_Free()
