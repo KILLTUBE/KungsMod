@@ -1,77 +1,24 @@
-/*
-===========================================================================
-Copyright (C) 2000 - 2013, Raven Software, Inc.
-Copyright (C) 2001 - 2013, Activision, Inc.
-Copyright (C) 2013 - 2015, OpenJK contributors
+#include "fx_demp2.h"
 
-This file is part of the OpenJK source code.
-
-OpenJK is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License version 2 as
-published by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, see <http://www.gnu.org/licenses/>.
-===========================================================================
-*/
-
-// DEMP2 Weapon
-
-#include "cg_local.h"
-
-/*
----------------------------
-FX_DEMP2_ProjectileThink
----------------------------
-*/
-
-void FX_DEMP2_ProjectileThink( centity_t *cent, const struct weaponInfo_s *weapon )
-{
+void FX_DEMP2_ProjectileThink( centity_t *cent, const struct weaponInfo_s *weapon ) {
 	vec3_t forward;
-
-	if ( VectorNormalize2( cent->currentState.pos.trDelta, forward ) == 0.0f )
-	{
+	if ( VectorNormalize2( cent->currentState.pos.trDelta, forward ) == 0.0f ) {
 		forward[2] = 1.0f;
 	}
-
 	FX_PlayEffectID( cgs.effects.demp2ProjectileEffect, cent->lerpOrigin, forward, -1, -1, qfalse );
 }
 
-/*
----------------------------
-FX_DEMP2_HitWall
----------------------------
-*/
-
-void FX_DEMP2_HitWall( vec3_t origin, vec3_t normal )
-{
+void FX_DEMP2_HitWall( vec3_t origin, vec3_t normal ) {
 	FX_PlayEffectID( cgs.effects.demp2WallImpactEffect, origin, normal, -1, -1, qfalse );
 }
 
-/*
----------------------------
-FX_DEMP2_HitPlayer
----------------------------
-*/
-
-void FX_DEMP2_HitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid )
-{
+void FX_DEMP2_HitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid ) {
 	FX_PlayEffectID( cgs.effects.demp2FleshImpactEffect, origin, normal, -1, -1, qfalse );
 }
 
-/*
----------------------------
-FX_DEMP2_AltBeam
----------------------------
-*/
 void FX_DEMP2_AltBeam( vec3_t start, vec3_t end, vec3_t normal, //qboolean spark,
-								vec3_t targ1, vec3_t targ2 )
-{
+								vec3_t targ1, vec3_t targ2 ) {
+	Com_Printf("todo FX_DEMP2_AltBeam\n");
 //NOTENOTE Fix this after trap calls for all primitives are created.
 /*
 	vec3_t	dir, chaos,
@@ -258,24 +205,17 @@ void FX_DEMP2_AltBeam( vec3_t start, vec3_t end, vec3_t normal, //qboolean spark
 */
 }
 
-//---------------------------------------------
-void FX_DEMP2_AltDetonate( vec3_t org, float size )
-{
+void FX_DEMP2_AltDetonate( vec3_t org, float size ) {
 	localEntity_t	*ex;
-
 	ex = CG_AllocLocalEntity();
 	ex->leType = LE_FADE_SCALE_MODEL;
 	memset( &ex->refEntity, 0, sizeof( refEntity_t ));
-
 	ex->refEntity.renderfx |= RF_VOLUMETRIC;
-
 	ex->startTime = cg.time;
 	ex->endTime = ex->startTime + 800;//1600;
-
 	ex->radius = size;
 	ex->refEntity.customShader = cgs.media.demp2ShellShader;
 	ex->refEntity.hModel = cgs.media.demp2Shell;
 	VectorCopy( org, ex->refEntity.origin );
-
 	ex->color[0] = ex->color[1] = ex->color[2] = 255.0f;
 }

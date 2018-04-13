@@ -829,30 +829,6 @@
     <ClCompile Include="..\..\codemp\cgame\cg_tempwrappers_g2.c">
       <Filter>cgame</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\fx_blaster.c">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\fx_bowcaster.c">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\fx_bryarpistol.c">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\fx_demp2.c">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\fx_disruptor.c">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\fx_flechette.c">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\fx_force.c">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\fx_heavyrepeater.c">
-      <Filter>fx</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\fx_rocketlauncher.c">
       <Filter>fx</Filter>
     </ClCompile>
@@ -1236,6 +1212,30 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_svcmds.cpp">
       <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_blaster.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_bowcaster.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_bryarpistol.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_demp2.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_disruptor.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_flechette.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_force.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_heavyrepeater.cpp">
+      <Filter>fx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2390,6 +2390,33 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\game\g_svcmds.h">
       <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\fx_blaster.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\fx_bowcaster.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\fx_bryarpistol.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\fx_demp2.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\fx_disruptor.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\fx_flechette.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\fx_force.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\fx_heavyrepeater.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\cgame\fx_rocketlauncher.h">
+      <Filter>fx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
