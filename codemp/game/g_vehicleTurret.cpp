@@ -20,23 +20,16 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "bg_vehicles.h"
-#include "b_local.h"
-#include "ghoul2/G2.h"
+#include "g_vehicleTurret.h"
 
-extern void G_SetEnemy( gentity_t *self, gentity_t *enemy );
-extern void WP_CalcVehMuzzle(gentity_t *ent, int muzzleNum);
-extern gentity_t *WP_FireVehicleWeapon( gentity_t *ent, vec3_t start, vec3_t dir, vehWeaponInfo_t *vehWeapon, qboolean alt_fire, qboolean isTurretWeap );
-
-extern void G_VehMuzzleFireFX( gentity_t *ent, gentity_t *broadcaster, int muzzlesFired );
-//-----------------------------------------------------
-void VEH_TurretCheckFire( Vehicle_t *pVeh,
-						 gentity_t *parent,
-						 //gentity_t *turretEnemy,
-						 turretStats_t *turretStats,
-						 vehWeaponInfo_t *vehWeapon,
-						 int turretNum, int curMuzzle )
-{
+void VEH_TurretCheckFire(
+	Vehicle_t *pVeh,
+	gentity_t *parent,
+	//gentity_t *turretEnemy,
+	turretStats_t *turretStats,
+	vehWeaponInfo_t *vehWeapon,
+	int turretNum, int curMuzzle
+) {
 	// if it's time to fire and we have an enemy, then gun 'em down!  pushDebounce time controls next fire time
 	if ( pVeh->m_iMuzzleTag[curMuzzle] == -1 )
 	{//invalid muzzle?
@@ -79,8 +72,7 @@ void VEH_TurretCheckFire( Vehicle_t *pVeh,
 	}
 }
 
-void VEH_TurretAnglesToEnemy( Vehicle_t *pVeh, int curMuzzle, float fSpeed, gentity_t *turretEnemy, qboolean bAILead, vec3_t desiredAngles )
-{
+void VEH_TurretAnglesToEnemy( Vehicle_t *pVeh, int curMuzzle, float fSpeed, gentity_t *turretEnemy, qboolean bAILead, vec3_t desiredAngles ) {
 	vec3_t	enemyDir, org;
 	VectorCopy( turretEnemy->r.currentOrigin, org );
 	if ( bAILead )
@@ -106,15 +98,14 @@ void VEH_TurretAnglesToEnemy( Vehicle_t *pVeh, int curMuzzle, float fSpeed, gent
 	vectoangles( enemyDir, desiredAngles );
 }
 
-//-----------------------------------------------------
-qboolean VEH_TurretAim( Vehicle_t *pVeh,
-						 gentity_t *parent,
-						 gentity_t *turretEnemy,
-						 turretStats_t *turretStats,
-						 vehWeaponInfo_t *vehWeapon,
-						 int turretNum, int curMuzzle, vec3_t desiredAngles )
-//-----------------------------------------------------
-{
+qboolean VEH_TurretAim(
+	Vehicle_t *pVeh,
+	gentity_t *parent,
+	gentity_t *turretEnemy,
+	turretStats_t *turretStats,
+	vehWeaponInfo_t *vehWeapon,
+	int turretNum, int curMuzzle, vec3_t desiredAngles
+) {
 	vec3_t	curAngles, addAngles, newAngles, yawAngles, pitchAngles;
 	float	aimCorrect = qfalse;
 
@@ -210,13 +201,12 @@ qboolean VEH_TurretAim( Vehicle_t *pVeh,
 	return aimCorrect;
 }
 
-//-----------------------------------------------------
-static qboolean VEH_TurretFindEnemies( Vehicle_t *pVeh,
-						 gentity_t *parent,
-						 turretStats_t *turretStats,
-						 int turretNum, int curMuzzle )
-//-----------------------------------------------------
-{
+static qboolean VEH_TurretFindEnemies(
+	Vehicle_t *pVeh,
+	gentity_t *parent,
+	turretStats_t *turretStats,
+	int turretNum, int curMuzzle
+) {
 	qboolean	found = qfalse;
 	int			i, count;
 	float		bestDist = turretStats->fAIRange * turretStats->fAIRange;
@@ -326,8 +316,7 @@ static qboolean VEH_TurretFindEnemies( Vehicle_t *pVeh,
 	return found;
 }
 
-void VEH_TurretObeyPassengerControl( Vehicle_t *pVeh, gentity_t *parent, int turretNum )
-{
+void VEH_TurretObeyPassengerControl( Vehicle_t *pVeh, gentity_t *parent, int turretNum ) {
 	turretStats_t *turretStats = &pVeh->m_pVehicleInfo->turret[turretNum];
 	gentity_t *passenger = (gentity_t *)pVeh->m_ppPassengers[turretStats->passengerNum-1];
 
@@ -346,9 +335,7 @@ void VEH_TurretObeyPassengerControl( Vehicle_t *pVeh, gentity_t *parent, int tur
 	}
 }
 
-void VEH_TurretThink( Vehicle_t *pVeh, gentity_t *parent, int turretNum )
-//-----------------------------------------------------
-{
+void VEH_TurretThink( Vehicle_t *pVeh, gentity_t *parent, int turretNum ) {
 	qboolean	doAim = qfalse;
 	float		enemyDist, rangeSq;
 	vec3_t		enemyDir;

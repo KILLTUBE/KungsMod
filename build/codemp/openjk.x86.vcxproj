@@ -397,6 +397,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\codemp\game\g_saga.h" />
     <ClInclude Include="..\..\codemp\game\g_session.h" />
     <ClInclude Include="..\..\codemp\game\g_spawn.h" />
+    <ClInclude Include="..\..\codemp\game\g_svcmds.h" />
     <ClInclude Include="..\..\codemp\game\g_target.h" />
     <ClInclude Include="..\..\codemp\game\g_team.h" />
     <ClInclude Include="..\..\codemp\game\g_timer.h" />
@@ -405,6 +406,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\codemp\game\g_turret_G2.h" />
     <ClInclude Include="..\..\codemp\game\g_utils.h" />
     <ClInclude Include="..\..\codemp\game\g_vehicles.h" />
+    <ClInclude Include="..\..\codemp\game\g_vehicleTurret.h" />
     <ClInclude Include="..\..\codemp\game\g_weapon.h" />
     <ClInclude Include="..\..\codemp\game\g_xcvar.h" />
     <ClInclude Include="..\..\codemp\game\NPC.h" />
@@ -1055,9 +1057,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_svcmds.c">
+    <ClCompile Include="..\..\codemp\game\g_svcmds.cpp">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
     </ClCompile>
@@ -1078,9 +1080,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_tempwrappers.c">
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_timer.cpp">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
@@ -1118,9 +1117,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_vehicleTurret.c">
+    <ClCompile Include="..\..\codemp\game\g_vehicleTurret.cpp">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
-      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
     </ClCompile>

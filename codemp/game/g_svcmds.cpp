@@ -24,7 +24,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 // this file holds commands that can be executed by the server console, but not remote clients
 
-#include "g_local.h"
+#include "g_svcmds.h"
 
 /*
 ==============================================================================
@@ -54,20 +54,9 @@ If 0, then only addresses matching the list will be allowed.  This lets you easi
 ==============================================================================
 */
 
-typedef struct ipFilter_s {
-	uint32_t mask, compare;
-} ipFilter_t;
-
-#define	MAX_IPFILTERS (1024)
-
 static ipFilter_t	ipFilters[MAX_IPFILTERS];
 static int			numIPFilters;
 
-/*
-=================
-StringToFilter
-=================
-*/
 static qboolean StringToFilter( char *s, ipFilter_t *f ) {
 	char num[128];
 	int i, j;
@@ -110,11 +99,6 @@ static qboolean StringToFilter( char *s, ipFilter_t *f ) {
 	return qtrue;
 }
 
-/*
-=================
-UpdateIPBans
-=================
-*/
 static void UpdateIPBans( void ) {
 	byteAlias_t b, m;
 	int i, j;
@@ -146,11 +130,6 @@ static void UpdateIPBans( void ) {
 	Cvar_Set( "g_banIPs", iplist_final );
 }
 
-/*
-=================
-G_FilterPacket
-=================
-*/
 qboolean G_FilterPacket( char *from ) {
 	int i;
 	uint32_t in;
@@ -180,11 +159,6 @@ qboolean G_FilterPacket( char *from ) {
 	return g_filterBan->integer == 0;
 }
 
-/*
-=================
-AddIP
-=================
-*/
 static void AddIP( char *str ) {
 	int i;
 
@@ -206,11 +180,6 @@ static void AddIP( char *str ) {
 	UpdateIPBans();
 }
 
-/*
-=================
-G_ProcessIPBans
-=================
-*/
 void G_ProcessIPBans( void ) {
 	char *s = NULL, *t = NULL, str[MAX_CVAR_VALUE_STRING] = {0};
 
@@ -229,11 +198,6 @@ void G_ProcessIPBans( void ) {
 	}
 }
 
-/*
-=================
-Svcmd_AddIP_f
-=================
-*/
 void Svcmd_AddIP_f (void)
 {
 	char		str[MAX_TOKEN_CHARS];
@@ -248,11 +212,6 @@ void Svcmd_AddIP_f (void)
 	AddIP( str );
 }
 
-/*
-=================
-Svcmd_RemoveIP_f
-=================
-*/
 void Svcmd_RemoveIP_f (void)
 {
 	ipFilter_t	f;
@@ -299,11 +258,6 @@ void Svcmd_ListIP_f (void)
 	Com_Printf ("%i bans.\n", count);
 }
 
-/*
-===================
-Svcmd_EntityList_f
-===================
-*/
 void	Svcmd_EntityList_f (void) {
 	int			e;
 	gentity_t		*check;
@@ -378,12 +332,6 @@ void	Svcmd_EntityList_f (void) {
 	}
 }
 
-qboolean StringIsInteger( const char *s );
-/*
-===================
-ClientForString
-===================
-*/
 gclient_t	*ClientForString( const char *s ) {
 	gclient_t	*cl;
 	int			idnum;
@@ -417,13 +365,7 @@ gclient_t	*ClientForString( const char *s ) {
 	return NULL;
 }
 
-/*
-===================
-Svcmd_ForceTeam_f
-
-forceteam <player> <team>
-===================
-*/
+// forceteam <player> <team>
 void	Svcmd_ForceTeam_f( void ) {
 	gclient_t	*cl;
 	char		str[MAX_TOKEN_CHARS];
@@ -445,7 +387,6 @@ void	Svcmd_ForceTeam_f( void ) {
 	SetTeam( &g_entities[cl - level.clients], str );
 }
 
-char *ConcatArgs( int start );
 void Svcmd_Say_f( void ) {
 	char *p = NULL;
 	// don't let text be too long for malicious reasons
@@ -468,12 +409,6 @@ void Svcmd_Say_f( void ) {
 	SV_GameSendServerCommand( -1, va("print \"server: %s\n\"", text ) );
 }
 
-typedef struct svcmd_s {
-	const char	*name;
-	void		(*func)(void);
-	qboolean	dedicated;
-} svcmd_t;
-
 int svcmdcmp( const void *a, const void *b ) {
 	return Q_stricmp( (const char *)a, ((svcmd_t*)b)->name );
 }
@@ -493,12 +428,6 @@ svcmd_t svcmds[] = {
 };
 static const size_t numsvcmds = ARRAY_LEN( svcmds );
 
-/*
-=================
-ConsoleCommand
-
-=================
-*/
 qboolean	ConsoleCommand( void ) {
 	char	cmd[MAX_TOKEN_CHARS] = {0};
 	svcmd_t	*command = NULL;

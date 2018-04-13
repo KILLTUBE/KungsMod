@@ -820,15 +820,6 @@
     <ClCompile Include="..\..\codemp\rd-rend2\tr_animation.cpp">
       <Filter>rend2</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_svcmds.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_vehicleTurret.c">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\game\g_tempwrappers.c">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\cg_main.c">
       <Filter>cgame</Filter>
     </ClCompile>
@@ -1238,6 +1229,12 @@
       <Filter>NPC</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\g_cvar.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_vehicleTurret.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_svcmds.cpp">
       <Filter>game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2386,6 +2383,12 @@
       <Filter>NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\game\g_cvar.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_vehicleTurret.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\game\g_svcmds.h">
       <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
