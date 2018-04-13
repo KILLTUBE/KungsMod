@@ -121,10 +121,13 @@ void alignTabsDefault() {
 	CDock *all = findDock("All");
 	CDock *console = findDock("Console");
 	CDock *node = findDock("Node");
+
+	
 	dockTop(all, NULL);
+	
+	
 	dockBottom(console, all);
 	dockRight(node, console);
-
 	// dock all the rest to top
 	for (CDock *dock : g_dock.m_docks) {
 		//	strcpy(dock->location, "2"); // 1=left, 2=top, 3=bottom, 4=right
@@ -135,15 +138,13 @@ void alignTabsDefault() {
 
 		dockTab(dock, all);
 	}
+	
+	
+	//dockRight(node, console);
+	//
+	//dockRight(node, console);
 
-	// until i figure out how the dock code exactly works this must be good enough...
-	// basically every step gets more successive to the aimed value (todo: rewrite dock system...)
-	g_dock.getRootDock()->setPosSize(g_dock.getRootDock()->pos, g_dock.getRootDock()->size);
-	console->parent->size.y = 180;
-	g_dock.getRootDock()->setPosSize(g_dock.getRootDock()->pos, g_dock.getRootDock()->size);
-	console->parent->size.y = 180;
-	g_dock.getRootDock()->setPosSize(g_dock.getRootDock()->pos, g_dock.getRootDock()->size);
-	console->parent->size.y = 180;
+
 }
 
 extern int setConsoleHeight;
@@ -222,6 +223,24 @@ void DockAll::imgui() {
 		dockTab(julia, all);
 		
 
+	}
+
+
+	
+	//CDock *all = findDock("All");
+	//CDock *console = findDock("Console");
+	//CDock *node = findDock("Node");
+
+	if (ImGui::Button("dockTop(all, NULL);")) {
+		dockTop(all, NULL);
+	}
+	
+	if (ImGui::Button("dockBottom(console, all);")) {
+	
+		dockBottom(console, all);
+	}
+	if (ImGui::Button("dockRight(node, console);")) {
+		dockRight(node, console);
 	}
 
 }

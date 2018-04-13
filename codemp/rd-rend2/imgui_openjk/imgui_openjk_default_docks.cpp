@@ -32,6 +32,8 @@ CCALL int add_dock(Dock *dock) {
 }
 
 CCALL void *imgui_get_current_dock();
+bool dockRight(CDock *from, CDock *to);
+CDock *findDock(char *name);
 
 CCALL int imgui_openjk_default_docks() {
 	if (imgui_quake_docks.size() == 0) {
@@ -76,10 +78,30 @@ CCALL int imgui_openjk_default_docks() {
 
 	// gotta make sure that the docks were at least drawn once, otherwise cant find them via string label
 	static int first = 1;
-	if (first) {
-		alignTabsDefault();
+	if (first == 2) {
+
+		CDock *all = findDock("All");
+		CDock *console = findDock("Console");
+		CDock *node = findDock("Node");
+		dockRight(node, console);
+
+
+		// until i figure out how the dock code exactly works this must be good enough...
+		// basically every step gets more successive to the aimed value (todo: rewrite dock system...)
+		g_dock.getRootDock()->setPosSize(g_dock.getRootDock()->pos, g_dock.getRootDock()->size);
+		console->parent->size.y = 180;
+		g_dock.getRootDock()->setPosSize(g_dock.getRootDock()->pos, g_dock.getRootDock()->size);
+		console->parent->size.y = 180;
+		g_dock.getRootDock()->setPosSize(g_dock.getRootDock()->pos, g_dock.getRootDock()->size);
+		console->parent->size.y = 180;
+
 		first = 0;
 	}
+	if (first == 1) {
+		alignTabsDefault();
+		first = 2;
+	}
+
 
 	return 1;
 }
