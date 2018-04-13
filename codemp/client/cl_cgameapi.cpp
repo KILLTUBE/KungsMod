@@ -707,29 +707,6 @@ CCALL void CGVM_Cmd_RemoveCommand( const char *cmd_name ) {
 }
 
 
-CCALL int  BOTLIB_AddGlobalDefine(char *string) {
-	return botlib_export->PC_AddGlobalDefine(string);
-}
-CCALL int  BOTLIB_FreeSourceHandle(int handle) {
-	return botlib_export->PC_FreeSourceHandle(handle);
-}
-CCALL int  BOTLIB_LoadGlobalDefines(const char* filename ) {
-	return botlib_export->PC_LoadGlobalDefines(filename);
-}
-CCALL int  BOTLIB_LoadSourceHandle(const char *filename) {
-	return botlib_export->PC_LoadSourceHandle(filename);
-}
-CCALL int  BOTLIB_ReadTokenHandle(int handle, pc_token_t *pc_token) {
-	return botlib_export->PC_ReadTokenHandle(handle, pc_token);
-}
-CCALL void BOTLIB_RemoveAllGlobalDefines( void ) {
-	botlib_export->PC_RemoveAllGlobalDefines();
-}
-CCALL int  BOTLIB_SourceFileAndLine(int handle, char *filename, int *line) {
-	return botlib_export->PC_SourceFileAndLine(handle, filename, line);
-}
-
-
 // Stub function for old RMG system.
 static void R_InitRendererTerrain ( const char * /*info*/ ) {}
 

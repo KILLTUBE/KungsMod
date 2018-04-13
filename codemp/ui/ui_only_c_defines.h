@@ -55,15 +55,6 @@ CCALL void Cvar_VariableStringBuffer( const char *var_name, char *buffer, int bu
 
 CCALL cvar_t *Cvar_SetValue( const char *var_name, float value);
 
-CCALL int				PC_AddGlobalDefine					( char *define );
-CCALL int				PC_FreeSource						( int handle );
-CCALL int				PC_LoadGlobalDefines					( const char* filename );
-CCALL int				PC_LoadSource						( const char *filename );
-CCALL int				PC_ReadToken							( int handle, pc_token_t *pc_token );
-CCALL void			PC_RemoveAllGlobalDefines			( void );
-CCALL int				PC_SourceFileAndLine					( int handle, char *filename, int *line );
-
-
 CCALL qboolean CL_SE_GetStringTextString( const char *text, char *buffer, int bufferLength );
 
 

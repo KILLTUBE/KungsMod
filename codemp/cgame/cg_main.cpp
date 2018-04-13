@@ -1,70 +1,19 @@
-/*
-===========================================================================
-Copyright (C) 1999 - 2005, Id Software, Inc.
-Copyright (C) 2000 - 2013, Raven Software, Inc.
-Copyright (C) 2001 - 2013, Activision, Inc.
-Copyright (C) 2005 - 2015, ioquake3 contributors
-Copyright (C) 2013 - 2015, OpenJK contributors
-
-This file is part of the OpenJK source code.
-
-OpenJK is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License version 2 as
-published by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, see <http://www.gnu.org/licenses/>.
-===========================================================================
-*/
-
-// cg_main.c -- initialization and primary entry point for cgame
 #include "cg_main.h"
-
-// display context for new ui stuff
-displayContextDef_t cgDC;
-
-extern int cgSiegeRoundState;
-extern int cgSiegeRoundTime;
-/*
-Ghoul2 Insert Start
-*/
-void CG_InitItems(void);
-/*
-Ghoul2 Insert End
-*/
-
-void CG_InitJetpackGhoul2(void);
-void CG_CleanJetpackGhoul2(void);
-
-void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum );
-void CG_Shutdown( void );
-
-void CG_CalcEntityLerpPositions( centity_t *cent );
-void CG_ROFF_NotetrackCallback( centity_t *cent, const char *notetrack);
-
-void UI_CleanupGhoul2(void);
-
-extern autoMapInput_t cg_autoMapInput; //cg_view.c
-extern int cg_autoMapInputTime;
-extern vec3_t cg_autoMapAngle;
-
-void CG_MiscEnt(void);
-void CG_DoCameraShake( vec3_t origin, float intensity, int radius, int time );
-
-
-
 #include "game/g_local.h"
 
-EXTERNC cvar_t *bg_showevents;
+//#include "botlib/l_precomp.h"
+
+cg_t				cg;
+cgs_t				cgs;
+centity_t			cg_entities[MAX_GENTITIES];
+centity_t			*cg_permanents[MAX_GENTITIES]; //rwwRMG - added
+int					cg_numpermanents = 0;
+weaponInfo_t		cg_weapons[MAX_WEAPONS];
+itemInfo_t			cg_items[MAX_ITEMS];
+displayContextDef_t cgDC;
 
 //do we have any force powers that we would normally need to cycle to?
-qboolean CG_NoUseableForce(void)
-{
+qboolean CG_NoUseableForce(void) {
 	int i = FP_HEAL;
 	while (i < NUM_FORCE_POWERS)
 	{
@@ -328,9 +277,6 @@ void CG_MiscEnt( void ) {
 }
 
 /*
-Ghoul2 Insert Start
-*/
-/*
 void CG_ResizeG2Bolt(boltInfo_v *bolt, int newCount)
 {
 	bolt->resize(newCount);
@@ -356,18 +302,6 @@ void CG_ResizeG2TempBone(mdxaBone_v *tempBone, int newCount)
 	tempBone->resize(newCount);
 }
 */
-/*
-Ghoul2 Insert End
-*/
-cg_t				cg;
-cgs_t				cgs;
-centity_t			cg_entities[MAX_GENTITIES];
-
-centity_t			*cg_permanents[MAX_GENTITIES]; //rwwRMG - added
-int					cg_numpermanents = 0;
-
-weaponInfo_t		cg_weapons[MAX_WEAPONS];
-itemInfo_t			cg_items[MAX_ITEMS];
 
 int CG_CrosshairPlayer( void ) {
 	if ( cg.time > (cg.crosshairClientTime + 1000) )
@@ -386,29 +320,13 @@ int CG_LastAttacker( void ) {
 	return cg.snap->ps.persistant[PERS_ATTACKER];
 }
 
-/*
-================
-CG_Argv
-================
-*/
 const char *CG_Argv( int arg ) {
 	static char	buffer[MAX_STRING_CHARS] = {0};
-
 	Cmd_ArgvBuffer( arg, buffer, sizeof( buffer ) );
-
 	return buffer;
 }
 
-
-//========================================================================
-
-/*
-=================
-CG_RegisterItemSounds
-
-The server says this item is used on this level
-=================
-*/
+// The server says this item is used on this level
 static void CG_RegisterItemSounds( int itemNum ) {
 	gitem_t			*item;
 	char			data[MAX_QPATH];
@@ -522,7 +440,6 @@ void CG_ParseWeatherEffect(const char *str)
 	stub_R_WorldEffectCommand(sptr);
 }
 
-extern int cgSiegeRoundBeganTime;
 void CG_ParseSiegeState(const char *str)
 {
 	int i = 0;
@@ -565,17 +482,7 @@ void CG_ParseSiegeState(const char *str)
 	}
 }
 
-/*
-=================
-CG_RegisterSounds
-
-called during a precache command
-=================
-*/
-void CG_PrecacheNPCSounds(const char *str);
-void CG_ParseSiegeObjectiveStatus(const char *str);
-extern int cg_beatingSiegeTime;
-extern int cg_siegeWinTeam;
+// called during a precache command
 static void CG_RegisterSounds( void ) {
 	int		i;
 	char	items[MAX_ITEMS+1];
@@ -1034,11 +941,6 @@ static void CG_RegisterEffects( void )
 	cgs.effects.acidSplash = FX_RegisterEffect( "env/acid_splash" );
 }
 
-//===================================================================================
-
-extern char *forceHolocronModels[];
-int CG_HandleAppendedSkin(char *modelName);
-void CG_CacheG2AnimInfo(char *modelName);
 /*
 =================
 CG_RegisterGraphics
@@ -1554,19 +1456,10 @@ void CG_SiegeCountCvars( void )
 
 }
 
-/*
-=======================
-CG_BuildSpectatorString
-
-=======================
-*/
 void CG_BuildSpectatorString(void) {
 	int i;
 	cg.spectatorList[0] = 0;
-
-	// Count up the number of players per team and per class
-	CG_SiegeCountCvars();
-
+	CG_SiegeCountCvars(); // Count up the number of players per team and per class
 	for (i = 0; i < MAX_CLIENTS; i++) {
 		if (cgs.clientinfo[i].infoValid && cgs.clientinfo[i].team == TEAM_SPECTATOR ) {
 			Q_strcat(cg.spectatorList, sizeof(cg.spectatorList), va("%s     ", cgs.clientinfo[i].name));
@@ -1579,25 +1472,15 @@ void CG_BuildSpectatorString(void) {
 	}
 }
 
-
-/*
-===================
-CG_RegisterClients
-===================
-*/
 static void CG_RegisterClients( void ) {
 	int		i;
-
 	CG_LoadingClient(cg.clientNum);
 	CG_NewClientInfo(cg.clientNum, qfalse);
-
 	for (i=0 ; i<MAX_CLIENTS ; i++) {
 		const char		*clientInfo;
-
 		if (cg.clientNum == i) {
 			continue;
 		}
-
 		clientInfo = CG_ConfigString( CS_PLAYERS+i );
 		if ( !clientInfo[0]) {
 			continue;
@@ -1608,13 +1491,6 @@ static void CG_RegisterClients( void ) {
 	CG_BuildSpectatorString();
 }
 
-//===========================================================================
-
-/*
-=================
-CG_ConfigString
-=================
-*/
 const char *CG_ConfigString( int index ) {
 	if ( index < 0 || index >= MAX_CONFIGSTRINGS ) {
 		Com_Error( ERR_DROP, "CG_ConfigString: bad index: %i", index );
@@ -1622,23 +1498,13 @@ const char *CG_ConfigString( int index ) {
 	return cgs.gameState.stringData + cgs.gameState.stringOffsets[ index ];
 }
 
-//==================================================================
-
-/*
-======================
-CG_StartMusic
-
-======================
-*/
 void CG_StartMusic( qboolean bForceStart ) {
 	char	*s;
 	char	parm1[MAX_QPATH], parm2[MAX_QPATH];
-
 	// start the background music
 	s = (char *)CG_ConfigString( CS_MUSIC );
 	Q_strncpyz( parm1, COM_Parse( (const char **)&s ), sizeof( parm1 ) );
 	Q_strncpyz( parm2, COM_Parse( (const char **)&s ), sizeof( parm2 ) );
-
 	S_StartBackgroundTrack( parm1, parm2, !bForceStart );
 }
 
@@ -1646,7 +1512,6 @@ char *CG_GetMenuBuffer(const char *filename) {
 	int	len;
 	fileHandle_t	f;
 	static char buf[MAX_MENUFILE];
-
 	len = FS_FOpenFileByMode( filename, &f, FS_READ );
 	if ( !f ) {
 		Com_Printf( S_COLOR_RED "menu file not found: %s, using default\n", filename );
@@ -1657,11 +1522,9 @@ char *CG_GetMenuBuffer(const char *filename) {
 		FS_FCloseFile( f );
 		return NULL;
 	}
-
 	FS_Read( buf, len, f );
 	buf[len] = 0;
 	FS_FCloseFile( f );
-
 	return buf;
 }
 
@@ -1673,14 +1536,14 @@ char *CG_GetMenuBuffer(const char *filename) {
 qboolean CG_Asset_Parse(int handle) {
 	pc_token_t token;
 
-	if (!BOTLIB_ReadTokenHandle(handle, &token))
+	if (!PC_ReadTokenHandle(handle, &token))
 		return qfalse;
 	if (Q_stricmp(token.string, "{") != 0) {
 		return qfalse;
 	}
 
 	while ( 1 ) {
-		if (!BOTLIB_ReadTokenHandle(handle, &token))
+		if (!PC_ReadTokenHandle(handle, &token))
 			return qfalse;
 
 		if (Q_stricmp(token.string, "}") == 0) {
@@ -1690,7 +1553,7 @@ qboolean CG_Asset_Parse(int handle) {
 		// font
 		if (Q_stricmp(token.string, "font") == 0) {
 			int pointSize;
-			if (!BOTLIB_ReadTokenHandle(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
+			if (!PC_ReadTokenHandle(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
 				return qfalse;
 			}
 
@@ -1702,7 +1565,7 @@ qboolean CG_Asset_Parse(int handle) {
 		// smallFont
 		if (Q_stricmp(token.string, "smallFont") == 0) {
 			int pointSize;
-			if (!BOTLIB_ReadTokenHandle(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
+			if (!PC_ReadTokenHandle(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
 				return qfalse;
 			}
 //			cgDC.registerFont(token.string, pointSize, &cgDC.Assets.smallFont);
@@ -1713,7 +1576,7 @@ qboolean CG_Asset_Parse(int handle) {
 		// smallFont
 		if (Q_stricmp(token.string, "small2Font") == 0) {
 			int pointSize;
-			if (!BOTLIB_ReadTokenHandle(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
+			if (!PC_ReadTokenHandle(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
 				return qfalse;
 			}
 //			cgDC.registerFont(token.string, pointSize, &cgDC.Assets.smallFont);
@@ -1724,7 +1587,7 @@ qboolean CG_Asset_Parse(int handle) {
 		// font
 		if (Q_stricmp(token.string, "bigfont") == 0) {
 			int pointSize;
-			if (!BOTLIB_ReadTokenHandle(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
+			if (!PC_ReadTokenHandle(handle, &token) || !PC_Int_Parse(handle, &pointSize)) {
 				return qfalse;
 			}
 //			cgDC.registerFont(token.string, pointSize, &cgDC.Assets.bigFont);
@@ -1734,7 +1597,7 @@ qboolean CG_Asset_Parse(int handle) {
 
 		// gradientbar
 		if (Q_stricmp(token.string, "gradientbar") == 0) {
-			if (!BOTLIB_ReadTokenHandle(handle, &token)) {
+			if (!PC_ReadTokenHandle(handle, &token)) {
 				return qfalse;
 			}
 			cgDC.Assets.gradientBar = R_RegisterShaderNoMip(token.string);
@@ -1743,7 +1606,7 @@ qboolean CG_Asset_Parse(int handle) {
 
 		// enterMenuSound
 		if (Q_stricmp(token.string, "menuEnterSound") == 0) {
-			if (!BOTLIB_ReadTokenHandle(handle, &token)) {
+			if (!PC_ReadTokenHandle(handle, &token)) {
 				return qfalse;
 			}
 			cgDC.Assets.menuEnterSound = S_RegisterSound( token.string );
@@ -1752,7 +1615,7 @@ qboolean CG_Asset_Parse(int handle) {
 
 		// exitMenuSound
 		if (Q_stricmp(token.string, "menuExitSound") == 0) {
-			if (!BOTLIB_ReadTokenHandle(handle, &token)) {
+			if (!PC_ReadTokenHandle(handle, &token)) {
 				return qfalse;
 			}
 			cgDC.Assets.menuExitSound = S_RegisterSound( token.string );
@@ -1761,7 +1624,7 @@ qboolean CG_Asset_Parse(int handle) {
 
 		// itemFocusSound
 		if (Q_stricmp(token.string, "itemFocusSound") == 0) {
-			if (!BOTLIB_ReadTokenHandle(handle, &token)) {
+			if (!PC_ReadTokenHandle(handle, &token)) {
 				return qfalse;
 			}
 			cgDC.Assets.itemFocusSound = S_RegisterSound( token.string );
@@ -1770,7 +1633,7 @@ qboolean CG_Asset_Parse(int handle) {
 
 		// menuBuzzSound
 		if (Q_stricmp(token.string, "menuBuzzSound") == 0) {
-			if (!BOTLIB_ReadTokenHandle(handle, &token)) {
+			if (!PC_ReadTokenHandle(handle, &token)) {
 				return qfalse;
 			}
 			cgDC.Assets.menuBuzzSound = S_RegisterSound( token.string );
@@ -1835,14 +1698,14 @@ void CG_ParseMenu(const char *menuFile) {
 	pc_token_t token;
 	int handle;
 
-	handle = BOTLIB_LoadSourceHandle(menuFile);
+	handle = PC_LoadSourceHandle(menuFile);
 	if (!handle)
-		handle = BOTLIB_LoadSourceHandle("ui/testhud.menu");
+		handle = PC_LoadSourceHandle("ui/testhud.menu");
 	if (!handle)
 		return;
 
 	while ( 1 ) {
-		if (!BOTLIB_ReadTokenHandle( handle, &token )) {
+		if (!PC_ReadTokenHandle( handle, &token )) {
 			break;
 		}
 
@@ -1874,7 +1737,7 @@ void CG_ParseMenu(const char *menuFile) {
 			Menu_New(handle);
 		}
 	}
-	BOTLIB_FreeSourceHandle(handle);
+	PC_FreeSourceHandle(handle);
 }
 
 
@@ -2146,12 +2009,6 @@ static void CG_RunCinematicFrame(int handle) {
 	CIN_RunCinematic(handle);
 }
 
-/*
-=================
-CG_LoadMenus();
-
-=================
-*/
 void CG_LoadMenus(const char *menuFile)
 {
 	const char	*token;
@@ -2218,16 +2075,8 @@ void CG_LoadMenus(const char *menuFile)
 	//Com_Printf("UI menu load time = %d milli seconds\n", cgi_Milliseconds() - start);
 }
 
-/*
-=================
-CG_LoadHudMenu();
-
-=================
-*/
-void CG_LoadHudMenu()
-{
+void CG_LoadHudMenu() {
 	const char *hudSet;
-
 	cgDC.registerShaderNoMip			= R_RegisterShaderNoMip;
 	cgDC.setColor						= R_SetColor;
 	cgDC.drawHandlePic					= &CG_DrawPic;
@@ -2258,7 +2107,7 @@ void CG_LoadHudMenu()
 	cgDC.runScript						= &CG_RunMenuScript;
 	cgDC.deferScript					= &CG_DeferMenuScript;
 	cgDC.getTeamColor					= &CG_GetTeamColor;
-	cgDC.setCVar						= CGVM_Cvar_Set;
+	cgDC.setCVar						= Cvar_Set;
 	cgDC.getCVarString					= Cvar_VariableStringBuffer;
 	cgDC.getCVarValue					= CG_Cvar_Get;
 	cgDC.drawTextWithCursor				= &CG_Text_PaintWithCursor;
@@ -2372,40 +2221,18 @@ void CG_TransitionPermanent(void)
 }
 
 /*
-Ghoul2 Insert End
-*/
-
-extern playerState_t *cgSendPS[MAX_GENTITIES]; //is not MAX_CLIENTS because NPCs exceed MAX_CLIENTS
-void CG_PmoveClientPointerUpdate();
-
-void WP_SaberLoadParms( void );
-void BG_VehicleLoadParms( void );
-
-/*
-=================
-CG_Init
-
 Called after every level change or subsystem restart
 Will perform callbacks to make the loading info screen update.
-=================
 */
-void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum )
-{
+void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum ) {
 	static gitem_t *item;
 	char buf[64];
 	const char	*s;
 	int i = 0;
-
-	
 	CG_RegisterCvars();
-
 	BG_InitAnimsets(); //clear it out
-
 	RegisterSharedMemory( cg.sharedBuffer.raw );
-
-	//Load external vehicle data
-	BG_VehicleLoadParms();
-
+	BG_VehicleLoadParms(); //Load external vehicle data
 	// clear everything
 /*
 Ghoul2 Insert Start
@@ -2469,7 +2296,7 @@ Ghoul2 Insert End
 	i = WP_NONE+1;
 	while (i <= LAST_USEABLE_WEAPON)
 	{
-		item = BG_FindItemForWeapon(i);
+		item = BG_FindItemForWeapon( (weapon_t) i);
 
 		if (item && item->icon && item->icon[0])
 		{
@@ -2636,7 +2463,6 @@ const char *CG_GetLocationString(const char *loc)
 }
 
 //clean up all the ghoul2 allocations, the nice and non-hackly way -rww
-void CG_KillCEntityG2(int entNum);
 void CG_DestroyAllGhoul2(void)
 {
 	int i = 0;
@@ -2672,13 +2498,7 @@ void CG_DestroyAllGhoul2(void)
 	CG_CleanJetpackGhoul2();
 }
 
-/*
-=================
-CG_Shutdown
-
-Called before every level change or subsystem restart
-=================
-*/
+// Called before every level change or subsystem restart
 void CG_Shutdown( void )
 {
 	BG_ClearAnimsets(); //free all dynamic allocations made through the engine
@@ -2699,67 +2519,41 @@ void CG_Shutdown( void )
 	// like closing files or archiving session data
 }
 
-/*
-===============
-CG_NextForcePower_f
-===============
-*/
-void CG_NextForcePower_f( void )
-{
+void CG_NextForcePower_f( void ) {
 	int current;
 	usercmd_t cmd;
-	if ( !cg.snap )
-	{
+	if ( !cg.snap ) {
 		return;
 	}
-
-	if (cg.predictedPlayerState.pm_type == PM_SPECTATOR)
-	{
+	if (cg.predictedPlayerState.pm_type == PM_SPECTATOR) {
 		return;
 	}
-
 	current = CL_GetCurrentCmdNumber();
 	CL_GetUserCmd(current, &cmd);
-	if ((cmd.buttons & BUTTON_USE) || CG_NoUseableForce())
-	{
+	if ((cmd.buttons & BUTTON_USE) || CG_NoUseableForce()) {
 		CG_NextInventory_f();
 		return;
 	}
-
-	if (cg.snap->ps.pm_flags & PMF_FOLLOW)
-	{
+	if (cg.snap->ps.pm_flags & PMF_FOLLOW) {
 		return;
 	}
-
-//	BG_CycleForce(&cg.snap->ps, 1);
-	if (cg.forceSelect != -1)
-	{
+	//BG_CycleForce(&cg.snap->ps, 1);
+	if (cg.forceSelect != -1) {
 		cg.snap->ps.fd.forcePowerSelected = cg.forceSelect;
 	}
-
 	BG_CycleForce(&cg.snap->ps, 1);
-
-	if (cg.snap->ps.fd.forcePowersKnown & (1 << cg.snap->ps.fd.forcePowerSelected))
-	{
+	if (cg.snap->ps.fd.forcePowersKnown & (1 << cg.snap->ps.fd.forcePowerSelected)) {
 		cg.forceSelect = cg.snap->ps.fd.forcePowerSelected;
 		cg.forceSelectTime = cg.time;
 	}
 }
 
-/*
-===============
-CG_PrevForcePower_f
-===============
-*/
-void CG_PrevForcePower_f( void )
-{
+void CG_PrevForcePower_f( void ) {
 	int current;
 	usercmd_t cmd;
-	if ( !cg.snap )
-	{
+	if ( !cg.snap ) {
 		return;
 	}
-
 	if (cg.predictedPlayerState.pm_type == PM_SPECTATOR)
 	{
 		return;

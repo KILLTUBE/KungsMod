@@ -683,27 +683,14 @@ static void UIVM_Cmd_RemoveCommand( const char *cmd_name ) {
 
 
 
-CCALL int				PC_AddGlobalDefine					( char *define ) {
-	return botlib_export->PC_AddGlobalDefine(define);
-}
-CCALL int				PC_FreeSource						( int handle ) {
-	return botlib_export->PC_FreeSourceHandle(handle);
-}
-CCALL int				PC_LoadGlobalDefines					( const char* filename ) {
-	return botlib_export->PC_LoadGlobalDefines(filename);
-}
-CCALL int				PC_LoadSource						( const char *filename ) {
-	return botlib_export->PC_LoadSourceHandle(filename);
-}
-CCALL int				PC_ReadToken							( int handle, pc_token_t *pc_token ) {
-	return botlib_export->PC_ReadTokenHandle(handle, pc_token);
-}
-CCALL void			PC_RemoveAllGlobalDefines			( void ) {
-	botlib_export->PC_RemoveAllGlobalDefines();
-}
-CCALL int				PC_SourceFileAndLine					( int handle, char *filename, int *line ) {
-	return botlib_export->PC_SourceFileAndLine(handle, filename, line);
-}
+
+CCALL int  PC_AddGlobalDefine(char *string);
+CCALL int  PC_FreeSourceHandle(int handle);
+CCALL int  PC_LoadGlobalDefines(const char* filename );
+CCALL int  PC_LoadSourceHandle(const char *filename);
+CCALL int  PC_ReadTokenHandle(int handle, pc_token_t *pc_token);
+CCALL void PC_RemoveAllGlobalDefines( void );
+CCALL int  PC_SourceFileAndLine(int handle, char *filename, int *line);
 
 CCALL unsigned int R_AnyLanguage_ReadCharFromString( const char *psText, int *piAdvanceCount, qboolean *pbIsTrailingPunctuation ) {
 	return AnyLanguage_ReadCharFromString(psText, piAdvanceCount, pbIsTrailingPunctuation);

@@ -93,4 +93,12 @@ CCALL void CG_Init(int serverMessageNum,int serverCommandSequence,int clientNum)
 CCALL void CG_CleanJetpackGhoul2(void);
 CCALL void CG_InitJetpackGhoul2(void);
 CCALL void CG_InitItems(void);
-CCALL void CG_InitItems(void);
+CCALL int CM_NumInlineModels();
+CCALL int  PC_AddGlobalDefine(char *string);
+CCALL int  PC_FreeSourceHandle(int handle);
+CCALL int  PC_LoadGlobalDefines(const char* filename );
+CCALL int  PC_LoadSourceHandle(const char *filename);
+CCALL int  PC_ReadTokenHandle(int handle, pc_token_t *pc_token);
+CCALL void PC_RemoveAllGlobalDefines( void );
+CCALL int  PC_SourceFileAndLine(int handle, char *filename, int *line);
+

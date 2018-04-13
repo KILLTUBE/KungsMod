@@ -883,7 +883,7 @@ CCALL clipHandle_t	CM_InlineModel( int index ) {
 	return index;
 }
 
-int		CM_NumInlineModels( void ) {
+int CM_NumInlineModels() {
 	return cmg.numSubModels;
 }
 

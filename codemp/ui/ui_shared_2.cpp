@@ -30,6 +30,16 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 EXTERNC stringID_table_t animTable [MAX_ANIMATIONS+1];
 EXTERNC void UI_UpdateCharacterSkin( void );
 
+
+
+CCALL int  PC_AddGlobalDefine(char *string);
+CCALL int  PC_FreeSourceHandle(int handle);
+CCALL int  PC_LoadGlobalDefines(const char* filename );
+CCALL int  PC_LoadSourceHandle(const char *filename);
+CCALL int  PC_ReadTokenHandle(int handle, pc_token_t *pc_token);
+CCALL void PC_RemoveAllGlobalDefines( void );
+CCALL int  PC_SourceFileAndLine(int handle, char *filename, int *line);
+
 const char *HolocronIcons[NUM_FORCE_POWERS] = {
 	"gfx/mp/f_icon_lt_heal",		//FP_HEAL,
 	"gfx/mp/f_icon_levitation",		//FP_LEVITATION,
@@ -321,11 +331,11 @@ qboolean PC_Float_Parse(int handle, float *f) {
 	pc_token_t token;
 	int negative = qfalse;
 
-	if ( !PC_ReadToken( handle, &token ) )
+	if ( !PC_ReadTokenHandle( handle, &token ) )
 		return qfalse;
 
 	if ( token.string[0] == '-' ) {
-		if ( !PC_ReadToken( handle, &token ) )
+		if ( !PC_ReadTokenHandle( handle, &token ) )
 			return qfalse;
 		negative = qtrue;
 	}
@@ -382,10 +392,10 @@ qboolean PC_Int_Parse(int handle, int *i) {
 	pc_token_t token;
 	int negative = qfalse;
 
-	if (!PC_ReadToken(handle, &token))
+	if (!PC_ReadTokenHandle(handle, &token))
 		return qfalse;
 	if (token.string[0] == '-') {
-		if (!PC_ReadToken(handle, &token))
+		if (!PC_ReadTokenHandle(handle, &token))
 			return qfalse;
 		negative = qtrue;
 	}
@@ -441,7 +451,7 @@ qboolean PC_String_Parse(int handle, const char **out)
 	static char*	squiggy = "}";
 	pc_token_t		token;
 
-	if (!PC_ReadToken(handle, &token))
+	if (!PC_ReadTokenHandle(handle, &token))
 	{
 		return qfalse;
 	}
@@ -466,14 +476,14 @@ qboolean PC_Script_Parse(int handle, const char **out) {
 	// scripts start with { and have ; separated command lists.. commands are command, arg..
 	// basically we want everything between the { } as it will be interpreted at run time
 
-	if (!PC_ReadToken(handle, &token))
+	if (!PC_ReadTokenHandle(handle, &token))
 		return qfalse;
 	if (Q_stricmp(token.string, "{") != 0) {
 	    return qfalse;
 	}
 
 	while ( 1 ) {
-		if (!PC_ReadToken(handle, &token))
+		if (!PC_ReadTokenHandle(handle, &token))
 			return qfalse;
 
 		if (Q_stricmp(token.string, "}") == 0) {
@@ -6766,7 +6776,7 @@ qboolean ItemParse_name( itemDef_t *item, int handle ) {
 // name <string>
 qboolean ItemParse_focusSound( itemDef_t *item, int handle ) {
 	pc_token_t token;
-	if (!PC_ReadToken(handle, &token)) {
+	if (!PC_ReadTokenHandle(handle, &token)) {
 		return qfalse;
 	}
 	item->focusSound = DC->registerSound(token.string);
@@ -7027,7 +7037,7 @@ qboolean ItemParse_asset_model( itemDef_t *item, int handle ) {
 
 	Item_ValidateTypeData(item);
 
-	if (!PC_ReadToken(handle, &token)) {
+	if (!PC_ReadTokenHandle(handle, &token)) {
 		return qfalse;
 	}
 
@@ -7047,7 +7057,7 @@ if (isUI()) {
 // asset_shader <string>
 qboolean ItemParse_asset_shader( itemDef_t *item, int handle ) {
 	pc_token_t token;
-	if (!PC_ReadToken(handle, &token)) {
+	if (!PC_ReadTokenHandle(handle, &token)) {
 		return qfalse;
 	}
 	item->asset = DC->registerShaderNoMip(token.string);
@@ -7173,7 +7183,7 @@ qboolean ItemParse_model_g2skin( itemDef_t *item, int handle ) {
 	Item_ValidateTypeData(item);
 	modelPtr = item->typeData.model;
 
-	if (!PC_ReadToken(handle, &token)) {
+	if (!PC_ReadTokenHandle(handle, &token)) {
 		return qfalse;
 	}
 
@@ -7196,7 +7206,7 @@ qboolean ItemParse_model_g2anim( itemDef_t *item, int handle ) {
 	Item_ValidateTypeData(item);
 	modelPtr = item->typeData.model;
 
-	if (!PC_ReadToken(handle, &token)) {
+	if (!PC_ReadTokenHandle(handle, &token)) {
 		return qfalse;
 	}
 
@@ -7283,7 +7293,7 @@ qboolean ItemParse_rectcvar( itemDef_t *item, int handle )
 
 	// get Cvar name
 	pc_token_t token;
-	if (!PC_ReadToken(handle, &token))
+	if (!PC_ReadTokenHandle(handle, &token))
 	{
 		return qfalse;
 	}
@@ -7333,7 +7343,7 @@ qboolean ItemParse_flag( itemDef_t *item, int handle)
 	int i;
 	pc_token_t token;
 
-	if (!PC_ReadToken(handle, &token))
+	if (!PC_ReadTokenHandle(handle, &token))
 	{
 		return qfalse;
 	}
@@ -7716,7 +7726,7 @@ qboolean ItemParse_outlinecolor( itemDef_t *item, int handle ) {
 qboolean ItemParse_background( itemDef_t *item, int handle ) {
 	pc_token_t token;
 
-	if (!PC_ReadToken(handle, &token)) {
+	if (!PC_ReadTokenHandle(handle, &token)) {
 		return qfalse;
 	}
 	item->window.background = DC->registerShaderNoMip(token.string);
@@ -7934,7 +7944,7 @@ qboolean ItemParse_cvarStrList( itemDef_t *item, int handle ) {
 	multiPtr->count = 0;
 	multiPtr->strDef = qtrue;
 
-	if (!PC_ReadToken(handle, &token))
+	if (!PC_ReadTokenHandle(handle, &token))
 	{
 		return qfalse;
 	}
@@ -8023,7 +8033,7 @@ qboolean ItemParse_cvarFloatList( itemDef_t *item, int handle )
 	multiPtr->count = 0;
 	multiPtr->strDef = qfalse;
 
-	if (!PC_ReadToken(handle, &token))
+	if (!PC_ReadTokenHandle(handle, &token))
 	{
 		return qfalse;
 	}
@@ -8400,14 +8410,14 @@ qboolean Item_Parse(int handle, itemDef_t *item) {
 	keywordHash_t *key;
 
 
-	if (!PC_ReadToken(handle, &token))
+	if (!PC_ReadTokenHandle(handle, &token))
 		return qfalse;
 
 	if (*token.string != '{') {
 		return qfalse;
 	}
 	while ( 1 ) {
-		if (!PC_ReadToken(handle, &token)) {
+		if (!PC_ReadTokenHandle(handle, &token)) {
 			PC_SourceError(handle, "end of file inside menu item");
 			return qfalse;
 		}
@@ -8981,7 +8991,7 @@ qboolean MenuParse_background( itemDef_t *item, int handle ) {
 	pc_token_t token;
 	menuDef_t *menu = (menuDef_t*)item;
 
-	if (!PC_ReadToken(handle, &token)) {
+	if (!PC_ReadTokenHandle(handle, &token)) {
 		return qfalse;
 	}
 	menu->window.background = DC->registerShaderNoMip(token.string);
@@ -9169,14 +9179,14 @@ qboolean Menu_Parse(int handle, menuDef_t *menu) {
 	pc_token_t token;
 	keywordHash_t *key;
 
-	if (!PC_ReadToken(handle, &token))
+	if (!PC_ReadTokenHandle(handle, &token))
 		return qfalse;
 	if (*token.string != '{') {
 		return qfalse;
 	}
 
 	while ( 1 ) {
-		if (!PC_ReadToken(handle, &token)) {
+		if (!PC_ReadTokenHandle(handle, &token)) {
 			PC_SourceError(handle, "end of file inside menu");
 			return qfalse;
 		}

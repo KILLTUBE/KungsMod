@@ -820,18 +820,6 @@
     <ClCompile Include="..\..\codemp\rd-rend2\tr_animation.cpp">
       <Filter>rend2</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_main.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_tempwrappers.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\cg_tempwrappers_g2.c">
-      <Filter>cgame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\cgame\fx_rocketlauncher.c">
-      <Filter>fx</Filter>
-    </ClCompile>
     <ClCompile Include="C:\XycaRend2\codemp\client\FXExport.cpp">
       <Filter>fx</Filter>
     </ClCompile>
@@ -1236,6 +1224,12 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\cgame\fx_heavyrepeater.cpp">
       <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\fx_rocketlauncher.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\cgame\cg_main.cpp">
+      <Filter>cgame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2170,9 +2164,6 @@
       <Filter>cgame</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\cgame\cg_spawn.h">
-      <Filter>cgame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\cgame\cg_tempwrappers_g2.h">
       <Filter>cgame</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\cgame\cg_turret.h">

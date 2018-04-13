@@ -44,7 +44,6 @@ CCALL void ClearNPCGlobals( void );
 CCALL void SiegeCheckTimers(void);
 CCALL void NPC_InitGame( void );
 
-cg_t cg;
 level_locals_t	level;
 
 int		eventClearTime = 0;
