@@ -2,6 +2,51 @@ include("php_trim.jl")
 
 file_get_contents(name) = String(read(name))
 iswhitespace(c::Char) = UInt8(c) in UInt8[0x20, 0x09, 0x0a, 0x0D, 0x00, 0x0b]
+isOp(c::Char) = c in ['+', '-', '*', '/', ',', '=', '~', '%', '&', '|', '<', '>', '!', ',', '.']
+
+abstract type Token end
+
+type TokenOp <: Token
+	str::String
+end
+type TokenNum <: Token
+	str::String
+end
+type TokenStr <: Token
+	str::String
+end
+type TokenIdentifier <: Token
+	str::String
+end
+type TokenSemicolon <: Token
+	# nothing so far
+end
+
+# (
+type TokenBracketOpen <: Token
+	# nothing so far
+end
+# )
+type TokenBracketClose <: Token
+	# nothing so far
+end
+# [
+type TokenSquareBracketOpen <: Token
+	# nothing so far
+end
+# ]
+type TokenSquareBracketClose <: Token
+	# nothing so far
+end
+# {
+type TokenCurlyBracketOpen <: Token
+	# nothing so far
+end
+# }
+type TokenCurlyBracketClose <: Token
+	# nothing so far
+end
+
 
 content = file_get_contents("enums.cpp")
 
@@ -13,7 +58,7 @@ type Parse
 	i::Int32
 	n::Int32
 	s::String
-	tokens::Vector{String}
+	tokens::Vector{Token}
 	curstr::String
 	function Parse(s_::String)
 		new(1, length(s_), s_, Vector{String}(), "")
@@ -98,7 +143,7 @@ function step(parse::Parse)
 				str *= string(cc)
 				advance(parse)
 			else
-				push!(parse.tokens, str)
+				push!(parse.tokens, TokenIdentifier(str))
 				parse.i -= 1 # we advanced but figured out here that its not part of literal anymore, so go back
 				break
 			end
@@ -116,10 +161,10 @@ function step(parse::Parse)
 				numstr *= string(cc)
 				advance(parse)
 			else
-				push!(parse.tokens, numstr)
+				push!(parse.tokens, TokenNum(numstr))
 				print("got numstr: $numstr\n")
 				parse.i -= 1 # we advanced but figured out here that its not part of literal anymore, so go back
-				break
+				return
 			end
 		end		
 	elseif cc == Char(0x22) # detect ", just because shitty syntax highlighting in Notepad++ atm for '"'
@@ -129,31 +174,56 @@ function step(parse::Parse)
 		commentTo = parse.i - 1 # -1 tho, because we dont want the last ", only string content
 		cstr = parse.s[commentFrom:commentTo]
 		#print("cstr from=$commentFrom to=$commentTo cstr=$cstr\n")
-		push!(parse.tokens, cstr)
+		push!(parse.tokens, TokenStr(cstr))
 		return
 	
-	elseif !iswhitespace(cc)
-		# should be some operator here, since its neither string/number/whitespace
-		# if its neither a token nor some alpha/digit/underscore, its a \n \r \t or space or whatever, just flush what we might have collected
-		#flushString(parse)
-		flushString(parse) # if we have a curstr, add it, before we add this token
-		push!(parse.tokens, string(cc))
-		#print("got operator thingy $cc\n")
+	elseif isOp(cc)
+		opstr = string(cc)
+		advance(parse)
+		
+		while ! done(parse)
+			cc = currentChar(parse)
+			if isOp(cc)
+				opstr *= string(cc)
+				advance(parse)
+			else
+				push!(parse.tokens, TokenOp(opstr))
+				print("got op: $opstr\n")
+				parse.i -= 1 # we advanced but figured out here that its not an op anymore, so go back
+				return
+			end
+		end
+	elseif cc == ';'
+		push!(parse.tokens, TokenSemicolon())
+	elseif cc == '('
+		push!(parse.tokens, TokenBracketOpen())
+	elseif cc == ')'
+		push!(parse.tokens, TokenBracketClose())
+	elseif cc == '['
+		push!(parse.tokens, TokenSquareBracketOpen())
+	elseif cc == ']'
+		push!(parse.tokens, TokenSquareBracketClose())
+	elseif cc == '{'
+		push!(parse.tokens, TokenCurlyBracketOpen())
+	elseif cc == '}'
+		push!(parse.tokens, TokenCurlyBracketClose())
+	elseif iswhitespace(cc)
+		# just ignore
 	else
-		# should be whitespace here, just ignore
+		print("idk what to do with: $cc\n")
 	end	
 end
 
 parse = Parse(content)
 
-function flushString(parse::Parse)::Bool
-	if trim(parse.curstr) == ""
-		return false
-	end
-	push!(parse.tokens, parse.curstr)
-	parse.curstr = ""
-	return true
-end
+#function flushString(parse::Parse)::Bool
+#	if trim(parse.curstr) == ""
+#		return false
+#	end
+#	push!(parse.tokens, parse.curstr)
+#	parse.curstr = ""
+#	return true
+#end
 
 function steps(parse::Parse)
 	while ! done(parse)
