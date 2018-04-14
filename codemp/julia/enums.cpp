@@ -5,6 +5,7 @@ typedef struct testtype_s {
 	/* some comment */
 	int firstInt;
 	float secondFloat;
+	idk secondFloat;
 } testtype_t;
 
 

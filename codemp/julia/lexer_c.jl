@@ -276,6 +276,24 @@ type Parser
 end
 
 currentToken(parser::Parser) = parser.tokens[ parser.i ]
+nextTokenType(parser::Parser) = typeof(parser.tokens[parser.i + 1])
+
+function newStruct(parser::Parser, name::String)::MetaStruct
+	ms = MetaStruct()
+	ms.name = name
+	push!( parser.structs, ms )
+	return ms
+end
+
+function cStringToJuliaType(string::String)
+	if string == "int"
+		return Int32
+	end
+	if string == "float"
+		return Float32
+	end
+	return Any
+end
 
 function readType(parser::Parser)
 	curTok = currentToken(parser)
@@ -284,28 +302,35 @@ function readType(parser::Parser)
 	
 		print("readType> got a struct...\n")
 		
-		advance(parser) # token identifier, e.g. "testtype_s"
+		curTok = advance(parser) # token identifier, e.g. "testtype_s"
 		print("MakeStruct(", curTok.str, "\n")
 		
+		ms = newStruct(parser, curTok.str)
 		advance(parser) # should be curly brace open
 		
-		advance(parser) # should be int or float etc.
-		curTok = advance(parser) # should be var name
-		print("AddVar(", curTok.str, ")")
-		advance(parser) # should be TokenSemicolon
 		
-		advance(parser) # should be int or float etc.
-		curTok = advance(parser) # should be var name
-		print("AddVar(", curTok.str, ")")
-		advance(parser) # should be TokenSemicolon
+		while nextTokenType(parser) == TokenIdentifier
+			# idea: tokType, tokName, semicolon = advance(TokenIdentifier, TokenIdentifier, TokenSemicolon)
+			tokType   = advance(parser)
+			tokName   = advance(parser)
+			semicolon = advance(parser)
+			
+			mv = MetaVar()
+			mv.vartype = cStringToJuliaType( tokType.str )
+			mv.name = tokName.str
+			push!( ms.vars, mv )
+		end
 		
-		advance(parser) # should be curly bracket close
-		advance(parser) # should be the typedef name for the struct
-		advance(parser) # should be TokenSemicolon
+		# idea: advanceAndExpect(parser, TokenCurlyBracketClose) or throw an error
+		tokCurlyBracketClose = advance(parser)
+		tokTypedefName       = advance(parser)
+		tokSemicolon         = advance(parser)
 		
-		debug(parser)
+		#debug(parser)
+		return ms
 	end
 
+	return Void
 end
 
 function advance(parser::Parser)::Token
@@ -330,18 +355,35 @@ end
 parser = Parser(parse)
 
 function run(parser::Parser)
+	# implying there is a token... todo: make TokenStart
+	token = parser.tokens[1]
 
-	for token in parser.tokens
+	while true
 		#print(token, "\n")
+		
+		# we start in global scope, that could possibly be:
+		# a typedef
+		# a variable declaration
+		# a function
+		# a function prototype
+		
 		
 		if isTypedef(token)
 			advance(parser)
-			readType(parser)
+			gotType = readType(parser)
+			print("gotType: ", gotType, "\n")
 			ident = token.str
 			print("ident: $ident\n")
+		else
+			print("idk what todo with: ", token, "\n")
 		end
 		
+		token = advance(parser)
 		
+		# do-while replacement, since Julia doesnt support do-whiles
+		if typeof(token) == TokenEnd
+			break
+		end
 	end
 end
 
