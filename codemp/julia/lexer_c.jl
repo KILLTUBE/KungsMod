@@ -47,6 +47,9 @@ type TokenCurlyBracketClose <: Token
 	# nothing so far
 end
 
+type TokenEnd <: Token
+	# just a meta token so we know we iterated over all tokens
+end
 
 content = file_get_contents("enums.cpp")
 
@@ -231,6 +234,8 @@ function steps(parse::Parse)
 		advance(parse)
 	end
 	
+	push!(parse.tokens, TokenEnd())
+	
 	#if flushString(parse)
 	#	print("add last thing: ", last(parse.tokens), "\n")
 	#end
@@ -238,3 +243,111 @@ function steps(parse::Parse)
 end
 
 steps(parse)
+
+# todo: just make TokenTypedef, TokenElse etc.?
+isTypedef(token::Token) = typeof(token) <: TokenIdentifier && token.str == "typedef"
+isStruct(token::Token) = typeof(token) <: TokenIdentifier && token.str == "struct"
+
+# collect data of C vars while parsing over it
+type MetaVar
+	name::String
+	vartype::DataType
+	function MetaVar()
+		new("unnamed", Any)
+	end
+end
+
+# just to collect the data of a struct while parsing over it
+type MetaStruct
+	name::String
+	vars::Vector{MetaVar}
+	function MetaStruct()
+		new("unnamed", Vector{MetaVar}())
+	end
+end
+
+type Parser
+	i::Int32
+	tokens::Vector{Token}
+	structs::Vector{MetaStruct}
+	function Parser(parse::Parse)
+		new(1, parse.tokens, Vector{MetaStruct}())
+	end
+end
+
+currentToken(parser::Parser) = parser.tokens[ parser.i ]
+
+function readType(parser::Parser)
+	curTok = currentToken(parser)
+	
+	if isStruct(curTok)
+	
+		print("readType> got a struct...\n")
+		
+		advance(parser) # token identifier, e.g. "testtype_s"
+		print("MakeStruct(", curTok.str, "\n")
+		
+		advance(parser) # should be curly brace open
+		
+		advance(parser) # should be int or float etc.
+		curTok = advance(parser) # should be var name
+		print("AddVar(", curTok.str, ")")
+		advance(parser) # should be TokenSemicolon
+		
+		advance(parser) # should be int or float etc.
+		curTok = advance(parser) # should be var name
+		print("AddVar(", curTok.str, ")")
+		advance(parser) # should be TokenSemicolon
+		
+		advance(parser) # should be curly bracket close
+		advance(parser) # should be the typedef name for the struct
+		advance(parser) # should be TokenSemicolon
+		
+		debug(parser)
+	end
+
+end
+
+function advance(parser::Parser)::Token
+	parser.i += 1
+	return currentToken(parser)
+end
+
+pos(parser::Parser) = parser.i
+pos!(parser::Parser, i) = parser.i = Int32(i)
+
+function debug(parser::Parser)
+	if (parser.i > 1)
+		print("prev token> ", parser.tokens[parser.i - 1], "\n")
+	end
+	print("current token> ", parser.tokens[parser.i], "\n")
+	# e.g. 3 tokens, 1, 2, 3, when i==2, we can show the next one
+	if parser.i + 1 <= length(parser.tokens)
+		print("next token> ", parser.tokens[parser.i + 1], "\n")
+	end
+end
+
+parser = Parser(parse)
+
+function run(parser::Parser)
+
+	for token in parser.tokens
+		#print(token, "\n")
+		
+		if isTypedef(token)
+			advance(parser)
+			readType(parser)
+			ident = token.str
+			print("ident: $ident\n")
+		end
+		
+		
+	end
+end
+
+run(parser)
+
+
+
+
+print("hai")
