@@ -25,6 +25,10 @@ const float *wut( void);
 
 int globalFoo;
 
+int **globalFooz;
+
+int someArray[1024][321];
+
 /*
 ok, thinking about how to parse types...
 int main(); ---> Name Name BracketOpen BracketClose Semicolon

@@ -202,10 +202,16 @@ function step(parse::Parse)
 		opstr = string(cc)
 		advance(parse)
 		
+		# changed this, ops are not merged now, so -= are two tokens
+		# merging causes problems for stuff like **, pointer-to-pointer, custom operator? hm, i guess i keep operator merging lol
+		#push!(parse.tokens, TokenOp(opstr))
+		#return
+		
 		while ! done(parse)
 			cc = currentChar(parse)
 			if isOp(cc)
 				opstr *= string(cc)
+				#push!(parse.tokens, TokenOp(opstr))
 				advance(parse)
 			else
 				push!(parse.tokens, TokenOp(opstr))
@@ -263,9 +269,10 @@ end
 steps(parse)
 
 # todo: just make TokenTypedef, TokenElse etc.?
-isTypedef(token::Token) = typeof(token) <: TokenIdentifier && token.str == "typedef"
-isStruct(token::Token) = typeof(token) <: TokenIdentifier && token.str == "struct"
-isOpStar(token::Token) = typeof(token) <: TokenOp && token.str == "*" # just for pointer detection
+isTypedef(   token::Token) = typeof(token) <: TokenIdentifier && token.str == "typedef"
+isStruct(    token::Token) = typeof(token) <: TokenIdentifier && token.str == "struct"
+isOpStar(    token::Token) = typeof(token) <: TokenOp         && token.str == "*"        # just for pointer detection
+isOpStarStar(token::Token) = typeof(token) <: TokenOp         && token.str == "**"       # just for pointer detection
 
 
 # collect data of C vars while parsing over it
@@ -274,7 +281,7 @@ type MetaVar
 	vartype::DataType
 	isConst::Bool
 	isStatic::Bool
-	numPointer::Bool # 0 is "int foo"    1 is "int *foo"    2 is "int **foo"    etc.
+	numPointer::Int32 # 0 is "int foo"    1 is "int *foo"    2 is "int **foo"    etc.
 	function MetaVar()
 		new("unnamed", Any)
 	end
@@ -313,7 +320,7 @@ type Parser
 	structs::Vector{MetaStruct}
 	functions::Vector{MetaFunction}
 	prototypes::Vector{MetaPrototype}
-	currentMetaVar::MetaVar
+	globalVars::Vector{MetaVar}
 	function Parser(parse::Parse)
 		new(
 			1,
@@ -321,7 +328,7 @@ type Parser
 			Vector{MetaStruct}(),
 			Vector{MetaFunction}(),
 			Vector{MetaPrototype}(),
-			MetaVar()
+			Vector{MetaVar}()
 		)
 	end
 end
@@ -440,6 +447,8 @@ function readFunctionOrPrototype(parser::Parser)::MetaFunction
 			func.metaVar.isConst = true
 		elseif isOpStar(token)
 			func.metaVar.numPointer += 1
+		elseif isOpStarStar(token)
+			func.metaVar.numPointer += 2
 		else
 			println("rekt @ fizzle pre func tokens stuff out", token)
 		end
@@ -467,6 +476,35 @@ function readFunctionOrPrototype(parser::Parser)::MetaFunction
 
 	
 	return func
+end
+
+function getPrevTokenPosTypeFromPos(parser::Parser, tokentype::DataType, pos::Int32)
+
+	while pos >= 1
+		if typeof(parser.tokens[ pos ]) == tokentype
+			return pos
+		end
+		pos -= 1
+	end
+end
+
+function readGlobalVar(parser::Parser)
+	posSemicolon = getPosOfNextTokenType(parser, TokenSemicolon)
+	
+	namePos = getPrevTokenPosTypeFromPos(parser, TokenIdentifier, posSemicolon)
+	tokName = parser.tokens[ namePos ]
+
+	#println("Skip global var stuff for var name: ", tokName);
+	#todo: read dimensions in [$dim1][$dim2], also they could be defines like MAX_ENTITIES
+	
+	parser.i = posSemicolon
+	
+	metaVar = MetaVar()
+	metaVar.name = tokName.str
+	
+	# todo: iterate over the "const static int **" and collect the infos in metaVar
+	
+	return metaVar
 end
 
 function run(parser::Parser)
@@ -504,7 +542,9 @@ function run(parser::Parser)
 			end
 			if posSemicolon < posBracketOpen
 				# this can only be a var then
-				print("found global var: ", token, "\n")
+				metaVar = readGlobalVar(parser)
+				push!( parser.globalVars, metaVar)
+				#print("found global var: ", token, "\n")
 			else
 				# func or prototype
 				#print("found global func or prototype: ", token, "\n")
