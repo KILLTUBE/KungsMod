@@ -50,6 +50,12 @@ end
 type TokenEnd <: Token
 	# just a meta token so we know we iterated over all tokens
 end
+type TokenStatic <: Token
+	# for stuff like: static int foo(); etc.
+end
+type TokenConst <: Token
+	# for stuff like: const int foo(); etc.
+end
 
 content = file_get_contents("enums.cpp")
 
@@ -107,6 +113,18 @@ function advanceTill(parse::Parse, str::String)::Bool
 	return true
 end
 
+function pushIdentifier(parse::Parse, str::String)
+	if str == "static"
+		push!(parse.tokens, TokenStatic())
+		return
+	end
+	if str == "const"
+		push!(parse.tokens, TokenConst())
+		return
+	end
+	push!(parse.tokens, TokenIdentifier(str))
+end
+
 function step(parse::Parse)
 	cc = currentChar(parse)
 
@@ -146,7 +164,7 @@ function step(parse::Parse)
 				str *= string(cc)
 				advance(parse)
 			else
-				push!(parse.tokens, TokenIdentifier(str))
+				pushIdentifier(parse, str) # "static" or "const" e.g. will become special tokens
 				parse.i -= 1 # we advanced but figured out here that its not part of literal anymore, so go back
 				break
 			end
@@ -247,11 +265,16 @@ steps(parse)
 # todo: just make TokenTypedef, TokenElse etc.?
 isTypedef(token::Token) = typeof(token) <: TokenIdentifier && token.str == "typedef"
 isStruct(token::Token) = typeof(token) <: TokenIdentifier && token.str == "struct"
+isOpStar(token::Token) = typeof(token) <: TokenOp && token.str == "*" # just for pointer detection
+
 
 # collect data of C vars while parsing over it
 type MetaVar
 	name::String
 	vartype::DataType
+	isConst::Bool
+	isStatic::Bool
+	numPointer::Bool # 0 is "int foo"    1 is "int *foo"    2 is "int **foo"    etc.
 	function MetaVar()
 		new("unnamed", Any)
 	end
@@ -266,12 +289,40 @@ type MetaStruct
 	end
 end
 
+type MetaFunction
+	name::String
+	vartype::DataType
+	args::Vector{MetaVar}
+	#statements::Vector{MetaStatement} or whatever
+	function MetaFunction()
+		new("unnamed", Any, Vector{MetaVar}())
+	end
+end
+type MetaPrototype
+	name::String
+	vartype::DataType
+	args::Vector{MetaVar}
+	function MetaPrototype()
+		new("unnamed", Any, Vector{MetaVar}())
+	end
+end
+
 type Parser
 	i::Int32
 	tokens::Vector{Token}
 	structs::Vector{MetaStruct}
+	functions::Vector{MetaFunction}
+	prototypes::Vector{MetaPrototype}
+	currentMetaVar::MetaVar
 	function Parser(parse::Parse)
-		new(1, parse.tokens, Vector{MetaStruct}())
+		new(
+			1,
+			parse.tokens,
+			Vector{MetaStruct}(),
+			Vector{MetaFunction}(),
+			Vector{MetaPrototype}(),
+			MetaVar()
+		)
 	end
 end
 
@@ -354,6 +405,30 @@ end
 
 parser = Parser(parse)
 
+function getPosOfNextTokenType(parser::Parser, tokentype)::Int32
+	from = parser.i
+	while from <= length(parser.tokens)
+		if typeof(parser.tokens[ from ]) == tokentype
+			return from
+		end
+		from += 1
+	end
+	return -1
+end
+
+function readFunctionOrPrototype(parser::Parser)::MetaFunction
+	# could have bunch of specifiers, like: const static int main()
+	# parse strategy here is to first find the (
+	# then pos of ( minus one is the function name...
+	# everything before that is const/static or an actual type, like void/int/float
+	
+	func = MetaFunction()
+	posBracketOpen = getPosOfNextTokenType(parser, TokenBracketOpen)
+	posFuncName = posBracketOpen - 1 # prob should do checks like it should be a TokenIdentifier
+	func.name = parser.tokens[posFuncName].str
+	return func
+end
+
 function run(parser::Parser)
 	# implying there is a token... todo: make TokenStart
 	token = parser.tokens[1]
@@ -371,11 +446,30 @@ function run(parser::Parser)
 		if isTypedef(token)
 			advance(parser)
 			gotType = readType(parser)
-			print("gotType: ", gotType, "\n")
+			#print("gotType: ", gotType, "\n")
 			ident = token.str
-			print("ident: $ident\n")
+			#print("ident: $ident\n")
+		elseif typeof(token) <: TokenStatic || typeof(token) <: TokenConst || typeof(token) <: TokenIdentifier
+			# here we have either a global var, a function or a function prototype
+			# int foo;
+			# int foo();
+			# int foo() {}
+			# so we look ahead to TokenSemicolon and TokenBracketOpen, to differentiate var/func first
+			posSemicolon   = getPosOfNextTokenType(parser, TokenSemicolon)
+			posBracketOpen = getPosOfNextTokenType(parser, TokenBracketOpen)
+			#println("posSemicolon=$posSemicolon posBracketOpen=$posBracketOpen")
+			if posSemicolon < posBracketOpen
+				# this can only be a var then
+				#print("found global var: ", token, "\n")
+			else
+				# func or prototype
+				#print("found global func or prototype: ", token, "\n")
+				func = readFunctionOrPrototype(parser)
+				println("Got func: ", func)
+			end
+			
 		else
-			print("idk what todo with: ", token, "\n")
+			#print("idk what todo with: ", token, "\n")
 		end
 		
 		token = advance(parser)
