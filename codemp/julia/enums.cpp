@@ -19,9 +19,9 @@ int main() {
 	
 }
 
-static void foo();
+static void **foo();
 
-const float wut( void);
+const float *wut( void);
 
 int globalFoo;
 

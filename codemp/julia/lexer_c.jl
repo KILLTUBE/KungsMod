@@ -291,19 +291,19 @@ end
 
 type MetaFunction
 	name::String
-	vartype::DataType
+	metaVar::MetaVar
 	args::Vector{MetaVar}
 	#statements::Vector{MetaStatement} or whatever
 	function MetaFunction()
-		new("unnamed", Any, Vector{MetaVar}())
+		new("unnamed", MetaVar(), Vector{MetaVar}())
 	end
 end
 type MetaPrototype
 	name::String
-	vartype::DataType
+	metaVar::MetaVar
 	args::Vector{MetaVar}
 	function MetaPrototype()
-		new("unnamed", Any, Vector{MetaVar}())
+		new("unnamed", MetaVar(), Vector{MetaVar}())
 	end
 end
 
@@ -337,12 +337,11 @@ function newStruct(parser::Parser, name::String)::MetaStruct
 end
 
 function cStringToJuliaType(string::String)
-	if string == "int"
-		return Int32
-	end
-	if string == "float"
-		return Float32
-	end
+	if string == "int"       return Int32   end
+	if string == "float"     return Float32 end
+	if string == "void"      return Void    end
+	if string == "qboolean"  return Bool    end
+	if string == "char"      return Char    end
 	return Any
 end
 
@@ -424,8 +423,49 @@ function readFunctionOrPrototype(parser::Parser)::MetaFunction
 	
 	func = MetaFunction()
 	posBracketOpen = getPosOfNextTokenType(parser, TokenBracketOpen)
+	posBracketClose = getPosOfNextTokenType(parser, TokenBracketClose)
 	posFuncName = posBracketOpen - 1 # prob should do checks like it should be a TokenIdentifier
 	func.name = parser.tokens[posFuncName].str
+	
+	# now we can iterate over the "const static int" tokens
+	pos = parser.i
+	while pos < posFuncName
+		token = parser.tokens[ pos ]
+		
+		if typeof(token) <: TokenIdentifier
+			func.metaVar.vartype = cStringToJuliaType(token.str)
+		elseif typeof(token) <: TokenStatic
+			func.metaVar.isStatic = true
+		elseif typeof(token) <: TokenConst
+			func.metaVar.isConst = true
+		elseif isOpStar(token)
+			func.metaVar.numPointer += 1
+		else
+			println("rekt @ fizzle pre func tokens stuff out", token)
+		end
+		
+		pos += 1
+	end
+	
+	
+	# this should either be a TokenCurlyBracketOpen or TokenSemicolon
+	afterBracketClose = parser.tokens[ posBracketClose + 1 ];
+	
+	if typeof(afterBracketClose) <: TokenCurlyBracketOpen
+		# ignore all the statements in a function for now, just skip over it
+		posCurlyBracketClose = getPosOfNextTokenType(parser, TokenCurlyBracketClose)
+		parser.i = posCurlyBracketClose
+		
+	elseif typeof(afterBracketClose) <: TokenSemicolon
+		# got a prototype here
+		# set parser to end of prototype
+		parser.i = posBracketClose + 1 # from ")" jump over ";"
+	else
+		# fucked up, idc about invalid syntax atm
+	end
+	
+
+	
 	return func
 end
 
@@ -458,14 +498,19 @@ function run(parser::Parser)
 			posSemicolon   = getPosOfNextTokenType(parser, TokenSemicolon)
 			posBracketOpen = getPosOfNextTokenType(parser, TokenBracketOpen)
 			#println("posSemicolon=$posSemicolon posBracketOpen=$posBracketOpen")
+			
+			if posBracketOpen == -1
+				posBracketOpen = posSemicolon + 1 # its bullshit, just make sure the next if works, if there is no {
+			end
 			if posSemicolon < posBracketOpen
 				# this can only be a var then
-				#print("found global var: ", token, "\n")
+				print("found global var: ", token, "\n")
 			else
 				# func or prototype
 				#print("found global func or prototype: ", token, "\n")
 				func = readFunctionOrPrototype(parser)
 				println("Got func: ", func)
+				push!( parser.functions, func )
 			end
 			
 		else
