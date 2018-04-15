@@ -451,16 +451,17 @@ function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
 	end
 end
 
-function readFunctionOrPrototype(parser::Parser)::MetaFunction
+function readFunction(parser::Parser)::MetaFunction
 	# could have bunch of specifiers, like: const static int main()
 	# parse strategy here is to first find the (
 	# then pos of ( minus one is the function name...
 	# everything before that is const/static or an actual type, like void/int/float
 	
-	func = MetaFunction()
 	posBracketOpen = getPosOfNextTokenType(parser, TokenBracketOpen)
 	posBracketClose = getPosOfNextTokenType(parser, TokenBracketClose)
 	posFuncName = posBracketOpen - 1 # prob should do checks like it should be a TokenIdentifier
+	
+	func = MetaFunction()
 	func.name = parser.tokens[posFuncName].str
 	
 	# now we can iterate over the "const static int" tokens
@@ -470,22 +471,79 @@ function readFunctionOrPrototype(parser::Parser)::MetaFunction
 	# this should either be a TokenCurlyBracketOpen or TokenSemicolon
 	afterBracketClose = parser.tokens[ posBracketClose + 1 ];
 	
-	if typeof(afterBracketClose) <: TokenCurlyBracketOpen
-		# ignore all the statements in a function for now, just skip over it
-		posCurlyBracketClose = getPosOfNextTokenType(parser, TokenCurlyBracketClose)
-		parser.i = posCurlyBracketClose
-		
-	elseif typeof(afterBracketClose) <: TokenSemicolon
+	
+	# ignore all the statements in a function for now, just skip over it
+	# idea: i could probably add meta info to each token in the tokenizer, like the } token pos for each {
+	# or also stuff like prevCurlyBracketPos and nextCurlyBracketPos, then i wouldnt need to iterate over every token
+	posCurlyBracketOpen = getPosOfNextTokenType(parser, TokenCurlyBracketOpen)
+	depth = 0
+	pos = posCurlyBracketOpen
+	while pos <= length( parser.tokens )
+		token = parser.tokens[ pos ]
+		if typeof(token) <: TokenCurlyBracketOpen
+			depth += 1
+		elseif typeof(token) <: TokenCurlyBracketClose
+			depth -= 1
+		end
+		if depth == 0
+			break
+		end
+		pos += 1
+	end
+	#println("Found curly function end at ", pos)
+	parser.i = pos
+	
+	return func
+end
+
+function readPrototype(parser::Parser)::MetaPrototype
+	# could have bunch of specifiers, like: const static int main()
+	# parse strategy here is to first find the (
+	# then pos of ( minus one is the function name...
+	# everything before that is const/static or an actual type, like void/int/float
+	
+	posBracketOpen = getPosOfNextTokenType(parser, TokenBracketOpen)
+	posBracketClose = getPosOfNextTokenType(parser, TokenBracketClose)
+	posFuncName = posBracketOpen - 1 # prob should do checks like it should be a TokenIdentifier
+	
+	func = MetaPrototype()
+	func.name = parser.tokens[posFuncName].str
+	
+	# now we can iterate over the "const static int" tokens
+	parseMetaTypeFromTo(parser, func.metaVar, parser.i, posFuncName - 1)
+	
+	
+	# this should either be a TokenCurlyBracketOpen or TokenSemicolon
+	afterBracketClose = parser.tokens[ posBracketClose + 1 ];
+	
 		# got a prototype here
 		# set parser to end of prototype
 		parser.i = posBracketClose + 1 # from ")" jump over ";"
+		
+	return func
+end
+
+function readFunctionOrPrototype(parser::Parser)::Void
+	# first find the ), which is there for a function and prototype
+	posBracketClose = getPosOfNextTokenType(parser, TokenBracketClose)
+	# next token can either be a TokenCurlyBracketOpen or TokenSemicolon,
+	# so use it to determine if this is a func or proto
+	afterBracketClose = parser.tokens[ posBracketClose + 1 ];
+	# pretty easy, a function has a { after )
+	# a prototype has a ; after )
+	isFunction  = typeof(afterBracketClose) <: TokenCurlyBracketOpen
+	isPrototype = typeof(afterBracketClose) <: TokenSemicolon
+	# just act acordingly to what we got
+	if isFunction
+		metaFunc = readFunction(parser)
+		push!( parser.functions, metaFunc )
+	elseif isPrototype
+		metaProto = readPrototype(parser)
+		push!( parser.prototypes, metaProto )
 	else
 		# fucked up, idc about invalid syntax atm
 	end
-	
-
-	
-	return func
+	nothing
 end
 
 function getPrevTokenPosTypeFromPos(parser::Parser, tokentype::DataType, pos::Int32)
@@ -560,9 +618,9 @@ function run(parser::Parser)
 			else
 				# func or prototype
 				#print("found global func or prototype: ", token, "\n")
-				func = readFunctionOrPrototype(parser)
-				println("Got func: ", func)
-				push!( parser.functions, func )
+				readFunctionOrPrototype(parser)
+				#println("Got func: ", func)
+				#push!( parser.functions, func )
 			end
 			
 		else

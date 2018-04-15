@@ -19,9 +19,15 @@ int main() {
 	
 }
 
+static void staticVoidFunc(int a, int b) {
+	// doesnt matter, aslong they close each other out
+	{{{}}}{}{}{{{}}}
+	return 321;
+}
+
 static void **staticVoidPointerPointer();
 
-const float *floatPointerPrototype( void);
+const float *constFloatPointerPrototype( void);
 
 int justInt;
 
