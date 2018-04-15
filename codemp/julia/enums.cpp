@@ -19,15 +19,19 @@ int main() {
 	
 }
 
-static void **foo();
+static void **staticVoidPointerPointer();
 
-const float *wut( void);
+const float *floatPointerPrototype( void);
 
-int globalFoo;
+int justInt;
 
-int **globalFooz;
+int **intStarStar;
 
-int someArray[1024][321];
+void *voidPointer;
+
+static const void *staticConstVoidPointer;
+
+float floatTwoDims[1024][321];
 
 /*
 ok, thinking about how to parse types...

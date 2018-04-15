@@ -183,7 +183,7 @@ function step(parse::Parse)
 				advance(parse)
 			else
 				push!(parse.tokens, TokenNum(numstr))
-				print("got numstr: $numstr\n")
+				#print("got numstr: $numstr\n")
 				parse.i -= 1 # we advanced but figured out here that its not part of literal anymore, so go back
 				return
 			end
@@ -215,7 +215,7 @@ function step(parse::Parse)
 				advance(parse)
 			else
 				push!(parse.tokens, TokenOp(opstr))
-				print("got op: $opstr\n")
+				#print("got op: $opstr\n")
 				parse.i -= 1 # we advanced but figured out here that its not an op anymore, so go back
 				return
 			end
@@ -357,10 +357,10 @@ function readType(parser::Parser)
 	
 	if isStruct(curTok)
 	
-		print("readType> got a struct...\n")
+		#print("readType> got a struct...\n")
 		
 		curTok = advance(parser) # token identifier, e.g. "testtype_s"
-		print("MakeStruct(", curTok.str, "\n")
+		#print("MakeStruct(", curTok.str, "\n")
 		
 		ms = newStruct(parser, curTok.str)
 		advance(parser) # should be curly brace open
@@ -422,6 +422,35 @@ function getPosOfNextTokenType(parser::Parser, tokentype)::Int32
 	return -1
 end
 
+# metaVar is written into
+function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
+
+	# my god sometimes i hate this Julia nitpicking on fucking types, promotion shit from Int32/64 etc.
+	from = Int32(from)
+	to = Int32(to)
+	
+	pos = from
+	while pos <= to
+		token = parser.tokens[ pos ]
+		
+		if typeof(token) <: TokenIdentifier
+			metaVar.vartype = cStringToJuliaType(token.str)
+		elseif typeof(token) <: TokenStatic
+			metaVar.isStatic = true
+		elseif typeof(token) <: TokenConst
+			metaVar.isConst = true
+		elseif isOpStar(token)
+			metaVar.numPointer += 1
+		elseif isOpStarStar(token)
+			metaVar.numPointer += 2
+		else
+			println("rekt in parseMetaTypeFromTo")
+		end
+		
+		pos += 1
+	end
+end
+
 function readFunctionOrPrototype(parser::Parser)::MetaFunction
 	# could have bunch of specifiers, like: const static int main()
 	# parse strategy here is to first find the (
@@ -435,26 +464,7 @@ function readFunctionOrPrototype(parser::Parser)::MetaFunction
 	func.name = parser.tokens[posFuncName].str
 	
 	# now we can iterate over the "const static int" tokens
-	pos = parser.i
-	while pos < posFuncName
-		token = parser.tokens[ pos ]
-		
-		if typeof(token) <: TokenIdentifier
-			func.metaVar.vartype = cStringToJuliaType(token.str)
-		elseif typeof(token) <: TokenStatic
-			func.metaVar.isStatic = true
-		elseif typeof(token) <: TokenConst
-			func.metaVar.isConst = true
-		elseif isOpStar(token)
-			func.metaVar.numPointer += 1
-		elseif isOpStarStar(token)
-			func.metaVar.numPointer += 2
-		else
-			println("rekt @ fizzle pre func tokens stuff out", token)
-		end
-		
-		pos += 1
-	end
+	parseMetaTypeFromTo(parser, func.metaVar, parser.i, posFuncName - 1)
 	
 	
 	# this should either be a TokenCurlyBracketOpen or TokenSemicolon
@@ -479,7 +489,6 @@ function readFunctionOrPrototype(parser::Parser)::MetaFunction
 end
 
 function getPrevTokenPosTypeFromPos(parser::Parser, tokentype::DataType, pos::Int32)
-
 	while pos >= 1
 		if typeof(parser.tokens[ pos ]) == tokentype
 			return pos
@@ -497,13 +506,16 @@ function readGlobalVar(parser::Parser)
 	#println("Skip global var stuff for var name: ", tokName);
 	#todo: read dimensions in [$dim1][$dim2], also they could be defines like MAX_ENTITIES
 	
-	parser.i = posSemicolon
-	
 	metaVar = MetaVar()
 	metaVar.name = tokName.str
+
+	from = parser.i
+	to = namePos - 1
+	#println("parseMetaTypeFromTo(parser, $metaVar, $from, $to)", parser.tokens[from], parser.tokens[to])
+	parseMetaTypeFromTo(parser, metaVar, from, to)
 	
 	# todo: iterate over the "const static int **" and collect the infos in metaVar
-	
+	parser.i = posSemicolon
 	return metaVar
 end
 
