@@ -6,7 +6,7 @@ iswhitespace(c::Char) = UInt8(c) in UInt8[0x20, 0x09, 0x0a, 0x0D, 0x00, 0x0b]
 # isOpStart is same as isOp, just without the =
 # because = shall be TokenAssign, but "+=" is still normal merged op
 #isOpStart(c::Char) = c in ['+', '-', '*', '/', ','     , '~', '%', '&', '|', '<', '>', '!', ',', '.', ':', '^']
-isOp(     c::Char) = c in ['+', '-', '*', '/', ',', '=', '~', '%', '&', '|', '<', '>', '!', ',', '.', ':', '^']
+isOp(     c::Char) = c in ['+', '-', '*', '/', '=', '~', '%', '&', '|', '<', '>', '!', '.', ':', '^']
 
 abstract type Token end
 
@@ -71,6 +71,9 @@ type TokenQuestionMark <: Token
 end
 type TokenAssign <: Token
 	# token for =
+end
+type TokenComma <: Token
+	# token for ,
 end
 
 content = file_get_contents("C:\\OpenSciTech\\codemp\\cgame\\cg_main.cpp")
@@ -225,6 +228,8 @@ function step(parse::Parse)
 		return
 	elseif cc == '='
 		push!(parse.tokens, TokenAssign())
+	elseif cc == ','
+		push!(parse.tokens, TokenComma())
 	elseif isOp(cc)
 		opstr = string(cc)
 		advance(parse)
@@ -314,8 +319,10 @@ type MetaVar
 	isConst::Bool
 	isStatic::Bool
 	numPointer::Int32 # 0 is "int foo"    1 is "int *foo"    2 is "int **foo"    etc.
+	dimensionA_startTokenPos::Int32 # -1 if no dimension
+	dimensionB_startTokenPos::Int32 # -1 if no dimension
 	function MetaVar()
-		new("unnamed", Any)
+		new("unnamed", Any, false, false, 0, -1, -1)
 	end
 end
 
@@ -375,12 +382,20 @@ function newStruct(parser::Parser, name::String)::MetaStruct
 	return ms
 end
 
+type vec3_t
+	x::Float32
+	y::Float32
+	z::Float32
+end
+
 function cStringToJuliaType(string::String)
 	if string == "int"       return Int32   end
 	if string == "float"     return Float32 end
 	if string == "void"      return Void    end
 	if string == "qboolean"  return Bool    end
 	if string == "char"      return Char    end
+	if string == "vec3_t"    return vec3_t  end
+	println("cStringToJuliaType> i dont know ", string)
 	return Any
 end
 
@@ -488,6 +503,69 @@ function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
 	end
 end
 
+function parseFunctionArguments(parser::Parser, metaFunction::MetaFunction, from, to)
+	parseFunctionArguments(parser, metaFunction, Int32(from), Int32(to))
+end
+function parseFunctionArguments(parser::Parser, metaFunction::MetaFunction, from::Int32, to::Int32)
+	numTokens = to - from
+	# a function should contain zero or at least 2 tokens (type + name)
+	# a special case is this void bullshit: int main(void)
+	# but whatever, below 2 tokens = just ignore tokens between (...)
+	if numTokens < 2
+		return
+	end
+	
+	argFrom = from
+	argTo = to
+
+	# shrink argTo if more than 1 argument
+	nextCommaPos = getTokenPosByTypeBetweenFromTo(parser, TokenComma, from, to)
+	if nextCommaPos != -1
+		# if there is a comma, fit the argTo position
+		argTo = nextCommaPos - 1
+	end
+	runOnceAgain = true
+	# todo: it works, but quite ugly, i have better idea:
+	# range = (from,to)
+	# range = nextRange(parser, range, TokenComma)
+	# this is run at least once, since we have two tokens
+	while true
+		metaVar = MetaVar()
+		
+		parseMetaTypeFromTo(parser, metaVar, argFrom, argTo - 1) # -1 because this function only parses stuff like "const int *"
+		metaVar.name = parser.tokens[ argTo ].str # so here we can set the name now, should be a TokenIdentifier
+		#println("parseMetaTypeFromTo(parser, metaVar, argFrom=$argFrom, argTo=$argTo) ret= ", metaVar)
+		push!( metaFunction.args, metaVar )
+		
+		
+		
+		# after parsing the first argument fit the values for next turn
+		
+		argFrom = argTo + 2 # we can imply this already, just need to figure out the new argTo with comma-finding
+		
+		
+		nextCommaPos = getTokenPosByTypeBetweenFromTo(parser, TokenComma, argTo + 2, to)
+		
+		if nextCommaPos == -1
+			argTo = to # when there is no next comma, this is our end
+		else
+			argTo = nextCommaPos - 1
+		end
+		
+		# seems like we reached the end
+		if typeof(parser.tokens[argTo + 1]) <: TokenBracketClose
+			if runOnceAgain == false
+				break
+			end
+			runOnceAgain = false
+		end
+		
+		if nextCommaPos == -1
+			#break
+		end
+	end
+end
+
 function readFunction(parser::Parser)::MetaFunction
 	# could have bunch of specifiers, like: const static int main()
 	# parse strategy here is to first find the (
@@ -500,6 +578,8 @@ function readFunction(parser::Parser)::MetaFunction
 	
 	func = MetaFunction()
 	func.name = parser.tokens[posFuncName].str
+	
+	parseFunctionArguments(parser, func, posBracketOpen + 1, posBracketClose - 1)
 	
 	# now we can iterate over the "const static int" tokens
 	parseMetaTypeFromTo(parser, func.metaVar, parser.i, posFuncName - 1)
@@ -612,6 +692,8 @@ function readGlobalVar(parser::Parser)
 		beforeAssign = posSemicolon - 1
 	end
 	
+	metaVar = MetaVar()
+	
 	# detect possible [][]
 	posSquareBracketOpen = getTokenPosByTypeBetweenFromTo(parser, TokenSquareBracketOpen, parser.i, beforeAssign)
 	namePos = beforeAssign
@@ -622,6 +704,16 @@ function readGlobalVar(parser::Parser)
 		# todo: and we should actually parse the [] info lol
 		# e.g. [MAX_ENTITIES] becomes metaVar.dimension0 expression = TokenListFromTo(10,12)... we can be stringified later easily
 		# in pure C its just replaced with the real number by preprocessor, but I need to keep this meta data to generate nice headers
+		
+		
+		# oh well, just save the first dimension atm:
+		metaVar.dimensionA_startTokenPos = posSquareBracketOpen + 1
+		
+		# check for 2nd dimension
+		posSquareBracketClose = getPosOfNextTokenType(parser, TokenSquareBracketClose)
+		if typeof(parser.tokens[ posSquareBracketClose + 1 ]) <: TokenSquareBracketOpen
+			metaVar.dimensionB_startTokenPos = posSquareBracketClose + 2 # jumping over ] and [, so we point directly to start of the [$insideExpression]
+		end
 	end
 	
 	
@@ -631,12 +723,11 @@ function readGlobalVar(parser::Parser)
 	#println("Skip global var stuff for var name: ", tokName);
 	#todo: read dimensions in [$dim1][$dim2], also they could be defines like MAX_ENTITIES
 	
-	metaVar = MetaVar()
 	metaVar.name = tokName.str
 
 	from = parser.i
 	to = namePos - 1
-	println("parseMetaTypeFromTo(parser, $metaVar, $from, $to)", parser.tokens[from], parser.tokens[to])
+	#println("parseMetaTypeFromTo(parser, $metaVar, $from, $to)", parser.tokens[from], parser.tokens[to])
 	parseMetaTypeFromTo(parser, metaVar, from, to)
 	
 	# todo: iterate over the "const static int **" and collect the infos in metaVar
