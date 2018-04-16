@@ -2,7 +2,11 @@ include("php_trim.jl")
 
 file_get_contents(name) = String(read(name))
 iswhitespace(c::Char) = UInt8(c) in UInt8[0x20, 0x09, 0x0a, 0x0D, 0x00, 0x0b]
-isOp(c::Char) = c in ['+', '-', '*', '/', ',', '=', '~', '%', '&', '|', '<', '>', '!', ',', '.']
+
+# isOpStart is same as isOp, just without the =
+# because = shall be TokenAssign, but "+=" is still normal merged op
+#isOpStart(c::Char) = c in ['+', '-', '*', '/', ','     , '~', '%', '&', '|', '<', '>', '!', ',', '.', ':', '^']
+isOp(     c::Char) = c in ['+', '-', '*', '/', ',', '=', '~', '%', '&', '|', '<', '>', '!', ',', '.', ':', '^']
 
 abstract type Token end
 
@@ -14,6 +18,9 @@ type TokenNum <: Token
 end
 type TokenStr <: Token
 	str::String
+end
+type TokenChar <: Token
+	str::String # for stuff like '0'
 end
 type TokenIdentifier <: Token
 	str::String
@@ -56,8 +63,18 @@ end
 type TokenConst <: Token
 	# for stuff like: const int foo(); etc.
 end
+type TokenHash <: Token
+	# token for # like #include #define
+end
+type TokenQuestionMark <: Token
+	# token for ?
+end
+type TokenAssign <: Token
+	# token for =
+end
 
-content = file_get_contents("enums.cpp")
+content = file_get_contents("C:\\OpenSciTech\\codemp\\cgame\\cg_main.cpp")
+#content = file_get_contents("enums.cpp")
 
 function peekNextChar()
 	return content[i + 1]
@@ -151,7 +168,7 @@ function step(parse::Parse)
 	#	push!(parse.tokens, string(cc))
 	#	print("got operator thingy $cc\n")
 	#elseif isalpha(cc)
-	if isalpha(cc)
+	if isalpha(cc) || cc == '_' # identifiers either start with alpha or _, but not digits
 	
 		# a string literal can start with alpha or digit, but can contain _ from now on, search till end and add as token
 		
@@ -187,7 +204,7 @@ function step(parse::Parse)
 				parse.i -= 1 # we advanced but figured out here that its not part of literal anymore, so go back
 				return
 			end
-		end		
+		end
 	elseif cc == Char(0x22) # detect ", just because shitty syntax highlighting in Notepad++ atm for '"'
 		advance(parse) # jump over current ", so we only get the actual string content
 		commentFrom = parse.i
@@ -197,7 +214,17 @@ function step(parse::Parse)
 		#print("cstr from=$commentFrom to=$commentTo cstr=$cstr\n")
 		push!(parse.tokens, TokenStr(cstr))
 		return
-	
+	elseif cc == Char(0x27) # detect ',just because shitty syntax highlighting in Notepad++ atm for '''
+		advance(parse) # jump over current ', so we only get the actual string content
+		commentFrom = parse.i
+		advanceTill(parse, Char(0x27)) # now advance to end '''
+		commentTo = parse.i - 1 # -1 tho, because we dont want the last ", only string content
+		cstr = parse.s[commentFrom:commentTo]
+		#print("cstr from=$commentFrom to=$commentTo cstr=$cstr\n")
+		push!(parse.tokens, TokenChar(cstr))
+		return
+	elseif cc == '='
+		push!(parse.tokens, TokenAssign())
 	elseif isOp(cc)
 		opstr = string(cc)
 		advance(parse)
@@ -234,10 +261,14 @@ function step(parse::Parse)
 		push!(parse.tokens, TokenCurlyBracketOpen())
 	elseif cc == '}'
 		push!(parse.tokens, TokenCurlyBracketClose())
+	elseif cc == '#'
+		push!(parse.tokens, TokenHash())
+	elseif cc == '?'
+		push!(parse.tokens, TokenQuestionMark())
 	elseif iswhitespace(cc)
 		# just ignore
 	else
-		print("idk what to do with: $cc\n")
+		print("idk what to do with: $cc at ", parse.i ,"\n")
 	end	
 end
 
@@ -271,6 +302,7 @@ steps(parse)
 # todo: just make TokenTypedef, TokenElse etc.?
 isTypedef(   token::Token) = typeof(token) <: TokenIdentifier && token.str == "typedef"
 isStruct(    token::Token) = typeof(token) <: TokenIdentifier && token.str == "struct"
+isInclude(   token::Token) = typeof(token) <: TokenIdentifier && token.str == "include"
 isOpStar(    token::Token) = typeof(token) <: TokenOp         && token.str == "*"        # just for pointer detection
 isOpStarStar(token::Token) = typeof(token) <: TokenOp         && token.str == "**"       # just for pointer detection
 
@@ -398,15 +430,19 @@ end
 pos(parser::Parser) = parser.i
 pos!(parser::Parser, i) = parser.i = Int32(i)
 
-function debug(parser::Parser)
-	if (parser.i > 1)
-		print("prev token> ", parser.tokens[parser.i - 1], "\n")
+
+function debugPos(parser::Parser, pos::Int32)
+	if (pos > 1)
+		print("prev token pos=$pos> ", parser.tokens[pos - 1], "\n")
 	end
-	print("current token> ", parser.tokens[parser.i], "\n")
+	print("current token pos=$pos> ", parser.tokens[pos], "\n")
 	# e.g. 3 tokens, 1, 2, 3, when i==2, we can show the next one
-	if parser.i + 1 <= length(parser.tokens)
-		print("next token> ", parser.tokens[parser.i + 1], "\n")
+	if pos + 1 <= length(parser.tokens)
+		print("next token pos=$pos> ", parser.tokens[pos + 1], "\n")
 	end
+end
+function debug(parser::Parser)
+	debugPos(parser, parser.i)
 end
 
 parser = Parser(parse)
@@ -444,7 +480,8 @@ function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
 		elseif isOpStarStar(token)
 			metaVar.numPointer += 2
 		else
-			println("rekt in parseMetaTypeFromTo")
+			println("rekt in parseMetaTypeFromTo ", token)
+			debugPos(parser, Int32(pos))
 		end
 		
 		pos += 1
@@ -546,19 +583,49 @@ function readFunctionOrPrototype(parser::Parser)::Void
 	nothing
 end
 
-function getPrevTokenPosTypeFromPos(parser::Parser, tokentype::DataType, pos::Int32)
-	while pos >= 1
+function getTokenPosByTypeBetweenFromTo(parser::Parser, tokentype::DataType, from, to)
+	# julia bullshit
+	from = Int32(from)
+	to  = Int32(to)
+	# actual code
+	pos = from
+	while pos <= to
 		if typeof(parser.tokens[ pos ]) == tokentype
 			return pos
 		end
-		pos -= 1
+		pos += 1
 	end
+	return -1
 end
 
 function readGlobalVar(parser::Parser)
 	posSemicolon = getPosOfNextTokenType(parser, TokenSemicolon)
 	
-	namePos = getPrevTokenPosTypeFromPos(parser, TokenIdentifier, posSemicolon)
+	# parser = Parser("int foo[128] = 0;")
+	# assignPos = 6
+	# 
+	
+	assignPos = getTokenPosByTypeBetweenFromTo(parser, TokenAssign, parser.i, posSemicolon)
+	beforeAssign = assignPos - 1
+	if assignPos == -1
+		#then there was no = token, so the namePos is just posSemicolon-1
+		beforeAssign = posSemicolon - 1
+	end
+	
+	# detect possible [][]
+	posSquareBracketOpen = getTokenPosByTypeBetweenFromTo(parser, TokenSquareBracketOpen, parser.i, beforeAssign)
+	namePos = beforeAssign
+	if posSquareBracketOpen != -1
+		# if we have a square bracket open, we need to fit the namePos to before it
+		namePos = posSquareBracketOpen - 1
+		
+		# todo: and we should actually parse the [] info lol
+		# e.g. [MAX_ENTITIES] becomes metaVar.dimension0 expression = TokenListFromTo(10,12)... we can be stringified later easily
+		# in pure C its just replaced with the real number by preprocessor, but I need to keep this meta data to generate nice headers
+	end
+	
+	
+	
 	tokName = parser.tokens[ namePos ]
 
 	#println("Skip global var stuff for var name: ", tokName);
@@ -569,7 +636,7 @@ function readGlobalVar(parser::Parser)
 
 	from = parser.i
 	to = namePos - 1
-	#println("parseMetaTypeFromTo(parser, $metaVar, $from, $to)", parser.tokens[from], parser.tokens[to])
+	println("parseMetaTypeFromTo(parser, $metaVar, $from, $to)", parser.tokens[from], parser.tokens[to])
 	parseMetaTypeFromTo(parser, metaVar, from, to)
 	
 	# todo: iterate over the "const static int **" and collect the infos in metaVar
@@ -623,8 +690,10 @@ function run(parser::Parser)
 				#push!( parser.functions, func )
 			end
 			
+		elseif typeof(token) <: TokenHash
+			parser.i += 2 # just skip #include "bla"
 		else
-			#print("idk what todo with: ", token, "\n")
+			print("idk what todo with: ", token, "\n")
 		end
 		
 		token = advance(parser)
