@@ -193,6 +193,8 @@ function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
 			metaVar.isStatic = true
 		elseif typeof(token) <: TokenConst
 			metaVar.isConst = true
+		elseif typeof(token) <: TokenStruct
+			metaVar.isStruct = true
 		elseif isOpStar(token)
 			metaVar.numPointer += 1
 		elseif isOpStarStar(token)
@@ -218,55 +220,30 @@ function parseFunctionArguments(parser::Parser, metaFunction::MetaFunction, from
 		return
 	end
 	
-	argFrom = from
-	argTo = to
+	argTo = from - 2 # just so that argTo+2==from, so the while loop has no special case for first case
 
-	# shrink argTo if more than 1 argument
-	nextCommaPos = getTokenPosByTypeBetweenFromTo(parser, TokenComma, from, to)
-	if nextCommaPos != -1
-		# if there is a comma, fit the argTo position
-		argTo = nextCommaPos - 1
-	end
-	runOnceAgain = true
-	# todo: it works, but quite ugly, i have better idea:
-	# range = (from,to)
-	# range = nextRange(parser, range, TokenComma)
-	# this is run at least once, since we have two tokens
 	while true
-		metaVar = MetaVar()
+		argFrom = argTo + 2
+		posComma = getTokenPosByTypeBetweenFromTo(parser.tokens, TokenComma, argFrom, to) # first run: 3
+		if posComma > 0
+			argTo = posComma - 1
+		else
+			argTo = to
+		end
 		
+		
+		#println("($argFrom, $argTo)")
+		metaVar = MetaVar()
 		parseMetaTypeFromTo(parser, metaVar, argFrom, argTo - 1) # -1 because this function only parses stuff like "const int *"
 		metaVar.name = parser.tokens[ argTo ].str # so here we can set the name now, should be a TokenIdentifier
 		#println("parseMetaTypeFromTo(parser, metaVar, argFrom=$argFrom, argTo=$argTo) ret= ", metaVar)
-		push!( metaFunction.args, metaVar )
+		push!( metaFunction.args, metaVar )		
 		
 		
-		
-		# after parsing the first argument fit the values for next turn
-		
-		argFrom = argTo + 2 # we can imply this already, just need to figure out the new argTo with comma-finding
-		
-		
-		nextCommaPos = getTokenPosByTypeBetweenFromTo(parser, TokenComma, argTo + 2, to)
-		
-		if nextCommaPos == -1
-			argTo = to # when there is no next comma, this is our end
-		else
-			argTo = nextCommaPos - 1
+		if argTo == to
+			break
 		end
-		
-		# seems like we reached the end
-		if typeof(parser.tokens[argTo + 1]) <: TokenBracketClose
-			if runOnceAgain == false
-				break
-			end
-			runOnceAgain = false
-		end
-		
-		if nextCommaPos == -1
-			#break
-		end
-	end
+	end	
 end
 
 function readFunction(parser::Parser)::MetaFunction
@@ -366,14 +343,14 @@ function readFunctionOrPrototype(parser::Parser)::Void
 	nothing
 end
 
-function getTokenPosByTypeBetweenFromTo(parser::Parser, tokentype::DataType, from, to)
+
+function getTokenPosByTypeBetweenFromTo(tokens::Vector{Token}, tokentype::DataType, from, to)
 	# julia bullshit
 	from = Int32(from)
-	to  = Int32(to)
-	# actual code
+	to = Int32(to)
 	pos = from
 	while pos <= to
-		if typeof(parser.tokens[ pos ]) == tokentype
+		if typeof(tokens[ pos ]) == tokentype
 			return pos
 		end
 		pos += 1
@@ -388,7 +365,7 @@ function readGlobalVar(parser::Parser)
 	# assignPos = 6
 	# 
 	
-	assignPos = getTokenPosByTypeBetweenFromTo(parser, TokenAssign, parser.i, posSemicolon)
+	assignPos = getTokenPosByTypeBetweenFromTo(parser.tokens, TokenAssign, parser.i, posSemicolon)
 	beforeAssign = assignPos - 1
 	if assignPos == -1
 		#then there was no = token, so the namePos is just posSemicolon-1
@@ -398,7 +375,7 @@ function readGlobalVar(parser::Parser)
 	metaVar = MetaVar()
 	
 	# detect possible [][]
-	posSquareBracketOpen = getTokenPosByTypeBetweenFromTo(parser, TokenSquareBracketOpen, parser.i, beforeAssign)
+	posSquareBracketOpen = getTokenPosByTypeBetweenFromTo(parser.tokens, TokenSquareBracketOpen, parser.i, beforeAssign)
 	namePos = beforeAssign
 	if posSquareBracketOpen != -1
 		# if we have a square bracket open, we need to fit the namePos to before it
