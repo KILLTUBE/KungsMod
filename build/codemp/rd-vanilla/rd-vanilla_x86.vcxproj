@@ -56,25 +56,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\OpenSciTech\build\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">rd-vanilla_x86.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">rd-vanilla_x86</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\OpenSciTech\build\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">rd-vanilla_x86.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">rd-vanilla_x86</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\OpenSciTech\build\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">rd-vanilla_x86.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">rd-vanilla_x86</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.dll</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\OpenSciTech\build\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">rd-vanilla_x86.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">rd-vanilla_x86</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.dll</TargetExt>
@@ -83,7 +83,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\codemp\rd-vanilla;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\codemp;C:\OpenSciTech\shared;C:\OpenSciTech\codemp\rd-vanilla;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -102,10 +102,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR=\"Debug\";rd_vanilla_x86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\codemp\rd-vanilla;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\codemp;C:\OpenSciTech\shared;C:\OpenSciTech\codemp\rd-vanilla;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\codemp\rd-vanilla;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\codemp;C:\OpenSciTech\shared;C:\OpenSciTech\codemp\rd-vanilla;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -118,8 +118,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/XycaRend2/build/codemp/rd-vanilla/Debug/rd-vanilla_x86.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/XycaRend2/build/Debug/rd-vanilla_x86.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/OpenSciTech/build/codemp/rd-vanilla/Debug/rd-vanilla_x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/OpenSciTech/build/Debug/rd-vanilla_x86.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
       <Version>
       </Version>
@@ -130,7 +130,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\codemp\rd-vanilla;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\codemp;C:\OpenSciTech\shared;C:\OpenSciTech\codemp\rd-vanilla;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
@@ -149,10 +149,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR=\"Release\";rd_vanilla_x86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\codemp\rd-vanilla;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\codemp;C:\OpenSciTech\shared;C:\OpenSciTech\codemp\rd-vanilla;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\codemp\rd-vanilla;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\codemp;C:\OpenSciTech\shared;C:\OpenSciTech\codemp\rd-vanilla;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -165,8 +165,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/XycaRend2/build/codemp/rd-vanilla/Release/rd-vanilla_x86.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/XycaRend2/build/Release/rd-vanilla_x86.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/OpenSciTech/build/codemp/rd-vanilla/Release/rd-vanilla_x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/OpenSciTech/build/Release/rd-vanilla_x86.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
       <Version>
       </Version>
@@ -177,7 +177,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\codemp\rd-vanilla;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\codemp;C:\OpenSciTech\shared;C:\OpenSciTech\codemp\rd-vanilla;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
@@ -196,10 +196,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR=\"MinSizeRel\";rd_vanilla_x86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\codemp\rd-vanilla;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\codemp;C:\OpenSciTech\shared;C:\OpenSciTech\codemp\rd-vanilla;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\codemp\rd-vanilla;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\codemp;C:\OpenSciTech\shared;C:\OpenSciTech\codemp\rd-vanilla;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -212,8 +212,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/XycaRend2/build/codemp/rd-vanilla/MinSizeRel/rd-vanilla_x86.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/XycaRend2/build/MinSizeRel/rd-vanilla_x86.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/OpenSciTech/build/codemp/rd-vanilla/MinSizeRel/rd-vanilla_x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/OpenSciTech/build/MinSizeRel/rd-vanilla_x86.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
       <Version>
       </Version>
@@ -224,7 +224,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\codemp\rd-vanilla;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\codemp;C:\OpenSciTech\shared;C:\OpenSciTech\codemp\rd-vanilla;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -242,10 +242,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;CMAKE_INTDIR=\"RelWithDebInfo\";rd_vanilla_x86_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\codemp\rd-vanilla;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\codemp;C:\OpenSciTech\shared;C:\OpenSciTech\codemp\rd-vanilla;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\codemp;C:\XycaRend2\shared;C:\XycaRend2\codemp\rd-vanilla;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\codemp;C:\OpenSciTech\shared;C:\OpenSciTech\codemp\rd-vanilla;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -258,8 +258,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/XycaRend2/build/codemp/rd-vanilla/RelWithDebInfo/rd-vanilla_x86.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/XycaRend2/build/RelWithDebInfo/rd-vanilla_x86.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/OpenSciTech/build/codemp/rd-vanilla/RelWithDebInfo/rd-vanilla_x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/OpenSciTech/build/RelWithDebInfo/rd-vanilla_x86.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
       <Version>
       </Version>
@@ -269,10 +269,10 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\XycaRend2\codemp\rd-vanilla\CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/XycaRend2/codemp/rd-vanilla/CMakeLists.txt</Message>
+    <CustomBuild Include="C:\OpenSciTech\codemp\rd-vanilla\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/OpenSciTech/codemp/rd-vanilla/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/rd-vanilla/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/codemp/rd-vanilla/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -280,12 +280,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/XycaRend2/codemp/rd-vanilla/CMakeLists.txt;C:\XycaRend2\codemp\rd-vanilla\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\XycaRend2\codemp\rd-vanilla\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\codemp\rd-vanilla\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/OpenSciTech/codemp/rd-vanilla/CMakeLists.txt;C:\OpenSciTech\codemp\rd-vanilla\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\OpenSciTech\codemp\rd-vanilla\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\OpenSciTech\build\codemp\rd-vanilla\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/XycaRend2/codemp/rd-vanilla/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/OpenSciTech/codemp/rd-vanilla/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/rd-vanilla/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/codemp/rd-vanilla/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -293,12 +293,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/XycaRend2/codemp/rd-vanilla/CMakeLists.txt;C:\XycaRend2\codemp\rd-vanilla\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\XycaRend2\codemp\rd-vanilla\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\codemp\rd-vanilla\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/OpenSciTech/codemp/rd-vanilla/CMakeLists.txt;C:\OpenSciTech\codemp\rd-vanilla\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\OpenSciTech\codemp\rd-vanilla\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\OpenSciTech\build\codemp\rd-vanilla\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/XycaRend2/codemp/rd-vanilla/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/OpenSciTech/codemp/rd-vanilla/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/rd-vanilla/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/codemp/rd-vanilla/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -306,12 +306,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/XycaRend2/codemp/rd-vanilla/CMakeLists.txt;C:\XycaRend2\codemp\rd-vanilla\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\XycaRend2\codemp\rd-vanilla\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\codemp\rd-vanilla\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/OpenSciTech/codemp/rd-vanilla/CMakeLists.txt;C:\OpenSciTech\codemp\rd-vanilla\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\OpenSciTech\codemp\rd-vanilla\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\OpenSciTech\build\codemp\rd-vanilla\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/XycaRend2/codemp/rd-vanilla/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/OpenSciTech/codemp/rd-vanilla/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/rd-vanilla/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/codemp/rd-vanilla/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -319,108 +319,108 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/XycaRend2/codemp/rd-vanilla/CMakeLists.txt;C:\XycaRend2\codemp\rd-vanilla\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\XycaRend2\codemp\rd-vanilla\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\codemp\rd-vanilla\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/OpenSciTech/codemp/rd-vanilla/CMakeLists.txt;C:\OpenSciTech\codemp\rd-vanilla\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\OpenSciTech\codemp\rd-vanilla\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\OpenSciTech\build\codemp\rd-vanilla\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\XycaRend2\codemp\rd-vanilla\glext.h" />
-    <ClInclude Include="C:\XycaRend2\codemp\rd-vanilla\qgl.h" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\G2_API.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\G2_bolts.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\G2_bones.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\G2_misc.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\G2_surfaces.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_arb.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_backend.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_bsp.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_cmds.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_curve.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_decals.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_ghoul2.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_image.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_init.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_light.cpp" />
-    <ClInclude Include="C:\XycaRend2\codemp\rd-vanilla\tr_local.h" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_main.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_marks.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_mesh.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_model.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_quicksprite.cpp" />
-    <ClInclude Include="C:\XycaRend2\codemp\rd-vanilla\tr_quicksprite.h" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_scene.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_shade.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_shade_calc.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_shader.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_shadows.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_skin.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_sky.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_subs.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_surface.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_surfacesprites.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_world.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-vanilla\tr_WorldEffects.cpp" />
-    <ClInclude Include="C:\XycaRend2\codemp\rd-vanilla\tr_WorldEffects.h" />
-    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\g2_local.h" />
-    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\ghoul2_shared.h" />
-    <ClCompile Include="C:\XycaRend2\codemp\ghoul2\G2_gore.cpp" />
-    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\G2_gore.h" />
-    <ClInclude Include="C:\XycaRend2\codemp\rd-common\mdx_format.h" />
-    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_common.h" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_font.cpp" />
-    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_font.h" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_image_load.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_image_jpg.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_image_tga.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_image_png.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-common\tr_noise.cpp" />
-    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_public.h" />
-    <ClInclude Include="C:\XycaRend2\codemp\rd-common\tr_types.h" />
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\matcomp.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\q_shared.cpp" />
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h" />
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c">
+    <ClInclude Include="C:\OpenSciTech\codemp\rd-vanilla\glext.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\rd-vanilla\qgl.h" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\G2_API.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\G2_bolts.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\G2_bones.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\G2_misc.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\G2_surfaces.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_arb.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_backend.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_bsp.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_cmds.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_curve.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_decals.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_ghoul2.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_image.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_init.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_light.cpp" />
+    <ClInclude Include="C:\OpenSciTech\codemp\rd-vanilla\tr_local.h" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_main.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_marks.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_mesh.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_model.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_quicksprite.cpp" />
+    <ClInclude Include="C:\OpenSciTech\codemp\rd-vanilla\tr_quicksprite.h" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_scene.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_shade.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_shade_calc.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_shader.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_shadows.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_skin.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_sky.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_subs.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_surface.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_surfacesprites.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_world.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-vanilla\tr_WorldEffects.cpp" />
+    <ClInclude Include="C:\OpenSciTech\codemp\rd-vanilla\tr_WorldEffects.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\ghoul2\g2_local.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\ghoul2\ghoul2_shared.h" />
+    <ClCompile Include="C:\OpenSciTech\codemp\ghoul2\G2_gore.cpp" />
+    <ClInclude Include="C:\OpenSciTech\codemp\ghoul2\G2_gore.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\rd-common\mdx_format.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\rd-common\tr_common.h" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-common\tr_font.cpp" />
+    <ClInclude Include="C:\OpenSciTech\codemp\rd-common\tr_font.h" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-common\tr_image_load.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-common\tr_image_jpg.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-common\tr_image_tga.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-common\tr_image_png.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-common\tr_noise.cpp" />
+    <ClInclude Include="C:\OpenSciTech\codemp\rd-common\tr_public.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\rd-common\tr_types.h" />
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\matcomp.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\q_shared.cpp" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_color.h" />
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\q_color.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h" />
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c">
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_math.h" />
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\q_math.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h" />
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c">
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_string.h" />
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\q_string.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h" />
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h" />
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\string.cpp" />
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\string.h" />
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\sscanf.h" />
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\limited_vector.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_platform.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\gsl.h" />
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\safe\string.cpp" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\string.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\sscanf.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\limited_vector.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\XycaRend2\build\lib\jpeg-9a\bundled_libjpeg.vcxproj">
+    <ProjectReference Include="C:\OpenSciTech\build\lib\jpeg-9a\bundled_libjpeg.vcxproj">
       <Project>{47E1B3AF-1560-3E9B-AA40-118D2C8FB759}</Project>
       <Name>bundled_libjpeg</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\XycaRend2\build\lib\libpng\bundled_libpng.vcxproj">
+    <ProjectReference Include="C:\OpenSciTech\build\lib\libpng\bundled_libpng.vcxproj">
       <Project>{9ABE8290-5F67-3AE1-AC5E-AEB4CA8D4DBC}</Project>
       <Name>bundled_libpng</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\XycaRend2\build\lib\minizip\bundled_minizip.vcxproj">
+    <ProjectReference Include="C:\OpenSciTech\build\lib\minizip\bundled_minizip.vcxproj">
       <Project>{CC776DAF-DBC0-320D-9C43-3BE2F7B3CAE8}</Project>
       <Name>bundled_minizip</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\XycaRend2\build\lib\zlib\bundled_zlib.vcxproj">
+    <ProjectReference Include="C:\OpenSciTech\build\lib\zlib\bundled_zlib.vcxproj">
       <Project>{B58BEC2B-E4A4-376D-9C62-F87FDF353067}</Project>
       <Name>bundled_zlib</Name>
     </ProjectReference>

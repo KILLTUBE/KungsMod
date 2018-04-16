@@ -56,26 +56,26 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\lib\libpng\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\OpenSciTech\build\lib\libpng\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">bundled_libpng.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">bundled_libpng</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\lib\libpng\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\OpenSciTech\build\lib\libpng\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">bundled_libpng.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">bundled_libpng</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\lib\libpng\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\OpenSciTech\build\lib\libpng\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">bundled_libpng.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">bundled_libpng</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\lib\libpng\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\OpenSciTech\build\lib\libpng\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">bundled_libpng.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">bundled_libpng</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsC</CompileAs>
@@ -94,10 +94,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -110,7 +110,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsC</CompileAs>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
@@ -128,10 +128,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -144,7 +144,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
       <CompileAs>CompileAsC</CompileAs>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
@@ -162,10 +162,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -178,7 +178,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
       <CompileAs>CompileAsC</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -196,10 +196,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\libpng\..\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -211,10 +211,10 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\XycaRend2\lib\libpng\CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/XycaRend2/lib/libpng/CMakeLists.txt</Message>
+    <CustomBuild Include="C:\OpenSciTech\lib\libpng\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/OpenSciTech/lib/libpng/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/lib/libpng/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/lib/libpng/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -222,12 +222,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/XycaRend2/lib/libpng/CMakeLists.txt;C:\XycaRend2\lib\libpng\CMakeLists.txt;C:\XycaRend2\lib\libpng\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\lib\libpng\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/OpenSciTech/lib/libpng/CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\OpenSciTech\build\lib\libpng\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/XycaRend2/lib/libpng/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/OpenSciTech/lib/libpng/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/lib/libpng/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/lib/libpng/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -235,12 +235,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/XycaRend2/lib/libpng/CMakeLists.txt;C:\XycaRend2\lib\libpng\CMakeLists.txt;C:\XycaRend2\lib\libpng\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\lib\libpng\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/OpenSciTech/lib/libpng/CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\OpenSciTech\build\lib\libpng\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/XycaRend2/lib/libpng/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/OpenSciTech/lib/libpng/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/lib/libpng/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/lib/libpng/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -248,12 +248,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/XycaRend2/lib/libpng/CMakeLists.txt;C:\XycaRend2\lib\libpng\CMakeLists.txt;C:\XycaRend2\lib\libpng\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\lib\libpng\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/OpenSciTech/lib/libpng/CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\OpenSciTech\build\lib\libpng\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/XycaRend2/lib/libpng/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/OpenSciTech/lib/libpng/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/lib/libpng/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/lib/libpng/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -261,37 +261,37 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/XycaRend2/lib/libpng/CMakeLists.txt;C:\XycaRend2\lib\libpng\CMakeLists.txt;C:\XycaRend2\lib\libpng\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\lib\libpng\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/OpenSciTech/lib/libpng/CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\OpenSciTech\build\lib\libpng\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\XycaRend2\lib\libpng\include\png.h" />
-    <ClInclude Include="C:\XycaRend2\lib\libpng\include\pngconf.h" />
-    <ClInclude Include="C:\XycaRend2\lib\libpng\include\pnglibconf.h" />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\png.c"  />
-    <ClInclude Include="C:\XycaRend2\lib\libpng\pngdebug.h" />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngerror.c"  />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngget.c"  />
-    <ClInclude Include="C:\XycaRend2\lib\libpng\pnginfo.h" />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngmem.c"  />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngpread.c"  />
-    <ClInclude Include="C:\XycaRend2\lib\libpng\pngpriv.h" />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngread.c"  />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngrio.c"  />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngrtran.c"  />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngrutil.c"  />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngset.c"  />
-    <ClInclude Include="C:\XycaRend2\lib\libpng\pngstruct.h" />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngtrans.c"  />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngwio.c"  />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngwrite.c"  />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngwtran.c"  />
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngwutil.c"  />
+    <ClInclude Include="C:\OpenSciTech\lib\libpng\include\png.h" />
+    <ClInclude Include="C:\OpenSciTech\lib\libpng\include\pngconf.h" />
+    <ClInclude Include="C:\OpenSciTech\lib\libpng\include\pnglibconf.h" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\png.c"  />
+    <ClInclude Include="C:\OpenSciTech\lib\libpng\pngdebug.h" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngerror.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngget.c"  />
+    <ClInclude Include="C:\OpenSciTech\lib\libpng\pnginfo.h" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngmem.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngpread.c"  />
+    <ClInclude Include="C:\OpenSciTech\lib\libpng\pngpriv.h" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngread.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngrio.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngrtran.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngrutil.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngset.c"  />
+    <ClInclude Include="C:\OpenSciTech\lib\libpng\pngstruct.h" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngtrans.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwio.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwrite.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwtran.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwutil.c"  />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\XycaRend2\build\ZERO_CHECK.vcxproj">
+    <ProjectReference Include="C:\OpenSciTech\build\ZERO_CHECK.vcxproj">
       <Project>{A9FA2F9A-DFB7-30BC-8A34-97427C85E75C}</Project>
       <Name>ZERO_CHECK</Name>
     </ProjectReference>

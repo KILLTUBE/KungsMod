@@ -56,25 +56,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\OpenSciTech\build\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">openjk_sp.x86.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">openjk_sp.x86</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\OpenSciTech\build\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">openjk_sp.x86.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">openjk_sp.x86</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\OpenSciTech\build\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">openjk_sp.x86.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">openjk_sp.x86</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\OpenSciTech\build\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">openjk_sp.x86.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">openjk_sp.x86</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
@@ -83,7 +83,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\SDL2\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\code;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\SDL2\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -102,10 +102,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;_JK2EXE;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\SDL2\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\code;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\SDL2\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\SDL2\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\code;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\SDL2\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -118,8 +118,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/XycaRend2/build/code/Debug/openjk_sp.x86.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/XycaRend2/build/Debug/openjk_sp.x86.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/OpenSciTech/build/code/Debug/openjk_sp.x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/OpenSciTech/build/Debug/openjk_sp.x86.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
       <Version></Version>
     </Link>
@@ -129,7 +129,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\SDL2\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\code;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\SDL2\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
@@ -147,10 +147,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;_JK2EXE;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\SDL2\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\code;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\SDL2\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\SDL2\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\code;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\SDL2\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -163,8 +163,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/XycaRend2/build/code/Release/openjk_sp.x86.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/XycaRend2/build/Release/openjk_sp.x86.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/OpenSciTech/build/code/Release/openjk_sp.x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/OpenSciTech/build/Release/openjk_sp.x86.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
       <Version></Version>
     </Link>
@@ -174,7 +174,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\SDL2\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\code;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\SDL2\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
@@ -192,10 +192,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;_JK2EXE;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\SDL2\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\code;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\SDL2\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\SDL2\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\code;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\SDL2\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -208,8 +208,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/XycaRend2/build/code/MinSizeRel/openjk_sp.x86.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/XycaRend2/build/MinSizeRel/openjk_sp.x86.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/OpenSciTech/build/code/MinSizeRel/openjk_sp.x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/OpenSciTech/build/MinSizeRel/openjk_sp.x86.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
       <Version></Version>
     </Link>
@@ -219,7 +219,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\SDL2\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\code;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\SDL2\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -237,10 +237,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;FINAL_BUILD;_JK2EXE;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\SDL2\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\code;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\SDL2\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\code;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\SDL2\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\code;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\SDL2\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -253,8 +253,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/XycaRend2/build/code/RelWithDebInfo/openjk_sp.x86.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/XycaRend2/build/RelWithDebInfo/openjk_sp.x86.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/OpenSciTech/build/code/RelWithDebInfo/openjk_sp.x86.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/OpenSciTech/build/RelWithDebInfo/openjk_sp.x86.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
       <Version></Version>
     </Link>
@@ -263,10 +263,10 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\XycaRend2\code\CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/XycaRend2/code/CMakeLists.txt</Message>
+    <CustomBuild Include="C:\OpenSciTech\code\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/OpenSciTech/code/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/code/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/code/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -274,12 +274,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/XycaRend2/code/CMakeLists.txt;C:\XycaRend2\code\CMakeLists.txt;C:\XycaRend2\code\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\code\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/OpenSciTech/code/CMakeLists.txt;C:\OpenSciTech\code\CMakeLists.txt;C:\OpenSciTech\code\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\OpenSciTech\build\code\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/XycaRend2/code/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/OpenSciTech/code/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/code/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/code/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -287,12 +287,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/XycaRend2/code/CMakeLists.txt;C:\XycaRend2\code\CMakeLists.txt;C:\XycaRend2\code\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\code\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/OpenSciTech/code/CMakeLists.txt;C:\OpenSciTech\code\CMakeLists.txt;C:\OpenSciTech\code\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\OpenSciTech\build\code\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/XycaRend2/code/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/OpenSciTech/code/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/code/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/code/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -300,12 +300,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/XycaRend2/code/CMakeLists.txt;C:\XycaRend2\code\CMakeLists.txt;C:\XycaRend2\code\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\code\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/OpenSciTech/code/CMakeLists.txt;C:\OpenSciTech\code\CMakeLists.txt;C:\OpenSciTech\code\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\OpenSciTech\build\code\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/XycaRend2/code/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/OpenSciTech/code/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/code/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/code/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -313,323 +313,323 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/XycaRend2/code/CMakeLists.txt;C:\XycaRend2\code\CMakeLists.txt;C:\XycaRend2\code\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\code\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/OpenSciTech/code/CMakeLists.txt;C:\OpenSciTech\code\CMakeLists.txt;C:\OpenSciTech\code\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\OpenSciTech\build\code\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\XycaRend2\code\client\eax\eax.h" />
-    <ClInclude Include="C:\XycaRend2\code\client\eax\EaxMan.h" />
-    <ClInclude Include="C:\XycaRend2\code\client\keys.h" />
-    <ClInclude Include="C:\XycaRend2\code\client\keycodes.h" />
-    <ClCompile Include="C:\XycaRend2\code\client\cl_cgame.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\client\cl_cin.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\client\cl_console.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\client\cl_input.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\client\cl_keys.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\client\cl_main.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\client\cl_mp3.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\client\cl_parse.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\client\cl_scrn.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\client\cl_ui.cpp"  />
-    <ClInclude Include="C:\XycaRend2\code\client\cl_mp3.h" />
-    <ClInclude Include="C:\XycaRend2\code\client\client.h" />
-    <ClInclude Include="C:\XycaRend2\code\client\client_ui.h" />
-    <ClCompile Include="C:\XycaRend2\code\client\snd_ambient.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\client\snd_dma.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\client\snd_mem.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\client\snd_mix.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\client\snd_music.cpp"  />
-    <ClInclude Include="C:\XycaRend2\code\client\snd_ambient.h" />
-    <ClInclude Include="C:\XycaRend2\code\client\snd_local.h" />
-    <ClInclude Include="C:\XycaRend2\code\client\snd_music.h" />
-    <ClInclude Include="C:\XycaRend2\code\client\snd_public.h" />
-    <ClCompile Include="C:\XycaRend2\code\client\vmachine.cpp"  />
-    <ClInclude Include="C:\XycaRend2\code\client\vmachine.h" />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\cm_load.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\cm_patch.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\cm_polylib.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\cm_test.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\cm_trace.cpp"  />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\cm_local.h" />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\cm_patch.h" />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\cm_polylib.h" />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\cm_public.h" />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\cmd.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\common.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\cvar.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\files.cpp" >
+    <ClInclude Include="C:\OpenSciTech\code\client\eax\eax.h" />
+    <ClInclude Include="C:\OpenSciTech\code\client\eax\EaxMan.h" />
+    <ClInclude Include="C:\OpenSciTech\code\client\keys.h" />
+    <ClInclude Include="C:\OpenSciTech\code\client\keycodes.h" />
+    <ClCompile Include="C:\OpenSciTech\code\client\cl_cgame.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\client\cl_cin.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\client\cl_console.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\client\cl_input.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\client\cl_keys.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\client\cl_main.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\client\cl_mp3.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\client\cl_parse.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\client\cl_scrn.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\client\cl_ui.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\code\client\cl_mp3.h" />
+    <ClInclude Include="C:\OpenSciTech\code\client\client.h" />
+    <ClInclude Include="C:\OpenSciTech\code\client\client_ui.h" />
+    <ClCompile Include="C:\OpenSciTech\code\client\snd_ambient.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\client\snd_dma.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\client\snd_mem.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\client\snd_mix.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\client\snd_music.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\code\client\snd_ambient.h" />
+    <ClInclude Include="C:\OpenSciTech\code\client\snd_local.h" />
+    <ClInclude Include="C:\OpenSciTech\code\client\snd_music.h" />
+    <ClInclude Include="C:\OpenSciTech\code\client\snd_public.h" />
+    <ClCompile Include="C:\OpenSciTech\code\client\vmachine.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\code\client\vmachine.h" />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\cm_load.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\cm_patch.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\cm_polylib.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\cm_test.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\cm_trace.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\cm_local.h" />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\cm_patch.h" />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\cm_polylib.h" />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\cm_public.h" />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\cmd.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\common.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\cvar.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\files.cpp" >
       <ObjectFileName>$(IntDir)/qcommon/files.cpp.obj</ObjectFileName>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\qcommon\md4.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\msg.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\net_chan.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\q_shared.cpp"  />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\q_shared.h" />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\sstring.h" />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\stringed_ingame.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\stringed_interface.cpp"  />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\stringed_ingame.h" />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\stringed_interface.h" />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\strip.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\persistence.cpp"  />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\tags.h" />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\z_memman_pc.cpp"  />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\qfiles.h" />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\qcommon.h" />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\stv_version.h" />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\timing.h" />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\MiniHeap.h" />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_i_saved_game.h" />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game.h" />
-    <ClCompile Include="C:\XycaRend2\code\qcommon\ojk_saved_game.cpp"  />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game_helper.h" />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_saved_game_helper_fwd.h" />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\ojk_scope_guard.h" />
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h" />
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c" >
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\md4.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\msg.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\net_chan.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\q_shared.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\q_shared.h" />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\sstring.h" />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\stringed_ingame.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\stringed_interface.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\stringed_ingame.h" />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\stringed_interface.h" />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\strip.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\persistence.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\tags.h" />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\z_memman_pc.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\qfiles.h" />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\qcommon.h" />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\stv_version.h" />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\timing.h" />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\MiniHeap.h" />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\ojk_i_saved_game.h" />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\ojk_saved_game.h" />
+    <ClCompile Include="C:\OpenSciTech\code\qcommon\ojk_saved_game.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\ojk_saved_game_helper.h" />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\ojk_saved_game_helper_fwd.h" />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\ojk_scope_guard.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_color.h" />
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\q_color.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h" />
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c" >
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_math.h" />
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\q_math.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h" />
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c" >
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_string.h" />
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\q_string.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h" />
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\files.cpp" >
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_platform.h" />
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\safe\files.cpp" >
       <ObjectFileName>$(IntDir)/__/shared/qcommon/safe/files.cpp.obj</ObjectFileName>
     </ClCompile>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\files.h" />
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h" />
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\string.cpp"  />
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\string.h" />
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\sscanf.h" />
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\limited_vector.h" />
-    <ClInclude Include="C:\XycaRend2\code\qcommon\safe\memory.h" />
-    <ClCompile Include="C:\XycaRend2\code\server\exe_headers.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\server\sv_ccmds.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\server\sv_client.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\server\sv_game.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\server\sv_init.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\server\sv_main.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\server\sv_savegame.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\server\sv_snapshot.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\server\sv_world.cpp"  />
-    <ClInclude Include="C:\XycaRend2\code\server\exe_headers.h" />
-    <ClInclude Include="C:\XycaRend2\code\server\server.h" />
-    <ClCompile Include="C:\XycaRend2\code\game\genericparser2.cpp"  />
-    <ClInclude Include="C:\XycaRend2\code\game\channels.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\anims.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\b_public.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\bg_public.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\bset.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\bstate.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\common_headers.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\g_functions.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\g_items.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\g_local.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\g_nav.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\g_public.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\g_shared.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\genericparser2.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\statindex.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\teams.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\weapons.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\surfaceflags.h" />
-    <ClInclude Include="C:\XycaRend2\code\game\ghoul2_shared.h" />
-    <ClCompile Include="C:\XycaRend2\code\mp3code\cdct.c" >
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\files.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\gsl.h" />
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\safe\string.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\string.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\sscanf.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\limited_vector.h" />
+    <ClInclude Include="C:\OpenSciTech\code\qcommon\safe\memory.h" />
+    <ClCompile Include="C:\OpenSciTech\code\server\exe_headers.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\server\sv_ccmds.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\server\sv_client.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\server\sv_game.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\server\sv_init.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\server\sv_main.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\server\sv_savegame.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\server\sv_snapshot.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\server\sv_world.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\code\server\exe_headers.h" />
+    <ClInclude Include="C:\OpenSciTech\code\server\server.h" />
+    <ClCompile Include="C:\OpenSciTech\code\game\genericparser2.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\code\game\channels.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\anims.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\b_public.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\bg_public.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\bset.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\bstate.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\common_headers.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\g_functions.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\g_items.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\g_local.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\g_nav.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\g_public.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\g_shared.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\genericparser2.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\statindex.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\teams.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\weapons.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\surfaceflags.h" />
+    <ClInclude Include="C:\OpenSciTech\code\game\ghoul2_shared.h" />
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\cdct.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\csbt.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\csbt.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\csbtb.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\csbtb.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\csbtl3.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\csbtl3.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\cup.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\cup.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\cupini.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\cupini.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\cupl1.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\cupl1.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\cupl3.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\cupl3.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\cwin.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\cwin.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\cwinb.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\cwinb.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\cwinm.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\cwinm.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\hwin.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\hwin.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\l3dq.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\l3dq.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\l3init.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\l3init.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\mdct.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\mdct.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\mhead.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\mhead.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\msis.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\msis.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\towave.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\towave.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\uph.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\uph.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\upsf.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\upsf.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\code\mp3code\wavep.c" >
+    <ClCompile Include="C:\OpenSciTech\code\mp3code\wavep.c" >
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
     </ClCompile>
-    <ClInclude Include="C:\XycaRend2\code\mp3code\config.h" />
-    <ClInclude Include="C:\XycaRend2\code\mp3code\htable.h" />
-    <ClInclude Include="C:\XycaRend2\code\mp3code\jdw.h" />
-    <ClInclude Include="C:\XycaRend2\code\mp3code\l3.h" />
-    <ClInclude Include="C:\XycaRend2\code\mp3code\mhead.h" />
-    <ClInclude Include="C:\XycaRend2\code\mp3code\mp3struct.h" />
-    <ClInclude Include="C:\XycaRend2\code\mp3code\port.h" />
-    <ClInclude Include="C:\XycaRend2\code\mp3code\small_header.h" />
-    <ClInclude Include="C:\XycaRend2\code\mp3code\tableawd.h" />
-    <ClInclude Include="C:\XycaRend2\code\rd-common\mdx_format.h" />
-    <ClInclude Include="C:\XycaRend2\code\rd-common\tr_public.h" />
-    <ClInclude Include="C:\XycaRend2\code\rd-common\tr_types.h" />
-    <ClCompile Include="C:\XycaRend2\code\ui\ui_atoms.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\ui\ui_connect.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\ui\ui_main.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\ui\ui_saber.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\ui\ui_shared.cpp"  />
-    <ClCompile Include="C:\XycaRend2\code\ui\ui_syscalls.cpp"  />
-    <ClInclude Include="C:\XycaRend2\code\ui\gameinfo.h" />
-    <ClInclude Include="C:\XycaRend2\code\ui\menudef.h" />
-    <ClInclude Include="C:\XycaRend2\code\ui\ui_local.h" />
-    <ClInclude Include="C:\XycaRend2\code\ui\ui_public.h" />
-    <ClInclude Include="C:\XycaRend2\code\ui\ui_shared.h" />
-    <ClInclude Include="C:\XycaRend2\code\ghoul2\G2.h" />
-    <ClInclude Include="C:\XycaRend2\code\ghoul2\ghoul2_gore.h" />
-    <ClInclude Include="C:\XycaRend2\code\cgame\cg_public.h" />
-    <ClInclude Include="C:\XycaRend2\code\cgame\animtable.h" />
-    <ClInclude Include="C:\XycaRend2\code\win32\resource.h" />
-    <ResourceCompile Include="C:\XycaRend2\code\win32\winquake.rc"  />
-    <ClCompile Include="C:\XycaRend2\shared\sys\sys_main.cpp"  />
-    <ClCompile Include="C:\XycaRend2\shared\sys\sys_event.cpp"  />
-    <ClInclude Include="C:\XycaRend2\shared\sys\sys_local.h" />
-    <ClInclude Include="C:\XycaRend2\shared\sys\sys_public.h" />
-    <ClInclude Include="C:\XycaRend2\shared\sys\sys_loadlib.h" />
-    <ClInclude Include="C:\XycaRend2\shared\sys\con_local.h" />
-    <ClCompile Include="C:\XycaRend2\shared\sys\con_log.cpp"  />
-    <ClInclude Include="C:\XycaRend2\shared\sdl\sdl_qgl.h" />
-    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_sound.cpp"  />
-    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_input.cpp"  />
-    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_window.cpp"  />
-    <ClInclude Include="C:\XycaRend2\shared\sdl\sdl_icon.h" />
-    <ClCompile Include="C:\XycaRend2\shared\sys\sys_win32.cpp"  />
-    <ClCompile Include="C:\XycaRend2\shared\sys\con_passive.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\code\mp3code\config.h" />
+    <ClInclude Include="C:\OpenSciTech\code\mp3code\htable.h" />
+    <ClInclude Include="C:\OpenSciTech\code\mp3code\jdw.h" />
+    <ClInclude Include="C:\OpenSciTech\code\mp3code\l3.h" />
+    <ClInclude Include="C:\OpenSciTech\code\mp3code\mhead.h" />
+    <ClInclude Include="C:\OpenSciTech\code\mp3code\mp3struct.h" />
+    <ClInclude Include="C:\OpenSciTech\code\mp3code\port.h" />
+    <ClInclude Include="C:\OpenSciTech\code\mp3code\small_header.h" />
+    <ClInclude Include="C:\OpenSciTech\code\mp3code\tableawd.h" />
+    <ClInclude Include="C:\OpenSciTech\code\rd-common\mdx_format.h" />
+    <ClInclude Include="C:\OpenSciTech\code\rd-common\tr_public.h" />
+    <ClInclude Include="C:\OpenSciTech\code\rd-common\tr_types.h" />
+    <ClCompile Include="C:\OpenSciTech\code\ui\ui_atoms.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\ui\ui_connect.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\ui\ui_main.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\ui\ui_saber.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\ui\ui_shared.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\code\ui\ui_syscalls.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\code\ui\gameinfo.h" />
+    <ClInclude Include="C:\OpenSciTech\code\ui\menudef.h" />
+    <ClInclude Include="C:\OpenSciTech\code\ui\ui_local.h" />
+    <ClInclude Include="C:\OpenSciTech\code\ui\ui_public.h" />
+    <ClInclude Include="C:\OpenSciTech\code\ui\ui_shared.h" />
+    <ClInclude Include="C:\OpenSciTech\code\ghoul2\G2.h" />
+    <ClInclude Include="C:\OpenSciTech\code\ghoul2\ghoul2_gore.h" />
+    <ClInclude Include="C:\OpenSciTech\code\cgame\cg_public.h" />
+    <ClInclude Include="C:\OpenSciTech\code\cgame\animtable.h" />
+    <ClInclude Include="C:\OpenSciTech\code\win32\resource.h" />
+    <ResourceCompile Include="C:\OpenSciTech\code\win32\winquake.rc"  />
+    <ClCompile Include="C:\OpenSciTech\shared\sys\sys_main.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\shared\sys\sys_event.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\shared\sys\sys_local.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\sys\sys_public.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\sys\sys_loadlib.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\sys\con_local.h" />
+    <ClCompile Include="C:\OpenSciTech\shared\sys\con_log.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\shared\sdl\sdl_qgl.h" />
+    <ClCompile Include="C:\OpenSciTech\shared\sdl\sdl_sound.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\shared\sdl\sdl_input.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\shared\sdl\sdl_window.cpp"  />
+    <ClInclude Include="C:\OpenSciTech\shared\sdl\sdl_icon.h" />
+    <ClCompile Include="C:\OpenSciTech\shared\sys\sys_win32.cpp"  />
+    <ClCompile Include="C:\OpenSciTech\shared\sys\con_passive.cpp"  />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\XycaRend2\build\ZERO_CHECK.vcxproj">
+    <ProjectReference Include="C:\OpenSciTech\build\ZERO_CHECK.vcxproj">
       <Project>{A9FA2F9A-DFB7-30BC-8A34-97427C85E75C}</Project>
       <Name>ZERO_CHECK</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\XycaRend2\build\lib\minizip\bundled_minizip.vcxproj">
+    <ProjectReference Include="C:\OpenSciTech\build\lib\minizip\bundled_minizip.vcxproj">
       <Project>{CC776DAF-DBC0-320D-9C43-3BE2F7B3CAE8}</Project>
       <Name>bundled_minizip</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\XycaRend2\build\lib\zlib\bundled_zlib.vcxproj">
+    <ProjectReference Include="C:\OpenSciTech\build\lib\zlib\bundled_zlib.vcxproj">
       <Project>{B58BEC2B-E4A4-376D-9C62-F87FDF353067}</Project>
       <Name>bundled_zlib</Name>
     </ProjectReference>

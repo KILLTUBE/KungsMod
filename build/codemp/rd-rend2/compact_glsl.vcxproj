@@ -56,25 +56,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\OpenSciTech\build\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">compact_glsl.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">compact_glsl</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\OpenSciTech\build\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">compact_glsl.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">compact_glsl</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\OpenSciTech\build\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">compact_glsl.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">compact_glsl</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\OpenSciTech\build\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">compact_glsl.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">compact_glsl</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
@@ -83,7 +83,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\codemp;C:\OpenSciTech\codemp\rd-rend2;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -102,10 +102,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;GLSL_BUILDTOOL;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\codemp;C:\OpenSciTech\codemp\rd-rend2;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\codemp;C:\OpenSciTech\codemp\rd-rend2;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -118,8 +118,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/XycaRend2/build/codemp/rd-rend2/Debug/compact_glsl.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/XycaRend2/build/Debug/compact_glsl.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/OpenSciTech/build/codemp/rd-rend2/Debug/compact_glsl.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/OpenSciTech/build/Debug/compact_glsl.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
       <Version>
       </Version>
@@ -130,7 +130,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\codemp;C:\OpenSciTech\codemp\rd-rend2;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
@@ -149,10 +149,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;GLSL_BUILDTOOL;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\codemp;C:\OpenSciTech\codemp\rd-rend2;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\codemp;C:\OpenSciTech\codemp\rd-rend2;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -165,8 +165,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/XycaRend2/build/codemp/rd-rend2/Release/compact_glsl.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/XycaRend2/build/Release/compact_glsl.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/OpenSciTech/build/codemp/rd-rend2/Release/compact_glsl.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/OpenSciTech/build/Release/compact_glsl.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
       <Version>
       </Version>
@@ -177,7 +177,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\codemp;C:\OpenSciTech\codemp\rd-rend2;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
@@ -196,10 +196,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;GLSL_BUILDTOOL;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\codemp;C:\OpenSciTech\codemp\rd-rend2;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\codemp;C:\OpenSciTech\codemp\rd-rend2;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -212,8 +212,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/XycaRend2/build/codemp/rd-rend2/MinSizeRel/compact_glsl.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/XycaRend2/build/MinSizeRel/compact_glsl.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/OpenSciTech/build/codemp/rd-rend2/MinSizeRel/compact_glsl.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/OpenSciTech/build/MinSizeRel/compact_glsl.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
       <Version>
       </Version>
@@ -224,7 +224,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\codemp;C:\OpenSciTech\codemp\rd-rend2;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -242,10 +242,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;GLSL_BUILDTOOL;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\codemp;C:\OpenSciTech\codemp\rd-rend2;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\XycaRend2\shared;C:\XycaRend2\codemp;C:\XycaRend2\codemp\rd-rend2;C:\XycaRend2\lib\gsl-lite\include;C:\XycaRend2\lib\jpeg-9a\include;C:\XycaRend2\lib\libpng\include;C:\XycaRend2\lib\zlib\include;C:\XycaRend2\lib\minizip\include;C:\XycaRend2\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenSciTech\shared;C:\OpenSciTech\codemp;C:\OpenSciTech\codemp\rd-rend2;C:\OpenSciTech\lib\gsl-lite\include;C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;C:\OpenSciTech\lib\zlib\include;C:\OpenSciTech\lib\minizip\include;C:\OpenSciTech\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -258,8 +258,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/XycaRend2/build/codemp/rd-rend2/RelWithDebInfo/compact_glsl.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/XycaRend2/build/RelWithDebInfo/compact_glsl.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/OpenSciTech/build/codemp/rd-rend2/RelWithDebInfo/compact_glsl.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/OpenSciTech/build/RelWithDebInfo/compact_glsl.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
       <Version>
       </Version>
@@ -269,10 +269,10 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt</Message>
+    <CustomBuild Include="C:\OpenSciTech\codemp\rd-rend2\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/OpenSciTech/codemp/rd-rend2/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/rd-rend2/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/codemp/rd-rend2/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -280,12 +280,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\codemp\rd-rend2\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/OpenSciTech/codemp/rd-rend2/CMakeLists.txt;C:\OpenSciTech\codemp\rd-rend2\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\OpenSciTech\codemp\rd-rend2\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\OpenSciTech\build\codemp\rd-rend2\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/OpenSciTech/codemp/rd-rend2/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/rd-rend2/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/codemp/rd-rend2/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -293,12 +293,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\codemp\rd-rend2\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/OpenSciTech/codemp/rd-rend2/CMakeLists.txt;C:\OpenSciTech\codemp\rd-rend2\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\OpenSciTech\codemp\rd-rend2\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\OpenSciTech\build\codemp\rd-rend2\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/OpenSciTech/codemp/rd-rend2/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/rd-rend2/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/codemp/rd-rend2/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -306,12 +306,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\codemp\rd-rend2\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/OpenSciTech/codemp/rd-rend2/CMakeLists.txt;C:\OpenSciTech\codemp\rd-rend2\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\OpenSciTech\codemp\rd-rend2\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\OpenSciTech\build\codemp\rd-rend2\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/OpenSciTech/codemp/rd-rend2/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/rd-rend2/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/codemp/rd-rend2/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -319,16 +319,16 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/XycaRend2/codemp/rd-rend2/CMakeLists.txt;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\codemp\rd-rend2\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/OpenSciTech/codemp/rd-rend2/CMakeLists.txt;C:\OpenSciTech\codemp\rd-rend2\CMakeLists.txt;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindOpenGL.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageHandleStandardArgs.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\FindPackageMessage.cmake;C:\OpenSciTech\codemp\rd-rend2\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\OpenSciTech\build\codemp\rd-rend2\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\glsl\compact.cpp" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_allocator.cpp" />
-    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_allocator.h" />
-    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_glsl_parse.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-rend2\glsl\compact.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-rend2\tr_allocator.cpp" />
+    <ClInclude Include="C:\OpenSciTech\codemp\rd-rend2\tr_allocator.h" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-rend2\tr_glsl_parse.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -248,9 +248,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="botlib">
       <UniqueIdentifier>{6DC137B8-188D-34B5-BE18-E4E18DA9E527}</UniqueIdentifier>
     </Filter>

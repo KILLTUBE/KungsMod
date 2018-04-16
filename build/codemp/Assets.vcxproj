@@ -102,10 +102,10 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/XycaRend2/codemp/CMakeLists.txt</Message>
+    <CustomBuild Include="C:\OpenSciTech\codemp\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/OpenSciTech/codemp/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/codemp/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -113,12 +113,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/XycaRend2/codemp/CMakeLists.txt;C:\XycaRend2\codemp\CMakeLists.txt;C:\XycaRend2\CMakeModules\InstallZIP.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\CMakeParseArguments.cmake;C:\XycaRend2\codemp\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\codemp\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/OpenSciTech/codemp/CMakeLists.txt;C:\OpenSciTech\codemp\CMakeLists.txt;C:\OpenSciTech\CMakeModules\InstallZIP.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\CMakeParseArguments.cmake;C:\OpenSciTech\codemp\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\OpenSciTech\build\codemp\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/XycaRend2/codemp/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/OpenSciTech/codemp/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/codemp/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -126,12 +126,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/XycaRend2/codemp/CMakeLists.txt;C:\XycaRend2\codemp\CMakeLists.txt;C:\XycaRend2\CMakeModules\InstallZIP.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\CMakeParseArguments.cmake;C:\XycaRend2\codemp\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\codemp\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/OpenSciTech/codemp/CMakeLists.txt;C:\OpenSciTech\codemp\CMakeLists.txt;C:\OpenSciTech\CMakeModules\InstallZIP.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\CMakeParseArguments.cmake;C:\OpenSciTech\codemp\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\OpenSciTech\build\codemp\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/XycaRend2/codemp/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/OpenSciTech/codemp/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/codemp/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -139,12 +139,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/XycaRend2/codemp/CMakeLists.txt;C:\XycaRend2\codemp\CMakeLists.txt;C:\XycaRend2\CMakeModules\InstallZIP.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\CMakeParseArguments.cmake;C:\XycaRend2\codemp\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\codemp\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/OpenSciTech/codemp/CMakeLists.txt;C:\OpenSciTech\codemp\CMakeLists.txt;C:\OpenSciTech\CMakeModules\InstallZIP.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\CMakeParseArguments.cmake;C:\OpenSciTech\codemp\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\OpenSciTech\build\codemp\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/XycaRend2/codemp/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/OpenSciTech/codemp/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/XycaRend2 -BC:/XycaRend2/build --check-stamp-file C:/XycaRend2/build/codemp/CMakeFiles/generate.stamp
+C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/codemp/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -152,16 +152,16 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/XycaRend2/codemp/CMakeLists.txt;C:\XycaRend2\codemp\CMakeLists.txt;C:\XycaRend2\CMakeModules\InstallZIP.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\CMakeParseArguments.cmake;C:\XycaRend2\codemp\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\codemp\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/OpenSciTech/codemp/CMakeLists.txt;C:\OpenSciTech\codemp\CMakeLists.txt;C:\OpenSciTech\CMakeModules\InstallZIP.cmake;C:\cmake-3.9.4-win64-x64\share\cmake-3.9\Modules\CMakeParseArguments.cmake;C:\OpenSciTech\codemp\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\OpenSciTech\build\codemp\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\XycaRend2\build\CMakeFiles\29293bd3f75ffe8b00e19163ed53c95c\openjk-x86.pk3.rule">
+    <CustomBuild Include="C:\OpenSciTech\build\CMakeFiles\29293bd3f75ffe8b00e19163ed53c95c\openjk-x86.pk3.rule">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating openjk-x86.pk3</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
-"C:\Program Files\7-Zip\7z.exe" a -tzip openjk-x86.pk3 C:/XycaRend2/build/$(Configuration)/jampgamex86.dll C:/XycaRend2/build/$(Configuration)/cgamex86.dll C:/XycaRend2/build/$(Configuration)/uix86.dll
+"C:\Program Files\7-Zip\7z.exe" a -tzip openjk-x86.pk3 C:/OpenSciTech/build/$(Configuration)/jampgamex86.dll C:/OpenSciTech/build/$(Configuration)/cgamex86.dll C:/OpenSciTech/build/$(Configuration)/uix86.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -169,12 +169,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/XycaRend2/build/CMakeFiles/29293bd3f75ffe8b00e19163ed53c95c/openjk-x86.pk3.rule;C:\XycaRend2\build\Debug\jampgamex86.dll;C:\XycaRend2\build\Debug\cgamex86.dll;C:\XycaRend2\build\Debug\uix86.dll;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\codemp\openjk-x86.pk3</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/OpenSciTech/build/CMakeFiles/29293bd3f75ffe8b00e19163ed53c95c/openjk-x86.pk3.rule;C:\OpenSciTech\build\Debug\jampgamex86.dll;C:\OpenSciTech\build\Debug\cgamex86.dll;C:\OpenSciTech\build\Debug\uix86.dll;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\OpenSciTech\build\codemp\openjk-x86.pk3</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating openjk-x86.pk3</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
-"C:\Program Files\7-Zip\7z.exe" a -tzip openjk-x86.pk3 C:/XycaRend2/build/$(Configuration)/jampgamex86.dll C:/XycaRend2/build/$(Configuration)/cgamex86.dll C:/XycaRend2/build/$(Configuration)/uix86.dll
+"C:\Program Files\7-Zip\7z.exe" a -tzip openjk-x86.pk3 C:/OpenSciTech/build/$(Configuration)/jampgamex86.dll C:/OpenSciTech/build/$(Configuration)/cgamex86.dll C:/OpenSciTech/build/$(Configuration)/uix86.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -182,12 +182,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/XycaRend2/build/CMakeFiles/29293bd3f75ffe8b00e19163ed53c95c/openjk-x86.pk3.rule;C:\XycaRend2\build\Release\jampgamex86.dll;C:\XycaRend2\build\Release\cgamex86.dll;C:\XycaRend2\build\Release\uix86.dll;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\codemp\openjk-x86.pk3</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/OpenSciTech/build/CMakeFiles/29293bd3f75ffe8b00e19163ed53c95c/openjk-x86.pk3.rule;C:\OpenSciTech\build\Release\jampgamex86.dll;C:\OpenSciTech\build\Release\cgamex86.dll;C:\OpenSciTech\build\Release\uix86.dll;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\OpenSciTech\build\codemp\openjk-x86.pk3</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Generating openjk-x86.pk3</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
-"C:\Program Files\7-Zip\7z.exe" a -tzip openjk-x86.pk3 C:/XycaRend2/build/$(Configuration)/jampgamex86.dll C:/XycaRend2/build/$(Configuration)/cgamex86.dll C:/XycaRend2/build/$(Configuration)/uix86.dll
+"C:\Program Files\7-Zip\7z.exe" a -tzip openjk-x86.pk3 C:/OpenSciTech/build/$(Configuration)/jampgamex86.dll C:/OpenSciTech/build/$(Configuration)/cgamex86.dll C:/OpenSciTech/build/$(Configuration)/uix86.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -195,12 +195,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/XycaRend2/build/CMakeFiles/29293bd3f75ffe8b00e19163ed53c95c/openjk-x86.pk3.rule;C:\XycaRend2\build\MinSizeRel\jampgamex86.dll;C:\XycaRend2\build\MinSizeRel\cgamex86.dll;C:\XycaRend2\build\MinSizeRel\uix86.dll;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\codemp\openjk-x86.pk3</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/OpenSciTech/build/CMakeFiles/29293bd3f75ffe8b00e19163ed53c95c/openjk-x86.pk3.rule;C:\OpenSciTech\build\MinSizeRel\jampgamex86.dll;C:\OpenSciTech\build\MinSizeRel\cgamex86.dll;C:\OpenSciTech\build\MinSizeRel\uix86.dll;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\OpenSciTech\build\codemp\openjk-x86.pk3</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Generating openjk-x86.pk3</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
-"C:\Program Files\7-Zip\7z.exe" a -tzip openjk-x86.pk3 C:/XycaRend2/build/$(Configuration)/jampgamex86.dll C:/XycaRend2/build/$(Configuration)/cgamex86.dll C:/XycaRend2/build/$(Configuration)/uix86.dll
+"C:\Program Files\7-Zip\7z.exe" a -tzip openjk-x86.pk3 C:/OpenSciTech/build/$(Configuration)/jampgamex86.dll C:/OpenSciTech/build/$(Configuration)/cgamex86.dll C:/OpenSciTech/build/$(Configuration)/uix86.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -208,13 +208,13 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/XycaRend2/build/CMakeFiles/29293bd3f75ffe8b00e19163ed53c95c/openjk-x86.pk3.rule;C:\XycaRend2\build\RelWithDebInfo\jampgamex86.dll;C:\XycaRend2\build\RelWithDebInfo\cgamex86.dll;C:\XycaRend2\build\RelWithDebInfo\uix86.dll;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\codemp\openjk-x86.pk3</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/OpenSciTech/build/CMakeFiles/29293bd3f75ffe8b00e19163ed53c95c/openjk-x86.pk3.rule;C:\OpenSciTech\build\RelWithDebInfo\jampgamex86.dll;C:\OpenSciTech\build\RelWithDebInfo\cgamex86.dll;C:\OpenSciTech\build\RelWithDebInfo\uix86.dll;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\OpenSciTech\build\codemp\openjk-x86.pk3</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\XycaRend2\build\CMakeFiles\fb11ffa44094ec2711b20e5d34891fae\Assets.rule">
+    <CustomBuild Include="C:\OpenSciTech\build\CMakeFiles\fb11ffa44094ec2711b20e5d34891fae\Assets.rule">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
@@ -224,8 +224,8 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/XycaRend2/build/CMakeFiles/fb11ffa44094ec2711b20e5d34891fae/Assets.rule;C:\XycaRend2\build\codemp\openjk-x86.pk3;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\XycaRend2\build\codemp\CMakeFiles\Assets</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/OpenSciTech/build/CMakeFiles/fb11ffa44094ec2711b20e5d34891fae/Assets.rule;C:\OpenSciTech\build\codemp\openjk-x86.pk3;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\OpenSciTech\build\codemp\CMakeFiles\Assets</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Message>
@@ -236,8 +236,8 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/XycaRend2/build/CMakeFiles/fb11ffa44094ec2711b20e5d34891fae/Assets.rule;C:\XycaRend2\build\codemp\openjk-x86.pk3;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\XycaRend2\build\codemp\CMakeFiles\Assets</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/OpenSciTech/build/CMakeFiles/fb11ffa44094ec2711b20e5d34891fae/Assets.rule;C:\OpenSciTech\build\codemp\openjk-x86.pk3;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\OpenSciTech\build\codemp\CMakeFiles\Assets</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
       </Message>
@@ -248,8 +248,8 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/XycaRend2/build/CMakeFiles/fb11ffa44094ec2711b20e5d34891fae/Assets.rule;C:\XycaRend2\build\codemp\openjk-x86.pk3;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\XycaRend2\build\codemp\CMakeFiles\Assets</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/OpenSciTech/build/CMakeFiles/fb11ffa44094ec2711b20e5d34891fae/Assets.rule;C:\OpenSciTech\build\codemp\openjk-x86.pk3;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\OpenSciTech\build\codemp\CMakeFiles\Assets</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
       </Message>
@@ -260,13 +260,13 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/XycaRend2/build/CMakeFiles/fb11ffa44094ec2711b20e5d34891fae/Assets.rule;C:\XycaRend2\build\codemp\openjk-x86.pk3;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\XycaRend2\build\codemp\CMakeFiles\Assets</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/OpenSciTech/build/CMakeFiles/fb11ffa44094ec2711b20e5d34891fae/Assets.rule;C:\OpenSciTech\build\codemp\openjk-x86.pk3;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\OpenSciTech\build\codemp\CMakeFiles\Assets</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\XycaRend2\build\codemp\CMakeFiles\Assets" />
+    <None Include="C:\OpenSciTech\build\codemp\CMakeFiles\Assets" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
