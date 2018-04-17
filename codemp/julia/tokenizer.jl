@@ -27,11 +27,13 @@ type TokenStatic             <: Token             end # static
 type TokenConst              <: Token             end # const
 type TokenInclude            <: Token             end # include
 type TokenDefine             <: Token             end # define
+type TokenUndef              <: Token             end # undef
 type TokenTypedef            <: Token             end # typedef
 type TokenStruct             <: Token             end # struct
 type TokenIf                 <: Token             end # if
 type TokenElseIf             <: Token             end # elseif
 type TokenElse               <: Token             end # else
+type TokenNewline            <: Token             end # \n
 type TokenEnd                <: Token             end # just a meta token so we know we iterated over all tokens
 
 type Tokenizer
@@ -99,6 +101,10 @@ function pushIdentifier(tokenizer::Tokenizer, str::String)
 	end
 	if str == "define"
 		push!(tokenizer.tokens, TokenDefine())
+		return
+	end
+	if str == "undef"
+		push!(tokenizer.tokens, TokenUndef())
 		return
 	end
 	if str == "typedef"
@@ -263,11 +269,21 @@ function step(tokenizer::Tokenizer)
 	elseif cc == '}'
 		push!(tokenizer.tokens, TokenCurlyBracketClose())
 	elseif cc == '#'
-		push!(tokenizer.tokens, TokenHash())
+		#push!(tokenizer.tokens, TokenHash())
+		# oh well, fuck it, those #define #undef #include etc. fuck up the token steam
+		# there is no syntax to them, besides writing an interpreter for it i guess, which i dont want to do right now
+		# so atm i just wanna parse C stuff, dont need the preprocessor tokens, just skip to end of line:
+		advanceTill(tokenizer, '\n')
 	elseif cc == '?'
 		push!(tokenizer.tokens, TokenQuestionMark())
 	elseif iswhitespace(cc)
-		# just ignore
+		# just ignore, but add token for \n
+		
+		# this was kinda just a hack to get to end of preprocessor directives, but just removing them from token stream now
+		# the newline tokens cause too many troubles, i cant simply parser.i += 1 anymore
+		#if cc == '\n'
+		#	push!(tokenizer.tokens, TokenNewline())
+		#end
 	else
 		print("idk what to do with: $cc at ", tokenizer.i ,"\n")
 	end	

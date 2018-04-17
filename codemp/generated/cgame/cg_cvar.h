@@ -1,5 +1,5 @@
-static void CG_SVRunningChangeunnamed();
-static void CG_ForceModelChangeunnamed();
-static void CG_TeamOverlayChangeunnamed();
-XCVAR_DECL voidunnamed();
-void CG_UpdateCvarsunnamed();
+static void CG_SVRunningChange();
+static void CG_ForceModelChange();
+static void CG_TeamOverlayChange();
+void CG_RegisterCvars();
+void CG_UpdateCvars();

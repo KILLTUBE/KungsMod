@@ -98,7 +98,7 @@ end
 function readType(parser::Parser)
 	curTok = currentToken(parser)
 	
-	if isStruct(curTok)
+	if typeof(curTok) <: TokenStruct
 	
 		#print("readType> got a struct...\n")
 		
@@ -207,6 +207,8 @@ function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
 			metaVar.numPointer += 1
 		elseif isOpStarStar(token)
 			metaVar.numPointer += 2
+		elseif typeof(token) <: TokenNewline
+			# ignore
 		else
 			println("rekt in parseMetaTypeFromTo ", token)
 			debugPos(parser, Int32(pos))
@@ -224,7 +226,8 @@ function parseFunctionArguments(parser::Parser, metaFunction::MetaFunction, from
 	# a function should contain zero or at least 2 tokens (type + name)
 	# a special case is this void bullshit: int main(void)
 	# but whatever, below 2 tokens = just ignore tokens between (...)
-	if numTokens < 2
+	# actually check <1, because from=4, to=5 are 2 tokens
+	if numTokens < 1
 		return
 	end
 	
@@ -455,6 +458,16 @@ function getFirstPosOfEitherTokenTypes(parser::Parser, a::DataType, b::DataType,
 	return -1
 end
 
+function advanceTill(parser::Parser, tokentype::DataType)
+	while parser.i <= length(parser.tokens)
+		if typeof(parser.tokens[ parser.i ]) == tokentype
+			return true
+		end
+		parser.i += 1
+	end
+	return false
+end
+
 function run(parser::Parser)
 	# implying there is a token... todo: make TokenStart
 	token = parser.tokens[1]
@@ -501,13 +514,16 @@ function run(parser::Parser)
 					metaVar = readGlobalVar(parser)
 					push!( parser.globalVars, metaVar)
 				end
-			end			
+			end
 		elseif typeof(token) <: TokenHash
 			includeOrDefineToken = advance(parser)
 			
 			if typeof(includeOrDefineToken) <: TokenDefine
-				advance(parser) # skip define name
-				advance(parser) # skip define value
+				#advance(parser) # skip define name
+				#advance(parser) # skip define value
+				advanceTill(parser, TokenNewline)
+			elseif typeof(includeOrDefineToken) <: TokenUndef
+				advanceTill(parser, TokenNewline)
 			elseif typeof(includeOrDefineToken) <: TokenInclude
 				advance(parser) # skip TokenString
 			else
@@ -516,6 +532,8 @@ function run(parser::Parser)
 			end
 			
 			#parser.i += 2 # just skip #include "bla"
+		elseif typeof(token) <: TokenNewline
+			# just used to skip #define stuff, because it can any amount of "args"
 		else
 			print("idk what todo with: ", token, "\n")
 		end

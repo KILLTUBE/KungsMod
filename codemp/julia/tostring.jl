@@ -46,7 +46,7 @@ function tostring(parser::Parser, metaVar::MetaVar)
 end
 
 function tostring(parser::Parser, metaFunction::MetaFunction)
-	ret = tostring(parser, metaFunction.metaVar) * metaFunction.name
+	ret = tostring(parser, metaFunction.metaVar) # * metaFunction.name
 	
 	if length(metaFunction.args) > 0
 		ret *= "( "
