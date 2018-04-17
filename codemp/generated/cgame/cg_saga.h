@@ -1,0 +1,13 @@
+void CG_PrecacheSiegeObjectiveAssetsForTeam( int myTeam );
+void CG_PrecachePlayersForSiegeTeam( int team );
+void CG_InitSiegeMode();
+QINLINE static char *CG_SiegeObjectiveBuffer( int team, int objective );
+void CG_ParseSiegeObjectiveStatus( const char *str );
+void CG_SiegeRoundOver( centity_t *ent, int won );
+void CG_SiegeGetObjectiveDescription( int team, int objective, char *buffer );
+int CG_SiegeGetObjectiveFinal( int team, int objective );
+void CG_SiegeBriefingDisplay( int team, int dontshow );
+void CG_SiegeObjectiveCompleted( centity_t *ent, int won, int objectivenum );
+void CG_ParseSiegeExtendedDataEntry( const char *conStr );
+void CG_ParseSiegeExtendedData();
+void CG_SetSiegeTimerCvar( int msec );

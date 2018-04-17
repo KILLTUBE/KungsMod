@@ -1,7 +1,7 @@
 void CG_BubbleTrail( vec3_t start, vec3_t end, float spacing );
 localEntity_t *CG_SmokePuff( const vec3_t p, const vec3_t vel, float radius, float r, float g, float b, float a, float duration, int startTime, int fadeInTime, int leFlags, qhandle_t hShader );
 int CGDEBUG_SaberColor( int saberColor );
-void CG_TestLine( vec3_t start, vec3_t end, int time, int color, int radius );
+void CG_TestLine( vec3_t start, vec3_t end, int time, unsigned int color, int radius );
 static void CG_DoGlassQuad( vec3_t p[4], vec2_t uv[4], qboolean stick, int time, vec3_t dmgDir );
 static void CG_CalcBiLerp( vec3_t verts[4], vec3_t subVerts[4], vec2_t uv[4] );
 static void CG_CalcHeightWidth( vec3_t verts[4], float *height, float *width );

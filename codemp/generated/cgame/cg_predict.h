@@ -1,0 +1,15 @@
+QINLINE static qboolean CG_Piloting( int vehNum );
+void CG_BuildSolidList();
+QINLINE static qboolean CG_VehicleClipCheck( centity_t *ignored, trace_t *trace );
+static void CG_ClipMoveToEntities( const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int skipNumber, int mask, trace_t *tr, qboolean g2Check );
+void CG_Trace( trace_t *result, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int skipNumber, int mask );
+void CG_G2Trace( trace_t *result, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int skipNumber, int mask );
+int CG_PointContents( const vec3_t point, int passEntityNum );
+static void CG_InterpolatePlayerState( qboolean grabAngles );
+static void CG_InterpolateVehiclePlayerState( qboolean grabAngles );
+static void CG_TouchItem( centity_t *cent );
+static void CG_TouchTriggerPrediction();
+QINLINE static void CG_EntityStateToPlayerState( entityState_t *s, playerState_t *ps );
+void CG_PmoveClientPointerUpdate();
+qboolean CG_UsingEWeb();
+void CG_PredictPlayerState();

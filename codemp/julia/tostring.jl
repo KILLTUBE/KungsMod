@@ -19,11 +19,26 @@ import Glob
 function tostring(parser::Parser, metaVar::MetaVar)
 	ret = ""
 	
+	if metaVar.isExtern
+		ret *= "extern "
+	end
+	if metaVar.isEXTERNC
+		ret *= "EXTERNC "
+	end
+	if metaVar.isCCALL
+		ret *= "CCALL "
+	end
+	if metaVar.isQINLINE
+		ret *= "QINLINE "
+	end
 	if metaVar.isConst
 		ret *= "const "
 	end
 	if metaVar.isStatic
 		ret *= "static "
+	end
+	if metaVar.isUnsigned
+		ret *= "unsigned "
 	end
 	if metaVar.isStruct
 		ret *= "struct "

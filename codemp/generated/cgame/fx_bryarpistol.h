@@ -1,0 +1,13 @@
+void FX_BryarProjectileThink( centity_t *cent, const struct weaponInfo_s *weapon );
+void FX_BryarHitWall( vec3_t origin, vec3_t normal );
+void FX_BryarHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+void FX_BryarAltProjectileThink( centity_t *cent, const struct weaponInfo_s *weapon );
+void FX_BryarAltHitWall( vec3_t origin, vec3_t normal, int power );
+void FX_BryarAltHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+void FX_TurretProjectileThink( centity_t *cent, const struct weaponInfo_s *weapon );
+void FX_TurretHitWall( vec3_t origin, vec3_t normal );
+void FX_TurretHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+void FX_ConcussionHitWall( vec3_t origin, vec3_t normal );
+void FX_ConcussionHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+void FX_ConcussionProjectileThink( centity_t *cent, const struct weaponInfo_s *weapon );
+void FX_ConcAltShot( vec3_t start, vec3_t end );

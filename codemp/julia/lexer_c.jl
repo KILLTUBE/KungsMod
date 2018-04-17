@@ -529,7 +529,12 @@ function run(parser::Parser)
 				advance(parser) # curly brace
 				advanceTill(parser, TokenSemicolon) # just skip atm idc
 			elseif typeof(structOrEnum) <: TokenStruct
-				gotType = readType(parser)
+				#gotType = readType(parser)
+				# readType is shitty atm, its not using a ; iterator yet the the function to read variables from/to
+				
+				advanceTill(parser, TokenCurlyBracketClose) # just skip atm idc
+				advanceTill(parser, TokenSemicolon) # just skip atm idc
+			
 				#print("gotType: ", gotType, "\n")
 				#ident = token.str
 				#print("ident: $ident\n")
