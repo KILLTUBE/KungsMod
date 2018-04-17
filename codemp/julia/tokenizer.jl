@@ -33,6 +33,9 @@ type TokenStruct             <: Token             end # struct
 type TokenIf                 <: Token             end # if
 type TokenElseIf             <: Token             end # elseif
 type TokenElse               <: Token             end # else
+type TokenExtern             <: Token             end # extern
+type TokenEXTERNC            <: Token             end # EXTERNC
+type TokenCCALL              <: Token             end # CCALL
 type TokenNewline            <: Token             end # \n
 type TokenEnd                <: Token             end # just a meta token so we know we iterated over all tokens
 
@@ -125,6 +128,18 @@ function pushIdentifier(tokenizer::Tokenizer, str::String)
 	end
 	if str == "else"
 		push!(tokenizer.tokens, TokenElse())
+		return
+	end
+	if str == "extern"
+		push!(tokenizer.tokens, TokenExtern())
+		return
+	end
+	if str == "EXTERNC"
+		push!(tokenizer.tokens, TokenEXTERNC())
+		return
+	end
+	if str == "CCALL"
+		push!(tokenizer.tokens, TokenCCALL())
 		return
 	end
 	push!(tokenizer.tokens, TokenIdentifier(str))

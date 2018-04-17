@@ -14,11 +14,14 @@ type MetaVar
 	isConst::Bool
 	isStatic::Bool
 	isStruct::Bool
+	isExtern::Bool # extern
+	isEXTERNC::Bool # EXTERNC
+	isCCALL::Bool # CCALL
 	numPointer::Int32 # 0 is "int foo"    1 is "int *foo"    2 is "int **foo"    etc.
 	dimensionA_startTokenPos::Int32 # -1 if no dimension
 	dimensionB_startTokenPos::Int32 # -1 if no dimension
 	function MetaVar()
-		new("", "", false, false, false, 0, -1, -1)
+		new("", "", false, false, false, false, false, false, 0, -1, -1)
 	end
 end
 
@@ -199,6 +202,12 @@ function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
 			metaVar.isConst = true
 		elseif typeof(token) <: TokenStruct
 			metaVar.isStruct = true
+		elseif typeof(token) <: TokenExtern
+			metaVar.isExtern = true
+		elseif typeof(token) <: TokenEXTERNC
+			metaVar.isEXTERNC = true
+		elseif typeof(token) <: TokenCCALL
+			metaVar.isCCALL = true
 		elseif typeof(token) <: TokenSquareBracketOpen
 			metaVar.dimensionA_startTokenPos = pos + 1
 			pos += 1 # pos at token inside [...] (todo: could be more than one, should seek to ]
@@ -418,7 +427,7 @@ function readGlobalVar(parser::Parser)
 
 	from = parser.i
 	to = namePos - 1
-	#println("parseMetaTypeFromTo(parser, $metaVar, $from, $to)", parser.tokens[from], parser.tokens[to])
+	#println("parseMetaTypeFromTo(parser, $metaVar, $from, $to)", parser.tokens[from], parser.tokens[beforeAssign])
 	parseMetaTypeFromTo(parser, metaVar, from, beforeAssign)
 	
 	# todo: iterate over the "const static int **" and collect the infos in metaVar
@@ -486,21 +495,32 @@ function run(parser::Parser)
 			advance(parser)
 			gotType = readType(parser)
 			#print("gotType: ", gotType, "\n")
-			ident = token.str
+			#ident = token.str
 			#print("ident: $ident\n")
-		elseif typeof(token) <: TokenStatic || typeof(token) <: TokenConst || typeof(token) <: TokenIdentifier
+		elseif (
+			typeof(token) <: TokenStatic     ||
+			typeof(token) <: TokenConst      ||
+			typeof(token) <: TokenExtern     ||
+			typeof(token) <: TokenEXTERNC    ||
+			typeof(token) <: TokenCCALL      ||
+			typeof(token) <: TokenIdentifier
+		)
 			# here we have either a global var, a function or a function prototype
 			# int foo;
 			# int foo();
 			# int foo() {}
 			# so we look ahead to TokenSemicolon and TokenBracketOpen, to differentiate var/func first
-			firstPos = getFirstPosOfEitherTokenTypes(parser, TokenSemicolon, TokenBracketOpen, TokenCurlyBracketOpen)
+			firstPos = getFirstPosOfEitherTokenTypes(parser, TokenSemicolon, TokenBracketOpen, TokenAssign)
 			if firstPos == -1
 				println("halp firstPos == -1")
 			else
 				# if firstPos token is a semicolon it should be a global var
 				# a ( or ;, it should 
-				if typeof(parser.tokens[ firstPos ]) <: TokenBracketOpen
+				if typeof(parser.tokens[ firstPos ]) <: TokenAssign
+					#this is the case for stuff like: int numCommands = ARRAY_LEN( commands );
+					metaVar = readGlobalVar(parser)
+					push!( parser.globalVars, metaVar)					
+				elseif typeof(parser.tokens[ firstPos ]) <: TokenBracketOpen
 					# func or prototype here
 					
 					# func or prototype

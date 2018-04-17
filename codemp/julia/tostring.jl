@@ -101,13 +101,13 @@ end
 
 
 
-if true
+if false
 	files_cgame = Glob.glob("*.cpp", "C:\\OpenSciTech\\codemp\\cgame\\")
 	for filename in files_cgame
 		generateHeader(filename)
 	end
 else
-	parser = generateHeader("C:\\OpenSciTech\\codemp\\cgame\\cg_effects.cpp")
+	parser = generateHeader("C:\\OpenSciTech\\codemp\\cgame\\cg_event.cpp")
 end
 
 
