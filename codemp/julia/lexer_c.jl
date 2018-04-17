@@ -3,12 +3,6 @@ include("tokenizer.jl")
 
 file_get_contents(name) = String(read(name))
 
-
-content = file_get_contents("C:\\OpenSciTech\\codemp\\cgame\\cg_main.cpp")
-#content = file_get_contents("enums.cpp")
-
-tokens = tokenize(content)
-
 isOpStar(    token::Token) = typeof(token) <: TokenOp         && token.str == "*"        # just for pointer detection
 isOpStarStar(token::Token) = typeof(token) <: TokenOp         && token.str == "**"       # just for pointer detection
 
@@ -147,7 +141,6 @@ end
 pos(parser::Parser) = parser.i
 pos!(parser::Parser, i) = parser.i = Int32(i)
 
-
 function debugPos(parser::Parser, pos::Int32)
 	if (pos > 1)
 		print("prev token pos=$pos> ", parser.tokens[pos - 1], "\n")
@@ -158,11 +151,10 @@ function debugPos(parser::Parser, pos::Int32)
 		print("next token pos=$pos> ", parser.tokens[pos + 1], "\n")
 	end
 end
+
 function debug(parser::Parser)
 	debugPos(parser, parser.i)
 end
-
-parser = Parser(tokens)
 
 function getPosOfNextTokenType(parser::Parser, tokentype)::Int32
 	from = parser.i
@@ -462,6 +454,18 @@ function run(parser::Parser)
 			end
 			
 		elseif typeof(token) <: TokenHash
+			includeOrDefineToken = advance(parser)
+			
+			if typeof(includeOrDefineToken) <: TokenDefine
+				advance(parser) # skip define name
+				advance(parser) # skip define value
+			elseif typeof(includeOrDefineToken) <: TokenInclude
+				advance(parser) # skip TokenString
+			else
+				println("i did not expect this after a TokenHash:")
+				debug(parser)
+			end
+			
 			parser.i += 2 # just skip #include "bla"
 		else
 			print("idk what todo with: ", token, "\n")
@@ -476,9 +480,9 @@ function run(parser::Parser)
 	end
 end
 
-run(parser)
-
-
-
-
-print("hai")
+function parseC(sourcecode::String)::Parser
+	tokens = tokenize(sourcecode)
+	parser = Parser(tokens)
+	run(parser)
+	return parser
+end

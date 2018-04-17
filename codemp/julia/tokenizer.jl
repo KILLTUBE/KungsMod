@@ -25,8 +25,9 @@ type TokenAssign             <: Token             end # =
 type TokenComma              <: Token             end # ,
 type TokenStatic             <: Token             end # static
 type TokenConst              <: Token             end # const
-type TokenTypedef            <: Token             end # typedef
 type TokenInclude            <: Token             end # include
+type TokenDefine             <: Token             end # define
+type TokenTypedef            <: Token             end # typedef
 type TokenStruct             <: Token             end # struct
 type TokenIf                 <: Token             end # if
 type TokenElseIf             <: Token             end # elseif
@@ -96,12 +97,12 @@ function pushIdentifier(tokenizer::Tokenizer, str::String)
 		push!(tokenizer.tokens, TokenInclude())
 		return
 	end
-	if str == "typedef"
-		push!(tokenizer.tokens, TokenTypedef())
+	if str == "define"
+		push!(tokenizer.tokens, TokenDefine())
 		return
 	end
-	if str == "include"
-		push!(tokenizer.tokens, TokenInclude())
+	if str == "typedef"
+		push!(tokenizer.tokens, TokenTypedef())
 		return
 	end
 	if str == "struct"
