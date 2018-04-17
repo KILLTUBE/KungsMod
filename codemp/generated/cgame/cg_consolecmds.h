@@ -1,0 +1,17 @@
+void CG_TargetCommand_funnamed();
+static void CG_SizeUp_funnamed();
+static void CG_SizeDown_funnamed();
+static void CG_Viewpos_funnamed();
+static void CG_ScoresDown_funnamed();
+static void CG_ScoresUp_funnamed();
+void CG_ClientList_funnamed();
+static void CG_TellTarget_funnamed();
+static void CG_TellAttacker_funnamed();
+static void CG_StartOrbit_funnamed();
+static void CG_SiegeBriefing_funnamed();
+static void CG_SiegeCvarUpdate_funnamed();
+static void CG_SiegeCompleteCvarUpdate_funnamed();
+static void CG_LoadHud_funnamed();
+int cmdcmp_cgunnamed( const void *a, const void *b );
+qboolean CG_ConsoleCommandunnamed();
+void CG_InitConsoleCommandsunnamed();

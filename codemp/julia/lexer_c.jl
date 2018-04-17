@@ -174,19 +174,35 @@ function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
 	from = Int32(from)
 	to = Int32(to)
 	
+	countIdentifiers = 0
+	
 	pos = from
 	while pos <= to
 		token = parser.tokens[ pos ]
 		
 		if typeof(token) <: TokenIdentifier
 			#metaVar.vartype = cStringToJuliaType(token.str) # meh do i need this for anything yet? atm just need this to generate nice headers
-			metaVar.typestring = token.str
+			
+			if countIdentifiers == 0
+				# first identifier is always the type
+				metaVar.typestring = token.str
+			elseif countIdentifiers == 1
+				# the second one is the name
+				metaVar.name = token.str
+			else
+				println("Help, already $countIdentifiers identifiers")
+			end
+			countIdentifiers += 1
 		elseif typeof(token) <: TokenStatic
 			metaVar.isStatic = true
 		elseif typeof(token) <: TokenConst
 			metaVar.isConst = true
 		elseif typeof(token) <: TokenStruct
 			metaVar.isStruct = true
+		elseif typeof(token) <: TokenSquareBracketOpen
+			metaVar.dimensionA_startTokenPos = pos + 1
+			pos += 1 # pos at token inside [...] (todo: could be more than one, should seek to ]
+			pos += 1 # pos at ]
 		elseif isOpStar(token)
 			metaVar.numPointer += 1
 		elseif isOpStarStar(token)
@@ -226,8 +242,8 @@ function parseFunctionArguments(parser::Parser, metaFunction::MetaFunction, from
 		
 		#println("($argFrom, $argTo)")
 		metaVar = MetaVar()
-		parseMetaTypeFromTo(parser, metaVar, argFrom, argTo - 1) # -1 because this function only parses stuff like "const int *"
-		metaVar.name = parser.tokens[ argTo ].str # so here we can set the name now, should be a TokenIdentifier
+		parseMetaTypeFromTo(parser, metaVar, argFrom, argTo ) # -1 because this function only parses stuff like "const int *"... not anymore, now it also reads name and [][]
+		#metaVar.name = parser.tokens[ argTo ].str # so here we can set the name now, should be a TokenIdentifier
 		#println("parseMetaTypeFromTo(parser, metaVar, argFrom=$argFrom, argTo=$argTo) ret= ", metaVar)
 		push!( metaFunction.args, metaVar )		
 		
@@ -246,15 +262,15 @@ function readFunction(parser::Parser)::MetaFunction
 	
 	posBracketOpen = getPosOfNextTokenType(parser, TokenBracketOpen)
 	posBracketClose = getPosOfNextTokenType(parser, TokenBracketClose)
-	posFuncName = posBracketOpen - 1 # prob should do checks like it should be a TokenIdentifier
+	#posFuncName = posBracketOpen - 1 # prob should do checks like it should be a TokenIdentifier
 	
 	func = MetaFunction()
-	func.name = parser.tokens[posFuncName].str
+	#func.name = parser.tokens[posFuncName].str
 	
 	parseFunctionArguments(parser, func, posBracketOpen + 1, posBracketClose - 1)
 	
-	# now we can iterate over the "const static int" tokens
-	parseMetaTypeFromTo(parser, func.metaVar, parser.i, posFuncName - 1)
+	# now we can iterate over the "const static int main" tokens
+	parseMetaTypeFromTo(parser, func.metaVar, parser.i, posBracketOpen - 1)
 	
 	
 	# this should either be a TokenCurlyBracketOpen or TokenSemicolon
@@ -293,13 +309,13 @@ function readPrototype(parser::Parser)::MetaPrototype
 	
 	posBracketOpen = getPosOfNextTokenType(parser, TokenBracketOpen)
 	posBracketClose = getPosOfNextTokenType(parser, TokenBracketClose)
-	posFuncName = posBracketOpen - 1 # prob should do checks like it should be a TokenIdentifier
+	#posFuncName = posBracketOpen - 1 # prob should do checks like it should be a TokenIdentifier
 	
 	func = MetaPrototype()
-	func.name = parser.tokens[posFuncName].str
+	#func.name = parser.tokens[posFuncName].str
 	
-	# now we can iterate over the "const static int" tokens
-	parseMetaTypeFromTo(parser, func.metaVar, parser.i, posFuncName - 1)
+	# now we can iterate over the "const static int main" tokens
+	parseMetaTypeFromTo(parser, func.metaVar, parser.i, posBracketOpen - 1)
 	
 	
 	# this should either be a TokenCurlyBracketOpen or TokenSemicolon
@@ -379,28 +395,28 @@ function readGlobalVar(parser::Parser)
 		
 		
 		# oh well, just save the first dimension atm:
-		metaVar.dimensionA_startTokenPos = posSquareBracketOpen + 1
+		#metaVar.dimensionA_startTokenPos = posSquareBracketOpen + 1
 		
 		# check for 2nd dimension
-		posSquareBracketClose = getPosOfNextTokenType(parser, TokenSquareBracketClose)
-		if typeof(parser.tokens[ posSquareBracketClose + 1 ]) <: TokenSquareBracketOpen
-			metaVar.dimensionB_startTokenPos = posSquareBracketClose + 2 # jumping over ] and [, so we point directly to start of the [$insideExpression]
-		end
+		#posSquareBracketClose = getPosOfNextTokenType(parser, TokenSquareBracketClose)
+		#if typeof(parser.tokens[ posSquareBracketClose + 1 ]) <: TokenSquareBracketOpen
+		#	metaVar.dimensionB_startTokenPos = posSquareBracketClose + 2 # jumping over ] and [, so we point directly to start of the [$insideExpression]
+		#end
 	end
 	
 	
 	
-	tokName = parser.tokens[ namePos ]
+	#tokName = parser.tokens[ namePos ]
 
 	#println("Skip global var stuff for var name: ", tokName);
 	#todo: read dimensions in [$dim1][$dim2], also they could be defines like MAX_ENTITIES
 	
-	metaVar.name = tokName.str
+	#metaVar.name = tokName.str
 
 	from = parser.i
 	to = namePos - 1
 	#println("parseMetaTypeFromTo(parser, $metaVar, $from, $to)", parser.tokens[from], parser.tokens[to])
-	parseMetaTypeFromTo(parser, metaVar, from, to)
+	parseMetaTypeFromTo(parser, metaVar, from, beforeAssign)
 	
 	# todo: iterate over the "const static int **" and collect the infos in metaVar
 	parser.i = posSemicolon

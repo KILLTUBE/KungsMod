@@ -227,8 +227,8 @@ void CG_TestLine( vec3_t start, vec3_t end, int time, unsigned int color, int ra
 // Since we have shared verts when we tesselate the glass sheet, it helps to have a
 //	random offset table set up up front.
 
-static float offX[20][20],
-			offZ[20][20];
+static float offX[20][20];
+static float offZ[20][20];
 
 #define	FX_ALPHA_NONLINEAR	0x00000004
 #define FX_APPLY_PHYSICS	0x02000000

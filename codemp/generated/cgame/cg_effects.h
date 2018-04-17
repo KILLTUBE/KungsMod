@@ -1,0 +1,17 @@
+void CG_BubbleTrailunnamed( vec3_t start, vec3_t end, float spacing );
+localEntity_t *CG_SmokePuffunnamed( const vec3_t p, const vec3_t vel, float radius, float r, float g, float b, float a, float duration, int startTime, int fadeInTime, int leFlags, qhandle_t hShader );
+int CGDEBUG_SaberColorunnamed();
+void CG_TestLineunnamed( vec3_t start, vec3_t end, int time, unsigned int, int radius );
+static void CG_DoGlassQuadunnamed( vec3_t p[4], vec2_t uv[4], qboolean stick, int time, vec3_t dmgDir );
+static void CG_CalcBiLerpunnamed( vec3_t verts[4], vec3_t subVerts[4], vec2_t uv[4] );
+static void CG_CalcHeightWidthunnamed( vec3_t verts[4], float *height, float *width );
+void CG_InitGlassunnamed();
+f TIME_DECAY_MEDunnamed( vec3_t verts[4], vec3_t normal, vec3_t dmgPt, vec3_t dmgDir, float dmgRadius, int maxShards );
+void CG_GlassShatterunnamed( int entnum, vec3_t dmgPt, vec3_t dmgDir, float dmgRadius, int maxShards );
+void CG_ExplosionEffectsunnamed( vec3_t origin, float intensity, int radius, int time );
+void CG_MiscModelExplosionunnamed( vec3_t mins, vec3_t maxs, int size, material_t chunkType );
+void CG_Chunksunnamed( int owner, vec3_t origin, const vec3_t normal, const vec3_t mins, const vec3_t maxs, float speed, int numChunks, material_t chunkType, int customChunk, float baseScale );
+void CG_ScorePlumunnamed( int client, vec3_t org, int score );
+localEntity_t *CG_MakeExplosionunnamed( vec3_t origin, vec3_t dir, qhandle_t hModel, int numFrames, qhandle_t shader, int msec, qboolean isSprite, float scale, int flags );
+void CG_SurfaceExplosionunnamed( vec3_t origin, vec3_t normal, float radius, float shake_speed, qboolean smoke );
+void CG_LaunchGibunnamed( vec3_t origin, vec3_t velocity, qhandle_t hModel );
