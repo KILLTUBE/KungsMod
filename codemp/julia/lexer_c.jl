@@ -19,11 +19,13 @@ type MetaVar
 	isEXTERNC::Bool   # EXTERNC
 	isCCALL::Bool     # CCALL
 	isQINLINE::Bool   # QINLINE
+	isFuncDecl::Bool  # stuff like: int (*add_callback)(int a, int b)
+	funcDeclArgs::Vector{MetaVar}
 	numPointer::Int32 # 0 is "int foo"    1 is "int *foo"    2 is "int **foo"    etc.
 	dimensionA_startTokenPos::Int32 # -1 if no dimension
 	dimensionB_startTokenPos::Int32 # -1 if no dimension
 	function MetaVar()
-		new("", "", false, false, false, false, false, false, false, false, 0, -1, -1)
+		new("", "", false, false, false, false, false, false, false, false, false, Vector{MetaVar}(), 0, -1, -1)
 	end
 end
 
@@ -228,6 +230,15 @@ function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
 				println("parseMetaTypeFromTo cant find next TokenSquareBracketClose in range ( $pos, $do )")
 			end
 			
+		elseif typeof(token) <: TokenBracketOpen
+			println("skip all callback stuff...")
+			endPos = searchNextTokenPosFromTo(parser, TokenBracketClose, pos, to)
+			if endPos != -1
+				pos = endPos
+			else
+				println("parseMetaTypeFromTo cant find next TokenBracketClose in range ( $pos, $do )")
+			end		
+			
 		elseif isOpStar(token)
 			metaVar.numPointer += 1
 		elseif isOpStarStar(token)
@@ -260,7 +271,7 @@ function parseFunctionArguments(parser::Parser, metaFunction::MetaFunction, from
 
 	while true
 		argFrom = argTo + 2
-		posComma = getTokenPosByTypeBetweenFromTo(parser.tokens, TokenComma, argFrom, to) # first run: 3
+		posComma = getTokenPosByTypeBetweenFromToIgnoreBrackets(parser.tokens, TokenComma, argFrom, to) # first run: 3
 		if posComma > 0
 			argTo = posComma - 1
 		else
@@ -289,7 +300,9 @@ function readFunction(parser::Parser)::MetaFunction
 	# everything before that is const/static or an actual type, like void/int/float
 	
 	posBracketOpen = getPosOfNextTokenType(parser, TokenBracketOpen)
-	posBracketClose = getPosOfNextTokenType(parser, TokenBracketClose)
+	posCurlyBracketOpen = getPosOfNextTokenType(parser, TokenCurlyBracketOpen)
+	posBracketClose = posCurlyBracketOpen - 1
+	
 	#posFuncName = posBracketOpen - 1 # prob should do checks like it should be a TokenIdentifier
 	
 	func = MetaFunction()
@@ -308,7 +321,7 @@ function readFunction(parser::Parser)::MetaFunction
 	# ignore all the statements in a function for now, just skip over it
 	# idea: i could probably add meta info to each token in the tokenizer, like the } token pos for each {
 	# or also stuff like prevCurlyBracketPos and nextCurlyBracketPos, then i wouldnt need to iterate over every token
-	posCurlyBracketOpen = getPosOfNextTokenType(parser, TokenCurlyBracketOpen)
+
 	depth = 0
 	pos = posCurlyBracketOpen
 	while pos <= length( parser.tokens )
@@ -335,8 +348,12 @@ function readPrototype(parser::Parser)::MetaPrototype
 	# then pos of ( minus one is the function name...
 	# everything before that is const/static or an actual type, like void/int/float
 	
+	# a prototype can be like: int foo( int bla, int (*callback)())
+	# so to get the end ), peek to semicolon and - 1
+	#println("wwwwwaaaaattt")
 	posBracketOpen = getPosOfNextTokenType(parser, TokenBracketOpen)
-	posBracketClose = getPosOfNextTokenType(parser, TokenBracketClose)
+	posSemicolon = getPosOfNextTokenType(parser, TokenSemicolon)
+	#posBracketClose = posSemicolon - 1
 	#posFuncName = posBracketOpen - 1 # prob should do checks like it should be a TokenIdentifier
 	
 	func = MetaPrototype()
@@ -347,34 +364,38 @@ function readPrototype(parser::Parser)::MetaPrototype
 	
 	
 	# this should either be a TokenCurlyBracketOpen or TokenSemicolon
-	afterBracketClose = parser.tokens[ posBracketClose + 1 ];
+	#afterBracketClose = parser.tokens[ posBracketClose + 1 ];
 	
-		# got a prototype here
-		# set parser to end of prototype
-		parser.i = posBracketClose + 1 # from ")" jump over ";"
+
+	# set parser to end of prototype
+	parser.i = posSemicolon
 		
 	return func
 end
 
 function readFunctionOrPrototype(parser::Parser)::Void
 	# first find the ), which is there for a function and prototype
-	posBracketClose = getPosOfNextTokenType(parser, TokenBracketClose)
+	#posBracketClose = getPosOfNextTokenType(parser, TokenBracketClose)
+	firstPos = getFirstPosOfEitherTokenTypes(parser, TokenSemicolon, TokenCurlyBracketOpen)
+	if firstPos == -1
+		println("readFunctionOrPrototype fucked up, expected either TokenSemicoln or TokenCurlyBracketOpen")
+		return
+	end
 	# next token can either be a TokenCurlyBracketOpen or TokenSemicolon,
 	# so use it to determine if this is a func or proto
-	afterBracketClose = parser.tokens[ posBracketClose + 1 ];
+	#afterBracketClose = parser.tokens[ posBracketClose + 1 ];
 	# pretty easy, a function has a { after )
 	# a prototype has a ; after )
-	isFunction  = typeof(afterBracketClose) <: TokenCurlyBracketOpen
-	isPrototype = typeof(afterBracketClose) <: TokenSemicolon
+	#isFunction  = typeof(afterBracketClose) <: TokenCurlyBracketOpen
+	#isPrototype = typeof(afterBracketClose) <: TokenSemicolon
 	# just act acordingly to what we got
-	if isFunction
+
+	if typeof(parser.tokens[ firstPos ]) <: TokenCurlyBracketOpen
 		metaFunc = readFunction(parser)
 		push!( parser.functions, metaFunc )
-	elseif isPrototype
+	elseif typeof(parser.tokens[ firstPos ]) <: TokenSemicolon
 		metaProto = readPrototype(parser)
 		push!( parser.prototypes, metaProto )
-	else
-		# fucked up, idc about invalid syntax atm
 	end
 	nothing
 end
@@ -386,6 +407,32 @@ function getTokenPosByTypeBetweenFromTo(tokens::Vector{Token}, tokentype::DataTy
 	to = Int32(to)
 	pos = from
 	while pos <= to
+		if typeof(tokens[ pos ]) == tokentype
+			return pos
+		end
+		pos += 1
+	end
+	return -1
+end
+
+function getTokenPosByTypeBetweenFromToIgnoreBrackets(tokens::Vector{Token}, tokentype::DataType, from, to)
+	# julia bullshit
+	from = Int32(from)
+	to = Int32(to)
+	pos = from
+	while pos <= to
+	
+		# ignore from ( to )
+		if typeof(tokens[ pos ]) <: TokenBracketOpen
+			while pos <= to
+				if typeof(tokens[ pos ]) <: TokenBracketOpen
+					# if we found the ) we can break out 
+					break
+				end
+				pos += 1
+			end
+		end
+		
 		if typeof(tokens[ pos ]) == tokentype
 			return pos
 		end

@@ -244,6 +244,13 @@ function step(tokenizer::Tokenizer)
 		advance(tokenizer) # jump over current ", so we only get the actual string content
 		commentFrom = tokenizer.i
 		advanceTill(tokenizer, Char(0x22)) # now advance to end '"'
+		
+		while tokenizer.s[ tokenizer.i - 1] == '\\'
+			#println("advance again..")
+			tokenizer.i += 1 # advance 1 by hand, otherwise we step on the same place in endless loop
+			advanceTill(tokenizer, Char(0x22)) # advance again if it was a \" inline escaped "
+		end
+		
 		commentTo = tokenizer.i - 1 # -1 tho, because we dont want the last ", only string content
 		cstr = tokenizer.s[commentFrom:commentTo]
 		#print("cstr from=$commentFrom to=$commentTo cstr=$cstr\n")

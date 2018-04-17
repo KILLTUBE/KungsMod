@@ -122,7 +122,7 @@ if true
 		generateHeader(filename)
 	end
 else
-	parser = generateHeader("C:\\OpenSciTech\\codemp\\cgame\\cg_event.cpp")
+	parser = generateHeader("C:\\OpenSciTech\\codemp\\cgame\\cg_predict.cpp")
 end
 
 
