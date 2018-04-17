@@ -407,6 +407,38 @@ function readGlobalVar(parser::Parser)
 	return metaVar
 end
 
+
+function getFirstPosOfEitherTokenTypes(parser::Parser, a::DataType, b::DataType)::Int32
+	from = parser.i
+	while from <= length(parser.tokens)
+		if typeof(parser.tokens[ from ]) == a
+			return from
+		end
+		if typeof(parser.tokens[ from ]) == b
+			return from
+		end
+		from += 1
+	end
+	return -1
+end
+
+function getFirstPosOfEitherTokenTypes(parser::Parser, a::DataType, b::DataType, c::DataType)::Int32
+	from = parser.i
+	while from <= length(parser.tokens)
+		if typeof(parser.tokens[ from ]) == a
+			return from
+		end
+		if typeof(parser.tokens[ from ]) == b
+			return from
+		end
+		if typeof(parser.tokens[ from ]) == c
+			return from
+		end
+		from += 1
+	end
+	return -1
+end
+
 function run(parser::Parser)
 	# implying there is a token... todo: make TokenStart
 	token = parser.tokens[1]
@@ -433,26 +465,27 @@ function run(parser::Parser)
 			# int foo();
 			# int foo() {}
 			# so we look ahead to TokenSemicolon and TokenBracketOpen, to differentiate var/func first
-			posSemicolon   = getPosOfNextTokenType(parser, TokenSemicolon)
-			posBracketOpen = getPosOfNextTokenType(parser, TokenBracketOpen)
-			#println("posSemicolon=$posSemicolon posBracketOpen=$posBracketOpen")
-			
-			if posBracketOpen == -1
-				posBracketOpen = posSemicolon + 1 # its bullshit, just make sure the next if works, if there is no {
-			end
-			if posSemicolon < posBracketOpen
-				# this can only be a var then
-				metaVar = readGlobalVar(parser)
-				push!( parser.globalVars, metaVar)
-				#print("found global var: ", token, "\n")
+			firstPos = getFirstPosOfEitherTokenTypes(parser, TokenSemicolon, TokenBracketOpen, TokenCurlyBracketOpen)
+			if firstPos == -1
+				println("halp firstPos == -1")
 			else
-				# func or prototype
-				#print("found global func or prototype: ", token, "\n")
-				readFunctionOrPrototype(parser)
-				#println("Got func: ", func)
-				#push!( parser.functions, func )
-			end
-			
+				# if firstPos token is a semicolon it should be a global var
+				# a ( or ;, it should 
+				if typeof(parser.tokens[ firstPos ]) <: TokenBracketOpen
+					# func or prototype here
+					
+					# func or prototype
+					#print("found global func or prototype: ", token, "\n")
+					readFunctionOrPrototype(parser)
+					#println("Got func: ", func)
+					#push!( parser.functions, func )					
+				else
+					# should be a global var here
+					#print("found global var: ", token, "\n")
+					metaVar = readGlobalVar(parser)
+					push!( parser.globalVars, metaVar)
+				end
+			end			
 		elseif typeof(token) <: TokenHash
 			includeOrDefineToken = advance(parser)
 			
@@ -466,7 +499,7 @@ function run(parser::Parser)
 				debug(parser)
 			end
 			
-			parser.i += 2 # just skip #include "bla"
+			#parser.i += 2 # just skip #include "bla"
 		else
 			print("idk what todo with: ", token, "\n")
 		end

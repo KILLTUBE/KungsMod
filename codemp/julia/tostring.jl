@@ -86,6 +86,7 @@ function generateHeader(filename)
 	end
 	
 	file_put_contents(genName, tmp)
+	return parser
 end
 
 
@@ -96,7 +97,7 @@ if false
 		generateHeader(filename)
 	end
 else
-	generateHeader("C:\\OpenSciTech\\codemp\\cgame\\cg_effects.cpp")
+	parser = generateHeader("C:\\OpenSciTech\\codemp\\cgame\\cg_effects.cpp")
 end
 
 

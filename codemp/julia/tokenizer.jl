@@ -169,23 +169,40 @@ function step(tokenizer::Tokenizer)
 		
 		pushIdentifier(tokenizer, str) # "static" or "const" e.g. will become special tokens
 		tokenizer.i -= 1 # we advanced in while loop but figured out here that its not part of literal anymore, so go back
-		return
 	elseif isdigit(cc)
 		
-		numstr = string(cc)
+		str = string(cc)
 		advance(tokenizer)
 		
-		while ! done(tokenizer)
-			cc = currentChar(tokenizer)
-			if isdigit(cc) || cc == '.'
-				numstr *= string(cc)
-				advance(tokenizer)
-			else
-				push!(tokenizer.tokens, TokenNum(numstr))
-				#print("got numstr: $numstr\n")
-				tokenizer.i -= 1 # we advanced but figured out here that its not part of literal anymore, so go back
-				return
+		# when a token begins with 0 it can be either a normal number like 0.99 or a hex like 0xabcd
+		
+		if currentChar(tokenizer) == 'x' || currentChar(tokenizer) == 'X'
+			# read in hex values, todo: only 0-9 a-f A-F
+			while ! done(tokenizer)
+				cc = currentChar(tokenizer)
+				if isalpha(cc) || isdigit(cc) || cc == '_'
+					str *= string(cc)
+					advance(tokenizer)
+				else
+					break
+				end
 			end
+			push!(tokenizer.tokens, TokenNum(str)) # todo: translate 0xabcd stuff to number
+			tokenizer.i -= 1 # we advanced in while loop but figured out here that its not part of literal anymore, so go back
+		else
+			# read in a normal number
+			while ! done(tokenizer)
+				cc = currentChar(tokenizer)
+				if isdigit(cc) || cc == '.'
+					str *= string(cc)
+					advance(tokenizer)
+				else
+					break
+				end
+			end
+			push!(tokenizer.tokens, TokenNum(str))
+			#print("got str for digits: $str\n")
+			tokenizer.i -= 1 # we advanced but figured out here that its not part of literal anymore, so go back
 		end
 	elseif cc == Char(0x22) # detect ", just because shitty syntax highlighting in Notepad++ atm for '"'
 		advance(tokenizer) # jump over current ", so we only get the actual string content
