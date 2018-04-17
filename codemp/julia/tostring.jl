@@ -101,7 +101,7 @@ end
 
 
 
-if false
+if true
 	files_cgame = Glob.glob("*.cpp", "C:\\OpenSciTech\\codemp\\cgame\\")
 	for filename in files_cgame
 		generateHeader(filename)

@@ -492,11 +492,21 @@ function run(parser::Parser)
 		
 		
 		if typeof(token) <: TokenTypedef
-			advance(parser)
-			gotType = readType(parser)
-			#print("gotType: ", gotType, "\n")
-			#ident = token.str
-			#print("ident: $ident\n")
+			structOrEnum = advance(parser)
+			
+			# either typedef struct or typedef enum
+			if typeof(structOrEnum) <: TokenEnum
+				advance(parser) # curly brace
+				advanceTill(parser, TokenSemicolon) # just skip atm idc
+			elseif typeof(structOrEnum) <: TokenStruct
+				gotType = readType(parser)
+				#print("gotType: ", gotType, "\n")
+				#ident = token.str
+				#print("ident: $ident\n")
+			else
+				println("run(parser::Parser)> got neither struct nor enum idk")
+				debug(parser)
+			end
 		elseif (
 			typeof(token) <: TokenStatic     ||
 			typeof(token) <: TokenConst      ||
@@ -555,7 +565,8 @@ function run(parser::Parser)
 		elseif typeof(token) <: TokenNewline
 			# just used to skip #define stuff, because it can any amount of "args"
 		else
-			print("idk what todo with: ", token, "\n")
+			println("run(parser::Parser)> idk what todo with: ", token, " at token ", parser.i)
+			debug(parser)
 		end
 		
 		token = advance(parser)

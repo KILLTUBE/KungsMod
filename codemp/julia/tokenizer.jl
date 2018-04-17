@@ -36,6 +36,7 @@ type TokenElse               <: Token             end # else
 type TokenExtern             <: Token             end # extern
 type TokenEXTERNC            <: Token             end # EXTERNC
 type TokenCCALL              <: Token             end # CCALL
+type TokenEnum               <: Token             end # enum
 type TokenNewline            <: Token             end # \n
 type TokenEnd                <: Token             end # just a meta token so we know we iterated over all tokens
 
@@ -140,6 +141,10 @@ function pushIdentifier(tokenizer::Tokenizer, str::String)
 	end
 	if str == "CCALL"
 		push!(tokenizer.tokens, TokenCCALL())
+		return
+	end
+	if str == "enum"
+		push!(tokenizer.tokens, TokenEnum())
 		return
 	end
 	push!(tokenizer.tokens, TokenIdentifier(str))
