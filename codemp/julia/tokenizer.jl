@@ -23,6 +23,7 @@ type TokenHash               <: Token             end # #
 type TokenQuestionMark       <: Token             end # ?
 type TokenAssign             <: Token             end # =
 type TokenComma              <: Token             end # ,
+type TokenUnsigned           <: Token             end # unsigned
 type TokenStatic             <: Token             end # static
 type TokenConst              <: Token             end # const
 type TokenInclude            <: Token             end # include
@@ -36,6 +37,7 @@ type TokenElse               <: Token             end # else
 type TokenExtern             <: Token             end # extern
 type TokenEXTERNC            <: Token             end # EXTERNC
 type TokenCCALL              <: Token             end # CCALL
+type TokenQINLINE            <: Token             end # QINLINE
 type TokenEnum               <: Token             end # enum
 type TokenNewline            <: Token             end # \n
 type TokenEnd                <: Token             end # just a meta token so we know we iterated over all tokens
@@ -91,6 +93,10 @@ function advanceTill(tokenizer::Tokenizer, str::String)::Bool
 end
 
 function pushIdentifier(tokenizer::Tokenizer, str::String)
+	if str == "unsigned"
+		push!(tokenizer.tokens, TokenUnsigned())
+		return
+	end
 	if str == "static"
 		push!(tokenizer.tokens, TokenStatic())
 		return
@@ -141,6 +147,10 @@ function pushIdentifier(tokenizer::Tokenizer, str::String)
 	end
 	if str == "CCALL"
 		push!(tokenizer.tokens, TokenCCALL())
+		return
+	end
+	if str == "QINLINE"
+		push!(tokenizer.tokens, TokenQINLINE())
 		return
 	end
 	if str == "enum"

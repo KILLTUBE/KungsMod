@@ -96,7 +96,7 @@ static void CG_DrawSiegeHUDItem();
 void CG_ChatBox_StrInsert( char *buffer, int place, char *str );
 void CG_ChatBox_AddString( char *chatStr );
 void CG_ChatBox_ArrayInsert( chatBoxItem_t **array, int insPoint, int maxNum, chatBoxItem_t *item );
-static QINLINE void();
+static void CG_ChatBox_DrawStrings();
 static void CG_Draw2DScreenTints();
 static void CG_Draw2D();
 void CG_DrawMiscStaticModels();

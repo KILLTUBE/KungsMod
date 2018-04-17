@@ -11,17 +11,19 @@ type MetaVar
 	name::String
 	#vartype::DataType
 	typestring::String
-	isConst::Bool
-	isStatic::Bool
-	isStruct::Bool
-	isExtern::Bool # extern
-	isEXTERNC::Bool # EXTERNC
-	isCCALL::Bool # CCALL
+	isUnsigned::Bool  # unsigned
+	isConst::Bool     # const
+	isStatic::Bool    # static
+	isStruct::Bool    # struct
+	isExtern::Bool    # extern
+	isEXTERNC::Bool   # EXTERNC
+	isCCALL::Bool     # CCALL
+	isQINLINE::Bool   # QINLINE
 	numPointer::Int32 # 0 is "int foo"    1 is "int *foo"    2 is "int **foo"    etc.
 	dimensionA_startTokenPos::Int32 # -1 if no dimension
 	dimensionB_startTokenPos::Int32 # -1 if no dimension
 	function MetaVar()
-		new("", "", false, false, false, false, false, false, 0, -1, -1)
+		new("", "", false, false, false, false, false, false, false, false, 0, -1, -1)
 	end
 end
 
@@ -144,7 +146,8 @@ end
 pos(parser::Parser) = parser.i
 pos!(parser::Parser, i) = parser.i = Int32(i)
 
-function debugPos(parser::Parser, pos::Int32)
+debug(parser::Parser, pos) = debug(parser, Int32(pos))
+function debug(parser::Parser, pos::Int32)
 	if (pos > 1)
 		print("prev token pos=$pos> ", parser.tokens[pos - 1], "\n")
 	end
@@ -156,7 +159,7 @@ function debugPos(parser::Parser, pos::Int32)
 end
 
 function debug(parser::Parser)
-	debugPos(parser, parser.i)
+	debug(parser, parser.i)
 end
 
 function getPosOfNextTokenType(parser::Parser, tokentype)::Int32
@@ -194,6 +197,7 @@ function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
 				metaVar.name = token.str
 			else
 				println("Help, already $countIdentifiers identifiers")
+				debug(parser, pos)
 			end
 			countIdentifiers += 1
 		elseif typeof(token) <: TokenStatic
@@ -208,10 +212,22 @@ function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
 			metaVar.isEXTERNC = true
 		elseif typeof(token) <: TokenCCALL
 			metaVar.isCCALL = true
+		elseif typeof(token) <: TokenQINLINE
+			metaVar.isQINLINE = true
+		elseif typeof(token) <: TokenUnsigned
+			metaVar.isUnsigned = true
 		elseif typeof(token) <: TokenSquareBracketOpen
 			metaVar.dimensionA_startTokenPos = pos + 1
-			pos += 1 # pos at token inside [...] (todo: could be more than one, should seek to ]
-			pos += 1 # pos at ]
+			#pos += 1 # pos at token inside [...] (todo: could be more than one, should seek to ]
+			#pos += 1 # pos at ]
+			
+			endPos = searchNextTokenPosFromTo(parser, TokenSquareBracketClose, pos, to)
+			if endPos != -1
+				pos = endPos
+			else
+				println("parseMetaTypeFromTo cant find next TokenSquareBracketClose in range ( $pos, $do )")
+			end
+			
 		elseif isOpStar(token)
 			metaVar.numPointer += 1
 		elseif isOpStarStar(token)
@@ -220,7 +236,7 @@ function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
 			# ignore
 		else
 			println("rekt in parseMetaTypeFromTo ", token)
-			debugPos(parser, Int32(pos))
+			debug(parser, Int32(pos))
 		end
 		
 		pos += 1
@@ -477,6 +493,20 @@ function advanceTill(parser::Parser, tokentype::DataType)
 	return false
 end
 
+function searchNextTokenPosFromTo(parser::Parser, tokentype::DataType, from, to)
+	searchNextTokenPosFromTo(parser, tokentype, Int32(from), Int32(to))
+end
+function searchNextTokenPosFromTo(parser::Parser, tokentype::DataType, from::Int32, to::Int32)
+	pos = from
+	while pos <= to
+		if typeof(parser.tokens[ pos ]) == tokentype
+			return pos
+		end
+		pos += 1
+	end
+	return -1
+end
+
 function run(parser::Parser)
 	# implying there is a token... todo: make TokenStart
 	token = parser.tokens[1]
@@ -507,6 +537,12 @@ function run(parser::Parser)
 				println("run(parser::Parser)> got neither struct nor enum idk")
 				debug(parser)
 			end
+		elseif typeof(token) <: TokenEnum
+			advanceTill(parser, TokenCurlyBracketClose) # just skip atm idc
+			advanceTill(parser, TokenSemicolon) # just skip atm idc
+		elseif typeof(token) <: TokenStruct
+			advanceTill(parser, TokenCurlyBracketClose) # just skip atm idc
+			advanceTill(parser, TokenSemicolon) # just skip atm idc
 		elseif (
 			typeof(token) <: TokenStatic     ||
 			typeof(token) <: TokenConst      ||
