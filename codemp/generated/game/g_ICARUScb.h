@@ -1,7 +1,7 @@
 int ICARUS_VariableDeclared( const char *name );
 int ICARUS_GetFloatVariable( const char *name, float *value );
 void ICARUS_SetVar( int taskID, int entID, const char *type_name, const char *data );
-void G_DebugPrint( int printLevel, const char *format,   );
+void G_DebugPrint( int printLevel, const char *format, ... );
 static char *Q3_GetAnimLower( gentity_t *ent );
 static char *Q3_GetAnimUpper( gentity_t *ent );
 static char *Q3_GetAnimBoth( gentity_t *ent );

@@ -5,6 +5,7 @@ file_get_contents(name) = String(read(name))
 
 isOpStar(    token::Token) = typeof(token) <: TokenOp         && token.str == "*"        # just for pointer detection
 isOpStarStar(token::Token) = typeof(token) <: TokenOp         && token.str == "**"       # just for pointer detection
+isVarArgs(   token::Token) = typeof(token) <: TokenOp         && token.str == "..."      # C var args like int foo(int a, ...)
 
 # collect data of C vars while parsing over it
 type MetaVar
@@ -21,12 +22,13 @@ type MetaVar
 	isQINLINE::Bool   # QINLINE
 	isQDECL::Bool     # QDECL
 	isFuncDecl::Bool  # stuff like: int (*add_callback)(int a, int b)
+	isVarArgs::Bool   # C var args like int foo(int a, ...)
 	funcDeclArgs::Vector{MetaVar}
 	numPointer::Int32 # 0 is "int foo"    1 is "int *foo"    2 is "int **foo"    etc.
 	dimensionA_startTokenPos::Int32 # -1 if no dimension
 	dimensionB_startTokenPos::Int32 # -1 if no dimension
 	function MetaVar()
-		new("", "", false, false, false, false, false, false, false, false, false, false, Vector{MetaVar}(), 0, -1, -1)
+		new("", "", false, false, false, false, false, false, false, false, false, false, false, Vector{MetaVar}(), 0, -1, -1)
 	end
 end
 
@@ -246,6 +248,8 @@ function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
 			metaVar.numPointer += 1
 		elseif isOpStarStar(token)
 			metaVar.numPointer += 2
+		elseif isVarArgs(token)
+			metaVar.isVarArgs = true
 		elseif typeof(token) <: TokenNewline
 			# ignore
 		else
@@ -604,6 +608,8 @@ function run(parser::Parser)
 			typeof(token) <: TokenExtern     ||
 			typeof(token) <: TokenEXTERNC    ||
 			typeof(token) <: TokenCCALL      ||
+			typeof(token) <: TokenUnsigned   ||
+			typeof(token) <: TokenQDECL      ||
 			typeof(token) <: TokenIdentifier
 		)
 			# here we have either a global var, a function or a function prototype

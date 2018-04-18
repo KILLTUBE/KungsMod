@@ -30,8 +30,8 @@ int NAV_TestBestNode( gentity_t *self, int startID, int endID, qboolean failEdge
 int NAV_GetNearestNode( gentity_t *self, int lastNode );
 qboolean NAV_MicroError( vec3_t start, vec3_t end );
 int NAV_MoveToGoal( gentity_t *self, navInfo_t *info );
-int waypoint_testDirection( vec3_t origin, float yaw, unsigned int minDist );
-int waypoint_getRadius( gentity_t *ent );
+unsigned int waypoint_testDirection( vec3_t origin, float yaw, unsigned int minDist );
+unsigned int waypoint_getRadius( gentity_t *ent );
 void SP_waypoint( gentity_t *ent );
 void SP_waypoint_small( gentity_t *ent );
 void SP_waypoint_navgoal( gentity_t *ent );

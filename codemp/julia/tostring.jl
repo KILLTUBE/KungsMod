@@ -19,6 +19,11 @@ import Glob
 function tostring(parser::Parser, metaVar::MetaVar)
 	ret = ""
 	
+	# special case, simply return
+	if metaVar.isVarArgs
+		return "..."
+	end
+	
 	if metaVar.isExtern
 		ret *= "extern "
 	end
@@ -46,6 +51,7 @@ function tostring(parser::Parser, metaVar::MetaVar)
 	if metaVar.isStruct
 		ret *= "struct "
 	end
+
 	ret *= metaVar.typestring
 	
 	ret *= " "
