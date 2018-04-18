@@ -1,7 +1,7 @@
 #include "cg_main.h"
 #include "game/g_local.h"
 
-#include "../generated/cg_main.h"
+#include "../generated/cgame/cg_main.h"
 
 //#include "botlib/l_precomp.h"
 

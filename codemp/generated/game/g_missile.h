@@ -1,0 +1,10 @@
+void G_ReflectMissile( gentity_t *ent, gentity_t *missile, vec3_t forward );
+void G_DeflectMissile( gentity_t *ent, gentity_t *missile, vec3_t forward );
+void G_BounceMissile( gentity_t *ent, trace_t *trace );
+void G_ExplodeMissile( gentity_t *ent );
+void G_RunStuckMissile( gentity_t *ent );
+void G_BounceProjectile( vec3_t start, vec3_t impact, vec3_t dir, vec3_t endout );
+gentity_t *CreateMissile( vec3_t org, vec3_t dir, float vel, int life, gentity_t *owner, qboolean altFire );
+void G_MissileBounceEffect( gentity_t *ent, vec3_t org, vec3_t dir );
+void G_MissileImpact( gentity_t *ent, trace_t *trace );
+void G_RunMissile( gentity_t *ent );

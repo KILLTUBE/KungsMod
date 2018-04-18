@@ -234,8 +234,7 @@ static float offZ[20][20];
 #define FX_APPLY_PHYSICS	0x02000000
 #define FX_USE_ALPHA		0x08000000
 
-static void CG_DoGlassQuad( vec3_t p[4], vec2_t uv[4], qboolean stick, int time, vec3_t dmgDir )
-{
+void CG_DoGlassQuad( vec3_t p[4], vec2_t uv[4], qboolean stick, int time, vec3_t dmgDir ) {
 	float	bounce;
 	vec3_t	rotDelta;
 	vec3_t	vel, accel;
@@ -340,8 +339,7 @@ static void CG_DoGlassQuad( vec3_t p[4], vec2_t uv[4], qboolean stick, int time,
 	CGFX_AddPoly(&apArgs);
 }
 
-static void CG_CalcBiLerp( vec3_t verts[4], vec3_t subVerts[4], vec2_t uv[4] )
-{
+void CG_CalcBiLerp( vec3_t verts[4], vec3_t subVerts[4], vec2_t uv[4] ) {
 	vec3_t	temp;
 
 	// Nasty crap
@@ -377,8 +375,7 @@ static void CG_CalcBiLerp( vec3_t verts[4], vec3_t subVerts[4], vec2_t uv[4] )
 //f(p',q') = (1 - y) × {[(1 - x) × f(p,q)] + [x × f(p,q+1)]} + y × {[(1 - x) × f(p+1,q)] + [x × f(p+1,q+1)]}.
 
 
-static void CG_CalcHeightWidth( vec3_t verts[4], float *height, float *width )
-{
+void CG_CalcHeightWidth( vec3_t verts[4], float *height, float *width ) {
 	vec3_t	dir1, dir2, cross;
 
 	VectorSubtract( verts[3], verts[0], dir1 ); // v

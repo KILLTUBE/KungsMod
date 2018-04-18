@@ -1,0 +1,12 @@
+void TIMER_Clear();
+void TIMER_Clear2( gentity_t *ent );
+gtimer_t *TIMER_GetNew( int num, const char *identifier );
+gtimer_t *TIMER_GetExisting( int num, const char *identifier );
+void TIMER_Set( gentity_t *ent, const char *identifier, int duration );
+int TIMER_Get( gentity_t *ent, const char *identifier );
+qboolean TIMER_Done( gentity_t *ent, const char *identifier );
+void TIMER_RemoveHelper( int num, gtimer_t *timer );
+qboolean TIMER_Done2( gentity_t *ent, const char *identifier, qboolean remove );
+qboolean TIMER_Exists( gentity_t *ent, const char *identifier );
+void TIMER_Remove( gentity_t *ent, const char *identifier );
+qboolean TIMER_Start( gentity_t *self, const char *identifier, int duration );

@@ -1,0 +1,15 @@
+void G2Tur_SetBoneAngles( gentity_t *ent, char *bone, vec3_t angles );
+void turretG2_set_models( gentity_t *self, qboolean dying );
+void TurretG2Pain( gentity_t *self, gentity_t *attacker, int damage );
+void turretG2_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int meansOfDeath );
+void TurboLaser_SetBoneAnim( gentity_t *eweb, int startFrame, int endFrame );
+static void turretG2_fire( gentity_t *ent, vec3_t start, vec3_t dir );
+void turretG2_respawn( gentity_t *self );
+void turretG2_head_think( gentity_t *self );
+static void turretG2_aim( gentity_t *self );
+static void turretG2_turnoff( gentity_t *self );
+static qboolean turretG2_find_enemies( gentity_t *self );
+void turretG2_base_think( gentity_t *self );
+void turretG2_base_use( gentity_t *self, gentity_t *other, gentity_t *activator );
+void SP_misc_turretG2( gentity_t *base );
+void finish_spawning_turretG2( gentity_t *base );

@@ -35,7 +35,7 @@ static	int			cg_numTriggerEntities;
 static	centity_t	*cg_triggerEntities[MAX_ENTITIES_IN_SNAPSHOT];
 
 //is this client piloting this veh?
-static QINLINE qboolean CG_Piloting(int vehNum)
+QINLINE qboolean CG_Piloting(int vehNum)
 {
 	centity_t *veh;
 
@@ -160,7 +160,7 @@ void CG_BuildSolidList( void ) {
 	}
 }
 
-static QINLINE qboolean CG_VehicleClipCheck(centity_t *ignored, trace_t *trace)
+QINLINE qboolean CG_VehicleClipCheck(centity_t *ignored, trace_t *trace)
 {
 	if (!trace || trace->entityNum < 0 || trace->entityNum >= ENTITYNUM_WORLD)
 	{ //it's alright then
@@ -219,17 +219,7 @@ static QINLINE qboolean CG_VehicleClipCheck(centity_t *ignored, trace_t *trace)
 	return qtrue;
 }
 
-/*
-====================
-CG_ClipMoveToEntities
-
-====================
-*/
-extern void BG_VehicleAdjustBBoxForOrientation( Vehicle_t *veh, vec3_t origin, vec3_t mins, vec3_t maxs,
-										int clientNum, int tracemask,
-										void (*localTrace)(trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int passEntityNum, int contentMask)); // bg_pmove.c
-static void CG_ClipMoveToEntities ( const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end,
-							int skipNumber, int mask, trace_t *tr, qboolean g2Check ) {
+void CG_ClipMoveToEntities ( const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int skipNumber, int mask, trace_t *tr, qboolean g2Check ) {
 	int			i, x, zd, zu;
 	trace_t		trace, oldTrace;
 	entityState_t	*ent;
@@ -445,7 +435,7 @@ Generates cg.predictedPlayerState by interpolating between
 cg.snap->ps and cg.nextFrame->ps
 ========================
 */
-static void CG_InterpolatePlayerState( qboolean grabAngles ) {
+void CG_InterpolatePlayerState( qboolean grabAngles ) {
 	float			f;
 	int				i;
 	playerState_t	*out;
@@ -497,7 +487,7 @@ static void CG_InterpolatePlayerState( qboolean grabAngles ) {
 
 }
 
-static void CG_InterpolateVehiclePlayerState( qboolean grabAngles ) {
+void CG_InterpolateVehiclePlayerState( qboolean grabAngles ) {
 	float			f;
 	int				i;
 	playerState_t	*out;
@@ -549,12 +539,7 @@ static void CG_InterpolateVehiclePlayerState( qboolean grabAngles ) {
 
 }
 
-/*
-===================
-CG_TouchItem
-===================
-*/
-static void CG_TouchItem( centity_t *cent ) {
+void CG_TouchItem( centity_t *cent ) {
 	gitem_t		*item;
 
 	if ( !cg_predictItems->integer ) {
@@ -674,14 +659,8 @@ static void CG_TouchItem( centity_t *cent ) {
 }
 
 
-/*
-=========================
-CG_TouchTriggerPrediction
-
-Predict push triggers and items
-=========================
-*/
-static void CG_TouchTriggerPrediction( void ) {
+// Predict push triggers and items
+void CG_TouchTriggerPrediction( void ) {
 	int			i;
 	trace_t		trace;
 	entityState_t	*ent;
@@ -739,7 +718,7 @@ static void CG_TouchTriggerPrediction( void ) {
 }
 
 #if 0
-static QINLINE void CG_EntityStateToPlayerState( entityState_t *s, playerState_t *ps )
+QINLINE void CG_EntityStateToPlayerState( entityState_t *s, playerState_t *ps )
 {
 	//currently unused vars commented out for speed.. only uncomment if you need them.
 	ps->clientNum = s->number;

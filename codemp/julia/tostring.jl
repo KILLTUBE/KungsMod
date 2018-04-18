@@ -53,7 +53,12 @@ function tostring(parser::Parser, metaVar::MetaVar)
 	
 	if metaVar.dimensionA_startTokenPos != -1
 		ret *= "["
-		ret *= parser.tokens[ metaVar.dimensionA_startTokenPos ].str
+		tokStart = parser.tokens[ metaVar.dimensionA_startTokenPos ]
+		if typeof(tokStart) <: TokenSquareBracketClose
+			# its simply nothing, like int foo[]
+		else
+			ret *= tokStart.str
+		end
 		ret *= "]"
 	end
 	
@@ -101,6 +106,11 @@ function generateHeader(filename)
 	fullGenFolder  = prevFolder * "generated\\" * lastFolderName * "\\" # something like "C:\\OpenSciTech\\codemp\\generated\\cgame\\"
 	genName        = fullGenFolder * headerName                         # something like "C:\\OpenSciTech\\codemp\\generated\\cgame\\cg_main.cpp"
 	
+	# only game and cgame files atm
+	if ! ( startswith(pureName, "g_") || startswith(pureName, "cg_"))
+		return
+	end
+	
 	println("generateHeader( \"" * filename * "\"")
 	
 	sourcecode = file_get_contents(filename)
@@ -115,14 +125,24 @@ function generateHeader(filename)
 end
 
 
+mode = 2
 
-if true
+if mode == 1
 	files_cgame = Glob.glob("*.cpp", "C:\\OpenSciTech\\codemp\\cgame\\")
 	for filename in files_cgame
 		generateHeader(filename)
 	end
-else
-	parser = generateHeader("C:\\OpenSciTech\\codemp\\cgame\\cg_predict.cpp")
+end
+if mode == 3
+	files_cgame = Glob.glob("*.cpp", "C:\\OpenSciTech\\codemp\\game\\")
+	for filename in files_cgame
+		
+		generateHeader(filename)
+	end
+end
+
+if mode == 2
+	parser = generateHeader("C:\\OpenSciTech\\codemp\\game\\g_client.cpp")
 end
 
 

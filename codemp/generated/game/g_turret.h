@@ -1,0 +1,14 @@
+void TurretPain( gentity_t *self, gentity_t *attacker, int damage );
+void TurretBasePain( gentity_t *self, gentity_t *attacker, int damage );
+void auto_turret_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int meansOfDeath );
+void bottom_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int meansOfDeath );
+static void turret_fire( gentity_t *ent, vec3_t start, vec3_t dir );
+void turret_head_think( gentity_t *self );
+static void turret_aim( gentity_t *self );
+static void turret_turnoff( gentity_t *self );
+static void turret_sleep( gentity_t *self );
+static qboolean turret_find_enemies( gentity_t *self );
+void turret_base_think( gentity_t *self );
+void turret_base_use( gentity_t *self, gentity_t *other, gentity_t *activator );
+void SP_misc_turret( gentity_t *base );
+qboolean turret_base_spawn_top( gentity_t *base );

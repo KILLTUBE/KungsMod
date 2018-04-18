@@ -26,7 +26,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "g_weapon.h"
 
-static vec3_t forward, vright, up;
+static vec3_t forward;
+static vec3_t vright;
+static vec3_t up;
 static vec3_t muzzle;
 
 CCALL qboolean G_BoxInBounds( vec3_t point, vec3_t mins, vec3_t maxs, vec3_t boundsMins, vec3_t boundsMaxs );

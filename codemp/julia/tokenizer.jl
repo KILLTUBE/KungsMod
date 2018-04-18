@@ -242,19 +242,36 @@ function step(tokenizer::Tokenizer)
 		end
 	elseif cc == Char(0x22) # detect ", just because shitty syntax highlighting in Notepad++ atm for '"'
 		advance(tokenizer) # jump over current ", so we only get the actual string content
-		commentFrom = tokenizer.i
-		advanceTill(tokenizer, Char(0x22)) # now advance to end '"'
+		#commentFrom = tokenizer.i
 		
-		while tokenizer.s[ tokenizer.i - 1] == '\\'
-			#println("advance again..")
-			tokenizer.i += 1 # advance 1 by hand, otherwise we step on the same place in endless loop
-			advanceTill(tokenizer, Char(0x22)) # advance again if it was a \" inline escaped "
+		
+		strFrom = tokenizer.i
+		while ! done(tokenizer)
+			local cc = currentChar(tokenizer)
+			if cc == '\\'
+				# todo: add whatever is behind this \ into str
+				advance(tokenizer) # ignore whatever is after a \
+			end
+			
+			if cc == Char(0x22) # we found the end "
+				break
+			end
+			
+			advance(tokenizer)
 		end
+		strTo = tokenizer.i - 1 # ignore the last "
+		#advanceTill(tokenizer, Char(0x22)) # now advance to end '"'
 		
-		commentTo = tokenizer.i - 1 # -1 tho, because we dont want the last ", only string content
-		cstr = tokenizer.s[commentFrom:commentTo]
+		#while tokenizer.s[ tokenizer.i - 1] == '\\'
+		#	#println("advance again..")
+		#	tokenizer.i += 1 # advance 1 by hand, otherwise we step on the same place in endless loop
+		#	advanceTill(tokenizer, Char(0x22)) # advance again if it was a \" inline escaped "
+		#end
+		
+		
+		str = tokenizer.s[strFrom:strTo]
 		#print("cstr from=$commentFrom to=$commentTo cstr=$cstr\n")
-		push!(tokenizer.tokens, TokenStr(cstr))
+		push!(tokenizer.tokens, TokenStr(str))
 		return
 	elseif cc == Char(0x27) # detect ',just because shitty syntax highlighting in Notepad++ atm for '''
 		advance(tokenizer) # jump over current ', so we only get the actual string content

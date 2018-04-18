@@ -1,0 +1,12 @@
+void *B_TempAlloc( int size );
+void B_TempFree( int size );
+void *B_Alloc( int size );
+void B_Free( void *ptr );
+void B_InitAlloc();
+void B_CleanupAlloc();
+int GetValueGroup( char *buf, char *group, char *outbuf );
+int GetPairedValue( char *buf, char *key, char *outbuf );
+int BotDoChat( bot_state_t *bs, char *section, int always );
+void ParseEmotionalAttachments( bot_state_t *bs, char *buf );
+int ReadChatGroups( bot_state_t *bs, char *buf );
+void BotUtilizePersonality( bot_state_t *bs );
