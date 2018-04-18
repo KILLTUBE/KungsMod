@@ -807,12 +807,13 @@ void G_ParseField( const char *key, const char *value, gentity_t *ent )
 	}
 }
 
-#define ADJUST_AREAPORTAL() \
-	if(ent->s.eType == ET_MOVER) \
-	{ \
-		SV_LinkEntity((sharedEntity_t *)ent); \
-		SV_AdjustAreaPortalState((sharedEntity_t *)ent, qtrue); \
+void G_AdjustAreaportal(gentity_t *ent) {
+	if(ent->s.eType == ET_MOVER)
+	{
+		SV_LinkEntity((sharedEntity_t *)ent);
+		SV_AdjustAreaPortalState((sharedEntity_t *)ent, qtrue);
 	}
+}
 
 /*
 ===================
@@ -839,7 +840,7 @@ void G_SpawnGEntityFromSpawnVars( qboolean inSubBSP ) {
 	if ( level.gametype == GT_SINGLE_PLAYER ) {
 		G_SpawnInt( "notsingle", "0", &i );
 		if ( i ) {
-			ADJUST_AREAPORTAL();
+			G_AdjustAreaportal( ent );
 			G_FreeEntity( ent );
 			return;
 		}
@@ -848,14 +849,14 @@ void G_SpawnGEntityFromSpawnVars( qboolean inSubBSP ) {
 	if ( level.gametype >= GT_TEAM ) {
 		G_SpawnInt( "notteam", "0", &i );
 		if ( i ) {
-			ADJUST_AREAPORTAL();
+			G_AdjustAreaportal( ent );
 			G_FreeEntity( ent );
 			return;
 		}
 	} else {
 		G_SpawnInt( "notfree", "0", &i );
 		if ( i ) {
-			ADJUST_AREAPORTAL();
+			G_AdjustAreaportal( ent );
 			G_FreeEntity( ent );
 			return;
 		}
@@ -867,7 +868,7 @@ void G_SpawnGEntityFromSpawnVars( qboolean inSubBSP ) {
 
 			s = strstr( value, gametypeName );
 			if( !s ) {
-				ADJUST_AREAPORTAL();
+				G_AdjustAreaportal( ent );
 				G_FreeEntity( ent );
 				return;
 			}

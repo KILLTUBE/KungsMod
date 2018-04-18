@@ -77,7 +77,9 @@ function advanceTill(tokenizer::Tokenizer, char::Char)::Bool
 			tokenizer.i = curPos # if we found something, set pos to last index of our token
 			return true
 		end
+		tokenizer.i = curPos # also set pos if we didnt find, e.g. tokenize("// asd") and advanceTill(tokenizer, '\n') isnt finding the end, but it should be ignored nonetheless
 		curPos += 1
+		
 	end
 	# if we didnt found the char, just return false
 	return false

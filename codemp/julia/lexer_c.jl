@@ -78,7 +78,13 @@ type Parser
 	end
 end
 
-currentToken(parser::Parser) = parser.tokens[ parser.i ]
+function currentToken(parser::Parser)
+	# e.g. i is 4 but length() is only 3
+	#if parser.i > length(parser.tokens)
+	#	return TokenEnd()
+	#end
+	parser.tokens[ parser.i ]
+end
 nextTokenType(parser::Parser) = typeof(parser.tokens[parser.i + 1])
 
 function newStruct(parser::Parser, name::String)::MetaStruct
@@ -620,6 +626,7 @@ function run(parser::Parser)
 			firstPos = getFirstPosOfEitherTokenTypes(parser, TokenSemicolon, TokenBracketOpen, TokenAssign)
 			if firstPos == -1
 				println("halp firstPos == -1")
+				debug(parser)
 			else
 				# if firstPos token is a semicolon it should be a global var
 				# a ( or ;, it should 
@@ -661,17 +668,22 @@ function run(parser::Parser)
 			#parser.i += 2 # just skip #include "bla"
 		elseif typeof(token) <: TokenNewline
 			# just used to skip #define stuff, because it can any amount of "args"
+		elseif typeof(token) <: TokenEnd
+			# voila
+			#break
 		else
 			println("run(parser::Parser)> idk what todo with: ", token, " at token ", parser.i)
 			debug(parser)
 		end
 		
-		token = advance(parser)
 		
 		# do-while replacement, since Julia doesnt support do-whiles
 		if typeof(token) == TokenEnd
 			break
 		end
+		
+		
+		token = advance(parser)
 	end
 end
 

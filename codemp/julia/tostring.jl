@@ -117,7 +117,7 @@ function generateHeader(filename)
 	
 	# only game and cgame files atm
 	if ! ( startswith(pureName, "g_") || startswith(pureName, "cg_"))
-		return
+		#return
 	end
 	
 	println("generateHeader( \"" * filename * "\"")

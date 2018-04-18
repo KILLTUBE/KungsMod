@@ -11,6 +11,7 @@ char *G_NewString( const char *string );
 char *G_NewString_Safe( const char *string );
 static int fieldcmp( const void *a, const void *b );
 void G_ParseField( const char *key, const char *value, gentity_t *ent );
+void G_AdjustAreaportal( gentity_t *ent );
 void G_SpawnGEntityFromSpawnVars( qboolean inSubBSP );
 char *G_AddSpawnVarToken( const char *string );
 void AddSpawnField( char *field, char *value );
