@@ -21,7 +21,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
-#include "../rd-rend2/include_ccall.h"
+#include "include_ccall.h"
 
 /*****************************************************************************
  * name:		l_precomp.h

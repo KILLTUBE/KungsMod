@@ -1,7 +1,7 @@
 #pragma once
 
 #include "q_platform.h"
-#include "rd-rend2/include_ccall.h"
+#include "include_ccall.h"
 
 #if defined(__cplusplus)
 extern "C" {

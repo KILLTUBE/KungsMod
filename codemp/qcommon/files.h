@@ -1,6 +1,6 @@
 #ifndef FILES_H
 #define FILES_H
-#include "../rd-rend2/include_ccall.h"
+#include "include_ccall.h"
 //#include "q_shared.h"
 //#include "qcommon.h"
 //#include "minizip/unzip.h"

@@ -109,7 +109,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include <errno.h>
 #include <stddef.h>
 
-#include "rd-rend2/include_ccall.h"
+#include "include_ccall.h"
 
 //Ignore __attribute__ on non-gcc platforms
 #if !defined(__GNUC__) && !defined(__attribute__)

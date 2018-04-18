@@ -28,7 +28,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "qcommon/q_shared.h"
 #include "sys/sys_public.h"
-#include "rd-rend2/include_ccall.h"
+#include "include_ccall.h"
 
 //============================================================================
 

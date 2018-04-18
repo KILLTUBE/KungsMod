@@ -27,7 +27,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 //
 // This crosses both client and server.  It could all be crammed into bg_public, but isolation of this type of data is best.
 
-#include "../rd-rend2/include_ccall.h"
+#include "include_ccall.h"
 
 typedef enum {
 	WP_NONE,

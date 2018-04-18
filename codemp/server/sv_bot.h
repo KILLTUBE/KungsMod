@@ -1,7 +1,7 @@
 #ifndef SV_BOT
 #define SV_BOT
 
-#include "rd-rend2/include_ccall.h"
+#include "include_ccall.h"
 
 CCALL int SV_BotGetSnapshotEntity(int client,int sequence);
 CCALL int SV_BotGetConsoleMessage(int client,char *buf,int size);

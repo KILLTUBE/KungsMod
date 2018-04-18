@@ -5,7 +5,7 @@
 
 
 
-#include "../codemp/rd-rend2/include_ccall.h"
+#include "../codemp/include_ccall.h"
 
 CCALL int kungsmod_main ( int argc, char* argv[] );
 CCALL void win_present();
@@ -46,7 +46,7 @@ CCALL void Com_BusyWait();
 CCALL char *Sys_BinaryPath(void);
 CCALL void Com_Frame( void );
 
-#include "../codemp/rd-rend2/imgui/imgui_api.h"
+#include "../codemp/imgui/imgui_api.h"
 
 CCALL void imgui_openjk_start();
 CCALL void imgui_openjk_end();

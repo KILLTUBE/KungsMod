@@ -1,306 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_load.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_patch.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_polylib.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_test.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cm_trace.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cmd.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\common.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\cvar.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\files.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\GenericParser2.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\huffman.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\md4.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\md5.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\msg.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\matcomp.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\net_chan.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\net_ip.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\persistence.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\q_shared.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\RoffSystem.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\stringed_ingame.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\stringed_interface.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\vm.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\qcommon\z_memman_pc.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\files.cpp">
-      <Filter>common/safe</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\icarus\BlockStream.cpp">
-      <Filter>icarus</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\icarus\GameInterface.cpp">
-      <Filter>icarus</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\icarus\Instance.cpp">
-      <Filter>icarus</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\icarus\Interface.cpp">
-      <Filter>icarus</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\icarus\Memory.cpp">
-      <Filter>icarus</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\icarus\Q3_Interface.cpp">
-      <Filter>icarus</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\icarus\Q3_Registers.cpp">
-      <Filter>icarus</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\icarus\Sequence.cpp">
-      <Filter>icarus</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\icarus\Sequencer.cpp">
-      <Filter>icarus</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\icarus\TaskManager.cpp">
-      <Filter>icarus</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\server\NPCNav\navigator.cpp">
-      <Filter>server</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\server\sv_bot.cpp">
-      <Filter>server</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\server\sv_ccmds.cpp">
-      <Filter>server</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\server\sv_challenge.cpp">
-      <Filter>server</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\server\sv_client.cpp">
-      <Filter>server</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\server\sv_game.cpp">
-      <Filter>server</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\server\sv_init.cpp">
-      <Filter>server</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\server\sv_main.cpp">
-      <Filter>server</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\server\sv_net_chan.cpp">
-      <Filter>server</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\server\sv_snapshot.cpp">
-      <Filter>server</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\server\sv_world.cpp">
-      <Filter>server</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\server\sv_gameapi.cpp">
-      <Filter>server</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\sys\snapvector.cpp">
-      <Filter>sys</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\cl_avi.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\cl_cgame.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\cl_cgameapi.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\cl_cin.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\cl_console.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\cl_input.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\cl_keys.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\cl_lan.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\cl_main.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\cl_net_chan.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\cl_parse.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\cl_scrn.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\cl_ui.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\cl_uiapi.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\snd_ambient.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\snd_dma.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\snd_mem.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\snd_mix.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\snd_mp3.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\snd_music.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cdct.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\csbt.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\csbtb.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\csbtl3.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cup.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cupini.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cupl1.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cupl3.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cwin.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cwinb.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\cwinm.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\hwin.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\l3dq.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\l3init.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\mdct.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\mhead.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\msis.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\towave.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\uph.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\upsf.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\mp3code\wavep.c">
-      <Filter>mp3code</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_window.cpp">
-      <Filter>sys</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_input.cpp">
-      <Filter>sys</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\sdl\sdl_sound.cpp">
-      <Filter>sys</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\sys\sys_main.cpp">
-      <Filter>sys</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\sys\sys_event.cpp">
-      <Filter>sys</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\sys\con_log.cpp">
-      <Filter>sys</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\sys\sys_win32.cpp">
-      <Filter>sys</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\sys\con_passive.cpp">
-      <Filter>sys</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\rd-common\tr_font.cpp">
       <Filter>rend-common</Filter>
     </ClCompile>
@@ -318,363 +18,6 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\rd-common\tr_noise.cpp">
       <Filter>rend-common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui\MagicFile\magicfile.cpp">
-      <Filter>rend2\imgui\MagicFile</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_utils.cpp">
-      <Filter>rend2\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui\ffi.cpp">
-      <Filter>rend2\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui.cpp">
-      <Filter>rend2\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_api.cpp">
-      <Filter>rend2\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_c_utils.cpp">
-      <Filter>rend2\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_default_docks.cpp">
-      <Filter>rend2\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_demo.cpp">
-      <Filter>rend2\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_dock.cpp">
-      <Filter>rend2\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_draw.cpp">
-      <Filter>rend2\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_fixedarea.cpp">
-      <Filter>rend2\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui\imgui_impl_idtech3_gles.cpp">
-      <Filter>rend2\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock.cpp">
-      <Filter>rend2\imgui_docks</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_console.cpp">
-      <Filter>rend2\imgui_docks</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_julia.cpp">
-      <Filter>rend2\imgui_docks</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_node.cpp">
-      <Filter>rend2\imgui_docks</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_repl.cpp">
-      <Filter>rend2\imgui_docks</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks\dock_skeleton.cpp">
-      <Filter>rend2\imgui_docks</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_all.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_controlflow.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_images.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mapinfo.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mdxa.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mdxm.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_models.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_opsys.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_perf.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_quakeshaders.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_shadereditor.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_openjk\gluecode.cpp">
-      <Filter>rend2\imgui_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_openjk\imgui_openjk_default_docks.cpp">
-      <Filter>rend2\imgui_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\op_types\op_type_image.cpp">
-      <Filter>rend2\op_types</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_all.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_astar.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_axis.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_checkerboard.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_cos.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_craft.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_cube.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_divide.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_expression.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_file.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_attrib.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_buffer.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_fragment_shader.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_framebuffer.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_legacy.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_program.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_uniform.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_gl_vertex_shader.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_image.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_color.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_mix.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_scale.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_split.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_split_alpha.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_mdxm.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_perspectivematrix.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_player.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_refentity.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_rmo.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_shader.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_idtech3_shader_pbr.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_if.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_javascript.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_javascript_file.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_keyboard.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_line.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_logger.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_mapfloat.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrices.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_decompose.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_identity.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_inverse.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_multiply.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_multiply_point.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_ortho.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_rotate.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_scale.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_shear.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_translate.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_matrix_transpose.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_mesh_editor.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_minus.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_multiply.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_negate.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_node.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_nop.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_perspective.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_plus.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_prefab.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_prefab_input.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_prefab_output.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_quaternion.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_quaternion_inverse.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_quaternion_multiply.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_random_shit.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_renderer.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_scriptwrapper.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_sin.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_skeleton.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_soil.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_switch.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_tofloat.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_value.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_vector3.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\ops\op_vector4.cpp">
-      <Filter>rend2\ops</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys.cpp">
-      <Filter>rend2\opsys</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_editor.cpp">
-      <Filter>rend2\opsys</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_explorer.cpp">
-      <Filter>rend2\opsys</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_hierarchy.cpp">
-      <Filter>rend2\opsys</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_javascript.cpp">
-      <Filter>rend2\opsys</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_link_matrices.cpp">
-      <Filter>rend2\opsys</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_opengl.cpp">
-      <Filter>rend2\opsys</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_ops_editor.cpp">
-      <Filter>rend2\opsys</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\opsys\opsys_utils.cpp">
-      <Filter>rend2\opsys</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\utils_opengl\debuglines.cpp">
-      <Filter>rend2\utils_opengl</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\rd-rend2\tr_world.cpp">
       <Filter>rend2</Filter>
@@ -820,30 +163,6 @@
     <ClCompile Include="..\..\codemp\rd-rend2\tr_animation.cpp">
       <Filter>rend2</Filter>
     </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\FXExport.cpp">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\FxPrimitives.cpp">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\FxScheduler.cpp">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\FxSystem.cpp">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\FxTemplate.cpp">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\client\FxUtil.cpp">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_menus.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_fbos.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\codemp\ui\ui_atoms.cpp">
       <Filter>ui</Filter>
     </ClCompile>
@@ -858,15 +177,6 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\ui\ui_main.cpp">
       <Filter>ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_ghoul2.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_anims.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_frames.cpp">
-      <Filter>rend2\imgui_docks_openjk</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\game\bg_g2_utils.cpp">
       <Filter>bg</Filter>
@@ -1231,254 +541,698 @@
     <ClCompile Include="..\..\codemp\cgame\cg_main.cpp">
       <Filter>cgame</Filter>
     </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\cl_avi.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\cl_cgame.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\cl_cgameapi.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\cl_cin.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\cl_console.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\cl_input.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\cl_keys.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\cl_lan.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\cl_main.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\cl_net_chan.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\cl_parse.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\cl_scrn.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\cl_ui.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\cl_uiapi.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\z_memman_pc.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\icarus\BlockStream.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cdct.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\cm_load.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\cm_patch.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\cm_polylib.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\cm_test.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\cm_trace.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\cmd.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\common.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\sys\con_log.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\sys\con_passive.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\csbt.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\csbtb.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\csbtl3.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cup.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cupini.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cupl1.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cupl3.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\cvar.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cwin.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cwinb.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cwinm.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\files.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\safe\files.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\FXExport.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\FxPrimitives.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\FxScheduler.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\FxSystem.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\FxTemplate.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\FxUtil.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\icarus\GameInterface.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\GenericParser2.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\huffman.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\hwin.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Instance.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Interface.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\l3dq.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\l3init.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\matcomp.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\md4.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\md5.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\mdct.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Memory.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\mhead.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\msg.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\msis.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\NPCNav\navigator.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\net_chan.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\net_ip.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\persistence.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\q_color.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\q_math.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\q_shared.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\q_string.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Q3_Interface.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Q3_Registers.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\RoffSystem.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\sdl\sdl_input.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\sdl\sdl_sound.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\sdl\sdl_window.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Sequence.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Sequencer.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\sys\snapvector.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\snd_ambient.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\snd_dma.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\snd_mem.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\snd_mix.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\snd_mp3.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\client\snd_music.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\stringed_ingame.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\stringed_interface.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_bot.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_ccmds.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_challenge.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_client.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_game.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_gameapi.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_init.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_main.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_net_chan.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_snapshot.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_world.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\sys\sys_event.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\sys\sys_main.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\sys\sys_win32.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\icarus\TaskManager.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\towave.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\uph.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\upsf.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\qcommon\vm.cpp">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\wavep.c">
+      <Filter>client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_perspective.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_plus.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_prefab.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_prefab_input.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_prefab_output.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_quaternion.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_quaternion_inverse.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_quaternion_multiply.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_random_shit.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_renderer.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_scriptwrapper.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_sin.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_skeleton.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_soil.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_switch.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_tofloat.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_value.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_vector3.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_vector4.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_all.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_astar.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_axis.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_checkerboard.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_cos.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_craft.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_cube.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_divide.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_expression.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_file.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_gl_attrib.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_gl_buffer.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_gl_fragment_shader.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_gl_framebuffer.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_gl_legacy.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_gl_program.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_gl_uniform.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_gl_vertex_shader.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_idtech3_image.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_idtech3_image_color.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_idtech3_image_mix.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_idtech3_image_scale.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_idtech3_image_split.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_idtech3_image_split_alpha.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_idtech3_mdxm.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_idtech3_perspectivematrix.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_idtech3_player.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_idtech3_refentity.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_idtech3_rmo.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_idtech3_shader.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_idtech3_shader_pbr.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_if.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_javascript.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_javascript_file.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_keyboard.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_line.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_logger.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_mapfloat.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_matrices.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_matrix.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_matrix_decompose.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_matrix_identity.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_matrix_inverse.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_matrix_multiply.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_matrix_multiply_point.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_matrix_ortho.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_matrix_rotate.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_matrix_scale.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_matrix_shear.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_matrix_translate.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_matrix_transpose.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_mesh_editor.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_minus.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_multiply.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_negate.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_node.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\ops\op_nop.cpp">
+      <Filter>ops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\utils_opengl\debuglines.cpp">
+      <Filter>utils_opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\opsys\opsys.cpp">
+      <Filter>opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\opsys\opsys_editor.cpp">
+      <Filter>opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\opsys\opsys_explorer.cpp">
+      <Filter>opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\opsys\opsys_hierarchy.cpp">
+      <Filter>opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\opsys\opsys_javascript.cpp">
+      <Filter>opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\opsys\opsys_link_matrices.cpp">
+      <Filter>opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\opsys\opsys_opengl.cpp">
+      <Filter>opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\opsys\opsys_ops_editor.cpp">
+      <Filter>opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\opsys\opsys_utils.cpp">
+      <Filter>opsys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\op_types\op_type_image.cpp">
+      <Filter>op_types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui\ffi.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui\imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui\imgui_api.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui\imgui_c_utils.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui\imgui_default_docks.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui\imgui_demo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui\imgui_dock.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui\imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui\imgui_fixedarea.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui\imgui_impl_idtech3_gles.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui\imgui_utils.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\MagicFile\magicfile.cpp">
+      <Filter>magicfile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks\dock.cpp">
+      <Filter>imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks\dock_console.cpp">
+      <Filter>imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks\dock_julia.cpp">
+      <Filter>imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks\dock_node.cpp">
+      <Filter>imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks\dock_repl.cpp">
+      <Filter>imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks\dock_skeleton.cpp">
+      <Filter>imgui_docks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_all.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_anims.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_controlflow.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_fbos.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_frames.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_ghoul2.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_images.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_mapinfo.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_mdxa.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_mdxm.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_menus.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_models.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_opsys.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_perf.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_quakeshaders.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_shadereditor.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_openjk\gluecode.cpp">
+      <Filter>imgui_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_openjk\imgui_openjk_default_docks.cpp">
+      <Filter>imgui_openjk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\XycaRend2\codemp\cgame\cg_public.h">
-      <Filter>cgame</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\client.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\keys.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\snd_public.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\anims.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\botlib.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\g_public.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\surfaceflags.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\q_shared.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_local.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_patch.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_polylib.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_public.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\disablewarnings.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\game_version.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\GenericParser2.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\md5.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\MiniHeap.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\matcomp.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\qcommon.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\qfiles.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\RoffSystem.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\sstring.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\stringed_ingame.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\stringed_interface.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\tags.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\timing.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\files.h">
-      <Filter>common/safe</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h">
-      <Filter>common/safe</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\G2.h">
-      <Filter>ghoul2</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\G2_gore.h">
-      <Filter>ghoul2</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\ghoul2_shared.h">
-      <Filter>ghoul2</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\ghoul2\g2_local.h">
-      <Filter>ghoul2</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\icarus\blockstream.h">
-      <Filter>icarus</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\icarus\GameInterface.h">
-      <Filter>icarus</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\icarus\icarus.h">
-      <Filter>icarus</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\icarus\instance.h">
-      <Filter>icarus</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\icarus\interface.h">
-      <Filter>icarus</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\icarus\interpreter.h">
-      <Filter>icarus</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\icarus\Q3_Interface.h">
-      <Filter>icarus</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\icarus\Q3_Registers.h">
-      <Filter>icarus</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\icarus\sequence.h">
-      <Filter>icarus</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\icarus\sequencer.h">
-      <Filter>icarus</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\icarus\taskmanager.h">
-      <Filter>icarus</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\icarus\tokenizer.h">
-      <Filter>icarus</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\server\NPCNav\navigator.h">
-      <Filter>server</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\server\server.h">
-      <Filter>server</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\server\sv_gameapi.h">
-      <Filter>server</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\ui\keycodes.h">
-      <Filter>ui</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\ui\ui_public.h">
-      <Filter>ui</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\eax\eax.h">
-      <Filter>eax</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\eax\EaxMan.h">
-      <Filter>eax</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\cl_cgameapi.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\cl_lan.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\cl_uiapi.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\snd_ambient.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\snd_local.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\snd_mp3.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\snd_music.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\Ratl\bits_vs.h">
-      <Filter>ratl</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\Ratl\ratl_common.h">
-      <Filter>ratl</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\Ratl\vector_vs.h">
-      <Filter>ratl</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\Ravl\CVec.h">
-      <Filter>ravl</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\mp3code\config.h">
-      <Filter>mp3code</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\mp3code\htable.h">
-      <Filter>mp3code</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\mp3code\jdw.h">
-      <Filter>mp3code</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\mp3code\l3.h">
-      <Filter>mp3code</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\mp3code\mhead.h">
-      <Filter>mp3code</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\mp3code\mp3struct.h">
-      <Filter>mp3code</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\mp3code\port.h">
-      <Filter>mp3code</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\mp3code\small_header.h">
-      <Filter>mp3code</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\mp3code\tableawd.h">
-      <Filter>mp3code</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\win32\resource.h">
-      <Filter>win32</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\sdl\sdl_icon.h">
-      <Filter>sys</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\sys\sys_loadlib.h">
-      <Filter>sys</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\sys\sys_local.h">
-      <Filter>sys</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\sys\sys_public.h">
-      <Filter>sys</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\sys\con_local.h">
-      <Filter>sys</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\codemp\rd-common\mdx_format.h">
       <Filter>rend-common</Filter>
     </ClInclude>
@@ -1493,375 +1247,6 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\rd-common\tr_types.h">
       <Filter>rend-common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\MagicFile\magicfile.h">
-      <Filter>rend2\imgui\MagicFile</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imconfig.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_api.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_c_utils.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_default_docks.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_dock.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_fixedarea.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_impl_idtech3_gles.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_internal.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\imgui_utils.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\include_imgui.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\include_quakegl.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\stb_rect_pack.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\stb_textedit.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui\stb_truetype.h">
-      <Filter>rend2\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock.h">
-      <Filter>rend2\imgui_docks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_console.h">
-      <Filter>rend2\imgui_docks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_julia.h">
-      <Filter>rend2\imgui_docks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_node.h">
-      <Filter>rend2\imgui_docks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_repl.h">
-      <Filter>rend2\imgui_docks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks\dock_skeleton.h">
-      <Filter>rend2\imgui_docks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_all.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_controlflow.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_images.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mapinfo.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mdxa.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_mdxm.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_models.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_opsys.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_perf.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_quakeshaders.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_shadereditor.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_openjk\gluecode.h">
-      <Filter>rend2\imgui_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_openjk\imgui_openjk_default_docks.h">
-      <Filter>rend2\imgui_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\op_types\op_type_image.h">
-      <Filter>rend2\op_types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_all.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_astar.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_axis.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_checkerboard.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_cos.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_craft.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_cube.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_divide.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_expression.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_file.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_attrib.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_buffer.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_fragment_shader.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_framebuffer.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_legacy.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_program.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_uniform.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_gl_vertex_shader.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_image.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_color.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_mix.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_scale.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_split.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_image_split_alpha.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_mdxm.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_perspectivematrix.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_player.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_refentity.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_rmo.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_shader.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_idtech3_shader_pbr.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_if.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_javascript.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_javascript_file.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_keyboard.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_line.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_logger.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_mapfloat.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrices.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_decompose.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_identity.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_inverse.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_multiply.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_multiply_point.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_ortho.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_rotate.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_scale.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_shear.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_translate.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_matrix_transpose.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_mesh_editor.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_minus.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_multiply.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_negate.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_node.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_node.hpp">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_nop.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_perspective.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_plus.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_prefab.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_prefab_input.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_prefab_output.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_quaternion.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_quaternion_inverse.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_quaternion_multiply.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_random_shit.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_renderer.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_scriptwrapper.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_sin.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_skeleton.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_soil.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_switch.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_tofloat.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_value.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_vector3.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\ops\op_vector4.h">
-      <Filter>rend2\ops</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys.h">
-      <Filter>rend2\opsys</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys_editor.h">
-      <Filter>rend2\opsys</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys_explorer.h">
-      <Filter>rend2\opsys</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys_hierarchy.h">
-      <Filter>rend2\opsys</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys_javascript.h">
-      <Filter>rend2\opsys</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys_link_matrices.h">
-      <Filter>rend2\opsys</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys_opengl.h">
-      <Filter>rend2\opsys</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\opsys\opsys_utils.h">
-      <Filter>rend2\opsys</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\utils_opengl\debuglines.h">
-      <Filter>rend2\utils_opengl</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\rd-rend2\compose_images.h">
       <Filter>rend2</Filter>
@@ -1977,24 +1362,6 @@
     <ClInclude Include="..\..\codemp\cgame\fx_local.h">
       <Filter>fx</Filter>
     </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\FxUtil.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\FXExport.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\FxPrimitives.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\FxScheduler.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\client\FxSystem.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_menus.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\codemp\ui\menudef.h">
       <Filter>ui</Filter>
     </ClInclude>
@@ -2006,9 +1373,6 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\ui\ui_xcvar.h">
       <Filter>ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_fbos.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\qcommon\z_memman_pc.h">
       <Filter>common</Filter>
@@ -2031,26 +1395,8 @@
     <ClInclude Include="..\..\codemp\ui\ui_main.h">
       <Filter>ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_ghoul2.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_anims.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\anims_to_string.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\codemp\game\bg_saga.h">
       <Filter>bg</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\bg_weapons.h">
-      <Filter>bg</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\bg_public.h">
-      <Filter>bg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\codemp\rd-rend2\imgui_docks_openjk\dock_frames.h">
-      <Filter>rend2\imgui_docks_openjk</Filter>
     </ClInclude>
     <ClInclude Include="..\..\codemp\ghoul2\CBoneCache.h">
       <Filter>ghoul2</Filter>
@@ -2409,19 +1755,668 @@
     <ClInclude Include="..\..\codemp\cgame\fx_rocketlauncher.h">
       <Filter>fx</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="C:\XycaRend2\codemp\CMakeLists.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="C:\XycaRend2\codemp\win32\icon.ico">
-      <Filter>win32</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="C:\XycaRend2\codemp\win32\openjk.rc">
-      <Filter>win32</Filter>
-    </ResourceCompile>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\cl_cgameapi.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\cl_lan.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\cl_uiapi.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\client.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\game\anims.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\game\bg_public.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\game\bg_weapons.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\Ratl\bits_vs.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\icarus\blockstream.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\botlib.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\cgame\cg_public.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\cm_local.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\cm_patch.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\cm_polylib.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\cm_public.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\shared\sys\con_local.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\config.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\Ravl\CVec.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\disablewarnings.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\eax\eax.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\eax\EaxMan.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\files.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\FXExport.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\FxPrimitives.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\FxScheduler.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\FxSystem.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\FxUtil.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\game\g_public.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\game_version.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\icarus\GameInterface.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\GenericParser2.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\gsl.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\htable.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\icarus\icarus.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\icarus\instance.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\icarus\interface.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\icarus\interpreter.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\jdw.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\ui\keycodes.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\keys.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\l3.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\matcomp.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\md5.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\mhead.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\MiniHeap.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\mp3struct.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\server\NPCNav\navigator.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\port.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_color.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_math.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_platform.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\q_shared.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_string.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\icarus\Q3_Interface.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\icarus\Q3_Registers.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\qcommon.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\qfiles.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\Ratl\ratl_common.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\win32\resource.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\RoffSystem.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\shared\sdl\sdl_icon.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\icarus\sequence.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\icarus\sequencer.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\server\server.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\small_header.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\snd_ambient.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\snd_local.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\snd_mp3.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\snd_music.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\client\snd_public.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\sstring.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\stringed_ingame.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\stringed_interface.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\game\surfaceflags.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\server\sv_gameapi.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\shared\sys\sys_loadlib.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\shared\sys\sys_local.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\shared\sys\sys_public.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\tableawd.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\tags.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\icarus\taskmanager.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\timing.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\icarus\tokenizer.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\ui\ui_public.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\Ratl\vector_vs.h">
+      <Filter>client</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\ghoul2\G2.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\ghoul2\G2_gore.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\ghoul2\g2_local.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\ghoul2\ghoul2_shared.h">
+      <Filter>ghoul2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_nop.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_perspective.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_plus.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_prefab.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_prefab_input.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_prefab_output.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_quaternion.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_quaternion_inverse.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_quaternion_multiply.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_random_shit.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_renderer.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_scriptwrapper.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_sin.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_skeleton.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_soil.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_switch.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_tofloat.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_value.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_vector3.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_vector4.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_all.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_astar.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_axis.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_checkerboard.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_cos.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_craft.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_cube.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_divide.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_expression.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_file.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_gl_attrib.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_gl_buffer.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_gl_fragment_shader.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_gl_framebuffer.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_gl_legacy.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_gl_program.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_gl_uniform.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_gl_vertex_shader.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_idtech3_image.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_idtech3_image_color.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_idtech3_image_mix.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_idtech3_image_scale.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_idtech3_image_split.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_idtech3_image_split_alpha.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_idtech3_mdxm.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_idtech3_perspectivematrix.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_idtech3_player.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_idtech3_refentity.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_idtech3_rmo.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_idtech3_shader.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_idtech3_shader_pbr.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_if.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_javascript.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_javascript_file.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_keyboard.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_line.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_logger.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_mapfloat.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_matrices.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_matrix.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_matrix_decompose.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_matrix_identity.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_matrix_inverse.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_matrix_multiply.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_matrix_multiply_point.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_matrix_ortho.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_matrix_rotate.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_matrix_scale.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_matrix_shear.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_matrix_translate.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_matrix_transpose.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_mesh_editor.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_minus.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_multiply.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_negate.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_node.h">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ops\op_node.hpp">
+      <Filter>ops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\utils_opengl\debuglines.h">
+      <Filter>utils_opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\opsys\opsys.h">
+      <Filter>opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\opsys\opsys_editor.h">
+      <Filter>opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\opsys\opsys_explorer.h">
+      <Filter>opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\opsys\opsys_hierarchy.h">
+      <Filter>opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\opsys\opsys_javascript.h">
+      <Filter>opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\opsys\opsys_link_matrices.h">
+      <Filter>opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\opsys\opsys_opengl.h">
+      <Filter>opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\opsys\opsys_utils.h">
+      <Filter>opsys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\op_types\op_type_image.h">
+      <Filter>op_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\imgui_impl_idtech3_gles.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\imgui_internal.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\imgui_utils.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\include_imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\include_quakegl.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\stb_rect_pack.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\stb_textedit.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\stb_truetype.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\imconfig.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\imgui_api.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\imgui_c_utils.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\imgui_default_docks.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\imgui_dock.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui\imgui_fixedarea.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\ccall\ccall.h">
+      <Filter>ccall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\MagicFile\magicfile.h">
+      <Filter>magicfile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks\dock.h">
+      <Filter>imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks\dock_console.h">
+      <Filter>imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks\dock_julia.h">
+      <Filter>imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks\dock_node.h">
+      <Filter>imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks\dock_repl.h">
+      <Filter>imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks\dock_skeleton.h">
+      <Filter>imgui_docks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\anims_to_string.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_all.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_anims.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_controlflow.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_fbos.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_frames.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_ghoul2.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_images.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_mapinfo.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_mdxa.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_mdxm.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_menus.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_models.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_opsys.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_perf.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_quakeshaders.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_shadereditor.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_openjk\gluecode.h">
+      <Filter>imgui_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_openjk\imgui_openjk_default_docks.h">
+      <Filter>imgui_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\include_ccall.h" />
+    <ClInclude Include="..\..\codemp\include_console.h" />
+    <ClInclude Include="..\..\codemp\include_gl.h" />
+    <ClInclude Include="..\..\codemp\include_glm.h" />
+    <ClInclude Include="..\..\codemp\include_imgui.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="game">
@@ -2475,35 +2470,8 @@
     <Filter Include="rend2\glsl">
       <UniqueIdentifier>{4e59dea5-56a1-48a7-8912-f2a35d68f288}</UniqueIdentifier>
     </Filter>
-    <Filter Include="rend2\imgui">
-      <UniqueIdentifier>{e2eb6aa4-2c31-4b1b-9ebf-28f59d9fd05c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="rend2\imgui_docks">
-      <UniqueIdentifier>{9c4229e6-40b3-404b-a954-b9401b171792}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="rend2\imgui_docks_openjk">
-      <UniqueIdentifier>{0e0bfb20-080f-4073-aba2-04ca4d4ff332}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="rend2\imgui_openjk">
-      <UniqueIdentifier>{17ad2690-8ff0-41d8-85a7-aa8ab333de8f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="rend2\imgui\MagicFile">
-      <UniqueIdentifier>{3d072455-43c5-4157-aa6f-18c3308405fd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="rend-common">
       <UniqueIdentifier>{0ff0139c-6c94-48a0-874c-43e7a1d55689}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="rend2\op_types">
-      <UniqueIdentifier>{45106bf6-0700-41fe-9111-bcdc0c2770ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="rend2\ops">
-      <UniqueIdentifier>{a202aabc-b8df-45c4-81f3-1b5b9b330627}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="rend2\opsys">
-      <UniqueIdentifier>{08663209-cfed-4f52-86e9-a2c4b2fbde01}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="rend2\utils_opengl">
-      <UniqueIdentifier>{9669c53c-15c3-46d3-889f-aa043f191621}</UniqueIdentifier>
     </Filter>
     <Filter Include="gamecgamemix">
       <UniqueIdentifier>{e1b5a8d4-e227-4ada-8c6d-319094731b26}</UniqueIdentifier>
@@ -2517,5 +2485,45 @@
     <Filter Include="NPC">
       <UniqueIdentifier>{1af26b0e-75fd-46ed-809e-2ec36de3e2c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ops">
+      <UniqueIdentifier>{5ac3db7e-c716-459a-8bfe-b8c13f36b9c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="op_types">
+      <UniqueIdentifier>{54966e64-e2b1-47a6-a253-2d0fa21d578a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="opsys">
+      <UniqueIdentifier>{10d85aed-8866-488a-9c2e-38bbd322f79c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils_opengl">
+      <UniqueIdentifier>{13095e0d-19c9-4bb8-b493-944c0ad5ca21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{5216f11f-c51d-4573-af0f-6eee64a6d7a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ccall">
+      <UniqueIdentifier>{ea14e6ba-0bc1-422a-a0e2-8be6210cd1b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="magicfile">
+      <UniqueIdentifier>{810f6de0-4806-4630-b4e5-5cca0ac6b344}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui_docks">
+      <UniqueIdentifier>{08931194-a2a6-479b-863e-a2d1d2bff19b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui_docks_openjk">
+      <UniqueIdentifier>{a40e4c71-072a-418e-8236-dac6c387707f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui_openjk">
+      <UniqueIdentifier>{0fc2364f-e5bf-4e68-9212-51fa2a501e0a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\OpenSciTech\codemp\win32\icon.ico">
+      <Filter>client</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="C:\OpenSciTech\codemp\win32\openjk.rc">
+      <Filter>client</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
