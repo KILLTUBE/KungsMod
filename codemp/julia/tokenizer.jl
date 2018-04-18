@@ -38,6 +38,7 @@ type TokenExtern             <: Token             end # extern
 type TokenEXTERNC            <: Token             end # EXTERNC
 type TokenCCALL              <: Token             end # CCALL
 type TokenQINLINE            <: Token             end # QINLINE
+type TokenQDECL              <: Token             end # QDECL
 type TokenEnum               <: Token             end # enum
 type TokenNewline            <: Token             end # \n
 type TokenEnd                <: Token             end # just a meta token so we know we iterated over all tokens
@@ -151,6 +152,10 @@ function pushIdentifier(tokenizer::Tokenizer, str::String)
 	end
 	if str == "QINLINE"
 		push!(tokenizer.tokens, TokenQINLINE())
+		return
+	end
+	if str == "QDECL"
+		push!(tokenizer.tokens, TokenQDECL())
 		return
 	end
 	if str == "enum"
@@ -330,6 +335,8 @@ function step(tokenizer::Tokenizer)
 		advanceTill(tokenizer, '\n')
 	elseif cc == '?'
 		push!(tokenizer.tokens, TokenQuestionMark())
+	elseif cc == '\\'
+		# this is used to combine multiple lines, simply ignore i guess for now
 	elseif iswhitespace(cc)
 		# just ignore, but add token for \n
 		

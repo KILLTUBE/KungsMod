@@ -1,5 +1,13 @@
 float trap_Cvar_VariableValue( const char *var_name );
 int G_ParseInfos( char *buf, int max, char *infos[] );
+void G_LoadArenasFromFile( char *filename );
+int G_GetMapTypeBits( char *type );
+qboolean G_DoesMapSupportGametype( const char *mapname, int gametype );
+const char *G_RefreshNextMap( int gametype, qboolean forced );
+void G_LoadArenas();
+const char *G_GetArenaInfoByMap( const char *map );
+static void PlayerIntroSound( const char *modelAndSkin );
+void G_AddRandomBot( int team );
 int G_RemoveRandomBot( int team );
 int G_CountHumanPlayers( int team );
 int G_CountBotPlayers( int team );

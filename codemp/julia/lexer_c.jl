@@ -19,13 +19,14 @@ type MetaVar
 	isEXTERNC::Bool   # EXTERNC
 	isCCALL::Bool     # CCALL
 	isQINLINE::Bool   # QINLINE
+	isQDECL::Bool     # QDECL
 	isFuncDecl::Bool  # stuff like: int (*add_callback)(int a, int b)
 	funcDeclArgs::Vector{MetaVar}
 	numPointer::Int32 # 0 is "int foo"    1 is "int *foo"    2 is "int **foo"    etc.
 	dimensionA_startTokenPos::Int32 # -1 if no dimension
 	dimensionB_startTokenPos::Int32 # -1 if no dimension
 	function MetaVar()
-		new("", "", false, false, false, false, false, false, false, false, false, Vector{MetaVar}(), 0, -1, -1)
+		new("", "", false, false, false, false, false, false, false, false, false, false, Vector{MetaVar}(), 0, -1, -1)
 	end
 end
 
@@ -216,6 +217,8 @@ function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
 			metaVar.isCCALL = true
 		elseif typeof(token) <: TokenQINLINE
 			metaVar.isQINLINE = true
+		elseif typeof(token) <: TokenQDECL
+			metaVar.isQDECL = true
 		elseif typeof(token) <: TokenUnsigned
 			metaVar.isUnsigned = true
 		elseif typeof(token) <: TokenSquareBracketOpen

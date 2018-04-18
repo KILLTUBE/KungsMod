@@ -28,6 +28,9 @@ function tostring(parser::Parser, metaVar::MetaVar)
 	if metaVar.isCCALL
 		ret *= "CCALL "
 	end
+	if metaVar.isQDECL
+		ret *= "QDECL "
+	end
 	if metaVar.isQINLINE
 		ret *= "QINLINE "
 	end
@@ -125,7 +128,7 @@ function generateHeader(filename)
 end
 
 
-mode = 2
+mode = 3
 
 if mode == 1
 	files_cgame = Glob.glob("*.cpp", "C:\\OpenSciTech\\codemp\\cgame\\")

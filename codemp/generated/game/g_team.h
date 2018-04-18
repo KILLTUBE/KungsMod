@@ -26,7 +26,7 @@ qboolean Team_GetLocationMsg( gentity_t *ent, char *loc, int loclen );
 gentity_t *SelectRandomTeamSpawnPoint( int teamstate, team_t team, int siegeClass );
 gentity_t *SelectCTFSpawnPoint( team_t team, int teamstate, vec3_t origin, vec3_t angles, qboolean isbot );
 gentity_t *SelectSiegeSpawnPoint( int siegeClass, team_t team, int teamstate, vec3_t origin, vec3_t angles, qboolean isbot );
-static int QDECL( const void *a, const void *b );
+QDECL static int SortClients( const void *a, const void *b );
 void TeamplayInfoMessage( gentity_t *ent );
 void CheckTeamStatus();
 CCALL void SP_team_CTF_redplayer( gentity_t *ent );
