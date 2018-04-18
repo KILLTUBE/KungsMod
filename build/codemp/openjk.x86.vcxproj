@@ -401,6 +401,19 @@
     <ClInclude Include="..\..\codemp\game\w_saber.h" />
     <ClInclude Include="..\..\codemp\ghoul2\CBoneCache.h" />
     <ClInclude Include="..\..\codemp\ghoul2\Ghoul2InfoArray.h" />
+    <ClInclude Include="..\..\codemp\icarus\blockstream.h" />
+    <ClInclude Include="..\..\codemp\icarus\GameInterface.h" />
+    <ClInclude Include="..\..\codemp\icarus\icarus.h" />
+    <ClInclude Include="..\..\codemp\icarus\instance.h" />
+    <ClInclude Include="..\..\codemp\icarus\interface.h" />
+    <ClInclude Include="..\..\codemp\icarus\interpreter.h" />
+    <ClInclude Include="..\..\codemp\icarus\module.h" />
+    <ClInclude Include="..\..\codemp\icarus\Q3_Interface.h" />
+    <ClInclude Include="..\..\codemp\icarus\Q3_Registers.h" />
+    <ClInclude Include="..\..\codemp\icarus\sequence.h" />
+    <ClInclude Include="..\..\codemp\icarus\sequencer.h" />
+    <ClInclude Include="..\..\codemp\icarus\taskmanager.h" />
+    <ClInclude Include="..\..\codemp\icarus\tokenizer.h" />
     <ClInclude Include="..\..\codemp\imgui\imconfig.h" />
     <ClInclude Include="..\..\codemp\imgui\imgui.h" />
     <ClInclude Include="..\..\codemp\imgui\imgui_api.h" />
@@ -1307,6 +1320,22 @@
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\icarus\BlockStream.cpp" />
+    <ClCompile Include="..\..\codemp\icarus\GameInterface.cpp" />
+    <ClCompile Include="..\..\codemp\icarus\Instance.cpp" />
+    <ClCompile Include="..\..\codemp\icarus\Interface.cpp" />
+    <ClCompile Include="..\..\codemp\icarus\Interpreter.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\icarus\Memory.cpp" />
+    <ClCompile Include="..\..\codemp\icarus\Q3_Interface.cpp" />
+    <ClCompile Include="..\..\codemp\icarus\Q3_Registers.cpp" />
+    <ClCompile Include="..\..\codemp\icarus\Sequence.cpp" />
+    <ClCompile Include="..\..\codemp\icarus\Sequencer.cpp" />
+    <ClCompile Include="..\..\codemp\icarus\TaskManager.cpp" />
+    <ClCompile Include="..\..\codemp\icarus\Tokenizer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\codemp\imgui\ffi.cpp" />
     <ClCompile Include="..\..\codemp\imgui\imgui.cpp" />
     <ClCompile Include="..\..\codemp\imgui\imgui_api.cpp" />
@@ -1580,28 +1609,6 @@
     <ClInclude Include="C:\OpenSciTech\codemp\ghoul2\G2_gore.h" />
     <ClInclude Include="C:\OpenSciTech\codemp\ghoul2\ghoul2_shared.h" />
     <ClInclude Include="C:\OpenSciTech\codemp\ghoul2\g2_local.h" />
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\BlockStream.cpp" />
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\blockstream.h" />
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\GameInterface.cpp" />
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\GameInterface.h" />
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\icarus.h" />
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Instance.cpp" />
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\instance.h" />
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Interface.cpp" />
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\interface.h" />
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\interpreter.h" />
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Memory.cpp" />
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Q3_Interface.cpp" />
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\Q3_Interface.h" />
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Q3_Registers.cpp" />
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\Q3_Registers.h" />
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Sequence.cpp" />
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\sequence.h" />
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Sequencer.cpp" />
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\sequencer.h" />
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\TaskManager.cpp" />
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\taskmanager.h" />
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\tokenizer.h" />
     <ClCompile Include="C:\OpenSciTech\codemp\server\NPCNav\navigator.cpp" />
     <ClInclude Include="C:\OpenSciTech\codemp\server\NPCNav\navigator.h" />
     <ClInclude Include="C:\OpenSciTech\codemp\server\server.h" />

@@ -586,12 +586,6 @@
     <ClCompile Include="C:\OpenSciTech\codemp\qcommon\z_memman_pc.cpp">
       <Filter>client</Filter>
     </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\BlockStream.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cdct.c">
-      <Filter>client</Filter>
-    </ClCompile>
     <ClCompile Include="C:\OpenSciTech\codemp\qcommon\cm_load.cpp">
       <Filter>client</Filter>
     </ClCompile>
@@ -619,37 +613,7 @@
     <ClCompile Include="C:\OpenSciTech\shared\sys\con_passive.cpp">
       <Filter>client</Filter>
     </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\csbt.c">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\csbtb.c">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\csbtl3.c">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cup.c">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cupini.c">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cupl1.c">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cupl3.c">
-      <Filter>client</Filter>
-    </ClCompile>
     <ClCompile Include="C:\OpenSciTech\codemp\qcommon\cvar.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cwin.c">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cwinb.c">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cwinm.c">
       <Filter>client</Filter>
     </ClCompile>
     <ClCompile Include="C:\OpenSciTech\codemp\qcommon\files.cpp">
@@ -676,28 +640,10 @@
     <ClCompile Include="C:\OpenSciTech\codemp\client\FxUtil.cpp">
       <Filter>client</Filter>
     </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\GameInterface.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
     <ClCompile Include="C:\OpenSciTech\codemp\qcommon\GenericParser2.cpp">
       <Filter>client</Filter>
     </ClCompile>
     <ClCompile Include="C:\OpenSciTech\codemp\qcommon\huffman.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\hwin.c">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Instance.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Interface.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\l3dq.c">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\l3init.c">
       <Filter>client</Filter>
     </ClCompile>
     <ClCompile Include="C:\OpenSciTech\codemp\qcommon\matcomp.cpp">
@@ -709,19 +655,7 @@
     <ClCompile Include="C:\OpenSciTech\codemp\qcommon\md5.cpp">
       <Filter>client</Filter>
     </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\mdct.c">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Memory.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\mhead.c">
-      <Filter>client</Filter>
-    </ClCompile>
     <ClCompile Include="C:\OpenSciTech\codemp\qcommon\msg.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\msis.c">
       <Filter>client</Filter>
     </ClCompile>
     <ClCompile Include="C:\OpenSciTech\codemp\server\NPCNav\navigator.cpp">
@@ -748,12 +682,6 @@
     <ClCompile Include="C:\OpenSciTech\shared\qcommon\q_string.c">
       <Filter>client</Filter>
     </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Q3_Interface.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Q3_Registers.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
     <ClCompile Include="C:\OpenSciTech\codemp\qcommon\RoffSystem.cpp">
       <Filter>client</Filter>
     </ClCompile>
@@ -764,12 +692,6 @@
       <Filter>client</Filter>
     </ClCompile>
     <ClCompile Include="C:\OpenSciTech\shared\sdl\sdl_window.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Sequence.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\Sequencer.cpp">
       <Filter>client</Filter>
     </ClCompile>
     <ClCompile Include="C:\OpenSciTech\shared\sys\snapvector.cpp">
@@ -799,39 +721,6 @@
     <ClCompile Include="C:\OpenSciTech\codemp\qcommon\stringed_interface.cpp">
       <Filter>client</Filter>
     </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_bot.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_ccmds.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_challenge.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_client.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_game.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_gameapi.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_init.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_main.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_net_chan.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_snapshot.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_world.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
     <ClCompile Include="C:\OpenSciTech\shared\sys\sys_event.cpp">
       <Filter>client</Filter>
     </ClCompile>
@@ -841,22 +730,7 @@
     <ClCompile Include="C:\OpenSciTech\shared\sys\sys_win32.cpp">
       <Filter>client</Filter>
     </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\icarus\TaskManager.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\towave.c">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\uph.c">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\upsf.c">
-      <Filter>client</Filter>
-    </ClCompile>
     <ClCompile Include="C:\OpenSciTech\codemp\qcommon\vm.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\wavep.c">
       <Filter>client</Filter>
     </ClCompile>
     <ClCompile Include="..\..\codemp\ops\op_perspective.cpp">
@@ -1230,6 +1104,138 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\imgui_openjk\imgui_openjk_default_docks.cpp">
       <Filter>imgui_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\icarus\BlockStream.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\icarus\GameInterface.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\icarus\Instance.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\icarus\Interface.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\icarus\Interpreter.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\icarus\Memory.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\icarus\Q3_Interface.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\icarus\Q3_Registers.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\icarus\Sequence.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\icarus\Sequencer.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\icarus\TaskManager.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\icarus\Tokenizer.cpp">
+      <Filter>icarus</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cdct.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\csbt.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\csbtb.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\csbtl3.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cup.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cupini.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cupl1.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cupl3.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cwin.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cwinb.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\cwinm.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\hwin.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\l3dq.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\l3init.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\mdct.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\mhead.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\msis.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\towave.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\uph.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\upsf.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\mp3code\wavep.c">
+      <Filter>mp3code</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_bot.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_ccmds.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_challenge.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_client.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_game.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_gameapi.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_init.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_main.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_net_chan.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_snapshot.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\server\sv_world.cpp">
+      <Filter>server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1776,12 +1782,6 @@
     <ClInclude Include="C:\OpenSciTech\codemp\game\bg_weapons.h">
       <Filter>client</Filter>
     </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\Ratl\bits_vs.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\blockstream.h">
-      <Filter>client</Filter>
-    </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\botlib\botlib.h">
       <Filter>client</Filter>
     </ClInclude>
@@ -1801,12 +1801,6 @@
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\OpenSciTech\shared\sys\con_local.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\config.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\Ravl\CVec.h">
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\qcommon\disablewarnings.h">
@@ -1842,31 +1836,10 @@
     <ClInclude Include="C:\OpenSciTech\codemp\qcommon\game_version.h">
       <Filter>client</Filter>
     </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\GameInterface.h">
-      <Filter>client</Filter>
-    </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\qcommon\GenericParser2.h">
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\gsl.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\htable.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\icarus.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\instance.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\interface.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\interpreter.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\jdw.h">
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\ui\keycodes.h">
@@ -1875,28 +1848,16 @@
     <ClInclude Include="C:\OpenSciTech\codemp\client\keys.h">
       <Filter>client</Filter>
     </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\l3.h">
-      <Filter>client</Filter>
-    </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\qcommon\matcomp.h">
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\qcommon\md5.h">
       <Filter>client</Filter>
     </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\mhead.h">
-      <Filter>client</Filter>
-    </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\qcommon\MiniHeap.h">
       <Filter>client</Filter>
     </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\mp3struct.h">
-      <Filter>client</Filter>
-    </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\server\NPCNav\navigator.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\port.h">
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_color.h">
@@ -1914,19 +1875,10 @@
     <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_string.h">
       <Filter>client</Filter>
     </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\Q3_Interface.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\Q3_Registers.h">
-      <Filter>client</Filter>
-    </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\qcommon\qcommon.h">
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\qcommon\qfiles.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\Ratl\ratl_common.h">
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\win32\resource.h">
@@ -1936,18 +1888,6 @@
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\OpenSciTech\shared\sdl\sdl_icon.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\sequence.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\sequencer.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\server\server.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\small_header.h">
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\client\snd_ambient.h">
@@ -1977,9 +1917,6 @@
     <ClInclude Include="C:\OpenSciTech\codemp\game\surfaceflags.h">
       <Filter>client</Filter>
     </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\server\sv_gameapi.h">
-      <Filter>client</Filter>
-    </ClInclude>
     <ClInclude Include="C:\OpenSciTech\shared\sys\sys_loadlib.h">
       <Filter>client</Filter>
     </ClInclude>
@@ -1989,25 +1926,13 @@
     <ClInclude Include="C:\OpenSciTech\shared\sys\sys_public.h">
       <Filter>client</Filter>
     </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\tableawd.h">
-      <Filter>client</Filter>
-    </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\qcommon\tags.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\taskmanager.h">
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\qcommon\timing.h">
       <Filter>client</Filter>
     </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\icarus\tokenizer.h">
-      <Filter>client</Filter>
-    </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\ui\ui_public.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\codemp\Ratl\vector_vs.h">
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\ghoul2\G2.h">
@@ -2417,6 +2342,90 @@
     <ClInclude Include="..\..\codemp\include_gl.h" />
     <ClInclude Include="..\..\codemp\include_glm.h" />
     <ClInclude Include="..\..\codemp\include_imgui.h" />
+    <ClInclude Include="..\..\codemp\icarus\blockstream.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\icarus\GameInterface.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\icarus\icarus.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\icarus\instance.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\icarus\interface.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\icarus\interpreter.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\icarus\Q3_Interface.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\icarus\Q3_Registers.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\icarus\sequence.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\icarus\sequencer.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\icarus\taskmanager.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\icarus\tokenizer.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\icarus\module.h">
+      <Filter>icarus</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\Ratl\bits_vs.h">
+      <Filter>Ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\Ratl\ratl_common.h">
+      <Filter>Ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\Ratl\vector_vs.h">
+      <Filter>Ratl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\Ravl\CVec.h">
+      <Filter>Ravl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\config.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\htable.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\jdw.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\l3.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\mhead.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\mp3struct.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\port.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\small_header.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\mp3code\tableawd.h">
+      <Filter>mp3code</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\server\server.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\server\sv_gameapi.h">
+      <Filter>server</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="game">
@@ -2451,12 +2460,6 @@
     </Filter>
     <Filter Include="eax">
       <UniqueIdentifier>{65C0E413-CF87-30CC-8F24-7012AA87911F}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ratl">
-      <UniqueIdentifier>{272CDB1D-5FF8-3F5F-B224-70D61E38593B}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ravl">
-      <UniqueIdentifier>{46E4EBCA-0C86-334D-8531-63E4A0F911EC}</UniqueIdentifier>
     </Filter>
     <Filter Include="mp3code">
       <UniqueIdentifier>{C2A61990-67EA-3529-93E3-C30D87E11522}</UniqueIdentifier>
@@ -2514,6 +2517,12 @@
     </Filter>
     <Filter Include="imgui_openjk">
       <UniqueIdentifier>{0fc2364f-e5bf-4e68-9212-51fa2a501e0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ratl">
+      <UniqueIdentifier>{272CDB1D-5FF8-3F5F-B224-70D61E38593B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ravl">
+      <UniqueIdentifier>{46E4EBCA-0C86-334D-8531-63E4A0F911EC}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
