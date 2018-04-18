@@ -134,7 +134,7 @@ function generateHeader(filename)
 end
 
 
-mode = 3
+mode = 2
 
 if mode == 1
 	files_cgame = Glob.glob("*.cpp", "C:\\OpenSciTech\\codemp\\cgame\\")
@@ -151,7 +151,7 @@ if mode == 3
 end
 
 if mode == 2
-	parser = generateHeader("C:\\OpenSciTech\\codemp\\game\\tri_coll_test.cpp")
+	parser = generateHeader("C:\\OpenSciTech\\codemp\\game\\w_force.cpp")
 end
 
 

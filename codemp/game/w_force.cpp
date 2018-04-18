@@ -22,25 +22,12 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "w_force.h"
 
-//NEEDED FOR MIND-TRICK on NPCS
-CCALL void NPC_PlayConfusionSound( gentity_t *self );
-CCALL void NPC_Jedi_PlayConfusionSound( gentity_t *self );
-CCALL void NPC_UseResponse( gentity_t *self, gentity_t *user, qboolean useWhenDone );
-CCALL void Jedi_Decloak( gentity_t *self );
-CCALL qboolean BG_FullBodyTauntAnim( int anim );
-
-EXTERNC bot_state_t *botstates[MAX_CLIENTS];
-
 int		speedLoopSound		= 0;
 int		rageLoopSound		= 0;
 int		protectLoopSound	= 0;
 int		absorbLoopSound		= 0;
 int		seeLoopSound		= 0;
 int		ysalamiriLoopSound	= 0;
-
-#define FORCE_VELOCITY_DAMAGE 0
-
-int ForceShootDrain( gentity_t *self );
 
 gentity_t *G_PreDefSound(vec3_t org, int pdSound)
 {
@@ -530,8 +517,6 @@ void WP_SpawnInitForcePowers( gentity_t *ent )
 		}
 	}
 }
-
-extern qboolean BG_InKnockDown( int anim ); //bg_pmove.c
 
 int ForcePowerUsableOn(gentity_t *attacker, gentity_t *other, forcePowers_t forcePower)
 {
@@ -2435,65 +2420,49 @@ qboolean ForceTelepathyCheckDirectNPCTarget( gentity_t *self, trace_t *tr, qbool
 		}
 	}
 
-	if ( traceEnt->s.number < MAX_CLIENTS )
-	{//a regular client
+	if ( traceEnt->s.number < MAX_CLIENTS ) { //a regular client
 		return qfalse;
 	}
 
-	if ( targetLive && traceEnt->NPC )
-	{//hit an organic non-player
+	if ( targetLive && traceEnt->NPC ) { //hit an organic non-player
 		vec3_t	eyeDir;
-		if ( G_ActivateBehavior( traceEnt, BSET_MINDTRICK ) )
-		{//activated a script on him
+		if ( G_ActivateBehavior( traceEnt, BSET_MINDTRICK ) ) { //activated a script on him
 			//FIXME: do the visual sparkles effect on their heads, still?
 			WP_ForcePowerStart( self, FP_TELEPATHY, 0 );
 		}
 		else if ( (self->NPC && traceEnt->client->playerTeam != self->client->playerTeam)
 			|| (!self->NPC && traceEnt->client->playerTeam != (npcteam_t)self->client->sess.sessionTeam) )
-		{//an enemy
+		{ //an enemy
 			int override = 0;
 			if ( (traceEnt->NPC->scriptFlags&SCF_NO_MIND_TRICK) )
 			{
 			}
-			else if ( traceEnt->s.weapon != WP_SABER
-				&& traceEnt->client->NPC_class != CLASS_REBORN )
-			{//haha!  Jedi aren't easily confused!
-				if ( self->client->ps.fd.forcePowerLevel[FP_TELEPATHY] > FORCE_LEVEL_2 )
-				{//turn them to our side
+			else if ( traceEnt->s.weapon != WP_SABER && traceEnt->client->NPC_class != CLASS_REBORN )
+			{ //haha!  Jedi aren't easily confused!
+				if ( self->client->ps.fd.forcePowerLevel[FP_TELEPATHY] > FORCE_LEVEL_2 ) { //turn them to our side
 					//if mind trick 3 and aiming at an enemy need more force power
-					if ( traceEnt->s.weapon != WP_NONE )
-					{//don't charm people who aren't capable of fighting... like ugnaughts and droids
+					if ( traceEnt->s.weapon != WP_NONE ) { //don't charm people who aren't capable of fighting... like ugnaughts and droids
 						int newPlayerTeam, newEnemyTeam;
 
-						if ( traceEnt->enemy )
-						{
+						if ( traceEnt->enemy ) {
 							G_ClearEnemy( traceEnt );
 						}
-						if ( traceEnt->NPC )
-						{
+						if ( traceEnt->NPC ) {
 							//traceEnt->NPC->tempBehavior = BS_FOLLOW_LEADER;
 							traceEnt->client->leader = self;
 						}
 						//FIXME: maybe pick an enemy right here?
-						if ( self->NPC )
-						{//NPC
+						if ( self->NPC ) {
 							newPlayerTeam = self->client->playerTeam;
 							newEnemyTeam = self->client->enemyTeam;
-						}
-						else
-						{//client/bot
-							if ( self->client->sess.sessionTeam == TEAM_BLUE )
-							{//rebel
+						} else { //client/bot
+							if ( self->client->sess.sessionTeam == TEAM_BLUE ) { // rebel
 								newPlayerTeam = NPCTEAM_PLAYER;
 								newEnemyTeam = NPCTEAM_ENEMY;
-							}
-							else if ( self->client->sess.sessionTeam == TEAM_RED )
-							{//imperial
+							} else if ( self->client->sess.sessionTeam == TEAM_RED ) { // imperial
 								newPlayerTeam = NPCTEAM_ENEMY;
 								newEnemyTeam = NPCTEAM_PLAYER;
-							}
-							else
-							{//neutral - wan't attack anyone
+							} else { // neutral - wan't attack anyone
 								newPlayerTeam = NPCTEAM_NEUTRAL;
 								newEnemyTeam = NPCTEAM_NEUTRAL;
 							}
@@ -2509,9 +2478,7 @@ qboolean ForceTelepathyCheckDirectNPCTarget( gentity_t *self, trace_t *tr, qbool
 						//FIXME: need a *charmed* timer on this...?  Or do TEAM_PLAYERS assume that "confusion" means they should switch to team_enemy when done?
 						traceEnt->NPC->charmedTime = level.time + mindTrickTime[self->client->ps.fd.forcePowerLevel[FP_TELEPATHY]];
 					}
-				}
-				else
-				{//just confuse them
+				} else { //just confuse them
 					//somehow confuse them?  Set don't fire to true for a while?  Drop their aggression?  Maybe just take their enemy away and don't let them pick one up for a while unless shot?
 					traceEnt->NPC->confusionTime = level.time + mindTrickTime[self->client->ps.fd.forcePowerLevel[FP_TELEPATHY]];//confused for about 10 seconds
 					NPC_PlayConfusionSound( traceEnt );
@@ -2520,22 +2487,17 @@ qboolean ForceTelepathyCheckDirectNPCTarget( gentity_t *self, trace_t *tr, qbool
 						G_ClearEnemy( traceEnt );
 					}
 				}
-			}
-			else
-			{
+			} else {
 				NPC_Jedi_PlayConfusionSound( traceEnt );
 			}
 			WP_ForcePowerStart( self, FP_TELEPATHY, override );
-		}
-		else if ( traceEnt->client->playerTeam == self->client->playerTeam )
-		{//an ally
+		} else if ( traceEnt->client->playerTeam == self->client->playerTeam ) { //an ally
 			//maybe just have him look at you?  Respond?  Take your enemy?
-			if ( traceEnt->client->ps.pm_type < PM_DEAD && traceEnt->NPC!=NULL && !(traceEnt->NPC->scriptFlags&SCF_NO_RESPONSE) )
-			{
+			if ( traceEnt->client->ps.pm_type < PM_DEAD && traceEnt->NPC!=NULL && !(traceEnt->NPC->scriptFlags&SCF_NO_RESPONSE) ) {
 				NPC_UseResponse( traceEnt, self, qfalse );
 				WP_ForcePowerStart( self, FP_TELEPATHY, 1 );
 			}
-		}//NOTE: no effect on TEAM_NEUTRAL?
+		} // NOTE: no effect on TEAM_NEUTRAL?
 		AngleVectors( traceEnt->client->renderInfo.eyeAngles, eyeDir, NULL, NULL );
 		VectorNormalize( eyeDir );
 		G_PlayEffectID( G_EffectIndex( "force/force_touch" ), traceEnt->client->renderInfo.eyePoint, eyeDir );
@@ -2544,11 +2506,9 @@ qboolean ForceTelepathyCheckDirectNPCTarget( gentity_t *self, trace_t *tr, qbool
 		//FIXME: BOTH_FORCEMINDTRICK or BOTH_FORCEDISTRACT
 		//NPC_SetAnim( self, SETANIM_TORSO, BOTH_MINDTRICK1, SETANIM_FLAG_OVERRIDE|SETANIM_FLAG_RESTART|SETANIM_FLAG_HOLD );
 		//FIXME: build-up or delay this until in proper part of anim
-	}
-	else
-	{
-		if ( self->client->ps.fd.forcePowerLevel[FP_TELEPATHY] > FORCE_LEVEL_1 && tr->fraction * 2048 > 64 )
-		{//don't create a diversion less than 64 from you of if at power level 1
+	} else {
+		if ( self->client->ps.fd.forcePowerLevel[FP_TELEPATHY] > FORCE_LEVEL_1 && tr->fraction * 2048 > 64 ) {
+			//don't create a diversion less than 64 from you of if at power level 1
 			//use distraction anim instead
 			G_PlayEffectID( G_EffectIndex( "force/force_touch" ), tr->endpos, tr->plane.normal );
 			//FIXME: these events don't seem to always be picked up...?
@@ -2903,9 +2863,7 @@ float forcePushPullRadius[NUM_FORCE_POWER_LEVELS] =
 };
 //rwwFIXMEFIXME: incorporate this into the below function? Currently it's only being used by jedi AI
 
-extern void Touch_Button(gentity_t *ent, gentity_t *other, trace_t *trace );
-void ForceThrow( gentity_t *self, qboolean pull )
-{
+void ForceThrow( gentity_t *self, qboolean pull ) {
 	//shove things in front of you away
 	float		dist;
 	gentity_t	*ent;
@@ -4074,11 +4032,7 @@ static void RemoveTrickedEnt(forcedata_t *fd, int client)
 	}
 }
 
-extern int g_LastFrameTime;
-extern int g_TimeSinceLastFrame;
-
-static void WP_UpdateMindtrickEnts(gentity_t *self)
-{
+void WP_UpdateMindtrickEnts(gentity_t *self) {
 	int i = 0;
 
 	while (i < MAX_CLIENTS)
@@ -4123,10 +4077,7 @@ static void WP_UpdateMindtrickEnts(gentity_t *self)
 	}
 }
 
-#define FORCE_DEBOUNCE_TIME 50 // sv_fps 20 = 50msec frametime, basejka balance/timing
-
-static void WP_ForcePowerRun( gentity_t *self, forcePowers_t forcePower, usercmd_t *cmd )
-{
+void WP_ForcePowerRun( gentity_t *self, forcePowers_t forcePower, usercmd_t *cmd ) {
 //	extern usercmd_t	ucmd;
 
 	switch( (int)forcePower )

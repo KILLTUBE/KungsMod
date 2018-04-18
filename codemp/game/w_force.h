@@ -6,6 +6,8 @@
 #include "ghoul2/G2.h"
 
 #define METROID_JUMP 1
+#define FORCE_VELOCITY_DAMAGE 0
+#define FORCE_DEBOUNCE_TIME 50 // sv_fps 20 = 50msec frametime, basejka balance/timing
 
 EXTERNC int g_TimeSinceLastFrame;
 EXTERNC int g_LastFrameTime;
@@ -70,7 +72,6 @@ CCALL void WP_ForcePowerStop(gentity_t *self,forcePowers_t forcePower);
 CCALL void WP_SpawnInitForcePowers(gentity_t *ent);
 CCALL void WP_InitForcePowers(gentity_t *ent);
 CCALL gentity_t *G_PreDefSound(vec3_t org,int pdSound);
-CCALL int ForceShootDrain(gentity_t *self);
 CCALL int ForceShootDrain(gentity_t *self);
 CCALL qboolean BG_FullBodyTauntAnim(int anim);
 CCALL void Jedi_Decloak(gentity_t *self);

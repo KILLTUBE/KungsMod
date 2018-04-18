@@ -7,41 +7,41 @@ isOp(     c::Char) = c in ['+', '-', '*', '/', '=', '~', '%', '&', '|', '<', '>'
 
 abstract type Token end
 
-type TokenOp                 <: Token str::String end # everything from isOp(...) function, like TokenOp("+=")
-type TokenNum                <: Token str::String end # 123
-type TokenStr                <: Token str::String end # "something"
-type TokenChar               <: Token str::String end # for stuff like '0'
-type TokenIdentifier         <: Token str::String end # all kinds of identifiers not translated to special tokens like TokenStatic
-type TokenSemicolon          <: Token             end # ;
-type TokenBracketOpen        <: Token             end # (
-type TokenBracketClose       <: Token             end # )
-type TokenSquareBracketOpen  <: Token             end # [
-type TokenSquareBracketClose <: Token             end # ]
-type TokenCurlyBracketOpen   <: Token             end # {
-type TokenCurlyBracketClose  <: Token             end # }
-type TokenHash               <: Token             end # #
-type TokenQuestionMark       <: Token             end # ?
-type TokenAssign             <: Token             end # =
-type TokenComma              <: Token             end # ,
-type TokenUnsigned           <: Token             end # unsigned
-type TokenStatic             <: Token             end # static
-type TokenConst              <: Token             end # const
-type TokenInclude            <: Token             end # include
-type TokenDefine             <: Token             end # define
-type TokenUndef              <: Token             end # undef
-type TokenTypedef            <: Token             end # typedef
-type TokenStruct             <: Token             end # struct
-type TokenIf                 <: Token             end # if
-type TokenElseIf             <: Token             end # elseif
-type TokenElse               <: Token             end # else
-type TokenExtern             <: Token             end # extern
-type TokenEXTERNC            <: Token             end # EXTERNC
-type TokenCCALL              <: Token             end # CCALL
-type TokenQINLINE            <: Token             end # QINLINE
-type TokenQDECL              <: Token             end # QDECL
-type TokenEnum               <: Token             end # enum
-type TokenNewline            <: Token             end # \n
-type TokenEnd                <: Token             end # just a meta token so we know we iterated over all tokens
+type TokenOp                 <: Token i::Int32; str::String end # everything from isOp(...) function, like TokenOp("+=")
+type TokenNum                <: Token i::Int32; str::String end # 123
+type TokenStr                <: Token i::Int32; str::String end # "something"
+type TokenChar               <: Token i::Int32; str::String end # for stuff like '0'
+type TokenIdentifier         <: Token i::Int32; str::String end # all kinds of identifiers not translated to special tokens like TokenStatic
+type TokenSemicolon          <: Token i::Int32;             end # ;
+type TokenBracketOpen        <: Token i::Int32;             end # (
+type TokenBracketClose       <: Token i::Int32;             end # )
+type TokenSquareBracketOpen  <: Token i::Int32;             end # [
+type TokenSquareBracketClose <: Token i::Int32;             end # ]
+type TokenCurlyBracketOpen   <: Token i::Int32;             end # {
+type TokenCurlyBracketClose  <: Token i::Int32;             end # }
+type TokenHash               <: Token i::Int32;             end # #
+type TokenQuestionMark       <: Token i::Int32;             end # ?
+type TokenAssign             <: Token i::Int32;             end # =
+type TokenComma              <: Token i::Int32;             end # ,
+type TokenUnsigned           <: Token i::Int32;             end # unsigned
+type TokenStatic             <: Token i::Int32;             end # static
+type TokenConst              <: Token i::Int32;             end # const
+type TokenInclude            <: Token i::Int32;             end # include
+type TokenDefine             <: Token i::Int32;             end # define
+type TokenUndef              <: Token i::Int32;             end # undef
+type TokenTypedef            <: Token i::Int32;             end # typedef
+type TokenStruct             <: Token i::Int32;             end # struct
+type TokenIf                 <: Token i::Int32;             end # if
+type TokenElseIf             <: Token i::Int32;             end # elseif
+type TokenElse               <: Token i::Int32;             end # else
+type TokenExtern             <: Token i::Int32;             end # extern
+type TokenEXTERNC            <: Token i::Int32;             end # EXTERNC
+type TokenCCALL              <: Token i::Int32;             end # CCALL
+type TokenQINLINE            <: Token i::Int32;             end # QINLINE
+type TokenQDECL              <: Token i::Int32;             end # QDECL
+type TokenEnum               <: Token i::Int32;             end # enum
+type TokenNewline            <: Token i::Int32;             end # \n
+type TokenEnd                <: Token i::Int32;             end # just a meta token so we know we iterated over all tokens
 
 type Tokenizer
 	i::Int32
@@ -97,74 +97,74 @@ end
 
 function pushIdentifier(tokenizer::Tokenizer, str::String)
 	if str == "unsigned"
-		push!(tokenizer.tokens, TokenUnsigned())
+		push!(tokenizer.tokens, TokenUnsigned(tokenizer.i))
 		return
 	end
 	if str == "static"
-		push!(tokenizer.tokens, TokenStatic())
+		push!(tokenizer.tokens, TokenStatic(tokenizer.i))
 		return
 	end
 	if str == "const"
-		push!(tokenizer.tokens, TokenConst())
+		push!(tokenizer.tokens, TokenConst(tokenizer.i))
 		return
 	end
 	if str == "include"
-		push!(tokenizer.tokens, TokenInclude())
+		push!(tokenizer.tokens, TokenInclude(tokenizer.i))
 		return
 	end
 	if str == "define"
-		push!(tokenizer.tokens, TokenDefine())
+		push!(tokenizer.tokens, TokenDefine(tokenizer.i))
 		return
 	end
 	if str == "undef"
-		push!(tokenizer.tokens, TokenUndef())
+		push!(tokenizer.tokens, TokenUndef(tokenizer.i))
 		return
 	end
 	if str == "typedef"
-		push!(tokenizer.tokens, TokenTypedef())
+		push!(tokenizer.tokens, TokenTypedef(tokenizer.i))
 		return
 	end
 	if str == "struct"
-		push!(tokenizer.tokens, TokenStruct())
+		push!(tokenizer.tokens, TokenStruct(tokenizer.i))
 		return
 	end
 	if str == "if"
-		push!(tokenizer.tokens, TokenIf())
+		push!(tokenizer.tokens, TokenIf(tokenizer.i))
 		return
 	end
 	if str == "elseif"
-		push!(tokenizer.tokens, TokenElseIf())
+		push!(tokenizer.tokens, TokenElseIf(tokenizer.i))
 		return
 	end
 	if str == "else"
-		push!(tokenizer.tokens, TokenElse())
+		push!(tokenizer.tokens, TokenElse(tokenizer.i))
 		return
 	end
 	if str == "extern"
-		push!(tokenizer.tokens, TokenExtern())
+		push!(tokenizer.tokens, TokenExtern(tokenizer.i))
 		return
 	end
 	if str == "EXTERNC"
-		push!(tokenizer.tokens, TokenEXTERNC())
+		push!(tokenizer.tokens, TokenEXTERNC(tokenizer.i))
 		return
 	end
 	if str == "CCALL"
-		push!(tokenizer.tokens, TokenCCALL())
+		push!(tokenizer.tokens, TokenCCALL(tokenizer.i))
 		return
 	end
 	if str == "QINLINE"
-		push!(tokenizer.tokens, TokenQINLINE())
+		push!(tokenizer.tokens, TokenQINLINE(tokenizer.i))
 		return
 	end
 	if str == "QDECL"
-		push!(tokenizer.tokens, TokenQDECL())
+		push!(tokenizer.tokens, TokenQDECL(tokenizer.i))
 		return
 	end
 	if str == "enum"
-		push!(tokenizer.tokens, TokenEnum())
+		push!(tokenizer.tokens, TokenEnum(tokenizer.i))
 		return
 	end
-	push!(tokenizer.tokens, TokenIdentifier(str))
+	push!(tokenizer.tokens, TokenIdentifier(tokenizer.i, str))
 end
 
 function step(tokenizer::Tokenizer)
@@ -230,7 +230,7 @@ function step(tokenizer::Tokenizer)
 					break
 				end
 			end
-			push!(tokenizer.tokens, TokenNum(str)) # todo: translate 0xabcd stuff to number
+			push!(tokenizer.tokens, TokenNum(tokenizer.i, str)) # todo: translate 0xabcd stuff to number
 			tokenizer.i -= 1 # we advanced in while loop but figured out here that its not part of literal anymore, so go back
 		else
 			# read in a normal number
@@ -243,7 +243,7 @@ function step(tokenizer::Tokenizer)
 					break
 				end
 			end
-			push!(tokenizer.tokens, TokenNum(str))
+			push!(tokenizer.tokens, TokenNum(tokenizer.i, str))
 			#print("got str for digits: $str\n")
 			tokenizer.i -= 1 # we advanced but figured out here that its not part of literal anymore, so go back
 		end
@@ -278,7 +278,7 @@ function step(tokenizer::Tokenizer)
 		
 		str = tokenizer.s[strFrom:strTo]
 		#print("cstr from=$commentFrom to=$commentTo cstr=$cstr\n")
-		push!(tokenizer.tokens, TokenStr(str))
+		push!(tokenizer.tokens, TokenStr(tokenizer.i, str))
 		return
 	elseif cc == Char(0x27) # detect ',just because shitty syntax highlighting in Notepad++ atm for '''
 		advance(tokenizer) # jump over current ', so we only get the actual string content
@@ -287,12 +287,12 @@ function step(tokenizer::Tokenizer)
 		commentTo = tokenizer.i - 1 # -1 tho, because we dont want the last ", only string content
 		cstr = tokenizer.s[commentFrom:commentTo]
 		#print("cstr from=$commentFrom to=$commentTo cstr=$cstr\n")
-		push!(tokenizer.tokens, TokenChar(cstr))
+		push!(tokenizer.tokens, TokenChar(tokenizer.i, cstr))
 		return
 	elseif cc == '='
-		push!(tokenizer.tokens, TokenAssign())
+		push!(tokenizer.tokens, TokenAssign(tokenizer.i))
 	elseif cc == ','
-		push!(tokenizer.tokens, TokenComma())
+		push!(tokenizer.tokens, TokenComma(tokenizer.i))
 	elseif isOp(cc)
 		opstr = string(cc)
 		advance(tokenizer)
@@ -309,26 +309,26 @@ function step(tokenizer::Tokenizer)
 				#push!(tokenizer.tokens, TokenOp(opstr))
 				advance(tokenizer)
 			else
-				push!(tokenizer.tokens, TokenOp(opstr))
-				#print("got op: $opstr\n")
-				tokenizer.i -= 1 # we advanced but figured out here that its not an op anymore, so go back
-				return
+				break
 			end
 		end
+		push!(tokenizer.tokens, TokenOp(tokenizer.i, opstr))
+		#print("got op: $opstr\n")
+		tokenizer.i -= 1 # we advanced but figured out here that its not an op anymore, so go back
 	elseif cc == ';'
-		push!(tokenizer.tokens, TokenSemicolon())
+		push!(tokenizer.tokens, TokenSemicolon(tokenizer.i))
 	elseif cc == '('
-		push!(tokenizer.tokens, TokenBracketOpen())
+		push!(tokenizer.tokens, TokenBracketOpen(tokenizer.i))
 	elseif cc == ')'
-		push!(tokenizer.tokens, TokenBracketClose())
+		push!(tokenizer.tokens, TokenBracketClose(tokenizer.i))
 	elseif cc == '['
-		push!(tokenizer.tokens, TokenSquareBracketOpen())
+		push!(tokenizer.tokens, TokenSquareBracketOpen(tokenizer.i))
 	elseif cc == ']'
-		push!(tokenizer.tokens, TokenSquareBracketClose())
+		push!(tokenizer.tokens, TokenSquareBracketClose(tokenizer.i))
 	elseif cc == '{'
-		push!(tokenizer.tokens, TokenCurlyBracketOpen())
+		push!(tokenizer.tokens, TokenCurlyBracketOpen(tokenizer.i))
 	elseif cc == '}'
-		push!(tokenizer.tokens, TokenCurlyBracketClose())
+		push!(tokenizer.tokens, TokenCurlyBracketClose(tokenizer.i))
 	elseif cc == '#'
 		#push!(tokenizer.tokens, TokenHash())
 		# oh well, fuck it, those #define #undef #include etc. fuck up the token steam
@@ -354,7 +354,7 @@ function step(tokenizer::Tokenizer)
 		end		
 		
 	elseif cc == '?'
-		push!(tokenizer.tokens, TokenQuestionMark())
+		push!(tokenizer.tokens, TokenQuestionMark(tokenizer.i))
 	elseif cc == '\\'
 		# this is used to combine multiple lines, simply ignore i guess for now
 	elseif iswhitespace(cc)
@@ -376,7 +376,7 @@ function steps(tokenizer::Tokenizer)
 		advance(tokenizer)
 	end
 	
-	push!(tokenizer.tokens, TokenEnd())
+	push!(tokenizer.tokens, TokenEnd(tokenizer.i))
 	
 	#if flushString(tokenizer)
 	#	print("add last thing: ", last(tokenizer.tokens), "\n")
