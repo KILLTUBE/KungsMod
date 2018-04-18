@@ -1,0 +1,12 @@
+void NPC_Sentry_Precache();
+void sentry_use( gentity_t *self, gentity_t *other, gentity_t *activator );
+void NPC_Sentry_Pain( gentity_t *self, gentity_t *attacker, int damage );
+void Sentry_Fire();
+void Sentry_MaintainHeight();
+void Sentry_Idle();
+void Sentry_Strafe();
+void Sentry_Hunt( qboolean visible, qboolean advance );
+void Sentry_RangedAttack( qboolean visible, qboolean advance );
+void Sentry_AttackDecision();
+void NPC_Sentry_Patrol();
+void NPC_BSSentry_Default();

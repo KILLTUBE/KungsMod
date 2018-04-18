@@ -151,7 +151,7 @@ if mode == 3
 end
 
 if mode == 2
-	parser = generateHeader("C:\\OpenSciTech\\codemp\\game\\g_client.cpp")
+	parser = generateHeader("C:\\OpenSciTech\\codemp\\game\\tri_coll_test.cpp")
 end
 
 

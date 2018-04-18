@@ -1,0 +1,10 @@
+void NPC_Interrogator_Precache( gentity_t *self );
+void Interrogator_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int mod, int dFlags, int hitLoc );
+void Interrogator_PartsMove();
+void Interrogator_MaintainHeight();
+void Interrogator_Strafe();
+void Interrogator_Hunt( qboolean visible, qboolean advance );
+void Interrogator_Melee( qboolean visible, qboolean advance );
+void Interrogator_Attack();
+void Interrogator_Idle();
+void NPC_BSInterrogator_Default();

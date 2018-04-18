@@ -1,0 +1,11 @@
+void Wampa_SetBolts( gentity_t *self );
+void NPC_Wampa_Precache();
+void Wampa_Idle();
+qboolean Wampa_CheckRoar( gentity_t *self );
+void Wampa_Patrol();
+void Wampa_Move( qboolean visible );
+void Wampa_Slash( int boltIndex, qboolean backhand );
+void Wampa_Attack( float distance, qboolean doCharge );
+void Wampa_Combat();
+void NPC_Wampa_Pain( gentity_t *self, gentity_t *attacker, int damage );
+void NPC_BSWampa_Default();

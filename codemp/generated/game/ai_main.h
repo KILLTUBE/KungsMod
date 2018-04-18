@@ -3,7 +3,7 @@ void BotSelectWeapon( int client, int weapon );
 void BotReportStatus( bot_state_t *bs );
 void BotOrder( gentity_t *ent, int clientnum, int ordernum );
 int BotMindTricked( int botClient, int enemyClient );
-void QDECL( int type, char *fmt,   );
+QDECL void BotAI_Print( int type, char *fmt, ... );
 int IsTeamplay();
 int BotAI_GetClientState( int clientNum, playerState_t *state );
 int BotAI_GetEntityState( int entityNum, entityState_t *state );

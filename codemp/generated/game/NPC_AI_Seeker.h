@@ -1,0 +1,11 @@
+void NPC_Seeker_Precache();
+void NPC_Seeker_Pain( gentity_t *self, gentity_t *attacker, int damage );
+void Seeker_MaintainHeight();
+void Seeker_Strafe();
+void Seeker_Hunt( qboolean visible, qboolean advance );
+void Seeker_Fire();
+void Seeker_Ranged( qboolean visible, qboolean advance );
+void Seeker_Attack();
+void Seeker_FindEnemy();
+void Seeker_FollowOwner();
+void NPC_BSSeeker_Default();

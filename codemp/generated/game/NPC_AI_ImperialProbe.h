@@ -1,0 +1,12 @@
+void NPC_Probe_Precache();
+void ImperialProbe_MaintainHeight();
+void ImperialProbe_Strafe();
+void ImperialProbe_Hunt( qboolean visible, qboolean advance );
+void ImperialProbe_FireBlaster();
+void ImperialProbe_Ranged( qboolean visible, qboolean advance );
+void ImperialProbe_AttackDecision();
+void NPC_Probe_Pain( gentity_t *self, gentity_t *attacker, int damage );
+void ImperialProbe_Idle();
+void ImperialProbe_Patrol();
+void ImperialProbe_Wait();
+void NPC_BSImperialProbe_Default();

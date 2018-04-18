@@ -1,0 +1,11 @@
+void NPC_Remote_Precache();
+void NPC_Remote_Pain( gentity_t *self, gentity_t *attacker, int damage );
+void Remote_MaintainHeight();
+void Remote_Strafe();
+void Remote_Hunt( qboolean visible, qboolean advance, qboolean retreat );
+void Remote_Fire();
+void Remote_Ranged( qboolean visible, qboolean advance, qboolean retreat );
+void Remote_Attack();
+void Remote_Idle();
+void Remote_Patrol();
+void NPC_BSRemote_Default();

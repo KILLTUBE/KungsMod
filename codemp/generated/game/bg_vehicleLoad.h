@@ -1,0 +1,18 @@
+void BG_ClearVehicleParseParms();
+int vfieldcmp( const void *a, const void *b );
+static qboolean BG_ParseVehWeaponParm( vehWeaponInfo_t *vehWeapon, const char *parmName, char *pValue );
+int VEH_LoadVehWeapon( const char *vehWeaponName );
+int VEH_VehWeaponIndexForName( const char *vehWeaponName );
+void BG_SetSharedVehicleFunctions( vehicleInfo_t *pVehInfo );
+void BG_VehicleSetDefaults( vehicleInfo_t *vehicle );
+void BG_VehicleClampData( vehicleInfo_t *vehicle );
+static qboolean BG_ParseVehicleParm( vehicleInfo_t *vehicle, const char *parmName, char *pValue );
+int VEH_LoadVehicle( const char *vehicleName );
+int VEH_VehicleIndexForName( const char *vehicleName );
+void BG_VehWeaponLoadParms();
+void BG_VehicleLoadParms();
+int BG_VehicleGetIndex( const char *vehicleName );
+void BG_GetVehicleModelName( char *modelName, const char *vehicleName, size_t len );
+void BG_GetVehicleSkinName( char *skinname, int len );
+int BG_GetTime();
+void AttachRidersGeneric( Vehicle_t *pVeh );

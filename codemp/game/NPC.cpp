@@ -21,11 +21,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "NPC.h"
-
-extern "C"
-{
 #include "game/ai.h"
-}
 
 npcStatic_t NPCS;
 vec3_t NPCDEBUG_RED = {1.0, 0.0, 0.0};

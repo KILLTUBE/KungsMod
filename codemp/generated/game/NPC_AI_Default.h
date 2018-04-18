@@ -1,0 +1,15 @@
+void NPC_LostEnemyDecideChase();
+void NPC_StandIdle();
+qboolean NPC_StandTrackAndShoot( gentity_t *NPC, qboolean canDuck );
+void NPC_BSIdle();
+void NPC_BSRun();
+void NPC_BSStandGuard();
+void NPC_BSHuntAndKill();
+void NPC_BSStandAndShoot();
+void NPC_BSRunAndShoot();
+void NPC_BSFace();
+void NPC_BSPointShoot( qboolean shoot );
+void NPC_BSMove();
+void NPC_BSShoot();
+void NPC_BSPatrol();
+void NPC_BSDefault();

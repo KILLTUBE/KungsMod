@@ -1,0 +1,15 @@
+void Sniper_ClearTimers( gentity_t *ent );
+void NPC_Sniper_PlayConfusionSound( gentity_t *self );
+void NPC_Sniper_Pain( gentity_t *self, gentity_t *attacker, int damage );
+static void Sniper_HoldPosition();
+static qboolean Sniper_Move();
+void NPC_BSSniper_Patrol();
+static void Sniper_CheckMoveState();
+static void Sniper_ResolveBlockedShot();
+static void Sniper_CheckFireState();
+qboolean Sniper_EvaluateShot( int hit );
+void Sniper_FaceEnemy();
+void Sniper_UpdateEnemyPos();
+void Sniper_StartHide();
+void NPC_BSSniper_Attack();
+void NPC_BSSniper_Default();

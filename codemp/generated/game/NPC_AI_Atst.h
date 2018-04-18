@@ -1,0 +1,10 @@
+void NPC_ATST_Precache();
+static void ATST_PlayEffect( gentity_t *self, const int boltID, const char *fx );
+void G_ATSTCheckPain( gentity_t *self, gentity_t *other, int damage );
+void NPC_ATST_Pain( gentity_t *self, gentity_t *attacker, int damage );
+void ATST_Hunt( qboolean visible, qboolean advance );
+void ATST_Ranged( qboolean visible, qboolean advance, qboolean altAttack );
+void ATST_Attack();
+void ATST_Patrol();
+void ATST_Idle();
+void NPC_BSATST_Default();

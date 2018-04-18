@@ -1,0 +1,11 @@
+void Grenadier_ClearTimers( gentity_t *ent );
+void NPC_Grenadier_PlayConfusionSound( gentity_t *self );
+void NPC_Grenadier_Pain( gentity_t *self, gentity_t *attacker, int damage );
+static void Grenadier_HoldPosition();
+static qboolean Grenadier_Move();
+void NPC_BSGrenadier_Patrol();
+static void Grenadier_CheckMoveState();
+static void Grenadier_CheckFireState();
+qboolean Grenadier_EvaluateShot( int hit );
+void NPC_BSGrenadier_Attack();
+void NPC_BSGrenadier_Default();

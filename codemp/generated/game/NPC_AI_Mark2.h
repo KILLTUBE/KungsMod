@@ -1,0 +1,10 @@
+void NPC_Mark2_Precache();
+void NPC_Mark2_Part_Explode( gentity_t *self, int bolt );
+void NPC_Mark2_Pain( gentity_t *self, gentity_t *attacker, int damage );
+void Mark2_Hunt();
+void Mark2_FireBlaster( qboolean advance );
+void Mark2_BlasterAttack( qboolean advance );
+void Mark2_AttackDecision();
+void Mark2_Patrol();
+void Mark2_Idle();
+void NPC_BSMark2_Default();

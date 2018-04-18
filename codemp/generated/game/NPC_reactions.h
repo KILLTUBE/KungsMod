@@ -1,0 +1,12 @@
+static void NPC_CheckAttacker( gentity_t *other, int mod );
+void NPC_SetPainEvent( gentity_t *self );
+float NPC_GetPainChance( gentity_t *self, int damage );
+void NPC_ChoosePainAnimation( gentity_t *self, gentity_t *other, vec3_t point, int damage, int mod, int hitLoc, int voiceEvent );
+void NPC_Pain( gentity_t *self, gentity_t *attacker, int damage );
+void NPC_Touch( gentity_t *self, gentity_t *other, trace_t *trace );
+void NPC_TempLookTarget( gentity_t *self, int lookEntNum, int minLookTime, int maxLookTime );
+void NPC_Respond( gentity_t *self, int userNum );
+void NPC_UseResponse( gentity_t *self, gentity_t *user, qboolean useWhenDone );
+void NPC_Use( gentity_t *self, gentity_t *other, gentity_t *activator );
+void NPC_CheckPlayerAim();
+void NPC_CheckAllClear();

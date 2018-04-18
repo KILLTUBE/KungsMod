@@ -1,0 +1,14 @@
+void NPC_GalakMech_Precache();
+void NPC_GalakMech_Init( gentity_t *ent );
+static void GM_CreateExplosion( gentity_t *self, const int boltID, qboolean doSmall );
+void GM_Dying( gentity_t *self );
+void NPC_GM_Pain( gentity_t *self, gentity_t *attacker, int damage );
+static void GM_HoldPosition();
+static qboolean GM_Move();
+void NPC_BSGM_Patrol();
+static void GM_CheckMoveState();
+static void GM_CheckFireState();
+void NPC_GM_StartLaser();
+void GM_StartGloat();
+void NPC_BSGM_Attack();
+void NPC_BSGM_Default();

@@ -334,7 +334,25 @@ function step(tokenizer::Tokenizer)
 		# oh well, fuck it, those #define #undef #include etc. fuck up the token steam
 		# there is no syntax to them, besides writing an interpreter for it i guess, which i dont want to do right now
 		# so atm i just wanna parse C stuff, dont need the preprocessor tokens, just skip to end of line:
-		advanceTill(tokenizer, '\n')
+		#advanceTill(tokenizer, '\n')
+		
+		curPos = tokenizer.i
+		while curPos <= tokenizer.n
+		
+			# ignoring those filthy backslash multilines
+			if tokenizer.s[curPos - 1] == '\\'
+				curPos += 2 # jump over \n
+				continue
+			end
+			if tokenizer.s[curPos] == '\n'
+				tokenizer.i = curPos # if we found something, set pos to last index of our token
+				return true
+			end
+			tokenizer.i = curPos # also set pos if we didnt find, e.g. tokenize("// asd") and advanceTill(tokenizer, '\n') isnt finding the end, but it should be ignored nonetheless
+			curPos += 1
+			
+		end		
+		
 	elseif cc == '?'
 		push!(tokenizer.tokens, TokenQuestionMark())
 	elseif cc == '\\'

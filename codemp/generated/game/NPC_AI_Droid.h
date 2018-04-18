@@ -1,0 +1,14 @@
+void R2D2_PartsMove();
+void Droid_Idle();
+void R2D2_TurnAnims();
+void Droid_Patrol();
+void Droid_Run();
+void Droid_Spin();
+void NPC_Droid_Pain( gentity_t *self, gentity_t *attacker, int damage );
+void Droid_Pain();
+void NPC_Mouse_Precache();
+void NPC_R5D2_Precache();
+void NPC_R2D2_Precache();
+void NPC_Gonk_Precache();
+void NPC_Protocol_Precache();
+void NPC_BSDroid_Default();

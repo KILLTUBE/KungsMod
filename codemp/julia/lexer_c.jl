@@ -247,7 +247,7 @@ function parseMetaTypeFromTo(parser::Parser, metaVar::MetaVar, from, to)
 			if endPos != -1
 				pos = endPos
 			else
-				println("parseMetaTypeFromTo cant find next TokenBracketClose in range ( $pos, $do )")
+				println("parseMetaTypeFromTo cant find next TokenBracketClose in range ( $pos, $to )")
 			end		
 			
 		elseif isOpStar(token)

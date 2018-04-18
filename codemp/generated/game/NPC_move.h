@@ -1,0 +1,11 @@
+qboolean NPC_ClearPathToGoal( vec3_t dir, gentity_t *goal );
+QINLINE static qboolean NPC_CheckCombatMove();
+static void NPC_LadderMove( vec3_t dir );
+QINLINE static qboolean NPC_GetMoveInformation( vec3_t dir, float *distance );
+void NAV_GetLastMove( navInfo_t *info );
+qboolean NPC_GetMoveDirection( vec3_t out, float *distance );
+qboolean NPC_GetMoveDirectionAltRoute( vec3_t out, float *distance, qboolean tryStraight );
+void G_UcmdMoveForDir( gentity_t *self, usercmd_t *cmd, vec3_t dir );
+qboolean NPC_MoveToGoal( qboolean tryStraight );
+qboolean NPC_SlideMoveToGoal();
+void NPC_ApplyRoff();
