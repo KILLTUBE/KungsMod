@@ -14,6 +14,9 @@ IGhoul2InfoArray &TheGhoul2InfoArray();
 DockGhoul2::DockGhoul2() {}
 
 
+// return G2API_AddBolt( *((CGhoul2Info_v *)ghoul2), modelIndex, boneName );
+
+
 const char *DockGhoul2::label() {
 	return "Ghoul2";
 }

@@ -1237,6 +1237,9 @@
     <ClCompile Include="C:\OpenSciTech\codemp\server\sv_world.cpp">
       <Filter>server</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_clients.cpp">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\codemp\rd-common\mdx_format.h">
@@ -2426,6 +2429,366 @@
     <ClInclude Include="C:\OpenSciTech\codemp\server\sv_gameapi.h">
       <Filter>server</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_consolecmds.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_cvar.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_draw.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_drawtools.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_effects.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_ents.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_event.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_info.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_light.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_localents.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_main.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_newDraw.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_players.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_playerstate.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_predict.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_saga.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_scoreboard.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_servercmds.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_snapshot.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_spawn.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_turret.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_view.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_wallmarks.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_weaponinit.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\cg_weapons.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\fx_blaster.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\fx_bowcaster.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\fx_bryarpistol.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\fx_demp2.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\fx_disruptor.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\fx_flechette.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\fx_force.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\fx_heavyrepeater.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\cgame\fx_rocketlauncher.h">
+      <Filter>generated\cgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\ai_main.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\ai_util.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\ai_wpnav.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\AnimalNPC.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\bg_g2_utils.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\bg_misc.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\bg_panimate.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\bg_pmove.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\bg_saber.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\bg_saberLoad.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\bg_saga.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\bg_slidemove.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\bg_vehicleLoad.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\bg_weapons.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\FighterNPC.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_active.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_bot.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_client.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_cmds.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_combat.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_cvar.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_exphysics.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_ICARUScb.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_items.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_log.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_main.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_mem.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_misc.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_missile.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_mover.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_nav.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_navnew.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_object.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_saga.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_session.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_spawn.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_svcmds.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_syscalls.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_target.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_team.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_timer.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_trigger.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_turret.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_turret_G2.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_utils.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_vehicles.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_vehicleTurret.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\g_weapon.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Atst.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Default.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Droid.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_GalakMech.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Grenadier.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Howler.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_ImperialProbe.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Interrogator.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Jedi.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Mark1.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Mark2.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_MineMonster.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Rancor.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Remote.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Seeker.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Sentry.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Sniper.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Stormtrooper.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Utils.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_AI_Wampa.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_behavior.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_combat.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_goal.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_misc.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_move.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_reactions.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_senses.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_sounds.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_spawn.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_stats.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\NPC_utils.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\SpeederNPC.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\tri_coll_test.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\w_force.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\w_saber.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\generated\game\WalkerNPC.h">
+      <Filter>generated\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_clients.h">
+      <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="game">
@@ -2523,6 +2886,15 @@
     </Filter>
     <Filter Include="Ravl">
       <UniqueIdentifier>{46E4EBCA-0C86-334D-8531-63E4A0F911EC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="generated">
+      <UniqueIdentifier>{8b8e06ec-d229-40c9-bbcc-66c3fe1a1240}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="generated\cgame">
+      <UniqueIdentifier>{5afd3367-da4f-4b50-b2b5-734f09569f41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="generated\game">
+      <UniqueIdentifier>{9be5391a-1959-433f-b4e4-c5c7ef175aa9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
