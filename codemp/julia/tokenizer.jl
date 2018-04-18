@@ -1,3 +1,10 @@
+#=
+known bugs:
+julia> parseC("://asd")
+the operator will consume the // comment, atm i just fix the source code to have a space... 
+but need to redo the whole structure, so the preprocessor is run first only
+=#
+
 iswhitespace(c::Char) = UInt8(c) in UInt8[0x20, 0x09, 0x0a, 0x0D, 0x00, 0x0b]
 
 # isOpStart is same as isOp, just without the =
@@ -218,6 +225,10 @@ function step(tokenizer::Tokenizer)
 		advance(tokenizer)
 		
 		# when a token begins with 0 it can be either a normal number like 0.99 or a hex like 0xabcd
+		
+		if done(tokenizer)
+			return
+		end
 		
 		if currentChar(tokenizer) == 'x' || currentChar(tokenizer) == 'X'
 			# read in hex values, todo: only 0-9 a-f A-F

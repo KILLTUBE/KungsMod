@@ -95,7 +95,6 @@ CCALL void NPC_CheckPlayerAim(void);
 CCALL void NPC_TempLookTarget(gentity_t *self,int lookEntNum,int minLookTime,int maxLookTime);
 CCALL void NPC_ApplyRoff(void);
 CCALL void G_AddVoiceEvent(gentity_t *self,int event,int speakDebounceTime);
-CCALL void G_AddVoiceEvent(gentity_t *self,int event,int speakDebounceTime);
 CCALL void NPC_BSNoClip(void);
 CCALL void PM_SetLegsAnimTimer(gentity_t *ent,int *legsAnimTimer,int time);
 CCALL void PM_SetTorsoAnimTimer(gentity_t *ent,int *torsoAnimTimer,int time);

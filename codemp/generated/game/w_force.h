@@ -29,7 +29,6 @@ int WP_GetVelocityForForceJump( gentity_t *self, vec3_t jumpVel, usercmd_t *ucmd
 void ForceJump( gentity_t *self, usercmd_t *ucmd );
 void WP_AddAsMindtricked( forcedata_t *fd, int entNum );
 qboolean ForceTelepathyCheckDirectNPCTarget( gentity_t *self, trace_t *tr, qboolean *tookPower );
-self *client[FP_TELEPATHY]();
 void ForceTelepathy( gentity_t *self );
 void GEntity_UseFunc( gentity_t *self, gentity_t *other, gentity_t *activator );
 qboolean CanCounterThrow( gentity_t *self, gentity_t *thrower, qboolean pull );

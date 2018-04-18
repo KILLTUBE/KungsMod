@@ -35,8 +35,6 @@ void NPC_BehaviorSet_Howler( int bState );
 void NPC_BehaviorSet_Rancor( int bState );
 void NPC_RunBehavior( int team, int bState );
 void NPC_ExecuteBState( gentity_t *self );
-NPCS NPCInfo();
-NPCS NPC();
 void NPC_CheckInSolid();
 void G_DroidSounds( gentity_t *self );
 void NPC_Think( gentity_t *self );

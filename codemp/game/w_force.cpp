@@ -2398,8 +2398,8 @@ qboolean ForceTelepathyCheckDirectNPCTarget( gentity_t *self, trace_t *tr, qbool
 	{
 		switch ( traceEnt->client->NPC_class )
 		{
-		case CLASS_GALAKMECH://cant grip him, he's in armor
-		case CLASS_ATST://much too big to grip!
+		case CLASS_GALAKMECH: //cant grip him, he's in armor
+		case CLASS_ATST: //much too big to grip!
 		//no droids either
 		case CLASS_PROBE:
 		case CLASS_GONK:
