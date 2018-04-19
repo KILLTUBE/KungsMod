@@ -16,21 +16,21 @@ extern struct imgui_globals_s imguidata;
 EXTERNC int imgui_ready;
 typedef int kungbool; // just for having type safety among all compilers
 
-CCALL void imgui_set_mousepos(int left, int top);
-CCALL void imgui_set_widthheight(int width, int height);
-CCALL void imgui_mouse_set_button(int button, kungbool state);
-CCALL void imgui_mouse_wheel(float wheelDelta);
-CCALL void imgui_on_key(int key, kungbool state);
-CCALL void imgui_on_shift(kungbool state);
-CCALL void imgui_on_ctrl (kungbool state);
-CCALL void imgui_on_alt  (kungbool state);
-CCALL void imgui_set_ticks(unsigned int ticks);
-CCALL void imgui_on_key_text(int key);
-CCALL void imgui_on_text(char *text);
+ICAPI void ICDECL imgui_set_mousepos(int left, int top);
+ICAPI void ICDECL imgui_set_widthheight(int width, int height);
+ICAPI void ICDECL imgui_mouse_set_button(int button, kungbool state);
+ICAPI void ICDECL imgui_mouse_wheel(float wheelDelta);
+ICAPI void ICDECL imgui_on_key(int key, kungbool state);
+ICAPI void ICDECL imgui_on_shift(kungbool state);
+ICAPI void ICDECL imgui_on_ctrl (kungbool state);
+ICAPI void ICDECL imgui_on_alt  (kungbool state);
+ICAPI void ICDECL imgui_set_ticks(unsigned int ticks);
+ICAPI void ICDECL imgui_on_key_text(int key);
+ICAPI void ICDECL imgui_on_text(char *text);
 
-CCALL void __cdecl imgui_init();
-CCALL void __cdecl imgui_new_frame();
-CCALL void __cdecl imgui_end_frame();
-CCALL void __cdecl imgui_render();
+ICAPI void ICDECL imgui_init();
+ICAPI void ICDECL imgui_new_frame();
+ICAPI void ICDECL imgui_end_frame();
+ICAPI void ICDECL imgui_render();
 
 #endif

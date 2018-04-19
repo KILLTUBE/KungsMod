@@ -1,6 +1,8 @@
 #ifndef CCALL_H
 #define CCALL_H
 
+#define ICDECL __cdecl
+
 #ifdef __cplusplus
 #	define EXTERNC extern "C"
 #else
@@ -17,5 +19,7 @@
 #		define CCALL EXTERNC __attribute__((visibility("default")))
 #	endif
 #endif
+
+#define ICAPI CCALL
 
 #endif
