@@ -1,77 +1,33 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\png.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngerror.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngget.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngmem.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngpread.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngread.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngrio.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngrtran.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngrutil.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngset.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngtrans.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngwio.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngwrite.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngwtran.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\lib\libpng\pngwutil.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\png.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngerror.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngget.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngmem.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngpread.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngread.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngrio.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngrtran.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngrutil.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngset.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngtrans.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwio.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwrite.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwtran.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwutil.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\XycaRend2\lib\libpng\include\png.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\lib\libpng\include\pngconf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\lib\libpng\include\pnglibconf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\lib\libpng\pngdebug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\lib\libpng\pnginfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\lib\libpng\pngpriv.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\lib\libpng\pngstruct.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\lib\libpng\include\png.h" />
+    <ClInclude Include="C:\OpenSciTech\lib\libpng\include\pngconf.h" />
+    <ClInclude Include="C:\OpenSciTech\lib\libpng\include\pnglibconf.h" />
+    <ClInclude Include="C:\OpenSciTech\lib\libpng\pngdebug.h" />
+    <ClInclude Include="C:\OpenSciTech\lib\libpng\pnginfo.h" />
+    <ClInclude Include="C:\OpenSciTech\lib\libpng\pngpriv.h" />
+    <ClInclude Include="C:\OpenSciTech\lib\libpng\pngstruct.h" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\XycaRend2\lib\libpng\CMakeLists.txt" />
+    <CustomBuild Include="C:\OpenSciTech\lib\libpng\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">

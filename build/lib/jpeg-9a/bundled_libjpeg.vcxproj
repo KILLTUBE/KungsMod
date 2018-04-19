@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -30,7 +30,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -87,7 +87,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
@@ -124,7 +124,8 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -158,7 +159,8 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -210,75 +212,74 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
-
   <ItemGroup>
     <ClInclude Include="C:\OpenSciTech\lib\jpeg-9a\include\jconfig.h" />
     <ClInclude Include="C:\OpenSciTech\lib\jpeg-9a\include\jmorecfg.h" />
     <ClInclude Include="C:\OpenSciTech\lib\jpeg-9a\include\jpegint.h" />
     <ClInclude Include="C:\OpenSciTech\lib\jpeg-9a\include\jpeglib.h" />
     <ClInclude Include="C:\OpenSciTech\lib\jpeg-9a\cderror.h" />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jaricom.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcapimin.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcapistd.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcarith.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jccoefct.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jccolor.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcdctmgr.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jchuff.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcinit.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcmainct.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcmarker.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcmaster.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcomapi.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcparam.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcprepct.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcsample.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jctrans.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdapimin.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdapistd.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdarith.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdatadst.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdatasrc.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdcoefct.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdcolor.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jaricom.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcapimin.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcapistd.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcarith.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jccoefct.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jccolor.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcdctmgr.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jchuff.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcinit.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcmainct.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcmarker.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcmaster.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcomapi.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcparam.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcprepct.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jcsample.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jctrans.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdapimin.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdapistd.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdarith.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdatadst.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdatasrc.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdcoefct.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdcolor.c" />
     <ClInclude Include="C:\OpenSciTech\lib\jpeg-9a\jdct.h" />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jddctmgr.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdhuff.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdinput.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdmainct.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdmarker.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdmaster.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdmerge.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdpostct.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdsample.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdtrans.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jerror.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jddctmgr.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdhuff.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdinput.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdmainct.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdmarker.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdmaster.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdmerge.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdpostct.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdsample.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jdtrans.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jerror.c" />
     <ClInclude Include="C:\OpenSciTech\lib\jpeg-9a\jerror.h" />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jfdctflt.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jfdctfst.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jfdctint.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jidctflt.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jidctfst.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jidctint.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jfdctflt.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jfdctfst.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jfdctint.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jidctflt.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jidctfst.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jidctint.c" />
     <ClInclude Include="C:\OpenSciTech\lib\jpeg-9a\jinclude.h" />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jmemmgr.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jmemnobs.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jquant1.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jquant2.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jutils.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jmemmgr.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jmemnobs.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jquant1.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jquant2.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\jutils.c" />
     <ClInclude Include="C:\OpenSciTech\lib\jpeg-9a\jversion.h" />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\rdbmp.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\rdcolmap.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\rdgif.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\rdppm.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\rdrle.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\rdswitch.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\rdtarga.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\wrbmp.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\wrgif.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\wrppm.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\wrrle.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\wrtarga.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\rdbmp.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\rdcolmap.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\rdgif.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\rdppm.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\rdrle.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\rdswitch.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\rdtarga.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\wrbmp.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\wrgif.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\wrppm.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\wrrle.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\jpeg-9a\wrtarga.c" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\OpenSciTech\build\ZERO_CHECK.vcxproj">

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -30,7 +30,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -88,7 +88,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
@@ -126,7 +126,8 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -161,7 +162,8 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -214,23 +216,22 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
-
   <ItemGroup>
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\adler32.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\compress.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\crc32.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\deflate.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\gzclose.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\gzlib.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\gzread.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\gzwrite.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\infback.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\inffast.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\inflate.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\inftrees.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\trees.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\uncompr.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\zlib\zutil.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\adler32.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\compress.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\crc32.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\deflate.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\gzclose.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\gzlib.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\gzread.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\gzwrite.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\infback.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\inffast.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\inflate.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\inftrees.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\trees.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\uncompr.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\zlib\zutil.c" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\OpenSciTech\build\ZERO_CHECK.vcxproj">

@@ -1,251 +1,89 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_aas_bspq3.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_aas_cluster.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_aas_debug.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_aas_entity.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_aas_file.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_aas_main.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_aas_move.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_aas_optimize.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_aas_reach.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_aas_route.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_aas_routealt.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_aas_sample.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_ai_char.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_ai_chat.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_ai_gen.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_ai_goal.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_ai_move.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_ai_weap.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_ai_weight.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_ea.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\be_interface.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\l_crc.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\l_libvar.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\l_log.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\l_memory.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\l_precomp.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\l_script.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\botlib\l_struct.cpp">
-      <Filter>botlib</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_color.c">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_math.c">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\q_string.c">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\shared\qcommon\safe\string.cpp">
-      <Filter>common/safe</Filter>
-    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_aas_bspq3.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_aas_cluster.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_aas_debug.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_aas_entity.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_aas_file.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_aas_main.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_aas_move.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_aas_optimize.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_aas_reach.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_aas_route.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_aas_routealt.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_aas_sample.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_ai_char.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_ai_chat.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_ai_gen.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_ai_goal.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_ai_move.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_ai_weap.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_ai_weight.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_ea.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\be_interface.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\l_crc.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\l_libvar.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\l_log.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\l_memory.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\l_precomp.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\l_script.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\botlib\l_struct.cpp" />
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\q_color.c" />
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\q_math.c" />
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\q_string.c" />
+    <ClCompile Include="C:\OpenSciTech\shared\qcommon\safe\string.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\aasfile.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas_bsp.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas_cluster.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas_debug.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas_def.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas_entity.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas_file.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas_funcs.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas_main.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas_move.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas_optimize.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas_reach.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas_route.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas_routealt.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_aas_sample.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ai_char.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ai_chat.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ai_gen.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ai_goal.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ai_move.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ai_weap.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ai_weight.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_ea.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\be_interface.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\botlib.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\l_crc.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\l_libvar.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\l_log.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\l_memory.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\l_precomp.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\l_script.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\l_struct.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\botlib\l_utils.h">
-      <Filter>botlib</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\game\surfaceflags.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\cm_public.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\disablewarnings.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\q_shared.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\qcommon.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\qfiles.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\qcommon\tags.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_color.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_math.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_string.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\q_platform.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\gsl.h">
-      <Filter>common/safe</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\string.h">
-      <Filter>common/safe</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\shared\qcommon\safe\sscanf.h">
-      <Filter>common/safe</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\XycaRend2\codemp\server\server.h">
-      <Filter>server</Filter>
-    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\aasfile.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas_bsp.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas_cluster.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas_debug.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas_def.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas_entity.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas_file.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas_funcs.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas_main.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas_move.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas_optimize.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas_reach.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas_route.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas_routealt.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_aas_sample.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_ai_char.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_ai_chat.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_ai_gen.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_ai_goal.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_ai_move.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_ai_weap.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_ai_weight.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_ea.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\be_interface.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\botlib.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\l_crc.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\l_libvar.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\l_log.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\l_memory.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\l_precomp.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\l_script.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\l_struct.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\botlib\l_utils.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\game\surfaceflags.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\cm_public.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\disablewarnings.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\q_shared.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\qcommon.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\qfiles.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\qcommon\tags.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_color.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_math.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_string.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\q_platform.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\gsl.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\string.h" />
+    <ClInclude Include="C:\OpenSciTech\shared\qcommon\safe\sscanf.h" />
+    <ClInclude Include="C:\OpenSciTech\codemp\server\server.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="botlib">

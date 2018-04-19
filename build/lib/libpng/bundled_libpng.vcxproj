@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -30,7 +30,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -87,7 +87,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
@@ -124,7 +124,8 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -158,7 +159,8 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -210,85 +212,30 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <CustomBuild Include="C:\OpenSciTech\lib\libpng\CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/OpenSciTech/lib/libpng/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/lib/libpng/CMakeFiles/generate.stamp
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/OpenSciTech/lib/libpng/CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\OpenSciTech\build\lib\libpng\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/OpenSciTech/lib/libpng/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/lib/libpng/CMakeFiles/generate.stamp
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/OpenSciTech/lib/libpng/CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\OpenSciTech\build\lib\libpng\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/OpenSciTech/lib/libpng/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/lib/libpng/CMakeFiles/generate.stamp
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/OpenSciTech/lib/libpng/CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\OpenSciTech\build\lib\libpng\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/OpenSciTech/lib/libpng/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
-C:\cmake-3.9.4-win64-x64\bin\cmake.exe -HC:/OpenSciTech -BC:/OpenSciTech/build --check-stamp-file C:/OpenSciTech/build/lib/libpng/CMakeFiles/generate.stamp
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/OpenSciTech/lib/libpng/CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;C:\OpenSciTech\lib\libpng\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\OpenSciTech\build\lib\libpng\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
-    </CustomBuild>
-  </ItemGroup>
+
   <ItemGroup>
     <ClInclude Include="C:\OpenSciTech\lib\libpng\include\png.h" />
     <ClInclude Include="C:\OpenSciTech\lib\libpng\include\pngconf.h" />
     <ClInclude Include="C:\OpenSciTech\lib\libpng\include\pnglibconf.h" />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\png.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\png.c" />
     <ClInclude Include="C:\OpenSciTech\lib\libpng\pngdebug.h" />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngerror.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngget.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngerror.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngget.c" />
     <ClInclude Include="C:\OpenSciTech\lib\libpng\pnginfo.h" />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngmem.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngpread.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngmem.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngpread.c" />
     <ClInclude Include="C:\OpenSciTech\lib\libpng\pngpriv.h" />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngread.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngrio.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngrtran.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngrutil.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngset.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngread.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngrio.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngrtran.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngrutil.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngset.c" />
     <ClInclude Include="C:\OpenSciTech\lib\libpng\pngstruct.h" />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngtrans.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwio.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwrite.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwtran.c"  />
-    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwutil.c"  />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngtrans.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwio.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwrite.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwtran.c" />
+    <ClCompile Include="C:\OpenSciTech\lib\libpng\pngwutil.c" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\OpenSciTech\build\ZERO_CHECK.vcxproj">

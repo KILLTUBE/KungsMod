@@ -28,9 +28,9 @@ CCALL void imgui_set_ticks(unsigned int ticks);
 CCALL void imgui_on_key_text(int key);
 CCALL void imgui_on_text(char *text);
 
-CCALL void imgui_init();
-CCALL void imgui_new_frame();
-CCALL void imgui_end_frame();
-CCALL void imgui_render();
+CCALL void __cdecl imgui_init();
+CCALL void __cdecl imgui_new_frame();
+CCALL void __cdecl imgui_end_frame();
+CCALL void __cdecl imgui_render();
 
 #endif
