@@ -108,7 +108,7 @@ void C_G2Mark( void ) {
 	}
 }
 
-static void CG_DebugBoxLines( vec3_t mins, vec3_t maxs, int duration ) {
+void CG_DebugBoxLines( vec3_t mins, vec3_t maxs, int duration ) {
 	vec3_t start, end, vert;
 	float x = maxs[0] - mins[0];
 	float y = maxs[1] - mins[1];
@@ -229,7 +229,7 @@ int CG_RagCallback(int callType)
 	return 0;
 }
 
-static void C_ImpactMark( void ) {
+void C_ImpactMark( void ) {
 	TCGImpactMark *data = &cg.sharedBuffer.impactMark;
 
 //	CG_ImpactMark( (int)arg0, (const float *)arg1, (const float *)arg2, (float)arg3, (float)arg4, (float)arg5, (float)arg6,
@@ -329,7 +329,7 @@ const char *CG_Argv( int arg ) {
 }
 
 // The server says this item is used on this level
-static void CG_RegisterItemSounds( int itemNum ) {
+void CG_RegisterItemSounds( int itemNum ) {
 	gitem_t			*item;
 	char			data[MAX_QPATH];
 	char			*s, *start;
@@ -396,7 +396,7 @@ static void CG_RegisterItemSounds( int itemNum ) {
 	}
 }
 
-static void CG_AS_Register(void)
+void CG_AS_Register(void)
 {
 	const char *soundName;
 	int i;
@@ -485,7 +485,7 @@ void CG_ParseSiegeState(const char *str)
 }
 
 // called during a precache command
-static void CG_RegisterSounds( void ) {
+void CG_RegisterSounds( void ) {
 	int		i;
 	char	items[MAX_ITEMS+1];
 	char	name[MAX_QPATH];
@@ -903,7 +903,7 @@ static void CG_RegisterSounds( void ) {
 //	and any shader, model, or sound
 //	files an effect may use.
 //-------------------------------------
-static void CG_RegisterEffects( void )
+void CG_RegisterEffects( void )
 {
 	/*
 	const char	*effectName;
@@ -950,7 +950,7 @@ CG_RegisterGraphics
 This function may execute for a couple of minutes with a slow disk.
 =================
 */
-static void CG_RegisterGraphics( void ) {
+void CG_RegisterGraphics( void ) {
 	int			i;
 	int			breakPoint;
 	char		items[MAX_ITEMS+1];
@@ -1474,7 +1474,7 @@ void CG_BuildSpectatorString(void) {
 	}
 }
 
-static void CG_RegisterClients( void ) {
+void CG_RegisterClients( void ) {
 	int		i;
 	CG_LoadingClient(cg.clientNum);
 	CG_NewClientInfo(cg.clientNum, qfalse);
@@ -1772,12 +1772,12 @@ qboolean CG_Load_Menu(const char **p)
 }
 
 
-static qboolean CG_OwnerDrawHandleKey(int ownerDraw, int flags, float *special, int key) {
+qboolean CG_OwnerDrawHandleKey(int ownerDraw, int flags, float *special, int key) {
 	return qfalse;
 }
 
 
-static int CG_FeederCount(float feederID) {
+int CG_FeederCount(float feederID) {
 	int i, count;
 	count = 0;
 	if (feederID == FEEDER_REDTEAM_LIST) {
@@ -1834,7 +1834,7 @@ void CG_SetScoreSelection(void *p) {
 }
 
 // FIXME: might need to cache this info
-static clientInfo_t * CG_InfoFromScoreIndex(int index, int team, int *scoreIndex) {
+clientInfo_t * CG_InfoFromScoreIndex(int index, int team, int *scoreIndex) {
 	int i, count;
 	if ( cgs.gametype >= GT_TEAM ) {
 		count = 0;
@@ -1852,7 +1852,7 @@ static clientInfo_t * CG_InfoFromScoreIndex(int index, int team, int *scoreIndex
 	return &cgs.clientinfo[ cg.scores[index].client ];
 }
 
-static const char *CG_FeederItemText(float feederID, int index, int column,
+const char *CG_FeederItemText(float feederID, int index, int column,
 									 qhandle_t *handle1, qhandle_t *handle2, qhandle_t *handle3) {
 	gitem_t *item;
 	int scoreIndex = 0;
@@ -1939,11 +1939,11 @@ static const char *CG_FeederItemText(float feederID, int index, int column,
 	return "";
 }
 
-static qhandle_t CG_FeederItemImage(float feederID, int index) {
+qhandle_t CG_FeederItemImage(float feederID, int index) {
 	return 0;
 }
 
-static qboolean CG_FeederSelection(float feederID, int index, itemDef_t *item) {
+qboolean CG_FeederSelection(float feederID, int index, itemDef_t *item) {
 	if ( cgs.gametype >= GT_TEAM ) {
 		int i, count;
 		int team = (feederID == FEEDER_REDTEAM_LIST) ? TEAM_RED : TEAM_BLUE;
@@ -1963,7 +1963,7 @@ static qboolean CG_FeederSelection(float feederID, int index, itemDef_t *item) {
 	return qtrue;
 }
 
-static float CG_Cvar_Get(const char *cvar) {
+float CG_Cvar_Get(const char *cvar) {
 	char buff[128];
 	memset(buff, 0, sizeof(buff));
 	Cvar_VariableStringBuffer(cvar, buff, sizeof(buff));
@@ -1974,7 +1974,7 @@ void CG_Text_PaintWithCursor(float x, float y, float scale, vec4_t color, const 
 	CG_Text_Paint(x, y, scale, color, text, 0, limit, style, iMenuFont);
 }
 
-static int CG_OwnerDrawWidth(int ownerDraw, float scale) {
+int CG_OwnerDrawWidth(int ownerDraw, float scale) {
 	switch (ownerDraw) {
 	  case CG_GAME_TYPE:
 			return CG_Text_Width(BG_GetGametypeString( cgs.gametype ), scale, FONT_MEDIUM);
@@ -1994,20 +1994,20 @@ static int CG_OwnerDrawWidth(int ownerDraw, float scale) {
 	return 0;
 }
 
-static int CG_PlayCinematic(const char *name, float x, float y, float w, float h) {
+int CG_PlayCinematic(const char *name, float x, float y, float w, float h) {
 	return CIN_PlayCinematic(name, x, y, w, h, CIN_loop);
 }
 
-static void CG_StopCinematic(int handle) {
+void CG_StopCinematic(int handle) {
 	CIN_StopCinematic(handle);
 }
 
-static void CG_DrawCinematic(int handle, float x, float y, float w, float h) {
+void CG_DrawCinematic(int handle, float x, float y, float w, float h) {
 	CIN_SetExtents(handle, x, y, w, h);
 	CIN_DrawCinematic(handle);
 }
 
-static void CG_RunCinematicFrame(int handle) {
+void CG_RunCinematicFrame(int handle) {
 	CIN_RunCinematic(handle);
 }
 

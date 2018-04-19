@@ -1,23 +1,15 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\glsl\compact.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_allocator.cpp">
-      <Filter>renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\XycaRend2\codemp\rd-rend2\tr_glsl_parse.cpp">
-      <Filter>renderer</Filter>
-    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-rend2\glsl\compact.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-rend2\tr_allocator.cpp" />
+    <ClCompile Include="C:\OpenSciTech\codemp\rd-rend2\tr_glsl_parse.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\XycaRend2\codemp\rd-rend2\tr_allocator.h">
-      <Filter>renderer</Filter>
-    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\codemp\rd-rend2\tr_allocator.h" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\XycaRend2\codemp\rd-rend2\CMakeLists.txt" />
+    <CustomBuild Include="C:\OpenSciTech\codemp\rd-rend2\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
