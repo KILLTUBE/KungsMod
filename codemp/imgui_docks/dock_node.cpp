@@ -11,9 +11,9 @@ void SaveIniSettingsToDisk(const char* ini_filename); // was a static function i
 void ImStrncpy(char* dst, const char* src, int count);
 
 
-typedef void (*type_callback_repl)(int, int, char *);
+typedef void (*ICDECL type_callback_repl)(int, int, char *);
 type_callback_repl callback_repl_node;
-CCALL void set_callback_repl_node(type_callback_repl cb) {
+ICAPI void ICDECL set_callback_repl_node(type_callback_repl cb) {
 	callback_repl_node = cb;
 }
 

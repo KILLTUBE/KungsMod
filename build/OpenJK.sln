@@ -35,6 +35,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KungsMod_SDL", "..\KungsMod
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "makeheaders", "..\makeheaders\makeheaders.vcxproj", "{4593541B-E940-4736-A555-3D351C72A964}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chakra", "chakra\chakra.vcxproj", "{FE273B8C-96B9-434A-ADA1-12E878205A6D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -176,6 +178,22 @@ Global
 		{4593541B-E940-4736-A555-3D351C72A964}.RelWithDebInfo|Win32.Build.0 = Release|Win32
 		{4593541B-E940-4736-A555-3D351C72A964}.RelWithDebInfo|x64.ActiveCfg = Release|x64
 		{4593541B-E940-4736-A555-3D351C72A964}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.Debug|Win32.Build.0 = Debug|Win32
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.Debug|x64.ActiveCfg = Debug|x64
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.Debug|x64.Build.0 = Debug|x64
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.MinSizeRel|Win32.ActiveCfg = Release|Win32
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.MinSizeRel|Win32.Build.0 = Release|Win32
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.MinSizeRel|x64.Build.0 = Release|x64
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.Release|Win32.ActiveCfg = Release|Win32
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.Release|Win32.Build.0 = Release|Win32
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.Release|x64.ActiveCfg = Release|x64
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.Release|x64.Build.0 = Release|x64
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.RelWithDebInfo|Win32.ActiveCfg = Release|Win32
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.RelWithDebInfo|Win32.Build.0 = Release|Win32
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{FE273B8C-96B9-434A-ADA1-12E878205A6D}.RelWithDebInfo|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Quelldateien\utf8">
+      <UniqueIdentifier>{49aad6fc-c803-4096-90b3-c2cb50e4cd5e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\codemp\chakra\262.js" />
+    <None Include="..\..\codemp\chakra\ch.aps" />
+    <None Include="..\..\codemp\chakra\ch.def">
+      <Filter>Quelldateien</Filter>
+    </None>
+    <None Include="..\..\codemp\chakra\ch.vcxproj" />
+    <None Include="..\..\codemp\chakra\ch.vcxproj.user" />
+    <None Include="..\..\codemp\chakra\ch.version" />
+    <None Include="..\..\codemp\chakra\DbgController.js" />
+    <None Include="..\..\codemp\chakra\Encode.js" />
+    <None Include="..\..\codemp\chakra\jstoc.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\codemp\chakra\ch.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\chakra\ChakraRtInterface.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\chakra\CodexAssert.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\chakra\Debugger.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\chakra\Helpers.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\chakra\HostConfigFlags.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\chakra\JITProcessManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\chakra\OpenSciTech.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\chakra\RuntimeThreadData.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\codemp\chakra\WScriptJsrt.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ChakraCore\lib\Common\Codex\Utf8Codex.cpp">
+      <Filter>Quelldateien\utf8</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\codemp\chakra\ch.rc">
+      <Filter>Ressourcendateien</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\codemp\chakra\ChakraRtInterface.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\chakra\Debugger.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\chakra\Helpers.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\chakra\HostConfigFlags.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\chakra\HostConfigFlagsList.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\chakra\JITProcessManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\chakra\MessageQueue.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\chakra\OpenSciTech.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\chakra\RuntimeThreadData.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\chakra\stdafx.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\codemp\chakra\WScriptJsrt.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ChakraCore\lib\Common\Codex\Utf8Codex.h">
+      <Filter>Quelldateien\utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ChakraCore\lib\Common\Codex\Utf8Helper.h">
+      <Filter>Quelldateien\utf8</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\codemp\chakra\CMakeLists.txt" />
+  </ItemGroup>
+</Project>

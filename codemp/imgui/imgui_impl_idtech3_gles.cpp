@@ -216,11 +216,13 @@ CCALL void set_clipboard_text(char *text) {
 	clipboard_text = text;
 }
 
+#include <SDL.h>
+
 const char* ImGui_ImplSdlGL3_GetClipboardText(void*) {
 //#if !_WINDOWS
 //	return clipboard_text;
 //#else
-//    return SDL_GetClipboardText();
+    return SDL_GetClipboardText();
 //#endif
 	//return Clipboard_Get();
 	return "todo";
@@ -233,7 +235,7 @@ void ImGui_ImplSdlGL3_SetClipboardText(void*, const char* text) {
 			  copy_to_clipboard($0);
 			}, text);	
 #else
-    //SDL_SetClipboardText(text);
+    SDL_SetClipboardText(text);
 #endif
 	//Clipboard_Set(text);
 }
