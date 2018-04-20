@@ -8,6 +8,12 @@ if ! isdefined(:lib)
 	end
 end
 
+const appdll = lib
+include("stringbuffer.jl")
+include("dock.jl")
+#include("docks.jl")
+include("gui.jl")
+include("gui_texteditor.jl")
 
 # ccall(("startChakra","mychakra.dll"), Int32, ())
 
@@ -52,6 +58,8 @@ function mainloop()
 		imgui_new_frame();
 		Com_Frame();
 
+		Button("lllooooolll")
+		
 		imgui_openjk_start();
 		imgui_end_frame();
 		imgui_openjk_end();
