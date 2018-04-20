@@ -179,7 +179,7 @@ vm_t *VM_Create( vmSlots_t vmSlot ) {
 
 	// find the module api
 	FS_FindPureDLL( vm->name );
-	vm->dllHandle = Sys_LoadGameDll( vm->name, &vm->GetModuleAPI );
+	//vm->dllHandle = Sys_LoadGameDll( vm->name, &vm->GetModuleAPI );
 	if (vmSlot == VM_GAME) {
 		return vm;
 	}

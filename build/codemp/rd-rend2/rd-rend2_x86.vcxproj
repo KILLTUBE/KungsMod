@@ -115,7 +115,7 @@
     <Link>
       <AdditionalDependencies>..\..\lib\jpeg-9a\Debug\bundled_libjpeg.lib;..\..\lib\libpng\Debug\bundled_libpng.lib;..\..\lib\zlib\Debug\bundled_zlib.lib;..\..\lib\minizip\Debug\bundled_minizip.lib;glu32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/rd-rend2/Debug/rd-rend2_x86.lib</ImportLibrary>
@@ -162,7 +162,7 @@
     <Link>
       <AdditionalDependencies>..\..\lib\jpeg-9a\Release\bundled_libjpeg.lib;..\..\lib\libpng\Release\bundled_libpng.lib;..\..\lib\zlib\Release\bundled_zlib.lib;..\..\lib\minizip\Release\bundled_minizip.lib;glu32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/rd-rend2/Release/rd-rend2_x86.lib</ImportLibrary>
@@ -209,7 +209,7 @@
     <Link>
       <AdditionalDependencies>..\..\lib\jpeg-9a\MinSizeRel\bundled_libjpeg.lib;..\..\lib\libpng\MinSizeRel\bundled_libpng.lib;..\..\lib\zlib\MinSizeRel\bundled_zlib.lib;..\..\lib\minizip\MinSizeRel\bundled_minizip.lib;glu32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/rd-rend2/MinSizeRel/rd-rend2_x86.lib</ImportLibrary>
@@ -255,7 +255,7 @@
     <Link>
       <AdditionalDependencies>..\..\lib\jpeg-9a\RelWithDebInfo\bundled_libjpeg.lib;..\..\lib\libpng\RelWithDebInfo\bundled_libpng.lib;..\..\lib\zlib\RelWithDebInfo\bundled_zlib.lib;..\..\lib\minizip\RelWithDebInfo\bundled_minizip.lib;glu32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/rd-rend2/RelWithDebInfo/rd-rend2_x86.lib</ImportLibrary>

@@ -3331,14 +3331,14 @@ void Leaving_EditField(itemDef_t *item)
 	}
 }
 
-CCALL void GetClipboardData( char *buf, int buflen );
+CCALL void UI_GetClipboardData( char *buf, int buflen );
 
 qboolean Item_TextField_HandleKey( itemDef_t *item, int key );
 void Item_TextField_Paste( itemDef_t *item ) {
 	int		pasteLen, i;
 	char	buff[2048] = { 0 };
 
-	GetClipboardData( buff, sizeof(buff) );
+	UI_GetClipboardData( buff, sizeof(buff) );
 
 	if ( !*buff ) {
 		return;

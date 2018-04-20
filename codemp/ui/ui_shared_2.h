@@ -275,7 +275,7 @@ CCALL void Item_StartCapture(itemDef_t *item,int key);
 CCALL void Item_TextField_Paste(itemDef_t *item);
 CCALL qboolean Item_TextField_HandleKey(itemDef_t *item,int key);
 CCALL qboolean Item_TextField_HandleKey(itemDef_t *item,int key);
-CCALL void GetClipboardData(char *buf,int buflen);
+CCALL void UI_GetClipboardData(char *buf,int buflen);
 CCALL void Leaving_EditField(itemDef_t *item);
 CCALL qboolean Item_Multi_HandleKey(itemDef_t *item,int key);
 CCALL const char *Item_Multi_Setting(itemDef_t *item);

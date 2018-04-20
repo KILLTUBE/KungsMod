@@ -279,7 +279,7 @@ public:
     static HRESULT SetEnableCheckMemoryLeakOutput(bool flag) { return CHECKED_CALL(SetEnableCheckMemoryLeakOutput, flag); }
 #endif
 #ifdef DEBUG
-	static HRESULT SetCheckOpHelpersFlag(bool flag) { /*return CHECKED_CALL(SetCheckOpHelpersFlag, flag);*/ DebugBreak(); /* kung: removed this code, didnt compile */ return NULL; }
+	static HRESULT SetCheckOpHelpersFlag(bool flag) { /*return CHECKED_CALL(SetCheckOpHelpersFlag, flag);*/ /*DebugBreak();*/ /* kung: removed this code, didnt compile */ return NULL; }
 #endif
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
     static HRESULT SetOOPCFGRegistrationFlag(bool flag) { return CHECKED_CALL(SetOOPCFGRegistrationFlag, flag); }

@@ -116,7 +116,7 @@ CCALL void CL_GetClientState( uiClientState_t *state ) {
 	state->clientNum = cl.snap.ps.clientNum;
 }
 
-CCALL void GetClipboardData( char *buf, int buflen ) {
+CCALL void UI_GetClipboardData( char *buf, int buflen ) {
 	char	*cbd, *c;
 
 	c = cbd = Sys_GetClipboardData();

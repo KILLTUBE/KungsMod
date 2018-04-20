@@ -24,10 +24,11 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>chakra</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectName>mychakra</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -40,7 +41,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -73,9 +74,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\ChakraCore\lib\Common;C:\OpenSciTech\codemp\chakra;C:\ChakraCore\lib\Jsrt;C:\ChakraCore\bin\ChakraCore;C:\OpenSciTech\lib\SDL2\include;$(IncludePath)</IncludePath>
+    <TargetExt>.dll</TargetExt>
+    <OutDir>C:\OpenSciTech\build\Debug</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\ChakraCore\lib\Common;C:\OpenSciTech\codemp\chakra;C:\ChakraCore\lib\Jsrt;C:\ChakraCore\bin\ChakraCore;C:\OpenSciTech\lib\SDL2\include;$(IncludePath)</IncludePath>
+    <TargetExt>.dll</TargetExt>
+    <OutDir>C:\OpenSciTech\build\Debug</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -107,6 +113,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>C:\OpenSciTech\build\codemp\Debug\kungsmod.lib;oleaut32.lib;ole32.lib;kernel32.lib;Rpcrt4.lib;version.lib;bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -153,7 +160,6 @@
     <None Include="..\..\codemp\chakra\jstoc.py" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\ChakraCore\lib\Common\Codex\Utf8Codex.cpp" />
     <ClCompile Include="..\..\codemp\chakra\ch.cpp" />
     <ClCompile Include="..\..\codemp\chakra\ChakraRtInterface.cpp" />
     <ClCompile Include="..\..\codemp\chakra\CodexAssert.cpp" />
@@ -163,14 +169,13 @@
     <ClCompile Include="..\..\codemp\chakra\JITProcessManager.cpp" />
     <ClCompile Include="..\..\codemp\chakra\OpenSciTech.cpp" />
     <ClCompile Include="..\..\codemp\chakra\RuntimeThreadData.cpp" />
+    <ClCompile Include="..\..\codemp\chakra\Utf8Codex.cpp" />
     <ClCompile Include="..\..\codemp\chakra\WScriptJsrt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\codemp\chakra\ch.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\ChakraCore\lib\Common\Codex\Utf8Codex.h" />
-    <ClInclude Include="..\..\..\ChakraCore\lib\Common\Codex\Utf8Helper.h" />
     <ClInclude Include="..\..\codemp\chakra\ChakraRtInterface.h" />
     <ClInclude Include="..\..\codemp\chakra\Debugger.h" />
     <ClInclude Include="..\..\codemp\chakra\Helpers.h" />
@@ -181,6 +186,8 @@
     <ClInclude Include="..\..\codemp\chakra\OpenSciTech.h" />
     <ClInclude Include="..\..\codemp\chakra\RuntimeThreadData.h" />
     <ClInclude Include="..\..\codemp\chakra\stdafx.h" />
+    <ClInclude Include="..\..\codemp\chakra\Utf8Codex.h" />
+    <ClInclude Include="..\..\codemp\chakra\Utf8Helper.h" />
     <ClInclude Include="..\..\codemp\chakra\WScriptJsrt.h" />
   </ItemGroup>
   <ItemGroup>

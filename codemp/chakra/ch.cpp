@@ -955,8 +955,18 @@ int main(int argc, char** c_argv)
     }
 #else
 #define PAL_Shutdown()
-int _cdecl wmain(int argc, __in_ecount(argc) LPWSTR argv[])
+
+#include "../include_ccall.h"
+
+//int _cdecl wmain(int argc_, __in_ecount(argc) LPWSTR argv_[])
+ICAPI int ICDECL startChakra()
 {
+
+	int argc = 2;
+	LPWSTR argv[2];
+	argv[0] = (wchar_t *)L"chakra.exe";
+	argv[1] = (wchar_t *)L"main.js";
+
 #endif
 
 #ifdef _WIN32

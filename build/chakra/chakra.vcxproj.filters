@@ -61,7 +61,7 @@
     <ClCompile Include="..\..\codemp\chakra\WScriptJsrt.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\ChakraCore\lib\Common\Codex\Utf8Codex.cpp">
+    <ClCompile Include="..\..\codemp\chakra\Utf8Codex.cpp">
       <Filter>Quelldateien\utf8</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,10 +104,10 @@
     <ClInclude Include="..\..\codemp\chakra\WScriptJsrt.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\ChakraCore\lib\Common\Codex\Utf8Codex.h">
+    <ClInclude Include="..\..\codemp\chakra\Utf8Codex.h">
       <Filter>Quelldateien\utf8</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\ChakraCore\lib\Common\Codex\Utf8Helper.h">
+    <ClInclude Include="..\..\codemp\chakra\Utf8Helper.h">
       <Filter>Quelldateien\utf8</Filter>
     </ClInclude>
   </ItemGroup>

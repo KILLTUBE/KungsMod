@@ -167,7 +167,7 @@
     <Link>
       <AdditionalDependencies>Debug\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\Debug\bundled_minizip.lib;..\lib\zlib\Debug\bundled_zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/Debug/openjkded.x86.lib</ImportLibrary>
@@ -214,7 +214,7 @@
     <Link>
       <AdditionalDependencies>Debug\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\Debug\bundled_minizip.lib;..\lib\zlib\Debug\bundled_zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/Debug/openjkded.x86.lib</ImportLibrary>
@@ -261,7 +261,7 @@
     <Link>
       <AdditionalDependencies>Release\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\Release\bundled_minizip.lib;..\lib\zlib\Release\bundled_zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/Release/openjkded.x86.lib</ImportLibrary>
@@ -308,7 +308,7 @@
     <Link>
       <AdditionalDependencies>Release\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\Release\bundled_minizip.lib;..\lib\zlib\Release\bundled_zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/Release/openjkded.x86.lib</ImportLibrary>
@@ -355,7 +355,7 @@
     <Link>
       <AdditionalDependencies>MinSizeRel\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\MinSizeRel\bundled_minizip.lib;..\lib\zlib\MinSizeRel\bundled_zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/MinSizeRel/openjkded.x86.lib</ImportLibrary>
@@ -402,7 +402,7 @@
     <Link>
       <AdditionalDependencies>MinSizeRel\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\MinSizeRel\bundled_minizip.lib;..\lib\zlib\MinSizeRel\bundled_zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/MinSizeRel/openjkded.x86.lib</ImportLibrary>
@@ -448,7 +448,7 @@
     <Link>
       <AdditionalDependencies>RelWithDebInfo\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\RelWithDebInfo\bundled_minizip.lib;..\lib\zlib\RelWithDebInfo\bundled_zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/RelWithDebInfo/openjkded.x86.lib</ImportLibrary>
@@ -494,7 +494,7 @@
     <Link>
       <AdditionalDependencies>RelWithDebInfo\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\RelWithDebInfo\bundled_minizip.lib;..\lib\zlib\RelWithDebInfo\bundled_zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/RelWithDebInfo/openjkded.x86.lib</ImportLibrary>

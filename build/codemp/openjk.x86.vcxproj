@@ -51,7 +51,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -138,6 +138,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\OpenSciTech\lib\jpeg-9a\include;C:\OpenSciTech\lib\libpng\include;$(IncludePath)</IncludePath>
+    <OutDir>C:\OpenSciTech\build\Debug</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -174,7 +175,7 @@
     <Link>
       <AdditionalDependencies>Debug\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\Debug\bundled_minizip.lib;..\lib\zlib\Debug\bundled_zlib.lib;..\lib\jpeg-9a\Debug\bundled_libjpeg.lib;..\lib\libpng\Debug\bundled_libpng.lib;..\..\lib\OpenAL32.lib;..\..\lib\SDL2\lib\x86\SDL2main.lib;..\..\lib\SDL2\lib\x86\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;opengl32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/Debug/kungsmod.lib</ImportLibrary>
@@ -219,9 +220,9 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>Debug\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\Debug\bundled_minizip.lib;..\lib\zlib\Debug\bundled_zlib.lib;..\lib\jpeg-9a\Debug\bundled_libjpeg.lib;..\lib\libpng\Debug\bundled_libpng.lib;..\..\lib\OpenAL32.lib;..\..\lib\SDL2\lib\x86\SDL2main.lib;..\..\lib\SDL2\lib\x86\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\OpenSciTech\build\x64\Debug\botlib.lib;winmm.lib;wsock32.lib;C:\OpenSciTech\build\x64\Debug\bundled_libjpeg.lib;C:\OpenSciTech\build\x64\Debug\bundled_libpng.lib;C:\OpenSciTech\build\x64\Debug\bundled_minizip.lib;C:\OpenSciTech\build\x64\Debug\bundled_zlib.lib;C:\Users\kung\Desktop\openscitech\SDL2-2.0.8\VisualC\x64\Debug\SDL2.lib;C:/openal-soft/build/Debug/OpenAL32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;opengl32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/Debug/kungsmod.lib</ImportLibrary>
@@ -268,7 +269,7 @@
     <Link>
       <AdditionalDependencies>Release\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\Release\bundled_minizip.lib;..\lib\zlib\Release\bundled_zlib.lib;..\..\lib\OpenAL32.lib;..\..\lib\SDL2\lib\x86\SDL2main.lib;..\..\lib\SDL2\lib\x86\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/Release/openjk.x86.lib</ImportLibrary>
@@ -315,7 +316,7 @@
     <Link>
       <AdditionalDependencies>Release\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\Release\bundled_minizip.lib;..\lib\zlib\Release\bundled_zlib.lib;..\..\lib\OpenAL32.lib;..\..\lib\SDL2\lib\x86\SDL2main.lib;..\..\lib\SDL2\lib\x86\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/Release/openjk.x86.lib</ImportLibrary>
@@ -362,7 +363,7 @@
     <Link>
       <AdditionalDependencies>MinSizeRel\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\MinSizeRel\bundled_minizip.lib;..\lib\zlib\MinSizeRel\bundled_zlib.lib;..\..\lib\OpenAL32.lib;..\..\lib\SDL2\lib\x86\SDL2main.lib;..\..\lib\SDL2\lib\x86\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/MinSizeRel/openjk.x86.lib</ImportLibrary>
@@ -409,7 +410,7 @@
     <Link>
       <AdditionalDependencies>MinSizeRel\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\MinSizeRel\bundled_minizip.lib;..\lib\zlib\MinSizeRel\bundled_zlib.lib;..\..\lib\OpenAL32.lib;..\..\lib\SDL2\lib\x86\SDL2main.lib;..\..\lib\SDL2\lib\x86\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/MinSizeRel/openjk.x86.lib</ImportLibrary>
@@ -455,7 +456,7 @@
     <Link>
       <AdditionalDependencies>RelWithDebInfo\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\RelWithDebInfo\bundled_minizip.lib;..\lib\zlib\RelWithDebInfo\bundled_zlib.lib;..\..\lib\OpenAL32.lib;..\..\lib\SDL2\lib\x86\SDL2main.lib;..\..\lib\SDL2\lib\x86\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/RelWithDebInfo/openjk.x86.lib</ImportLibrary>
@@ -501,7 +502,7 @@
     <Link>
       <AdditionalDependencies>RelWithDebInfo\botlib.lib;winmm.lib;wsock32.lib;..\lib\minizip\RelWithDebInfo\bundled_minizip.lib;..\lib\zlib\RelWithDebInfo\bundled_zlib.lib;..\..\lib\OpenAL32.lib;..\..\lib\SDL2\lib\x86\SDL2main.lib;..\..\lib\SDL2\lib\x86\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) </AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/OpenSciTech/build/codemp/RelWithDebInfo/openjk.x86.lib</ImportLibrary>
