@@ -14,11 +14,12 @@ include("dock.jl")
 #include("docks.jl")
 include("gui.jl")
 include("gui_texteditor.jl")
+include("repl.jl")
 
 # ccall(("startChakra","mychakra.dll"), Int32, ())
 
 
-
+set_callback_repl_node( cb             ) = ccall( (:set_callback_repl_node    , lib), Void      , (Ptr{Int64},                                    ), cb                  );
 Com_Init(cmds                          ) = ccall( (:Com_Init                  , lib), Void      , (Cstring,                                       ), cmds                );
 Cmd_ExecuteString(cmd                  ) = ccall( (:Cmd_ExecuteString         , lib), Void      , (Cstring,                                       ), cmd                 );
 Sys_SetDefaultInstallPath(cmd          ) = ccall( (:Sys_SetDefaultInstallPath , lib), Void      , (Cstring,                                       ), cmd                 );
@@ -30,6 +31,7 @@ NET_Init(                              ) = ccall( (:NET_Init                  , 
 imgui_openjk_start(                    ) = ccall( (:imgui_openjk_start        , lib), Void      , (                                               )                      );
 imgui_init(                            ) = ccall( (:imgui_init                , lib), Void      , (                                               )                      );
 imgui_openjk_end(                      ) = ccall( (:imgui_openjk_end          , lib), Void      , (                                               )                      );
+imgui_log(msg                          ) = ccall( (:imgui_log                 , lib), Int32     , (Cstring,                                       ), msg                 );
 Com_BusyWait(                          ) = ccall( (:Com_BusyWait              , lib), Void      , (                                               )                      );
 imgui_new_frame(                       ) = ccall( (:imgui_new_frame           , lib), Void      , (                                               )                      );
 imgui_end_frame(                       ) = ccall( (:imgui_end_frame           , lib), Void      , (                                               )                      );
@@ -69,5 +71,16 @@ function mainloop()
 end
 
 init()
+
+
+function repl_node(select_start::Int32, select_end::Int32, replbuffer::Cstring)::Void
+	println("Got repl_node: ", select_start, select_end, replbuffer)
+	repl(select_start, select_end, unsafe_string(replbuffer))
+	return
+end
+cb_repl_node = cfunction(repl_node, Void, (Int32, Int32, Cstring))
+set_callback_repl_node(cb_repl_node)
+
 mainloop()
+
 
