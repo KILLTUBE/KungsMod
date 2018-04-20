@@ -227,7 +227,7 @@ HRESULT CreateLibraryByteCodeHeader(LPCSTR contentsRaw, JsFinalizeCallback conte
 
     if (bcFullPath)
     {
-        bcFileHandle = CreateFile(bcFullPath, GENERIC_WRITE, FILE_SHARE_DELETE,
+        bcFileHandle = CreateFileW(bcFullPath, GENERIC_WRITE, FILE_SHARE_DELETE,
             nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
     }
     else
@@ -1103,7 +1103,7 @@ ICAPI int ICDECL startChakra()
     // jscript9.dll etc with ch. Since that isn't a concern on non-Windows
     // builds, it's safe to conditionally compile it out.
 #ifdef _WIN32
-    lock = ::AddAtom(szChakraCoreLock);
+    lock = ::AddAtomW(szChakraCoreLock);
     AssertMsg(lock, "failed to lock chakracore.dll");
 #endif // _WIN32
 

@@ -223,7 +223,7 @@ HRESULT Helpers::LoadScriptFromFile(LPCSTR filenameToLoad, LPCSTR& contents, UIN
                 char16 wszBuff[MAX_URI_LENGTH];
                 fprintf(stderr, "Error in opening file '%s' ", filename);
                 wszBuff[0] = 0;
-                if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+                if (FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
                     nullptr,
                     lastError,
                     0,
@@ -457,7 +457,7 @@ HRESULT Helpers::LoadBinaryFile(LPCSTR filename, LPCSTR& contents, UINT& lengthB
             DWORD lastError = GetLastError();
             char16 wszBuff[MAX_URI_LENGTH];
             wszBuff[0] = 0;
-            if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+            if (FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
                 nullptr,
                 lastError,
                 0,

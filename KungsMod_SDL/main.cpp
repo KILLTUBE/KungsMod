@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
 	printf("k\n");
 
 	Sys_PlatformInit();
-	Sys_Milliseconds(); // get the initial time base
+	Sys_Milliseconds(false); // get the initial time base
 	Sys_SetBinaryPath( "" );
 	Sys_SetDefaultInstallPath( Sys_BinaryPath() );
 	char *startString = argsToString(argc, argv);
