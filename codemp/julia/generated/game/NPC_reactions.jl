@@ -1,0 +1,12 @@
+NPC_CheckAttacker( other_, mod_ ) = ccall((:NPC_CheckAttacker, lib), Void, ( Ptr{gentity_t}, Int32,  ), other_, mod_ );
+NPC_SetPainEvent( self_ ) = ccall((:NPC_SetPainEvent, lib), Void, ( Ptr{gentity_t},  ), self_ );
+NPC_GetPainChance( self_, damage_ ) = ccall((:NPC_GetPainChance, lib), Float32, ( Ptr{gentity_t}, Int32,  ), self_, damage_ );
+NPC_ChoosePainAnimation( self_, other_, point_, damage_, mod_, hitLoc_, voiceEvent_ ) = ccall((:NPC_ChoosePainAnimation, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, vec3_t, Int32, Int32, Int32, Int32,  ), self_, other_, point_, damage_, mod_, hitLoc_, voiceEvent_ );
+NPC_Pain( self_, attacker_, damage_ ) = ccall((:NPC_Pain, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Int32,  ), self_, attacker_, damage_ );
+NPC_Touch( self_, other_, trace_ ) = ccall((:NPC_Touch, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Ptr{trace_t},  ), self_, other_, trace_ );
+NPC_TempLookTarget( self_, lookEntNum_, minLookTime_, maxLookTime_ ) = ccall((:NPC_TempLookTarget, lib), Void, ( Ptr{gentity_t}, Int32, Int32, Int32,  ), self_, lookEntNum_, minLookTime_, maxLookTime_ );
+NPC_Respond( self_, userNum_ ) = ccall((:NPC_Respond, lib), Void, ( Ptr{gentity_t}, Int32,  ), self_, userNum_ );
+NPC_UseResponse( self_, user_, useWhenDone_ ) = ccall((:NPC_UseResponse, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, qboolean,  ), self_, user_, useWhenDone_ );
+NPC_Use( self_, other_, activator_ ) = ccall((:NPC_Use, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Ptr{gentity_t},  ), self_, other_, activator_ );
+NPC_CheckPlayerAim() = ccall((:NPC_CheckPlayerAim, lib), Void, (),  );
+NPC_CheckAllClear() = ccall((:NPC_CheckAllClear, lib), Void, (),  );

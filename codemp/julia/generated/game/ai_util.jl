@@ -1,0 +1,12 @@
+B_TempAlloc( size_ ) = ccall((:B_TempAlloc, lib), Void, ( Int32,  ), size_ );
+B_TempFree( size_ ) = ccall((:B_TempFree, lib), Void, ( Int32,  ), size_ );
+B_Alloc( size_ ) = ccall((:B_Alloc, lib), Void, ( Int32,  ), size_ );
+B_Free( ptr_ ) = ccall((:B_Free, lib), Void, ( Ptr{Void},  ), ptr_ );
+B_InitAlloc() = ccall((:B_InitAlloc, lib), Void, (),  );
+B_CleanupAlloc() = ccall((:B_CleanupAlloc, lib), Void, (),  );
+GetValueGroup( buf_, group_, outbuf_ ) = ccall((:GetValueGroup, lib), Int32, ( Ptr{Char}, Ptr{Char}, Ptr{Char},  ), buf_, group_, outbuf_ );
+GetPairedValue( buf_, key_, outbuf_ ) = ccall((:GetPairedValue, lib), Int32, ( Ptr{Char}, Ptr{Char}, Ptr{Char},  ), buf_, key_, outbuf_ );
+BotDoChat( bs_, section_, always_ ) = ccall((:BotDoChat, lib), Int32, ( Ptr{bot_state_t}, Ptr{Char}, Int32,  ), bs_, section_, always_ );
+ParseEmotionalAttachments( bs_, buf_ ) = ccall((:ParseEmotionalAttachments, lib), Void, ( Ptr{bot_state_t}, Ptr{Char},  ), bs_, buf_ );
+ReadChatGroups( bs_, buf_ ) = ccall((:ReadChatGroups, lib), Int32, ( Ptr{bot_state_t}, Ptr{Char},  ), bs_, buf_ );
+BotUtilizePersonality( bs_ ) = ccall((:BotUtilizePersonality, lib), Void, ( Ptr{bot_state_t},  ), bs_ );

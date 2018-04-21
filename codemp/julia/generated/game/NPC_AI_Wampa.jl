@@ -1,0 +1,11 @@
+Wampa_SetBolts( self_ ) = ccall((:Wampa_SetBolts, lib), Void, ( Ptr{gentity_t},  ), self_ );
+NPC_Wampa_Precache() = ccall((:NPC_Wampa_Precache, lib), Void, (),  );
+Wampa_Idle() = ccall((:Wampa_Idle, lib), Void, (),  );
+Wampa_CheckRoar( self_ ) = ccall((:Wampa_CheckRoar, lib), qboolean, ( Ptr{gentity_t},  ), self_ );
+Wampa_Patrol() = ccall((:Wampa_Patrol, lib), Void, (),  );
+Wampa_Move( visible_ ) = ccall((:Wampa_Move, lib), Void, ( qboolean,  ), visible_ );
+Wampa_Slash( boltIndex_, backhand_ ) = ccall((:Wampa_Slash, lib), Void, ( Int32, qboolean,  ), boltIndex_, backhand_ );
+Wampa_Attack( distance_, doCharge_ ) = ccall((:Wampa_Attack, lib), Void, ( Float32, qboolean,  ), distance_, doCharge_ );
+Wampa_Combat() = ccall((:Wampa_Combat, lib), Void, (),  );
+NPC_Wampa_Pain( self_, attacker_, damage_ ) = ccall((:NPC_Wampa_Pain, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Int32,  ), self_, attacker_, damage_ );
+NPC_BSWampa_Default() = ccall((:NPC_BSWampa_Default, lib), Void, (),  );

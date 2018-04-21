@@ -1,0 +1,9 @@
+DeathUpdate( pVeh_ ) = ccall((:DeathUpdate, lib), Void, ( Ptr{Vehicle_t},  ), pVeh_ );
+Update( pVeh_, pUcmd_ ) = ccall((:Update, lib), qboolean, ( Ptr{Vehicle_t}, Ptr{usercmd_t},  ), pVeh_, pUcmd_ );
+ProcessMoveCommands( pVeh_ ) = ccall((:ProcessMoveCommands, lib), Void, ( Ptr{Vehicle_t},  ), pVeh_ );
+ProcessOrientCommands( pVeh_ ) = ccall((:ProcessOrientCommands, lib), Void, ( Ptr{Vehicle_t},  ), pVeh_ );
+AnimalProcessOri( pVeh_ ) = ccall((:AnimalProcessOri, lib), Void, ( Ptr{Vehicle_t},  ), pVeh_ );
+AnimateVehicle( pVeh_ ) = ccall((:AnimateVehicle, lib), Void, ( Ptr{Vehicle_t},  ), pVeh_ );
+AnimateRiders( pVeh_ ) = ccall((:AnimateRiders, lib), Void, ( Ptr{Vehicle_t},  ), pVeh_ );
+G_SetAnimalVehicleFunctions( pVehInfo_ ) = ccall((:G_SetAnimalVehicleFunctions, lib), Void, ( Ptr{vehicleInfo_t},  ), pVehInfo_ );
+G_CreateAnimalNPC( pVeh_, strAnimalType_ ) = ccall((:G_CreateAnimalNPC, lib), Void, ( Ptr{Ptr{Vehicle_t}}, Ptr{Char},  ), pVeh_, strAnimalType_ );

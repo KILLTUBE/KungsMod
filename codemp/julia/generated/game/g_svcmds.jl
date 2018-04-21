@@ -1,0 +1,14 @@
+StringToFilter( s_, f_ ) = ccall((:StringToFilter, lib), qboolean, ( Ptr{Char}, Ptr{ipFilter_t},  ), s_, f_ );
+UpdateIPBans() = ccall((:UpdateIPBans, lib), Void, (),  );
+G_FilterPacket( from_ ) = ccall((:G_FilterPacket, lib), qboolean, ( Ptr{Char},  ), from_ );
+AddIP( str_ ) = ccall((:AddIP, lib), Void, ( Ptr{Char},  ), str_ );
+G_ProcessIPBans() = ccall((:G_ProcessIPBans, lib), Void, (),  );
+Svcmd_AddIP_f() = ccall((:Svcmd_AddIP_f, lib), Void, (),  );
+Svcmd_RemoveIP_f() = ccall((:Svcmd_RemoveIP_f, lib), Void, (),  );
+Svcmd_ListIP_f() = ccall((:Svcmd_ListIP_f, lib), Void, (),  );
+Svcmd_EntityList_f() = ccall((:Svcmd_EntityList_f, lib), Void, (),  );
+ClientForString( s_ ) = ccall((:ClientForString, lib), gclient_t, ( Ptr{Char},  ), s_ );
+Svcmd_ForceTeam_f() = ccall((:Svcmd_ForceTeam_f, lib), Void, (),  );
+Svcmd_Say_f() = ccall((:Svcmd_Say_f, lib), Void, (),  );
+svcmdcmp( a_, b_ ) = ccall((:svcmdcmp, lib), Int32, ( Ptr{Void}, Ptr{Void},  ), a_, b_ );
+ConsoleCommand() = ccall((:ConsoleCommand, lib), qboolean, (),  );

@@ -1,0 +1,10 @@
+NPC_Mark2_Precache() = ccall((:NPC_Mark2_Precache, lib), Void, (),  );
+NPC_Mark2_Part_Explode( self_, bolt_ ) = ccall((:NPC_Mark2_Part_Explode, lib), Void, ( Ptr{gentity_t}, Int32,  ), self_, bolt_ );
+NPC_Mark2_Pain( self_, attacker_, damage_ ) = ccall((:NPC_Mark2_Pain, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Int32,  ), self_, attacker_, damage_ );
+Mark2_Hunt() = ccall((:Mark2_Hunt, lib), Void, (),  );
+Mark2_FireBlaster( advance_ ) = ccall((:Mark2_FireBlaster, lib), Void, ( qboolean,  ), advance_ );
+Mark2_BlasterAttack( advance_ ) = ccall((:Mark2_BlasterAttack, lib), Void, ( qboolean,  ), advance_ );
+Mark2_AttackDecision() = ccall((:Mark2_AttackDecision, lib), Void, (),  );
+Mark2_Patrol() = ccall((:Mark2_Patrol, lib), Void, (),  );
+Mark2_Idle() = ccall((:Mark2_Idle, lib), Void, (),  );
+NPC_BSMark2_Default() = ccall((:NPC_BSMark2_Default, lib), Void, (),  );

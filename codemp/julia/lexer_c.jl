@@ -1,3 +1,5 @@
+importall Base
+
 include("php_trim.jl")
 include("tokenizer.jl")
 

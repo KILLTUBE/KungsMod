@@ -1,0 +1,1 @@
+G_RunExPhys( ent_, gravity_, mass_, bounce_, autoKill_, g2Bolts_, numG2Bolts_ ) = ccall((:G_RunExPhys, lib), Void, ( Ptr{gentity_t}, Float32, Float32, Float32, qboolean, Ptr{Int32}, Int32,  ), ent_, gravity_, mass_, bounce_, autoKill_, g2Bolts_, numG2Bolts_ );

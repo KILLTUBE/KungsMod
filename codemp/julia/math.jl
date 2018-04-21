@@ -1,5 +1,14 @@
+importall Base
+
 #using StaticArrays
 #const Vec3 = SVector{3,Float32}
+
+# i would like to use C types in Julia, but e.g. "float" is already a method overloaded 18 times, so better convert the simple types directly
+#const int = Int32
+#const float = Float32
+#const void = Void
+
+
 struct Vec3
 	x::Float32
 	y::Float32
@@ -29,7 +38,6 @@ function distanceSquared(a::Vec3, b::Vec3)::Float32
 	return (c.x * c.x) + (c.y * c.y) + (c.z * c.z)
 end
 
-importall Base
 
 zero(::Type{Vec3}) = Vec3(0,0,0)
 

@@ -1,0 +1,9 @@
+NPC_Howler_Precache() = ccall((:NPC_Howler_Precache, lib), Void, (),  );
+Howler_Idle() = ccall((:Howler_Idle, lib), Void, (),  );
+Howler_Patrol() = ccall((:Howler_Patrol, lib), Void, (),  );
+Howler_Move( visible_ ) = ccall((:Howler_Move, lib), Void, ( qboolean,  ), visible_ );
+Howler_TryDamage( enemy_, damage_ ) = ccall((:Howler_TryDamage, lib), Void, ( Ptr{gentity_t}, Int32,  ), enemy_, damage_ );
+Howler_Attack() = ccall((:Howler_Attack, lib), Void, (),  );
+Howler_Combat() = ccall((:Howler_Combat, lib), Void, (),  );
+NPC_Howler_Pain( self_, attacker_, damage_ ) = ccall((:NPC_Howler_Pain, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Int32,  ), self_, attacker_, damage_ );
+NPC_BSHowler_Default() = ccall((:NPC_BSHowler_Default, lib), Void, (),  );

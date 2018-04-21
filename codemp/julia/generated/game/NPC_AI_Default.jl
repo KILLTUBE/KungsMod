@@ -1,0 +1,15 @@
+NPC_LostEnemyDecideChase() = ccall((:NPC_LostEnemyDecideChase, lib), Void, (),  );
+NPC_StandIdle() = ccall((:NPC_StandIdle, lib), Void, (),  );
+NPC_StandTrackAndShoot( NPC_, canDuck_ ) = ccall((:NPC_StandTrackAndShoot, lib), qboolean, ( Ptr{gentity_t}, qboolean,  ), NPC_, canDuck_ );
+NPC_BSIdle() = ccall((:NPC_BSIdle, lib), Void, (),  );
+NPC_BSRun() = ccall((:NPC_BSRun, lib), Void, (),  );
+NPC_BSStandGuard() = ccall((:NPC_BSStandGuard, lib), Void, (),  );
+NPC_BSHuntAndKill() = ccall((:NPC_BSHuntAndKill, lib), Void, (),  );
+NPC_BSStandAndShoot() = ccall((:NPC_BSStandAndShoot, lib), Void, (),  );
+NPC_BSRunAndShoot() = ccall((:NPC_BSRunAndShoot, lib), Void, (),  );
+NPC_BSFace() = ccall((:NPC_BSFace, lib), Void, (),  );
+NPC_BSPointShoot( shoot_ ) = ccall((:NPC_BSPointShoot, lib), Void, ( qboolean,  ), shoot_ );
+NPC_BSMove() = ccall((:NPC_BSMove, lib), Void, (),  );
+NPC_BSShoot() = ccall((:NPC_BSShoot, lib), Void, (),  );
+NPC_BSPatrol() = ccall((:NPC_BSPatrol, lib), Void, (),  );
+NPC_BSDefault() = ccall((:NPC_BSDefault, lib), Void, (),  );

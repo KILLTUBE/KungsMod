@@ -1,0 +1,12 @@
+NPC_Probe_Precache() = ccall((:NPC_Probe_Precache, lib), Void, (),  );
+ImperialProbe_MaintainHeight() = ccall((:ImperialProbe_MaintainHeight, lib), Void, (),  );
+ImperialProbe_Strafe() = ccall((:ImperialProbe_Strafe, lib), Void, (),  );
+ImperialProbe_Hunt( visible_, advance_ ) = ccall((:ImperialProbe_Hunt, lib), Void, ( qboolean, qboolean,  ), visible_, advance_ );
+ImperialProbe_FireBlaster() = ccall((:ImperialProbe_FireBlaster, lib), Void, (),  );
+ImperialProbe_Ranged( visible_, advance_ ) = ccall((:ImperialProbe_Ranged, lib), Void, ( qboolean, qboolean,  ), visible_, advance_ );
+ImperialProbe_AttackDecision() = ccall((:ImperialProbe_AttackDecision, lib), Void, (),  );
+NPC_Probe_Pain( self_, attacker_, damage_ ) = ccall((:NPC_Probe_Pain, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Int32,  ), self_, attacker_, damage_ );
+ImperialProbe_Idle() = ccall((:ImperialProbe_Idle, lib), Void, (),  );
+ImperialProbe_Patrol() = ccall((:ImperialProbe_Patrol, lib), Void, (),  );
+ImperialProbe_Wait() = ccall((:ImperialProbe_Wait, lib), Void, (),  );
+NPC_BSImperialProbe_Default() = ccall((:NPC_BSImperialProbe_Default, lib), Void, (),  );

@@ -1,0 +1,10 @@
+G_ReflectMissile( ent_, missile_, forward_ ) = ccall((:G_ReflectMissile, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, vec3_t,  ), ent_, missile_, forward_ );
+G_DeflectMissile( ent_, missile_, forward_ ) = ccall((:G_DeflectMissile, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, vec3_t,  ), ent_, missile_, forward_ );
+G_BounceMissile( ent_, trace_ ) = ccall((:G_BounceMissile, lib), Void, ( Ptr{gentity_t}, Ptr{trace_t},  ), ent_, trace_ );
+G_ExplodeMissile( ent_ ) = ccall((:G_ExplodeMissile, lib), Void, ( Ptr{gentity_t},  ), ent_ );
+G_RunStuckMissile( ent_ ) = ccall((:G_RunStuckMissile, lib), Void, ( Ptr{gentity_t},  ), ent_ );
+G_BounceProjectile( start_, impact_, dir_, endout_ ) = ccall((:G_BounceProjectile, lib), Void, ( vec3_t, vec3_t, vec3_t, vec3_t,  ), start_, impact_, dir_, endout_ );
+CreateMissile( org_, dir_, vel_, life_, owner_, altFire_ ) = ccall((:CreateMissile, lib), gentity_t, ( vec3_t, vec3_t, Float32, Int32, Ptr{gentity_t}, qboolean,  ), org_, dir_, vel_, life_, owner_, altFire_ );
+G_MissileBounceEffect( ent_, org_, dir_ ) = ccall((:G_MissileBounceEffect, lib), Void, ( Ptr{gentity_t}, vec3_t, vec3_t,  ), ent_, org_, dir_ );
+G_MissileImpact( ent_, trace_ ) = ccall((:G_MissileImpact, lib), Void, ( Ptr{gentity_t}, Ptr{trace_t},  ), ent_, trace_ );
+G_RunMissile( ent_ ) = ccall((:G_RunMissile, lib), Void, ( Ptr{gentity_t},  ), ent_ );

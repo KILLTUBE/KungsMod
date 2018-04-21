@@ -1,0 +1,12 @@
+TIMER_Clear() = ccall((:TIMER_Clear, lib), Void, (),  );
+TIMER_Clear2( ent_ ) = ccall((:TIMER_Clear2, lib), Void, ( Ptr{gentity_t},  ), ent_ );
+TIMER_GetNew( num_, identifier_ ) = ccall((:TIMER_GetNew, lib), gtimer_t, ( Int32, Ptr{Char},  ), num_, identifier_ );
+TIMER_GetExisting( num_, identifier_ ) = ccall((:TIMER_GetExisting, lib), gtimer_t, ( Int32, Ptr{Char},  ), num_, identifier_ );
+TIMER_Set( ent_, identifier_, duration_ ) = ccall((:TIMER_Set, lib), Void, ( Ptr{gentity_t}, Ptr{Char}, Int32,  ), ent_, identifier_, duration_ );
+TIMER_Get( ent_, identifier_ ) = ccall((:TIMER_Get, lib), Int32, ( Ptr{gentity_t}, Ptr{Char},  ), ent_, identifier_ );
+TIMER_Done( ent_, identifier_ ) = ccall((:TIMER_Done, lib), qboolean, ( Ptr{gentity_t}, Ptr{Char},  ), ent_, identifier_ );
+TIMER_RemoveHelper( num_, timer_ ) = ccall((:TIMER_RemoveHelper, lib), Void, ( Int32, Ptr{gtimer_t},  ), num_, timer_ );
+TIMER_Done2( ent_, identifier_, remove_ ) = ccall((:TIMER_Done2, lib), qboolean, ( Ptr{gentity_t}, Ptr{Char}, qboolean,  ), ent_, identifier_, remove_ );
+TIMER_Exists( ent_, identifier_ ) = ccall((:TIMER_Exists, lib), qboolean, ( Ptr{gentity_t}, Ptr{Char},  ), ent_, identifier_ );
+TIMER_Remove( ent_, identifier_ ) = ccall((:TIMER_Remove, lib), Void, ( Ptr{gentity_t}, Ptr{Char},  ), ent_, identifier_ );
+TIMER_Start( self_, identifier_, duration_ ) = ccall((:TIMER_Start, lib), qboolean, ( Ptr{gentity_t}, Ptr{Char}, Int32,  ), self_, identifier_, duration_ );

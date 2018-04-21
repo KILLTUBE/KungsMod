@@ -1,0 +1,10 @@
+NPC_ReactionTime() = ccall((:NPC_ReactionTime, lib), Int32, (),  );
+TranslateRankName( name_ ) = ccall((:TranslateRankName, lib), rank_t, ( Ptr{Char},  ), name_ );
+SpewDebugStuffToFile( anims_ ) = ccall((:SpewDebugStuffToFile, lib), Void, ( Ptr{animation_t},  ), anims_ );
+G_ParseAnimFileSet( filename_, animCFG_, animFileIndex_ ) = ccall((:G_ParseAnimFileSet, lib), qboolean, ( Ptr{Char}, Ptr{Char}, Ptr{Int32},  ), filename_, animCFG_, animFileIndex_ );
+NPC_PrecacheAnimationCFG( NPC_type_ ) = ccall((:NPC_PrecacheAnimationCFG, lib), Void, ( Ptr{Char},  ), NPC_type_ );
+NPC_PrecacheWeapons( playerTeam_, spawnflags_, NPCtype_ ) = ccall((:NPC_PrecacheWeapons, lib), Void, ( team_t, Int32, Ptr{Char},  ), playerTeam_, spawnflags_, NPCtype_ );
+NPC_Precache( spawner_ ) = ccall((:NPC_Precache, lib), Void, ( Ptr{gentity_t},  ), spawner_ );
+NPC_BuildRandom( NPC_ ) = ccall((:NPC_BuildRandom, lib), Void, ( Ptr{gentity_t},  ), NPC_ );
+NPC_ParseParms( NPCName_, NPC_ ) = ccall((:NPC_ParseParms, lib), qboolean, ( Ptr{Char}, Ptr{gentity_t},  ), NPCName_, NPC_ );
+NPC_LoadParms() = ccall((:NPC_LoadParms, lib), Void, (),  );

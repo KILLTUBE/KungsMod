@@ -1,0 +1,13 @@
+NAV_CheckNodeFailedForEnt( ent_, nodeNum_ ) = ccall((:NAV_CheckNodeFailedForEnt, lib), qboolean, ( Ptr{gentity_t}, Int32,  ), ent_, nodeNum_ );
+NPC_ClearBlocked( self_ ) = ccall((:NPC_ClearBlocked, lib), Void, ( Ptr{gentity_t},  ), self_ );
+NPC_SetBlocked( self_, blocker_ ) = ccall((:NPC_SetBlocked, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t},  ), self_, blocker_ );
+NAVNEW_ClearPathBetweenPoints( start_, end_, mins_, maxs_, ignore_, clipmask_ ) = ccall((:NAVNEW_ClearPathBetweenPoints, lib), Int32, ( vec3_t, vec3_t, vec3_t, vec3_t, Int32, Int32,  ), start_, end_, mins_, maxs_, ignore_, clipmask_ );
+NAVNEW_PushBlocker( self_, blocker_, right_, setBlockedInfo_ ) = ccall((:NAVNEW_PushBlocker, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, vec3_t, qboolean,  ), self_, blocker_, right_, setBlockedInfo_ );
+NAVNEW_DanceWithBlocker( self_, blocker_, movedir_, right_ ) = ccall((:NAVNEW_DanceWithBlocker, lib), qboolean, ( Ptr{gentity_t}, Ptr{gentity_t}, vec3_t, vec3_t,  ), self_, blocker_, movedir_, right_ );
+NAVNEW_SidestepBlocker( self_, blocker_, blocked_dir_, blocked_dist_, movedir_, right_ ) = ccall((:NAVNEW_SidestepBlocker, lib), qboolean, ( Ptr{gentity_t}, Ptr{gentity_t}, vec3_t, Float32, vec3_t, vec3_t,  ), self_, blocker_, blocked_dir_, blocked_dist_, movedir_, right_ );
+NAVNEW_Bypass( self_, blocker_, blocked_dir_, blocked_dist_, movedir_, setBlockedInfo_ ) = ccall((:NAVNEW_Bypass, lib), qboolean, ( Ptr{gentity_t}, Ptr{gentity_t}, vec3_t, Float32, vec3_t, qboolean,  ), self_, blocker_, blocked_dir_, blocked_dist_, movedir_, setBlockedInfo_ );
+NAVNEW_CheckDoubleBlock( self_, blocker_, blocked_dir_ ) = ccall((:NAVNEW_CheckDoubleBlock, lib), qboolean, ( Ptr{gentity_t}, Ptr{gentity_t}, vec3_t,  ), self_, blocker_, blocked_dir_ );
+NAVNEW_ResolveEntityCollision( self_, blocker_, movedir_, pathDir_, setBlockedInfo_ ) = ccall((:NAVNEW_ResolveEntityCollision, lib), qboolean, ( Ptr{gentity_t}, Ptr{gentity_t}, vec3_t, vec3_t, qboolean,  ), self_, blocker_, movedir_, pathDir_, setBlockedInfo_ );
+NAVNEW_AvoidCollision( self_, goal_, info_, setBlockedInfo_, blockedMovesLimit_ ) = ccall((:NAVNEW_AvoidCollision, lib), qboolean, ( Ptr{gentity_t}, Ptr{gentity_t}, Ptr{navInfo_t}, qboolean, Int32,  ), self_, goal_, info_, setBlockedInfo_, blockedMovesLimit_ );
+NAVNEW_TestNodeConnectionBlocked( wp1_, wp2_, ignoreEnt_, goalEntNum_, checkWorld_, checkEnts_ ) = ccall((:NAVNEW_TestNodeConnectionBlocked, lib), qboolean, ( Int32, Int32, Ptr{gentity_t}, Int32, qboolean, qboolean,  ), wp1_, wp2_, ignoreEnt_, goalEntNum_, checkWorld_, checkEnts_ );
+NAVNEW_MoveToGoal( self_, info_ ) = ccall((:NAVNEW_MoveToGoal, lib), Int32, ( Ptr{gentity_t}, Ptr{navInfo_t},  ), self_, info_ );

@@ -1,0 +1,10 @@
+NPC_ATST_Precache() = ccall((:NPC_ATST_Precache, lib), Void, (),  );
+ATST_PlayEffect( self_, boltID_, fx_ ) = ccall((:ATST_PlayEffect, lib), Void, ( Ptr{gentity_t}, Int32, Ptr{Char},  ), self_, boltID_, fx_ );
+G_ATSTCheckPain( self_, other_, damage_ ) = ccall((:G_ATSTCheckPain, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Int32,  ), self_, other_, damage_ );
+NPC_ATST_Pain( self_, attacker_, damage_ ) = ccall((:NPC_ATST_Pain, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Int32,  ), self_, attacker_, damage_ );
+ATST_Hunt( visible_, advance_ ) = ccall((:ATST_Hunt, lib), Void, ( qboolean, qboolean,  ), visible_, advance_ );
+ATST_Ranged( visible_, advance_, altAttack_ ) = ccall((:ATST_Ranged, lib), Void, ( qboolean, qboolean, qboolean,  ), visible_, advance_, altAttack_ );
+ATST_Attack() = ccall((:ATST_Attack, lib), Void, (),  );
+ATST_Patrol() = ccall((:ATST_Patrol, lib), Void, (),  );
+ATST_Idle() = ccall((:ATST_Idle, lib), Void, (),  );
+NPC_BSATST_Default() = ccall((:NPC_BSATST_Default, lib), Void, (),  );

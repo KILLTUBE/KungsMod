@@ -1,0 +1,11 @@
+NPC_ClearPathToGoal( dir_, goal_ ) = ccall((:NPC_ClearPathToGoal, lib), qboolean, ( vec3_t, Ptr{gentity_t},  ), dir_, goal_ );
+NPC_CheckCombatMove() = ccall((:NPC_CheckCombatMove, lib), qboolean, (),  );
+NPC_LadderMove( dir_ ) = ccall((:NPC_LadderMove, lib), Void, ( vec3_t,  ), dir_ );
+NPC_GetMoveInformation( dir_, distance_ ) = ccall((:NPC_GetMoveInformation, lib), qboolean, ( vec3_t, Ptr{Float32},  ), dir_, distance_ );
+NAV_GetLastMove( info_ ) = ccall((:NAV_GetLastMove, lib), Void, ( Ptr{navInfo_t},  ), info_ );
+NPC_GetMoveDirection( out_, distance_ ) = ccall((:NPC_GetMoveDirection, lib), qboolean, ( vec3_t, Ptr{Float32},  ), out_, distance_ );
+NPC_GetMoveDirectionAltRoute( out_, distance_, tryStraight_ ) = ccall((:NPC_GetMoveDirectionAltRoute, lib), qboolean, ( vec3_t, Ptr{Float32}, qboolean,  ), out_, distance_, tryStraight_ );
+G_UcmdMoveForDir( self_, cmd_, dir_ ) = ccall((:G_UcmdMoveForDir, lib), Void, ( Ptr{gentity_t}, Ptr{usercmd_t}, vec3_t,  ), self_, cmd_, dir_ );
+NPC_MoveToGoal( tryStraight_ ) = ccall((:NPC_MoveToGoal, lib), qboolean, ( qboolean,  ), tryStraight_ );
+NPC_SlideMoveToGoal() = ccall((:NPC_SlideMoveToGoal, lib), qboolean, (),  );
+NPC_ApplyRoff() = ccall((:NPC_ApplyRoff, lib), Void, (),  );

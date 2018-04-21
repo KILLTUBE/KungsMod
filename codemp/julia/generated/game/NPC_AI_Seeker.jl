@@ -1,0 +1,11 @@
+NPC_Seeker_Precache() = ccall((:NPC_Seeker_Precache, lib), Void, (),  );
+NPC_Seeker_Pain( self_, attacker_, damage_ ) = ccall((:NPC_Seeker_Pain, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Int32,  ), self_, attacker_, damage_ );
+Seeker_MaintainHeight() = ccall((:Seeker_MaintainHeight, lib), Void, (),  );
+Seeker_Strafe() = ccall((:Seeker_Strafe, lib), Void, (),  );
+Seeker_Hunt( visible_, advance_ ) = ccall((:Seeker_Hunt, lib), Void, ( qboolean, qboolean,  ), visible_, advance_ );
+Seeker_Fire() = ccall((:Seeker_Fire, lib), Void, (),  );
+Seeker_Ranged( visible_, advance_ ) = ccall((:Seeker_Ranged, lib), Void, ( qboolean, qboolean,  ), visible_, advance_ );
+Seeker_Attack() = ccall((:Seeker_Attack, lib), Void, (),  );
+Seeker_FindEnemy() = ccall((:Seeker_FindEnemy, lib), Void, (),  );
+Seeker_FollowOwner() = ccall((:Seeker_FollowOwner, lib), Void, (),  );
+NPC_BSSeeker_Default() = ccall((:NPC_BSSeeker_Default, lib), Void, (),  );

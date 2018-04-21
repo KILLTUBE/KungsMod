@@ -1,0 +1,15 @@
+Sniper_ClearTimers( ent_ ) = ccall((:Sniper_ClearTimers, lib), Void, ( Ptr{gentity_t},  ), ent_ );
+NPC_Sniper_PlayConfusionSound( self_ ) = ccall((:NPC_Sniper_PlayConfusionSound, lib), Void, ( Ptr{gentity_t},  ), self_ );
+NPC_Sniper_Pain( self_, attacker_, damage_ ) = ccall((:NPC_Sniper_Pain, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Int32,  ), self_, attacker_, damage_ );
+Sniper_HoldPosition() = ccall((:Sniper_HoldPosition, lib), Void, (),  );
+Sniper_Move() = ccall((:Sniper_Move, lib), qboolean, (),  );
+NPC_BSSniper_Patrol() = ccall((:NPC_BSSniper_Patrol, lib), Void, (),  );
+Sniper_CheckMoveState() = ccall((:Sniper_CheckMoveState, lib), Void, (),  );
+Sniper_ResolveBlockedShot() = ccall((:Sniper_ResolveBlockedShot, lib), Void, (),  );
+Sniper_CheckFireState() = ccall((:Sniper_CheckFireState, lib), Void, (),  );
+Sniper_EvaluateShot( hit_ ) = ccall((:Sniper_EvaluateShot, lib), qboolean, ( Int32,  ), hit_ );
+Sniper_FaceEnemy() = ccall((:Sniper_FaceEnemy, lib), Void, (),  );
+Sniper_UpdateEnemyPos() = ccall((:Sniper_UpdateEnemyPos, lib), Void, (),  );
+Sniper_StartHide() = ccall((:Sniper_StartHide, lib), Void, (),  );
+NPC_BSSniper_Attack() = ccall((:NPC_BSSniper_Attack, lib), Void, (),  );
+NPC_BSSniper_Default() = ccall((:NPC_BSSniper_Default, lib), Void, (),  );

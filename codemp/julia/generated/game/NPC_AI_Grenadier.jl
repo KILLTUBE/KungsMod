@@ -1,0 +1,11 @@
+Grenadier_ClearTimers( ent_ ) = ccall((:Grenadier_ClearTimers, lib), Void, ( Ptr{gentity_t},  ), ent_ );
+NPC_Grenadier_PlayConfusionSound( self_ ) = ccall((:NPC_Grenadier_PlayConfusionSound, lib), Void, ( Ptr{gentity_t},  ), self_ );
+NPC_Grenadier_Pain( self_, attacker_, damage_ ) = ccall((:NPC_Grenadier_Pain, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Int32,  ), self_, attacker_, damage_ );
+Grenadier_HoldPosition() = ccall((:Grenadier_HoldPosition, lib), Void, (),  );
+Grenadier_Move() = ccall((:Grenadier_Move, lib), qboolean, (),  );
+NPC_BSGrenadier_Patrol() = ccall((:NPC_BSGrenadier_Patrol, lib), Void, (),  );
+Grenadier_CheckMoveState() = ccall((:Grenadier_CheckMoveState, lib), Void, (),  );
+Grenadier_CheckFireState() = ccall((:Grenadier_CheckFireState, lib), Void, (),  );
+Grenadier_EvaluateShot( hit_ ) = ccall((:Grenadier_EvaluateShot, lib), qboolean, ( Int32,  ), hit_ );
+NPC_BSGrenadier_Attack() = ccall((:NPC_BSGrenadier_Attack, lib), Void, (),  );
+NPC_BSGrenadier_Default() = ccall((:NPC_BSGrenadier_Default, lib), Void, (),  );

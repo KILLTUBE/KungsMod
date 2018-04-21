@@ -1,0 +1,10 @@
+NPC_Interrogator_Precache( self_ ) = ccall((:NPC_Interrogator_Precache, lib), Void, ( Ptr{gentity_t},  ), self_ );
+Interrogator_die( self_, inflictor_, attacker_, damage_, mod_, dFlags_, hitLoc_ ) = ccall((:Interrogator_die, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Ptr{gentity_t}, Int32, Int32, Int32, Int32,  ), self_, inflictor_, attacker_, damage_, mod_, dFlags_, hitLoc_ );
+Interrogator_PartsMove() = ccall((:Interrogator_PartsMove, lib), Void, (),  );
+Interrogator_MaintainHeight() = ccall((:Interrogator_MaintainHeight, lib), Void, (),  );
+Interrogator_Strafe() = ccall((:Interrogator_Strafe, lib), Void, (),  );
+Interrogator_Hunt( visible_, advance_ ) = ccall((:Interrogator_Hunt, lib), Void, ( qboolean, qboolean,  ), visible_, advance_ );
+Interrogator_Melee( visible_, advance_ ) = ccall((:Interrogator_Melee, lib), Void, ( qboolean, qboolean,  ), visible_, advance_ );
+Interrogator_Attack() = ccall((:Interrogator_Attack, lib), Void, (),  );
+Interrogator_Idle() = ccall((:Interrogator_Idle, lib), Void, (),  );
+NPC_BSInterrogator_Default() = ccall((:NPC_BSInterrogator_Default, lib), Void, (),  );

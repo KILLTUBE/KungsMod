@@ -1,4 +1,6 @@
 include("lexer_c.jl")
+include("ctypes.jl")
+
 import Glob
 
 #type MetaVar
@@ -96,6 +98,108 @@ function tostring(parser::Parser, metaFunction::MetaFunction)
 	ret
 end
 
+function cToJuliaType(ctype)
+	if ctype == "int"
+		return "Int32"
+	end
+	if ctype == "float"
+		return "Float32"
+	end
+	if ctype == "void"
+		return "Void"
+	end
+	if ctype == "char"
+		return "Char"
+	end
+	return ctype
+end
+
+function toStringJuliaType(metaVar::MetaVar)::String
+	ret = ""
+	for i in range(1, metaVar.numPointer)
+		ret *= "Ptr{"
+	end
+	
+	ret *= cToJuliaType( metaVar.typestring )
+	
+	for i in range(1, metaVar.numPointer)
+		ret *= "}"
+	end
+	
+	ret
+end
+
+function toccall(parser::Parser, metaFunction::MetaFunction)
+	ret = "" # * tostring(parser, metaFunction.metaVar) # * metaFunction.name
+	
+	ignoreThisFunc = false
+	for arg in metaFunction.args
+		if arg.isVarArgs
+			ignoreThisFunc = true
+			break
+		end
+	end
+	if ignoreThisFunc
+		ret *= "#" # ignore varargs, idk yet how to ccall it
+	end
+	
+	funcname = metaFunction.metaVar.name
+	rettype = cToJuliaType(metaFunction.metaVar.typestring)
+	
+	ret *= funcname
+	
+	if length(metaFunction.args) > 0
+		ret *= "( "
+		lastOne = last(metaFunction.args)
+		for arg in metaFunction.args
+			#ret *= tostring(parser, arg)
+			ret *= arg.name * "_" # add _ to prevent name collisions with julia keywords, like "end"
+			if arg != lastOne
+				ret *= ", "
+			end
+		end
+		ret *= " )"
+	else
+		ret *= "()"
+	end
+	
+	ret *= " = ccall((:$funcname, lib), $rettype, "
+	
+	
+	if length(metaFunction.args) > 0
+		ret *= "( "
+		lastOne = last(metaFunction.args)
+		for arg in metaFunction.args
+			#ret *= tostring(parser, arg)
+			ret *= toStringJuliaType(arg)
+			#if arg != lastOne
+				ret *= ", "
+			#end
+		end
+		ret *= " )"
+	else
+		ret *= "()"
+	end	
+	
+	ret *= ", "
+	
+	if length(metaFunction.args) > 0
+		lastOne = last(metaFunction.args)
+		for arg in metaFunction.args
+			#ret *= tostring(parser, arg)
+			ret *= arg.name * "_" # add _ to prevent name collisions with julia keywords, like "end"
+			if arg != lastOne
+				ret *= ", "
+			end
+		end
+	end	
+	ret *= " )"
+	
+	ret *= ";"
+	
+	ret
+end
+
 
 function file_put_contents(filename, content)
 	f = open(filename, "w")
@@ -133,8 +237,36 @@ function generateHeader(filename)
 	return parser
 end
 
+function generateJuliaHeader(filename)
+	bn             = basename(filename)                                 # something like "cg_main.cpp"
+	pureName       = first(split(bn, '.'))                              # something like "cg_main"
+	headerName     = pureName * ".jl"                                   # something like "cg_main.jl"
+	dn             = dirname(filename)                                  # something like "C:\\OpenSciTech\\codemp\\cgame"
+	lastFolderName = last(split(dn, '\\'))                              # something like "cgame"
+	prevFolder     = abspath(dn * "\\..")                               # something like "C:\\OpenSciTech\\codemp\\"
+	fullGenFolder  = prevFolder * "julia\\generated\\" * lastFolderName * "\\" # something like "C:\\OpenSciTech\\codemp\\generated\\cgame\\"
+	genName        = fullGenFolder * headerName                         # something like "C:\\OpenSciTech\\codemp\\generated\\cgame\\cg_main.cpp"
+	
+	# only game and cgame files atm
+	if ! ( startswith(pureName, "g_") || startswith(pureName, "cg_"))
+		#return
+	end
+	
+	println("generateJuliaHeader( \"" * filename * "\" )")
+	
+	sourcecode = file_get_contents(filename)
+	parser = parseC(sourcecode)
+	tmp = ""
+	for func_ in parser.functions
+		tmp *= toccall(parser, func_) * "\n"
+	end
+	
+	file_put_contents(genName, tmp)
+	return parser
+end
 
-mode = 3
+
+mode = 4
 
 if mode == 1
 	files_cgame = Glob.glob("*.cpp", "C:\\OpenSciTech\\codemp\\cgame\\")
@@ -147,6 +279,13 @@ if mode == 3
 	for filename in files_cgame
 		
 		generateHeader(filename)
+	end
+end
+if mode == 4
+	files_cgame = Glob.glob("*.cpp", "C:\\OpenSciTech\\codemp\\game\\")
+	for filename in files_cgame
+		
+		generateJuliaHeader(filename)
 	end
 end
 

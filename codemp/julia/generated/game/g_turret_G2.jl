@@ -1,0 +1,15 @@
+G2Tur_SetBoneAngles( ent_, bone_, angles_ ) = ccall((:G2Tur_SetBoneAngles, lib), Void, ( Ptr{gentity_t}, Ptr{Char}, vec3_t,  ), ent_, bone_, angles_ );
+turretG2_set_models( self_, dying_ ) = ccall((:turretG2_set_models, lib), Void, ( Ptr{gentity_t}, qboolean,  ), self_, dying_ );
+TurretG2Pain( self_, attacker_, damage_ ) = ccall((:TurretG2Pain, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Int32,  ), self_, attacker_, damage_ );
+turretG2_die( self_, inflictor_, attacker_, damage_, meansOfDeath_ ) = ccall((:turretG2_die, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Ptr{gentity_t}, Int32, Int32,  ), self_, inflictor_, attacker_, damage_, meansOfDeath_ );
+TurboLaser_SetBoneAnim( eweb_, startFrame_, endFrame_ ) = ccall((:TurboLaser_SetBoneAnim, lib), Void, ( Ptr{gentity_t}, Int32, Int32,  ), eweb_, startFrame_, endFrame_ );
+turretG2_fire( ent_, start_, dir_ ) = ccall((:turretG2_fire, lib), Void, ( Ptr{gentity_t}, vec3_t, vec3_t,  ), ent_, start_, dir_ );
+turretG2_respawn( self_ ) = ccall((:turretG2_respawn, lib), Void, ( Ptr{gentity_t},  ), self_ );
+turretG2_head_think( self_ ) = ccall((:turretG2_head_think, lib), Void, ( Ptr{gentity_t},  ), self_ );
+turretG2_aim( self_ ) = ccall((:turretG2_aim, lib), Void, ( Ptr{gentity_t},  ), self_ );
+turretG2_turnoff( self_ ) = ccall((:turretG2_turnoff, lib), Void, ( Ptr{gentity_t},  ), self_ );
+turretG2_find_enemies( self_ ) = ccall((:turretG2_find_enemies, lib), qboolean, ( Ptr{gentity_t},  ), self_ );
+turretG2_base_think( self_ ) = ccall((:turretG2_base_think, lib), Void, ( Ptr{gentity_t},  ), self_ );
+turretG2_base_use( self_, other_, activator_ ) = ccall((:turretG2_base_use, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Ptr{gentity_t},  ), self_, other_, activator_ );
+SP_misc_turretG2( base_ ) = ccall((:SP_misc_turretG2, lib), Void, ( Ptr{gentity_t},  ), base_ );
+finish_spawning_turretG2( base_ ) = ccall((:finish_spawning_turretG2, lib), Void, ( Ptr{gentity_t},  ), base_ );

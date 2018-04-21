@@ -1,0 +1,9 @@
+NPC_MineMonster_Precache() = ccall((:NPC_MineMonster_Precache, lib), Void, (),  );
+MineMonster_Idle() = ccall((:MineMonster_Idle, lib), Void, (),  );
+MineMonster_Patrol() = ccall((:MineMonster_Patrol, lib), Void, (),  );
+MineMonster_Move( visible_ ) = ccall((:MineMonster_Move, lib), Void, ( qboolean,  ), visible_ );
+MineMonster_TryDamage( enemy_, damage_ ) = ccall((:MineMonster_TryDamage, lib), Void, ( Ptr{gentity_t}, Int32,  ), enemy_, damage_ );
+MineMonster_Attack() = ccall((:MineMonster_Attack, lib), Void, (),  );
+MineMonster_Combat() = ccall((:MineMonster_Combat, lib), Void, (),  );
+NPC_MineMonster_Pain( self_, attacker_, damage_ ) = ccall((:NPC_MineMonster_Pain, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Int32,  ), self_, attacker_, damage_ );
+NPC_BSMineMonster_Default() = ccall((:NPC_BSMineMonster_Default, lib), Void, (),  );

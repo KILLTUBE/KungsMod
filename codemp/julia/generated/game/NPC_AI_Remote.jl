@@ -1,0 +1,11 @@
+NPC_Remote_Precache() = ccall((:NPC_Remote_Precache, lib), Void, (),  );
+NPC_Remote_Pain( self_, attacker_, damage_ ) = ccall((:NPC_Remote_Pain, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Int32,  ), self_, attacker_, damage_ );
+Remote_MaintainHeight() = ccall((:Remote_MaintainHeight, lib), Void, (),  );
+Remote_Strafe() = ccall((:Remote_Strafe, lib), Void, (),  );
+Remote_Hunt( visible_, advance_, retreat_ ) = ccall((:Remote_Hunt, lib), Void, ( qboolean, qboolean, qboolean,  ), visible_, advance_, retreat_ );
+Remote_Fire() = ccall((:Remote_Fire, lib), Void, (),  );
+Remote_Ranged( visible_, advance_, retreat_ ) = ccall((:Remote_Ranged, lib), Void, ( qboolean, qboolean, qboolean,  ), visible_, advance_, retreat_ );
+Remote_Attack() = ccall((:Remote_Attack, lib), Void, (),  );
+Remote_Idle() = ccall((:Remote_Idle, lib), Void, (),  );
+Remote_Patrol() = ccall((:Remote_Patrol, lib), Void, (),  );
+NPC_BSRemote_Default() = ccall((:NPC_BSRemote_Default, lib), Void, (),  );
