@@ -312,6 +312,45 @@ static bool GLimp_DetectAvailableModes(void)
 	return true;
 }
 
+
+
+CCALL int sdl_get_window_width() {
+    int w, h;
+    SDL_GetWindowSize(screen, &w, &h);
+	return w;
+}
+CCALL int sdl_get_window_height() {
+    int w, h;
+    SDL_GetWindowSize(screen, &w, &h);
+	return h;
+}
+CCALL int sdl_get_mouse_left() {
+	int mx, my;
+	Uint32 mouseMask = SDL_GetMouseState(&mx, &my);
+	return mx;
+}
+CCALL int sdl_get_mouse_top() {
+	int mx, my;
+	Uint32 mouseMask = SDL_GetMouseState(&mx, &my);
+	return my;
+}
+
+CCALL int sdl_get_ticks() {
+	return SDL_GetTicks();
+}
+CCALL int sdl_mouse_pressed_left() {
+	Uint32 mouseMask = SDL_GetMouseState(NULL, NULL);
+	return mouseMask & SDL_BUTTON(SDL_BUTTON_LEFT);
+}
+CCALL int sdl_mouse_pressed_right() {
+	Uint32 mouseMask = SDL_GetMouseState(NULL, NULL);
+	return mouseMask & SDL_BUTTON(SDL_BUTTON_RIGHT);
+}	
+CCALL int sdl_mouse_pressed_middle() {
+	Uint32 mouseMask = SDL_GetMouseState(NULL, NULL);
+	return mouseMask & SDL_BUTTON(SDL_BUTTON_MIDDLE);
+}
+
 /*
 ===============
 GLimp_SetMode

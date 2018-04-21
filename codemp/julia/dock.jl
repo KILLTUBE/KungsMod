@@ -18,15 +18,15 @@ function NewDock(label, opened)
 	size_y = h - 40
 	location = ""
 	status = 1 # Floating
-	dfrow = GetDockInfoByLabel(label)
-	if dfrow != nothing
-		pos_x = dfrow[:pos_x]
-		pos_y = dfrow[:pos_y]
-		size_x = dfrow[:size_x]
-		size_y = dfrow[:size_y]
-		location = dfrow[:location]
-		status = dfrow[:status]
-	end
+	#dfrow = GetDockInfoByLabel(label)
+	#if dfrow != nothing
+	#	pos_x = dfrow[:pos_x]
+	#	pos_y = dfrow[:pos_y]
+	#	size_x = dfrow[:size_x]
+	#	size_y = dfrow[:size_y]
+	#	location = dfrow[:location]
+	#	status = dfrow[:status]
+	#end
 	ccall((:imgui_new_dock, appdll), Ptr{Void}, (Cstring, Bool, Float32, Float32, Float32, Float32, Cstring, Int32), label, opened, pos_x, pos_y, size_x, size_y, location, status)
 end
 

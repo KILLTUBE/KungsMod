@@ -35,9 +35,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KungsMod_SDL", "..\KungsMod
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "makeheaders", "..\makeheaders\makeheaders.vcxproj", "{4593541B-E940-4736-A555-3D351C72A964}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chakra", "chakra\chakra.vcxproj", "{FE273B8C-96B9-434A-ADA1-12E878205A6D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mychakra", "chakra\chakra.vcxproj", "{FE273B8C-96B9-434A-ADA1-12E878205A6D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "julia", "julia\julia.vcxproj", "{DB8B5E35-12BC-4D8E-A422-57C20CFB5CF9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{083FF3C6-E1F6-3519-B3F9-F1BD0C87D386} = {083FF3C6-E1F6-3519-B3F9-F1BD0C87D386}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
