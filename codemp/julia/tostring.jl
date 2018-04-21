@@ -111,6 +111,9 @@ function cToJuliaType(ctype)
 	if ctype == "char"
 		return "Char"
 	end
+	if ctype == "short"
+		return "Int16"
+	end
 	return ctype
 end
 
@@ -131,6 +134,9 @@ end
 
 function toccall(parser::Parser, metaFunction::MetaFunction)
 	ret = "" # * tostring(parser, metaFunction.metaVar) # * metaFunction.name
+
+	funcname = metaFunction.metaVar.name
+	rettype = cToJuliaType(metaFunction.metaVar.typestring)
 	
 	ignoreThisFunc = false
 	for arg in metaFunction.args
@@ -139,12 +145,13 @@ function toccall(parser::Parser, metaFunction::MetaFunction)
 			break
 		end
 	end
+	if funcname == "BG_VehicleAdjustBBoxForOrientation" # meh gotta add callback stuff later
+		ignoreThisFunc = true
+	end
 	if ignoreThisFunc
 		ret *= "#" # ignore varargs, idk yet how to ccall it
 	end
 	
-	funcname = metaFunction.metaVar.name
-	rettype = cToJuliaType(metaFunction.metaVar.typestring)
 	
 	ret *= funcname
 	
@@ -283,10 +290,25 @@ if mode == 3
 end
 if mode == 4
 	files_cgame = Glob.glob("*.cpp", "C:\\OpenSciTech\\codemp\\game\\")
+	
+	includefile = ""
+	
 	for filename in files_cgame
 		
+		
+		bn             = basename(filename)                                 # something like "cg_main.cpp"
+		pureName       = first(split(bn, '.'))                              # something like "cg_main"
+		headerName     = pureName * ".jl"                                   # something like "cg_main.jl"		
+		
+		
+		includefile *= "include(\"game/$headerName\")\n"
+		
 		generateJuliaHeader(filename)
+		
+		
 	end
+	
+	file_put_contents("generated/game.jl", includefile)
 end
 
 if mode == 2
