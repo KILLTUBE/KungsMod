@@ -28,25 +28,12 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 //static int			loadingPlayerIconCount;
 //static qhandle_t	loadingPlayerIcons[MAX_LOADING_PLAYER_ICONS];
 
-void CG_LoadBar(void);
-
-/*
-======================
-CG_LoadingString
-
-======================
-*/
 void CG_LoadingString( const char *s ) {
 	Q_strncpyz( cg.infoScreenText, s, sizeof( cg.infoScreenText ) );
 
 	SCR_UpdateScreen();
 }
 
-/*
-===================
-CG_LoadingItem
-===================
-*/
 void CG_LoadingItem( int itemNum ) {
 	gitem_t		*item;
 	char	upperKey[1024];

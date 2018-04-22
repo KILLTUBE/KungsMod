@@ -28,11 +28,11 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // Cvar callbacks
 //
 
-static void CG_SVRunningChange( void ) {
+void CG_SVRunningChange( void ) {
 	cgs.localServer = sv_running->integer;
 }
 
-static void CG_ForceModelChange( void ) {
+void CG_ForceModelChange( void ) {
 	int i;
 
 	for ( i=0; i<MAX_CLIENTS; i++ ) {
@@ -45,7 +45,7 @@ static void CG_ForceModelChange( void ) {
 	}
 }
 
-static void CG_TeamOverlayChange( void ) {
+void CG_TeamOverlayChange( void ) {
 	// If team overlay is on, ask for updates from the server.  If its off,
 	// let the server know so we don't receive it
 	if ( cg_drawTeamOverlay->integer > 0 && cgs.gametype >= GT_SINGLE_PLAYER)

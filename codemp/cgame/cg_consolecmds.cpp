@@ -41,23 +41,23 @@ void CG_TargetCommand_f( void ) {
 }
 
 // Keybinding command
-static void CG_SizeUp_f (void) {
+void CG_SizeUp_f (void) {
 	CGVM_Cvar_Set( "cg_viewsize", va( "%i", Q_min( cg_viewsize->integer + 10, 100 ) ) );
 }
 
 // Keybinding command
-static void CG_SizeDown_f (void) {
+void CG_SizeDown_f (void) {
 	CGVM_Cvar_Set( "cg_viewsize", va( "%i", Q_max( cg_viewsize->integer - 10, 30 ) ) );
 }
 
 // Debugging command to print the current position
-static void CG_Viewpos_f (void) {
+void CG_Viewpos_f (void) {
 	Com_Printf ("%s (%i %i %i) : %i\n", cgs.mapname, (int)cg.refdef.vieworg[0],
 		(int)cg.refdef.vieworg[1], (int)cg.refdef.vieworg[2],
 		(int)cg.refdef.viewangles[YAW]);
 }
 
-static void CG_ScoresDown_f( void ) {
+void CG_ScoresDown_f( void ) {
 
 	CG_BuildSpectatorString();
 	if ( cg.scoresRequestTime + 2000 < cg.time ) {
@@ -79,7 +79,7 @@ static void CG_ScoresDown_f( void ) {
 	}
 }
 
-static void CG_ScoresUp_f( void ) {
+void CG_ScoresUp_f( void ) {
 	if ( cg.showScores ) {
 		cg.showScores = qfalse;
 		cg.scoreFadeTime = cg.time;
@@ -126,7 +126,7 @@ void CG_ClientList_f( void )
 	Com_Printf( "Listed %2d clients\n", count );
 }
 
-static void CG_TellTarget_f( void ) {
+void CG_TellTarget_f( void ) {
 	int		clientNum;
 	char	command[MAX_SAY_TEXT+10];
 	char	message[MAX_SAY_TEXT];
@@ -141,7 +141,7 @@ static void CG_TellTarget_f( void ) {
 	CL_AddReliableCommand2( command );
 }
 
-static void CG_TellAttacker_f( void ) {
+void CG_TellAttacker_f( void ) {
 	int		clientNum;
 	char	command[MAX_SAY_TEXT + 10];
 	char	message[MAX_SAY_TEXT];
@@ -156,7 +156,7 @@ static void CG_TellAttacker_f( void ) {
 	CL_AddReliableCommand2( command );
 }
 
-static void CG_StartOrbit_f( void ) {
+void CG_StartOrbit_f( void ) {
 	char var[MAX_TOKEN_CHARS];
 
 	Cvar_VariableStringBuffer( "developer", var, sizeof( var ) );
@@ -174,7 +174,7 @@ static void CG_StartOrbit_f( void ) {
 	}
 }
 
-static void CG_SiegeBriefing_f(void)
+void CG_SiegeBriefing_f(void)
 {
 	int team;
 
@@ -194,7 +194,7 @@ static void CG_SiegeBriefing_f(void)
 	CG_SiegeBriefingDisplay(team, 0);
 }
 
-static void CG_SiegeCvarUpdate_f(void)
+void CG_SiegeCvarUpdate_f(void)
 {
 	int team;
 
@@ -214,7 +214,7 @@ static void CG_SiegeCvarUpdate_f(void)
 	CG_SiegeBriefingDisplay(team, 1);
 }
 
-static void CG_SiegeCompleteCvarUpdate_f(void)
+void CG_SiegeCompleteCvarUpdate_f(void)
 {
 	if (cgs.gametype != GT_SIEGE)
 	{ //Cannot be displayed unless in this gametype
@@ -226,7 +226,7 @@ static void CG_SiegeCompleteCvarUpdate_f(void)
 	CG_SiegeBriefingDisplay(SIEGETEAM_TEAM2, 1);
 }
 
-static void CG_LoadHud_f( void ) {
+void CG_LoadHud_f( void ) {
 	const char *hudSet = cg_hudFiles->string;
 	if ( hudSet[0] == '\0' ) {
 		hudSet = "ui/jahud.txt";

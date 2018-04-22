@@ -26,7 +26,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "cg_snapshot.h"
 
-static void CG_ResetEntity( centity_t *cent ) {
+void CG_ResetEntity( centity_t *cent ) {
 	// if the previous snapshot this entity was updated in is at least
 	// an event window back in time then we can reset the previous event
 	if ( cent->snapShotTime < cg.time - EVENT_VALID_MSEC ) {
@@ -63,7 +63,7 @@ CG_TransitionEntity
 cent->nextState is moved to cent->currentState and events are fired
 ===============
 */
-static void CG_TransitionEntity( centity_t *cent ) {
+void CG_TransitionEntity( centity_t *cent ) {
 	cent->currentState = cent->nextState;
 	cent->currentValid = qtrue;
 
@@ -137,14 +137,9 @@ void CG_SetInitialSnapshot( snapshot_t *snap ) {
 
 
 /*
-===================
-CG_TransitionSnapshot
-
 The transition point from snap to nextSnap has passed
-===================
 */
-extern qboolean CG_UsingEWeb(void); //cg_predict.c
-static void CG_TransitionSnapshot( void ) {
+void CG_TransitionSnapshot( void ) {
 	centity_t			*cent;
 	snapshot_t			*oldFrame;
 	int					i;
@@ -217,7 +212,7 @@ CG_SetNextSnap
 A new snapshot has just been read in from the client system.
 ===================
 */
-static void CG_SetNextSnap( snapshot_t *snap ) {
+void CG_SetNextSnap( snapshot_t *snap ) {
 	int					num;
 	entityState_t		*es;
 	centity_t			*cent;
@@ -281,7 +276,7 @@ times if the client system fails to return a
 valid snapshot.
 ========================
 */
-static snapshot_t *CG_ReadNextSnapshot( void ) {
+snapshot_t *CG_ReadNextSnapshot( void ) {
 	qboolean	r;
 	snapshot_t	*dest;
 

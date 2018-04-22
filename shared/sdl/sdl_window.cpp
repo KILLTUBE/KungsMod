@@ -116,7 +116,7 @@ qboolean R_GetModeInfo( int *width, int *height, int mode ) {
 /*
 ** R_ModeList_f
 */
-static void R_ModeList_f( void )
+void R_ModeList_f( void )
 {
 	int i;
 
@@ -194,12 +194,7 @@ void WIN_Present( window_t *window )
 	}
 }
 
-/*
-===============
-GLimp_CompareModes
-===============
-*/
-static int GLimp_CompareModes( const void *a, const void *b )
+int GLimp_CompareModes( const void *a, const void *b )
 {
 	const float ASPECT_EPSILON = 0.001f;
 	SDL_Rect *modeA = (SDL_Rect *)a;
@@ -220,13 +215,7 @@ static int GLimp_CompareModes( const void *a, const void *b )
 		return areaA - areaB;
 }
 
-/*
-===============
-GLimp_DetectAvailableModes
-===============
-*/
-static bool GLimp_DetectAvailableModes(void)
-{
+bool GLimp_DetectAvailableModes(void) {
 	int i, j;
 	char buf[ MAX_STRING_CHARS ] = { 0 };
 	SDL_Rect *modes;
@@ -356,7 +345,7 @@ CCALL int sdl_mouse_pressed_middle() {
 GLimp_SetMode
 ===============
 */
-static rserr_t GLimp_SetMode(glconfig_t *glConfig, const windowDesc_t *windowDesc, const char *windowTitle, int mode, qboolean fullscreen, qboolean noborder)
+rserr_t GLimp_SetMode(glconfig_t *glConfig, const windowDesc_t *windowDesc, const char *windowTitle, int mode, qboolean fullscreen, qboolean noborder)
 {
 	int perChannelColorBits;
 	int colorBits, depthBits, stencilBits;
@@ -706,7 +695,7 @@ static rserr_t GLimp_SetMode(glconfig_t *glConfig, const windowDesc_t *windowDes
 GLimp_StartDriverAndSetMode
 ===============
 */
-static qboolean GLimp_StartDriverAndSetMode(glconfig_t *glConfig, const windowDesc_t *windowDesc, int mode, qboolean fullscreen, qboolean noborder)
+qboolean GLimp_StartDriverAndSetMode(glconfig_t *glConfig, const windowDesc_t *windowDesc, int mode, qboolean fullscreen, qboolean noborder)
 {
 	rserr_t err;
 

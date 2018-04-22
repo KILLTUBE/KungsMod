@@ -27,13 +27,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "cg_ents.h"
 
 
-extern qboolean CG_InFighter( void );
-static void CG_Missile( centity_t *cent );
-
 /*
-======================
-CG_PositionEntityOnTag
-
 Modifies the entities position and axis by the given
 tag location
 ======================
@@ -280,12 +274,10 @@ void CG_S_UpdateLoopingSounds(int entityNum)
 
 /*
 ==================
-CG_EntityEffects
-
 Add continuous entity effects, like local entity emission and lighting
 ==================
 */
-static void CG_EntityEffects( centity_t *cent ) {
+void CG_EntityEffects( centity_t *cent ) {
 
 	if( !cent ) return;
 
@@ -722,7 +714,7 @@ void CG_Disintegration(centity_t *cent, refEntity_t *ent)
 }
 
 extern int cgSiegeEntityRender;
-static qboolean CG_RenderTimeEntBolt(centity_t *cent)
+qboolean CG_RenderTimeEntBolt(centity_t *cent)
 {
 	int clientNum = cent->currentState.boltToPlayer-1;
 	centity_t *cl;
@@ -767,7 +759,7 @@ static qboolean CG_RenderTimeEntBolt(centity_t *cent)
 }
 
 /*
-static void CG_SiegeEntRenderAboveHead(centity_t *cent)
+void CG_SiegeEntRenderAboveHead(centity_t *cent)
 {
 	int clientNum = cent->currentState.boltToPlayer-1;
 	centity_t *cl;
@@ -843,14 +835,8 @@ void CG_AddBracketedEnt(centity_t *cent)
 	}
 	cg.bracketedEntities[cg.bracketedEntityCount++] = cent->currentState.number;
 }
-/*
-==================
-CG_General
-==================
-*/
-void CG_G2ServerBoneAngles(centity_t *cent);
 
-static void CG_General( centity_t *cent ) {
+void CG_General( centity_t *cent ) {
 	refEntity_t			ent;
 	entityState_t		*s1;
 	float				val;
@@ -1821,13 +1807,10 @@ Ghoul2 Insert End
 }
 
 /*
-==================
-CG_Speaker
-
 Speaker entities can automatically play sounds
 ==================
 */
-static void CG_Speaker( centity_t *cent ) {
+void CG_Speaker( centity_t *cent ) {
 	if (cent->currentState.trickedentindex)
 	{
 		CG_S_StopLoopingSound(cent->currentState.number, -1);
@@ -1872,12 +1855,7 @@ qboolean CG_GreyItem(int type, int tag, int plSide)
 	return qfalse;
 }
 
-/*
-==================
-CG_Item
-==================
-*/
-static void CG_Item( centity_t *cent ) {
+void CG_Item( centity_t *cent ) {
 	refEntity_t		ent;
 	entityState_t	*es;
 	gitem_t			*item;
@@ -2389,7 +2367,7 @@ void CG_CreateDistortionTrailPart(centity_t *cent, float scale, vec3_t pos)
 
 //distortion trail effect for rockets -rww
 /*
-static void CG_DistortionTrail( centity_t *cent )
+void CG_DistortionTrail( centity_t *cent )
 {
 	vec3_t fwd;
 	vec3_t pos;
@@ -2413,12 +2391,7 @@ static void CG_DistortionTrail( centity_t *cent )
 }
 */
 
-/*
-===============
-CG_Missile
-===============
-*/
-static void CG_Missile( centity_t *cent ) {
+void CG_Missile( centity_t *cent ) {
 	refEntity_t			ent;
 	entityState_t		*s1;
 	const weaponInfo_t		*weapon;
@@ -2811,12 +2784,7 @@ void CG_PlayDoorSound( centity_t *cent, int type )
 	S_StartSound( NULL, cent->currentState.number, CHAN_AUTO, sfx );
 }
 
-/*
-===============
-CG_Mover
-===============
-*/
-static void CG_Mover( centity_t *cent ) {
+void CG_Mover( centity_t *cent ) {
 	refEntity_t			ent;
 	entityState_t		*s1;
 
@@ -2946,13 +2914,7 @@ Ghoul2 Insert End
 	R_AddRefEntityToScene(&ent);
 }
 
-
-/*
-===============
-CG_Portal
-===============
-*/
-static void CG_Portal( centity_t *cent ) {
+void CG_Portal( centity_t *cent ) {
 	refEntity_t			ent;
 	entityState_t		*s1;
 
@@ -3034,7 +2996,7 @@ void CG_AdjustPositionForMover( const vec3_t in, int moverNum, int fromTime, int
 CG_InterpolateEntityPosition
 =============================
 */
-static void CG_InterpolateEntityPosition( centity_t *cent ) {
+void CG_InterpolateEntityPosition( centity_t *cent ) {
 	vec3_t		current, next;
 	float		f;
 
@@ -3194,9 +3156,7 @@ void CG_CalcEntityLerpPositions( centity_t *cent ) {
 	}
 }
 
-void CG_G2Animated( centity_t *cent );
-
-static void CG_FX( centity_t *cent )
+void CG_FX( centity_t *cent )
 {
 	vec3_t			fxDir;
 	int				efxIndex = 0;
@@ -3268,14 +3228,7 @@ static void CG_FX( centity_t *cent )
 
 }
 
-
-/*
-===============
-CG_AddCEntity
-
-===============
-*/
-static void CG_AddCEntity( centity_t *cent ) {
+void CG_AddCEntity( centity_t *cent ) {
 	// event-only entities will have been dealt with already
 	if ( cent->currentState.eType >= ET_EVENTS ) {
 		return;

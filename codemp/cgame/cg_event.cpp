@@ -105,14 +105,7 @@ const char	*CG_PlaceString( int rank ) {
 	return str;
 }
 
-qboolean CG_ThereIsAMaster(void);
-
-/*
-=============
-CG_Obituary
-=============
-*/
-static void CG_Obituary( entityState_t *ent ) {
+void CG_Obituary( entityState_t *ent ) {
 	int			mod;
 	int			target, attacker;
 	char		*message;
@@ -502,12 +495,7 @@ void CG_LocalTimingBar(int startTime, int duration)
 	cg_genericTimerColor[3] = 1.0f;
 }
 
-/*
-===============
-CG_UseItem
-===============
-*/
-static void CG_UseItem( centity_t *cent ) {
+void CG_UseItem( centity_t *cent ) {
 	clientInfo_t *ci;
 	int			itemNum, clientNum;
 	entityState_t *es;
@@ -579,13 +567,9 @@ static void CG_UseItem( centity_t *cent ) {
 
 
 /*
-================
-CG_ItemPickup
-
 A new item was picked up this frame
-================
 */
-static void CG_ItemPickup( int itemNum ) {
+void CG_ItemPickup( int itemNum ) {
 	cg.itemPickup = itemNum;
 	cg.itemPickupTime = cg.time;
 	cg.itemPickupBlendTime = cg.time;

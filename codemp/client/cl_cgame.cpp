@@ -293,85 +293,13 @@ void CL_ConfigstringModified( void ) {
 	}
 
 }
+
+void CL_CheckSVStringEdRef(char *buf, const char *str);
 #ifndef MAX_STRINGED_SV_STRING
-	#define MAX_STRINGED_SV_STRING 1024
+#define MAX_STRINGED_SV_STRING 1024
 #endif
-// just copied it from CG_CheckSVStringEdRef(
-void CL_CheckSVStringEdRef(char *buf, const char *str)
-{ //I don't really like doing this. But it utilizes the system that was already in place.
-	int i = 0;
-	int b = 0;
-	int strLen = 0;
-	qboolean gotStrip = qfalse;
 
-	if (!str || !str[0])
-	{
-		if (str)
-		{
-			strcpy(buf, str);
-		}
-		return;
-	}
-
-	strcpy(buf, str);
-
-	strLen = strlen(str);
-
-	if (strLen >= MAX_STRINGED_SV_STRING)
-	{
-		return;
-	}
-
-	while (i < strLen && str[i])
-	{
-		gotStrip = qfalse;
-
-		if (str[i] == '@' && (i+1) < strLen)
-		{
-			if (str[i+1] == '@' && (i+2) < strLen)
-			{
-				if (str[i+2] == '@' && (i+3) < strLen)
-				{ //@@@ should mean to insert a StringEd reference here, so insert it into buf at the current place
-					char stringRef[MAX_STRINGED_SV_STRING];
-					int r = 0;
-
-					while (i < strLen && str[i] == '@')
-					{
-						i++;
-					}
-
-					while (i < strLen && str[i] && str[i] != ' ' && str[i] != ':' && str[i] != '.' && str[i] != '\n')
-					{
-						stringRef[r] = str[i];
-						r++;
-						i++;
-					}
-					stringRef[r] = 0;
-
-					buf[b] = 0;
-					Q_strcat(buf, MAX_STRINGED_SV_STRING, SE_GetString("MP_SVGAME", stringRef));
-					b = strlen(buf);
-				}
-			}
-		}
-
-		if (!gotStrip)
-		{
-			buf[b] = str[i];
-			b++;
-		}
-		i++;
-	}
-
-	buf[b] = 0;
-}
-/*
-===================
-CL_GetServerCommand
-
-Set up argc/argv for the given command
-===================
-*/
+/* Set up argc/argv for the given command */
 CCALL qboolean CL_GetServerCommand( int serverCommandNumber ) {
 	char	*s;
 	char	*cmd;

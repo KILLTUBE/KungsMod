@@ -154,7 +154,7 @@ CG_MapTorsoToWeaponFrame
 
 =================
 */
-static int CG_MapTorsoToWeaponFrame( clientInfo_t *ci, int frame, int animNum ) {
+int CG_MapTorsoToWeaponFrame( clientInfo_t *ci, int frame, int animNum ) {
 	animation_t *animations = bgHumanoidAnimations;
 #ifdef WEAPON_FORCE_BUSY_HOLSTER
 	if ( cg.snap->ps.forceHandExtend != HANDEXTEND_NONE || cgWeapFrameTime > cg.time ) {
@@ -211,13 +211,7 @@ static int CG_MapTorsoToWeaponFrame( clientInfo_t *ci, int frame, int animNum ) 
 	return -1;
 }
 
-
-/*
-==============
-CG_CalculateWeaponPosition
-==============
-*/
-static void CG_CalculateWeaponPosition( vec3_t origin, vec3_t angles ) {
+void CG_CalculateWeaponPosition( vec3_t origin, vec3_t angles ) {
 	float	scale;
 	int		delta;
 	float	fracsin;
@@ -282,7 +276,7 @@ so the endpoint will reflect the simulated strike (lagging the predicted
 angle)
 ===============
 */
-static void CG_LightningBolt( centity_t *cent, vec3_t origin ) {
+void CG_LightningBolt( centity_t *cent, vec3_t origin ) {
 //	trace_t  trace;
 	refEntity_t  beam;
 //	vec3_t   forward;
@@ -387,7 +381,7 @@ static void CG_LightningBolt( centity_t *cent, vec3_t origin ) {
 CG_AddWeaponWithPowerups
 ========================
 */
-static void CG_AddWeaponWithPowerups( refEntity_t *gun, int powerups ) {
+void CG_AddWeaponWithPowerups( refEntity_t *gun, int powerups ) {
 	// add powerup effects
 	R_AddRefEntityToScene( gun );
 
@@ -1054,7 +1048,7 @@ qboolean CG_WeaponCheck(int weap)
 CG_WeaponSelectable
 ===============
 */
-static qboolean CG_WeaponSelectable( int i ) {
+qboolean CG_WeaponSelectable( int i ) {
 	/*if ( !cg.snap->ps.ammo[weaponData[i].ammoIndex] ) {
 		return qfalse;
 	}*/

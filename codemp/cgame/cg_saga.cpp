@@ -46,12 +46,6 @@ int			cgSiegeTeam2PlShader = 0;
 
 static char cgParseObjectives[MAX_SIEGE_INFO_SIZE];
 
-CCALL void CG_LoadCISounds(clientInfo_t *ci, qboolean modelloaded); //cg_players.c
-
-void CG_DrawSiegeMessage( const char *str, int objectiveScreen );
-void CG_DrawSiegeMessageNonMenu( const char *str );
-void CG_SiegeBriefingDisplay(int team, int dontshow);
-
 void CG_PrecacheSiegeObjectiveAssetsForTeam(int myTeam)
 {
 	char			teamstr[64];
@@ -434,7 +428,7 @@ failure:
 	siege_valid = 0;
 }
 
-static char QINLINE *CG_SiegeObjectiveBuffer(int team, int objective)
+char *CG_SiegeObjectiveBuffer(int team, int objective)
 {
 	static char buf[8192];
 	char teamstr[1024];

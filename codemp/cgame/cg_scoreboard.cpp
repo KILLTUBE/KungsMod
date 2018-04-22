@@ -26,7 +26,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 static qboolean localClient; // true if local client has been displayed
 
-static void CG_DrawClientScore( int y, score_t *score, float *color, float fade, qboolean largeFormat )
+void CG_DrawClientScore( int y, score_t *score, float *color, float fade, qboolean largeFormat )
 {
 	//vec3_t	headAngles;
 	clientInfo_t	*ci;
@@ -147,7 +147,7 @@ static void CG_DrawClientScore( int y, score_t *score, float *color, float fade,
 	}
 }
 
-static int CG_TeamScoreboard( int y, team_t team, float fade, int maxClients, int lineHeight, qboolean countOnly )
+int CG_TeamScoreboard( int y, team_t team, float fade, int maxClients, int lineHeight, qboolean countOnly )
 {
 	int		i;
 	score_t	*score;

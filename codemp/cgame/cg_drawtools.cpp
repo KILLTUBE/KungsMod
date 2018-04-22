@@ -319,7 +319,7 @@ This repeats a 64*64 tile graphic to fill the screen around a sized down
 refresh window.
 =============
 */
-static void CG_TileClearBox( int x, int y, int w, int h, qhandle_t hShader ) {
+void CG_TileClearBox( int x, int y, int w, int h, qhandle_t hShader ) {
 	float	s1, t1, s2, t2;
 
 	s1 = x/64.0;

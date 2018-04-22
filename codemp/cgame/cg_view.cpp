@@ -143,7 +143,7 @@ void CG_TestModelPrevSkin_f (void) {
 	Com_Printf( "skin %i\n", cg.testModelEntity.skinNum );
 }
 
-static void CG_AddTestModel (void) {
+void CG_AddTestModel (void) {
 	int		i;
 
 	// re-register the model, because the level may have changed
@@ -177,13 +177,9 @@ static void CG_AddTestModel (void) {
 
 
 /*
-=================
-CG_CalcVrect
-
 Sets the coordinates of the rendered window
-=================
 */
-static void CG_CalcVrect (void) {
+void CG_CalcVrect (void) {
 	int		size;
 
 	// the intermission should allways be full screen
@@ -214,12 +210,9 @@ static void CG_CalcVrect (void) {
 	cg.refdef.y = (cgs.glconfig.vidHeight - cg.refdef.height)/2;
 }
 
-//==============================================================================
 
-//==============================================================================
-//==============================================================================
 // this causes a compiler bug on mac MrC compiler
-static void CG_StepOffset( void ) {
+void CG_StepOffset( void ) {
 	int		timeDelta;
 
 	// smooth out stair climbing
@@ -264,13 +257,7 @@ cg.refdef.viewangles
 extern qboolean gCGHasFallVector;
 extern vec3_t gCGFallVector;
 
-/*
-===============
-CG_CalcTargetThirdPersonViewLocation
-
-===============
-*/
-static void CG_CalcIdealThirdPersonViewTarget(void)
+void CG_CalcIdealThirdPersonViewTarget(void)
 {
 	// Initialize IdealTarget
 	if (gCGHasFallVector)
@@ -340,15 +327,7 @@ static void CG_CalcIdealThirdPersonViewTarget(void)
 	//VectorMA(cameraFocusLoc, cg_thirdPersonVertOffset->value, cameraup, cameraIdealTarget);
 }
 
-
-
-/*
-===============
-CG_CalcTargetThirdPersonViewLocation
-
-===============
-*/
-static void CG_CalcIdealThirdPersonViewLocation(void)
+void CG_CalcIdealThirdPersonViewLocation(void)
 {
 	float thirdPersonRange = cg_thirdPersonRange->value;
 
@@ -380,8 +359,7 @@ static void CG_CalcIdealThirdPersonViewLocation(void)
 
 
 
-static void CG_ResetThirdPersonViewDamp(void)
-{
+void CG_ResetThirdPersonViewDamp(void) {
 	trace_t trace;
 
 	// Cap the pitch within reasonable limits
@@ -426,7 +404,7 @@ static void CG_ResetThirdPersonViewDamp(void)
 }
 
 // This is called every frame.
-static void CG_UpdateThirdPersonTargetDamp(void)
+void CG_UpdateThirdPersonTargetDamp(void)
 {
 	trace_t trace;
 	vec3_t	targetdiff;
@@ -483,8 +461,7 @@ static void CG_UpdateThirdPersonTargetDamp(void)
 }
 
 // This can be called every interval, at the user's discretion.
-extern void CG_CalcEntityLerpPositions( centity_t *cent ); //cg_ents.c
-static void CG_UpdateThirdPersonCameraDamp(void)
+void CG_UpdateThirdPersonCameraDamp(void)
 {
 	trace_t trace;
 	vec3_t	locdiff;
@@ -611,18 +588,7 @@ static void CG_UpdateThirdPersonCameraDamp(void)
 	// however two full volume traces each frame is a bit scary to think about.
 }
 
-
-
-
-/*
-===============`
-CG_OffsetThirdPersonView
-
-===============
-*/
-
-extern qboolean BG_UnrestrainedPitchRoll( playerState_t *ps, Vehicle_t *pVeh );
-static void CG_OffsetThirdPersonView( void )
+void CG_OffsetThirdPersonView( void )
 {
 	vec3_t diff;
 	float thirdPersonHorzOffset = cg_thirdPersonHorzOffset->value;
@@ -912,13 +878,7 @@ static void CG_StepOffset( void ) {
 	}
 }*/
 
-/*
-===============
-CG_OffsetFirstPersonView
-
-===============
-*/
-static void CG_OffsetFirstPersonView( void ) {
+void CG_OffsetFirstPersonView( void ) {
 	float			*origin;
 	float			*angles;
 	float			bob;
@@ -1064,8 +1024,7 @@ static void CG_OffsetFirstPersonView( void ) {
 #endif
 }
 
-static void CG_OffsetFighterView( void )
-{
+void CG_OffsetFighterView( void ) {
 	vec3_t vehFwd, vehRight, vehUp, backDir;
 	vec3_t	camOrg, camBackOrg;
 	float horzOffset = cg_thirdPersonHorzOffset->value;
@@ -1135,7 +1094,7 @@ Fixed fov at intermissions, otherwise account for fov variable and zooms.
 #define	WAVE_FREQUENCY	0.4
 float zoomFov; //this has to be global client-side
 
-static int CG_CalcFov( void ) {
+int CG_CalcFov( void ) {
 	float	x;
 	float	phase;
 	float	v;
@@ -1280,14 +1239,7 @@ static int CG_CalcFov( void ) {
 	return inwater;
 }
 
-
-/*
-===============
-CG_DamageBlendBlob
-
-===============
-*/
-static void CG_DamageBlendBlob( void )
+void CG_DamageBlendBlob( void )
 {
 	int			t;
 	int			maxTime;
@@ -1344,7 +1296,7 @@ int cg_actionCamLastTime = 0;
 vec3_t cg_actionCamLastPos;
 
 //action cam routine -rww
-static qboolean CG_ThirdPersonActionCam(void)
+qboolean CG_ThirdPersonActionCam(void)
 {
     centity_t *cent = &cg_entities[cg.snap->ps.clientNum];
 	clientInfo_t *ci = &cgs.clientinfo[cg.snap->ps.clientNum];
@@ -1494,15 +1446,9 @@ qboolean CG_CheckPassengerTurretView( void )
 	}
 	return qfalse;
 }
-/*
-===============
-CG_CalcViewValues
 
-Sets cg.refdef view values
-===============
-*/
-void CG_EmplacedView(vec3_t angles);
-static int CG_CalcViewValues( void ) {
+/* Sets cg.refdef view values */
+int CG_CalcViewValues( void ) {
 	qboolean manningTurret = qfalse;
 	playerState_t	*ps;
 
@@ -1650,13 +1596,7 @@ static int CG_CalcViewValues( void ) {
 	return CG_CalcFov();
 }
 
-
-/*
-=====================
-CG_PowerupTimerSounds
-=====================
-*/
-static void CG_PowerupTimerSounds( void ) {
+void CG_PowerupTimerSounds( void ) {
 	int		i;
 	int		t;
 
@@ -1834,12 +1774,7 @@ void CG_AddBufferedSound( sfxHandle_t sfx ) {
 	}
 }
 
-/*
-=====================
-CG_PlayBufferedSounds
-=====================
-*/
-static void CG_PlayBufferedSounds( void ) {
+void CG_PlayBufferedSounds( void ) {
 	if ( cg.soundTime < cg.time ) {
 		if (cg.soundBufferOut != cg.soundBufferIn && cg.soundBuffer[cg.soundBufferOut]) {
 			S_StartLocalSound(cg.soundBuffer[cg.soundBufferOut], CHAN_ANNOUNCER);
@@ -2087,8 +2022,7 @@ void CG_EmplacedView(vec3_t angles)
 }
 
 //specially add cent's for automap
-static void CG_AddRefentForAutoMap(centity_t *cent)
-{
+void CG_AddRefentForAutoMap(centity_t *cent) {
 	refEntity_t ent;
 	vec3_t flat;
 

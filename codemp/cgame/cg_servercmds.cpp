@@ -27,7 +27,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // be a valid snapshot this frame
 #include "cg_servercmds.h"
 
-static void CG_ParseScores( void ) {
+void CG_ParseScores( void ) {
 	int i, powerups, readScores;
 
 	cg.numScores = atoi( CG_Argv( 1 ) );
@@ -73,7 +73,7 @@ static void CG_ParseScores( void ) {
 	CG_SetScoreSelection( NULL );
 }
 
-static void CG_ParseTeamInfo( void ) {
+void CG_ParseTeamInfo( void ) {
 	int i, client;
 
 	numSortedTeamPlayers = atoi( CG_Argv( 1 ) );
@@ -195,7 +195,7 @@ void CG_ParseServerinfo( void ) {
 		CGVM_Cvar_Set( "snaps", va( "%i", i ) );
 }
 
-static void CG_ParseWarmup( void ) {
+void CG_ParseWarmup( void ) {
 	const char	*info;
 	int			warmup;
 
@@ -331,8 +331,7 @@ extern const char *cg_customExtraSoundNames[MAX_CUSTOM_EXTRA_SOUNDS];
 extern const char *cg_customJediSoundNames[MAX_CUSTOM_JEDI_SOUNDS];
 extern const char *cg_customDuelSoundNames[MAX_CUSTOM_DUEL_SOUNDS];
 
-static const char *GetCustomSoundForType(int setType, int index)
-{
+const char *GetCustomSoundForType(int setType, int index) {
 	switch (setType)
 	{
 	case 1:
@@ -381,7 +380,7 @@ void SetCustomSoundForType(clientInfo_t *ci, int setType, int index, sfxHandle_t
 	}
 }
 
-static void CG_RegisterCustomSounds(clientInfo_t *ci, int setType, const char *psDir)
+void CG_RegisterCustomSounds(clientInfo_t *ci, int setType, const char *psDir)
 {
 	int iTableEntries = 0;
 	int i;
@@ -680,20 +679,7 @@ void SetDuelistHealthsFromConfigString ( const char *str ) {
 	cgs.duelist3health = atoi ( buf );
 }
 
-/*
-================
-CG_ConfigStringModified
-
-================
-*/
-extern int cgSiegeRoundState;
-extern int cgSiegeRoundTime;
-void CG_ParseSiegeObjectiveStatus(const char *str);
-void CG_ParseWeatherEffect(const char *str);
-extern void CG_ParseSiegeState(const char *str); //cg_main.c
-extern int cg_beatingSiegeTime;
-extern int cg_siegeWinTeam;
-static void CG_ConfigStringModified( void ) {
+void CG_ConfigStringModified( void ) {
 	const char	*str;
 	int		num;
 
@@ -1021,7 +1007,7 @@ A tournament restart will clear everything, but doesn't
 require a reload of all the media
 ===============
 */
-static void CG_MapRestart( void ) {
+void CG_MapRestart( void ) {
 	if ( cg_showMiss->integer ) {
 		Com_Printf( "CG_MapRestart\n" );
 	}
@@ -1066,12 +1052,7 @@ static void CG_MapRestart( void ) {
 //	CGVM_Cvar_Set("cg_thirdPerson", "0");
 }
 
-/*
-=================
-CG_RemoveChatEscapeChar
-=================
-*/
-static void CG_RemoveChatEscapeChar( char *text ) {
+void CG_RemoveChatEscapeChar( char *text ) {
 	int i, l;
 
 	l = 0;
@@ -1154,7 +1135,7 @@ void CG_CheckSVStringEdRef(char *buf, const char *str)
 	buf[b] = 0;
 }
 
-static void CG_BodyQueueCopy(centity_t *cent, int clientNum, int knownWeapon)
+void CG_BodyQueueCopy(centity_t *cent, int clientNum, int knownWeapon)
 {
 	centity_t		*source;
 	animation_t		*anim;
@@ -1270,26 +1251,24 @@ static void CG_BodyQueueCopy(centity_t *cent, int clientNum, int knownWeapon)
 	}
 }
 
-void CG_SiegeBriefingDisplay(int team, int dontshow);
-void CG_ParseSiegeExtendedData(void);
-static void CG_SiegeBriefingDisplay_f( void ) {
+void CG_SiegeBriefingDisplay_f( void ) {
 	CG_SiegeBriefingDisplay( atoi( CG_Argv( 1 ) ), 0 );
 }
 
-static void CG_SiegeClassSelect_f( void ) {
+void CG_SiegeClassSelect_f( void ) {
 	//if (!( Key_GetCatcher() & KEYCATCH_UI ))
 	//Well, I want it to come up even if the briefing display is up.
 	CL_OpenUIMenu( UIMENU_CLASSSEL ); //UIMENU_CLASSSEL
 }
 
-static void CG_SiegeProfileMenu_f( void ) {
+void CG_SiegeProfileMenu_f( void ) {
 	if ( !cg.demoPlayback ) {
 		CGVM_Cvar_Set( "ui_myteam", "3" );
 		CL_OpenUIMenu( UIMENU_PLAYERCONFIG ); //UIMENU_CLASSSEL
 	}
 }
 
-static void CG_NewForceRank_f( void ) {
+void CG_NewForceRank_f( void ) {
 	//"nfr" == "new force rank" (want a short string)
 	int doMenu = 0;
 	int setTeam = 0;
@@ -1314,7 +1293,7 @@ static void CG_NewForceRank_f( void ) {
 		CL_OpenUIMenu( UIMENU_PLAYERCONFIG );
 }
 
-static void CG_KillGhoul2_f( void ) {
+void CG_KillGhoul2_f( void ) {
 	//Kill a ghoul2 instance in this slot.
 	//If it has been occupied since this message was sent somehow, the worst that can (should) happen
 	//is the instance will have to reinit with its current info.
@@ -1341,7 +1320,7 @@ static void CG_KillGhoul2_f( void ) {
 	}
 }
 
-static void CG_KillLoopSounds_f( void ) {
+void CG_KillLoopSounds_f( void ) {
 	//kill looping sounds
 	int indexNum = 0;
 	int argNum = Cmd_Argc();
@@ -1371,7 +1350,7 @@ static void CG_KillLoopSounds_f( void ) {
 		CG_S_StopLoopingSound( trackerent->currentState.number, -1 );
 }
 
-static void CG_RestoreClientGhoul_f( void ) {
+void CG_RestoreClientGhoul_f( void ) {
 	//rcg - Restore Client Ghoul (make sure limbs are reattached and ragdoll state is reset - this must be done reliably)
 	int			indexNum = 0;
 	int			argNum = Cmd_Argc();
@@ -1442,14 +1421,14 @@ static void CG_RestoreClientGhoul_f( void ) {
 	clent->ghoul2weapon = NULL; //force a weapon reinit
 }
 
-static void CG_CenterPrint_f( void ) {
+void CG_CenterPrint_f( void ) {
 	char strEd[MAX_STRINGED_SV_STRING] = {0};
 
 	CG_CheckSVStringEdRef( strEd, CG_Argv( 1 ) );
 	CG_CenterPrint( strEd, SCREEN_HEIGHT * 0.30, BIGCHAR_WIDTH );
 }
 
-static void CG_CenterPrintSE_f( void ) {
+void CG_CenterPrintSE_f( void ) {
 	char strEd[MAX_STRINGED_SV_STRING] = {0};
 	char *x = (char *)CG_Argv( 1 );
 
@@ -1460,15 +1439,14 @@ static void CG_CenterPrintSE_f( void ) {
 	CG_CenterPrint( strEd, SCREEN_HEIGHT * 0.30, BIGCHAR_WIDTH );
 }
 
-static void CG_Print_f( void ) {
+void CG_Print_f( void ) {
 	char strEd[MAX_STRINGED_SV_STRING] = {0};
 
 	CG_CheckSVStringEdRef( strEd, CG_Argv( 1 ) );
 	Com_Printf( "%s", strEd );
 }
 
-void CG_ChatBox_AddString(char *chatStr);
-static void CG_Chat_f( void ) {
+void CG_Chat_f( void ) {
 	char cmd[MAX_STRING_CHARS] = {0}, text[MAX_SAY_TEXT] = {0};
 
 	Cmd_ArgvBuffer( 0, cmd, sizeof( cmd ) );
@@ -1541,7 +1519,7 @@ static void CG_Chat_f( void ) {
 	}
 }
 
-static void CG_RemapShader_f( void ) {
+void CG_RemapShader_f( void ) {
 	if ( Cmd_Argc() == 4 ) {
 		char shader1[MAX_QPATH]={0},	shader2[MAX_QPATH]={0};
 
@@ -1551,7 +1529,7 @@ static void CG_RemapShader_f( void ) {
 	}
 }
 
-static void CG_ClientLevelShot_f( void ) {
+void CG_ClientLevelShot_f( void ) {
 	// clientLevelShot is sent before taking a special screenshot for
 	// the menu system during development
 	cg.levelShot = qtrue;
@@ -1603,7 +1581,7 @@ The string has been tokenized and can be retrieved with
 Cmd_Argc() / Cmd_Argv()
 =================
 */
-static void CG_ServerCommand( void ) {
+void CG_ServerCommand( void ) {
 	const char		*cmd = CG_Argv( 0 );
 	serverCommand_t	*command = NULL;
 

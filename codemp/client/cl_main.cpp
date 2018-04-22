@@ -134,12 +134,12 @@ int serverStatusCount;
 
 IHeapAllocator *G2VertSpaceClient = 0;
 
-extern void SV_BotFrame( int time );
-void CL_CheckForResend( void );
-void CL_ShowIP_f(void);
-void CL_ServerStatus_f(void);
-void CL_ServerStatusResponse( netadr_t from, msg_t *msg );
-static void CL_ShutdownRef( qboolean restarting );
+CCALL void SV_BotFrame( int time );
+CCALL void CL_CheckForResend( void );
+CCALL void CL_ShowIP_f(void);
+CCALL void CL_ServerStatus_f(void);
+CCALL void CL_ServerStatusResponse( netadr_t from, msg_t *msg );
+CCALL void CL_ShutdownRef( qboolean restarting );
 
 /*
 =======================================================================
@@ -477,12 +477,7 @@ void CL_ReadDemoMessage( void ) {
 	CL_ParseServerMessage( &buf );
 }
 
-/*
-====================
-CL_CompleteDemoName
-====================
-*/
-static void CL_CompleteDemoName( char *args, int argNum )
+void CL_CompleteDemoName( char *args, int argNum )
 {
 	if( argNum == 2 )
 	{
@@ -725,7 +720,7 @@ CL_UpdateGUID
 update cl_guid using QKEY_FILE and optional prefix
 ====================
 */
-static void CL_UpdateGUID( const char *prefix, int prefix_len )
+void CL_UpdateGUID( const char *prefix, int prefix_len )
 {
 	if (cl_enableGuid->integer) {
 		fileHandle_t f;
@@ -1069,13 +1064,7 @@ void CL_Connect_f( void ) {
 
 #define MAX_RCON_MESSAGE 1024
 
-/*
-==================
-CL_CompleteRcon
-==================
-*/
-static void CL_CompleteRcon( char *args, int argNum )
-{
+void CL_CompleteRcon( char *args, int argNum ) {
 	if( argNum == 2 )
 	{
 		// Skip "rcon "
@@ -1774,7 +1763,7 @@ void CL_ServersResponsePacket( const netadr_t *from, msg_t *msg ) {
 #ifndef MAX_STRINGED_SV_STRING
 #define MAX_STRINGED_SV_STRING 1024
 #endif
-static void CL_CheckSVStringEdRef(char *buf, const char *str)
+void CL_CheckSVStringEdRef(char *buf, const char *str)
 { //I don't really like doing this. But it utilizes the system that was already in place.
 	int i = 0;
 	int b = 0;
@@ -2128,7 +2117,7 @@ CL_Frame
 */
 static unsigned int frameCount;
 static float avgFrametime=0.0;
-extern void SE_CheckForLanguageUpdates(void);
+void SE_CheckForLanguageUpdates(void);
 void CL_Frame ( int msec ) {
 	qboolean takeVideoFrame = qfalse;
 
@@ -2251,14 +2240,7 @@ void QDECL CL_RefPrintf( int print_level, const char *fmt, ...) {
 	}
 }
 
-
-
-/*
-============
-CL_ShutdownRef
-============
-*/
-static void CL_ShutdownRef( qboolean restarting ) {
+void CL_ShutdownRef( qboolean restarting ) {
 	R_Shutdown( qtrue, restarting );
 }
 
@@ -2326,15 +2308,15 @@ CL_InitRef
 qboolean Com_TheHunkMarkHasBeenMade(void);
 
 //qcommon/cm_load.cpp
-extern void *gpvCachedMapDiskImage;
+EXTERNC void *gpvCachedMapDiskImage;
 extern qboolean gbUsingCachedMapDataRightNow;
 
-static char *GetSharedMemory( void ) { return cl.mSharedMemory; }
-static vm_t *GetCurrentVM( void ) { return currentVM; }
-static qboolean CGVMLoaded( void ) { return (qboolean)cls.cgameStarted; }
-static void *CM_GetCachedMapDiskImage( void ) { return gpvCachedMapDiskImage; }
-static void CM_SetCachedMapDiskImage( void *ptr ) { gpvCachedMapDiskImage = ptr; }
-static void CM_SetUsingCache( qboolean usingCache ) { gbUsingCachedMapDataRightNow = usingCache; }
+char *GetSharedMemory( void ) { return cl.mSharedMemory; }
+vm_t *GetCurrentVM( void ) { return currentVM; }
+qboolean CGVMLoaded( void ) { return (qboolean)cls.cgameStarted; }
+void *CM_GetCachedMapDiskImage( void ) { return gpvCachedMapDiskImage; }
+void CM_SetCachedMapDiskImage( void *ptr ) { gpvCachedMapDiskImage = ptr; }
+void CM_SetUsingCache( qboolean usingCache ) { gbUsingCachedMapDataRightNow = usingCache; }
 
 #define G2_VERT_SPACE_SERVER_SIZE 256
 IHeapAllocator *G2VertSpaceServer = NULL;
@@ -2461,7 +2443,7 @@ void CL_StopVideo_f( void )
 	CL_CloseAVI( );
 }
 
-static void CL_AddFavorite_f( void ) {
+void CL_AddFavorite_f( void ) {
 	const bool connected = (cls.state == CA_ACTIVE) && !clc.demoplaying;
 	const int argc = Cmd_Argc();
 	if ( !connected && argc != 2 ) {
@@ -2498,7 +2480,7 @@ it by filling it with 2048 bytes of random data.
 ===============
 */
 
-static void CL_GenerateQKey(void)
+void CL_GenerateQKey(void)
 {
 	if (cl_enableGuid->integer) {
 		int len = 0;
@@ -2792,7 +2774,7 @@ qboolean CL_ConnectedToRemoteServer( void ) {
 	return (qboolean)( com_sv_running && !com_sv_running->integer && cls.state >= CA_CONNECTED && !clc.demoplaying );
 }
 
-static void CL_SetServerInfo(serverInfo_t *server, const char *info, int ping) {
+void CL_SetServerInfo(serverInfo_t *server, const char *info, int ping) {
 	if (server) {
 		if (info) {
 			server->clients = atoi(Info_ValueForKey(info, "clients"));
@@ -2817,7 +2799,7 @@ static void CL_SetServerInfo(serverInfo_t *server, const char *info, int ping) {
 	}
 }
 
-static void CL_SetServerInfoByAddress(netadr_t from, const char *info, int ping) {
+void CL_SetServerInfoByAddress(netadr_t from, const char *info, int ping) {
 	int i;
 
 	for (i = 0; i < MAX_OTHER_SERVERS; i++) {

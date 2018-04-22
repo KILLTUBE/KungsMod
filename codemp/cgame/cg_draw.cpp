@@ -33,14 +33,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #include "cg_draw.h"
 
-extern float CG_RadiusForCent( centity_t *cent );
-qboolean CG_WorldCoordToScreenCoordFloat(vec3_t worldCoord, float *x, float *y);
-qboolean CG_CalcMuzzlePoint( int entityNum, vec3_t muzzle );
-static void CG_DrawSiegeTimer(int timeRemaining, qboolean isMyTeam);
-static void CG_DrawSiegeDeathTimer( int timeRemaining );
-// nmckenzie: DUEL_HEALTH
-void CG_DrawDuelistHealth ( float x, float y, float w, float h, int duelist );
-
 // used for scoreboard
 extern displayContextDef_t cgDC;
 
@@ -178,13 +170,7 @@ void CG_Text_Paint(float x, float y, float scale, vec4_t color, const char *text
 							);
 }
 
-/*
-================
-CG_DrawZoomMask
-
-================
-*/
-static void CG_DrawZoomMask( void )
+void CG_DrawZoomMask( void )
 {
 	vec4_t		color1;
 	float		level;
@@ -787,7 +773,7 @@ If the weapon is a light saber (which needs no ammo) then draw a graphic showing
 the saber style (fast, medium, strong)
 ================
 */
-static void CG_DrawSaberStyle( centity_t *cent, menuDef_t *menuHUD)
+void CG_DrawSaberStyle( centity_t *cent, menuDef_t *menuHUD)
 {
 	itemDef_t		*focusItem;
 
@@ -869,12 +855,7 @@ static void CG_DrawSaberStyle( centity_t *cent, menuDef_t *menuHUD)
 
 }
 
-/*
-================
-CG_DrawAmmo
-================
-*/
-static void CG_DrawAmmo( centity_t	*cent,menuDef_t *menuHUD)
+void CG_DrawAmmo( centity_t	*cent,menuDef_t *menuHUD)
 {
 	playerState_t	*ps;
 	int				i;
@@ -1155,7 +1136,7 @@ void CG_DrawForcePower( menuDef_t *menuHUD )
 	}
 }
 
-static void CG_DrawSimpleSaberStyle( const centity_t *cent )
+void CG_DrawSimpleSaberStyle( const centity_t *cent )
 {
 	uint32_t	calcColor;
 	char		num[7] = { 0 };
@@ -1208,7 +1189,7 @@ static void CG_DrawSimpleSaberStyle( const centity_t *cent )
 	CG_DrawProportionalString( SCREEN_WIDTH - (weapX + 16 + 32), (SCREEN_HEIGHT - 80) + 40, num, UI_SMALLFONT | UI_DROPSHADOW, colorTable[calcColor] );
 }
 
-static void CG_DrawSimpleAmmo( const centity_t *cent )
+void CG_DrawSimpleAmmo( const centity_t *cent )
 {
 	playerState_t	*ps;
 	uint32_t	calcColor;
@@ -1273,7 +1254,7 @@ static void CG_DrawSimpleAmmo( const centity_t *cent )
 	CG_DrawProportionalString( SCREEN_WIDTH - (16 + 32), (SCREEN_HEIGHT - 80) + 40, num, UI_SMALLFONT | UI_DROPSHADOW, colorTable[calcColor] );
 }
 
-static void CG_DrawSimpleForcePower( const centity_t *cent )
+void CG_DrawSimpleForcePower( const centity_t *cent )
 {
 	uint32_t	calcColor;
 	char		num[16] = { 0 };
@@ -2760,13 +2741,7 @@ qboolean CG_DrawVehicleHud( const centity_t *cent )
 
 }
 
-/*
-================
-CG_DrawStats
-
-================
-*/
-static void CG_DrawStats( void )
+void CG_DrawStats( void )
 {
 	centity_t		*cent;
 	playerState_t	*ps;
@@ -2814,12 +2789,7 @@ static void CG_DrawStats( void )
 	CG_DrawTalk(cent);*/
 }
 
-/*
-===================
-CG_DrawPickupItem
-===================
-*/
-static void CG_DrawPickupItem( void ) {
+void CG_DrawPickupItem( void ) {
 	int		value;
 	float	*fadeColor;
 
@@ -2875,12 +2845,7 @@ void CG_DrawTeamBackground( int x, int y, int w, int h, float alpha, int team )
 ===========================================================================================
 */
 
-/*
-================
-CG_DrawMiniScoreboard
-================
-*/
-static float CG_DrawMiniScoreboard ( float y )
+float CG_DrawMiniScoreboard ( float y )
 {
 	char temp[MAX_QPATH];
 	int xOffset = 0;
@@ -2924,12 +2889,7 @@ static float CG_DrawMiniScoreboard ( float y )
 	return y;
 }
 
-/*
-================
-CG_DrawEnemyInfo
-================
-*/
-static float CG_DrawEnemyInfo ( float y )
+float CG_DrawEnemyInfo ( float y )
 {
 	float		size;
 	int			clientNum;
@@ -3101,12 +3061,7 @@ static float CG_DrawEnemyInfo ( float y )
 	return y + BIGCHAR_HEIGHT + 2;
 }
 
-/*
-==================
-CG_DrawSnapshot
-==================
-*/
-static float CG_DrawSnapshot( float y ) {
+float CG_DrawSnapshot( float y ) {
 	char		*s;
 	int			w;
 	int			xOffset = 0;
@@ -3120,13 +3075,8 @@ static float CG_DrawSnapshot( float y ) {
 	return y + BIGCHAR_HEIGHT + 4;
 }
 
-/*
-==================
-CG_DrawFPS
-==================
-*/
 #define	FPS_FRAMES	16
-static float CG_DrawFPS( float y ) {
+float CG_DrawFPS( float y ) {
 	char		*s;
 	int			w;
 	static unsigned short previousTimes[FPS_FRAMES];
@@ -3785,12 +3735,7 @@ float CG_DrawRadar ( float y )
 	return y+(RADAR_RADIUS*2);
 }
 
-/*
-=================
-CG_DrawTimer
-=================
-*/
-static float CG_DrawTimer( float y ) {
+float CG_DrawTimer( float y ) {
 	char		*s;
 	int			w;
 	int			mins, seconds, tens;
@@ -3813,14 +3758,7 @@ static float CG_DrawTimer( float y ) {
 	return y + BIGCHAR_HEIGHT + 4;
 }
 
-
-/*
-=================
-CG_DrawTeamOverlay
-=================
-*/
-extern const char *CG_GetLocationString(const char *loc); //cg_main.c
-static float CG_DrawTeamOverlay( float y, qboolean right, qboolean upper ) {
+float CG_DrawTeamOverlay( float y, qboolean right, qboolean upper ) {
 	int x, w, h, xx;
 	int i, j, len;
 	const char *p;
@@ -3991,8 +3929,7 @@ static float CG_DrawTeamOverlay( float y, qboolean right, qboolean upper ) {
 //#endif
 }
 
-
-static void CG_DrawPowerupIcons(int y)
+void CG_DrawPowerupIcons(int y)
 {
 	int j;
 	int ico_size = 64;
@@ -4051,14 +3988,7 @@ static void CG_DrawPowerupIcons(int y)
 	}
 }
 
-
-/*
-=====================
-CG_DrawUpperRight
-
-=====================
-*/
-static void CG_DrawUpperRight( void ) {
+void CG_DrawUpperRight( void ) {
 	float	y = 0;
 
 	R_SetColor( colorTable[CT_WHITE] );
@@ -4090,13 +4020,8 @@ static void CG_DrawUpperRight( void ) {
 	CG_DrawPowerupIcons(y);
 }
 
-/*
-===================
-CG_DrawReward
-===================
-*/
 #ifdef JK2AWARDS
-static void CG_DrawReward( void ) {
+void CG_DrawReward( void ) {
 	float	*color;
 	int		i, count;
 	float	x, y;
@@ -4224,13 +4149,9 @@ void CG_AddLagometerSnapshotInfo( snapshot_t *snap ) {
 }
 
 /*
-==============
-CG_DrawDisconnect
-
 Should we draw something different for long lag vs no packets?
-==============
 */
-static void CG_DrawDisconnect( void ) {
+void CG_DrawDisconnect( void ) {
 	float		x, y;
 	int			cmdNum;
 	usercmd_t	cmd;
@@ -4277,12 +4198,7 @@ static void CG_DrawDisconnect( void ) {
 #define	MAX_LAGOMETER_PING	900
 #define	MAX_LAGOMETER_RANGE	300
 
-/*
-==============
-CG_DrawLagometer
-==============
-*/
-static void CG_DrawLagometer( void ) {
+void CG_DrawLagometer( void ) {
 	int		a, x, y, i;
 	float	v;
 	float	ax, ay, aw, ah, mid, range;
@@ -4473,7 +4389,7 @@ qboolean BG_IsWhiteSpace( char c )
 
 	return qfalse;
 }
-static void CG_DrawCenterString( void ) {
+void CG_DrawCenterString( void ) {
 	char	*start;
 	int		l;
 	int		x, y, w;
@@ -4891,7 +4807,7 @@ void CG_LerpCrosshairPos( float *x, float *y )
 }
 
 vec3_t cg_crosshairPos={0,0,0};
-static void CG_DrawCrosshair( vec3_t worldPoint, int chEntValid ) {
+void CG_DrawCrosshair( vec3_t worldPoint, int chEntValid ) {
 	float		w, h;
 	qhandle_t	hShader = 0;
 	float		f;
@@ -5644,10 +5560,7 @@ void CG_DrawBracketedEntities( void )
 	}
 }
 
-//--------------------------------------------------------------
-static void CG_DrawHolocronIcons(void)
-//--------------------------------------------------------------
-{
+void CG_DrawHolocronIcons(void) {
 	int icon_size = 40;
 	int i = 0;
 	int startx = 10;
@@ -5683,8 +5596,7 @@ static void CG_DrawHolocronIcons(void)
 	}
 }
 
-static qboolean CG_IsDurationPower(int power)
-{
+qboolean CG_IsDurationPower(int power) {
 	if (power == FP_HEAL ||
 		power == FP_SPEED ||
 		power == FP_TELEPATHY ||
@@ -5699,10 +5611,7 @@ static qboolean CG_IsDurationPower(int power)
 	return qfalse;
 }
 
-//--------------------------------------------------------------
-static void CG_DrawActivePowers(void)
-//--------------------------------------------------------------
-{
+void CG_DrawActivePowers(void) {
 	int icon_size = 40;
 	int i = 0;
 	int startx = icon_size*2+16;
@@ -5747,10 +5656,7 @@ static void CG_DrawActivePowers(void)
 	}
 }
 
-//--------------------------------------------------------------
-static void CG_DrawRocketLocking( int lockEntNum, int lockTime )
-//--------------------------------------------------------------
-{
+void CG_DrawRocketLocking( int lockEntNum, int lockTime ) {
 	int		cx, cy;
 	vec3_t	org;
 	static	int oldDif = 0;
@@ -6059,13 +5965,8 @@ void CG_CalcEWebMuzzlePoint(centity_t *cent, vec3_t start, vec3_t d_f, vec3_t d_
 	}
 }
 
-/*
-=================
-CG_`Entity
-=================
-*/
 #define MAX_XHAIR_DIST_ACCURACY	20000.0f
-static void CG_ScanForCrosshairEntity( void ) {
+void CG_ScanForCrosshairEntity( void ) {
 	trace_t		trace;
 	vec3_t		start, end;
 	int			content;
@@ -6277,12 +6178,7 @@ static void CG_ScanForCrosshairEntity( void ) {
 	cg.crosshairClientTime = cg.time;
 }
 
-/*
-=====================
-CG_DrawCrosshairNames
-=====================
-*/
-static void CG_DrawCrosshairNames( void ) {
+void CG_DrawCrosshairNames( void ) {
 	float		*color;
 	vec4_t		tcolor;
 	char		*name;
@@ -6408,16 +6304,7 @@ static void CG_DrawCrosshairNames( void ) {
 	R_SetColor( NULL );
 }
 
-
-//==============================================================================
-
-/*
-=================
-CG_DrawSpectator
-=================
-*/
-static void CG_DrawSpectator(void)
-{
+void CG_DrawSpectator(void) {
 	const char* s;
 
 	s = CG_GetStringEdString("MP_INGAME", "SPECTATOR");
@@ -6493,12 +6380,7 @@ static void CG_DrawSpectator(void)
 	}
 }
 
-/*
-=================
-CG_DrawVote
-=================
-*/
-static void CG_DrawVote(void) {
+void CG_DrawVote(void) {
 	const char *s = NULL, *sParm = NULL;
 	int sec;
 	char sYes[20] = {0}, sNo[20] = {0}, sVote[20] = {0}, sCmd[100] = {0};
@@ -6565,12 +6447,7 @@ static void CG_DrawVote(void) {
 	}
 }
 
-/*
-=================
-CG_DrawTeamVote
-=================
-*/
-static void CG_DrawTeamVote(void) {
+void CG_DrawTeamVote(void) {
 	char	*s;
 	int		sec, cs_offset;
 
@@ -6638,16 +6515,11 @@ static void CG_DrawTeamVote(void) {
 	CG_DrawSmallString( 4, 90, s, 1.0F );
 }
 
-static qboolean CG_DrawScoreboard() {
+qboolean CG_DrawScoreboard() {
 	return CG_DrawOldScoreboard();
 }
 
-/*
-=================
-CG_DrawIntermission
-=================
-*/
-static void CG_DrawIntermission( void ) {
+void CG_DrawIntermission( void ) {
 //	int key;
 	//if (cg_singlePlayer->integer) {
 	//	CG_DrawCenterString();
@@ -6657,12 +6529,7 @@ static void CG_DrawIntermission( void ) {
 	cg.scoreBoardShowing = CG_DrawScoreboard();
 }
 
-/*
-=================
-CG_DrawFollow
-=================
-*/
-static qboolean CG_DrawFollow( void )
+qboolean CG_DrawFollow( void )
 {
 	const char	*s;
 
@@ -6703,7 +6570,7 @@ static qboolean CG_DrawFollow( void )
 }
 
 #if 0
-static void CG_DrawTemporaryStats()
+void CG_DrawTemporaryStats()
 { //placeholder for testing (draws ammo and force power)
 	char s[512];
 
@@ -6730,12 +6597,7 @@ static void CG_DrawTemporaryStats()
 }
 #endif
 
-/*
-=================
-CG_DrawAmmoWarning
-=================
-*/
-static void CG_DrawAmmoWarning( void ) {
+void CG_DrawAmmoWarning( void ) {
 #if 0
 	const char	*s;
 	int			w;
@@ -6763,14 +6625,7 @@ static void CG_DrawAmmoWarning( void ) {
 #endif
 }
 
-
-
-/*
-=================
-CG_DrawWarmup
-=================
-*/
-static void CG_DrawWarmup( void ) {
+void CG_DrawWarmup( void ) {
 	int			w, sec, i;
 	float		scale;
 	const char	*s;
@@ -7170,7 +7025,7 @@ int cg_beatingSiegeTime = 0;
 int cgSiegeRoundBeganTime = 0;
 int cgSiegeRoundCountTime = 0;
 
-static void CG_DrawSiegeTimer(int timeRemaining, qboolean isMyTeam)
+void CG_DrawSiegeTimer(int timeRemaining, qboolean isMyTeam)
 { //rwwFIXMEFIXME: Make someone make assets and use them.
   //this function is pretty much totally placeholder.
 //	int x = 0;
@@ -7237,7 +7092,7 @@ static void CG_DrawSiegeTimer(int timeRemaining, qboolean isMyTeam)
 
 }
 
-static void CG_DrawSiegeDeathTimer( int timeRemaining )
+void CG_DrawSiegeDeathTimer( int timeRemaining )
 {
 	int minutes = 0;
 	int seconds = 0;
@@ -7296,7 +7151,7 @@ static void CG_DrawSiegeDeathTimer( int timeRemaining )
 
 int cgSiegeEntityRender = 0;
 
-static void CG_DrawSiegeHUDItem(void)
+void CG_DrawSiegeHUDItem(void)
 {
 	void *g2;
 	qhandle_t handle;
@@ -7456,7 +7311,7 @@ void CG_ChatBox_ArrayInsert(chatBoxItem_t **array, int insPoint, int maxNum, cha
 }
 
 //go through all the chat strings and draw them if they are not yet expired
-static QINLINE void CG_ChatBox_DrawStrings(void)
+void CG_ChatBox_DrawStrings(void)
 {
 	chatBoxItem_t *drawThese[MAX_CHATBOX_ITEMS];
 	int numToDraw = 0;
@@ -7514,7 +7369,7 @@ static QINLINE void CG_ChatBox_DrawStrings(void)
 	}
 }
 
-static void CG_Draw2DScreenTints( void )
+void CG_Draw2DScreenTints( void )
 {
 	float			rageTime, rageRecTime, absorbTime, protectTime, ysalTime;
 	vec4_t			hcolor;
@@ -7931,7 +7786,7 @@ static void CG_Draw2DScreenTints( void )
 	}
 }
 
-static void CG_Draw2D( void ) {
+void CG_Draw2D( void ) {
 	float			inTime = cg.invenSelectTime+WEAPON_SELECT_TIME;
 	float			wpTime = cg.weaponSelectTime+WEAPON_SELECT_TIME;
 	float			fallTime;
@@ -8381,7 +8236,7 @@ void CG_DrawMiscStaticModels( void ) {
 	}
 }
 
-static void CG_DrawTourneyScoreboard() {
+void CG_DrawTourneyScoreboard() {
 }
 
 /*

@@ -263,7 +263,7 @@ Spawn an entity and fill in all of the level fields from
 cg.spawnVars[], then call the class specfic spawn function
 ===================
 */
-static int spawncmp( const void *a, const void *b ) {
+int spawncmp( const void *a, const void *b ) {
 	return Q_stricmp( (const char *)a, ((spawn_t*)b)->name );
 }
 

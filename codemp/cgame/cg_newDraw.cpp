@@ -266,7 +266,7 @@ CCALL unsigned int R_AnyLanguage_ReadCharFromString( const char *psText, int *pi
 
 // maxX param is initially an X limit, but is also used as feedback. 0 = text was clipped to fit within, else maxX = next pos
 //
-static void CG_Text_Paint_Limit(float *maxX, float x, float y, float scale, vec4_t color, const char* text, float adjust, int limit, int iMenuFont)
+void CG_Text_Paint_Limit(float *maxX, float x, float y, float scale, vec4_t color, const char* text, float adjust, int limit, int iMenuFont)
 {
 	qboolean bIsTrailingPunctuation;
 

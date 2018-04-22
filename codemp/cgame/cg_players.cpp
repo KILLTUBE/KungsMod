@@ -428,15 +428,7 @@ qboolean CG_ParseSurfsFile( const char *modelName, const char *skinName, char *s
 	return qtrue;
 }
 
-/*
-==========================
-CG_RegisterClientModelname
-==========================
-*/
-qboolean BG_IsValidCharacterModel(const char *modelName, const char *skinName);
-qboolean BG_ValidateSkinForTeam( const char *modelName, char *skinName, int team, float *colors );
-
-static qboolean CG_RegisterClientModelname( clientInfo_t *ci, const char *modelName, const char *skinName, const char *teamName, int clientNum ) {
+qboolean CG_RegisterClientModelname( clientInfo_t *ci, const char *modelName, const char *skinName, const char *teamName, int clientNum ) {
 	int handle;
 	char		afilename[MAX_QPATH];
 	char		/**GLAName,*/ *slash;
@@ -717,12 +709,7 @@ retryModel:
 	return qtrue;
 }
 
-/*
-====================
-CG_ColorFromString
-====================
-*/
-static void CG_ColorFromString( const char *v, vec3_t color ) {
+void CG_ColorFromString( const char *v, vec3_t color ) {
 	int val;
 
 	VectorClear( color );
@@ -745,12 +732,7 @@ static void CG_ColorFromString( const char *v, vec3_t color ) {
 	}
 }
 
-/*
-====================
-CG_ColorFromInt
-====================
-*/
-static void CG_ColorFromInt( int val, vec3_t color ) {
+void CG_ColorFromInt( int val, vec3_t color ) {
 	VectorClear( color );
 
 	if ( val < 1 || val > 7 ) {
@@ -1181,7 +1163,7 @@ void CG_LoadClientInfo( clientInfo_t *ci ) {
 
 
 //Take care of initializing all the ghoul2 saber stuff based on clientinfo data. -rww
-static void CG_InitG2SaberData(int saberNum, clientInfo_t *ci)
+void CG_InitG2SaberData(int saberNum, clientInfo_t *ci)
 {
 	CL_G2API_InitGhoul2Model(&ci->ghoul2Weapons[saberNum], ci->saber[saberNum].model, 0, ci->saber[saberNum].skin, 0, 0, 0);
 
@@ -1235,13 +1217,7 @@ static void CG_InitG2SaberData(int saberNum, clientInfo_t *ci)
 	}
 }
 
-
-/*
-======================
-CG_CopyClientInfoModel
-======================
-*/
-static void CG_CopyClientInfoModel( clientInfo_t *from, clientInfo_t *to )
+void CG_CopyClientInfoModel( clientInfo_t *from, clientInfo_t *to )
 {
 	VectorCopy( from->headOffset, to->headOffset );
 //	to->footsteps = from->footsteps;
@@ -1313,12 +1289,7 @@ static void CG_CopyClientInfoModel( clientInfo_t *from, clientInfo_t *to )
 	memcpy( to->duelSounds, from->duelSounds, sizeof( to->duelSounds ) );
 }
 
-/*
-======================
-CG_ScanForExistingClientInfo
-======================
-*/
-static qboolean CG_ScanForExistingClientInfo( clientInfo_t *ci, int clientNum ) {
+qboolean CG_ScanForExistingClientInfo( clientInfo_t *ci, int clientNum ) {
 	int		i;
 	clientInfo_t	*match;
 
@@ -1427,7 +1398,7 @@ We aren't going to load it now, so grab some other
 client's info to use until we have some spare time.
 ======================
 */
-static void CG_SetDeferredClientInfo( clientInfo_t *ci ) {
+void CG_SetDeferredClientInfo( clientInfo_t *ci ) {
 	int		i;
 	clientInfo_t	*match;
 
@@ -2032,7 +2003,7 @@ PLAYER ANIMATION
 */
 
 #define	FOOTSTEP_DISTANCE	32
-static void _PlayerFootStep( const vec3_t origin,
+void _PlayerFootStep( const vec3_t origin,
 								const float orientation,
 								const float radius,
 								centity_t *const cent, footstepType_t footStepType )
@@ -2226,7 +2197,7 @@ static void _PlayerFootStep( const vec3_t origin,
 	}
 }
 
-static void CG_PlayerFootsteps( centity_t *cent, footstepType_t footStepType )
+void CG_PlayerFootsteps( centity_t *cent, footstepType_t footStepType )
 {
 	if ( !cg_footsteps->integer )
 	{
@@ -2761,9 +2732,6 @@ void CG_TriggerAnimSounds( centity_t *cent )
 	cent->pe.torso.backlerp = 1.0f - (currentFrame - (float)curFrame);
 }
 
-
-static qboolean CG_FirstAnimFrame(lerpFrame_t *lf, qboolean torsoOnly, float speedScale);
-
 qboolean CG_InRoll( centity_t *cent )
 {
 	switch ( (cent->currentState.legsAnim) )
@@ -2802,14 +2770,7 @@ qboolean CG_InRollAnim( centity_t *cent )
 	return qfalse;
 }
 
-/*
-===============
-CG_SetLerpFrameAnimation
-===============
-*/
-qboolean BG_SaberStanceAnim( int anim );
-qboolean PM_RunningAnim( int anim );
-static void CG_SetLerpFrameAnimation( centity_t *cent, clientInfo_t *ci, lerpFrame_t *lf, int newAnimation, float animSpeedMult, qboolean torsoOnly, qboolean flipState) {
+void CG_SetLerpFrameAnimation( centity_t *cent, clientInfo_t *ci, lerpFrame_t *lf, int newAnimation, float animSpeedMult, qboolean torsoOnly, qboolean flipState) {
 	animation_t	*anim;
 	float animSpeed;
 	int	  flags=BONE_ANIM_OVERRIDE_FREEZE;
@@ -3185,7 +3146,7 @@ the animation before it completes at normal speed, in the case of a looping
 animation (such as the leg running anim).
 ===============
 */
-static qboolean CG_FirstAnimFrame(lerpFrame_t *lf, qboolean torsoOnly, float speedScale)
+qboolean CG_FirstAnimFrame(lerpFrame_t *lf, qboolean torsoOnly, float speedScale)
 {
 	if (torsoOnly)
 	{
@@ -3226,7 +3187,7 @@ Sets cg.snap, cg.oldFrame, and cg.backlerp
 cg.time should be between oldFrameTime and frameTime after exit
 ===============
 */
-static void CG_RunLerpFrame( centity_t *cent, clientInfo_t *ci, lerpFrame_t *lf, qboolean flipState, int newAnimation, float speedScale, qboolean torsoOnly)
+void CG_RunLerpFrame( centity_t *cent, clientInfo_t *ci, lerpFrame_t *lf, qboolean flipState, int newAnimation, float speedScale, qboolean torsoOnly)
 {
 	// debugging tool to get no animations
 	if ( cg_animSpeed->integer == 0 ) {
@@ -3279,12 +3240,7 @@ static void CG_RunLerpFrame( centity_t *cent, clientInfo_t *ci, lerpFrame_t *lf,
 	}
 }
 
-/*
-===============
-CG_ClearLerpFrame
-===============
-*/
-static void CG_ClearLerpFrame( centity_t *cent, clientInfo_t *ci, lerpFrame_t *lf, int animationNumber, qboolean torsoOnly) {
+void CG_ClearLerpFrame( centity_t *cent, clientInfo_t *ci, lerpFrame_t *lf, int animationNumber, qboolean torsoOnly) {
 	lf->frameTime = lf->oldFrameTime = cg.time;
 	CG_SetLerpFrameAnimation( cent, ci, lf, animationNumber, 1, torsoOnly, qfalse );
 
@@ -3298,15 +3254,7 @@ static void CG_ClearLerpFrame( centity_t *cent, clientInfo_t *ci, lerpFrame_t *l
 	}
 }
 
-
-/*
-===============
-CG_PlayerAnimation
-===============
-*/
-qboolean PM_WalkingAnim( int anim );
-
-static void CG_PlayerAnimation( centity_t *cent, int *legsOld, int *legs, float *legsBackLerp,
+void CG_PlayerAnimation( centity_t *cent, int *legsOld, int *legs, float *legsBackLerp,
 						int *torsoOld, int *torso, float *torsoBackLerp ) {
 	clientInfo_t	*ci;
 	int				clientNum;
@@ -3499,7 +3447,7 @@ static const char *cg_effectorStringTable[] =
 //we want to see which way the pelvis is facing to get a relatively oriented base settling frame
 //this is to avoid the arms stretching in opposite directions on the body trying to reach the base
 //pose if the pelvis is flipped opposite of the base pose or something -rww
-static int CG_RagAnimForPositioning(centity_t *cent)
+int CG_RagAnimForPositioning(centity_t *cent)
 {
 	int bolt;
 	vec3_t dir;
@@ -4003,12 +3951,7 @@ void CG_G2ServerBoneAngles(centity_t *cent)
 	}
 }
 
-/*
--------------------------
-CG_G2SetHeadBlink
--------------------------
-*/
-static void CG_G2SetHeadBlink( centity_t *cent, qboolean bStart )
+void CG_G2SetHeadBlink( centity_t *cent, qboolean bStart )
 {
 	vec3_t	desiredAngles;
 	int blendTime = 80;
@@ -4047,12 +3990,7 @@ static void CG_G2SetHeadBlink( centity_t *cent, qboolean bStart )
 	}
 }
 
-/*
--------------------------
-CG_G2SetHeadAnims
--------------------------
-*/
-static void CG_G2SetHeadAnim( centity_t *cent, int anim )
+void CG_G2SetHeadAnim( centity_t *cent, int anim )
 {
 	const int blendTime = 50;
 	const animation_t *animations = bgAllAnims[cent->localAnimIndex].anims;
@@ -4230,8 +4168,7 @@ qboolean CG_G2PlayerHeadAnims( centity_t *cent )
 	return qfalse;
 }
 
-
-static void CG_G2PlayerAngles( centity_t *cent, matrix3_t legs, vec3_t legsAngles)
+void CG_G2PlayerAngles( centity_t *cent, matrix3_t legs, vec3_t legsAngles)
 {
 	clientInfo_t *ci;
 
@@ -4379,7 +4316,7 @@ CG_TrailItem
 ===============
 */
 #if 0
-static void CG_TrailItem( centity_t *cent, qhandle_t hModel ) {
+void CG_TrailItem( centity_t *cent, qhandle_t hModel ) {
 	refEntity_t		ent;
 	vec3_t			angles;
 	matrix3_t		axis;
@@ -4400,12 +4337,7 @@ static void CG_TrailItem( centity_t *cent, qhandle_t hModel ) {
 }
 #endif
 
-/*
-===============
-CG_PlayerFlag
-===============
-*/
-static void CG_PlayerFlag( centity_t *cent, qhandle_t hModel ) {
+void CG_PlayerFlag( centity_t *cent, qhandle_t hModel ) {
 	refEntity_t		ent;
 	vec3_t			angles;
 	matrix3_t		axis;
@@ -4481,13 +4413,7 @@ static void CG_PlayerFlag( centity_t *cent, qhandle_t hModel ) {
 	R_AddRefEntityToScene( &ent );
 }
 
-
-/*
-===============
-CG_PlayerPowerups
-===============
-*/
-static void CG_PlayerPowerups( centity_t *cent, refEntity_t *torso ) {
+void CG_PlayerPowerups( centity_t *cent, refEntity_t *torso ) {
 	int		powerups;
 
 	powerups = cent->currentState.powerups;
@@ -4531,13 +4457,9 @@ static void CG_PlayerPowerups( centity_t *cent, refEntity_t *torso ) {
 
 
 /*
-===============
-CG_PlayerFloatSprite
-
 Float a sprite over the player's head
-===============
 */
-static void CG_PlayerFloatSprite( centity_t *cent, qhandle_t shader ) {
+void CG_PlayerFloatSprite( centity_t *cent, qhandle_t shader ) {
 	int				rf;
 	refEntity_t		ent;
 
@@ -4571,7 +4493,7 @@ Same as above but allows custom RGBA values
 ===============
 */
 #if 0
-static void CG_PlayerFloatSpriteRGBA( centity_t *cent, qhandle_t shader, vec4_t rgba ) {
+void CG_PlayerFloatSpriteRGBA( centity_t *cent, qhandle_t shader, vec4_t rgba ) {
 	int				rf;
 	refEntity_t		ent;
 
@@ -4598,13 +4520,9 @@ static void CG_PlayerFloatSpriteRGBA( centity_t *cent, qhandle_t shader, vec4_t 
 
 
 /*
-===============
-CG_PlayerSprites
-
 Float sprites over the player's head
-===============
 */
-static void CG_PlayerSprites( centity_t *cent ) {
+void CG_PlayerSprites( centity_t *cent ) {
 //	int		team;
 
 	if (cg.snap &&
@@ -4635,16 +4553,11 @@ static void CG_PlayerSprites( centity_t *cent ) {
 }
 
 /*
-===============
-CG_PlayerShadow
-
 Returns the Z component of the surface being shadowed
-
   should it return a full plane instead of a Z?
-===============
 */
 #define	SHADOW_DISTANCE		128
-static qboolean CG_PlayerShadow( centity_t *cent, float *shadowPlane ) {
+qboolean CG_PlayerShadow( centity_t *cent, float *shadowPlane ) {
 	vec3_t		end, mins = {-15, -15, 0}, maxs = {15, 15, 2};
 	trace_t		trace;
 	float		alpha;
@@ -4743,13 +4656,9 @@ static qboolean CG_PlayerShadow( centity_t *cent, float *shadowPlane ) {
 
 
 /*
-===============
-CG_PlayerSplash
-
 Draw a mark at the water surface
-===============
 */
-static void CG_PlayerSplash( centity_t *cent ) {
+void CG_PlayerSplash( centity_t *cent ) {
 	vec3_t		start, end;
 	trace_t		trace;
 	int			contents;
@@ -4830,7 +4739,7 @@ static void CG_PlayerSplash( centity_t *cent ) {
 }
 
 #define REFRACT_EFFECT_DURATION		500
-static void CG_ForcePushBlur( vec3_t org, centity_t *cent )
+void CG_ForcePushBlur( vec3_t org, centity_t *cent )
 {
 	if (!cent || !cg_renderToTextureFX->integer)
 	{
@@ -4990,7 +4899,7 @@ static const char *cg_pushBoneNames[] =
 	NULL
 };
 
-static void CG_ForcePushBodyBlur( centity_t *cent )
+void CG_ForcePushBodyBlur( centity_t *cent )
 {
 	vec3_t fxOrg;
 	mdxaBone_t	boltMatrix;
@@ -5032,8 +4941,7 @@ static void CG_ForcePushBodyBlur( centity_t *cent )
 	}
 }
 
-static void CG_ForceGripEffect( vec3_t org )
-{
+void CG_ForceGripEffect( vec3_t org ) {
 	localEntity_t	*ex;
 	float wv = sin( cg.time * 0.004f ) * 0.08f + 0.1f;
 
@@ -5241,7 +5149,7 @@ int CG_LightVerts( vec3_t normal, int numVerts, polyVert_t *verts )
 	return qtrue;
 }
 
-static void CG_RGBForSaberColor( saber_colors_t color, vec3_t rgb )
+void CG_RGBForSaberColor( saber_colors_t color, vec3_t rgb )
 {
 	switch( color )
 	{
@@ -5268,7 +5176,7 @@ static void CG_RGBForSaberColor( saber_colors_t color, vec3_t rgb )
 	}
 }
 
-static void CG_DoSaberLight( saberInfo_t *saber )
+void CG_DoSaberLight( saberInfo_t *saber )
 {
 	vec3_t		positions[MAX_BLADES*2], mid={0}, rgbs[MAX_BLADES*2], rgb={0};
 	float		lengths[MAX_BLADES*2]={0}, totallength = 0, numpositions = 0, dist, diameter = 0;
@@ -6986,7 +6894,7 @@ void CG_CacheG2AnimInfo(char *modelName)
 	}
 }
 
-static void CG_RegisterVehicleAssets( Vehicle_t *pVeh )
+void CG_RegisterVehicleAssets( Vehicle_t *pVeh )
 {
 	/*
 	if ( pVeh->m_pVehicleInfo->exhaustFX )
@@ -7309,7 +7217,7 @@ void CG_G2AnimEntModelLoad(centity_t *cent)
 
 //for now this is just gonna create a big explosion on the area of the surface,
 //because I am lazy.
-static void CG_CreateSurfaceDebris(centity_t *cent, int surfNum, int fxID, qboolean throwPart)
+void CG_CreateSurfaceDebris(centity_t *cent, int surfNum, int fxID, qboolean throwPart)
 {
 	int lostPartFX = 0;
 	int b;
@@ -7399,7 +7307,7 @@ static void CG_CreateSurfaceDebris(centity_t *cent, int surfNum, int fxID, qbool
 
 //for now this is just gonna create a big explosion on the area of the surface,
 //because I am lazy.
-static void CG_CreateSurfaceSmoke(centity_t *cent, int shipSurf, int fxID)
+void CG_CreateSurfaceSmoke(centity_t *cent, int shipSurf, int fxID)
 {
 	int b = -1;
 	vec3_t v, d;
@@ -7741,7 +7649,7 @@ void CG_DestroyNPCClient(clientInfo_t **ci)
 	//VM_Shifted_Free((void **)ci);
 }
 
-static void CG_ForceElectrocution( centity_t *cent, const vec3_t origin, vec3_t tempAngles, qhandle_t shader, qboolean alwaysDo )
+void CG_ForceElectrocution( centity_t *cent, const vec3_t origin, vec3_t tempAngles, qhandle_t shader, qboolean alwaysDo )
 {
 	// Undoing for now, at least this code should compile if I ( or anyone else ) decides to work on this effect
 	qboolean	found = qfalse;
@@ -7952,7 +7860,7 @@ void CG_CleanJetpackGhoul2(void)
 #define WAISTBIT		(1 << (G2_MODELPART_WAIST-10))
 
 #if 0
-static void CG_VehicleHeatEffect( vec3_t org, centity_t *cent )
+void CG_VehicleHeatEffect( vec3_t org, centity_t *cent )
 {
 	refEntity_t ent;
 	vec3_t ang;
@@ -8006,7 +7914,7 @@ static void CG_VehicleHeatEffect( vec3_t org, centity_t *cent )
 static int lastFlyBySound[MAX_GENTITIES] = {0};
 #define	FLYBYSOUNDTIME 2000
 int	cg_lastHyperSpaceEffectTime = 0;
-static QINLINE void CG_VehicleEffects(centity_t *cent)
+void CG_VehicleEffects(centity_t *cent)
 {
 	Vehicle_t *pVehNPC;
 

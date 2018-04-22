@@ -166,7 +166,7 @@ void Sys_Init( void ) {
 	com_maxfpsMinimized = Cvar_Get( "com_maxfpsMinimized", "50", CVAR_ARCHIVE_ND );
 }
 
-static void NORETURN Sys_Exit( int ex ) {
+void Sys_Exit( int ex ) {
 	IN_Shutdown();
 #ifndef DEDICATED
 	SDL_Quit();
@@ -185,7 +185,7 @@ static void NORETURN Sys_Exit( int ex ) {
 }
 
 #if !defined(DEDICATED)
-static void Sys_ErrorDialog( const char *error )
+void Sys_ErrorDialog( const char *error )
 {
 	time_t rawtime;
 	char timeStr[32] = {}; // should really only reach ~19 chars
@@ -378,8 +378,7 @@ enum SearchPathFlag
 	SEARCH_PATH_ROOT	= 1 << 3
 };
 
-static void *Sys_LoadDllFromPaths( const char *filename, const char *gamedir, const char **searchPaths,
-									size_t numPaths, uint32_t searchFlags, const char *callerName )
+void *Sys_LoadDllFromPaths( const char *filename, const char *gamedir, const char **searchPaths, size_t numPaths, uint32_t searchFlags, const char *callerName )
 {
 	char *fn;
 	void *libHandle;
@@ -455,7 +454,7 @@ static void *Sys_LoadDllFromPaths( const char *filename, const char *gamedir, co
 	return NULL;
 }
 
-static void FreeUnpackDLLResult(UnpackDLLResult *result)
+void FreeUnpackDLLResult(UnpackDLLResult *result)
 {
 	if ( result->tempDLLPath )
 		Z_Free((void *)result->tempDLLPath);

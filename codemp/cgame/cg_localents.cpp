@@ -376,7 +376,7 @@ void CG_AddFadeRGB( localEntity_t *le ) {
 	R_AddRefEntityToScene( re );
 }
 
-static void CG_AddFadeScaleModel( localEntity_t *le )
+void CG_AddFadeScaleModel( localEntity_t *le )
 {
 	refEntity_t	*ent = &le->refEntity;
 
@@ -403,12 +403,7 @@ static void CG_AddFadeScaleModel( localEntity_t *le )
 	R_AddRefEntityToScene( ent );
 }
 
-/*
-==================
-CG_AddMoveScaleFade
-==================
-*/
-static void CG_AddMoveScaleFade( localEntity_t *le ) {
+void CG_AddMoveScaleFade( localEntity_t *le ) {
 	refEntity_t	*re;
 	float		c;
 	vec3_t		delta;
@@ -445,12 +440,7 @@ static void CG_AddMoveScaleFade( localEntity_t *le ) {
 	R_AddRefEntityToScene( re );
 }
 
-/*
-==================
-CG_AddPuff
-==================
-*/
-static void CG_AddPuff( localEntity_t *le ) {
+void CG_AddPuff( localEntity_t *le ) {
 	refEntity_t	*re;
 	float		c;
 	vec3_t		delta;
@@ -492,7 +482,7 @@ removed if the view passes through them.
 There are often many of these, so it needs to be simple.
 ===================
 */
-static void CG_AddScaleFade( localEntity_t *le ) {
+void CG_AddScaleFade( localEntity_t *le ) {
 	refEntity_t	*re;
 	float		c;
 	vec3_t		delta;
@@ -529,7 +519,7 @@ removed if the view passes through them.
 There are often 100+ of these, so it needs to be simple.
 =================
 */
-static void CG_AddFallScaleFade( localEntity_t *le ) {
+void CG_AddFallScaleFade( localEntity_t *le ) {
 	refEntity_t	*re;
 	float		c;
 	vec3_t		delta;
@@ -558,14 +548,7 @@ static void CG_AddFallScaleFade( localEntity_t *le ) {
 	R_AddRefEntityToScene( re );
 }
 
-
-
-/*
-================
-CG_AddExplosion
-================
-*/
-static void CG_AddExplosion( localEntity_t *ex ) {
+void CG_AddExplosion( localEntity_t *ex ) {
 	refEntity_t	*ent;
 
 	ent = &ex->refEntity;
@@ -588,12 +571,7 @@ static void CG_AddExplosion( localEntity_t *ex ) {
 	}
 }
 
-/*
-================
-CG_AddSpriteExplosion
-================
-*/
-static void CG_AddSpriteExplosion( localEntity_t *le ) {
+void CG_AddSpriteExplosion( localEntity_t *le ) {
 	refEntity_t	re;
 	float c;
 
