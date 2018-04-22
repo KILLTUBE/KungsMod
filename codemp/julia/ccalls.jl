@@ -25,6 +25,8 @@ include("repl.jl")
 include("ctypes.jl")
 include("generated/cgame.jl")
 include("generated/game.jl")
+include("entity.jl")
+include("player.jl")
 
 # ccall(("startChakra","mychakra.dll"), Int32, ())
 
@@ -64,6 +66,11 @@ sdl_get_ticks(                         ) = ccall( ("sdl_get_ticks"            , 
 sdl_mouse_pressed_left(                ) = ccall( ("sdl_mouse_pressed_left"   , lib), Int32     , (                                               )                      );
 sdl_mouse_pressed_right(               ) = ccall( ("sdl_mouse_pressed_right"  , lib), Int32     , (                                               )                      );
 sdl_mouse_pressed_middle(              ) = ccall( ("sdl_mouse_pressed_middle" , lib), Int32     , (                                               )                      );
+jl_g_entities(                         ) = ccall( (:jl_g_entities             , lib), Ptr{Int64}, (                                               )                      );
+jl_g_entities_sizeof(                  ) = ccall( (:jl_g_entities_sizeof      , lib), Int32     , (                                               )                      );
+
+
+Key_GetCatcher(              ) = ccall( (:Key_GetCatcher, lib), Int32     , (                                               )                      );
 
 const KEYCATCH_IMGUI = Int32(1 << 0)
 

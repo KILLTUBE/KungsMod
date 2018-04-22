@@ -39,7 +39,7 @@ if false
 	zombie(player1)
 end
 
-team!(player1, 2)
+#team!(player1, 2)
 
 # void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int meansOfDeath )
 

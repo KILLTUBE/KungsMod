@@ -1240,6 +1240,9 @@
     <ClCompile Include="C:\OpenSciTech\shared\sys\sys_win32.cpp">
       <Filter>sys</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\codemp\game\g_julia.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\codemp\rd-common\mdx_format.h">
