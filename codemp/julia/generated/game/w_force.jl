@@ -1,4 +1,4 @@
-G_PreDefSound( org_, pdSound_ ) = ccall((:G_PreDefSound, lib), gentity_t, ( vec3_t, Int32,  ), org_, pdSound_ );
+G_PreDefSound( org_, pdSound_ ) = ccall((:G_PreDefSound, lib), Ptr{gentity_t}, ( vec3_t, Int32,  ), org_, pdSound_ );
 WP_InitForcePowers( ent_ ) = ccall((:WP_InitForcePowers, lib), Void, ( Ptr{gentity_t},  ), ent_ );
 WP_SpawnInitForcePowers( ent_ ) = ccall((:WP_SpawnInitForcePowers, lib), Void, ( Ptr{gentity_t},  ), ent_ );
 ForcePowerUsableOn( attacker_, other_, forcePower_ ) = ccall((:ForcePowerUsableOn, lib), Int32, ( Ptr{gentity_t}, Ptr{gentity_t}, forcePowers_t,  ), attacker_, other_, forcePower_ );

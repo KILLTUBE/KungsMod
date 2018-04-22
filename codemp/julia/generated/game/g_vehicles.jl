@@ -1,6 +1,6 @@
 Vehicle_SetAnim( ent_, setAnimParts_, anim_, setAnimFlags_, iBlend_ ) = ccall((:Vehicle_SetAnim, lib), Void, ( Ptr{gentity_t}, Int32, Int32, Int32, Int32,  ), ent_, setAnimParts_, anim_, setAnimFlags_, iBlend_ );
 G_VehicleTrace( results_, start_, tMins_, tMaxs_, end_, passEntityNum_, contentmask_ ) = ccall((:G_VehicleTrace, lib), Void, ( Ptr{trace_t}, vec3_t, vec3_t, vec3_t, vec3_t, Int32, Int32,  ), results_, start_, tMins_, tMaxs_, end_, passEntityNum_, contentmask_ );
-G_IsRidingVehicle( pEnt_ ) = ccall((:G_IsRidingVehicle, lib), Vehicle_t, ( Ptr{gentity_t},  ), pEnt_ );
+G_IsRidingVehicle( pEnt_ ) = ccall((:G_IsRidingVehicle, lib), Ptr{Vehicle_t}, ( Ptr{gentity_t},  ), pEnt_ );
 G_CanJumpToEnemyVeh( pVeh_, pUcmd_ ) = ccall((:G_CanJumpToEnemyVeh, lib), Float32, ( Ptr{Vehicle_t}, Ptr{usercmd_t},  ), pVeh_, pUcmd_ );
 G_VehicleSpawn( self_ ) = ccall((:G_VehicleSpawn, lib), Void, ( Ptr{gentity_t},  ), self_ );
 G_AttachToVehicle( pEnt_, ucmd_ ) = ccall((:G_AttachToVehicle, lib), Void, ( Ptr{gentity_t}, Ptr{Ptr{usercmd_t}},  ), pEnt_, ucmd_ );

@@ -1,6 +1,6 @@
 G_PlayDoorLoopSound( ent_ ) = ccall((:G_PlayDoorLoopSound, lib), Void, ( Ptr{gentity_t},  ), ent_ );
 G_PlayDoorSound( ent_, type_ ) = ccall((:G_PlayDoorSound, lib), Void, ( Ptr{gentity_t}, Int32,  ), ent_, type_ );
-G_TestEntityPosition( ent_ ) = ccall((:G_TestEntityPosition, lib), gentity_t, ( Ptr{gentity_t},  ), ent_ );
+G_TestEntityPosition( ent_ ) = ccall((:G_TestEntityPosition, lib), Ptr{gentity_t}, ( Ptr{gentity_t},  ), ent_ );
 G_CreateRotationMatrix( angles_, matrix_ ) = ccall((:G_CreateRotationMatrix, lib), Void, ( vec3_t, matrix3_t,  ), angles_, matrix_ );
 G_TransposeMatrix( matrix_, transpose_ ) = ccall((:G_TransposeMatrix, lib), Void, ( matrix3_t, matrix3_t,  ), matrix_, transpose_ );
 G_RotatePoint( point_, matrix_ ) = ccall((:G_RotatePoint, lib), Void, ( vec3_t, matrix3_t,  ), point_, matrix_ );
@@ -25,7 +25,7 @@ Touch_DoorTrigger( ent_, other_, trace_ ) = ccall((:Touch_DoorTrigger, lib), Voi
 Think_SpawnNewDoorTrigger( ent_ ) = ccall((:Think_SpawnNewDoorTrigger, lib), Void, ( Ptr{gentity_t},  ), ent_ );
 Think_MatchTeam( ent_ ) = ccall((:Think_MatchTeam, lib), Void, ( Ptr{gentity_t},  ), ent_ );
 G_EntIsDoor( entityNum_ ) = ccall((:G_EntIsDoor, lib), qboolean, ( Int32,  ), entityNum_ );
-G_FindDoorTrigger( ent_ ) = ccall((:G_FindDoorTrigger, lib), gentity_t, ( Ptr{gentity_t},  ), ent_ );
+G_FindDoorTrigger( ent_ ) = ccall((:G_FindDoorTrigger, lib), Ptr{gentity_t}, ( Ptr{gentity_t},  ), ent_ );
 G_EntIsUnlockedDoor( entityNum_ ) = ccall((:G_EntIsUnlockedDoor, lib), qboolean, ( Int32,  ), entityNum_ );
 SP_func_door( ent_ ) = ccall((:SP_func_door, lib), Void, ( Ptr{gentity_t},  ), ent_ );
 Touch_Plat( ent_, other_, trace_ ) = ccall((:Touch_Plat, lib), Void, ( Ptr{gentity_t}, Ptr{gentity_t}, Ptr{trace_t},  ), ent_, other_, trace_ );

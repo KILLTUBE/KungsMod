@@ -1,6 +1,6 @@
 DeathmatchScoreboardMessage( ent_ ) = ccall((:DeathmatchScoreboardMessage, lib), Void, ( Ptr{gentity_t},  ), ent_ );
 Cmd_Score_f( ent_ ) = ccall((:Cmd_Score_f, lib), Void, ( Ptr{gentity_t},  ), ent_ );
-ConcatArgs( start_ ) = ccall((:ConcatArgs, lib), Char, ( Int32,  ), start_ );
+ConcatArgs( start_ ) = ccall((:ConcatArgs, lib), Ptr{Char}, ( Int32,  ), start_ );
 StringIsInteger( s_ ) = ccall((:StringIsInteger, lib), qboolean, ( Ptr{Char},  ), s_ );
 ClientNumberFromString( to_, s_, allowconnecting_ ) = ccall((:ClientNumberFromString, lib), Int32, ( Ptr{gentity_t}, Ptr{Char}, qboolean,  ), to_, s_, allowconnecting_ );
 G_Give( ent_, name_, args_, argc_ ) = ccall((:G_Give, lib), Void, ( Ptr{gentity_t}, Ptr{Char}, Ptr{Char}, Int32,  ), ent_, name_, args_, argc_ );

@@ -1,4 +1,4 @@
-PM_BGEntForNum( num_ ) = ccall((:PM_BGEntForNum, lib), bgEntity_t, ( Int32,  ), num_ );
+PM_BGEntForNum( num_ ) = ccall((:PM_BGEntForNum, lib), Ptr{bgEntity_t}, ( Int32,  ), num_ );
 BG_SabersOff( ps_ ) = ccall((:BG_SabersOff, lib), qboolean, ( Ptr{playerState_t},  ), ps_ );
 BG_KnockDownable( ps_ ) = ccall((:BG_KnockDownable, lib), qboolean, ( Ptr{playerState_t},  ), ps_ );
 PM_IsRocketTrooper() = ccall((:PM_IsRocketTrooper, lib), qboolean, (),  );

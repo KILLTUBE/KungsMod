@@ -721,15 +721,6 @@
     <ClCompile Include="C:\OpenSciTech\codemp\qcommon\stringed_interface.cpp">
       <Filter>client</Filter>
     </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\shared\sys\sys_event.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\shared\sys\sys_main.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\OpenSciTech\shared\sys\sys_win32.cpp">
-      <Filter>client</Filter>
-    </ClCompile>
     <ClCompile Include="C:\OpenSciTech\codemp\qcommon\vm.cpp">
       <Filter>client</Filter>
     </ClCompile>
@@ -1239,6 +1230,15 @@
     </ClCompile>
     <ClCompile Include="..\..\codemp\imgui_docks_openjk\dock_clients.cpp">
       <Filter>imgui_docks_openjk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\sys\sys_event.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\sys\sys_main.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\OpenSciTech\shared\sys\sys_win32.cpp">
+      <Filter>sys</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1918,15 +1918,6 @@
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\game\surfaceflags.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\shared\sys\sys_loadlib.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\shared\sys\sys_local.h">
-      <Filter>client</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\OpenSciTech\shared\sys\sys_public.h">
       <Filter>client</Filter>
     </ClInclude>
     <ClInclude Include="C:\OpenSciTech\codemp\qcommon\tags.h">
@@ -2788,6 +2779,15 @@
     </ClInclude>
     <ClInclude Include="..\..\codemp\imgui_docks_openjk\dock_clients.h">
       <Filter>imgui_docks_openjk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\shared\sys\sys_loadlib.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\shared\sys\sys_local.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\OpenSciTech\shared\sys\sys_public.h">
+      <Filter>sys</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -65,6 +65,8 @@ sdl_mouse_pressed_left(                ) = ccall( ("sdl_mouse_pressed_left"   , 
 sdl_mouse_pressed_right(               ) = ccall( ("sdl_mouse_pressed_right"  , lib), Int32     , (                                               )                      );
 sdl_mouse_pressed_middle(              ) = ccall( ("sdl_mouse_pressed_middle" , lib), Int32     , (                                               )                      );
 
+const KEYCATCH_IMGUI = Int32(1 << 0)
+
 function init()
 	Sys_PlatformInit();
 	Sys_Milliseconds(false); # get the initial time base
@@ -87,8 +89,10 @@ function mainloop()
 	Com_Frame();
 
 	Button("lllooooolll")
-	
-	imguidock()
+
+	if Bool( Key_GetCatcher() & KEYCATCH_IMGUI )
+		imguidock()
+	end
 	
 	imgui_openjk_start();
 	imgui_end_frame();

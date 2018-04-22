@@ -136,7 +136,7 @@ function toccall(parser::Parser, metaFunction::MetaFunction)
 	ret = "" # * tostring(parser, metaFunction.metaVar) # * metaFunction.name
 
 	funcname = metaFunction.metaVar.name
-	rettype = cToJuliaType(metaFunction.metaVar.typestring)
+	rettype = toStringJuliaType(metaFunction.metaVar) # e.g. something like "Ptr{gentity_t}" for G_Spawn
 	
 	ignoreThisFunc = false
 	for arg in metaFunction.args

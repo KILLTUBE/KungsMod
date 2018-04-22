@@ -23,6 +23,6 @@ CG_MissileHitPlayer( weapon_, origin_, dir_, entityNum_, altFire_ ) = ccall((:CG
 CG_CalcMuzzlePoint( entityNum_, muzzle_ ) = ccall((:CG_CalcMuzzlePoint, lib), qboolean, ( Int32, vec3_t,  ), entityNum_, muzzle_ );
 CG_InitG2Weapons() = ccall((:CG_InitG2Weapons, lib), Void, (),  );
 CG_ShutDownG2Weapons() = ccall((:CG_ShutDownG2Weapons, lib), Void, (),  );
-CG_G2WeaponInstance( cent_, weapon_ ) = ccall((:CG_G2WeaponInstance, lib), Void, ( Ptr{centity_t}, Int32,  ), cent_, weapon_ );
+CG_G2WeaponInstance( cent_, weapon_ ) = ccall((:CG_G2WeaponInstance, lib), Ptr{Void}, ( Ptr{centity_t}, Int32,  ), cent_, weapon_ );
 CG_CopyG2WeaponInstance( cent_, weaponNum_, toGhoul2_ ) = ccall((:CG_CopyG2WeaponInstance, lib), Void, ( Ptr{centity_t}, Int32, Ptr{Void},  ), cent_, weaponNum_, toGhoul2_ );
 CG_CheckPlayerG2Weapons( ps_, cent_ ) = ccall((:CG_CheckPlayerG2Weapons, lib), Void, ( Ptr{playerState_t}, Ptr{centity_t},  ), ps_, cent_ );

@@ -1,6 +1,6 @@
 CG_InitLocalEntities() = ccall((:CG_InitLocalEntities, lib), Void, (),  );
 CG_FreeLocalEntity( le_ ) = ccall((:CG_FreeLocalEntity, lib), Void, ( Ptr{localEntity_t},  ), le_ );
-CG_AllocLocalEntity() = ccall((:CG_AllocLocalEntity, lib), localEntity_t, (),  );
+CG_AllocLocalEntity() = ccall((:CG_AllocLocalEntity, lib), Ptr{localEntity_t}, (),  );
 CG_BloodTrail( le_ ) = ccall((:CG_BloodTrail, lib), Void, ( Ptr{localEntity_t},  ), le_ );
 CG_FragmentBounceMark( le_, trace_ ) = ccall((:CG_FragmentBounceMark, lib), Void, ( Ptr{localEntity_t}, Ptr{trace_t},  ), le_, trace_ );
 CG_FragmentBounceSound( le_, trace_ ) = ccall((:CG_FragmentBounceSound, lib), Void, ( Ptr{localEntity_t}, Ptr{trace_t},  ), le_, trace_ );

@@ -20,4 +20,4 @@ AI_RefreshGroup( group_ ) = ccall((:AI_RefreshGroup, lib), qboolean, ( Ptr{AIGro
 AI_UpdateGroups() = ccall((:AI_UpdateGroups, lib), Void, (),  );
 AI_GroupContainsEntNum( group_, entNum_ ) = ccall((:AI_GroupContainsEntNum, lib), qboolean, ( Ptr{AIGroupInfo_t}, Int32,  ), group_, entNum_ );
 AI_CheckEnemyCollision( ent_, takeEnemy_ ) = ccall((:AI_CheckEnemyCollision, lib), qboolean, ( Ptr{gentity_t}, qboolean,  ), ent_, takeEnemy_ );
-AI_DistributeAttack( attacker_, enemy_, team_, threshold_ ) = ccall((:AI_DistributeAttack, lib), gentity_t, ( Ptr{gentity_t}, Ptr{gentity_t}, team_t, Int32,  ), attacker_, enemy_, team_, threshold_ );
+AI_DistributeAttack( attacker_, enemy_, team_, threshold_ ) = ccall((:AI_DistributeAttack, lib), Ptr{gentity_t}, ( Ptr{gentity_t}, Ptr{gentity_t}, team_t, Int32,  ), attacker_, enemy_, team_, threshold_ );

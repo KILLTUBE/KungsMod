@@ -8,7 +8,8 @@ type Explorer
 			readdir(foldername),
 			StringBuffer(256, ""),
 			StringBuffer(256, "epic.jl"),
-			["."]
+			#["."]
+			["C:\\OpenSciTech\\codemp"]
 		)
 	end
 end

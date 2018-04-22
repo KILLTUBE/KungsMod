@@ -1,6 +1,6 @@
-B_TempAlloc( size_ ) = ccall((:B_TempAlloc, lib), Void, ( Int32,  ), size_ );
+B_TempAlloc( size_ ) = ccall((:B_TempAlloc, lib), Ptr{Void}, ( Int32,  ), size_ );
 B_TempFree( size_ ) = ccall((:B_TempFree, lib), Void, ( Int32,  ), size_ );
-B_Alloc( size_ ) = ccall((:B_Alloc, lib), Void, ( Int32,  ), size_ );
+B_Alloc( size_ ) = ccall((:B_Alloc, lib), Ptr{Void}, ( Int32,  ), size_ );
 B_Free( ptr_ ) = ccall((:B_Free, lib), Void, ( Ptr{Void},  ), ptr_ );
 B_InitAlloc() = ccall((:B_InitAlloc, lib), Void, (),  );
 B_CleanupAlloc() = ccall((:B_CleanupAlloc, lib), Void, (),  );

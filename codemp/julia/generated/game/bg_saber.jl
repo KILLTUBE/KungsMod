@@ -40,4 +40,4 @@ PM_SaberPowerCheck() = ccall((:PM_SaberPowerCheck, lib), qboolean, (),  );
 PM_CanDoRollStab() = ccall((:PM_CanDoRollStab, lib), qboolean, (),  );
 PM_WeaponLightsaber() = ccall((:PM_WeaponLightsaber, lib), Void, (),  );
 PM_SetSaberMove( newMove_ ) = ccall((:PM_SetSaberMove, lib), Void, ( Int16,  ), newMove_ );
-BG_MySaber( clientNum_, saberNum_ ) = ccall((:BG_MySaber, lib), saberInfo_t, ( Int32, Int32,  ), clientNum_, saberNum_ );
+BG_MySaber( clientNum_, saberNum_ ) = ccall((:BG_MySaber, lib), Ptr{saberInfo_t}, ( Int32, Int32,  ), clientNum_, saberNum_ );
