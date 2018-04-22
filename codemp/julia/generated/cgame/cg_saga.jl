@@ -1,0 +1,13 @@
+CG_PrecacheSiegeObjectiveAssetsForTeam( myTeam_ ) = ccall((:CG_PrecacheSiegeObjectiveAssetsForTeam, lib), Void, ( Int32,  ), myTeam_ );
+CG_PrecachePlayersForSiegeTeam( team_ ) = ccall((:CG_PrecachePlayersForSiegeTeam, lib), Void, ( Int32,  ), team_ );
+CG_InitSiegeMode() = ccall((:CG_InitSiegeMode, lib), Void, (),  );
+CG_SiegeObjectiveBuffer( team_, objective_ ) = ccall((:CG_SiegeObjectiveBuffer, lib), Char, ( Int32, Int32,  ), team_, objective_ );
+CG_ParseSiegeObjectiveStatus( str_ ) = ccall((:CG_ParseSiegeObjectiveStatus, lib), Void, ( Ptr{Char},  ), str_ );
+CG_SiegeRoundOver( ent_, won_ ) = ccall((:CG_SiegeRoundOver, lib), Void, ( Ptr{centity_t}, Int32,  ), ent_, won_ );
+CG_SiegeGetObjectiveDescription( team_, objective_, buffer_ ) = ccall((:CG_SiegeGetObjectiveDescription, lib), Void, ( Int32, Int32, Ptr{Char},  ), team_, objective_, buffer_ );
+CG_SiegeGetObjectiveFinal( team_, objective_ ) = ccall((:CG_SiegeGetObjectiveFinal, lib), Int32, ( Int32, Int32,  ), team_, objective_ );
+CG_SiegeBriefingDisplay( team_, dontshow_ ) = ccall((:CG_SiegeBriefingDisplay, lib), Void, ( Int32, Int32,  ), team_, dontshow_ );
+CG_SiegeObjectiveCompleted( ent_, won_, objectivenum_ ) = ccall((:CG_SiegeObjectiveCompleted, lib), Void, ( Ptr{centity_t}, Int32, Int32,  ), ent_, won_, objectivenum_ );
+CG_ParseSiegeExtendedDataEntry( conStr_ ) = ccall((:CG_ParseSiegeExtendedDataEntry, lib), Void, ( Ptr{Char},  ), conStr_ );
+CG_ParseSiegeExtendedData() = ccall((:CG_ParseSiegeExtendedData, lib), Void, (),  );
+CG_SetSiegeTimerCvar( msec_ ) = ccall((:CG_SetSiegeTimerCvar, lib), Void, ( Int32,  ), msec_ );

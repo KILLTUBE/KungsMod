@@ -1,0 +1,17 @@
+CG_BubbleTrail( start_, end_, spacing_ ) = ccall((:CG_BubbleTrail, lib), Void, ( vec3_t, vec3_t, Float32,  ), start_, end_, spacing_ );
+CG_SmokePuff( p_, vel_, radius_, r_, g_, b_, a_, duration_, startTime_, fadeInTime_, leFlags_, hShader_ ) = ccall((:CG_SmokePuff, lib), localEntity_t, ( vec3_t, vec3_t, Float32, Float32, Float32, Float32, Float32, Float32, Int32, Int32, Int32, qhandle_t,  ), p_, vel_, radius_, r_, g_, b_, a_, duration_, startTime_, fadeInTime_, leFlags_, hShader_ );
+CGDEBUG_SaberColor( saberColor_ ) = ccall((:CGDEBUG_SaberColor, lib), Int32, ( Int32,  ), saberColor_ );
+CG_TestLine( start_, end_, time_, color_, radius_ ) = ccall((:CG_TestLine, lib), Void, ( vec3_t, vec3_t, Int32, Int32, Int32,  ), start_, end_, time_, color_, radius_ );
+CG_DoGlassQuad( p_, uv_, stick_, time_, dmgDir_ ) = ccall((:CG_DoGlassQuad, lib), Void, ( vec3_t, vec2_t, qboolean, Int32, vec3_t,  ), p_, uv_, stick_, time_, dmgDir_ );
+CG_CalcBiLerp( verts_, subVerts_, uv_ ) = ccall((:CG_CalcBiLerp, lib), Void, ( vec3_t, vec3_t, vec2_t,  ), verts_, subVerts_, uv_ );
+CG_CalcHeightWidth( verts_, height_, width_ ) = ccall((:CG_CalcHeightWidth, lib), Void, ( vec3_t, Ptr{Float32}, Ptr{Float32},  ), verts_, height_, width_ );
+CG_InitGlass() = ccall((:CG_InitGlass, lib), Void, (),  );
+CG_DoGlass( verts_, normal_, dmgPt_, dmgDir_, dmgRadius_, maxShards_ ) = ccall((:CG_DoGlass, lib), Void, ( vec3_t, vec3_t, vec3_t, vec3_t, Float32, Int32,  ), verts_, normal_, dmgPt_, dmgDir_, dmgRadius_, maxShards_ );
+CG_GlassShatter( entnum_, dmgPt_, dmgDir_, dmgRadius_, maxShards_ ) = ccall((:CG_GlassShatter, lib), Void, ( Int32, vec3_t, vec3_t, Float32, Int32,  ), entnum_, dmgPt_, dmgDir_, dmgRadius_, maxShards_ );
+CG_ExplosionEffects( origin_, intensity_, radius_, time_ ) = ccall((:CG_ExplosionEffects, lib), Void, ( vec3_t, Float32, Int32, Int32,  ), origin_, intensity_, radius_, time_ );
+CG_MiscModelExplosion( mins_, maxs_, size_, chunkType_ ) = ccall((:CG_MiscModelExplosion, lib), Void, ( vec3_t, vec3_t, Int32, material_t,  ), mins_, maxs_, size_, chunkType_ );
+CG_Chunks( owner_, origin_, normal_, mins_, maxs_, speed_, numChunks_, chunkType_, customChunk_, baseScale_ ) = ccall((:CG_Chunks, lib), Void, ( Int32, vec3_t, vec3_t, vec3_t, vec3_t, Float32, Int32, material_t, Int32, Float32,  ), owner_, origin_, normal_, mins_, maxs_, speed_, numChunks_, chunkType_, customChunk_, baseScale_ );
+CG_ScorePlum( client_, org_, score_ ) = ccall((:CG_ScorePlum, lib), Void, ( Int32, vec3_t, Int32,  ), client_, org_, score_ );
+CG_MakeExplosion( origin_, dir_, hModel_, numFrames_, shader_, msec_, isSprite_, scale_, flags_ ) = ccall((:CG_MakeExplosion, lib), localEntity_t, ( vec3_t, vec3_t, qhandle_t, Int32, qhandle_t, Int32, qboolean, Float32, Int32,  ), origin_, dir_, hModel_, numFrames_, shader_, msec_, isSprite_, scale_, flags_ );
+CG_SurfaceExplosion( origin_, normal_, radius_, shake_speed_, smoke_ ) = ccall((:CG_SurfaceExplosion, lib), Void, ( vec3_t, vec3_t, Float32, Float32, qboolean,  ), origin_, normal_, radius_, shake_speed_, smoke_ );
+CG_LaunchGib( origin_, velocity_, hModel_ ) = ccall((:CG_LaunchGib, lib), Void, ( vec3_t, vec3_t, qhandle_t,  ), origin_, velocity_, hModel_ );

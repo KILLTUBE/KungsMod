@@ -1,0 +1,17 @@
+CG_TargetCommand_f() = ccall((:CG_TargetCommand_f, lib), Void, (),  );
+CG_SizeUp_f() = ccall((:CG_SizeUp_f, lib), Void, (),  );
+CG_SizeDown_f() = ccall((:CG_SizeDown_f, lib), Void, (),  );
+CG_Viewpos_f() = ccall((:CG_Viewpos_f, lib), Void, (),  );
+CG_ScoresDown_f() = ccall((:CG_ScoresDown_f, lib), Void, (),  );
+CG_ScoresUp_f() = ccall((:CG_ScoresUp_f, lib), Void, (),  );
+CG_ClientList_f() = ccall((:CG_ClientList_f, lib), Void, (),  );
+CG_TellTarget_f() = ccall((:CG_TellTarget_f, lib), Void, (),  );
+CG_TellAttacker_f() = ccall((:CG_TellAttacker_f, lib), Void, (),  );
+CG_StartOrbit_f() = ccall((:CG_StartOrbit_f, lib), Void, (),  );
+CG_SiegeBriefing_f() = ccall((:CG_SiegeBriefing_f, lib), Void, (),  );
+CG_SiegeCvarUpdate_f() = ccall((:CG_SiegeCvarUpdate_f, lib), Void, (),  );
+CG_SiegeCompleteCvarUpdate_f() = ccall((:CG_SiegeCompleteCvarUpdate_f, lib), Void, (),  );
+CG_LoadHud_f() = ccall((:CG_LoadHud_f, lib), Void, (),  );
+cmdcmp_cg( a_, b_ ) = ccall((:cmdcmp_cg, lib), Int32, ( Ptr{Void}, Ptr{Void},  ), a_, b_ );
+CG_ConsoleCommand() = ccall((:CG_ConsoleCommand, lib), qboolean, (),  );
+CG_InitConsoleCommands() = ccall((:CG_InitConsoleCommands, lib), Void, (),  );

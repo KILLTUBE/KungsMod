@@ -7,6 +7,10 @@ mutable struct vec3_t
 	y::Float32
 	z::Float32
 end
+mutable struct vec2_t
+	x::Float32
+	y::Float32
+end
 mutable struct vec4_t
 	# its either w,x,y,z or x,y,z,w, seen both in the wild and it tends to fuck up code
 	# hence im using a,b,c,d lol
@@ -257,3 +261,83 @@ end
 mutable struct              saberFace_t
 	todo::Int32
 end
+mutable struct               menuDef_t
+	todo::Int32
+end
+
+mutable struct               centity_t
+	todo::Int32
+end
+mutable struct               snapshot_t
+	todo::Int32
+end
+mutable struct               chatBoxItem_t
+	todo::Int32
+end
+mutable struct                stereoFrame_t
+	todo::Int32
+end
+mutable struct                localEntity_t
+	todo::Int32
+end
+mutable struct                refEntity_t
+	todo::Int32
+end
+mutable struct                sfxHandle_t
+	todo::Int32
+end
+mutable struct                 clientInfo_t
+	todo::Int32
+end
+mutable struct                 itemDef_t
+	todo::Int32
+end
+mutable struct                 rectDef_t
+	todo::Int32
+end
+mutable struct                  footstepType_t
+	todo::Int32
+end
+mutable struct                  lerpFrame_t
+	todo::Int32
+end
+mutable struct                   polyVert_t
+	todo::Int32
+end
+mutable struct                    score_t
+	todo::Int32
+end
+mutable struct                    markPoly_t
+	todo::Int32
+end
+mutable struct                     impactSound_t
+	todo::Int32
+end
+mutable struct                     weaponInfo_s
+	todo::Int32
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

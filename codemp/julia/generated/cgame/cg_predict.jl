@@ -1,0 +1,15 @@
+CG_Piloting( vehNum_ ) = ccall((:CG_Piloting, lib), qboolean, ( Int32,  ), vehNum_ );
+CG_BuildSolidList() = ccall((:CG_BuildSolidList, lib), Void, (),  );
+CG_VehicleClipCheck( ignored_, trace_ ) = ccall((:CG_VehicleClipCheck, lib), qboolean, ( Ptr{centity_t}, Ptr{trace_t},  ), ignored_, trace_ );
+CG_ClipMoveToEntities( start_, mins_, maxs_, end_, skipNumber_, mask_, tr_, g2Check_ ) = ccall((:CG_ClipMoveToEntities, lib), Void, ( vec3_t, vec3_t, vec3_t, vec3_t, Int32, Int32, Ptr{trace_t}, qboolean,  ), start_, mins_, maxs_, end_, skipNumber_, mask_, tr_, g2Check_ );
+CG_Trace( result_, start_, mins_, maxs_, end_, skipNumber_, mask_ ) = ccall((:CG_Trace, lib), Void, ( Ptr{trace_t}, vec3_t, vec3_t, vec3_t, vec3_t, Int32, Int32,  ), result_, start_, mins_, maxs_, end_, skipNumber_, mask_ );
+CG_G2Trace( result_, start_, mins_, maxs_, end_, skipNumber_, mask_ ) = ccall((:CG_G2Trace, lib), Void, ( Ptr{trace_t}, vec3_t, vec3_t, vec3_t, vec3_t, Int32, Int32,  ), result_, start_, mins_, maxs_, end_, skipNumber_, mask_ );
+CG_PointContents( point_, passEntityNum_ ) = ccall((:CG_PointContents, lib), Int32, ( vec3_t, Int32,  ), point_, passEntityNum_ );
+CG_InterpolatePlayerState( grabAngles_ ) = ccall((:CG_InterpolatePlayerState, lib), Void, ( qboolean,  ), grabAngles_ );
+CG_InterpolateVehiclePlayerState( grabAngles_ ) = ccall((:CG_InterpolateVehiclePlayerState, lib), Void, ( qboolean,  ), grabAngles_ );
+CG_TouchItem( cent_ ) = ccall((:CG_TouchItem, lib), Void, ( Ptr{centity_t},  ), cent_ );
+CG_TouchTriggerPrediction() = ccall((:CG_TouchTriggerPrediction, lib), Void, (),  );
+CG_EntityStateToPlayerState( s_, ps_ ) = ccall((:CG_EntityStateToPlayerState, lib), Void, ( Ptr{entityState_t}, Ptr{playerState_t},  ), s_, ps_ );
+CG_PmoveClientPointerUpdate() = ccall((:CG_PmoveClientPointerUpdate, lib), Void, (),  );
+CG_UsingEWeb() = ccall((:CG_UsingEWeb, lib), qboolean, (),  );
+CG_PredictPlayerState() = ccall((:CG_PredictPlayerState, lib), Void, (),  );

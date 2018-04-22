@@ -273,7 +273,7 @@ function generateJuliaHeader(filename)
 end
 
 
-mode = 4
+mode = 5
 
 if mode == 1
 	files_cgame = Glob.glob("*.cpp", "C:\\OpenSciTech\\codemp\\cgame\\")
@@ -288,32 +288,45 @@ if mode == 3
 		generateHeader(filename)
 	end
 end
+
 if mode == 4
 	files_cgame = Glob.glob("*.cpp", "C:\\OpenSciTech\\codemp\\game\\")
-	
 	includefile = ""
-	
 	for filename in files_cgame
-		
-		
 		bn             = basename(filename)                                 # something like "cg_main.cpp"
 		pureName       = first(split(bn, '.'))                              # something like "cg_main"
 		headerName     = pureName * ".jl"                                   # something like "cg_main.jl"		
-		
-		
 		includefile *= "include(\"game/$headerName\")\n"
-		
 		generateJuliaHeader(filename)
-		
-		
 	end
-	
 	file_put_contents("generated/game.jl", includefile)
+end
+
+function genJulia(dir_)
+	files_cgame = Glob.glob("*.cpp", dir_)
+	includefile = ""
+	
+	dir_bn             = basename(dir_)                            # something like "cg_main.cpp"
+	dir_pureName       = first(split(dir_bn, '.'))                     # something like "cg_main"
+	dir_headerName     = dir_pureName * ".jl"                          # something like "cg_main.jl"
+	dir_dn             = dirname(dir_)                                 # something like "C:\\OpenSciTech\\codemp\\cgame"
+	dir_lastFolderName = last(split(dir_dn, '\\'))                     # something like "cgame"	
+	
+	for filename in files_cgame
+		bn             = basename(filename)                                 # something like "cg_main.cpp"
+		pureName       = first(split(bn, '.'))                              # something like "cg_main"
+		headerName     = pureName * ".jl"                                   # something like "cg_main.jl"
+		dn             = dirname(filename)                                  # something like "C:\\OpenSciTech\\codemp\\cgame"
+		lastFolderName = last(split(dn, '\\'))                              # something like "cgame"
+		includefile *= "include(\"$lastFolderName/$headerName\")\n"
+		generateJuliaHeader(filename)
+	end
+	file_put_contents("generated/$dir_lastFolderName.jl", includefile)
 end
 
 if mode == 2
 	parser = generateHeader("C:\\OpenSciTech\\codemp\\game\\NPC.cpp")
 end
 
-
-
+genJulia("C:\\OpenSciTech\\codemp\\game\\")
+genJulia("C:\\OpenSciTech\\codemp\\cgame\\")

@@ -1,0 +1,13 @@
+FX_BryarProjectileThink( cent_, weapon_ ) = ccall((:FX_BryarProjectileThink, lib), Void, ( Ptr{centity_t}, Ptr{weaponInfo_s},  ), cent_, weapon_ );
+FX_BryarHitWall( origin_, normal_ ) = ccall((:FX_BryarHitWall, lib), Void, ( vec3_t, vec3_t,  ), origin_, normal_ );
+FX_BryarHitPlayer( origin_, normal_, humanoid_ ) = ccall((:FX_BryarHitPlayer, lib), Void, ( vec3_t, vec3_t, qboolean,  ), origin_, normal_, humanoid_ );
+FX_BryarAltProjectileThink( cent_, weapon_ ) = ccall((:FX_BryarAltProjectileThink, lib), Void, ( Ptr{centity_t}, Ptr{weaponInfo_s},  ), cent_, weapon_ );
+FX_BryarAltHitWall( origin_, normal_, power_ ) = ccall((:FX_BryarAltHitWall, lib), Void, ( vec3_t, vec3_t, Int32,  ), origin_, normal_, power_ );
+FX_BryarAltHitPlayer( origin_, normal_, humanoid_ ) = ccall((:FX_BryarAltHitPlayer, lib), Void, ( vec3_t, vec3_t, qboolean,  ), origin_, normal_, humanoid_ );
+FX_TurretProjectileThink( cent_, weapon_ ) = ccall((:FX_TurretProjectileThink, lib), Void, ( Ptr{centity_t}, Ptr{weaponInfo_s},  ), cent_, weapon_ );
+FX_TurretHitWall( origin_, normal_ ) = ccall((:FX_TurretHitWall, lib), Void, ( vec3_t, vec3_t,  ), origin_, normal_ );
+FX_TurretHitPlayer( origin_, normal_, humanoid_ ) = ccall((:FX_TurretHitPlayer, lib), Void, ( vec3_t, vec3_t, qboolean,  ), origin_, normal_, humanoid_ );
+FX_ConcussionHitWall( origin_, normal_ ) = ccall((:FX_ConcussionHitWall, lib), Void, ( vec3_t, vec3_t,  ), origin_, normal_ );
+FX_ConcussionHitPlayer( origin_, normal_, humanoid_ ) = ccall((:FX_ConcussionHitPlayer, lib), Void, ( vec3_t, vec3_t, qboolean,  ), origin_, normal_, humanoid_ );
+FX_ConcussionProjectileThink( cent_, weapon_ ) = ccall((:FX_ConcussionProjectileThink, lib), Void, ( Ptr{centity_t}, Ptr{weaponInfo_s},  ), cent_, weapon_ );
+FX_ConcAltShot( start_, end_ ) = ccall((:FX_ConcAltShot, lib), Void, ( vec3_t, vec3_t,  ), start_, end_ );

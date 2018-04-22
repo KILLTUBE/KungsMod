@@ -1,3 +1,5 @@
+include("utils_file.jl")
+
 #=
 known bugs:
 julia> parseC("://asd")
@@ -348,10 +350,12 @@ function step(tokenizer::Tokenizer)
 		#advanceTill(tokenizer, '\n')
 		
 		curPos = tokenizer.i
+		#println("tokenizer.i = ", tokenizer.i)
+		
 		while curPos <= tokenizer.n
 		
 			# ignoring those filthy backslash multilines
-			if tokenizer.s[curPos - 1] == '\\'
+			if curPos > 1 && tokenizer.s[curPos - 1] == '\\'
 				curPos += 2 # jump over \n
 				continue
 			end

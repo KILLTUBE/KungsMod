@@ -618,6 +618,7 @@ function run(parser::Parser)
 			typeof(token) <: TokenCCALL      ||
 			typeof(token) <: TokenUnsigned   ||
 			typeof(token) <: TokenQDECL      ||
+			typeof(token) <: TokenQINLINE    ||
 			typeof(token) <: TokenIdentifier
 		)
 			# here we have either a global var, a function or a function prototype

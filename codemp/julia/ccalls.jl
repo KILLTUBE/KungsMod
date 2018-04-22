@@ -22,6 +22,9 @@ include("docks.jl")
 include("gui.jl")
 include("gui_texteditor.jl")
 include("repl.jl")
+include("ctypes.jl")
+include("generated/cgame.jl")
+include("generated/game.jl")
 
 # ccall(("startChakra","mychakra.dll"), Int32, ())
 
