@@ -26,6 +26,19 @@ IGhoul2InfoArray &TheGhoul2InfoArray();
 extern Ghoul2InfoArray *singleton;
 
 
+CCALL int ghoul2_mitem(void **ghoul2_ptr) {
+
+	if (*ghoul2_ptr == NULL)
+		return -1;
+
+	void *ghoul2 = *ghoul2_ptr;
+	CGhoul2Info_v *info = (CGhoul2Info_v *)ghoul2;
+	//auto infovector = singleton->mInfos[info->mItem];
+	//ImGui::Text("cent[%d] size=%d info->mItem=%d (masked=%d)", i, info->size(), info->mItem, info->mItem & G2_INDEX_MASK);
+	return info->mItem & G2_INDEX_MASK;
+}
+
+
 void DockClients::imgui() {
 
 	for (int i=0; i<MAX_GENTITIES; i++) {

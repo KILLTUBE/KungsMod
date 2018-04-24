@@ -159,8 +159,11 @@ function model!(this::AbstractEntity, model::AbstractString)::Int32
 	entity_set_model(Int32(this.id - 1), model)
 end
 
-function gentity(this::AbstractEntity)::Ptr{Int64}
+function gentity(this::AbstractEntity)::Ptr{gentity_t}
 	return jl_g_entities() + id_c(this) * jl_g_entities_sizeof()
+end
+function cgentity(this::AbstractEntity)::Ptr{centity_t}
+	return jl_cg_entities() + id_c(this) * jl_cg_entities_sizeof()
 end
 
 EV_GENERAL_SOUND = Int32(45)

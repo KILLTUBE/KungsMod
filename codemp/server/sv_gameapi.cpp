@@ -369,7 +369,9 @@ CCALL void SV_SetBrushModel( sharedEntity_t *ent, const char *name ) {
 
 	if (!name)
 	{
-		Com_Error( ERR_DROP, "SV_SetBrushModel: NULL" );
+		//Com_Error( ERR_DROP, "SV_SetBrushModel: NULL" );
+		Com_Printf( "SV_SetBrushModel: NULL\n" );
+		return;
 	}
 
 	if (name[0] == '*')

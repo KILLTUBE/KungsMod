@@ -68,6 +68,8 @@ sdl_mouse_pressed_right(               ) = ccall( ("sdl_mouse_pressed_right"  , 
 sdl_mouse_pressed_middle(              ) = ccall( ("sdl_mouse_pressed_middle" , lib), Int32     , (                                               )                      );
 jl_g_entities(                         ) = ccall( (:jl_g_entities             , lib), Ptr{Int64}, (                                               )                      );
 jl_g_entities_sizeof(                  ) = ccall( (:jl_g_entities_sizeof      , lib), Int32     , (                                               )                      );
+jl_cg_entities(                         ) = ccall( (:jl_cg_entities             , lib), Ptr{Int64}, (                                               )                      );
+jl_cg_entities_sizeof(                  ) = ccall( (:jl_cg_entities_sizeof      , lib), Int32     , (                                               )                      );
 
 
 Key_GetCatcher(              ) = ccall( (:Key_GetCatcher, lib), Int32     , (                                               )                      );

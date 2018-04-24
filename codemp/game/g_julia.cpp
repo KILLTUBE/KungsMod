@@ -24,6 +24,9 @@ CCALL int jl_g_entities_sizeof() { return sizeof(gentity_t); }
 CCALL void *jl_clients() { return svs.clients; }
 CCALL int jl_clients_sizeof() { return sizeof(client_t); }
 
+CCALL void *jl_cg_entities() { return cg_entities; }
+CCALL int jl_cg_entities_sizeof() { return sizeof(centity_t); }
+
 typedef struct vec3 {
 	float x;
 	float y;
@@ -113,7 +116,43 @@ CCALL void jl_entity_set_pos(int id, float *pos) {
 CCALL int jl_player_viewheight(int playerid) {
 	return g_entities[playerid].client->ps.viewheight;
 }
+#include "../ghoul2/G2.h"
 
+
+CCALL void jl_ghoul(gentity_t *ent) {
+	char name1[200] = "models/players/kyle/modelmp.glm";
+	//char name1[200] = "models/players/jedi_zf/model.glm";
+	SV_G2API_InitGhoul2Model(&ent->ghoul2, name1, G_ModelIndex( name1 ), 0, 0, 0, 0);
+	SV_G2API_SetBoneAnim(ent->ghoul2, 0, "model_root", 0, 12, BONE_ANIM_OVERRIDE_LOOP, 1.0f, level.time, -1, -1);
+	//ent->s.radius = 150;
+//	VectorSet (ent->r.mins, -16, -16, -16);
+//	VectorSet (ent->r.maxs, 16, 16, 16);
+	SV_LinkEntity ((sharedEntity_t *)ent);
+
+	G_SetOrigin( ent, ent->s.origin );
+	VectorCopy( ent->s.angles, ent->s.apos.trBase );
+}
+
+CCALL void jl_ghoul_cg(centity_t *ent) {
+	char name1[200] = "models/players/kyle/modelmp.glm";
+	//char name1[200] = "models/players/jedi_zf/model.glm";	
+	SV_G2API_InitGhoul2Model(&ent->ghoul2, name1, G_ModelIndex( name1 ), 0, 0, 0, 0);
+	SV_G2API_SetBoneAnim(ent->ghoul2, 0, "model_root", 0, 12, BONE_ANIM_OVERRIDE_LOOP, 1.0f, level.time, -1, -1);
+	//ent->s.radius = 150;
+//	VectorSet (ent->r.mins, -16, -16, -16);
+//	VectorSet (ent->r.maxs, 16, 16, 16);
+	SV_LinkEntity ((sharedEntity_t *)ent);
+
+	//G_SetOrigin( ent, ent->s.origin );
+	//VectorCopy( ent->s.angles, ent->s.apos.trBase );
+}
+
+CCALL void *cgentity_ghoul2(centity_t *ent) {
+	return &ent->ghoul2;
+}
+CCALL void *gentity_ghoul2(gentity_t *ent) {
+	return &ent->ghoul2;
+}
 
 CCALL struct vec3 jl_entity_get_pos(int id, float *pos) {
 	struct vec3 ret;
