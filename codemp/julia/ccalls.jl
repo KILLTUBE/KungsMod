@@ -27,6 +27,7 @@ include("generated/cgame.jl")
 include("generated/game.jl")
 include("entity.jl")
 include("player.jl")
+include("ghoul2.jl")
 
 # ccall(("startChakra","mychakra.dll"), Int32, ())
 

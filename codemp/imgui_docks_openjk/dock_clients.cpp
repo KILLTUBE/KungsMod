@@ -37,7 +37,49 @@ CCALL int ghoul2_mitem(void **ghoul2_ptr) {
 	//ImGui::Text("cent[%d] size=%d info->mItem=%d (masked=%d)", i, info->size(), info->mItem, info->mItem & G2_INDEX_MASK);
 	return info->mItem & G2_INDEX_MASK;
 }
+CCALL int ghoul2_count(void **ghoul2_ptr) {
+	if (*ghoul2_ptr == NULL)
+		return -1;
+	void *ghoul2 = *ghoul2_ptr;
+	CGhoul2Info_v *info = (CGhoul2Info_v *)ghoul2;
+	std::vector<CGhoul2Info> &infos = singleton->mInfos[ info->mItem & G2_INDEX_MASK ];
+	return infos.size();
 
+
+
+//	class CGhoul2Info
+//{
+//public:
+//	surfaceInfo_v 	mSlist;
+//	boltInfo_v		mBltlist;
+//	boneInfo_v		mBlist;
+//// save from here
+//	int				mModelindex;
+
+	offsetof(CGhoul2Info, mSlist);
+
+}
+
+
+CCALL void *ghoul2_get_ghoulentry(void **ghoul2_ptr, int entryid) {
+	if (*ghoul2_ptr == NULL)
+		return NULL;
+	void *ghoul2 = *ghoul2_ptr;
+	CGhoul2Info_v *info = (CGhoul2Info_v *)ghoul2;
+	std::vector<CGhoul2Info> &infos = singleton->mInfos[ info->mItem & G2_INDEX_MASK ];
+
+	if (entryid < 0)
+		return NULL;
+	if (entryid >= infos.size())
+		return NULL;
+	auto &entry = infos.at(entryid);
+	return (void *)&entry;
+}
+
+
+CCALL char *ghoulentry_get_filename(CGhoul2Info *ghoulentry) {
+	return ghoulentry->mFileName;
+}
 
 void DockClients::imgui() {
 
