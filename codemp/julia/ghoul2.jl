@@ -68,6 +68,18 @@ function loadGhoul(filename)
 	return (handle, ghoulptr)
 end
 
+function loadGhoul(entity::AbstractEntity, filename)
+#	ptr = malloc(Int64)
+#	unsafe_store!(ptr, 0)
+	ptrptr = ghoul2(entity).ptrptr
+	
+
+	handle = ccall( (:CL_G2API_InitGhoul2Model,lib), Int32, (Ptr{Int64}, Cstring, Int32, Int32, Int32, Int32, Int32), ptrptr, filename, 0, 0, 0, 0, 0)
+	#ghoulptr = unsafe_load(ptr)
+	#return (handle, ghoulptr)
+	return handle
+end
+
 #qboolean CL_G2API_AttachG2Model( void *ghoul2From, int modelIndexFrom, void *ghoul2To, int toBoltIndex, int toModel )
 
 function CL_G2API_AttachG2Model(ghoul2From, modelIndexFrom, ghoul2To, toBoldIndex, toModel)::Int32
@@ -150,6 +162,7 @@ if false
 
 	boltFace = getBolt(ghoulInfoModel, "face")
 	boltLeftHand = getBolt(ghoulInfoModel, "*l_hand")
+	boltRightArm = getBolt(ghoulInfoModel, "r_arma")
 
 
 	CL_G2API_AttachG2Model( g2To, 1, g2To, boltFace.boltid, 0)
@@ -162,8 +175,8 @@ if false
 	addModel(boltLeftHand,"models/weapons2/saber_6/saber_6.glm", 1)
 	addModel(boltLeftHand,"models/players/jedi_zf/model.glm", 0)
 	addModel(boltLeftHand,"models/weapons2/demp2/demp2_w.glm", 4)
-	addModel(boltFace,"models/weapons2/bowcaster/bowcaster_w.glm", 4)
-	addModel(boltFace,"models/weapons2/heavy_repeater/heavy_repeater_w.glm", 4)
+	addModel(boltRightArm,"models/weapons2/bowcaster/bowcaster_w.glm", 2)
+	addModel(boltRightArm,"models/weapons2/heavy_repeater/heavy_repeater_w.glm", 4)
 	addModel(boltLeftHand,"models/weapons2/bowcaster/bowcaster_w.glm",4)
 
 	bc_ret = loadGhoul("models/weapons2/bowcaster/bowcaster_w.glm")

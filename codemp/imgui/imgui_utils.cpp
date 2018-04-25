@@ -40,4 +40,41 @@ namespace ImGui {
 		ImGui::PopItemWidth();
 	}
 
+
+	
+	void DragMatrix3x4(char *text, float mat[3][4]) {
+		ImGui::PushItemWidth(200);
+		ImGui::PushID(mat);
+		
+		ImGui::Text("%s", text);
+	
+		ImGui::DragFloat("00", &mat[0][0]);
+		ImGui::SameLine();
+		ImGui::DragFloat("01", &mat[0][1]);
+		ImGui::SameLine();
+		ImGui::DragFloat("02", &mat[0][2]);
+		ImGui::SameLine();
+		ImGui::DragFloat("03", &mat[0][3]);
+
+		ImGui::DragFloat("10", &mat[1][0]);
+		ImGui::SameLine();
+		ImGui::DragFloat("11", &mat[1][1]);
+		ImGui::SameLine();
+		ImGui::DragFloat("12", &mat[1][2]);
+		ImGui::SameLine();
+		ImGui::DragFloat("13", &mat[1][3]);
+
+		ImGui::DragFloat("20", &mat[2][0]);
+		ImGui::SameLine();
+		ImGui::DragFloat("21", &mat[2][1]);
+		ImGui::SameLine();
+		ImGui::DragFloat("22", &mat[2][2]);
+		ImGui::SameLine();
+		ImGui::DragFloat("23", &mat[2][3]);
+
+		ImGui::PopID();
+		ImGui::PopItemWidth();
+	
+	}
+
 }
