@@ -1933,6 +1933,9 @@ int G2API_AddBoltSurfNum(CGhoul2Info *ghlInfo, const int surfIndex)
 	return -1;
 }
 
+
+extern Ghoul2InfoArray *singleton;
+
 qboolean G2API_AttachG2Model(
 	CGhoul2Info_v &ghoul2From,
 	int modelFrom,
@@ -1948,19 +1951,45 @@ qboolean G2API_AttachG2Model(
 
 	if (G2_SetupModelPointers(ghoul2From) && G2_SetupModelPointers(ghoul2To))
 	{
+		int id_from = ghoul2From.mItem & G2_INDEX_MASK;
+		int id_to = ghoul2To.mItem & G2_INDEX_MASK;
+		
+		auto &from = singleton->mInfos[id_from];
+		auto &to = singleton->mInfos[id_to];
+		
 		// make sure we have a model to attach, a model to attach to, and a
 		// bolt on that model
-		if ((ghoul2From.size() > modelFrom) && (ghoul2To.size() > toModel) &&
-			((ghoul2To[toModel].mBltlist[toBoltIndex].boneNumber != -1) ||
-			 (ghoul2To[toModel].mBltlist[toBoltIndex].surfaceNumber != -1)))
-		{
-			// encode the bolt address into the model bolt link
-			toModel &= MODEL_AND;
-			toBoltIndex &= BOLT_AND;
-			ghoul2From[modelFrom].mModelBoltLink =
-				(toModel << MODEL_SHIFT) | (toBoltIndex << BOLT_SHIFT);
-			return qtrue;
+		// e.g. modelFrom is 3, from.size()==4 is allowed, but modelFrom==4 and size==4 is out of bounds
+		if ( modelFrom >= from.size() ) {
+			Com_Printf("if ( modelFrom >= from.size() )\n");
+			return qfalse;
 		}
+
+		if ( toModel >= to.size() ) {
+			Com_Printf("if ( toModel >= to.size() )\n");
+			return qfalse;
+		}
+			
+		if ( toBoltIndex >= to[toModel].mBltlist.size() ) {
+			Com_Printf("if ( toBoltIndex >= to[toModel].mBltlist.size() )\n");
+			return qfalse;
+		}
+
+		//if ( to[toModel].mBltlist[toBoltIndex].boneNumber == -1 ) {
+		//	Com_Printf("if ( to[toModel].mBltlist[toBoltIndex].boneNumber == -1 )\n");
+		//	return qfalse;
+		//}
+
+		//if ( to[toModel].mBltlist[toBoltIndex].surfaceNumber == -1 ) {
+		//	Com_Printf("if ( to[toModel].mBltlist[toBoltIndex].surfaceNumber == -1 )\n");
+		//	return qfalse;
+		//}
+
+		// encode the bolt address into the model bolt link
+		toModel &= MODEL_AND;
+		toBoltIndex &= BOLT_AND;
+		from[modelFrom].mModelBoltLink = (toModel << MODEL_SHIFT) | (toBoltIndex << BOLT_SHIFT);
+		return qtrue;
 	}
 	return qfalse;
 }

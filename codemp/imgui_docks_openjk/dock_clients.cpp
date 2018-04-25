@@ -81,6 +81,23 @@ CCALL char *ghoulentry_get_filename(CGhoul2Info *ghoulentry) {
 	return ghoulentry->mFileName;
 }
 
+
+CCALL size_t ghoulentry_get_boltlist_size(CGhoul2Info *ghoulentry) {
+	return ghoulentry->mBltlist.size();
+}
+
+CCALL boltInfo_t *ghoulentry_get_boltlist_by_id(CGhoul2Info *ghoulentry, int id) {
+	size_t size = ghoulentry->mBltlist.size();
+	if (id < 0)
+		return NULL;
+	if (id >= size)
+		return NULL;
+	auto &boltinfo = ghoulentry->mBltlist.at(id);
+	return &boltinfo;
+}
+
+
+
 void DockClients::imgui() {
 
 	for (int i=0; i<MAX_GENTITIES; i++) {
