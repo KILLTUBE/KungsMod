@@ -7,6 +7,11 @@ function ghoul2(entity::AbstractEntity)::Ghoul2
 	return Ghoul2(ptrptr)
 end
 
+function ghoul2(entity::AbstractEntity)::Ghoul2
+	ptrptr = ccall((:cgentity_ghoul2, lib), Ptr{Ptr{Int64}}, (Ptr{centity_t},), cgentity(entity))
+	return Ghoul2(ptrptr)
+end
+
 function mItem(ghoul2::Ghoul2)::Int32
 	ccall( (:ghoul2_mitem,lib), Int32, (Ptr{Ptr{Int64}},), ghoul2.ptrptr)
 end
@@ -147,6 +152,7 @@ if false
 
 	#ret = loadGhoul("models/flags/r_flag.md3") # crashes cuz md3?
 	ret = loadGhoul("models/weapons2/demp2/demp2_w.glm")
+	demp = Ptr{Int64}( ret[2] )
 
 
 	g2 = ghoul2(player)
@@ -226,6 +232,43 @@ saberghoul = ghoul2(e)
 
 unsafe_store!(saberghoul.ptrptr, saberweapon)
 
+
+
+
+# trying to spawn an entity with glm model
+
+entity = Entity()
+gentity(e)
+getGhoulEntry(g2, 0)
+ptrptr = ccall((:gentity_ghoul2, lib), Ptr{Ptr{Int64}}, (Ptr{gentity_t},), gentity(entity))
+g2 = Ghoul2(ptrptr)
+entity_ghoul = unsafe_load(ptrptr)
+filename_ = "models/weapons2/bowcaster/bowcaster_w.glm"
+#GhoulInfo(entity, 0) # for cg
+handle = ccall( (:CL_G2API_InitGhoul2Model,lib), Int32, (Ptr{Int64}, Cstring, Int32, Int32, Int32, Int32, Int32), ptrptr, filename_, 0, 0, 0, 0, 0)
+pos!(entity, pos(player))
+
+SV_LinkEntity(entity::AbstractEntity) = ccall( (:SV_LinkEntity,lib), Void, (Ptr{gentity_t},), gentity(entity))
+SV_LinkEntity(entity)
+
+CL_G2API_CopySpecificGhoul2Model(demp, 0, entity_ghoul, 0)
+CL_G2API_CopySpecificGhoul2Model(ghoulweapon, 0, entity_ghoul, 2)
+# i dont know yet how to spawn... maybe add bolts, or check weapon code for trip mines
+
+
+
+model!(entity, "models/weapons2/saber_6/saber_6.glm")
+model!(entity2, "models/weapons2/bowcaster/bowcaster_w.glm")
+
+entity_c = Entity()
+pos!(entity_c, pos(player))
+model!(entity_c, "models/weapons2/bowcaster/bowcaster_w.glm")
+
+entity_d = Entity()
+pos!(entity_d, pos(player))
+model!(entity_d, "models/players/jedi_zf/model.glm")
+
+animate(entity::AbstractEntity, frame_start, frame_stop, frame_flip) = ccall( (:jl_entity_animate,lib), Void, (Int32, Int32, Int32, Int32), id_c(entity), frame_start, frame_stop, frame_flip)
 
 end
 

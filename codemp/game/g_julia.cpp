@@ -185,8 +185,33 @@ CCALL int jl_entity_set_model(int id, char *model) {
 	int modelid = G_ModelIndex(model); // stuff like "models/ammo/rocket/rocket.md3"
 	entity->s.modelindex  = modelid;
 	entity->s.modelindex2 = 0;    // no clue, ripped from other code
+
+	int n = strlen(model); // e.g. bla.glm, length==7, detect if it ends with ".glm"
+	if (
+		n >= 4
+		&& model[n-1] == 'm'
+		&& model[n-2] == 'l'
+		&& model[n-3] == 'g'
+		&& model[n-4] == '.'
+		) {
+		entity->s.modelGhoul2 = 1;
+	} else {
+		entity->s.modelGhoul2 = 0;
+	}
+
 	SV_LinkEntity((sharedEntity_t *) entity); // is that even needed? meh idc
 	return modelid;
+}
+
+
+CCALL void jl_entity_animate(int id, int frame_start, int frame_end, int frame_flip) {
+	gentity_t *entity = g_entities + id;
+	entity->s.eFlags |= EF_G2ANIMATING;
+	//currentState.eFlags & EF_G2ANIMATING)
+	// the magic which makes this work is in cg_ents.cpp line 971
+	entity->s.torsoAnim = frame_start;
+	entity->s.legsAnim = frame_end;
+	entity->s.torsoFlip = frame_flip;
 }
 
 CCALL int jl_entity_inuse(int id) {

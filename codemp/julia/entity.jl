@@ -278,6 +278,10 @@ function disconnect(player::Player)
 	ccall( (:ClientDisconnect          , lib), Void      , (Int32,                                         ), id_c(player)           );
 end
 
+SV_LinkEntity(entity::AbstractEntity) = ccall( (:SV_LinkEntity,lib), Void, (Ptr{gentity_t},), gentity(entity))
+# frame_flip seems to have no flip meaning, i figured you can flip the value between 1 and 2 to be able to restart the anim
+animate(entity::AbstractEntity, frame_start, frame_stop, frame_flip) = ccall( (:jl_entity_animate,lib), Void, (Int32, Int32, Int32, Int32), id_c(entity), frame_start, frame_stop, frame_flip)
+
 player = players[1] # very handy in lots of functions
 player1 = players[1]
 player2 = players[2]
