@@ -267,8 +267,11 @@ model!(entity_c, "models/weapons2/bowcaster/bowcaster_w.glm")
 entity_d = Entity()
 pos!(entity_d, pos(player))
 model!(entity_d, "models/players/jedi_zf/model.glm")
+model!(entity_d, "models/players/jedi_zf/model_test.glm")
 
 animate(entity::AbstractEntity, frame_start, frame_stop, frame_flip) = ccall( (:jl_entity_animate,lib), Void, (Int32, Int32, Int32, Int32), id_c(entity), frame_start, frame_stop, frame_flip)
+
+animate(entity_d, 100, 2000, 1)
 
 end
 

@@ -1875,6 +1875,8 @@ static qboolean PM_CheckJump( void )
 		pm->ps->forceJumpFlip = qfalse;
 		return qtrue;
 	}
+
+#ifdef FULL_ANIM
 #if METROID_JUMP
 	if ( pm->waterlevel < 2 )
 	{
@@ -2041,6 +2043,7 @@ static qboolean PM_CheckJump( void )
 	}
 
 #endif
+#endif
 
 	//Not jumping
 	if ( pm->cmd.upmove < 10 && pm->ps->groundEntityNum != ENTITYNUM_NONE) {
@@ -2071,6 +2074,8 @@ static qboolean PM_CheckJump( void )
 		}//else no surf close enough to push off of
 		pm->cmd.upmove = 0;
 	}
+
+#ifdef FULL_ANIMS
 	else if ( pm->cmd.upmove > 0 && pm->waterlevel < 2 &&
 		pm->ps->fd.forcePowerLevel[FP_LEVITATION] > FORCE_LEVEL_0 &&
 		!(pm->ps->pm_flags&PMF_JUMP_HELD) &&
@@ -2136,7 +2141,7 @@ static qboolean PM_CheckJump( void )
 			float	vertPush = 0;
 			if ( pm->cmd.rightmove > 0 && pm->ps->fd.forcePowerLevel[FP_LEVITATION] > FORCE_LEVEL_1 )
 			{//strafing right
-				if ( pm->cmd.forwardmove > 0 )
+ 				if ( pm->cmd.forwardmove > 0 )
 				{//wall-run
 					if ( allowWallRuns )
 					{
@@ -2639,9 +2644,11 @@ static qboolean PM_CheckJump( void )
 				//FIXME: if in a butterfly, kick people away?
 			}
 			//END NEW JKA
-		}
-	}
 
+		}
+
+	}
+	#endif
 	/*
 	if ( pm->cmd.upmove > 0
 		&& (pm->ps->weapon == WP_SABER || pm->ps->weapon == WP_MELEE)
@@ -6995,13 +7002,16 @@ static void PM_Weapon( void )
 		pm->cmd.weapon = WP_SABER; //don't allow switching out mid-attack
 	}
 
+#ifdef FULL_ANIMS
 	if (pm->ps->weapon == WP_SABER)
 	{
 		//rww - we still need the item stuff, so we won't return immediately
 		PM_WeaponLightsaber();
 		killAfterItem = 1;
 	}
-	else if (pm->ps->weapon != WP_EMPLACED_GUN)
+	else
+#endif
+	if (pm->ps->weapon != WP_EMPLACED_GUN)
 	{
 		pm->ps->saberHolstered = 0;
 	}
@@ -10600,6 +10610,7 @@ void PmoveSingle (pmove_t *pmove) {
 
 //	PM_AdjustAngleForWallRun(pm->ps, &pm->cmd, qtrue);
 //	PM_AdjustAnglesForStabDown( pm->ps, &pm->cmd );
+#ifdef FULL_ANIMS
 	PM_AdjustAngleForWallJump( pm->ps, &pm->cmd, qtrue );
 	PM_AdjustAngleForWallRunUp( pm->ps, &pm->cmd, qtrue );
 	PM_AdjustAngleForWallRun( pm->ps, &pm->cmd, qtrue );
@@ -10610,6 +10621,9 @@ void PmoveSingle (pmove_t *pmove) {
 	{
 		PM_SetPMViewAngle(pm->ps, pm->ps->viewangles, &pm->cmd);
 	}
+
+#endif
+
 
 #if 0
 	if ((pm->ps->legsAnim) == BOTH_KISSER1LOOP ||

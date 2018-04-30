@@ -414,6 +414,8 @@ void JMSaberTouch(gentity_t *self, gentity_t *other, trace_t *trace)
 	int i = 0;
 //	gentity_t *te;
 
+	return;
+
 	if (!other || !other->client || other->health < 1)
 	{
 		return;
@@ -2714,10 +2716,10 @@ void ClientBegin( int clientNum, qboolean allowTeamReset ) {
 	client->ps.hasDetPackPlanted = qfalse;
 
 	//first-time force power initialization
-	WP_InitForcePowers( ent );
+	//WP_InitForcePowers( ent );
 
 	//init saber ent
-	WP_SaberInitBladeData( ent );
+	//WP_SaberInitBladeData( ent );
 
 	// First time model setup for that player.
 	SV_GetUserinfo( clientNum, userinfo, sizeof(userinfo) );
@@ -3447,6 +3449,7 @@ void ClientSpawn(gentity_t *ent) {
 			}
 		}
 
+#ifdef FULL_ANIMS
 		if ( WP_HasForcePowers( &client->ps ) )
 		{
 			client->ps.trueNonJedi = qfalse;
@@ -3456,6 +3459,7 @@ void ClientSpawn(gentity_t *ent) {
 			client->ps.stats[STAT_WEAPONS] = (1 << WP_SABER);
 		}
 		else
+#endif
 		{//no force powers set
 			client->ps.trueNonJedi = qtrue;
 			client->ps.trueJedi = qfalse;
@@ -3484,13 +3488,13 @@ void ClientSpawn(gentity_t *ent) {
 		if (level.gametype == GT_HOLOCRON)
 		{
 			//always get free saber level 1 in holocron
-			client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_SABER );	//these are precached in g_items, ClearRegisteredItems()
+			//client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_SABER );	//these are precached in g_items, ClearRegisteredItems()
 		}
 		else
 		{
 			if (client->ps.fd.forcePowerLevel[FP_SABER_OFFENSE])
 			{
-				client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_SABER );	//these are precached in g_items, ClearRegisteredItems()
+				//client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_SABER );	//these are precached in g_items, ClearRegisteredItems()
 			}
 			else
 			{ //if you don't have saber attack rank then you don't get a saber
@@ -3518,7 +3522,7 @@ void ClientSpawn(gentity_t *ent) {
 
 		if (client->ps.stats[STAT_WEAPONS] & (1 << WP_SABER))
 		{
-			client->ps.weapon = WP_SABER;
+			//client->ps.weapon = WP_SABER;
 		}
 		else if (client->ps.stats[STAT_WEAPONS] & (1 << WP_BRYAR_PISTOL))
 		{

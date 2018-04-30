@@ -83,7 +83,7 @@ function init()
 	Sys_SetBinaryPath( "" );
 	Sys_SetDefaultInstallPath( "") # Sys_BinaryPath() );
 	#char *startString = argsToString(argc, argv);
-	Com_Init("");
+	Com_Init("devmap mp_toujane");
 
 	NET_Init();
 

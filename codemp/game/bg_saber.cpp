@@ -2741,6 +2741,9 @@ void PM_WeaponLightsaber(void)
 
 	qboolean checkOnlyWeap = qfalse;
 
+
+
+
 	if ( PM_InKnockDown( pm->ps ) || BG_InRoll( pm->ps, pm->ps->legsAnim ))
 	{//in knockdown
 		// make weapon function
