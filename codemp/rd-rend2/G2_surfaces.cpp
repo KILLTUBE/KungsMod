@@ -206,6 +206,14 @@ void G2_SetSurfaceOnOffFromSkin (CGhoul2Info *ghlInfo, qhandle_t renderSkin)
 		else 
 		{
 			int	flags;
+
+			if (ghlInfo->currentModel == NULL) {
+				Com_Printf("G2_surfaces.cpp> ghlInfo->currentModel == NULL");
+				auto modelID = R_RegisterModel(ghlInfo->mFileName);
+				ghlInfo->currentModel = tr.models[modelID];
+				//return;
+			}
+
 			int surfaceNum = G2_IsSurfaceLegal((void *)ghlInfo->currentModel, skin->surfaces[j]->name, &flags);
 			if ( (surfaceNum != -1) && (!(flags&G2SURFACEFLAG_OFF)) )	//only turn on if it's not an "_off" surface
 			{

@@ -1989,9 +1989,7 @@ static void G2_TransformGhoulBones(
 	assert(ghoul2.aHeader);
 	assert(ghoul2.currentModel);
 	assert(ghoul2.currentModel->data.glm && ghoul2.currentModel->data.glm->header);
-	if (!aHeader->numBones)
-	{
-		assert(0); // this would be strange
+	if (!aHeader->numBones) {
 		return;
 	}
 	if (!ghoul2.mBoneCache)
@@ -3512,6 +3510,8 @@ static void MDXABoneToMatrix ( const mdxaBone_t& bone, mat4x3_t& matrix )
 	matrix[11] = bone.matrix[2][3];
 }
 
+//#include "../rd-rend2/compose_models.h"
+
 void RB_SurfaceGhoul( CRenderableSurface *surf ) 
 {
 	static mat4x3_t boneMatrices[20] = {};
@@ -3540,12 +3540,40 @@ void RB_SurfaceGhoul( CRenderableSurface *surf )
 	tess.firstIndex = surface->indexOffset;
 
 	int *boneReferences = (int *)((byte *)surfData + surfData->ofsBoneReferences);
-	for ( int i = 0; i < surfData->numBoneReferences; i++ )
-	{
-		const mdxaBone_t& bone = surf->boneCache->EvalRender (boneReferences[i]);
-		MDXABoneToMatrix (bone, boneMatrices[i]);
-	}
+	if (surf->boneCache) {
+		for ( int i = 0; i < surfData->numBoneReferences; i++ )
+		{
+			const mdxaBone_t& bone = surf->boneCache->EvalRender (boneReferences[i]);
+			MDXABoneToMatrix (bone, boneMatrices[i]);
+		}
+	} else {
+		// the case for empty .gla
+		// should be possible to rip all the bone matrices out of the mdxa skeleton, but cba atm
+		// would need lookup table to select
+		// 
+		for (int i=0; i<20; i++) {
+			auto matrix = boneMatrices[i];
+			matrix[0*4 + 0] = 1; matrix[0*4 + 1] = 0; matrix[0*4 + 2] = 0; matrix[0*4 + 3] = 0;
+			matrix[1*4 + 0] = 0; matrix[1*4 + 1] = 1; matrix[1*4 + 2] = 0; matrix[1*4 + 3] = 0;
+			matrix[2*4 + 0] = 0; matrix[2*4 + 1] = 0; matrix[2*4 + 2] = 1; matrix[2*4 + 3] = 0;
+		}
 
+		//mdxaHeader_s->o
+
+		//for ( int i = 0; i < surfData->numBoneReferences; i++ ) {
+		//	auto matrix = boneMatrices[i];
+		//
+		//
+		//	mdxaHeader_t *mdxaHeader = (mdxaHeader_t *)(((int)surf->surfaceData) + surf->surfaceData->ofsHeader);
+		//	
+		//	mdxaSkel_t *mdxaSkel = (mdxaSkel_t *)(((int)mdxaHeader) + mdxaHeader->ofsSkel);
+		//	//mdxaSkel->
+		//
+		//	matrix[0*4 + 0] = 1; matrix[0*4 + 1] = 0; matrix[0*4 + 2] = 0; matrix[0*4 + 3] = 0;
+		//	matrix[1*4 + 0] = 0; matrix[1*4 + 1] = 1; matrix[1*4 + 2] = 0; matrix[1*4 + 3] = 0;
+		//	matrix[2*4 + 0] = 0; matrix[2*4 + 1] = 0; matrix[2*4 + 2] = 1; matrix[2*4 + 3] = 0;
+		//}
+	}
 	glState.boneMatrices = boneMatrices;
 	glState.numBones = surfData->numBoneReferences;
 	glState.skeletalAnimation = qtrue;
@@ -3981,15 +4009,7 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 		LL(mdxm->ofsEnd);
 	}
 		
-	// first up, go load in the animation file we need that has the skeletal
-	// animation info for this model
-	mdxm->animIndex = R_RegisterModel(va ("%s.gla",mdxm->animName));
 
-	if (!mdxm->animIndex) 
-	{
-		Com_Printf (S_COLOR_YELLOW  "R_LoadMDXM: missing animation file %s for mesh %s\n", mdxm->animName, mdxm->name);
-		return qfalse;
-	}
 
 	mod->numLods = mdxm->numLODs -1 ;	//copy this up to the model for ease of use - it wil get inced after this.
 
@@ -4107,6 +4127,11 @@ qboolean R_LoadMDXM(model_t *mod, void *buffer, const char *mod_name, qboolean &
 		lod = (mdxmLOD_t *)( (byte *)lod + lod->ofsEnd );
 	}
 
+
+	mdxm->animIndex = R_RegisterModel(va ("%s.gla",mdxm->animName));
+	if (!mdxm->animIndex) {
+		Com_Printf (S_COLOR_YELLOW  "R_LoadMDXM: missing animation file %s for mesh %s\n", mdxm->animName, mdxm->name);
+	}
 
 	return model_upload_mdxm_to_gpu(mod);
 }
@@ -5197,7 +5222,8 @@ qboolean R_LoadMDXA(model_t *mod, void *buffer, const char *mod_name, qboolean &
 	if (mdxa->numFrames < 1)
 	{
 		Com_Printf(S_COLOR_YELLOW "R_LoadMDXA: %s has no frames\n", mod_name);
-		return qfalse;
+		//return qfalse;
+		return qtrue;
 	}
 
 	if (bAlreadyFound)

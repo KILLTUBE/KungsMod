@@ -836,6 +836,10 @@ void CG_AddBracketedEnt(centity_t *cent)
 	cg.bracketedEntities[cg.bracketedEntityCount++] = cent->currentState.number;
 }
 
+#include "../rd-rend2/tr_local.h"
+#include "../ghoul2/g2_local.h"
+
+
 void CG_General( centity_t *cent ) {
 	refEntity_t			ent;
 	entityState_t		*s1;
@@ -1360,10 +1364,23 @@ Ghoul2 Insert End
 		{
 			char skinName[MAX_QPATH];
 			const char *modelName = CG_ConfigString( CS_MODELS+cent->currentState.modelindex );
+
+			
+
 			int l;
 			int skin = 0;
 
 			CL_G2API_InitGhoul2Model(&cent->ghoul2, modelName, 0, 0, 0, 0, 0);
+			CGhoul2Info_v *ghoul = (CGhoul2Info_v *)cent->ghoul2;
+			auto &bla = (*ghoul)[0];
+			strncpy(bla.mFileName, modelName, sizeof(bla.mFileName));
+			qhandle_t modelID = R_RegisterModel(modelName);
+			model_t *model = tr.models[ modelID ];
+			bla.currentModel = model;
+
+			
+			auto &bla2 = (*ghoul)[0];
+
 			if (cent->ghoul2 && CL_G2API_SkinlessModel(cent->ghoul2, 0))
 			{ //well, you'd never want a skinless model, so try to get his skin...
 				Q_strncpyz(skinName, modelName, MAX_QPATH);

@@ -23,7 +23,7 @@
     <ProjectGuid>{DB8B5E35-12BC-4D8E-A422-57C20CFB5CF9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>julia</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

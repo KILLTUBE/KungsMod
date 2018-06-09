@@ -22,7 +22,7 @@
     <ProjectGuid>{810081E8-C493-4BE6-AC15-CA3288BAB406}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>KungsMod_SDL</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

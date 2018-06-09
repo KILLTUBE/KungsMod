@@ -23,7 +23,7 @@
     <ProjectGuid>{FE273B8C-96B9-434A-ADA1-12E878205A6D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>chakra</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <ProjectName>mychakra</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
